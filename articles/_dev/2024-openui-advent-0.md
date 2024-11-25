@@ -1,12 +1,12 @@
 ---
-title: "[OpenUI Advent Calendar: Day 0] Kick Off"
+title: "🎄Open UI Advent Calendar: Day 0 /Kick Off"
 excerpt: "OpenUI Advent Calendar のキックオフ"
 date: "2024-11-30"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'
 category: 'dev'
-tags: ['openui', 'advent-calendar']
+tags: ['openui', 'advent calendar']
 status: 'published'
 ---
 ## 目次
@@ -24,8 +24,12 @@ status: 'published'
 このアドベントカレンダーでは、OpenUIとその周辺標準技術に関する話題を取り上げていきます。
 
 気になったProposalを読んでまとめたり、それに関する周辺Web標準技術の話（HTML, CSS, ECMAScript, ARIAなど）について書いていきます。
+
+本Advent Calendarでは、OpenUIの概要から、主に[Customizable Select Element](https://open-ui.org/components/customizableselect/), [Global Design System](https://github.com/openui/design-system), 時間があればその他気になるProposalについて書いていこうと思います。狭く深く掘り下げていくスタイルで進めていく予定です。
+
 深掘りたいときに深掘り始めるスタイルなので、あちこち寄り道したり、スケジュール通りに進まなかったりするかもしれませんが、寄り道の過程も楽しみつつ読んでいただければ幸いです。
 
 https://open-ui.org/
 
 それでは、また明日⛄
+See you tomorrow!
