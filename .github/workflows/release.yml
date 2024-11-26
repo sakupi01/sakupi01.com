@@ -18,7 +18,7 @@ jobs:
       tag_name: ${{ steps.release-drafter.outputs.tag_name }}
     steps:
       # Get next version
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5
         id: release-drafter
         with:
           config-name: release-drafter-git-green-cli.yml
@@ -47,19 +47,19 @@ jobs:
             } 
 
       # Use GitHub App for bypassing ruleset guard
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1
         id: app-token
         with:
           app-id: ${{ secrets.PUSH_BYPASS_APP_ID }}
           private-key: ${{ secrets.PUSH_BYPASS_APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: main
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
       - name: Install dependencies
@@ -74,7 +74,7 @@ jobs:
           git config user.email github-actions@github.com
 
       # Publish packages to npm registry and push updated package.json and package-lock.json
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version: '21.x'
           registry-url: 'https://registry.npmjs.org'
@@ -88,7 +88,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5
         with:
           config-name: release-drafter-git-green-cli.yml
           publish: true
