@@ -47,7 +47,6 @@ Open UIは、Web 全体のUIコンポーネントやコントロールをリサ�
 Open UIの情報は以下のリンクから得ることができます。
 
 - Open UI Telecon Agendas: https://github.com/openui/open-ui/tree/main/meetings/telecon
-- IRC Channel: irc://irc.w3.org/#openui
 - Discord server: https://discord.gg/DEWjhSw
 - Mailing List: https://lists.w3.org/Archives/Public/public-open-ui/
 - Open UI Github: https://github.com/openui/open-ui
@@ -65,15 +64,6 @@ Telecon（電話会議）が毎週午前11時（PST）にDiscordの#teleconferen
 e.g.）
 [openui/meetings/telecon/2024-11-14.md](https://github.com/openui/open-ui/blob/main/meetings/telecon/2024-11-14.md)のMinutesを参照したい場合は、https://www.w3.org/2024/11/14-openui-minutes.html を開く。
 :::
-
-### IRC
-
-IRCは、W3Cで主に議事録を取る際に使用されるチャットツールです。以下に記載されている手順でログインしてみることができます。
-
-https://www.w3.org/wiki/IRC
-
-<!-- ask -->
-<!-- Open UIの場合はTeleconの議事録もMinutesとなる前にここで取られているんでしょうか？ -->
 
 ### Discord
 
