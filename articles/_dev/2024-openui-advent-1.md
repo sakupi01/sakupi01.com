@@ -23,16 +23,14 @@ status: 'published'
 
 ## OpenUIとは
 
-Open UIは、[W3C Community Group](https://www.w3.org/groups/cg/)の一つで、正式には[Open UI Community Group](https://www.w3.org/groups/cg/)です。
+Open UIは、[W3C Community Group](https://www.w3.org/groups/cg/)の一つで、正式には[Open UI Community Group](https://www.w3.org/groups/cg/)です。端的にまとめると、Open UIは、Web プラットフォームのInteroperabilityを実現するための技術の標準化を検討することに取り組んでいます。
 
-彼らは、Web 全体のUIコンポーネントやコントロールをリサーチし、デザインシステム、フレームワーク、Web プラットフォームのInteroperabilityを実現するための技術の標準化を検討することに取り組んでいます。
-
-具体的には、独自UIを作るにはどうHTML, CSS, JS, Web APIを組み合わせるのが適切なのか決めたり、標準を決める具体的なグループ（WHATWG, CSSWG, TC39など）向けの推奨事項を作成したりします。
+具体的には、独自UIを作るにはどうHTML, CSS, JS, Web APIを組み合わせるのが適切なのかを決めたり、標準を決める具体的なグループ（WHATWG, CSSWG, TC39など）向けの推奨事項を作成したりします。
 
 ここで注意したいのは、**Open UI自体は「標準そのものの決定はしない」こと**です。
 
-彼らは、Web 全体のUIコンポーネントやコントロールをリサーチし、相互運用性を実現するための技術の標準化を検討し、その過程で標準化団体と議論を重ね、その結果策定された仕様に基づいた機能を各ブラウザに実装してもらいます。
-以下のグリーンの部分がOpen UIの影響範囲のイメージだと思っています。
+Open UIは、Web 全体のUIコンポーネントやコントロールをリサーチし、Interoperabilityを実現するための技術の標準化を検討し、その過程で標準化団体と議論を重ね、策定された仕様を各ブラウザに実装してもらいます。
+筆者の解釈では、 Open UI の担当範囲は以下のグリーンの部分にあたります。
 
 ![Open UIの影響イメージ](/effect-open-ui.png)
 *Open UIの影響イメージ*
@@ -43,11 +41,10 @@ Open UIは、[W3C Community Group](https://www.w3.org/groups/cg/)の一つで、
 - デザインシステム、フレームワーク、Web プラットフォームのInteroperabilityを実現するための技術の標準化を検討
 - WHATWGやW3Cなどの標準化団体と協力し、HTML、ARIA、CSSなどに実際に仕様を追加
 - Chromium、WebKit、Geckoなどのブラウザエンジンチームと協力し、仕様に基づく機能をブラウザエンジンに実装してもらう
-  - ？これはだいたい内部の人がOpen UIにいるから、実質Open UIの人がやってるのかもしれん
 
 ## Open UIの動向調査方法
 
-Open UIの公開情報は以下のリンクから得ることができます。
+Open UIの情報は以下のリンクから得ることができます。
 
 - Open UI Telecon Agendas: https://github.com/openui/open-ui/tree/main/meetings/telecon
 - IRC Channel: irc://irc.w3.org/#openui
@@ -57,9 +54,9 @@ Open UIの公開情報は以下のリンクから得ることができます。
 
 ### Telecon
 
-電話会議（Telecon）が毎週午前11時（PST）にDiscordの#teleconferenceチャンネルでおこなわれており、事実上は誰でも参加できます。
+Telecon（電話会議）が毎週午前11時（PST）にDiscordの#teleconferenceチャンネルでおこなわれており、事実上は誰でも参加できます。
 
-その週のTeleconのAgendaには、GitHubの[OpenなIssueで`agenda+`とラベル付けしてあるもの](https://github.com/openui/open-ui/issues?q=is%3Aopen+is%3Aissue+label%3Aagenda%2B)が上がってきます。どんな内容が今週議論されそうか事前に知っておきたい場合はこちらを参照すると良いでしょう。
+その週のTeleconのAgendaには、GitHubの[OpenなIssueで`agenda+`とラベル付けしてあるもの](https://github.com/openui/open-ui/issues?q=is%3Aopen+is%3Aissue+label%3Aagenda%2B)が上がってきます。どんな内容が今週議論されそうか事前に知っておきたい場合は、こちらを参照すると良いでしょう。
 また、[openui/meetings/telecon](https://github.com/openui/open-ui/tree/main/meetings/telecon)からも、過去のAgendaを見ることができます。
 
 隔週のTeleconの議事録は、GitHubリポジトリの[openui/meetings/telecon](https://github.com/openui/open-ui/tree/main/meetings/telecon)でMinutesとして公開されています。しかし、Minutesのリンクが[openui/meetings/telecon](https://github.com/openui/open-ui/tree/main/meetings/telecon)に反映されるには時差があるため、最新のMinutesの内容が知りたい場合は、`https://www.w3.org/YYYY/MM/DD-openui-minutes.html`のURLをTeleconがおこなわれた日付に編集し、該当するMinutesを参照すると良いでしょう。
