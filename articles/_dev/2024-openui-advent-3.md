@@ -19,11 +19,13 @@ status: 'published'
 
 今日から[Customizable Select Element](https://open-ui.org/components/customizableselect/)についてみていきます🧤
 
-本当は[Open UI Working Mode](https://open-ui.org/working-mode/)のことを書こうと思っていたのですが、あまりにも機能していないのでやめました。
+[Customizable Select Element](https://open-ui.org/components/customizableselect/)の仕様がどのような背景から検討され、何が可能となり、これからどのように利用していくべきなのかをシリーズ形式で書いていきます。途中で寄り道したり、深入りしたりするかもしれませんが、その過程も楽しみつつ読んでいただければ幸いです。
 
-[Customizable Select Element](https://open-ui.org/components/customizableselect/)に関しては複数回にわけて書いていきます。途中で寄り道したり、深入りしたりするかもしれませんが、その過程も楽しみつつ読んでいただければ幸いです。
+※ 本当は[Open UI Working Mode](https://open-ui.org/working-mode/)のことを書こうと思っていたのですが、あまりにも機能していないのでやめました。
 
-##
+## `<select>`
+
+`<select>`の歴史。selectの前ってなんだったの？
 
 ### Wrap-up
 
