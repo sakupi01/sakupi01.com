@@ -28,7 +28,7 @@ status: 'published'
 
 しかし、Form Controlのスタイルはブラウザによって決まっており、OSにも依存していました。加えて、開発者からスタイルの上書きもできない/大幅に制限されていました。
 
-2004年から2010年にかけてDraftとRecommendationのステータスを行き来した、[CSS2.1の仕様](https://www.w3.org/TR/CSS21/conform.html#q3.0)においては以下のように述べられており、Form ControlへのCSS適用は実験的であるとされています。
+2004年から2010年にかけてDraftとRecommendationのステータスを行き来した[CSS2.1の仕様](https://www.w3.org/TR/CSS21/conform.html#q3.0)においては、以下のように述べられています。Form ControlへのCSS適用は実験的であったようです。
 
 > CSS 2.1 does not define which properties apply to form controls and frames, or how CSS can be used to style them. User agents may apply CSS properties to these elements. Authors are recommended to treat such support as experimental. A future level of CSS may specify this further. - [UA Conformance](https://www.w3.org/TR/CSS21/conform.html#q3.0), CSS 2.1 Specification, W3C
 
@@ -39,15 +39,13 @@ status: 'published'
 
 2004年から2008年にかけての「Web2.0」の流行を経て、Form Controlの黎明から10年以上経過したWebは、Interactivityが向上し、よりリッチなUIが求められるようになりました。
 これらのデザインを実装するために、FlashやAction Script、ActiveXなどのツール/言語や、jQueryなどのフレームワークが使用されるようになりました。
-このようにWebを使用する文化が広がるにつれ、求められるUIパターンも変化していきました。
+このように、Webを使用する文化が広がるにつれ、求められるUIパターンも変化していきました。
 
 そんな中、2008年に発表された次世代HTMLである[HTML5](https://html.spec.whatwg.org/multipage/)は、そのようなパターンをHTML自体に組み込んだものでした。
 
-[HTML5](https://www.w3.org/TR/2008/WD-html5-20080122/)は[Web Apps 1.0](https://whatwg.org/specs/web-apps/2005-09-01/)と[Web Forms 2.0](https://whatwg.org/specs/web-forms/2005-09-01/)の仕様が元となり、草案が作成されました。Web Apps 1.0はWebアプリケーションの基本的な機能を提供し、Web Forms 2.0はForm Controlの拡張機能を提供するものです。
+HTML5の登場により、`<input>` への date, email, color type の入力や、`<select>` でのドロップダウン選択などが可能になりました。これにより、より高速で、信頼できる、アクセシブルでリッチなフォームを簡単に作成できるようになりました。
 
-HTML5の登場により、HTMLだけで、数値・パスワード・メールアドレス・色・日付日時の入力、ドロップダウンリストで項目の選択など多くのことができるようになりました。これにより、より高速で、信頼できる、アクセシブルでリッチなフォームを簡単に作成できるようになりました。
-
-W3Cによる[HTML5](https://www.w3.org/TR/2011/WD-html5-20110405/)の仕様策定、WHATWGによる[HTML Living Standard](https://html.spec.whatwg.org/)の運用開始から15年以上が経過し、多くのWebサイトは、HTML5によるForm ControlやUI Controlが提供する以上のものを必要とするようになっています。
+W3Cによる[HTML5](https://www.w3.org/TR/2011/WD-html5-20110405/)の仕様策定、WHATWGによる[HTML Living Standard](https://html.spec.whatwg.org/)の運用開始から15年以上が経過した現在、多くのWebサイトは、HTML5によるForm ControlやUI Controlが提供する以上のものを必要とするようになっています。
 そのために、重たいJavaScriptフレームワークに頼ったり、アクセシビリティを犠牲にしたりすることも往々にしてあります。
 それによって、ページの読み込み速度が低下したり、セキュリティの脆弱性が生じたり、アクセシブルでなくなることも珍しくありません。
 
@@ -64,7 +62,7 @@ Open UIは、HTML、CSS、JavaScriptなど、Web UIを取り巻く技術全般�
 
 - 1993年に定義されたHTMLのForm Controlでは、ブラウザやOSに依存したスタイルが適用され、スタイルの上書きもできない/大幅に制限されていた
 - 2008年に発表されたHTML5により、HTMLだけでよりリッチなフォームを簡単に作成できるようになった
-- HTML5やHTML Living Standardの登場から15年以上が経過し、多くのWebサイトはHTML5によるForm ControlやUI Controlが提供する以上のものを必要とするように。それを実現する上での問題も顕在化
+- HTML5やHTML Living Standardの登場から15年以上が経過し、多くのWebサイトはHTML5によるForm ControlやUI Controlが提供する以上のものを必要とするようになった。Form ControlやUI Controlが提供する以上のUIを実現する上での問題も顕在化した。
 - Open UIは、現代のWeb UIが持つ課題を解決するために以下に関して取り組む
   - HTML、CSS、JavaScript、Web APIなど、**Web UIを取り巻く技術全般に関わる標準化**
   - 特定のユーザインターフェースのみを標準化の対象とするだけでなく、**カスタムのUIを作成するために必要なアーキテクチャの標準化**
