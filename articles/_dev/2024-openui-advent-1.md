@@ -93,7 +93,7 @@ https://www.w3.org/Search/Mail/Public/search?lists=public-open-ui&keywords=selec
 :::note{.memo}
 e.g.）
 たとえば、`message-id`が`<CADhPm3v0ZqQdc_+nTxFsrAraPuxrXnkWRpfyJw+43BCPc85w-g@mail.gmail.com>`のメールを検索したい場合は、https://www.w3.org/mid/CADhPm3v0ZqQdc_+nTxFsrAraPuxrXnkWRpfyJw+43BCPc85w-g@mail.gmail.com となります。
-![message-idはメールヘッダーから確認できる](/image.png)
+![message-idはメールヘッダーから確認できる](/message-id.png)
 *message-idはメールヘッダーから確認できる*
 すると、そのメールが`public-open-ui@w3.org`と`www-style@w3.org`に送信されていることがわかります。同じIDのメールでも、送信先が複数ある場合はそれぞれの場所で異なる前後関係となるため、議論を網羅的に追うためには、[Message-Id Redirection Service](https://www.w3.org/mid/)を活用すると良いでしょう。
 :::
