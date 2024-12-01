@@ -46,7 +46,7 @@ export const generateOgImage = async (
           fontFamily: '"Inter", sans-serif',
         }}
       >
-        <div tw="rounded-xl border-2 border-zinc-500 w-full h-full p-4 flex bg-zinc-100 shadow-lg">
+        <div tw="rounded-xl border-2 border-zinc-500 w-full h-full p-4 flex bg-zinc-50 shadow-lg">
           <div tw="w-full flex flex-col p-8 h-full justify-between">
             <div tw="flex flex-wrap gap-3 w-full">{renderTags}</div>
             <h1 tw="w-full text-7xl font-bold text-left text-zinc-700 my-6 text-pretty">
