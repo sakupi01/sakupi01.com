@@ -17,7 +17,7 @@ status: 'published'
 🎄 この記事は[OpenUI Advent Calendar](https://adventar.org/calendars/10293)の6日目の記事です。
 :::
 
-[Customizable Select Element Ep.3](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3)では、
+[Customizable Select Element Ep.3](https://blog.sakupi01.com/dev/articles/2024-openui-advent-5)では、Form Controlが抱える課題と、Customizable Select Element提案の契機となったサーベイを紹介しました。
 
 ##
 
