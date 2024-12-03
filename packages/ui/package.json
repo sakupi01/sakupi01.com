@@ -22,7 +22,7 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
+    "@biomejs/biome": "1.9.4",
     "@repo/tailwind-config": "*",
     "@repo/typescript-config": "*",
     "@storybook/addon-essentials": "^8.0.0-beta.2",
