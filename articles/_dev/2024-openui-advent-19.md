@@ -1,7 +1,7 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 19 / Customizable Select Element Ep.17"
 excerpt: "Customizable Select Elementの関連仕様: UAによるLight DOMへのNodeクローン実装を深掘る"
-date: "2024-12-18"
+date: "2024-12-19"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'
