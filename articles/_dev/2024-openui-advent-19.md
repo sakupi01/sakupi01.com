@@ -70,7 +70,7 @@ Jarharが行ったBlinkの初期実装では、マイクロタスクを使用し
 
 具体的なタスクの例としては、以下のようなものがあります。
 
-- イベントハンドラの、コールバック関数
+- イベントリスナの、コールバック関数
 - `setTimeout()`や`setInterval()`で登録されたコールバック関数
 
 そして、本題の「マイクロタスク」は「**コールバックキュー内のタスクキューが空になった後にのみ実行される短いタスク**」と説明できました。
@@ -85,13 +85,15 @@ Jarharが行ったBlinkの初期実装では、マイクロタスクを使用し
 ![JS実行タイミングとレンダリングの相関図](/js-rendering-relationship.png)
 *JS実行タイミングとレンダリングの相関図*
 
-JavaScriptは、JavaScriptエンジンによって実行されます。同期的な処理はそのままJavaScriptエンジンにより実行されますが、非同期的に実行されるタスクは、一旦コールバックキューに入ります。その後、タスクキューのタスクから優先的に処理され、最後にマイクロタスクキューに入っているタスクが処理されます。
+同期的な処理はそのまま実行されますが、非同期な処理は一旦コールバックキューに入れ、タスクキューのタスクが終わったあとに順次処理されます。コールバックキューは、「タスクキュー」と「マイクロタスクキュー」に分けられ、タスクキューから優先的に消化され、最後にマイクロタスクキューに入っているマイクロタスクが処理されます。
 
 ### マイクロタスクを使うメリット
 
 つまり、マイクロタスクキューは、JS一連の実行タイミングの中でも最後に非同期実行されるキューです。
-そのため、キューをうまく管理する実装（例えば、同じ`<option>`が選択された場合は、キューにpushしないなど）ができれば、パフォーマンスの点で優れた実装が見込まれます。
-それをすでにある仕様で実現できるのが、MutationObserverであっため、初期のBlinkはMutationObserverでクローンタイミングを制御していました。
+
+マイクロタスクは、タスクキューのタスクが完了するたびに実行され、短期間で多くの小さな非同期処理を効率的に処理する特性を持っています。これにより、例えば、複数のDOM変更を一度にまとめて処理することで、レンダリングのオーバーヘッドを減少させることができます。そのため、パフォーマンスの点で優れた実装が見込めます。
+
+それをすでにある仕様で実現できるのがMutationObserverであっため、Blinkでの初期実装はMutationObserverでクローンタイミングを制御していました。
 
 ### 同期的なMutationObserver： CEReactions MutationObserverの提案
 
@@ -99,7 +101,7 @@ JavaScriptは、JavaScriptエンジンによって実行されます。同期的
 
 CEReactionsは、Custom Elementのライフサイクルに関連するタイミングで発火するコールバック関数のことです。このタイミングを利用することで、Custom Elementのライフサイクルに合わせて**同期的に**クローンを行うことができます。
 
-MutationObserverは、キューイングによるパフォーマンス向上が利点でしたが、CEReactionsは同期的な処理で、Layout Treeとの整合性を保つことができます。
+[Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)でも述べたように、非同期的に変更検知を行うMutationObserverでは、Layout Flash時に同期的に変更を検知することができません。つまり、非同期的な処理では、Layout Treeとの整合性が保たれない恐れがあります。これは、マイクロタスクタイミングを使った非同期処理のデメリットでもあり、CEReactionsタイミングを使って解決することができる問題でもあります。
 
 CEReactionsを使った手法を主張するMozillaの[smaug](https://github.com/smaug----)は、以下のように述べています。
 
@@ -110,10 +112,14 @@ CEReactionsを使った手法を主張するMozillaの[smaug](https://github.com
 > Microtasks were designed for MutationObserver, and the reason was to improve performance in cases when one does lots of DOM mutation all over the place. That is not quite the case here.
 >
 > マイクロタスクはほぼMutationObserverのために設計されたと言っても過言ではなく、目的は、あちこちでたくさんのDOM変更を行う場合にパフォーマンスを向上させることにある。ここではそいうケースじゃないだろうから使わなくていいのでは？
+>
+> https://github.com/whatwg/html/issues/10520#issuecomment-2255746553
+
+MutationObserverは、キューイングによるパフォーマンス向上が利点でしたが、CEReactionsは同期的な処理で、Layout Treeとの整合性を保つことができます。
 
 ***
 
-クローンタイミング実装の初期勘案では、主に２つの方法が挙げられましたが、Jarharは、最終的にマイクロタスクを使ったMutationObserverを使う方向を示します。
+最終的に、クローンタイミング実装の初期勘案では、主に２つの方法が挙げられましたが、Jarharは、最終的にマイクロタスクを使ったMutationObserverを使う方向を示します。
 
 > I think we should go with microtasks instead of CEReactions for the following reasons:
 >
@@ -123,6 +129,8 @@ CEReactionsを使った手法を主張するMozillaの[smaug](https://github.com
 > - → 選択された`<option>`の内容をクローンする回数を減らせるため、`<option>`を命令的に構築または変更する際のパフォーマンス向上が期待できる。
 > - As @dandclark said in the call, it will be easier to understand how this works because it matches the author defined API of MutationObserver. I think this also increases the likelihood that this element is polyfillable.
 > - → MutationObserverのAuthor定義APIと一致するため、どう機能するか理解しやすい。これにより、この要素がポリフィル可能である可能性も高まると思う。
+>
+> https://github.com/whatwg/html/issues/10520#issuecomment-2265868320
 
 以下が、これまでの議論結果を含めたBlinkでの再実装です。
 
