@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 16 / Customizable Select Element Ep.14"
-excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` / `slot`属性と`behavior`属性使用の廃止へ"
+excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」唯一の手段、`slot`属性と`behavior`属性が使用廃止へ"
 date: "2024-12-16"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -17,13 +17,11 @@ status: 'published'
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の16日目の記事です。
 :::
 
-[Customizable Select Element Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししています
+[Ep.13](https://blog.sakupi01.com/dev/articles/2024-openui-advent-15)では、選択された`<option>`をクローンして`<button>`に反映する提案が仕様策定中止になり、`<selectmenu>`は引き続き、`slot`属性と`behavior`属性を使用してカスタマイズする方針となったことについてお話ししました。
+今回は、そんな中で提起された、`slot`属性と`behavior`属性使用への疑念についてお話しします。
 
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
-
-[Ep.13](https://blog.sakupi01.com/dev/articles/2024-openui-advent-15)では、選択された`<option>`をクローンして`<button>`に反映する提案が仕様策定中止になり、`<selectmenu>`は引き続き、`slot`属性と`behavior`属性を使用してカスタマイズする方針となったことについてお話ししました。
-今回は、そんな中で提起された、`slot`属性と`behavior`属性使用への疑念についてお話しします。
 
 ## Customizable Select Elementの関連仕様
 

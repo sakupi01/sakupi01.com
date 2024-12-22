@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 1 / Open UIについて"
-excerpt: "Open UIの概要、そして調査方法です"
+excerpt: "Open UIの概要と、その調査方法"
 date: "2024-12-1"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'

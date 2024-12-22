@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 14 / Customizable Select Element Ep.12"
-excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` / `part`属性の仕様廃止へ。要素をCloneしてカスタマイズ可能にする`<selectedcontent>`の提案"
+excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `part`属性をCSEのUA実装で使用することの問題から、`part`属性を`behavior`属性にリネームへ。`<option>`のvalueのみならず、内部コンテンツ自体を`<selectedcontent>`に反映する仕様策定の示唆"
 date: "2024-12-14"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -17,12 +17,10 @@ status: 'published'
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の14日目の記事です。
 :::
 
-[Customizable Select Element Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししています。
+[Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)では、`<selectedcontent>`とはどんな要素なのか、その契機となったIssueの紹介、`part`属性と`slot`属性についてお話ししました。
 
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
-
-Ep.11では、`<selectedcontent>`とはどんな要素なのか、その契機となったIssueの紹介、`part`属性と`slot`属性についてお話ししました。
 
 ### `part`属性を使用することの問題
 

@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day7 / Customizable Select Element Ep.5"
-excerpt: "`<selectmenu>`としての初期提案"
+excerpt: "Open UIでCSEのResearchが行われる。同時期にMSで`<selectmenu>`Explainerの作成。Explainerに基づいて、`<selectmenu>`がIntent to Prototypeに"
 date: "2024-12-7"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'

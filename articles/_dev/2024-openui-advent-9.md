@@ -19,6 +19,8 @@ status: 'published'
 
 [Customizable Select Element Ep.6](https://blog.sakupi01.com/dev/articles/2024-openui-advent-8)では、`<selectmenu>`が改名され、`<selectlist>`に至るまでの経緯をお話ししました。
 
+しかし、現在のCSEは`<selectlist>`ではなく、`<select>`として[RFC](https://developer.chrome.com/blog/rfc-customizable-select)が発表されています。今回は、`<selectlist>`から、`<select>`に変遷するまでの経緯をお話しします。
+
 ## `<selectmenu>`のその後：`<selectlist>`から`<select>`に至るまで
 
 主に既存のUIパターンとの混乱を避けるための様々な考慮がなされ、`<selectmenu>`は`<selectlist>`にリネームされました。
@@ -29,7 +31,7 @@ status: 'published'
 ![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](/select-wrapped-issue.png)
 *現在は`<select>`だが、その前の`<selectlist>`時代に開かれている*
 
-そして、このIssueを皮切りに、`<select>`から`<selectlist>`への移行が検討されていくことになります。
+そして、このIssueを皮切りに、`<selectlist>`から`<select>`への移行が検討されていくことになります。
 
 まずその口火を切ったのが、AppleでWHATWGの[Anne van Kesteren](https://x.com/annevk)でした。その後の会話からすると、以下の提案はAnneとJoey Arharを含むcolleaguesの間で話し合われ、それをAnneが代表してここにまとめていることがわかります。
 
@@ -133,9 +135,9 @@ CSEは`<select>`を”完全に”カスタマイズ可能にすることを目�
 
 `<selectlist>`から`<select>`への変更理由は、最近developer.chrome.comから発表されたRFCでも触れられています。
 
-- [Enhance the existing <select> element | Request for developer feedback: customizable select  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/rfc-customizable-select#enhance_the_existing_select_element)
+- [Enhance the existing `<select>` element | Request for developer feedback: customizable select  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/rfc-customizable-select#enhance_the_existing_select_element)
 
-[Allow <button> and <datalist> in <select> by chromium-wpt-export-bot · Pull Request #43640 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/43640)
+[Allow <button> and <datalist> in `<select>` by chromium-wpt-export-bot · Pull Request #43640 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/43640)
 
 ***
 

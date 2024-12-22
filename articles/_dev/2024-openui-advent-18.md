@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 18 / Customizable Select Element Ep.16"
-excerpt: "Customizable Select Elementの関連仕様: UAによるLight DOMへのNodeクローン実装を深掘る"
+excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - Light DOMへのクローン追加実装に関して、CSSWGとの合意形成。UAによるLight DOMへのNodeクローンタイミングに関する懸念を深掘る"
 date: "2024-12-18"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -16,11 +16,6 @@ status: 'published'
 :::note{.message}
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の15日目の記事です。
 :::
-
-[Customizable Select Element Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししています。
-
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
 
 [Ep.15](https://blog.sakupi01.com/dev/articles/2024-openui-advent-17)では、`<selectedoption>`を用いて、宣言的に選択された`<option>`の中身をLight DOMにクローンする提案が、合意を得た詳細についてお話ししました。
 
@@ -41,6 +36,9 @@ status: 'published'
 - [[Customizable select] Rename selectedoption to selectedcontent by brechtDR · Pull Request #1124 · openui/open-ui](https://github.com/openui/open-ui/pull/1124)
 - [Rename `<selectedoption>` to `<selectedcontent>` by chromium-wpt-export-bot · Pull Request #49046 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/49046)
 
+![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+*2024/12/9時点でのselectの各パーツの定義*
+
 ## `<selectedcontent>`の実装に関するIssueまとめ
 
 2024/12現在、`<selectedcontent>`の実装に関するIssueは以下の通りです。そのうちのいくつかは、現在進行形で議論が続いています。
@@ -53,7 +51,7 @@ status: 'published'
 5. [select: clarifying what should be used as the chosen value · Issue #1117 · openui/open-ui](https://github.com/openui/open-ui/issues/1117)
 6. [select: Should `<selectedoption>` update when selecting the already-selected option · Issue #1119 · openui/open-ui](https://github.com/openui/open-ui/issues/1119)
 
-これらの中でも、筆者が特に注目している1~4のIssueをピックアップして、その内容について深掘っていきます。
+これらの中でも、筆者が特に注目している、「クローンタイミング」に関する1~4のIssueに焦点を当てて、その内容について深掘っていきます。
 
 ## How to implement and shape API for `<selectedoption>` element for `<select>`
 

@@ -1,7 +1,7 @@
 ---
 
 title: "🎄Open UI Advent Calendar: Day 4 / Customizable Select Element Ep.2"
-excerpt: "ブラウザエンジンの発展と、Web標準の台頭、より柔軟なスタイリングを可能にした歴史"
+excerpt: "ブラウザ戦争の激化と、OSに依存したコントロールの問題の顕在化。打開する動きとして、WaSPによるWeb標準の台頭への動き、モダンブラウザの登場、より柔軟なスタイリングを可能にするCSS3の登場"
 date: "2024-12-4"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'

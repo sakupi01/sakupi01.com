@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 5 / Customizable Select Element Ep.3"
-excerpt: "Form Controlが抱える課題と、Customizable Select Element提案の契機"
+excerpt: "Web標準化の動きが進んでもなお、CustomizableでないForm Controlの紹介。Customizable Select Element提案の契機となるサーベイ"
 date: "2024-12-5"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'

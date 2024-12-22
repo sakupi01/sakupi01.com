@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 12 / Customizable Select Element Ep.10"
-excerpt: "Customizable Select Elementの関連仕様: `::picker`のデフォルト色から深掘る、system-color/ color-scheme/ prefers-color-schemeの関係"
+excerpt: "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker()`のデフォルト色から深掘る、system-color/ color-scheme/ prefers-color-schemeの関係"
 date: "2024-12-12"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -19,7 +19,7 @@ status: 'published'
 
 Customizable Select Element Ep.9から、 `appearance: base-select;`で提供される、CSEのデフォルトの見た目が決定された背景の議論をお話ししてきました。
 
-Ep.9では、`<option>::checkmark`が現状の見た目となった背景について、Ep.10では、ポップオーバーを開閉するボタン要素右の矢印アイコン`::picker-icon`について深掘りました。 今回は、CSEがデフォルトで使用する「色」の関連技術について理解を深めていきます。
+[Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-11)では、`<option>::checkmark`が現状の見た目となった背景について、Ep.10では、ポップオーバーを開閉するボタン要素右の矢印アイコン`::picker-icon`について深掘りました。 今回は、CSEがデフォルトで使用する「色」の関連技術について理解を深めていきます。
 
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*

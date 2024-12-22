@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 6 / Customizable Select Element Ep.4"
-excerpt: "Customizable Select Elementについて"
+excerpt: "Open UIでCustomizable Select Elementの初期提案"
 date: "2024-12-6"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -64,7 +64,7 @@ iOS Safariでは、`<select>`のフォントサイズが16px未満だとペー�
 などの制約があり、これらを解決しようとクロスブラウザ互換でカスタマイズされた見た目の`<select>`のbuttonを作ろうとなると、以下のようなCSSが必要になります。
 
 - [デモ](https://filamentgroup.github.io/select-css/demo/)
-  - https://github.com/filamentgroup/select-css/blob/master/src/select-css.css
+  - [select-css/src/select-css.css at master · filamentgroup/select-css](https://github.com/filamentgroup/select-css/blob/master/src/select-css.css)
 
 これらが`<select>`のbutton部分のスタイリングに関する制約です。
 
@@ -129,7 +129,7 @@ iOS Safariでは、`<select>`のフォントサイズが16px未満だとペー�
 GregやMasonによる一連の調査が、Domenicによる`<select>`の問題提起を導き、これを契機にOpen UIで本格的に`<select>`のリサーチがなされていくことになります。
 
 - [Can we please style the `<select>` control?!](https://www.gwhitworth.com/posts/2019/can-we-please-style-select/)
-- [Add initial curated page and research for <select> by wdencker · Pull Request #19 · openui/open-ui](https://github.com/openui/open-ui/pull/19)
+- [Add initial curated page and research for `<select>` by wdencker · Pull Request #19 · openui/open-ui](https://github.com/openui/open-ui/pull/19)
 
 ***
 
@@ -140,4 +140,4 @@ See you tomorrow!
 ### Appendix
 
 - [Initial thoughts on standardizing form controls](https://www.gwhitworth.com/posts/2019/form-controls-components/)
-- [<datalist>: The HTML Data List element - HTML: HyperText Markup Language | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist)
+- [`<datalist>`: The HTML Data List element - HTML: HyperText Markup Language | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist)

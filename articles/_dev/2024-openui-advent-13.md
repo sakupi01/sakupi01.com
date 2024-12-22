@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 13 / Customizable Select Element Ep.11"
-excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>`の概要"
+excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `<selectedcontent>`提案のきっかけと、選択された`<option>`のvalueとスタイルを反映する初期の仕組みとして、`part`属性と`slot`属性について"
 date: "2024-12-13"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -19,7 +19,7 @@ status: 'published'
 
 Customizable Select Element Ep.8からEp.10まで、 `appearance: base-select;`で提供される、CSEのデフォルトの見た目が決定された背景をお話ししてきました。
 
-Ep.11からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししていきます。
+今回からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししていきます。
 
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*

@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 15 / Customizable Select Element Ep.13"
-excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` / 選択された要素をクローンしてカスタマイズ可能にするための初期議論"
+excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `<option>`の内部コンテンツ自体を`<selectedcontent>`に反映する仕様の検討"
 date: "2024-12-15"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -17,12 +17,10 @@ status: 'published'
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の15日目の記事です。
 :::
 
-[Customizable Select Element Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししています
+[Ep.12](https://blog.sakupi01.com/dev/articles/2024-openui-advent-14)では、`part`属性を使用することの問題、解決策として`behavior`属性の提案、そして、要素をCloneしてカスタマイズ可能にする`<selectedcontent>`の契機についてお話ししました。
 
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
-
-[Ep.12](https://blog.sakupi01.com/dev/articles/2024-openui-advent-14)では、`part`属性を使用することの問題、解決策として`behavior`属性の提案、そして、要素をCloneしてカスタマイズ可能にする`<selectedcontent>`の契機についてお話ししました。
 
 ## Customizable Select Elementの関連仕様
 
@@ -64,6 +62,7 @@ status: 'published'
 
 :::note{.memo}
 📝 クローンとスロット:
+
 これまでで何度かクローンという表現とスロットという表現を出したので、ここで一度整理しておきます。
 
 - クローン: [DOMの仕様](https://dom.spec.whatwg.org/#ref-for-dom-node-clonenode%E2%91%A0)の一部。`Node.cloneNode()`を使って、DOMノード自体を他の場所に複製すること。”複製”なので、クローン元にも実態が残る。`clonable`なShadow DOM内の要素を複製することもできる。
