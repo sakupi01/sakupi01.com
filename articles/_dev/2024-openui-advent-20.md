@@ -22,7 +22,7 @@ status: 'published'
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
-[Ep.17](https://blog.sakupi01.com/dev/articles/2024-openui-advent-19)では、Light DOMへのクローンが、マイクロタスクを使用したMutationObserverのコールバック内で実装する方向で、提案されていました。これにより、パフォーマンス面で優れた実装が可能になるというのが主な理由でした。
+[Ep.17](https://blog.sakupi01.com/dev/articles/2024-openui-advent-19)では、Light DOMへのクローンが、「マイクロタスクを使用した、MutationObserverのコールバック内で実装する方向」で提案されていました。これにより、パフォーマンス面で優れた実装が可能になるというのが主な理由でした。
 
 今回は、その議論の続きを見ていきます。
 
@@ -41,6 +41,7 @@ status: 'published'
 > I also wonder if using CEReactions like this is just an internal optimization to run clones less often and is functionally the same as just synchronously cloning every time, in which case we could make the spec a lot simpler and keep it in the DOM spec. Maybe doing anything with MutationObservers is also just an optimization, and we could just add steps to the insertion/removal/attributechange steps in the HTML spec to do the cloning when appropriate...?
 >
 > このようにCEReactionsを使用することが、クローン実行回数を減らして内部最適化する手段で、同期的に毎回クローンするのと機能的に同じであれば、はるかに簡単に仕様を作成でき、DOM仕様として扱うことができる。MutationObserversを使用することも最適化なのですが、適切なときにクローンを行うため、CEReactionsのinsertion/removal/attributechangeステップをMutationObserversのHTML仕様に追加するだけで済むかもしれません...?
+> [comment](https://github.com/whatwg/html/issues/10520#issuecomment-2341730370)
 
 つまり、AuthorスクリプトからDOM APIを利用したミューテーションが行われるたびに、CEReactionsタイミングで、1回だけクローンを作成する方法があると述べています。
 具体的には、MutationObserverでマイクロタスクをキューに入れる代わりに、[CEReactionsスタック](https://triple-underscore.github.io/HTML-custom-ja.html#custom-element-reactions-stack)にキューが存在するかどうかを確認し、存在する場合はそのCEReactionsがコールスタックからpopされる際に、変更を「通知」する特別なMutationObserverを作成することができると述べています。もし、CEReactionsスタックにキューが存在しない場合は、そのまま同期的にクローンを作成します。
@@ -51,7 +52,18 @@ status: 'published'
 
 https://github.com/whatwg/html/issues/10601
 
+:::note{.memo}
+
+📝 WHATNOT
+
+WHATNOTは、WHATWGのIssueをトリアージする、隔週のTeleconです。
+[agenda+](https://github.com/whatwg/html/labels/agenda%2B) ラベルがついたIssueがアジェンダで、これに基づいた議論が行われます。
+
+:::
+
 「同期的に」という表現は、CEReactionsのタイミングを使用することを意味するのではなく、DOMの変更が発生したときに即座にクローンを作成することを指しています。つまり、CEReactionsタイミングや非同期のマイクロタスクを待たずに、変更が行われたその場でクローンを作成するということです。
+
+### CEReactionsの問題
 
 [CEReactions](https://triple-underscore.github.io/HTML-custom-ja.html#custom-element-reactions)は、[Custom Elementsのライフサイクルコールバック](https://triple-underscore.github.io/HTML-custom-ja.html#concept-custom-element-definition-lifecycle-callbacks)（`connectedCallback`や`attributeChangedCallback`）が呼び出される際に発火します。これらのコールバックは、通常、DOM操作が行われた直後に同期的に実行されます。しかし、特定の条件においては、これらのコールバックの実行が遅延されることもあります。
 
@@ -65,7 +77,8 @@ https://github.com/whatwg/html/issues/10601
 >
 > [HTML Standard - Custom Element Reactions](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element-reactions)
 
-こうしたCEReactionsの懸念から、よりシンプルで予測可能な動作を実現できる「同期的な」クローンを作成する実装方針になります。
+CEReactionsを用いると、MutationObserverと違って、[同期的なクローンができるとされていました](http://localhost:3000/dev/articles/2024-openui-advent-23#同期的なmutationobserver-cereactions-mutationobserverの提案)。
+しかし今回、上記のようなCEReactionsの懸念が浮き彫りになり、よりシンプルで予測可能な動作を実現できる「同期的な」クローンを作成する実装方針となります。
 
 > I created a spec pr for selectedoption which has synchronous timing here: #10633
 
@@ -77,13 +90,13 @@ https://github.com/whatwg/html/issues/10601
 
 > The cloneNode() method of the Node interface returns a duplicate of the node on which this method was called. Its parameter controls if the subtree contained in a node is also cloned or not.
 
-しかし、`cloneNode()`は、インラインリスナーを含む属性や値をすべてコピーしますが、`addEventListener()`で追加されたイベントリスナーや、要素プロパティ（例：`node.onclick = someFunction`）に割り当てられたイベントリスナーはコピーしません。
+しかし、`cloneNode()`は、インラインリスナを含む属性や値をすべてコピーしますが、`addEventListener()`で追加されたイベントリスナや、要素プロパティ（例：`node.onclick = someFunction`）に割り当てられたイベントリスナはコピーしません。
 
 - クローンされるもの（例）
   - 要素の属性: id, class, src などの属性とその値。
   - 要素の子Node: `cloneNode(true)` を使用した場合、すべての子ノードもクローンされる
 - クローンされないもの（例）
-  - イベントリスナー: `addEventListener()` を使って追加されたイベントリスナーや、node.onclick = someFunction のようにプロパティとして設定されたイベントリスナー。
+  - イベントリスナ: `addEventListener()` を使って追加されたイベントリスナや、node.onclick = someFunction のようにプロパティとして設定されたイベントリスナ。
   - `<canvas>` の描画内容: `<canvas>`の描画内容はクローンされない
 
 > Cloning a node copies all of its attributes and their values, including intrinsic (inline) listeners. It does not copy event listeners added using `addEventListener()` or those assigned to element properties (e.g., node.onclick = someFunction). Additionally, for a `<canvas>` element, the painted image is not copied.
@@ -97,11 +110,11 @@ https://github.com/whatwg/html/issues/10601
     </div>
 
     <script>
-        // イベントリスナーを追加
+        // イベントリスナを追加
         const original = document.getElementById('original');
         original.addEventListener('click', () => alert('EventListener!'));
 
-        // プロパティとしてリスナーを追加
+        // プロパティとしてリスナを追加
         clone.onclick = () => alert('Property listener!');
 
         // ノードをクローン
@@ -110,9 +123,9 @@ https://github.com/whatwg/html/issues/10601
         document.body.appendChild(clone);
 
         // 結果:
-        // - インラインリスナーは動作する（"Inline listener!" が表示される）
-        // - addEventListener で追加したリスナーは動作しない
-        // - プロパティとして追加したリスナーは動作しない
+        // - インラインリスナは動作する（"Inline listener!" が表示される）
+        // - addEventListener で追加したリスナは動作しない
+        // - プロパティとして追加したリスナは動作しない
     </script>
 </body>
 ```
@@ -134,7 +147,9 @@ JSXを記述する機会が増えた昨今、属性とプロパティの使い�
 
 以下のXの投稿では、`<option>`の中に、`<my-thing>`といった内部的にfetchを行うWeb Componentsを配置した場合、`cloneNode()`はfetchを再度実行することになるため、`<option>`を選択するたびにデータフェッチが走ることを指摘しています。これは、`cloneNode()` が新しいオブジェクトを生成し、新しい内部状態を持ったCustom Elementsが再度構築されるためです。
 
-https://x.com/ElliottZ/status/1836512040120123593
+> I'm curious to see if anyone hits the mistake where they write something like `<option><my-thing></my-thing></option>` where my-thing makes an API call when rendering to get data to display, and then every time you pick an option that request runs again
+>
+> — Elliott Sprehn (@ElliottZ) [September 18, 2024](https://x.com/ElliottZ/status/1836512040120123593)
 
 それだけでなく、例えば、JSを使って描画された`<canvas>`の内容はクローンされません。`<iframe>`の場合は、`src`の再読み込みが発生します。CSS Animationsは、新しく構築された要素として再開されるため、アニメーションが最初から再生されます。
 
@@ -158,6 +173,7 @@ See you tomorrow!
 - [Accessibility Object Model | aom](https://wicg.github.io/aom/explainer.html)
 - [HTML Standard - Custom Element Reaction](https://html.spec.whatwg.org/#concept-custom-element-reaction)
 - [In depth: Microtasks and the JavaScript runtime environment - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide/In_depth)
+- [HTML attributes vs DOM properties - JakeArchibald.com](https://jakearchibald.com/2024/attributes-vs-properties/)
 
 Standard Positions
 
