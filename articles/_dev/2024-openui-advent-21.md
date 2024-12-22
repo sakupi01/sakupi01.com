@@ -31,11 +31,13 @@ status: 'published'
 
 - 選択された`<option>`で、`cloneNode()`をCallする
   - **`cloneNode()`には、さまざまな制限がある（`<iframe>`はリロードになる、WCは再構築される、`<canvas>`はコピーされない、CSSアニメーションは再開される）**
-- 選択された`<option>`の、`<option>`を除く`<option>`内の全てのDOMをクローンする
-- `<selectedcontent>`を用いて、宣言的な方法で、クローンされたDOMを`<selectedcontent>`のLight DOM内に追加する
+- 選択された`<option>`の子Nodeをクローンする
+- `<selectedcontent>`を用いて、宣言的な方法で、クローンされたNodeを`<selectedcontent>`のLight DOM内に追加する
 - 選択された`<option>`が変更されるたびに、`<selectedcontent>`内のDOMを更新する
-  - **変更検知タイミングの問題がある。**
-    - **マイクロタスクタイミングで変更を検知する？CEReactionsタイミングで変更を検知する？同期的に変更を検知する？**
+  - **変更検知タイミングの問題**
+    - マイクロタスクタイミングで変更を検知する？
+    - CEReactionsタイミングで変更を検知する？
+    - 同期的に変更を検知する？
 
 :::
 
@@ -84,16 +86,16 @@ const selectedOption = select.selectedOptions[0];
 selectedOption.append(selectedOption.firstChild);
 ```
 
-このような変更があった場合、`<option>`内の子Nodeは2回クローンされます。なぜなら、要素をappendするには、「削除」＆「挿入」という2回のTree変更が必要だからです。
+この場合、`<option>`内の子Nodeは2回クローンされます。要素をappendするには、「削除」＆「挿入」という2回のTree変更が必要だからです。
 
-もし、`<option>`内の要素のスタイルを10回変更する場合、それぞれの変更はスタイル属性を更新するため、`<selectedcontent>`の子Nodeは10回クローンで置き換えられることになります。
+例えば、`<option>`内の要素のスタイルを10回変更する場合、それぞれの変更はスタイル属性を更新するため、`<selectedcontent>`の子Nodeは10回クローンで置き換えられることになります。
 
-もし、`<option>`内の要素でCSS Animationsを使用する場合、フレームごとに`element.style`が変更されます。つまり、`<selectedcontent>`の子Nodeは、フレームごとに再構築されることになります。
+また、`<option>`内の要素でCSS Animationsを使用する場合は、フレームごとに`element.style`が変更されます。つまり、`<selectedcontent>`の子Nodeは、フレームごとに再構築されることになります。
 
-また、`<option>`内の子Nodeの変更が`<selectedcontent>`の子Nodeに反映されないようにしたい場合も考えられます。
+過度な変更検知だけでなく、`<option>`内の子Nodeの変更が、`<selectedcontent>`の子Nodeに反映したくない場合も考えられます。
 
 例えば、`<option>`内の子Nodeと、`<selectedcontent>`の子Nodeは独立した要素であるため、それぞれに独立したスタイルを当てることができます。
-しかし、JavaScriptを使って、`mouseenter`時に`element.style`を変更すると、`<selectedcontent>`に反映されてしまいます。`<option>`内の子Nodeと、`<selectedcontent>`の子Nodeを独立した要素として扱いたい場合、このような挙動は期待しないものとなるでしょう。
+しかし、例えば、JavaScriptを使って、`mouseenter`時に`element.style`を変更すると、`<selectedcontent>`に反映されてしまいます。`<option>`内の子Nodeと、`<selectedcontent>`の子Nodeを独立した要素として扱いたい場合、このような挙動は期待しないものとなるでしょう。
 
 加えて、将来的に起こる問題も考えられます。
 例えば、`<details>`は、開いた状態の時`<details open>`となる仕様になっています。つまり、`<details>`は自身の属性を変更します。
@@ -104,10 +106,10 @@ selectedOption.append(selectedOption.firstChild);
 
 ### Option3: debounceさせて、常に同期的にクローンする（変更検知でのクローンをOpt-out）
 
-上記の方法とほとんど同じですが、`<option>`の子Nodeが変更されると、`<selectedcontent>`の子Nodeは、非同期の**マイクロタスクタイミングで**クローンで置き換えられるところに違いがあります。
+上記の方法とほとんど同じですが、`<option>`の子Nodeが変更されると、`<selectedcontent>`の子Nodeは、非同期の**マイクロタスクタイミングで**`cloneNode()`した結果に置き換えられるところに違いがあります。
 
 同期ではなく、非同期のマイクロタスクタイミングで変更を検知することより、クローンの回数を大幅に減少させることができます。
-Option2で挙げた例を参考にすると、`<option>`の子Nodeの変更は、マイクロタスクタイミングでまとめることができ、クローンは1回のみとすることができる。
+Option2で挙げた例を参考にすると、`<option>`の子Nodeの変更は、マイクロタスクタイミングでまとめることができ、クローンは1回のみとすることができます。
 
 しかし、この方法にも問題があります。
 
@@ -160,8 +162,8 @@ Open UIでの議論の結果、最終的にはOption1が採用されることに
   - `cloneNode()`には、さまざまな制限がある（`<iframe>`はリロードになる、WCは再構築される、`<canvas>`はコピーされない、CSSアニメーションは再開される）
   - → 筆者の観測範囲では、議論は[このコメント](https://github.com/whatwg/html/issues/10520#issuecomment-2360511425)で止まっている
   - おそらく、[Allow slotting indirect children](https://github.com/whatwg/html/issues/10273)の結果に左右されるので、**議論途中**
-- 選択された`<option>`の、`<option>`を除く`<option>`内の全てのDOMをクローンする
-- `<selectedcontent>`を用いて、宣言的な方法で、クローンされたDOMを`<selectedcontent>`のLight DOM内に追加する
+- 選択された`<option>`の子Nodeをクローンする
+- `<selectedcontent>`を用いて、宣言的な方法で、クローンされたNodeを`<selectedcontent>`のLight DOM内に追加する
 - 選択された`<option>`が変更されるたびに、`<selectedcontent>`内のDOMは**更新しない**
 - **代わりに、Authorが明示的に`resetContent()`などを呼び出すことで、`<selectedcontent>`内のDOMを更新できる**
 
