@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 22 / Customizable Select Element Ep.20"
-excerpt: "Customizable Select Elementの関連仕様: UAによるLight DOMへのNodeクローン実装を深掘る"
+excerpt: "Customizable Select Elementのまとめ"
 date: "2024-12-22"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -123,7 +123,7 @@ https://github.com/whatwg/html/issues/9799
 
 進化的な仕様を多く包含したこの提案は、Form Controlのほんの1要素である`<select>`をカスタマイズ可能にするだけではなく、これまでの仕様では実現が難しかったさまざまなWebの新機能を実現する、大きな一歩となり得ます。
 
-CSEのを構成する仕様の策定は現在進行形ですが、最後の機能がIntent to Shipされるのが待ち遠しいですね！
+CSEのを構成する仕様の策定は現在進行形で行われています。最後の機能がIntent to Shipになるのが待ち遠しいですね！
 
 ***
 
