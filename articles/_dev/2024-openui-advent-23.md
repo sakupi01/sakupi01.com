@@ -1,6 +1,6 @@
 ---
 title: "🎄Open UI Advent Calendar: Day 23 / Global Design System Part1"
-excerpt: "Open UIが提唱する、Web標準ベースのDesign System：Global Design System とは"
+excerpt: "デザインシステムの開発を加速させる、堅牢で柔軟なGlobal Design Systemの提唱"
 date: "2024-12-23"
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
@@ -17,126 +17,148 @@ status: 'published'
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の23日目の記事です。
 :::
 
-本アドベントカレンダーの締めくくりとして、Open UIが提唱する「Global Design System」を取り上げます。
+本アドベントカレンダーの締めくくりとして、Open UI内で最近プロジェクトとして確立した、「[Global Design System](https://github.com/openui/design-system)」を取り上げます。
 
-## Web標準ベースのDesign System、Global Design System とは
+## デザインシステムの開発を加速させる、堅牢で柔軟なGlobal Design System とは
+
+Global Design Systemは、2024年初めに、Brad Frostによって提唱された、新しいレイヤーでのデザインシステムの概念です。2024年末現在、Global Design SystemはBrad個人ではなく、W3C Open UI Community Groupのプロジェクトとして動き始めています。
 
 ## 提案背景
 
-ことのきっかけとなったのは、Global Design Systemを提唱する、Brad Frostの記事でした。（2024/1/9）
+ことの発端となったのは、今年初めに投稿されたBradの記事でした。
 
-https://bradfrost.com/blog/post/a-global-design-system/
+- [A Global Design System | Brad Frost](https://bradfrost.com/blog/post/a-global-design-system/)
 
 この記事を受けて、[Shop Talk](https://open.spotify.com/show/2PUoQB330ft0sTzSNoCPrH?si=rljg0AXLRaqlSLlgGbuxww) を運営するChris Coyierらが、Brad をゲストに招いて、記事に関する対談を行います。
 
 https://open.spotify.com/episode/3Mp4aV1j44qzIZ4b7XSJmX?si=xXkP_LMIRUqqwTmUrTLVzA
 
-その後日記としてChrisが投稿した以下の記事は、Bradの提案対していい意味で批判する内容となっていました。
+その後日記としてChrisが投稿した以下の記事は、Bradの提案に対していい意味で批判する内容となっていました。
 
-https://chriscoyier.net/2024/02/05/thoughts-on-a-global-design-system/
+- [Thoughts on a Global Design System – Chris Coyier](https://chriscoyier.net/2024/02/05/thoughts-on-a-global-design-system/)
 
-Chrisの記事やコミュニティからのフィードバックを受け、Global Design Systemの概念を固めた上で、Bradは回答となる記事を自身のブログに投稿します。
+Chrisの記事やコミュニティからのフィードバックを受け、Global Design Systemの概念を固めた上で、Bradは回答となる記事を改めて自身のブログに投稿します。
 
-https://bradfrost.com/blog/post/whats-next-for-a-global-design-system/
+- [What’s Next for a Global Design System | Brad Frost](https://bradfrost.com/blog/post/whats-next-for-a-global-design-system/)
 
-コミュニティからのフィードバックを受けて固まったGlobal Design Systemの概念を、Bradは、Open UIのChairであるGregを中心に持ちかけます。Global Design Systemの概念は、ここで初めてOpen UIに打ち出されました。（2024/3/12）
+こうして固まったGlobal Design Systemの概念を、BradはOpen UIのChairであるGregを中心に持ちかけます。Global Design Systemの概念は、ここで初めてOpen UIに打ち出されました。（2024/3/12）
 
 - [A design system, component library for the web? · Issue #1017 · openui/open-ui](https://github.com/openui/open-ui/issues/1017)
 
+***
+
+元々は一個人の提案から始まったGlobal Design Systemですが、どうしてOpen UIのプロジェクトとして確立されるに至ったのでしょうか？そもそも、Global Design Systemの本質とは何なのでしょうか？
+
 ※ 以下、GDS = Global Design System とします
 
-## なぜ、Open UIでGlobal Design Systemを議論するのか。どう、議論するのか
+## Global Design Systemにおける３つのコアメンタル
 
-Open UIは、Web プラットフォームのInteroperabilityを実現するための技術の標準化を検討することに取り組む団体ですが、GDSはBrad個人がパブリックに提唱した概念です。
+GDSが本質的に何を目指すのかを理解し、これからどう動いてくのかを推測する上で、GDSのメンタルモデルを理解しておくことは重要です。
 
-GDSに関するOpen UIの初めてのTeleconでは、GDSをOpen UIで議論することの正当性に関して話し合われます。
-
-[最初のTelecon](https://github.com/openui/open-ui/issues/1017#issuecomment-1998149015)
-
-Teleconの結果を受けて、Open UIでは、「Global Design System本体」と「Open UI から承認/提供された、GDSを実装するコンポーネントライブラリ」に分割するという提案がなされます。
-
-- [comment](https://github.com/openui/open-ui/issues/1017#issuecomment-2109117089)
-
-### Global Design System本体
-
-### Open UI から承認/提供された、GDSを実装するコンポーネントライブラリ
-
-> RESOLVED: Create a Global Design System workstream in Open UI and do not start from zero with a component library(s) (TBD)
-> [IRC](https://github.com/openui/open-ui/issues/1017#issuecomment-2115955452)
-
-これが、Global Design System が open-ui/open-ui とは別のリポジトリで動いている理由です。
-
-[open-ui/design-system](https://github.com/openui/design-system)は、「Global Design System本体」の仕様を策定する時に動くリポジトリです。
-そのため、xxの時は、ここを参照することになります。
-
-対して、「Open UI から承認/提供された、GDSを実装する**コンポーネントライブラリ**」は、[openui/open-ui](https://github.com/openui/open-ui/) で検討されます。故に、GDSが提供するコンポーネントライブラリの、各コンポーネントの検討内容が知りたい場合は、[openui/open-ui](https://github.com/openui/open-ui/) を参照すれば良いはずです。
-
-## Global Design Systemのコアメンタルモデル
-
-以下の記事を解釈したものです。
+この節は、GDSの提唱者であるBradの記事やDiscordを含めたOpen UIでの議論をもとに、GDSのメンタルモデルを筆者が解釈してまとめたものになります。
 
 https://bradfrost.com/blog/post/a-global-design-system/
 
-まず、DSの定義はこれ。なので、こういうのを作る。
+https://bradfrost.com/blog/post/whats-next-for-a-global-design-system/
 
-> A component library represented in code (e.g. Web Components, React, Angular, Vue, et al)
-> A component library represented in design tools (e.g. Figma, Sketch, et al)
-> Documentation (often in the form of a website) that outlines high-level guidelines, component-level details, processes (getting started, adopting, contributing, etc)
-> https://discord.com/channels/714891843556606052/1216793626290421814/1217243783226462350
+### HTMLの上に構築されるレイヤー
 
-ただのアクセシブルでカスタマイズ可能なコンポーネントや、それを実現するための機能を提供するだけなら、Webで標準化できる。
-DSにすることで、プロパティとかそういうのを使えるようにする。GDSは、それを使用側の要件に沿ってカスタマイズできるようにする。いわば、UIライブラリの標準バージョンを提供する。
-https://discord.com/channels/714891843556606052/1216793626290421814/1217820806306988062
+**GDSは、HTML（標準）の代替をとなるものではありません**。
+HTMLをベースとして構築されるデザインシステムとHTMLレイヤーの間に欠けているものを埋めることが、GDSの役割です。
 
-その際、特定のフレームワークに依存しない技術を用いたい。
-> Web Components are a fantastic vehicle for delivering front-of-the-front-end code to any tech stack. I talk more about that here: https://bradfrost.com/blog/post/lets-talk-about-web-components/
+![HTMLレイヤー（標準）と各デザインシステムの間にギャップがあることで、共通部分の機械的な複製や、意図しない欠損が生じる可能性がある](/missed-layer-between-ds-and-html.png)
+*HTMLレイヤー（標準）と各デザインシステムの間にギャップがあることで、共通部分の機械的な複製や、意図しない欠損が生じる可能性がある*
 
-どうして↑を実現するために、別の要素を作らないといけないの？たとえば、`<button>`にプロパティとかそういうのを使えるようにするんだったら`<button>`をラップする形で作ればいいじゃない。
+**組織が何度も構築&再構築しているコンポーネントの共通部分が、Web の適切な組織によって承認された成果物として管理され、それがHTMLと既存のデザインシステムの間のギャップを補完するレイヤーとなる**ことで、開発者はより効率的に堅牢なデザインシステムを構築できるようになります。
 
-> good question! The benefits of consumable components are many (I write about them here https://bradfrost.com/blog/post/frontend-design-react-and-a-bridge-over-the-great-divide/ and here https://bradfrost.com/blog/post/front-of-the-front-end-and-back-of-the-front-end-web-development/), but the gist is this:
-> **Create a single source of truth for component markup, styles, and behavior** that gets delivered to consuming developers. Consuming developers interact with each component's API rather than having to author markup, styles, and presentational JavaScript themselves.
-> **This creates a clearer distinction between front-of-the-front-end development and back-of-the-front-end development**, allowing front-of-the-front-end developers to own component internals and back-of-the-front-end developers to focus on logic, page-level stuff, cache invalidation, and the rest of it.
-> **Bake in best practices** including semantics, accessibility, internationalization, performance, and other front-end best practices. These best practices are packaged up and delivered to developers, who get those best practices for free by using the component.
-> **Connected** - Consumable UI components are connected, meaning that new versions of the components can be published (containing bug fixes, new features, etc). Developers update the components and receive those improvements
-> Why can't this be built on top of regular <button> elements?
-> T**hese are built using regular <button> elements under the hood! I think this is an important thing to underscore regarding this effort. Design system component libraries — including a Global Design System component library — use all the great native HTML, CSS, and JS features available to us; they just go a step further by composing them together in order to solve common problems.**
+![HTMLレイヤー（標準）と各デザインシステムの間をGDSが埋めることで、より堅牢で信頼できるデザインシステムを、効率的に作成できる](/gds-layer.png)
+*HTMLレイヤー（標準）と各デザインシステムの間をGDSが埋めることで、より堅牢で信頼できるデザインシステムを、効率的に作成できる*
 
-以下のような感じになる。ただのスタイルの抽象を提供するだけじゃない
+つまり、競合する標準を作成することではなく、現状のHTMLと各デザインシステムとのギャップを埋めるために、新しいレイヤーを導入することが目標となります。
 
-```css
-button {
-  style: var(--sl-button);
-}
+GDSが標準の一部でないことは、GDSの概要にも明記されています。
 
-```
+> A W3C Standard - The OpenUI Design System is an incubation for possible future enhancements to the web platform but they are not standardized components.
+> [openui/design-system](https://github.com/openui/design-system)
+
+### 特定の見た目と技術に依存しない、スタンドアロンなデザインシステムとなる
+
+**GDSは、ブラウザデフォルトのスタイルのみを含むスタンドアロンなデザインシステム**です。言い換えれば、堅牢なセマンティクスと機能を提供し、かつ見た目の技術の柔軟性を保った、いわば「**特定の見た目と技術に依存しない、スタンドアロンなデザインシステム**」です。
+
+故に、開発者はGDSをプロジェクトに取り込み、ブランドの**あらゆる**デザインや機能を、**あらゆる**言語・ライブラリ・フレームワーク（CSS、JS、JSX、Web Components、Tailwind、React、Vue、Angular etc）を用いて拡張できます。
+
+前述したように、GDSの目標は、既存のデザインシステムの兄弟を作成することではなく、**既存システムを拡張するための、オフィシャルなレイヤー**を導入することです。
+
+独自のブランドスタイルや言語に依存した3rd Party/組織のデザインシステムとGDSとの相違点は、”GDSの Brand&Tech Agnostic さ”にあります。
+
+![OSSコンポーネントライブラリや独自デザインシステムは、そのコンテキストのみでしかGlobalではない](/individual-ds-vs-gds.png)
+*OSSコンポーネントライブラリや独自デザインシステムは、そのコンテキストのみでしかGlobalではない*
+
+共通コンポーネントには、必ず共通かつ一般的なセマンティクスと動作がありますが、スタイルは大きく異なります。
+
+こうした、コンポーネントのコアとなるセマンティクスや機能を、イチから設計、構築、拡張、結合、テストして、独自デザインシステムを作成するのは、いかように考えても非効率でした。そこで、GDSが適切な組織によって承認された堅牢なセマンティクスや動作を提供することで、それを拡張した、堅牢で信頼できる独自のデザインシステムを効率よく構築できるようになります。
+
+堅牢なセマンティクスや動作を提供するデザインシステムに加え、開発者が独自の見た目や機能を組み合わせることで、独自デザインシステムを構築する良い例として、[Design System + CSS Zen Garden](https://bradfrost.com/blog/post/creating-themeable-design-systems/)が参考になります。
+
+### 全てのUI要件の包括的なソリューションにはならない
+
+GDSはそもそも、すべてのユースケースに対応するとを目的としていません。特定のコンポーネントのユースケースの**大部分に対応するソリューションを提供できれば、大きな成果として評価されます**。
+
+例えば、クリックするとバックフリップして、SVGの星を撒き散らすようなボタンコンポーネントを作成する必要があるとしましょう。
+こういった場合、開発者は、**素のHTML, CSS, JS**を構成して、独自のUIを作成すれば良いです。
+
+先にも述べたように、**GDSは、HTML自体を拡張するのではなく、HTMLの上レイヤーに存在するというアプローチ**を取っています。
+それゆえ、**HTML はGDSでカバーできないようなすべてのユースケースに対応できる必要があります**が、**GDS（特にWeb Components ライブラリ）は最も一般的と考えられるユースケースのみを対象にできます**。
+
+つまり、開発者は、GDSを利用できる場面では利用し、そうでない場面ではビルトインのHTML, CSS, JSを駆使しすれば良いのです。
+
+とはいえ、GDS自体は非常に保守的なものとし、真に一般的なユースケースに重点を置くためのリサーチと検討が重ねられた上で構築されます。
+
+## Global Design Systemが提供するもの
+
+こうしたメンタルモデルを持ったGDSは、具体的に以下のようなものを成果物として提供することが想定されています。
+
+### 1. コンポーネントライブラリ
+
+GDSのコンポーネントライブラリは、以下の6つの原則に則って作成されます。
+
+> 1. **アクセシビリティやその他のフロントエンドのベストプラクティスの手段**であり、一般的な UI コンポーネントの”Single Source of Truth”となる
+> 2. あらゆるブランドやデザインに合わせて**簡単にテーマを設定できる**ようにする
+> 3. **直感的**に使用でき、一貫したAPI、論理的な構造、わかりやすい構文を開発者に提供する
+> 4. **Interoperable**で、あらゆる Web サイトやアプリを強化できる
+> 5. 言語、記述方法などの多様性に対応するために**国際化されている**
+> 6. **ComposableかつExtensible**であるため、開発者は特別なハックをすることなく変更または拡張できる
+>
+> [A Global Design System | Brad Frost](https://bradfrost.com/blog/post/a-global-design-system/)
+
+これらを達成するための技術的手段として、Web Componentsを用いることが提案されており、以下のような使用方法が想定されています。
 
 ```html
-<button class="btn btn--primary">
-  <svg ...>
-  Search
-</button>
+<w3c-button-group>
+  <w3c-button variant="primary">Log In</w3c-button>
+  <w3c-button>Cancel</w3c-button>
+</w3c-button-group>
 ```
 
-```html
-<oui-button variant="primary" text="Search" icon="search" iconPosition="before">
-</oui-button>
-```
+また、GDSのコンポーネントライブラリは、npmなどの3rd Party パッケージレジストリを通じて、開発者が利用できる形で提供される予定です。
 
-CSS module scriptsはChromeにはshipされている
+### 2. デザインライブラリ
 
-> I mean, if we built (or adopted or approved or whatever) a component, it should come along with a guideline/specification for how it works and why - I don't think they are mutually exclusive and I see value in doing it the way openui had kind of originally discussed and trying to lay out a thing which could have a web component reference implmentation, but maybe possibly also could have other independent implementations, maybe which weren't even web components.
-> つまり、もし私たちがコンポーネントを作った（あるいは採用した、あるいは承認した、あるいは何であれ）なら、それがどのように機能するのか、そしてなぜそうなるのかについてのガイドラインや仕様書も一緒に提供されるべきだということです。
-> https://discord.com/channels/714891843556606052/1216793626290421814/1217848396354682880
+FigmaやSketchなどのデザインツールで構築されたデザインライブラリも、GDSの一部として提供されることが期待されます。
 
-↑に該当するが、HTML要素として定義されるべきでない10このコンポーネントの例
+### 3. リファレンスサイト
 
-> Form Controlsが大半
-> https://discord.com/channels/714891843556606052/1216793626290421814/1218216435831017482
+GDSのコンポーネントライブラリやデザインライブラリに関するドキュメントは、リファレンスサイトとして提供されるとしています。
 
-WCAGは完璧じゃない
-> “should” work, isn't really 'established patterns': the patterns aren't user tested or AT tested necessarily, they may include features that aren't well supported or decisions that don't have broad consensus etc
-> https://hidde.blog/whats-normative-in-wcag/
+## デザイナーやエンジニアはどう変わるのか
+
+GDSによって、デザインシステムを構築するチームは、**単なるコンポーネントの構築ではなく、デザインや機能のより深い側面に集中できるようになります**。
+
+デザインシステムチームは、組織/製品レベルのコンテキストを包含したコンポーネントや、それに関するガイドラインなどを成果物として作成する必要が依然としてあり、それらがGDSによって吸収されることはありません。
+
 ***
+
+Part2では、GDSとOpen UIの具体的なインテグレーションと、彼らが実現する未来についてお話しします。
 
 それでは、また明日⛄
 
@@ -163,3 +185,9 @@ See you tomorrow!
 - [What's ‘normative’ in WCAG? | hidde.blog](https://hidde.blog/whats-normative-in-wcag/)
 - [Definition of a "control"? · Issue #81 · openui/open-ui](https://github.com/openui/open-ui/issues/81)
 - [601: Brad Frost on A Global Design System + Frostapalooza – ShopTalk](https://shoptalkshow.com/601/)
+
+Notable comments found in Didcord:
+
+- [Should this be a design system only and not include a component library?](https://discord.com/channels/714891843556606052/1216793626290421814/1217243783226462350)
+- [What would `<www-button>` do that html `<button>` doesn't do?](https://discord.com/channels/714891843556606052/1216793626290421814/1217820806306988062)
+- [can you give us a list of 10 components you envision would be ideal for this, but wouldn't probably be a native HTML element?](https://discord.com/channels/714891843556606052/1216793626290421814/1218216435831017482)
