@@ -47,7 +47,7 @@ Bradが提唱するGDSは、HTMLと組織レベルデザインシステムとの
 
 - [最初のTelecon](https://github.com/openui/open-ui/issues/1017#issuecomment-1998149015)
 
-このTeleconの結果を受け、Open UIはW3Cの一部であるため、アクセシビリティや国際化の専門家を巻き込む強みを持つため、GDSを進めるための適切なプラットフォームであるという合意が取れます。
+このTeleconの結果を受け、Open UIはW3Cの一部であり、アクセシビリティや国際化の専門家を巻き込む強みを持つため、GDSを進めるための適切なプラットフォームであるという合意が取れます。
 
 > gregwhitworth: because we're part of the W3C we have the potential to pull in experts re accessibility and internationalisation
 >
@@ -74,7 +74,7 @@ Open UIでGDSが進められていくことにより、[Part1](https://blog.saku
 
 ### Open UIが実現できなかった提案をGDS引き継ぎ、将来的な標準化に貢献する
 
-Open UIはデザインシステムの基本的な構成要素（下図のSub-Atomic, Atomic, Molecureにあたるレイヤー）をカバーするため、同様のレイヤーをカバーするGDSは、Open UIが既に行っている作業の延長として機能できます。
+Open UIはデザインシステムの基本的な構成要素（下図のSub-Atomic, Atomic, Moleculeにあたるレイヤー）をカバーするため、同様のレイヤーをカバーするGDSは、Open UIが既に行っている作業の延長として機能できます。
 
 ![Open UIとGDSの扱うレイヤーはマッチする](/what-oui-and-gds-focus.png)
 *Open UIとGDSの扱うレイヤーはマッチする*
@@ -90,7 +90,7 @@ Open UIはデザインシステムの基本的な構成要素（下図のSub-Ato
 ### 標準化プロセスをスキップすることによる、高速な検討と提供のイテレーション
 
 Open UIは、提案が標準化され、UAに実装されることを最終目標としているため、提案のShipまでに多大なプロセスと時間を要します。
-しかし、GDSは、コンポーネントやコントロールの機能的および非機能的要件を定義し、**標準化プロセスやUAの実装とは独立した検討・実装を行います**。これにより、長い標準化のプロセスをスキップし、開発者に即時の価値を提供することが可能です。
+しかし、GDSはコンポーネントやコントロールの機能的および非機能的要件を定義し、**標準化プロセスやUAの実装とは独立した検討・実装を行います**。これにより、長い標準化のプロセスをスキップし、価値を素早く開発者に提供することが可能です。
 
 > gregwhitworth: the majority of us in openui have been focused on landing them in browsers
 >
