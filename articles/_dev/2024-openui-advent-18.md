@@ -14,7 +14,7 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の15日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の18日目の記事です。
 :::
 
 [Ep.15](https://blog.sakupi01.com/dev/articles/2024-openui-advent-17)では、`<selectedoption>`を用いて、宣言的に選択された`<option>`の中身をLight DOMにクローンする提案が、合意を得た詳細についてお話ししました。
