@@ -13,12 +13,12 @@ jobs:
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
       - name: Install dependencies
@@ -49,7 +49,7 @@ jobs:
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 2
           
@@ -60,7 +60,7 @@ jobs:
             echo "ZENN_BASE_URL=${{ secrets.ZENN_BASE_URL }}" >> .env
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
 
@@ -84,7 +84,7 @@ jobs:
     
       - name: Lost Pixel
         id: lostpixel
-        uses: lost-pixel/lost-pixel@v3.16.0
+        uses: lost-pixel/lost-pixel@6db31948aef97f10ea9c7b1a8fa8dd3a0ce2dd49 # v3.16.0
         env:
             LOST_PIXEL_DISABLE_TELEMETRY: 1
             LOST_PIXEL_CONFIG_DIR: ${{ matrix.config.package }}
