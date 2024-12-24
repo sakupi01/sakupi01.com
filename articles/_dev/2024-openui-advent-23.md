@@ -25,7 +25,7 @@ Global Design Systemは、2024年初めに、Brad Frostによって提唱され�
 
 ## 提案背景
 
-ことの発端となったのは、今年初めに投稿されたBradの記事でした。
+ことの発端となったのは、今年初めに投稿されたBradの記事でした。ここで初めて、Global Design Systemの基本的な概念が提唱されます。（参考：[Global Design Systemにおける３つのコアメンタル](https://blog.sakupi01.com/dev/articles/2024-openui-advent-23#global-design-systemにおける３つのコアメンタル)）
 
 - [A Global Design System | Brad Frost](https://bradfrost.com/blog/post/a-global-design-system/)
 
@@ -33,11 +33,30 @@ Global Design Systemは、2024年初めに、Brad Frostによって提唱され�
 
 https://open.spotify.com/episode/3Mp4aV1j44qzIZ4b7XSJmX?si=xXkP_LMIRUqqwTmUrTLVzA
 
-その後日記としてChrisが投稿した以下の記事は、Bradの提案に対していい意味で批判する内容となっていました。
+対談では、基本的にBradの提唱記事に沿ったGDSのコンセプトが話されていました。その中で、GDSはBradが過去に提唱したAtomic DesignのAtomやMoleculeのレイヤーに位置するものとなることや、GDSがすべてのユースケースに対応する難しさに課題があることなどが議論されていました。
+
+:::note{.memo}
+📝 Frostapalooza
+
+（Podcastのタイトルにある「Frostapalooza」は、Bradの40歳の誕生日企画として開催される音楽イベントのことでした...）
+
+https://frostapalooza.bradfrost.com/
+:::
+その後日記としてChrisは以下の記事を投稿します。
 
 - [Thoughts on a Global Design System – Chris Coyier](https://chriscoyier.net/2024/02/05/thoughts-on-a-global-design-system/)
 
-Chrisの記事やコミュニティからのフィードバックを受け、Global Design Systemの概念を固めた上で、Bradは回答となる記事を改めて自身のブログに投稿します。
+上記Podcastで上がった疑問も含めて、記事ではざっと以下のようなことが述べられています、これはGDSの概念をより確固たるものにする上で、非常にいい意味での批判となっていました。
+
+- OSSのデザインシステムと何が違う？: 既存のOSSデザインシステムも抽象化された設計されているが、それが失敗しているとすれば、その理由は何か。
+- 採用率の目標値は？: GDSがどの程度採用されるべきか、その理想的な割合は何か。
+- どこまで対応するのか？: システムがあまりにも多くのニーズに応えようとすると、結局誰のニーズも満たさない可能性があるのではないか。
+- 既存のコンポーネントの利用: もし完璧なコンポーネントが存在するなら、すでに広く使われているはず。
+- Web Componentsの利用: Web Componentsは、まだ成熟しきっておらず、GDSの配布手段として適しているかどうか判断しかねる。
+- スタイルの問題: スタイルがないことが要件となっているGDSにおいて、多くの人々はデザインシステムのデザイン性を求めているため、スタイルのないシステムに興味を持たない可能性があるのでは。
+- 意思決定の難しさ: GDSが多くの組織に採用されるためには、非常に強力な原則とオーナーシップが必要。
+
+Chrisの記事やコミュニティからのフィードバックを受け、Global Design Systemの概念を固めた上で、Bradは回答となる記事を改めて自身のブログに投稿します。（参考：[Global Design Systemにおける３つのコアメンタル](https://blog.sakupi01.com/dev/articles/2024-openui-advent-23#global-design-systemにおける３つのコアメンタル)）
 
 - [What’s Next for a Global Design System | Brad Frost](https://bradfrost.com/blog/post/whats-next-for-a-global-design-system/)
 
@@ -96,7 +115,7 @@ GDSが標準の一部でないことは、GDSの概要にも明記されてい�
 
 共通コンポーネントには、必ず共通かつ一般的なセマンティクスと動作がありますが、スタイルは大きく異なります。
 
-こうした、コンポーネントのコアとなるセマンティクスや機能を、イチから設計、構築、拡張、結合、テストして、独自デザインシステムを作成するのは、いかように考えても非効率でした。そこで、GDSが適切な組織によって承認された堅牢なセマンティクスや動作を提供することで、それを拡張した、堅牢で信頼できる独自のデザインシステムを効率よく構築できるようになります。
+こうした、コンポーネントのコアとなるセマンティクスや機能を、イチから設計、構築、拡張、結合、テストして、独自デザインシステムを作成するのは、どう考えても非効率でした。そこで、GDSが適切な組織によって承認された堅牢なセマンティクスや動作を提供することで、それを拡張した、堅牢で信頼できる独自のデザインシステムを効率よく構築できるようになります。
 
 堅牢なセマンティクスや動作を提供するデザインシステムに加え、開発者が独自の見た目や機能を組み合わせることで、独自デザインシステムを構築する良い例として、[Design System + CSS Zen Garden](https://bradfrost.com/blog/post/creating-themeable-design-systems/)が参考になります。
 
