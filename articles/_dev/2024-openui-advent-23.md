@@ -40,7 +40,7 @@ https://open.spotify.com/episode/3Mp4aV1j44qzIZ4b7XSJmX?si=xXkP_LMIRUqqwTmUrTLVz
 
 （Podcastのタイトルにある「Frostapalooza」は、Bradの40歳の誕生日企画として開催される音楽イベントのことでした...）
 
-https://frostapalooza.bradfrost.com/
+[FROSTAPALOOZA - A CONCERT/PARTY/HAPPENING ON AUGUST 17th, 2024](https://frostapalooza.bradfrost.com/)
 :::
 その後日記としてChrisは以下の記事を投稿します。
 

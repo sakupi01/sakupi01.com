@@ -17,7 +17,7 @@ status: 'published'
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の13日目の記事です。
 :::
 
-Customizable Select Element Ep.8からEp.10まで、 `appearance: base-select;`で提供される、CSEのデフォルトの見た目が決定された背景をお話ししてきました。
+[Customizable Select Element Ep.8](https://blog.sakupi01.com/dev/articles/2024-openui-advent-10)から[Ep.10](https://blog.sakupi01.com/dev/articles/2024-openui-advent-12)まで、 `appearance: base-select;`で提供される、CSEのデフォルトの見た目が決定された背景をお話ししてきました。
 
 今回からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししていきます。
 

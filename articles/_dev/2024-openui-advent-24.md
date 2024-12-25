@@ -32,14 +32,17 @@ Open UIは、Web プラットフォームのUIにおけるInteroperabilityを実
 > 今日、コンポーネントフレームワークやDesign Systemは、デザイナーが外観と動作を完全に制御できるように、一般的なWeb UIコントロールを再発明しています。私たちは、ビルトインUIコントロールを再発明する必要がなくなることを期待しており、**Design Systemが、Open UIの仕様とテストスイートから利益を得ることを期待しています**。
 >
 > [Home | Open UI](https://open-ui.org/)
+
 Bradが提唱するGDSは、HTMLと組織レベルデザインシステムとの間に介在する「高度に抽象化されたDesign System」であり、Open UIの取り組みとして検討される価値が十分にありました。しかし、提案初期は、**GDSを実現する人物像とOpen UIに属する現メンバーの特徴のミスマッチの可能性が指摘**されていました。
 
 > **I would also question whether this is the best forum for this.** To build a design system, global or otherwise, **you would need frontend developers and people deeply invested in UX, accessibility, documentation and frontend best-practices.** Do you need people with knowledge of browser internals and the web standardization process for such a task? Not so much.
 >
 > @Ollie Williams from #openui-design-system [comment](https://discord.com/channels/714891843556606052/1216793626290421814/1217601051767865546)
+> ***
 > aww, even if this is a difficult task, **I hope that OpenUI can be a place where browser developers and frontend professionals can get together and work it out together (whether that's through a web components library, new HTML elements or [my hope/prediction] a combination)**
 >
 > @littledan from #openui-design-system [comment](https://discord.com/channels/714891843556606052/1216793626290421814/1217651717538320428)
+
 そこで、GDSに関する初めてのTeleconでは、GDSをOpen UIで持つことの正当性に関して話し合われます。
 
 - [最初のTelecon](https://github.com/openui/open-ui/issues/1017#issuecomment-1998149015)
@@ -50,7 +53,8 @@ Bradが提唱するGDSは、HTMLと組織レベルデザインシステムとの
 >
 > masonf: I think Open UI is a great place to do it and has the right kind of people for it
 >
-> [comment](https://github.com/openui/open-ui/issues/1017#issuecomment-1998149015)
+> comment on [1998149015](https://github.com/openui/open-ui/issues/1017#issuecomment-1998149015)
+
 そのNext Actionとして、「Global Design System」をOpen UI内の新しいプロジェクトとして設け、その構成部品として「コンポーネントライブラリ」を作成することが提案されます。
 
 - [comment](https://github.com/openui/open-ui/issues/1017#issuecomment-2109117089)
@@ -72,7 +76,7 @@ Open UIでGDSが進められていくことにより、[Part1](https://blog.saku
 Open UIはデザインシステムの基本的な構成要素（下図のSub-Atomic, Atomic, Moleculeにあたるレイヤー）をカバーするため、同様のレイヤーをカバーするGDSは、Open UIが既に行っている作業の延長として機能できます。
 
 ![Open UIとGDSの扱うレイヤーはマッチする](/what-oui-and-gds-focus.png)
-*Open UIとGDSの扱うレイヤーはマッチする*
+*Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design methodology for building design systems | by Rohan Kamath | Medium](https://blog.kamathrohan.com/atomic-design-methodology-for-building-design-systems-f912cf714f53)）*
 
 これにより、過去にOpen UIで議論された[Card](https://github.com/openui/open-ui/issues/151)や[Skelton](https://github.com/openui/open-ui/issues/139)などのコンポーネントは、自然とGDSの対象とすることができます。
 
@@ -94,6 +98,7 @@ Open UIは、提案が標準化され、UAに実装されることを最終目�
 > gregwhitworth: the separate workstream would be focused on that
 >
 > commented on [2115955452](https://github.com/openui/open-ui/issues/1017#issuecomment-2115955452)
+
 GDSをOpne UIの新しいプロジェクトとして設けることで、Open UIが提案・標準化の検討に携わったコンポーネントやコントロールが、開発者にとってより使いやすくなり、より多くのフィードバックを高速に受けるといった付加価値も期待できます。
 
 ### 適切な組織で検討された、堅牢で信頼できる柔軟なコンポーネントライブラリ
@@ -118,6 +123,7 @@ GDSの構成要素として、コンポーネントライブラリが挙げら�
 > - Variations
 >
 > [Thoughts on a Global Design System](https://www.gwhitworth.com/posts/2024/my-thoughts-on-global-design-system/)
+
 **[Open UI Component Certified Checklist](https://docs.google.com/document/d/1eTSxCWd3yRMxTCAs3a74NzQ6C9gikYQLZeVdCMODwOg/edit?tab=t.0#heading=h.jjvcvbvmo8v1)は、GDSコンポーネントライブラリの具体的な品質を図る指標として作成**されました。GDSの各コンポーネントは、このチェックリストに基づいた監査が行われて出荷されます。
 
 W3C Open UI CGで然るべき検討がなされたGDS コンポーネントライブラリは、W3Cの[著作権](https://www.w3.org/copyright/intellectual-rights/)に基づき、**オープンソース**として提供されることが期待されます。
@@ -186,4 +192,3 @@ See you tomorrow!
 - [Definition of a "control"? · Issue #81 · openui/open-ui](https://github.com/openui/open-ui/issues/81)
 - [601: Brad Frost on A Global Design System + Frostapalooza – ShopTalk](https://shoptalkshow.com/601/)
 - [Comparing design systems to find the best qualities | hidde.blog](https://hidde.blog/re-global-design-system/)
- 
