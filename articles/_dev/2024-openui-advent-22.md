@@ -17,7 +17,7 @@ status: 'published'
 🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の22日目の記事です。
 :::
 
-今回は、Day3からEp.1として連載してきた、Customizable Select Elementについてまとめる、シリーズの最終エントリです。
+今回は、20日をかけて連載してきた、Customizable Select Elementについてまとめる、シリーズの最終エントリです。
 
 ## Customizable Select Elementまとめ
 
@@ -64,7 +64,7 @@ Ep.1からEp.19にかけて、Customizable Select Elementの提案に関連す�
 
 ## やり残したこと
 
-この全19シリーズを通して追うことができたCSEの仕様は、おおよそ以下くらいです。
+この全20シリーズを通して追うことができたCSEの仕様は、おおよそ以下くらいです。
 
 - `appearance: base-select;`を指定することによる、CSEデフォルトの見た目
   - 選択されたOptionにはチェックマークがつく

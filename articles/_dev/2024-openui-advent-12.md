@@ -19,7 +19,7 @@ status: 'published'
 
 Customizable Select Element Ep.9から、 `appearance: base-select;`で提供される、CSEのデフォルトの見た目が決定された背景の議論をお話ししてきました。
 
-[Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-11)では、`<option>::checkmark`が現状の見た目となった背景について、Ep.10では、ポップオーバーを開閉するボタン要素右の矢印アイコン`::picker-icon`について深掘りました。 今回は、CSEがデフォルトで使用する「色」の関連技術について理解を深めていきます。
+[Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-11)では、`<option>::checkmark`が現状の見た目となった背景について、[Ep.10](https://blog.sakupi01.com/dev/articles/2024-openui-advent-12)では、ポップオーバーを開閉するボタン要素右の矢印アイコン`::picker-icon`について深掘りました。 今回は、CSEがデフォルトで使用する「色」の関連技術について理解を深めていきます。
 
 ![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*

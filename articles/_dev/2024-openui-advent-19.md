@@ -113,7 +113,7 @@ CEReactionsを使った手法を主張するMozillaの[smaug](https://github.com
 >
 > マイクロタスクはほぼMutationObserverのために設計されたと言っても過言ではなく、目的は、あちこちでたくさんのDOM変更を行う場合にパフォーマンスを向上させることにある。ここではそいうケースじゃないだろうから使わなくていいのでは？
 >
-> https://github.com/whatwg/html/issues/10520#issuecomment-2255746553
+> comment on [2255746553](https://github.com/whatwg/html/issues/10520#issuecomment-2255746553)
 
 MutationObserverは、キューイングによるパフォーマンス向上が利点でしたが、CEReactionsは同期的な処理で、Layout Treeとの整合性を保つことができます。
 
@@ -130,7 +130,7 @@ MutationObserverは、キューイングによるパフォーマンス向上が�
 > - As @dandclark said in the call, it will be easier to understand how this works because it matches the author defined API of MutationObserver. I think this also increases the likelihood that this element is polyfillable.
 > - → MutationObserverのAuthor定義APIと一致するため、どう機能するか理解しやすい。これにより、この要素がポリフィル可能である可能性も高まると思う。
 >
-> https://github.com/whatwg/html/issues/10520#issuecomment-2265868320
+> comment on [2265868320](https://github.com/whatwg/html/issues/10520#issuecomment-2265868320)
 
 以下が、これまでの議論結果を含めたBlinkでの再実装です。
 
