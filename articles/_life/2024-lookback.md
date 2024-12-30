@@ -1,6 +1,6 @@
 ---
 title: "2024年の振り返り"
-excerpt: ""
+excerpt: "2024年の振り返り"
 coverImage: 
   url: "/graduation-ceremony.jpg"
   alt: '大学卒業式'
