@@ -295,3 +295,7 @@ code[data-line-numbers] > span[data-line]::before {
 .markdown h6:hover > a{
   @apply before:content-['######_'];
 }
+
+.menu {
+  @apply h-[80%] overflow-y-scroll;
+}
