@@ -48,7 +48,7 @@
     "tailwindcss": "3.4.3",
     "turbo": "2.0.2-canary.1",
     "typescript": "5.4.5",
-    "vite": "5.2.12",
+    "vite": "5.4.12",
     "vitest": "^2.1.5"
   },
   "engines": {
