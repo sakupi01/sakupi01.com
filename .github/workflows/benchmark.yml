@@ -28,7 +28,7 @@ jobs:
         run: bun install 
 
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v2
+        uses: CodSpeedHQ/action@v3
         with:
           run: bun bench -- -- -w=false
           token: ${{ secrets.CODSPEED_TOKEN }}
