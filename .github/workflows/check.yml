@@ -10,12 +10,12 @@ jobs:
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
 
@@ -40,12 +40,12 @@ jobs:
 
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
 
@@ -68,12 +68,12 @@ jobs:
 
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
 
@@ -105,18 +105,18 @@ jobs:
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: latest
 
       - name: Restore bun dependencies
         id: bun-cache
-        uses: actions/cache@v3
+        uses: actions/cache@f4b3439a656ba812b8cb417d2d49f9c810103092 # v3
         with:
           path: node_modules
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
