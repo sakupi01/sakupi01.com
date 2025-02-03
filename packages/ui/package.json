@@ -15,7 +15,8 @@
     "check:lint": "bunx biome lint --changed --apply .",
     "check:typecheck": "tsc --noEmit",
     "check:lint-format": "bunx biome check --changed --apply .",
-    "check": "bun run check:typecheck & bunx biome check --apply . --no-errors-on-unmatched",
+    "check:style": "stylelint 'src/**/*.css'",
+    "check": "bun run check:typecheck & bunx biome check --apply . --no-errors-on-unmatched & bun run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
     "build:storybook": "storybook build -o ./storybook-static",
     "gen": "turbo gen react-component",
@@ -41,10 +42,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^8.0.0-beta.2",
+    "stylelint": "^16.14.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "class-variance-authority": "0.7.0",
-    "clsx": "2.1.0"
+    "clsx": "2.1.0",
+    "stylelint-config-standard": "^37.0.0"
   }
 }

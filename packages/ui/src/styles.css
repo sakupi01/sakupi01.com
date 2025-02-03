@@ -5,9 +5,11 @@
 body {
   @apply break-words
 }
+
 body ul {
     @apply list-disc pl-10 indent-2;
 }
+
 body ol {
     @apply list-decimal pl-10 indent-2 my-4;
 }
@@ -35,24 +37,31 @@ body iframe {
 .markdown :is(h1 > a, h1){
     @apply md:text-4xl text-3xl font-bold text-left text-basic no-underline my-10;
 }
+
 .markdown :is(h2 > a, h2){
     @apply md:text-2xl text-2xl font-semibold text-left text-basic no-underline my-8;
 }
+
 .markdown :is(h3 > a, h3){
     @apply md:text-xl text-xl font-semibold text-left text-basic no-underline my-8;
 }
+
 .markdown :is(h4 > a, h4){
     @apply md:text-lg text-lg font-semibold text-left text-basic no-underline my-8;
 }
+
 .markdown :is(h5 > a, h5){
     @apply text-lg font-semibold  text-left text-basic no-underline my-8;
 }
+
 .markdown :is(h6 > a, h6){
     @apply text-base font-semibold text-left text-basic no-underline my-8;
 }
+
 .markdown p{
     @apply text-base text-left text-basic leading-relaxed tracking-normal my-6;
 }
+
 .markdown blockquote{
     @apply py-2 px-4 mx-4 my-4 border-s-4 border-backquote text-base italic text-left text-basic antialiased;
 }
@@ -68,6 +77,7 @@ body iframe {
 .markdown figure[data-rehype-pretty-code-figure] > pre {
     @apply overflow-x-auto px-2 py-2 my-2 rounded-md border border-neutral-200; 
 }
+
 .markdown figure[data-rehype-pretty-code-figure] span[data-line] {
     @apply !border-none !shadow-none !bg-transparent p-0 leading-snug; 
 }
@@ -87,6 +97,7 @@ div[data-rehype-pretty-code-title] {
     rounded-t
     bg-primary-subtle px-2 py-2 text-sm leading-normal text-gray-600;
 }
+
 .markdown figure[data-rehype-pretty-code-figure] span[data-highlighted-line] {
     @apply  bg-highlight rounded-md;
 }
@@ -140,30 +151,39 @@ code[data-line-numbers] > span[data-line]::before {
 .large{
     @apply text-lg font-semibold text-left text-basic;
 }
+
 .small{
     @apply text-sm font-medium text-left text-basic;
 }
+
 .subtle{
     @apply text-sm text-left text-subtle;
 }
+
 .tag{
     @apply text-sm p-1 font-medium rounded text-left text-tag hover:underline hover:bg-neutral-100;
 }
+
 .date{
     @apply text-sm font-medium text-left text-tag ;
 }
+
 .markdown table {
   @apply w-full my-6 border border-neutral-200;
 }
+
 .markdown th {
   @apply text-basic font-semibold border-r border-neutral-200 p-2 bg-primary-subtle;
 }
+
 .markdown td {
   @apply text-basic border-r border-neutral-200 p-2;
 }
+
 .markdown thead tr {
   @apply border-b border-neutral-200;
 }
+
 .markdown tbody tr:last-child {
   @apply border-none;
 }
@@ -215,9 +235,11 @@ code[data-line-numbers] > span[data-line]::before {
 .warning {
   @apply p-4 my-5 text-red-800 rounded-lg bg-red-50;
 }
+
 .warning p{
   @apply  text-red-800;
 }
+
 .warning p:first-child{
   @apply  text-red-800 text-base font-semibold text-left my-5;
 }
@@ -225,9 +247,11 @@ code[data-line-numbers] > span[data-line]::before {
 .message {
   @apply p-4 my-5 text-green-800 rounded-lg bg-green-50;
 }
+
 .message p{
   @apply  text-green-800;
 }
+
 .message p:first-child{
   @apply  text-green-800 text-base font-semibold text-left my-5;
 }
@@ -235,9 +259,11 @@ code[data-line-numbers] > span[data-line]::before {
 .info {
   @apply p-4 my-5 text-blue-800 rounded-md bg-blue-50;
 }
+
 .info p{
   @apply  text-blue-800;
 }
+
 .info p:first-child{
   @apply  text-blue-800 text-base font-semibold text-left my-5;
 }
@@ -245,9 +271,11 @@ code[data-line-numbers] > span[data-line]::before {
 .memo {
   @apply p-4 my-5 text-gray-700 rounded-md bg-gray-200;
 }
+
 .memo p{
   @apply  text-gray-700;
 }
+
 .memo p:first-child{
   @apply  text-gray-700 text-base font-semibold text-left my-5;
 }

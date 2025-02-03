@@ -1,0 +1,62 @@
+/*
+----------------------------------------------------------------------------
+NOTE:
+
+DO NOT EDIT 'index.css' directly.
+
+Instead, make changes to '_index-template.css', which will then be copied to 'index.css' by Parcel bundler, using '.ui/scripts/ui-theme.js'.
+----------------------------------------------------------------------------
+*/
+
+/*
+----------------------------------------------------------------------------
+CSS Cascade Layers.
+----------------------------------------------------------------------------
+*/
+@layer base, global, layout, components, skin, utilities, theme;
+
+/*
+----------------------------------------------------------------------------
+1. "Primitive" CSS design tokens.
+2. Base scaffold, containing "semantic" design tokens.
+----------------------------------------------------------------------------
+*/
+@import 'tokens' layer(base) screen;
+@import 'base/index' layer(base) screen;
+
+/*
+----------------------------------------------------------------------------
+Global (including reset).
+----------------------------------------------------------------------------
+*/
+@import 'global/index' layer(global) screen;
+
+/*
+----------------------------------------------------------------------------
+Layout.
+----------------------------------------------------------------------------
+*/
+@import 'layout/index' layer(layout) screen;
+
+/*
+----------------------------------------------------------------------------
+Forms, components and web components.
+----------------------------------------------------------------------------
+*/
+@import 'form/index' layer(components) screen;
+@import 'components/index' layer(components) screen;
+@import 'web-components/index' layer(components) screen;
+
+/*
+----------------------------------------------------------------------------
+Utilities.
+----------------------------------------------------------------------------
+*/
+@import 'utilities/index' layer(utilities) screen;
+
+/*
+----------------------------------------------------------------------------
+THEME overrides.
+----------------------------------------------------------------------------
+*/
+@import '_THEMES/default/index' layer(theme) screen;
