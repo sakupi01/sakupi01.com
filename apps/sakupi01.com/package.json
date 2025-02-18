@@ -16,7 +16,7 @@
   },
   "private": true,
   "dependencies": {
-    "hono": "4.3.2",
+    "hono": "4.6.5",
     "honox": "0.1.16",
     "reactflow": "11.11.3",
     "@hono/react-renderer": "0.2.0",
