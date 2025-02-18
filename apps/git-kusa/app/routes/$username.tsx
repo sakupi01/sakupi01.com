@@ -300,9 +300,7 @@ export default function GitApp() {
       <div className="grid md:grid-cols-2 md:grid-rows-2 gap-2 pt-10">
         <Card
           title={`${data?.name ? data.name : username} has made a total of \n`}
-          statNumber={
-            `${data?.totalInLifetime} contributions in life!` ?? "N/A"
-          }
+          statNumber={`${data?.totalInLifetime} contributions in life!`}
           details="You've grow a lot! Keep it up!"
         />
         <Card
@@ -313,20 +311,16 @@ export default function GitApp() {
         />
         <Card
           title="Longest Streak is "
-          statNumber={
-            `${data?.stats?.longestStreak.days} ${
-              data?.stats?.longestStreak.days === 1 ? "day" : "days"
-            }` ?? "N/A"
-          }
+          statNumber={`${data?.stats?.longestStreak.days} ${
+            data?.stats?.longestStreak.days === 1 ? "day" : "days"
+          }`}
           details={`started on ${data?.stats?.longestStreak.start}\nended on ${data?.stats?.longestStreak.end}`}
         />
         <Card
           title="Current Streak is "
-          statNumber={
-            `${data?.stats?.currentStreak.days} ${
-              data?.stats?.currentStreak.days === 1 ? "day" : "days"
-            }` ?? "N/A"
-          }
+          statNumber={`${data?.stats?.currentStreak.days} ${
+            data?.stats?.currentStreak.days === 1 ? "day" : "days"
+          }`}
           details={`started on ${data?.stats?.currentStreak.start}\nended on ${data?.stats?.currentStreak.end}`}
         />
       </div>

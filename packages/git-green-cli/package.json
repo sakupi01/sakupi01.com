@@ -27,7 +27,6 @@
     "check": "bun run check:typecheck & bunx biome check --apply . --no-errors-on-unmatched"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "tsup": "^8.1.0",
     "vitest": "^1.6.0"
   },
