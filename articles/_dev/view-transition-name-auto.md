@@ -1,12 +1,12 @@
 ---
-title: "Safari 18.2 `view-transition-name: auto;`への警鐘"
+title: "Safari 18.2 「view-transition-name: auto;」への警鐘"
 excerpt: "Safari 18.2でShipされた`view-transition-name: auto;`は、未だに議論の余地が残るため、仕様をよく理解した上での利用が必要な理由を解説します"
 date: "2025-02-17"
 beginColor: 'from-pink-500'
 middleColor: 'via-orange-400'
 endColor: 'to-violet-500'
 category: 'dev'
-tags: ['view transition', 'css', 'standards']
+tags: ['view transition', 'css', 'standards', 'webkit']
 status: 'published'
 ---
 ## 目次

@@ -6,7 +6,7 @@ beginColor: 'from-rose-300'
 middleColor: 'via-amber-200'
 endColor: 'to-violet-300'
 category: 'dev'
-tags: ['customizable select element', 'openui']
+tags: ['customizable select element', 'open ui', 'html', 'standards']
 status: 'published'
 ---
 ## 目次

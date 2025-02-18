@@ -6,7 +6,7 @@ beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'
 category: 'dev'
-tags: ['openui', 'advent calendar']
+tags: ['open ui', 'advent calendar', 'design system', 'design']
 status: 'published'
 ---
 ## 目次

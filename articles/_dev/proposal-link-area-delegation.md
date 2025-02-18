@@ -6,7 +6,7 @@ beginColor: 'from-purple-300'
 middleColor: 'via-pink-200'
 endColor: 'to-orange-300'
 category: 'dev'
-tags: ['openui', 'a11y advent calendar', 'web accessibility', 'a11y']
+tags: ['open ui', 'advent calendar', 'web accessibility', 'a11y']
 status: 'published'
 ---
 ## 目次
