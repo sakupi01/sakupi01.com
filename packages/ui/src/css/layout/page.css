@@ -6,8 +6,17 @@
     min-block-size: 100vh; /* 100dvb might have performance implications */
 
     /* Main is a grid item, so this affects overflow behaviour on components like tables. */
-    .main {
+    main {
         overflow-x: hidden;
+        max-width: var(--main-max-width);
+        margin: 0 auto;
+        padding: 0 2.5rem;
+
+        article {
+            /* Set explicit max-width for article content. */
+            max-width: var(--article-max-width);
+            margin: 1rem auto 3rem;
+        }
     }
 }
 

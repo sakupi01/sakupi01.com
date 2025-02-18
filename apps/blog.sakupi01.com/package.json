@@ -30,8 +30,8 @@
     "@next/third-parties": "14.1.0",
     "@remark-embedder/core": "^3.0.3",
     "@remark-embedder/transformer-oembed": "^5.0.1",
-    "@repo/headings-extractor": "*",
-    "@repo/ui": "*",
+    "@repo/headings-extractor": "workspace:*",
+    "@repo/ui": "workspace:*",
     "@vercel/speed-insights": "1.0.10",
     "gray-matter": "4.0.3",
     "isomorphic-dompurify": "2.4.0",
@@ -62,8 +62,8 @@
     "@markuplint/react-spec": "^4.0.1",
     "@next/eslint-plugin-next": "^14.0.4",
     "@playwright/test": "^1.43.1",
-    "@repo/tailwind-config": "*",
-    "@repo/typescript-config": "*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^20.10.6",
     "@types/rss": "^0.0.32",
     "@vitest/coverage-v8": "^1.5.0",
@@ -77,8 +77,5 @@
     "fs": false,
     "os": false,
     "path": false
-  },
-  "volta": {
-    "node": "21.7.3"
   }
 }

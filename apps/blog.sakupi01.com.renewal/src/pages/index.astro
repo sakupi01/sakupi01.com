@@ -1,0 +1,32 @@
+---
+import BlogPostCard from "../components/BlogPostCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { allBlogPosts } from "../utils/contents";
+---
+
+<Layout>
+	<h1 class="title">
+	  <em>Blog Archive</em>
+  	</h1>
+	<ul class="posts">
+		{allBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
+	</ul>
+</Layout>
+
+<style>
+  .title {
+	  font-family: var(--font-family-operator);
+    font-weight: 600;
+    letter-spacing: .03em;
+  }
+  .posts {
+    /* display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    padding: 1rem 0; */
+	--gap: 2rem;
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 25ch), 1fr));
+  }
+</style>

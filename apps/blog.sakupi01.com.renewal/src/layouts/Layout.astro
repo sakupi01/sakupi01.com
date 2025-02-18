@@ -1,0 +1,29 @@
+---
+import "@repo/ui/index.css";
+import "../style/index.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+const { pageTitle } = Astro.props || "saku's blog";
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+	</head>
+	<body class="page">
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	
+</style>

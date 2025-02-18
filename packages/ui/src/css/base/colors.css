@@ -12,28 +12,43 @@ TODO:
 */
 :root {
     /**
-    * @sass-export-section="main theme colours"
+    * main theme colours
     */
-    --color-primary-100: hsl(var(--webui-color-brand) / 30%);
-    --color-primary-500: hsl(var(--webui-color-brand));
+    --color-primary-light: var(--color-selected-1);
+    --color-primary-medium: var(--color-selected-2);
+    --color-primary-dark: var(--color-selected-3);
 
     /**
-    * @sass-export-section="neutral colours"
+    * base colours
     */
-    --color-neutral-lightest: hsl(var(--webui-color-neutral-100));
-    --color-neutral-light: hsl(var(--webui-color-neutral-300));
-    --color-neutral-medium: hsl(var(--webui-color-neutral-500));
-    --color-neutral-dark: hsl(var(--webui-color-neutral-700));
-    --color-neutral-darkest: hsl(var(--webui-color-neutral-900));
+    --color-base-lightest: var(--color-gray-0);
+    --color-base-light: var(--color-gray-1);
+    --color-base-medium: var(--color-gray-2);
+    --color-base-dark: var(--color-gray-4);
+    --color-base-darkest: var(--color-gray-5);
 
     /**
-    * @sass-export-section="other accent colours"
+    * other accent colours
     */
-    --color-success-100: hsl(var(--webui-color-accent-positive) / 30%);
-    --color-success-500: hsl(var(--webui-color-accent-positive));
-    --color-error-100: hsl(var(--webui-color-accent-negative) / 30%);
-    --color-error-500: hsl(var(--webui-color-accent-negative));
-    --color-notify-100: hsl(var(--webui-color-accent-neutral) / 30%);
-    --color-notify-500: hsl(var(--webui-color-accent-neutral));
-    --color-focus: hsl(var(--webui-color-state-focus));
+    --color-success-light: var(--color-green-1);
+    --color-success-medium: var(--color-green-2);
+    --color-success-dark: var(--color-green-3);
+    --color-error-light: var(--color-red-1);
+    --color-error-medium: var(--color-red-2);
+    --color-error-dark: var(--color-red-3);
+    --color-code-light: var(--color-red-1);
+    --color-code-medium: var(--color-red-2);
+    --color-code-dark: var(--color-red-3);
+    --color-notify-light: var(--color-blue-1);
+    --color-notify-medium: var(--color-blue-2);
+    --color-notify-dark: var(--color-blue-3);
+    --color-focus: var(--color-red-2);
+
+    /**
+    * scrollbar colours
+    */
+    --scrollbar-thumb-light: var(--color-gray-0);
+    --scrollbar-thumb-dark: var(--color-gray-5);
+    --scrollbar-bg-light: var(--color-gray-2);
+    --scrollbar-bg-dark: var(--color-gray-4);
 }

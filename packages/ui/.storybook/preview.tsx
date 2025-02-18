@@ -1,5 +1,8 @@
 import type { Preview } from "@storybook/react";
-import "../src/styles.css"; // replace with the name of your tailwind css file
+import "../src/styles.css";
+import "../src/css/tokens.css";
+import "../src/index.css";
+import theme from "./sakupi01.com.theme";
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +12,16 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    backgrounds: {
+      values: [
+        { name: "light", value: "#F7F9F2" },
+        { name: "dark", value: "#333" },
+      ],
+      default: "light",
+    },
+    docs: {
+      theme: theme,
     },
   },
 };

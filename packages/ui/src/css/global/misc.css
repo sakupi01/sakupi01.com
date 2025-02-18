@@ -1,0 +1,3 @@
+:root {
+    scrollbar-color: light-dark(var(--scrollbar-thumb-light), var(--scrollbar-thumb-dark)) light-dark(var(--scrollbar-bg-light), var(--scrollbar-bg-dark));
+}

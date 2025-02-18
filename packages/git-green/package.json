@@ -29,11 +29,5 @@
     "eslint-plugin-storybook": "^0.8.0",
     "storybook": "^8.1.5",
     "typescript": "^5.2.2"
-  },
-  "engines": {
-    "node": "21.7.3"
-  },
-  "volta": {
-    "node": "21.7.3"
   }
 }

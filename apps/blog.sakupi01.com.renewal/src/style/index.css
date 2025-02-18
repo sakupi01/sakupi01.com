@@ -1,0 +1,260 @@
+
+:root {
+    /**
+    * base colours
+    */
+    --color-base-lightest: var(--color-red-0);
+    --color-base-light: var(--color-red-1);
+    --color-base-medium: var(--color-gray-2);
+    --color-base-dark: var(--color-red-4);
+    --color-base-darkest: var(--color-red-5);
+    
+    /**
+    * scrollbar colours
+    */
+    --scrollbar-thumb-light: var(--color-gray-2);
+    --scrollbar-thumb-dark: var(--color-gray-5);
+    --scrollbar-bg-light: var(--color-red-0);
+    --scrollbar-bg-dark: var(--color-red-5);
+
+    /**
+    * misc colours
+    */
+    --header-text: light-dark(var(--color-primary-dark), var(--color-primary-light));
+    --code-color: light-dark(var(--color-code-dark), var(--color-code-light));
+    --link: deeppink;
+    --link-hover: hotpink;
+    --card-bg: light-dark(var(--color-gray-0), var(--color-base-dark));
+    --card-bg-hover: light-dark(var(--color-gray-1), var(--color-base-darkest));
+
+}
+
+body {
+    line-height: 1.5;
+}
+
+.astro-code {
+    border: 1.5px solid light-dark(var(--color-base-dark), var(--color-base-light));
+    border-radius: 0.25rem;
+    padding: 0.7rem 1rem;
+    font-family: var(--font-family-operator);
+    font-style: italic;
+    font-weight: 600;
+    background-color: transparent !important;
+    @media (prefers-color-scheme: dark) {
+        color: var(--shiki-dark) !important;
+        /* Optional, if you also want font styles */
+        text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+    code {
+        font-family: var(--font-family-operator);
+        font-style: italic;
+        font-weight: 600;
+        font-size: inherit;
+        border: none;
+        background-color: inherit;
+        border-radius: 0;
+        color: inherit;
+        padding: 0;
+    }
+}
+
+.astro-code span {
+    @media (prefers-color-scheme: dark) {
+        color: var(--shiki-dark) !important;
+        /* Optional, if you also want font styles */
+        text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+}
+
+code {
+    font-family: var(--font-family-operator);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 90%;
+    background-color: var(--astro-code-background);
+    border-radius: 5px;
+    color: var(--code-color);
+    padding: .1em .25em;
+}
+
+/* Individual heading styles */
+:where(article) > h1:hover {
+    margin: 2rem 0 2rem -1.5rem;
+    &:hover {
+        a {
+            &:before {
+                content: '# ';
+            }
+        }
+    }
+}
+
+:where(article) > h2 {
+    margin: 2rem 0 2rem -1.5rem;
+    &:hover {
+        a {
+            &:before {
+                content: '## ';
+            }
+        }
+    }
+}
+
+:where(article) > h3 {
+    margin: 2rem 0 2rem -1.5rem;
+    &:hover {
+        a {
+            &:before {
+                content: '### ';
+            }
+        }
+    }
+}
+
+:where(article) > h4 {
+    margin: 2rem 0 2rem -1.5rem;
+    &:hover {
+        a {
+            &:before {
+                content: '#### ';
+            }
+        }
+    }
+}
+
+:where(article) > h5 {
+    margin: 2rem 0 2rem -1.5rem;
+    &:hover {
+    a {
+        &:before {
+            content: '##### ';
+        }
+    }
+}
+}
+
+:where(article) > h6 {
+    margin: 2rem 0 2rem -1.5rem;
+    &:hover {
+
+    a {
+        &:before {
+            content: '###### ';
+        }
+    }
+}
+}
+
+:where(article) > :where(h1, h2, h3, h4, h5, h6, [class*='h--']) + * {
+    margin-top: 0;
+}
+
+/* :where(article) > :where(h1, h2, h3 [class*='h--']) {
+    text-decoration: underline;
+    text-decoration-color: hotpink;
+    text-decoration-thickness: 0.2rem;
+    text-decoration-style: wavy;
+    text-decoration-skip-ink: none;
+} */
+
+a {
+    text-decoration-line: none;
+}
+
+p > a {
+    transition: color .2s;
+    color: var(--link);
+    &:hover {
+        color: var(--link-hover);
+        text-decoration: underline;
+        text-decoration-color: var(--link-hover);
+        text-decoration-thickness: 0.2rem;
+        text-decoration-style: dotted;
+        text-decoration-skip-ink: none;
+    }
+}
+
+.rlc-container {
+    width: 100%;
+    max-width: 800px;
+    max-height: 120px;
+    margin: 2rem auto 2rem;
+  
+    background-color: light-dark(
+        var(--color-gray-0),
+        var(--color-base-dark)
+    );
+    color: light-dark(var(--color-base-darkest), var(--color-base-light));
+    text-decoration: none;
+  
+    border: 1px solid light-dark(var(--color-base-dark), var(--color-base-light));
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: stretch;
+  
+    transition-property: all;
+    transition-timing-function: var(var(--ease-in-out), var(--default-transition-timing-function));
+    transition-duration: var(200ms, var(--default-transition-duration));
+    transition-duration: 200ms;
+    transition-timing-function: var(--ease-in-out);
+  }
+  
+  .rlc-container:hover{
+    scale: 103%;
+  }
+  
+  .rlc-info {
+    overflow: hidden;
+    padding: 0.7rem 1rem;
+    flex: 4 1 100px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .rlc-title {
+    font-size: var(--font-size-h5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .rlc-description {
+    font-size: var(--font-size-s);
+    color: light-dark(var(--color-base-dark), var(--color-base-light));
+    overflow: hidden;
+    line-height:1rem;
+  }
+  
+  .rlc-url-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .rlc-favicon {
+    margin-right: 4px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .rlc-url {
+    font-size: var(--font-size-s);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .rlc-image-container {
+    position: relative;
+    flex: 1 1 100px;
+  }
+  
+  .rlc-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+  }

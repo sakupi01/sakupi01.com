@@ -1,0 +1,56 @@
+---
+import BlogPostCard from "../../components/BlogPostCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { allBlogPosts } from "../../utils/contents";
+
+export async function getStaticPaths() {
+  const dynamicTags = [
+    ...new Set(allBlogPosts.flatMap((post) => post.data.tags)),
+  ];
+  return dynamicTags.map((tag) => {
+    const filteredPosts = allBlogPosts.filter((post) =>
+      post.data.tags.includes(tag),
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+<Layout pageTitle={tag}>
+  <p class="description"><em>Posts tagged with <a href={`/tags/${tag}`}>#{tag}</a> ...</em></p>
+  <ul class="posts">
+    {posts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} /> )}
+  </ul>
+</Layout>
+
+<style>
+  .description {
+    font-size: 1.25em;
+    margin-bottom: 1em;
+    font-family: var(--font-family-operator);
+    font-weight: 600;
+    a {
+      transition: color .2s;
+    color: var(--link);
+    &:hover {
+        color: var(--link-hover);
+        text-decoration: underline;
+        text-decoration-color: var(--link-hover);
+        text-decoration-thickness: 0.2rem;
+        text-decoration-style: dotted;
+        text-decoration-skip-ink: none;
+    }
+    }
+  }
+  .posts {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    padding: 1rem 0;
+  }
+</style>

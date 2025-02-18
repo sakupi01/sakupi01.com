@@ -5,14 +5,16 @@ Config settings.
 */
 :root {
     /* Layout. */
-    --site-max-width: null;
+    --site-max-width: 100ch;
+    --main-max-width: 100ch;
+    --article-max-width: 900px;
 
     /* Spacing and gutters. Use for margin|padding, and gap in flex|grid layouts. */
-    --gutter-xs: var(--webui-space-2xs-xs);
-    --gutter-s: var(--webui-space-xs-s);
-    --gutter-m: var(--webui-space-s-m);
-    --gutter-l: var(--webui-space-m-l);
-    --gutter-xl: var(--webui-space-l-xl);
+    --gutter-xs: var(--space-2xs-xs);
+    --gutter-s: var(--space-xs-s);
+    --gutter-m: var(--space-s-m);
+    --gutter-l: var(--space-m-l);
+    --gutter-xl: var(--space-l-xl);
 
     /* :focus-visible.
         - Uses transparent outline so high contrast mode works.
@@ -40,12 +42,7 @@ Config settings.
     --animation-medium: 250ms ease-in-out;
     --animation-slow: 500ms ease-in-out;
 
-    /* z-index.
-    1. Boilerplate uses native HTML <dialog> for modals, so 'z-modal' is probably redundant now.
-    2. There's a subtle distinction between a modal that sits above everything, and a popup (e.g. dropdown menu). These will probably be replaced by Popover API.
-    */
-    --z-modal: 1000;
-    --z-popup: 999;
+    /* z-index. */
     --z-default: 1;
     --z-reset: 0;
     --z-below: -1;

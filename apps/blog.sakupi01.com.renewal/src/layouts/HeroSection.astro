@@ -1,0 +1,42 @@
+---
+const { title, image, date, excerpt, tags } = Astro.props;
+---
+<div class="hero-section">
+  <ul class="tags">
+      {tags.map((tag: any) => (
+        <li>
+          <a href={`/tags/${tag}`}>#{tag}</a>
+        </li>
+      ))}
+    </ul>
+    <h1 class="title">{title}</h1>
+    {image && <img src={image} alt={title} />}
+    <p class="published"><em>Published on {date.toISOString().slice(0,10)}</em></p>
+    <p class="excerpt"><em>{excerpt}</em></p>
+</div>
+
+<style>
+  .hero-section {
+    margin-bottom: 2rem;
+    font-family: var(--font-family-operator);
+    font-weight: 600;
+    .title {
+      margin-block-start: var(--gutter-l);
+      letter-spacing: .03em;
+      text-wrap: pretty;
+    }
+    .tags {
+      list-style: none;
+      display: grid;
+      grid-auto-flow: column;
+      place-content: start;
+      place-items: start;
+      gap: 0.5rem;
+      padding: 0;
+    }
+
+    .excerpt {
+      color: color-mix(in oklch, currentColor 60%, white);
+    }
+  }
+</style>

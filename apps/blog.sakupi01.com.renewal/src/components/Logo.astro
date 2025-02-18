@@ -1,0 +1,15 @@
+---
+import { Image } from "astro:assets";
+import sakupiIcon from "../assets/icon.svg";
+---
+<div>
+    <a href="/" class="header-icon"> <Image src={sakupiIcon} width="50" height="36" alt="logo"> <div class="sr-only">Home</div> </a>
+</div>
+
+<style>
+    .header-icon {
+    width: 4rem;
+    display: flex;
+    transition: filter .2s;
+    }
+<style>

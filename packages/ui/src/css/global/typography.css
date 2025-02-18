@@ -24,8 +24,13 @@ body {
     line-height: var(--base-line-height);
 }
 
+article {
+    font-feature-settings: "normal";
+}
+
 :where(h1, h2, h3, h4, h5, h6, [class*='h--']) {
     font-family: var(--base-font-family-title);
+    font-feature-settings: "palt";
 }
 
 .h--xl {
@@ -83,11 +88,11 @@ Validation styles.
 ----------------------------------------------------------------------------
 */
 .error {
-    color: var(--color-error-500);
+    color: var(--color-error-medium);
 }
 
 .success {
-    color: var(--color-success-500);
+    color: var(--color-success-medium);
 }
 
 /*
@@ -118,5 +123,5 @@ small {
 }
 
 code {
-    font-family: var(--base-font-family-monospace);
+    font-family: var(--base-font-family-operator);
 }

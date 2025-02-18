@@ -1,0 +1,42 @@
+---
+const { url, title, date, excerpt } = Astro.props;
+---
+
+<li class="blog-post-card">
+    <a href={`${import.meta.env.PUBLIC_BASE_URL}${url}`}>
+      <p class="published"><em>Published on {date.toISOString().slice(0,10)}</em></p>
+      <h3 class="title">{title}</h3>
+    </a>
+    <p class="excerpt"><em>{excerpt}</em></p>
+    <a href={`${import.meta.env.PUBLIC_BASE_URL}${url}`}>Read more...</a>
+</li>
+
+<style>
+  .blog-post-card {
+    font-family: var(--font-family-operator);
+    font-weight: 600;
+    list-style: none;
+    position: relative;
+    display: block;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    color: var(--color-text);
+}
+    .title {
+      margin-block-start: var(--gutter-l);
+      letter-spacing: .03em;
+      text-wrap: pretty;
+      font-size: 1.3rem;
+      margin-block-start: 0 ;
+    }
+
+    .published {
+      margin-block-end: 0;
+      margin-block-start: var(--gutter-m);
+      opacity: .7;
+    }
+    .excerpt {
+      opacity: .8;
+      text-wrap: pretty;
+  }
+</style>

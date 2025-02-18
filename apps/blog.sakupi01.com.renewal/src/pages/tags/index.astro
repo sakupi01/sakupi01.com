@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { allBlogPosts } from "../../utils/contents";
+
+function getTags() {
+  const dynamicTags = [
+    ...new Set(allBlogPosts.flatMap((post) => post.data.tags)),
+  ];
+  return dynamicTags;
+}
+
+const tags = getTags();
+---
+<Layout pageTitle="saku's blog - Tags">
+  <h1 class="title"><em>Tag Archives</em></h1>
+  <ul class="tags">
+    {tags.map((tag: any) => (
+      <li class="tag">
+        <a href={`/tags/${tag}`}>#{tag}</a>
+      </li>
+    ))}
+  </ul>
+</Layout>
+
+
+<style>
+  .title {
+	  font-family: var(--font-family-operator);
+    font-weight: 600;
+    letter-spacing: .03em;
+  }
+  .tag {
+    font-family: var(--font-family-operator);
+    font-weight: 600;
+    font-style: italic;
+    a {
+      transition: color .2s;
+    color: var(--link);
+    &:hover {
+        color: var(--link-hover);
+        text-decoration: underline;
+        text-decoration-color: var(--link-hover);
+        text-decoration-thickness: 0.2rem;
+        text-decoration-style: dotted;
+        text-decoration-skip-ink: none;
+    }
+  }
+  }
+</style>

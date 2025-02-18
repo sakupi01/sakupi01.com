@@ -1,0 +1,29 @@
+---
+import BlogPostCard from "../../components/BlogPostCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+const allTechBlogPosts = (await getCollection("blog")).filter((entry) =>
+  entry.slug.startsWith("dev"),
+);
+---
+
+<Layout pageTitle="saku's Techblog">
+  <h1 class="title"><em>Tech Articles Archive</em></h1>
+	<ul class="posts">
+		{allTechBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
+	</ul>
+</Layout>
+
+
+<style>
+  .title {
+	  font-family: var(--font-family-operator);
+    font-weight: 600;
+    letter-spacing: .03em;
+  }
+  .posts {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+</style>

@@ -1,0 +1,126 @@
+import { Meta, Typeset } from '@storybook/blocks';
+import tokens from "../css/tokens.json";
+
+<Meta title="Typography" />
+
+export const typography = {
+  type: {
+    primary: `${tokens.tokens.font.family.inter} ${tokens.tokens.font.fallback}`,
+    code: `${tokens.tokens.font.family.operator}`,
+  },
+  weight: {
+    regular: '400',
+    bold: '700',
+    extrabold: '800',
+    black: '900',
+  },
+  size: {
+    code: `var(--font-size-body)`,
+    small: `var(--font-size-s)`,
+    h6: `var(--font-size-h6)`,
+    h5: `var(--font-size-h5)`,
+    h4: `var(--font-size-h4)`,
+    h3: `var(--font-size-h3)`,
+    h2: `var(--font-size-h2)`,
+    h1: `var(--font-size-h1)`,
+  },
+};
+
+export const SampleText = '何は事実いよいよこのヒョウリめというもの conleftetur adipiscing のためを使いたべく。どうしても結果をごろ';
+export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace; /* フォントファミリーを指定する */';
+
+# sakupi01.com | Font Faces
+
+**Font:** Inter / Hiragino Kaku Gothic ProN / system-ui
+
+**Lang:** EN&JP
+
+<Typeset
+  fontSizes={[
+    typography.size.small,
+    typography.size.h6,
+    typography.size.h5,
+    typography.size.h4,
+    typography.size.h3,
+    typography.size.h2,
+    typography.size.h1,
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+  style={{color: "var(--color-gray-4)"}}
+/>
+
+<Typeset
+  fontSizes={[
+    typography.size.small,
+    typography.size.h6,
+    typography.size.h5,
+    typography.size.h4,
+    typography.size.h3,
+    typography.size.h2,
+    typography.size.h1,
+  ]}
+  fontWeight={typography.weight.bold}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+  style={{color: "var(--color-gray-4)"}}
+/>
+
+<Typeset
+  fontSizes={[
+    typography.size.small,
+    typography.size.h6,
+    typography.size.h5,
+    typography.size.h4,
+    typography.size.h3,
+    typography.size.h2,
+    typography.size.h1,
+  ]}
+  fontWeight={typography.weight.extrabold}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+  style={{color: "var(--color-gray-4)"}}
+/>
+
+<Typeset
+  fontSizes={[
+    typography.size.small,
+    typography.size.h6,
+    typography.size.h5,
+    typography.size.h4,
+    typography.size.h3,
+    typography.size.h2,
+    typography.size.h1,
+  ]}
+  fontWeight={typography.weight.black}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+  style={{color: "var(--color-gray-4)"}}
+/>
+
+<hr />
+
+**Font:** Operator Mono Lig
+
+**Lang:** EN&JP
+
+<Typeset
+  fontSizes={[
+    typography.size.code,
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleTextCode}
+  fontFamily={typography.type.code}
+  style={{color: "var(--color-gray-4)"}}
+/>
+
+<Typeset
+  fontSizes={[
+    typography.size.code,
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleTextCode}
+  fontFamily={typography.type.code}
+  style={{ fontStyle: 'italic', color: "var(--color-gray-4)" }}
+/>

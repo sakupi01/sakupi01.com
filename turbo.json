@@ -13,6 +13,7 @@
     "check:lint": {},
     "check:format": {},
     "check:lint-format": {},
+    "check:style": {},
     "check:typecheck": {},
     "check:pa11y": {},
     "check": {},
