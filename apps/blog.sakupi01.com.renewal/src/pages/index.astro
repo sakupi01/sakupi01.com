@@ -1,7 +1,7 @@
 ---
 import BlogPostCard from "../components/BlogPostCard.astro";
-import Layout from "../layouts/Layout.astro";
 import { allBlogPosts } from "../utils/contents";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
@@ -20,13 +20,8 @@ import { allBlogPosts } from "../utils/contents";
     letter-spacing: .03em;
   }
   .posts {
-    /* display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    padding: 1rem 0; */
-	--gap: 2rem;
     display: grid;
-    gap: var(--gap);
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 25ch), 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
   }
 </style>

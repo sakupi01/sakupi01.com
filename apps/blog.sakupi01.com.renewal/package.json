@@ -10,13 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.8",
+    "@astrojs/mdx": "^4.1.0",
     "@astrojs/rss": "^4.0.11",
     "@remark-embedder/core": "^3.0.3",
     "@remark-embedder/transformer-oembed": "^5.0.0",
     "@repo/ui": "workspace:*",
     "add": "^2.0.6",
-    "astro": "^5.2.5",
+    "astro": "^5.4.1",
     "hastscript": "^9.0.0",
     "marked": "^15.0.7",
     "pnpm": "^10.3.0",
