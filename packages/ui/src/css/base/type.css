@@ -68,7 +68,7 @@ For English
 :root {
     --base-font-family: var(--font-family-inter), var(--font-fallback);
     --base-font-family-title: var(--font-family-inter), var(--font-fallback);
-    --base-font-family-operator: var(--font-family-operator);
+    --base-font-family-operator: var(--font-family-operator), var(--font-fallback);
     --base-font-size: 100%;
     --base-font-size-2k: 110%; /* 2K screens */
     --base-font-size-4k: 200%; /* 4K screens */

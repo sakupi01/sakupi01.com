@@ -5,21 +5,20 @@ const { title, image, date, excerpt, tags } = Astro.props;
   <ul class="tags">
       {tags.map((tag: any) => (
         <li>
-          <a href={`/tags/${tag}`}>#{tag}</a>
+          <em><b><a href={`/tags/${tag}`}>#{tag}</a></b></em>
         </li>
       ))}
     </ul>
     <h1 class="title">{title}</h1>
     {image && <img src={image} alt={title} />}
-    <p class="published"><em>Published on {date.toISOString().slice(0,10)}</em></p>
+    <p class="published"><em><b>Published on {date.toISOString().slice(0,10)}</b></em></p>
     <p class="excerpt"><em>{excerpt}</em></p>
 </div>
 
 <style>
   .hero-section {
     margin-bottom: 2rem;
-    font-family: var(--font-family-operator);
-    font-weight: 600;
+    font-family: var(--base-font-family-operator);
     .title {
       margin-block-start: var(--gutter-l);
       letter-spacing: .03em;
@@ -33,10 +32,21 @@ const { title, image, date, excerpt, tags } = Astro.props;
       place-items: start;
       gap: 0.5rem;
       padding: 0;
+      a {
+      transition: color .2s;
+      &:hover {
+          color: var(--link);
+          text-decoration: underline;
+          text-decoration-color: var(--link);
+          text-decoration-thickness: 0.2rem;
+          text-decoration-style: dotted;
+          text-decoration-skip-ink: none;
+      }
     }
+  }
 
     .excerpt {
-      color: color-mix(in oklch, currentColor 60%, white);
+      opacity: 0.8;
     }
   }
 </style>

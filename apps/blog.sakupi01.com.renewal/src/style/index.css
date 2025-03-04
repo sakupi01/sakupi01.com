@@ -37,7 +37,7 @@ body {
     border: 1.5px solid light-dark(var(--color-base-dark), var(--color-base-light));
     border-radius: 0.25rem;
     padding: 0.7rem 1rem;
-    font-family: var(--font-family-operator);
+    font-family: var(--base-font-family-operator);
     font-style: italic;
     font-weight: 600;
     background-color: transparent !important;
@@ -47,7 +47,7 @@ body {
         text-decoration: var(--shiki-dark-text-decoration) !important;
     }
     code {
-        font-family: var(--font-family-operator);
+        font-family: var(--base-font-family-operator);
         font-style: italic;
         font-weight: 600;
         font-size: inherit;
