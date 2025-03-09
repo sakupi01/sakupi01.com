@@ -70,15 +70,6 @@ table {
 }
 
 img {
-    @media (prefers-color-scheme: dark) {
-        opacity: 0.8;
-        transition: opacity var(--animation-slow);
-
-        &:hover {
-            opacity: 1;
-        }
-    }
-
     block-size: auto; /* Needed for overriding 'height' attribute in HTML */
     display: block;
     max-inline-size: 100%; /* Needed for responsive widths */

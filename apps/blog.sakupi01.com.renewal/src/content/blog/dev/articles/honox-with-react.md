@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['honox', 'react', 'yamadaui', 'cloudflare']
 status: 'draft'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -63,7 +63,7 @@ bun create hono@latest
 上記の構成とコメントからわかるように、ファイルベースのルーティングやError Boundaryの設置ができることがわかります。
 
 このディレクトリで`bun install`->`bun run dev`を実行し、<http://localhost:5173> にアクセスすると以下のように初期画面が表示されます。
-![HonoXアプリの初期画面](/hello-hono.png)
+![HonoXアプリの初期画面](../../../../assets/images/hello-hono.png)
 *HonoXアプリの初期画面*
 
 ## レンダリングの仕組み
@@ -163,7 +163,7 @@ createClient({
 ```
 
 このように設定すると以下のような型エラーが出ると思いますが、こちらはKnown Issueとして確認されており、後続のリリースで修正されると思われますので、現時点では黙認しておきます。
-![Known Type Error in the use of react-renderer](/type-error-createclient.png)
+![Known Type Error in the use of react-renderer](../../../../assets/images/type-error-createclient.png)
 *Known Type Error in the use of react-renderer*
 
 <https://github.com/honojs/honox/issues/87>
@@ -303,7 +303,7 @@ Cloudflare Pagesのプロジェクトを作成し、GitHubと統合します。�
 ```
 
 パッケージマネジャにbunを用いる場合は、現状以下の環境変数の設定が必要なようです。
-![Cloudflare Pagesでbunを使用する環境変数設定](/cloudflare-bun-envs.png)
+![Cloudflare Pagesでbunを使用する環境変数設定](../../../../assets/images/cloudflare-bun-envs.png)
 *Cloudflare Pagesでbunを使用する環境変数設定*
 
 <https://gist.github.com/Hebilicious/88e5a444f42b8dc09fb86dfa865c6ed3>
@@ -319,7 +319,7 @@ Cloudflare Pagesのプロジェクトを作成し、GitHubと統合します。�
 本当は２日前くらいにデプロイ＆この記事を書いていて、「よーし、ツイートして終わり〜〜」と思っていたのですが、投稿時にog画像がいつものようにうまく表示されなくなっていました。
 
 ブログアプリはVercelにデプロイしているので、Vercelのログを確認してみたところ、og画像生成のためのファイルにうまくアクセスできていないようでした。
-![OG画像にアクセスした時のServerless Functionsでのエラー](/vercel-error.png)
+![OG画像にアクセスした時のServerless Functionsでのエラー](../../../../assets/images/vercel-error.png)
 *OG画像にアクセスした時のServerless Functionsでのエラー*
 
 ```

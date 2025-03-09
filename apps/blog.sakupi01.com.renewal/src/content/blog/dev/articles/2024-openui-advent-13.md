@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -21,7 +21,7 @@ status: 'published'
 
 今回からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししていきます。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ## Customizable Select Elementの関連仕様
@@ -60,7 +60,7 @@ select {
 }
 ```
 
-![selectedcontent内部に、選択したoptionの要素がクローンされている。selectecontent内部のオプションは画像だけを表示する](/selectedcontent.png)
+![selectedcontent内部に、選択したoptionの要素がクローンされている。selectecontent内部のオプションは画像だけを表示する](../../../../assets/images/selectedcontent.png)
 *selectedcontent内部に、選択したoptionの要素がクローンされている。selectecontent内部のオプションは画像だけを表示する*
 
 こうした、「DOMをクローンして、別のDOMの内部要素として挿入し、レンダリングする」という仕組みを提供するHTML要素は、筆者の調査範囲では、`<selectedcontent>`が初めての仕様となります。
@@ -77,7 +77,7 @@ select {
 
 具体的には、以下のような場合に、選択された`<option>`のスタイルを`<select>`にも反映すべきではないか、ということです。
 
-![選択された要素のスタイルがボタン部分に反映されない](/unstyled-selected-option.png)
+![選択された要素のスタイルがボタン部分に反映されない](../../../../assets/images/unstyled-selected-option.png)
 *選択された要素のスタイルがボタン部分に反映されない*
 
 現状の`<select>`では、`<select>`が閉じた状態（つまり、選択肢が表示されていない状態）では、`<option>`のスタイルが`<select>`に直接反映されることはありません。これは、`<select>`要素の基本スタイリングがUAに任されており、`<select>`と`<option>`は異なる要素であるためです。

@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -19,7 +19,7 @@ status: 'published'
 
 [Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)では、`<selectedcontent>`とはどんな要素なのか、その契機となったIssueの紹介、`part`属性と`slot`属性についてお話ししました。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ### `part`属性を使用することの問題

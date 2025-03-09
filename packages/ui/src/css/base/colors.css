@@ -33,15 +33,17 @@ TODO:
     --color-success-light: var(--color-green-1);
     --color-success-medium: var(--color-green-2);
     --color-success-dark: var(--color-green-3);
-    --color-error-light: var(--color-red-1);
-    --color-error-medium: var(--color-red-2);
-    --color-error-dark: var(--color-red-3);
-    --color-code-light: var(--color-red-1);
-    --color-code-medium: var(--color-red-2);
-    --color-code-dark: var(--color-red-3);
+    --color-expression-light: var(--color-orange-1);
+    --color-expression-medium: var(--color-orange-2);
+    --color-expression-dark: var(--color-orange-3);
+    --color-code-light: #8989de;
+    --color-code-dark: var(--color-red-2);
     --color-notify-light: var(--color-blue-1);
     --color-notify-medium: var(--color-blue-2);
     --color-notify-dark: var(--color-blue-3);
+    --color-memo-light: var(--color-violet-1);
+    --color-memo-medium: var(--color-violet-2);
+    --color-memo-dark: var(--color-violet-3);
     --color-focus: var(--color-red-2);
 
     /**

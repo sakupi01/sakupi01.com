@@ -14,6 +14,8 @@ const { url, title, date, excerpt } = Astro.props;
 <style>
   .blog-post-card {
     font-family: var(--base-font-family-operator);
+    font-weight: 400;
+    font-optical-sizing: auto;
     list-style: none;
     position: relative;
     display: block;
@@ -26,7 +28,8 @@ const { url, title, date, excerpt } = Astro.props;
       letter-spacing: .03em;
       text-wrap: pretty;
       font-size: 1.3rem;
-      margin-block-start: 0 ;
+      margin-block-start: 0;
+      margin-block-end: var(--gutter-xs);
     }
 
     .published {
@@ -37,5 +40,6 @@ const { url, title, date, excerpt } = Astro.props;
     .excerpt {
       opacity: .8;
       text-wrap: pretty;
+      margin-block-end: 0;
   }
 </style>

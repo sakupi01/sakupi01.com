@@ -8,7 +8,6 @@ import {
 } from "./src/remark/remark-embedder/cache";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 // @ts-ignore
@@ -61,7 +60,7 @@ export default defineConfig({
         remarkToc,
         {
           heading: "Table of Contents",
-          ordered: true,
+          ordered: false,
           tight: true,
           maxDepth: 3,
         },

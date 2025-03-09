@@ -19,6 +19,8 @@ const { title, image, date, excerpt, tags } = Astro.props;
   .hero-section {
     margin-bottom: 2rem;
     font-family: var(--base-font-family-operator);
+    font-weight: 400;
+    font-optical-sizing: auto;
     .title {
       margin-block-start: var(--gutter-l);
       letter-spacing: .03em;
@@ -35,9 +37,9 @@ const { title, image, date, excerpt, tags } = Astro.props;
       a {
       transition: color .2s;
       &:hover {
-          color: var(--link);
+          color: var(--focusable);
           text-decoration: underline;
-          text-decoration-color: var(--link);
+          text-decoration-color: var(--focusable);
           text-decoration-thickness: 0.2rem;
           text-decoration-style: dotted;
           text-decoration-skip-ink: none;

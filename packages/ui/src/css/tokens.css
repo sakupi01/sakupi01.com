@@ -73,19 +73,47 @@
     --color-orange-3: oklch(from var(--color-orange-2) calc(l * .53) var(--chroma-3, .20) h);
     --color-orange-4: oklch(from var(--color-orange-2) calc(l * .27) var(--chroma-4, .12) h);
     --color-orange-5: oklch(from var(--color-orange-2) calc(l * .14) var(--chroma-4, .08) h);
-    --color-gray-0: oklch(99% var(--chroma-gray, none) var(--hue-gray, none));
-    --color-gray-1: oklch(90% var(--chroma-gray, none) var(--hue-gray, none));
+    --color-gray-0: oklch(98.18% 0.0054 95.1deg);
+    --color-gray-1: oklch(94% var(--chroma-gray, none) var(--hue-gray, none));
     --color-gray-2: oklch(var(--lightness, 67%) var(--chroma-gray, none) var(--hue-gray, none));
     --color-gray-3: oklch(49% var(--chroma-gray, none) var(--hue-gray, none));
     --color-gray-4: oklch(32% var(--chroma-gray, none) var(--hue-gray, none));
     --color-gray-5: oklch(25% var(--chroma-gray, none) var(--hue-gray, none));
     --color-gray-6: oklch(18% var(--chroma-gray, none) var(--hue-gray, none));
-    --color-gray-7: oklch(10% var(--chroma-gray, none) var(--hue-gray, none))
+    --color-gray-7: oklch(10% var(--chroma-gray, none) var(--hue-gray, none));
+    
+    /* color from Anthropic */
+    
+    --color-book-cloth: #cc785c;
+    --color-cactus: #bcd1ca;
+    --color-clay: #d97757; /* oklch(67.24% 0.1308 38.76) */
+    --color-cloud-dark: #87867f;
+    --color-cloud-light: #d1cfc5;
+    --color-cloud-medium: #b0aea5;
+    --color-coral: #ebcece;
+    --color-dark: #0f0f0e;
+    --color-fig: #c46686;
+    --color-heather: #cbcadb;
+    --color-ivory-dark: #e8e6dc;
+    --color-ivory-light: #faf9f5;
+    --color-ivory-medium: #f0eee6;
+    --color-kraft: #d4a27f;
+    --color-lilac: #8989de;
+    --color-light: #fff;
+    --color-manilla: #ebdbbc;
+    --color-manilla-light: #f1e6d0;
+    --color-oat: #e3dacc;
+    --color-olive: #788c5d;
+    --color-sky: #6a98bc;
+    --color-slate-dark: #141413;
+    --color-slate-light: #5e5d59;
+    --color-slate-medium: #3d3d3a;
 
     /* Typography. */;
     --font-fallback: inter, "Hiragino Kaku Gothic ProN", system-ui, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --font-family-inter: inter;
     --font-family-operator: "Operator Mono Lig", monospace;
+    --font-family-title: "Alegreya", serif;
 
     /* Fluid type scale.
     /* @link https://utopia.fyi/type/calculator?c=480,16,1.125,1440,20,1.2,6,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
@@ -96,8 +124,17 @@
     --step-2: clamp(1.1074rem, 0.9411rem + 0.5543vw, 1.44rem);
     --step-3: clamp(1.2458rem, 1.0048rem + 0.8036vw, 1.728rem);
     --step-4: clamp(1.4016rem, 1.0656rem + 1.12vw, 2.0736rem);
-    --step-5: clamp(1.5768rem, 1.121rem + 1.5192vw, 2.4883rem);
-    --step-6: clamp(1.7739rem, 1.1678rem + 2.0202vw, 2.986rem);
+    --step-5: clamp(1.802rem, 0.5096rem + 4.3081vw, 4.3869rem);
+    --step-6: clamp(2.0273rem, 0.2991rem + 5.7606vw, 5.4836rem); 
+
+    /* --step--1: clamp(0.8889rem, 0.8125rem + 0.2546vw, 1.0417rem);
+    --step-0: clamp(1rem, 0.875rem + 0.4167vw, 1.25rem);
+    --step-1: clamp(1.125rem, 0.9375rem + 0.625vw, 1.5rem);
+    --step-2: clamp(1.2656rem, 0.9984rem + 0.8906vw, 1.8rem);
+    --step-3: clamp(1.4238rem, 1.0557rem + 1.227vw, 2.16rem);
+    --step-4: clamp(1.6018rem, 1.1067rem + 1.6503vw, 2.592rem);
+    --step-5: clamp(1.802rem, 1.1478rem + 2.1806vw, 3.1104rem);
+    --step-6: clamp(2.0273rem, 1.1747rem + 2.842vw, 3.7325rem); */
   
   
 

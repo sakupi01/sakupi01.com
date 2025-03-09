@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -19,7 +19,7 @@ status: 'published'
 
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`のクローン実装における、技術的背景をお話ししています。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 [Ep.17](https://blog.sakupi01.com/dev/articles/2024-openui-advent-19)では、Light DOMへのクローンが、「マイクロタスクを使用した、MutationObserverのコールバック内で実装する方向」で提案されていました。これにより、パフォーマンス面で優れた実装が可能になるというのが主な理由でした。

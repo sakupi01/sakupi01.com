@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -21,7 +21,7 @@ Customizable Select Element Ep.9から、 `appearance: base-select;`で提供さ
 
 [Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-11)では、`<option>::checkmark`が現状の見た目となった背景について、[Ep.10](https://blog.sakupi01.com/dev/articles/2024-openui-advent-12)では、ポップオーバーを開閉するボタン要素右の矢印アイコン`::picker-icon`について深掘りました。 今回は、CSEがデフォルトで使用する「色」の関連技術について理解を深めていきます。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ## Customizable Select Elementの関連仕様
@@ -34,7 +34,7 @@ CSEの主に`::picker()`部分のデフォルトカラーには`<system-color>`�
 
 身近な例として、`<textarea>`要素の背景色である「Field」やその文字色である「FieldText」などがあり、多くのシステムカラーが定義されています。
 
-![system-colorの例](/system-colors.png)
+![system-colorの例](../../../../assets/images/system-colors.png)
 *system-colorの例*
 
 - [CSS Color Module Level 4](https://drafts.csswg.org/css-color/#css-system-colors)

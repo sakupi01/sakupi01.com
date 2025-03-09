@@ -19,18 +19,20 @@ html {
 
 body {
     font-family: var(--base-font-family);
+    font-optical-sizing: auto;
     font-size: var(--font-size-body);
     -webkit-font-smoothing: antialiased; /* https://www.joshwcomeau.com/css/custom-css-reset/#four-improve-text-rendering-5 */
     line-height: var(--base-line-height);
 }
 
 article {
-    font-feature-settings: "normal";
+    font-feature-settings: "pnum", "lnum", "liga";
 }
 
 :where(h1, h2, h3, h4, h5, h6, [class*='h--']) {
     font-family: var(--base-font-family-title);
-    font-feature-settings: "palt";
+    font-optical-sizing: auto;
+    font-feature-settings: "palt", "lnum", "liga";
 }
 
 .h--xl {
@@ -124,4 +126,5 @@ small {
 
 code {
     font-family: var(--base-font-family-operator);
+    font-optical-sizing: auto;
 }

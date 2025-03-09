@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -75,7 +75,7 @@ Open UIでGDSが進められていくことにより、[Part1](https://blog.saku
 
 Open UIはデザインシステムの基本的な構成要素（下図のSub-Atomic, Atomic, Moleculeにあたるレイヤー）をカバーするため、同様のレイヤーをカバーするGDSは、Open UIが既に行っている作業の延長として機能できます。
 
-![Open UIとGDSの扱うレイヤーはマッチする](/what-oui-and-gds-focus.png)
+![Open UIとGDSの扱うレイヤーはマッチする](../../../../assets/images/what-oui-and-gds-focus.png)
 *Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design methodology for building design systems | by Rohan Kamath | Medium](https://blog.kamathrohan.com/atomic-design-methodology-for-building-design-systems-f912cf714f53)）*
 
 これにより、過去にOpen UIで議論された[Card](https://github.com/openui/open-ui/issues/151)や[Skelton](https://github.com/openui/open-ui/issues/139)などのコンポーネントは、自然とGDSの対象とすることができます。

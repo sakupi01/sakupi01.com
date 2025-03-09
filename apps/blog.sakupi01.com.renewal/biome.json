@@ -1,6 +1,6 @@
 {
   "extends": ["../../biome.json"],
   "files": {
-    "ignore": [".astro/**"]
+    "ignore": [".astro/**", "./public/remark-link-card/**"]
   }
 }

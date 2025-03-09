@@ -10,7 +10,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -51,7 +51,7 @@ status: 'published'
 > A menu is a widget that offers a list of choices to the user, **such as a set of actions or functions**. Menu widgets behave like native operating system menus, such as the menus that pull down from the menubars commonly found at the top of many desktop application windows.
 > [Menu and Menubar Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/)
 
-![Menu](/menu.png)
+![Menu](../../../../assets/images/menu.png)
 *画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Navigation Menubar Example](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-navigation/)*
 
 :::note{.memo}
@@ -72,7 +72,7 @@ status: 'published'
 
 | 入力フィールドのあるCombobox | 選択のみ可能なCombobox |
 | ---- | ---- |
-| ![入力フィールドのあるCombobox](/input-combobox.png) | ![選択のみ可能なCombobox](/select-combobox.png) |
+| ![入力フィールドのあるCombobox](../../../../assets/images/input-combobox.png) | ![選択のみ可能なCombobox](../../../../assets/images/select-combobox.png) |
 
 *Comboboxの例 - 出典: APG | WAI | W3C [Editable Combobox With List Autocomplete Example](Chttps://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/), [Select-Only Combobox Example](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)*
 
@@ -101,7 +101,7 @@ ComboboxのAPGによると、Comboboxは「Listboxとinputを組み合わせたU
 
 埒が開かないので、絵文字投票が行われ、その時点で多くの票が`<selectlist>`と`<selectbox>`に集まりました。
 
-![絵文字投票](/emoji-election.png)
+![絵文字投票](../../../../assets/images/emoji-election.png)
 *絵文字投票 - 参考: <https://github.com/openui/open-ui/issues/773#issuecomment-1649976535>*
 
 その上でもう一度[Telecon](https://github.com/openui/open-ui/issues/773#issuecomment-1654169425)で話し合われ、その時点でGoogle DevRelの[Una Kravets](https://x.com/una)は以下のように主張しました。

@@ -1,5 +1,6 @@
 ---
 import BlogPostCard from "../../components/BlogPostCard.astro";
+import Title from "../../components/Title.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 const allTechBlogPosts = (await getCollection("blog")).filter((entry) =>
@@ -12,7 +13,7 @@ allTechBlogPosts.sort((a, b) => {
 ---
 
 <Layout pageTitle="saku's Techblog">
-  <h1 class="title"><em>Tech Articles Archive</em></h1>
+  <Title title="Tech Articles Archive ..." />
 	<ul class="posts">
 		{allTechBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
 	</ul>
@@ -20,11 +21,6 @@ allTechBlogPosts.sort((a, b) => {
 
 
 <style>
-  .title {
-	  font-family: var(--font-family-operator);
-    font-weight: 600;
-    letter-spacing: .03em;
-  }
   .posts {
     display: grid;
     gap: 1rem;

@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -51,7 +51,7 @@ CustomizableでないForm Controlが存在する根幹の原因は、1995年にH
 <input type="range" id="volume" name="volume" min="0" max="11"></input>
 ```
 
-![スライダーはShadow DOMとしてレンダリングされるため、外部から変更できない](/slider-shadowdom.png)
+![スライダーはShadow DOMとしてレンダリングされるため、外部から変更できない](../../../../assets/images/slider-shadowdom.png)
 *スライダー内部はShadow DOMとしてレンダリングされるため、外部から変更できない*
 
 - [CSS property compatibility table for form controls - Learn web development | MDN](https://developer.mozilla.org/en-US/docs/Learn/Forms/Property_compatibility_table_for_form_controls#range)
@@ -83,21 +83,21 @@ Open UIのChairであるGreg WhitworthはForm Controlについて、「何が扱
   2. `<input type="checkbox">`
   3. `<input type="date">`
 
-![re-created-form-controls](/re-created-form-controls.png)
+![re-created-form-controls](../../../../assets/images/re-created-form-controls.png)
 
 - どうして独自で実装したか
   1. スタイリングできなかったから
   2. 機能拡張したかったから
   3. クロスブラウザでの一貫性がなかったから
 
-![reasons-re-creation](/reasons-re-creation.png)
+![reasons-re-creation](../../../../assets/images/reasons-re-creation.png)
 
 - どのForm Controlが最も扱いにくいか
   1. `<select>`
   2. `<input type="date">`
   3. `<input type="file">`
 
-![hardest-form-controls](/hardest-form-controls.png)
+![hardest-form-controls](../../../../assets/images/hardest-form-controls.png)
 
 このサーベイの結果から、`<select>`の扱いにくさは特に顕著だとわかります。独自実装している理由としては、スタイリングや機能拡張、クロスブラウザでの一貫性の無さが挙げられています。
 

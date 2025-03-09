@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['web accessibility', 'a11y', 'inclusive web design', 'usability on the web', 'types of disabilities', 'barriers to access', 'assistive technology']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 

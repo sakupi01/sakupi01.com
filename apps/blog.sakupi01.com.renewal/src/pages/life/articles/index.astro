@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import BlogPostCard from "../../../components/BlogPostCard.astro";
+import Title from "../../../components/Title.astro";
 const allLifeBlogPosts = (await getCollection("blog")).filter((entry) =>
   entry.slug.startsWith("life"),
 );
@@ -11,18 +12,13 @@ allLifeBlogPosts.sort((a, b) => {
 ---
 
 <Layout pageTitle="saku's Lifeblog">
-  <h1 class="title"><em>Life Articles Archive</em></h1>
+  <Title title="Life Articles Archive ..." />
 	<ul class="posts">
 		{allLifeBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
 	</ul>
 </Layout>
 
 <style>
-  .title {
-	  font-family: var(--font-family-operator);
-    font-weight: 600;
-    letter-spacing: .03em;
-  }
   .posts {
     display: grid;
     gap: 1rem;

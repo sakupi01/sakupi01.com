@@ -22,7 +22,7 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 <Layout pageTitle={tag}>
-  <p class="description"><em>Posts tagged with <a href={`/tags/${tag}`}>#{tag}</a> ...</em></p>
+  <p class="description">Posts tagged with <em><a href={`/tags/${tag}`}>#{tag}</a></em> ...</p>
   <ul class="posts">
     {posts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} /> )}
   </ul>
@@ -32,15 +32,19 @@ const { posts } = Astro.props;
   .description {
     font-size: 1.25em;
     margin-bottom: 1em;
-    font-family: var(--font-family-operator);
+    font-family: var(--font-family-title);
     font-weight: 600;
+    font-optical-sizing: auto;
     a {
+      font-family: var(--font-family-operator);
+      font-weight: 600;
+      font-optical-sizing: auto;
       transition: color .2s;
-    color: var(--link);
+    color: var(--focusable);
     &:hover {
-        color: var(--link-hover);
+        color: var(--focused);
         text-decoration: underline;
-        text-decoration-color: var(--link-hover);
+        text-decoration-color: var(--focused);
         text-decoration-thickness: 0.2rem;
         text-decoration-style: dotted;
         text-decoration-skip-ink: none;

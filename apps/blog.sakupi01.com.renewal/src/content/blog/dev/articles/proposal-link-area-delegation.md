@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'a11y advent calendar', 'web accessibility', 'a11y']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -51,7 +51,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 
 `<a>`はインタラクティブな要素であるゆえ、`<a>`の中に`<a>`をネストすることはできません。`<button>`もインタラクティブな要素なので、`<a>`の中に`<button>`をネストすることもできませんし、その逆も然りです。
 
-![インタラクティブな要素](/interactive-elements.png)
+![インタラクティブな要素](../../../../assets/images/interactive-elements.png)
 *インタラクティブな要素 - 出典: [HTML Standard - Kinds of content](https://html.spec.whatwg.org/multipage/dom.html#kinds-of-content)*
 
 もし仮に、以下のように`<a>`の中に`<a>`をネストした場合、それぞれは兄弟関係のリンクとしてパースされます。
@@ -64,7 +64,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 </a>
 ```
 
-![兄弟関係のa tagになる](/sibling-a-tags.png)
+![兄弟関係のa tagになる](../../../../assets/images/sibling-a-tags.png)
 *兄弟関係のa tagになる*
 
 このように、HTMLパーサは期待通りのインタラクティブな要素の解釈をしてくれないため、私たちはNested Linksを実現するために、さまざまなHackをしてきました。
@@ -77,7 +77,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 
 | Card本体をホバー | Card内tagをホバー |
 | ---- | ---- |
-| ![Card本体をホバーした時、記事へのURLに変わる](/card-article-link.png)*Card本体をホバーした時、記事へのURLに変わる* | ![Card内のtagをホバーした時、tagのURLに変わる](/card-tag-link.png)*Card内のtagをホバーした時、tagのURLに変わる* |
+| ![Card本体をホバーした時、記事へのURLに変わる](../../../../assets/images/card-article-link.png)*Card本体をホバーした時、記事へのURLに変わる* | ![Card内のtagをホバーした時、tagのURLに変わる](../../../../assets/images/card-tag-link.png)*Card内のtagをホバーした時、tagのURLに変わる* |
 
 このCardコンポーネントは、`<a>`タグのネスティングを使用せず、CSSのSubgridを使用して、クリッカブルなエリアを拡張しています。
 
@@ -154,7 +154,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 - ネストされたインタラクティブ要素は仕様に反する: 先にも述べたように、インタラクティブな要素をネストすることは、HTMLのContent Modelで禁止されています。
 - 冗長なアクセシブルネームになる: e.g.1 のようなマークアップをすると、リンクのアクセシブルネームが冗長になり、`<h2>`と`<p>`と`<button>`のテキストをすべて読み上げる可能性があります。これにより、支援技術を使うユーザーにとって理解しづらくなることがあります。
 
-![リンクに対して必要以上の情報を読み上げてしまう](/toomuch-info-vo.png)
+![リンクに対して必要以上の情報を読み上げてしまう](../../../../assets/images/toomuch-info-vo.png)
 *リンクに対して必要以上の情報を読み上げてしまう*
 
 - 特定の要素でサポートされない: e.g. 2に示すような、`<a>`でテーブルの行`<tr>`をラップするマークアップは、[HTMLの仕様](https://html.spec.whatwg.org/multipage/tables.html#the-tr-element)で許可されていません。HTMLパーサはこのような構造を検出した場合に、リンクを削除してしまいます。

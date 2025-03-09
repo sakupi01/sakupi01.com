@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -19,7 +19,7 @@ status: 'published'
 
 [Ep.14](https://blog.sakupi01.com/dev/articles/2024-openui-advent-16)では、`<selectlist>`の`slot`属性と`behavior`属性の使用が廃止された経緯をお話ししました。`slot`属性と`behavior`属性は「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」ための手段だったのですが、この手段が廃止されたことにより、これからどう話が進むのかをみていきます。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ## Customizable Select Elementの関連仕様
@@ -187,7 +187,7 @@ FirefoxはCSSでコンテンツを**ミラーリング**する方法を実装し
 - [Shadow tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree): Shadow Rootがルートのツリー。hostを通じて、必ず別のNode treeと接続されている。
 - Light tree: Shadow Rootのhostとなるツリー
 - [**Flat tree**](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree): Shadow treeを含む、複合的なツリーをフラット化して、単一のNode Treeにしたもの。
-![Tree Flattening](/tree-flattening.png)
+![Tree Flattening](../../../../assets/images/tree-flattening.png)
 *Tree Flattening - 出典: chromium.googlesource.com /[DOM](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree)*
 - **Layout tree**: LayoutObjectをNodeとして構成されるNode tree。Viewport内でのNodeの正確な位置やサイズなどが計算された、Paintのinputとなるツリー。つまり、ブラウザレンダリングフェーズの中でも、Layoutフェーズ時に構築される。
 
@@ -232,7 +232,7 @@ Light DOMに別の要素のLight DOMをクローンすると、`<selectedoption>
 以下の図では、選択された`<option>`の子Nodeが、`<selectedoption>`の**Light DOM**にクローンされる様子を示しています。
 Light DOMに直接挿入されるため、クローンされた要素は、Author Style Sheetの適用が可能となります。
 
-![UAによってLight DOMにクローンされたNodeが直接挿入される様子](/insert-to-light-dom.png)
+![UAによってLight DOMにクローンされたNodeが直接挿入される様子](../../../../assets/images/insert-to-light-dom.png)
 *UAによってLight DOMにクローンされたNodeが直接挿入される様子*
 
 こうした、要素が自身のLight DOMを変更するという挙動は、他の長年のHTML機能に対するリクエストを解決するためにも必要かもしれないとDomenicは述べます。

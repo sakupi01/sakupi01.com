@@ -8,9 +8,12 @@ const { frontmatter } = Astro.props as {
 ---
 
 <Layout pageTitle={frontmatter.title}>
+  <article>
+    
   <HeroSection title={frontmatter.title} date={frontmatter.date} excerpt={frontmatter.excerpt} tags={frontmatter.tags}/>
 
   <slot />
+  </article>
 </Layout>
 <style>
   a {

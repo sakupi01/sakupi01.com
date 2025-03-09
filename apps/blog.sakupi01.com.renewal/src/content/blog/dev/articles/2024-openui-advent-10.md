@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -32,7 +32,7 @@ status: 'published'
 CSEの各パーツは、RFCが出された時点から大きく変化しています。
 （2024/12/9現在）
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 - `<button>`: 選択肢のポップオーバーを開閉するボタン要素
@@ -63,7 +63,7 @@ select, ::picker(select) {
 
 上記のHTMLとCSSで、CSEがOpt-inされ、`<select>`が**CSEデフォルトのスタイル**になります。
 
-![CSEデフォルトのスタイル](/default-cse.png)
+![CSEデフォルトのスタイル](../../../../assets/images/default-cse.png)
 *CSEデフォルトのスタイル*
 
 ここで気になるのが、「何を以てこのデフォルトのスタイルになったのか」です。
@@ -143,7 +143,7 @@ select::picker-icon {
 }
 ```
 
-![chrome canaryで`::checkmark`のUAスタイル](/ua-style-checkmark.png)
+![chrome canaryで`::checkmark`のUAスタイル](../../../../assets/images/ua-style-checkmark.png)
 *chrome canaryで`::checkmark`のUAスタイル*
 
 CSEのデフォルトスタイルに関しては、以下のIssueで現在進行形で更新が重ねられており、ChromiumではこのIssueの変更に追従する形で実装が進められているようでした。

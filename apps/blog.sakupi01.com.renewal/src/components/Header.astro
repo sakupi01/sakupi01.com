@@ -1,6 +1,7 @@
 ---
 import Logo from "./Logo.astro";
 import Navigation from "./Navigation.astro";
+import SoundIcon from "./SoundIcon.astro";
 import ThemeIcon from "./ThemeIcon.astro";
 ---
 <header>
@@ -9,7 +10,8 @@ import ThemeIcon from "./ThemeIcon.astro";
     </div>
     <div class="right">
         <Navigation />
-        <!-- <ThemeIcon /> -->
+        <ThemeIcon />
+        <SoundIcon />
     </div>
 </header>
 
@@ -18,11 +20,18 @@ import ThemeIcon from "./ThemeIcon.astro";
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: transparent;
     color: var(--header-text);
     padding: .5rem;
     font-family: var(--font-family-operator);
     font-style: italic;
     font-weight: 600;
+    font-optical-sizing: auto;
+    margin-block-start: var(--gutter-s);
+    margin-block-end: var(--gutter-s);
+    }
+    .right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     }
 </style>

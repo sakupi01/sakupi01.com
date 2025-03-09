@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -42,7 +42,7 @@ Form Controlとは、`<input>`、`<button>`、`<select>`、`<option>`、`<textar
 1990年代初頭にTim Berners-LeeがWWW（WorldWideWeb）という最初のWebブラウザをリリースした後、複数のブラウザが登場しました。
 この当時のHTMLは、非常にシンプルなマークアップ言語であり、リンクや画像、テキストのみを表示することができるものでした。
 
-![WorldWideWeb](/www.png)
+![WorldWideWeb](../../../../assets/images/www.png)
 *出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)*
 
 その後、各ブラウザベンダーがブラウザに独自のHTMLタグを実装し始めましたが、当時はまだHTMLに標準というものがなかったため、ブラウザ間でHTMLタグの実装に差が生まれていきました。
@@ -109,7 +109,7 @@ e.g. 同じブラウザでもOS間で見た目が違う
 
 | FireFox2/ Windows XP | FireFox2 Mac OS X 10.4.8|
 | ---- | ---- |
-| ![ff-win](/ff-win.png) | ![ff-mac](/ff-mac.png) |
+| ![ff-win](../../../../assets/images/ff-win.png) | ![ff-mac](../../../../assets/images/ff-mac.png) |
 
 *出典:<https://www.456bereastreet.com/lab/styling-form-controls-revisited/radio-button/>*
 

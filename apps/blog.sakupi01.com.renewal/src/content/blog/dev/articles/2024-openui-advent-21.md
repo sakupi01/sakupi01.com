@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -19,7 +19,7 @@ status: 'published'
 
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`のクローン実装における、技術的背景をお話ししています。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 [Ep.19](https://blog.sakupi01.com/dev/articles/2024-openui-advent-21)では、CEReactionsタイミングでNode変更の検知をする問題から、同期的なタイミングでNode変更の検知をする方針に切り替えることが主張された経緯と、`cloneNode()`の制限についてお話ししました。

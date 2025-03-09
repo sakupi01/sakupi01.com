@@ -13,7 +13,7 @@ export const customClassName = () => {
         if (node.name === "note") {
           // biome-ignore lint/suspicious/noAssignInExpressions: <As described https://github.com/remarkjs/remark-directive?tab=readme-ov-file#use>
           const data = node.data || (node.data = {});
-          const tagName = node.type === "textDirective" ? "span" : "div";
+          const tagName = node.type === "textDirective" ? "span" : "aside";
 
           data.hName = tagName;
           data.hProperties = h(tagName, node.attributes || {}).properties;

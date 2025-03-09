@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -28,7 +28,7 @@ status: 'published'
 本格的に`<selectlist>`の運用が始まる中で、whatwg/htmlに、`<select>`のHTML/CSSに関するIssueとPRをまとめたIssueが開かれました。
 
 - [Customizable `<select>` element · Issue #9799 · whatwg/html](https://github.com/whatwg/html/issues/9799)
-![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](/select-wrapped-issue.png)
+![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](../../../../assets/images/select-wrapped-issue.png)
 *現在は`<select>`だが、その前の`<selectlist>`時代に開かれている*
 
 そして、このIssueを皮切りに、`<selectlist>`から`<select>`への移行が検討されていくことになります。

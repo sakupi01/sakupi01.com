@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Title from "../../components/Title.astro";
 import { allBlogPosts } from "../../utils/contents";
 
 function getTags() {
@@ -12,7 +13,7 @@ function getTags() {
 const tags = getTags();
 ---
 <Layout pageTitle="saku's blog - Tags">
-  <h1 class="title"><em>Tag Archives</em></h1>
+  <Title title="Tags Archive ..." />
   <ul class="tags">
     {tags.map((tag: any) => (
       <li class="tag">
@@ -24,22 +25,18 @@ const tags = getTags();
 
 
 <style>
-  .title {
-	  font-family: var(--font-family-operator);
-    font-weight: 600;
-    letter-spacing: .03em;
-  }
   .tag {
     font-family: var(--font-family-operator);
     font-weight: 600;
+    font-optical-sizing: auto;
     font-style: italic;
     a {
       transition: color .2s;
-    color: var(--link);
+    color: var(--focusable);
     &:hover {
-        color: var(--link-hover);
+        color: var(--focused);
         text-decoration: underline;
-        text-decoration-color: var(--link-hover);
+        text-decoration-color: var(--focused);
         text-decoration-thickness: 0.2rem;
         text-decoration-style: dotted;
         text-decoration-skip-ink: none;

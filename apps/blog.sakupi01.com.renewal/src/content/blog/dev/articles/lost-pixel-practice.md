@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['lost-pixel', 'vrt', 'testing', 'cicd']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -173,7 +173,7 @@ export const config: CustomProjectConfig = {
 bun lost-pixel
 ```
 
-![lost-pixel初回実行](/first-execution.png)
+![lost-pixel初回実行](../../../../assets/images/first-execution.png)
 *lost-pixel初回実行の出力*
 
 #### 1. baselineをupdateする
@@ -205,7 +205,7 @@ bun lost-pixel:update
 ```
 
 すると、以下のようにbaseline-imagesにベースライン画像が格納されていることが確認できます。
-![ベースライン画像が生成される](/baseline-gen.png)
+![ベースライン画像が生成される](../../../../assets/images/baseline-gen.png)
 *ベースライン画像が生成される*
 
 しかし、baseline-imagesとcurrent-imagesの比較がベースライン画像のアップデートよりも先に行われている可能性があるからか、またもや例外がスローされます。
@@ -585,13 +585,13 @@ feat/lost-pixelブランチにそのまま`update-vrt.yml`をコミットした�
 PRのChanges部分を確認することで、Github上で視覚的に見た目の変化を捉えることができます。
 
 👇微々たる変化。この場合、キャプチャタイミングや実行環境の差異が原因であると思われる。
-![許容できる見た目の変化](/little-diff.gif)
+![許容できる見た目の変化](../../../../assets/images/little-diff.gif)
 *フォントによるズレ(環境の差異として今回は許容)*
 
 →[ステップ6.1.1へ](https://blog.sakupi01.com/dev/articles/lost-pixel-practice#611-許容可能な見た目の変化のとき)
 
 👇見た目の大きな変化。この場合、コードベースに何らかの問題があると思われる。
-![許容できない見た目の変化](/large-diff.png)
+![許容できない見た目の変化](../../../../assets/images/large-diff.png)
 *zennの記事を表示する変更を加えた際、定義した環境変数が正しく読み込まれていなかったことによる不整合*
 →[ステップ6.1.2へ](https://blog.sakupi01.com/dev/articles/lost-pixel-practice#612-許容不可能な見た目の変化のとき)
 

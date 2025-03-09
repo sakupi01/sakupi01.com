@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -19,7 +19,7 @@ status: 'published'
 
 [Ep.12](https://blog.sakupi01.com/dev/articles/2024-openui-advent-14)では、`part`属性を使用することの問題、解決策として`behavior`属性の提案、そして、要素をCloneしてカスタマイズ可能にする`<selectedcontent>`の契機についてお話ししました。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ## Customizable Select Elementの関連仕様
@@ -34,11 +34,11 @@ status: 'published'
 「アバター + 名前」や「国旗 + 国名」のように「リッチなコンテンツの**完全な**クローン」となる場合もあれば、「名前のみ」のように「リッチなコンテンツの**一部の**クローン」となる場合も考えられます。
 このユースケース調査により、完全なクローンを反映することのみならず、その一部のみを`<select>`に表示できるようにする必要があるという合意が取れました。
 
-![国旗 + 国名](/flag-clone.png)
+![国旗 + 国名](../../../../assets/images/flag-clone.png)
 *国旗 + 国名*
-![アバター + 名前](/avatar-clone.png)
+![アバター + 名前](../../../../assets/images/avatar-clone.png)
 *アバター + 名前*
-![名前のみ（optionにアバターはあるが、buttonには反映されない）](/only-name-clone.png)
+![名前のみ（optionにアバターはあるが、buttonには反映されない）](../../../../assets/images/only-name-clone.png)
 *名前のみ（optionにアバターはあるが、buttonには反映されない）*
 
 ### 選択された`<option>`のコンテンツを`<button>`に反映する方法の検討

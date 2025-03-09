@@ -9,7 +9,7 @@ category: 'life'
 tags: ['job', 'poem', 'training']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -191,14 +191,14 @@ status: 'published'
 - バグめっちゃ発見してくれるQAエンジニア
 - フロントエンドエンジニア（わたし）
 
-![最終発表の私たち](/todo-atode-all.png)
+![最終発表の私たち](../../../../assets/images/todo-atode-all.png)
 *最終発表の私たち*
 
 kintoneは、kintoneの中にユーザーがアプリを作って使うアプリなのですが、
 私たちのチームは、**自然言語のインプットからkintone内のアプリをAIで自動生成する**というものを開発しました。
 
 バックエンドはD言語、フロントエンドはkintone JSカスタマイズとNext.jsを使いました。
-![D言語](/d-lang.png)
+![D言語](../../../../assets/images/d-lang.png)
 *D言語くん*
 
 <!-- textlint-disable -->
@@ -220,7 +220,7 @@ kintoneは、kintoneの中にユーザーがアプリを作って使うアプリ
 この2週間は東京の同期もオフィスに積極的に出社してくれていました。
 一緒にランチ食べたり、ホワイトボードを使ってオフライン議論したり、カラオケに行ったり、その他諸々オフラインならではの活動ができて楽しかったです。
 
-![噛まずに歌ってるどさんこ同期やばかった](/ria-hokkaido.png)
+![噛まずに歌ってるどさんこ同期やばかった](../../../../assets/images/ria-hokkaido.png)
 *噛まずに歌ってるどさんこ同期やばかった*
 
 でも実際、2週間ホテル滞在はかなり体に応えていて、毎晩栄養ドリンク飲んで寝てました。

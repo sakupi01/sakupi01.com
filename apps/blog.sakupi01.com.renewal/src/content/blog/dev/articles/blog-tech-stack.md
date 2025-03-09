@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['react', 'nextjs', 'turborepo', 'vercel']
 status: 'draft'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 

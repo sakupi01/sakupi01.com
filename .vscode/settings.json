@@ -15,5 +15,6 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": ["clsx", "sakupi", "Zenn"],
   "markuplint.enable": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "textlint.configPath": "./articles/.textlintrc.json"
 }

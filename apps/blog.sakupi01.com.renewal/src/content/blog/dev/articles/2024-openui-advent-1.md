@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -32,7 +32,7 @@ Open UIは、[W3C Community Group](https://www.w3.org/groups/cg/)の一つで、
 Open UIは、Web 全体のUIコンポーネントやコントロールをリサーチし、Interoperabilityを実現するための技術の標準化を検討し、その過程で標準化団体と議論を重ね、策定された仕様を各ブラウザに実装してもらいます。
 筆者の解釈では、 Open UI の担当範囲は以下のグリーンの部分にあたります。
 
-![Open UIの影響イメージ](/effect-open-ui.png)
+![Open UIの影響イメージ](../../../../assets/images/effect-open-ui.png)
 *Open UIの影響イメージ*
 
 ## Open UIがやること
@@ -96,7 +96,7 @@ Open UIのパブリックメーリングリストから「select」のキーワ�
 e.g.）
 
 たとえば、`message-id`が`<CADhPm3v0ZqQdc_+nTxFsrAraPuxrXnkWRpfyJw+43BCPc85w-g@mail.gmail.com>`のメールを検索したい場合は、<https://www.w3.org/mid/CADhPm3v0ZqQdc_+nTxFsrAraPuxrXnkWRpfyJw+43BCPc85w-g@mail.gmail.com> となります。
-![message-idはメールヘッダーから確認できる](/message-id.png)
+![message-idはメールヘッダーから確認できる](../../../../assets/images/message-id.png)
 *message-idはメールヘッダーから確認できる*
 すると、そのメールが`public-open-ui@w3.org`と`www-style@w3.org`に送信されていることがわかります。同じIDのメールでも、送信先が複数ある場合はそれぞれの場所で異なる前後関係となるため、議論を網羅的に追うためには、[Message-Id Redirection Service](https://www.w3.org/mid/)を活用すると良いでしょう。
 :::

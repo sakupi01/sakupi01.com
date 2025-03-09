@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -36,7 +36,7 @@ status: 'published'
 - [[Customizable select] Rename selectedoption to selectedcontent by brechtDR · Pull Request #1124 · openui/open-ui](https://github.com/openui/open-ui/pull/1124)
 - [Rename `<selectedoption>` to `<selectedcontent>` by chromium-wpt-export-bot · Pull Request #49046 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/49046)
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ## `<selectedcontent>`の実装に関するIssueまとめ

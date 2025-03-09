@@ -9,7 +9,7 @@ category: 'dev'
 tags: ['openui', 'advent calendar']
 status: 'published'
 ---
-## 目次
+## Table of Contents
 
 ## はじめに
 
@@ -19,7 +19,7 @@ status: 'published'
 
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししています。
 
-![2024/12/9時点でのselectの各パーツの定義](/select-anatomy.png)
+![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 [Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)では、UAによるLight DOMへのNodeクローン実装について、CSSWGとの合意を得た詳細についてお話ししました。
@@ -77,12 +77,12 @@ Jarharが行ったBlinkの初期実装では、マイクロタスクを使用し
 
 例えば、DevtoolsのPerformanceタブでJavaScriptの実行順序を観察してみると、`dispatchEvent`というコールバックキュー内のタスクが実行された後に、「Run microtasks」でマイクロタスクが実行されていることがわかります。
 
-![JSでのマイクロタスクの実行タイミング](/devtools-perf.png)
+![JSでのマイクロタスクの実行タイミング](../../../../assets/images/devtools-perf.png)
 *JSでのマイクロタスクの実行タイミング*
 
 そして、このマイクロタスクの実行タイミングが、ブラウザレンダリングの過程でどこに当たるのかを図で表すと以下のようになります。
 
-![JS実行タイミングとレンダリングの相関図](/js-rendering-relationship.png)
+![JS実行タイミングとレンダリングの相関図](../../../../assets/images/js-rendering-relationship.png)
 *JS実行タイミングとレンダリングの相関図*
 
 同期的な処理はそのまま実行されますが、非同期な処理は一旦コールバックキューに入れ、タスクキューのタスクが終わったあとに順次処理されます。コールバックキューは、「タスクキュー」と「マイクロタスクキュー」に分けられ、タスクキューから優先的に消化され、最後にマイクロタスクキューに入っているマイクロタスクが処理されます。
