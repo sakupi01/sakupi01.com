@@ -21,10 +21,10 @@
     "build:publish": "tsup",
     "clean": "rimraf dist && rimraf .turbo && rimraf node_modules",
     "check:format": "bunx biome format --changed --write .",
-    "check:lint": "bunx biome lint --changed --apply .",
+    "check:lint": "bunx biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "bunx biome check --changed --apply .",
-    "check": "bun run check:typecheck & bunx biome check --apply . --no-errors-on-unmatched"
+    "check:lint-format": "bunx biome check --changed --write .",
+    "check": "bun run check:typecheck & bunx biome check --write . --no-errors-on-unmatched"
   },
   "devDependencies": {
     "tsup": "^8.1.0",

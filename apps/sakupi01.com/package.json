@@ -8,11 +8,11 @@
     "preview": "wrangler pages dev ./dist",
     "deploy": "$npm_execpath run build && wrangler pages deploy ./dist",
     "check:format": "pnpm biome format --changed --write .",
-    "check:lint": "pnpm biome lint --changed --apply .",
+    "check:lint": "pnpm biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "pnpm biome check --changed --apply .",
+    "check:lint-format": "pnpm biome check --changed --write .",
     "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
-    "check": "pnpm check:typecheck & pnpm biome check --apply . --no-errors-on-unmatched & pnpm check:markuplint"
+    "check": "pnpm check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm check:markuplint"
   },
   "private": true,
   "dependencies": {

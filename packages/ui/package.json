@@ -2,9 +2,7 @@
   "name": "@repo/ui",
   "version": "0.0.0",
   "private": true,
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": ["**/*.css"],
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
@@ -16,11 +14,11 @@
     "build": "tailwindcss -i ./src/styles.css -o dist/index.css",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "check:format": "bunx biome format --changed --write .",
-    "check:lint": "bunx biome lint --changed --apply .",
+    "check:lint": "bunx biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "bunx biome check --changed --apply .",
+    "check:lint-format": "bunx biome check --changed --write .",
     "check:style": "stylelint 'src/**/*.css'",
-    "check": "bun run check:typecheck & bunx biome check --apply . --no-errors-on-unmatched & bun run check:style",
+    "check": "bun run check:typecheck & bunx biome check --write . --no-errors-on-unmatched & bun run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
     "build:storybook": "storybook build -o ./storybook-static",
     "gen": "turbo gen react-component",
