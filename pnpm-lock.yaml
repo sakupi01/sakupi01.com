@@ -32,7 +32,7 @@ importers:
         version: 1.9.4
       '@codspeed/vitest-plugin':
         specifier: ^3.1.1
-        version: 3.1.1(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))(vitest@2.1.9(@types/node@22.13.1)(jsdom@24.1.3)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2))
+        version: 3.1.1(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))(vitest@2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2))
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
@@ -74,7 +74,7 @@ importers:
         version: 5.2.12(@types/node@22.13.1)(terser@5.38.2)
       vitest:
         specifier: ^2.1.5
-        version: 2.1.9(@types/node@22.13.1)(jsdom@24.1.3)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2)
+        version: 2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2)
 
   apps/blog.sakupi01.com:
     dependencies:
@@ -198,7 +198,7 @@ importers:
         version: 0.0.32
       '@vitest/coverage-v8':
         specifier: ^1.5.0
-        version: 1.6.1(vitest@2.1.9(@types/node@20.17.17)(jsdom@24.1.3)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2))
+        version: 1.6.1(vitest@2.1.9(@types/node@20.17.17)(jsdom@26.0.0)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2))
       lost-pixel:
         specifier: ^3.16.0
         version: 3.22.0(@types/node@20.17.17)(playwright-core@1.50.1)(typescript@5.4.5)
@@ -381,6 +381,13 @@ importers:
       astro:
         specifier: ^5.2.5
         version: 5.2.5(@types/node@22.13.1)(jiti@2.4.2)(rollup@4.34.6)(terser@5.38.2)(typescript@5.7.3)(yaml@2.7.0)
+      jsdom:
+        specifier: ^26.0.0
+        version: 26.0.0
+    devDependencies:
+      '@types/jsdom':
+        specifier: ^21.1.7
+        version: 21.1.7
 
   packages/git-green:
     devDependencies:
@@ -456,7 +463,7 @@ importers:
         version: 8.3.6(jiti@2.4.2)(postcss@8.5.3)(typescript@5.4.5)(yaml@2.7.0)
       vitest:
         specifier: ^1.6.0
-        version: 1.6.1(@types/node@22.13.1)(jsdom@24.1.3)(terser@5.38.2)
+        version: 1.6.1(@types/node@22.13.1)(jsdom@26.0.0)(terser@5.38.2)
 
   packages/headings-extractor:
     dependencies:
@@ -3661,6 +3668,9 @@ packages:
 
   '@types/js-yaml@4.0.9':
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
+
+  '@types/jsdom@21.1.7':
+    resolution: {integrity: sha512-yOriVnggzrnQ3a9OKOCxaVuSug3w3/SbOj5i7VwXWZEyUNl3bLF9V3MfxGbZKuwqJOQyRfqXyROBB1CoZLFWzA==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -7067,6 +7077,15 @@ packages:
       canvas:
         optional: true
 
+  jsdom@26.0.0:
+    resolution: {integrity: sha512-BZYDGVAIriBWTpIxYzrXjv3E/4u8+/pSG5bQdIYCbNCGOvsPkDQfTVLAIXAf9ETdCpduCVTkDe2NNZ8NIwUVzw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      canvas: ^3.0.0
+    peerDependenciesMeta:
+      canvas:
+        optional: true
+
   jsesc@3.0.2:
     resolution: {integrity: sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==}
     engines: {node: '>=6'}
@@ -9784,6 +9803,13 @@ packages:
   title-case@3.0.3:
     resolution: {integrity: sha512-e1zGYRvbffpcHIrnuqT0Dh+gEJtDaxDSoG4JAIpq4oDFyooziLBIiYQv0GBT4FUAnUop5uZ1hiIAj7oAF6sOCA==}
 
+  tldts-core@6.1.83:
+    resolution: {integrity: sha512-I2wb9OJc6rXyh9d4aInhSNWChNI+ra6qDnFEGEwe9OoA68lE4Temw29bOkf1Uvwt8VZS079t1BFZdXVBmmB4dw==}
+
+  tldts@6.1.83:
+    resolution: {integrity: sha512-FHxxNJJ0WNsEBPHyC1oesQb3rRoxpuho/z2g3zIIAhw1WHJeQsUzK1jYK8TI1/iClaa4fS3Z2TCA9mtxXsENSg==}
+    hasBin: true
+
   tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -9805,6 +9831,10 @@ packages:
   tough-cookie@4.1.4:
     resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
     engines: {node: '>=6'}
+
+  tough-cookie@5.1.2:
+    resolution: {integrity: sha512-FVDYdxtnj0G6Qm/DhNPSb8Ju59ULcup3tuJxkFb5K8Bv2pUXILbf0xZWU8PX8Ov19OXljbUyveOFwRMwkXzO+A==}
+    engines: {node: '>=16'}
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
@@ -11438,11 +11468,11 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@codspeed/vitest-plugin@3.1.1(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))(vitest@2.1.9(@types/node@22.13.1)(jsdom@24.1.3)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2))':
+  '@codspeed/vitest-plugin@3.1.1(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))(vitest@2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2))':
     dependencies:
       '@codspeed/core': 3.1.1
       vite: 5.2.12(@types/node@22.13.1)(terser@5.38.2)
-      vitest: 2.1.9(@types/node@22.13.1)(jsdom@24.1.3)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2)
+      vitest: 2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2)
     transitivePeerDependencies:
       - debug
 
@@ -14304,6 +14334,12 @@ snapshots:
 
   '@types/js-yaml@4.0.9': {}
 
+  '@types/jsdom@21.1.7':
+    dependencies:
+      '@types/node': 20.17.17
+      '@types/tough-cookie': 4.0.5
+      parse5: 7.2.1
+
   '@types/json-schema@7.0.15': {}
 
   '@types/keyv@3.1.4':
@@ -14565,7 +14601,7 @@ snapshots:
       next: 14.2.24(@playwright/test@1.50.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
 
-  '@vitest/coverage-v8@1.6.1(vitest@2.1.9(@types/node@20.17.17)(jsdom@24.1.3)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2))':
+  '@vitest/coverage-v8@1.6.1(vitest@2.1.9(@types/node@20.17.17)(jsdom@26.0.0)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -14580,7 +14616,7 @@ snapshots:
       std-env: 3.8.0
       strip-literal: 2.1.1
       test-exclude: 6.0.0
-      vitest: 2.1.9(@types/node@20.17.17)(jsdom@24.1.3)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2)
+      vitest: 2.1.9(@types/node@20.17.17)(jsdom@26.0.0)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -19148,6 +19184,34 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  jsdom@26.0.0:
+    dependencies:
+      cssstyle: 4.2.1
+      data-urls: 5.0.0
+      decimal.js: 10.5.0
+      form-data: 4.0.1
+      html-encoding-sniffer: 4.0.0
+      http-proxy-agent: 7.0.2
+      https-proxy-agent: 7.0.6
+      is-potential-custom-element-name: 1.0.1
+      nwsapi: 2.2.16
+      parse5: 7.2.1
+      rrweb-cssom: 0.8.0
+      saxes: 6.0.0
+      symbol-tree: 3.2.4
+      tough-cookie: 5.1.2
+      w3c-xmlserializer: 5.0.0
+      webidl-conversions: 7.0.0
+      whatwg-encoding: 3.1.1
+      whatwg-mimetype: 4.0.0
+      whatwg-url: 14.1.1
+      ws: 8.18.0
+      xml-name-validator: 5.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   jsesc@3.0.2: {}
 
   jsesc@3.1.0: {}
@@ -22821,6 +22885,12 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  tldts-core@6.1.83: {}
+
+  tldts@6.1.83:
+    dependencies:
+      tldts-core: 6.1.83
+
   tmp@0.0.33:
     dependencies:
       os-tmpdir: 1.0.2
@@ -22841,6 +22911,10 @@ snapshots:
       punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
+
+  tough-cookie@5.1.2:
+    dependencies:
+      tldts: 6.1.83
 
   tr46@0.0.3: {}
 
@@ -23482,7 +23556,7 @@ snapshots:
     optionalDependencies:
       vite: 6.2.0(@types/node@22.13.1)(jiti@2.4.2)(terser@5.38.2)(yaml@2.7.0)
 
-  vitest@1.6.1(@types/node@22.13.1)(jsdom@24.1.3)(terser@5.38.2):
+  vitest@1.6.1(@types/node@22.13.1)(jsdom@26.0.0)(terser@5.38.2):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -23506,7 +23580,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.1
-      jsdom: 24.1.3
+      jsdom: 26.0.0
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -23516,7 +23590,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@2.1.9(@types/node@20.17.17)(jsdom@24.1.3)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2):
+  vitest@2.1.9(@types/node@20.17.17)(jsdom@26.0.0)(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(terser@5.38.2):
     dependencies:
       '@vitest/expect': 2.1.9
       '@vitest/mocker': 2.1.9(msw@2.7.0(@types/node@20.17.17)(typescript@5.4.5))(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))
@@ -23540,7 +23614,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.17.17
-      jsdom: 24.1.3
+      jsdom: 26.0.0
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -23551,7 +23625,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@2.1.9(@types/node@22.13.1)(jsdom@24.1.3)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2):
+  vitest@2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2):
     dependencies:
       '@vitest/expect': 2.1.9
       '@vitest/mocker': 2.1.9(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))
@@ -23575,7 +23649,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.1
-      jsdom: 24.1.3
+      jsdom: 26.0.0
     transitivePeerDependencies:
       - less
       - lightningcss
