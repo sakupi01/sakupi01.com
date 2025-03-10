@@ -1,0 +1,102 @@
+---
+
+---
+
+<nav>
+  <a href="https://sakupi01.com/" class="nav-item">{"<home />"}</a>
+  <button popovertarget="blogs" class="popovertarget soudable" data-id="--blogs-button">
+      {"blogs"}
+  </button>
+  <div id="blogs" popover data-id="--blogs-button">
+      <a href="/dev/" class="soudable">{"dev"}</a>
+      <a href="/life/" class="soudable">{"life"}</a>
+      <a href="/tags/" class="soudable">{"tags"}</a>
+      <a href="/" class="soudable">{"all"}</a>
+  </div>
+  <a href="https://sakupi01.github.io/slides/" target="_blank" class="nav-item sondable">{"talks"}</a>
+  <a href="/rss.xml" target="_blank" class="nav-item soundable">{"rss"}</a>
+</nav>
+
+<style>
+
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+    :where(a, button) {
+        color: inherit;
+    }
+    .popovertarget {
+        anchor-name: attr(data-id type(<custom-ident>), none);
+          &:hover:not(:has(:popover-open)) {
+      transform: translateY(-3px);
+    }
+    }
+    [popover] {
+  opacity: 0;
+  translate: 0 -50px;
+  background: var(--color-base-lightest);
+  color: #333;
+  padding: 1rem;
+  border: 0.5px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-width: 150px;
+  transition: translate .3s allow-discrete,
+                      opacity .3s,
+                      display .3s allow-discrete;
+  position-anchor: attr(data-id type(<custom-ident>), none);
+    margin-bottom: 10px;
+  position-area: bottom center;
+  position-try-options: flip-block;
+}
+
+:popover-open {
+  opacity: 1;
+  translate: 0 0;
+  display: grid;
+  gap: 1rem;
+  grid-auto-rows: auto;
+  a:hover {
+    &::before {
+      content: "<";
+      color: var(--header-text);
+    }
+    &::after {
+      content: " />";
+      color: var(--header-text);
+    }
+  }
+}
+
+@starting-style {
+  :popover-open {
+    opacity: 0;
+    translate: 0 -50px;
+  }
+}
+.nav-item:hover {
+      transform: translateY(-3px);
+}
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const soundableTabs = document.querySelectorAll('.soudable');
+    const tabClickAudio = new Audio('/sounds/tab-click.mp3');
+    
+    // Check if sound is enabled before playing audio
+    const soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+      
+    soundableTabs.forEach(el => {
+      el.addEventListener('click', () => {
+
+      // Only play sound if sound is enabled
+      if (soundEnabled) {
+        tabClickAudio.play().catch(e => console.warn('Audio playback failed:', e));
+      }
+    });
+  });
+  })
+</script>

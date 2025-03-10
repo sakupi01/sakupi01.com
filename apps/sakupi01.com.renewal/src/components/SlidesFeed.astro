@@ -1,0 +1,280 @@
+---
+import { JSDOM } from "jsdom";
+
+// 型定義
+interface SlideItem {
+  title: string;
+  url: string;
+  pubDate: string;
+  description?: string;
+  author?: string;
+  thumbnail?: string;
+  tags: string[];
+}
+
+// ユーティリティ関数：DOMノードからテキストコンテンツを安全に取得
+function getElementText(element: Element | null): string {
+  if (!element) return "";
+  return element.textContent || "";
+}
+
+// ユーティリティ関数：childNodesから特定のタグ名の子要素を取得
+function getChildElementsByTagName(node: Node, tagName: string): Element[] {
+  const result: Element[] = [];
+
+  if (node?.childNodes) {
+    for (let i = 0; i < node.childNodes.length; i++) {
+      const child = node.childNodes[i] as Element;
+      if (child.nodeName === tagName) {
+        result.push(child);
+      }
+    }
+  }
+
+  return result;
+}
+
+// サーバーサイドでRSSフィードを取得して解析
+async function fetchSlides(): Promise<SlideItem[]> {
+  try {
+    const response = await fetch("https://sakupi01.github.io/slides/rss.xml");
+    const xmlText = await response.text();
+
+    // XMLをパース
+    const jsdom = new JSDOM();
+    const parser = new jsdom.window.DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+    // itemsを取得
+    const items = xmlDoc.getElementsByTagName("item");
+    const slides: SlideItem[] = [];
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      // 基本情報を取得
+      const title = getElementText(item.getElementsByTagName("title")[0]);
+      const link = getElementText(item.getElementsByTagName("link")[0]);
+      const pubDate = getElementText(item.getElementsByTagName("pubDate")[0]);
+      const description = getElementText(
+        item.getElementsByTagName("description")[0],
+      );
+
+      // dc:creator（著者）を取得
+      const dcCreatorElements = getChildElementsByTagName(item, "dc:creator");
+      const author =
+        dcCreatorElements.length > 0
+          ? getElementText(dcCreatorElements[0])
+          : "";
+
+      // media:content（サムネイル）を取得
+      const mediaContentElements = getChildElementsByTagName(
+        item,
+        "media:content",
+      );
+      let thumbnail = "";
+      if (mediaContentElements.length > 0) {
+        thumbnail = mediaContentElements[0].getAttribute("url") || "";
+      }
+
+      // カテゴリ（タグ）を取得
+      const categoryElements = item.getElementsByTagName("category");
+      const tags: string[] = [];
+
+      for (let j = 0; j < categoryElements.length; j++) {
+        const category = getElementText(categoryElements[j]);
+        if (category && category !== "ja" && category !== "en") {
+          tags.push(category);
+        }
+      }
+
+      slides.push({
+        title: title || "Untitled Slide",
+        url: link,
+        pubDate,
+        description,
+        author,
+        thumbnail,
+        tags,
+      });
+    }
+
+    return slides;
+  } catch (error) {
+    console.error("Error fetching RSS feed:", error);
+    return [];
+  }
+}
+
+// サーバーサイドでスライドデータを取得
+const slides = await fetchSlides();
+// 最新の3スライドのみを表示
+const latestSlides = slides.slice(0, 3);
+
+// フォーマット関数
+function formatDate(dateString: string): string {
+  try {
+    return new Date(dateString).toLocaleDateString();
+  } catch (e) {
+    return dateString;
+  }
+}
+---
+
+<div class="slides-container" aria-label="Featured Talks" >
+  <div class="slides-grid">
+    {latestSlides.length === 0 ? (
+      <div class="loading-indicator">Slide Not Found...</div>
+    ) : (
+      latestSlides.map(slide => (
+        <a href={slide.url} class="slide-card">
+          <figure>
+          {slide.thumbnail ? (
+            <img src={slide.thumbnail} alt={slide.title} class="slide-thumbnail" />
+          ) : (
+            <div class="slide-thumbnail-placeholder">{slide.title.charAt(0)}</div>
+          )}
+          <figcaption>{slide.title}</figcaption>
+          {slide.description && <p>{slide.description}</p>}
+          <div class="slide-meta">
+            <span class="slide-date">{formatDate(slide.pubDate)}</span>
+          </div>
+          {slide.tags.length > 0 && (
+            <div class="slide-tags">
+              {slide.tags.map(tag => (
+                <span class="slide-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+          </figure>
+        </a>
+      ))
+    )}
+  </div>
+  <a href="https://sakupi01.github.io/slides/" class="link">
+    more...
+  </a>
+</div>
+
+<style>
+    * {
+    font-family: var(--font-family-title);
+  }
+  h2 {
+    margin-block-start: var(--gutter-l);
+    min-width: var(--main-max-width);
+  }
+  
+  .slides-container {
+    margin: 2rem 0;
+  }
+  
+  .slides-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .loading-indicator {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+  }
+  
+  .slide-card {
+    text-decoration: none;
+    color: inherit;
+    transition: filter .2s;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+  
+  .slide-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .slide-thumbnail-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .slide-card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+  }
+  
+  .slide-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    line-height: 1.4;
+    /* 説明文を2行に制限 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .slide-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #777;
+    margin: 0.5rem 0;
+  }
+  
+  .slide-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  
+  .slide-tag {
+    background-color: #f0f0f0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    color: #666;
+  }
+  
+  .link {
+    display: inline-block;
+    text-decoration: none;
+    color: #666;
+    margin-top: 1rem;
+    border-bottom: 1px dashed #666;
+    transition: color 0.2s, border-color 0.2s;
+    &:hover {
+    color: #000;
+    border-color: #000;
+  }
+  }
+  
+  .link
+
+  /* モバイル対応 */
+  @media (max-width: 768px) {
+    .slides-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

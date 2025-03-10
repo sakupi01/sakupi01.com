@@ -9,7 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@repo/ui": "workspace:*",
     "astro": "^5.2.5",
-    "@repo/ui": "workspace:*"
+    "jsdom": "^26.0.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7"
   }
 }

@@ -1,16 +1,114 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Title from "../components/Title.astro";
+import Image from "astro/components/Image.astro";
+import SlidesFeed from "../components/SlidesFeed.astro";
+
 const links = {
-  x: "Sarah",
-  bluesky: "Canada",
-  github: "Technical Writer",
+  x: "https://x.com/sakupi01",
+  bluesky: "https://sakupi01.com",
+  github: "",
   codepen: "",
-  email: "",
 };
 ---
 
 <Layout>
-	<ul>
-		{Object.entries(links).map(([name, link]) => <li><a href={link} target="_blank">{name}</a></li>)}
-	</ul>
+  <Title title="Hi I'm saku !" /> <p>...and I'm on the Web.</p>
+  <section>
+    <ul class="posts">
+      {Object.entries(links).map(([name, url]) => (
+        <li>
+          <a href={url}>{name}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+<section>
+  <h2>
+    On The Blog
+  </h2>
+    <iframe style="width: 100%; height: 90vh;" scrolling="no" src="http://localhost:4322/recents" allowfullscreen allow="clipboard-write; encrypted-media; picture-in-picture" loading="lazy" sandbox=””/>
+</section>
+
+<section>
+  <h2>
+    Talks
+  </h2>
+  <SlidesFeed />
+</section>
+
+<div class="grid">
+    <section style="display: grid; place-content: start; place-items: start;">
+      <h2>
+        On Podcast
+      </h2>
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
+    </section>      
+    
+    <section>
+      <h2>
+        Events
+      </h2>
+      <div class="upcoming-event">
+        <h3>Upcoming Event...</h3>
+        <p>fukuoka.ts#3 @Cybozu Fukuoka Office, Offline, 2025/03/21(Fri) 19:00 ~ 20:30</p>
+        <a class="link" href="https://fukuoka-ts.connpass.com/event/347048/" target="_blank">Find me!</a>
+      </div>
+    </div>
+</section>      
+
+  </section>  
+  
 </Layout>
+
+<style>
+  iframe {
+    content-visibility: auto;
+  }
+  .grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 2fr;
+  }
+  section {
+    width: 100%;
+  }
+  * {
+    font-family: var(--font-family-title);
+  }
+  h2 {
+    margin-block-start: var(--gutter-l);
+  }
+
+  .upcoming-event {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-family: inherit;
+  }
+  
+  .upcoming-event h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: normal;
+  }
+  
+  .upcoming-event p {
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+  
+  .link {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 1rem;
+    color: #666;
+    border-bottom: 1px dashed #666;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  
+  .link:hover {
+    color: #000;
+    border-color: #000;
+  }
+</style>
