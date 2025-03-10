@@ -1,6 +1,6 @@
 ---
 import BlogPostCard from "../components/BlogPostCard.astro";
-import { allBlogPosts } from "../utils/contents";
+import { allPosts } from "../utils/contents";
 import Layout from "../layouts/Layout.astro";
 import Title from "../components/Title.astro";
 ---
@@ -8,7 +8,7 @@ import Title from "../components/Title.astro";
 <Layout>
   <Title title="Archive ..." />
 	<ul class="posts">
-		{allBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
+		{allPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
 	</ul>
 </Layout>
 

@@ -2,30 +2,23 @@
 import BlogPostCard from "../../../components/BlogPostCard.astro";
 import Title from "../../../components/Title.astro";
 import Layout from "../../../layouts/Layout.astro";
-import { getCollection } from "astro:content";
-const allTechBlogPosts = (await getCollection("blog")).filter((entry) =>
-  entry.slug.startsWith("dev"),
-);
-allTechBlogPosts.sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+import { allTechPosts } from "../../../utils/contents";
 ---
 
 <Layout pageTitle="saku's Techblog">
   <Title title="Tech Articles Archive ..." />
 	<ul class="posts">
-		{allTechBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
+		{allTechPosts.map((post) => {
+      const url = post.data.tags.includes("zenn")
+        ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
+        : `${import.meta.env.PUBLIC_BLOG_URL}${post.slug}`;
+      return <BlogPostCard url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
+    })}
 	</ul>
 </Layout>
 
 
 <style>
-  .title {
-	  font-family: var(--font-family-operator);
-    font-weight: 600;
-    font-optical-sizing: auto;
-    letter-spacing: .03em;
-  }
   .posts {
     display: grid;
     gap: 1rem;

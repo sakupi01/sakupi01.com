@@ -1,12 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Title from "../../components/Title.astro";
-import { allBlogPosts } from "../../utils/contents";
+import { allPosts } from "../../utils/contents";
 
 function getTags() {
-  const dynamicTags = [
-    ...new Set(allBlogPosts.flatMap((post) => post.data.tags)),
-  ];
+  const dynamicTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
   return dynamicTags;
 }
 

@@ -1,7 +1,6 @@
 ---
 import BlogPostCard from "../../components/BlogPostCard.astro";
-import { allBlogPosts } from "../../utils/contents";
-import Layout from "../../layouts/Layout.astro";
+import { allPosts } from "../../utils/contents";
 import Title from "../../components/Title.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
@@ -11,7 +10,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <Title title="Recent Posts ..." style="font-size: var(--font-size-h2);" />
     <ul class="posts">
        {
-          allBlogPosts.slice(0, 4).map((post) => (
+          allPosts.slice(0, 4).map((post) => (
             <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
           ))
        }

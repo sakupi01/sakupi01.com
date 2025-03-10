@@ -1,14 +1,12 @@
 ---
 import BlogPostCard from "../../components/BlogPostCard.astro";
 import Layout from "../../layouts/Layout.astro";
-import { allBlogPosts } from "../../utils/contents";
+import { allPosts } from "../../utils/contents";
 
 export async function getStaticPaths() {
-  const dynamicTags = [
-    ...new Set(allBlogPosts.flatMap((post) => post.data.tags)),
-  ];
+  const dynamicTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
   return dynamicTags.map((tag) => {
-    const filteredPosts = allBlogPosts.filter((post) =>
+    const filteredPosts = allPosts.filter((post) =>
       post.data.tags.includes(tag),
     );
     return {

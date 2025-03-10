@@ -2,19 +2,13 @@
 import BlogPostCard from "../../components/BlogPostCard.astro";
 import Layout from "../../layouts/Layout.astro";
 import Title from "../../components/Title.astro";
-import { getCollection } from "astro:content";
-const allLifeBlogPosts = (await getCollection("blog")).filter((entry) =>
-  entry.slug.startsWith("life"),
-);
-allLifeBlogPosts.sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+import { allLifePosts } from "../../utils/contents";
 ---
 
 <Layout pageTitle="saku's Lifeblog">
   <Title title="Life Articles Archive ..." />
 	<ul class="posts">
-		{allLifeBlogPosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
+		{allLifePosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
 	</ul>
 </Layout>
 

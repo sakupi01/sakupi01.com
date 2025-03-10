@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Title from "../components/Title.astro";
-import Image from "astro/components/Image.astro";
 import SlidesFeed from "../components/SlidesFeed.astro";
 
 const links = {
@@ -28,7 +27,7 @@ const links = {
   <h2>
     On The Blog
   </h2>
-    <iframe style="width: 100%; height: 90vh;" scrolling="no" src="http://localhost:4322/recents" allowfullscreen allow="clipboard-write; encrypted-media; picture-in-picture" loading="lazy" sandbox=””/>
+    <iframe style="width: 100%; height: 90vh;" scrolling="no" src={`${import.meta.env.PUBLIC_BLOG}recents`} allowfullscreen allow="clipboard-write; encrypted-media; picture-in-picture" loading="lazy" sandbox=””/>
 </section>
 
 <section>
