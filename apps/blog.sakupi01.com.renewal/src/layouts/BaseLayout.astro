@@ -1,7 +1,12 @@
 ---
 import "@repo/ui/index.css";
 import "../style/index.css";
-const { pageTitle } = Astro.props || "saku's blog";
+interface Props {
+  pageTitle: string;
+  description: string;
+  url: string;
+}
+const { pageTitle = "saku's blog", description, url } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,6 +18,12 @@ const { pageTitle } = Astro.props || "saku's blog";
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:type" content="website" />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.svg`} />
+		<meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
+		<meta name="twitter:card" content="summary" />
 		<script is:inline src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js" type="module"></script>
 		<script>
 			(async function() {

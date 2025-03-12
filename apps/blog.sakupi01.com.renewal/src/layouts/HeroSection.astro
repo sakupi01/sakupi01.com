@@ -1,5 +1,16 @@
 ---
 const { title, image, date, excerpt, tags } = Astro.props;
+function formatRFC2822Date(dateStr: string): string {
+  // Parse the RFC 2822 date string directly
+  const date = new Date(dateStr);
+
+  // Format the date using Intl.DateTimeFormat
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
 ---
 <div class="hero-section">
   <ul class="tags">
@@ -11,7 +22,7 @@ const { title, image, date, excerpt, tags } = Astro.props;
     </ul>
     <h1 class="title">{title}</h1>
     {image && <img src={image} alt={title} />}
-    <p class="published"><em><b>Published on {date.toISOString().slice(0,10)}</b></em></p>
+    <p class="published"><em><b>Published on {formatRFC2822Date(date)}</b></em></p>
     <p class="excerpt"><em>{excerpt}</em></p>
 </div>
 
@@ -28,10 +39,8 @@ const { title, image, date, excerpt, tags } = Astro.props;
     }
     .tags {
       list-style: none;
-      display: grid;
-      grid-auto-flow: column;
-      place-content: start;
-      place-items: start;
+      display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
       padding: 0;
       a {

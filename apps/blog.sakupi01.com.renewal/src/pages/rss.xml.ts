@@ -1,12 +1,12 @@
-import rss, { pagesGlobToRssItems } from "@astrojs/rss";
+import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import { marked } from "marked";
 import { DESCRIPTION, TITLE } from "../constants/site-config";
-import { allBlogPosts } from "../utils/contents";
+import { allHouseBlogPosts } from "../utils/contents";
 
 export async function GET(context: APIContext) {
   const items = await Promise.all(
-    allBlogPosts.map(async (post) => ({
+    allHouseBlogPosts.map(async (post) => ({
       title: post.data.title,
       pubDate: post.data.date,
       description: post.data.excerpt,

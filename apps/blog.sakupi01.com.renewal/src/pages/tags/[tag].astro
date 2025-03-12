@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
-<Layout pageTitle={tag}>
+<Layout pageTitle={`Pages related to #${tag}`} description={`Posts tagged with #${tag}`} url={`/tags/${tag}/`}>
   <p class="description">Posts tagged with <em><a href={`/tags/${tag}`}>#{tag}</a></em> ...</p>
   <ul class="posts">
     {posts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} /> )}
@@ -30,7 +30,7 @@ const { posts } = Astro.props;
   .description {
     font-size: 1.25em;
     margin-bottom: 1em;
-    font-family: var(--font-family-title);
+    font-family: var(--font-family-alegreya);
     font-weight: 600;
     font-optical-sizing: auto;
     a {

@@ -52,9 +52,14 @@ DOM的な遷移単位は、あくまでも`::view-transition`ツリーです。D
 
 そのため、`view-transition-name`を多くの要素に対して適用したい場合、以下のように、`view-transition-name`を要素の数だけ重複なく指定する必要があります。
 
-<https://codepen.io/jaffathecake/pen/VwBprqL>
+<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="VwBprqL" data-pen-title="View Transitions like IsotopeJS" data-user="jaffathecake" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jaffathecake/pen/VwBprqL">
+  View Transitions like IsotopeJS</a> by Jake Archibald (<a href="https://codepen.io/jaffathecake">@jaffathecake</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
 
-*See the Pen [View Transitions like IsotopeJS](https://codepen.io/jaffathecake/pen/VwBprqL) by Jake Archibald ([@jaffathecake](https://codepen.io/jaffathecake)) on [CodePen](https://codepen.io).*
+<br />
 
 こうした問題を解決するために、`view-transition-name`の自動生成が提案されています。
 

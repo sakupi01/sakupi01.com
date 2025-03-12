@@ -4,10 +4,16 @@ import "../style/index.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import BaseLayout from "./BaseLayout.astro";
-const { pageTitle } = Astro.props || "saku's blog";
+
+interface Props {
+  pageTitle: string;
+  description: string;
+  url: string;
+}
+const { pageTitle, description, url } = Astro.props;
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} description={description} url={url}>
 	<Header />
 		<main>
 			<slot />

@@ -5,7 +5,7 @@ import Layout from "../../../layouts/Layout.astro";
 import { allTechPosts } from "../../../utils/contents";
 ---
 
-<Layout pageTitle="saku's Techblog">
+<Layout pageTitle="saku's Techblog" description="Tech Articles Archive" url="/dev/">
   <Title title="Tech Articles Archive ..." />
 	<ul class="posts">
 		{allTechPosts.map((post) => {

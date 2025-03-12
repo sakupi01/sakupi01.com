@@ -2,12 +2,15 @@
 import type { InferEntrySchema } from "astro:content";
 import Layout from "./Layout.astro";
 import HeroSection from "./HeroSection.astro";
-const { frontmatter } = Astro.props as {
+
+interface Props {
   frontmatter: InferEntrySchema<"blog">;
-};
+  slug: string;
+}
+const { frontmatter, slug } = Astro.props;
 ---
 
-<Layout pageTitle={frontmatter.title}>
+<Layout pageTitle={frontmatter.title} description={frontmatter.excerpt} url={slug}>
   <article>
     
   <HeroSection title={frontmatter.title} date={frontmatter.date} excerpt={frontmatter.excerpt} tags={frontmatter.tags}/>

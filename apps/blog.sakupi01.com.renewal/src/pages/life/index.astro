@@ -5,10 +5,13 @@ import Title from "../../components/Title.astro";
 import { allLifePosts } from "../../utils/contents";
 ---
 
-<Layout pageTitle="saku's Lifeblog">
+<Layout pageTitle="saku's Lifeblog" description="Life Articles Archive" url="/life/">
   <Title title="Life Articles Archive ..." />
 	<ul class="posts">
-		{allLifePosts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />)}
+		{allLifePosts.map((post) => {
+        const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`
+        return <BlogPostCard url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
+    })}
 	</ul>
 </Layout>
 

@@ -75,14 +75,6 @@ export default defineConfig({
     ],
     rehypePlugins: [
       rehypeSlug,
-      // [
-      //   rehypePrettyCode,
-      //   {
-      //     theme: "github-light",
-      //     keepBackground: true,
-      //     defaultLang: "plaintext",
-      //   },
-      // ],
       [rehypeStringify, { allowDangerousHtml: true }],
       [rehypeAutolinkHeadings, { behavior: "wrap" }],
     ],

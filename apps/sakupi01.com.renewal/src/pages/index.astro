@@ -4,20 +4,24 @@ import Title from "../components/Title.astro";
 import SlidesFeed from "../components/SlidesFeed.astro";
 
 const links = {
-  x: "https://x.com/sakupi01",
-  bluesky: "https://sakupi01.com",
-  github: "",
-  codepen: "",
+  X: "https://x.com/sakupi01/",
+  Bluesky: "https://bsky.app/profile/sakupi01.com/",
+  GitHub: "https://github.com/sakupi01/",
+  Codepen: "https://codepen.io/sakupi01/",
+  Email: "mailto: saku@email.sakupi01.com",
 };
 ---
 
-<Layout>
-  <Title title="Hi I'm saku !" /> <p>...and I'm on the Web.</p>
+<Layout pageTitle="saku On The Web" description="The personal website of saku. A front-end developer, who loves Web UI" url="/">
+  <Title title="Hi I'm saku !" /> <p> and I'm ...</p>
   <section>
-    <ul class="posts">
+    <h2>
+      On The Web
+    </h2>
+    <ul class="sns">
       {Object.entries(links).map(([name, url]) => (
         <li>
-          <a href={url}>{name}</a>
+          <a href={url} class="sns-link">{name}</a>
         </li>
       ))}
     </ul>
@@ -32,32 +36,46 @@ const links = {
 
 <section>
   <h2>
-    Talks
+    At Conferences & Events
   </h2>
   <SlidesFeed />
+  <a href="https://sakupi01.github.io/slides/" class="link">
+    more...
+  </a>
+  <div class="upcoming-event">
+    <h3>Upcoming Event...</h3>
+    <p>fukuoka.ts#3 @Cybozu Fukuoka Office, Offline, 2025/03/21(Fri) 19:00 ~ 20:30</p>
+    <a class="link" href="https://fukuoka-ts.connpass.com/event/347048/" target="_blank">Find me!</a>
+  </div>
 </section>
 
 <div class="grid">
     <section style="display: grid; place-content: start; place-items: start;">
       <h2>
-        On Podcast
+        On Podcasts
       </h2>
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator" width="100%" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
     </section>      
     
     <section>
       <h2>
-        Events
+        etc, etc...
       </h2>
-      <div class="upcoming-event">
-        <h3>Upcoming Event...</h3>
-        <p>fukuoka.ts#3 @Cybozu Fukuoka Office, Offline, 2025/03/21(Fri) 19:00 ~ 20:30</p>
-        <a class="link" href="https://fukuoka-ts.connpass.com/event/347048/" target="_blank">Find me!</a>
-      </div>
+      <ul>
+        <li>
+          <a href="https://blog.sakupi01.com/" class="sns-link">📝 What I'm Writing.</a>
+        </li>
+        <li>
+          <a href="https://sakupi01.notion.site/Reading-List-a48d2fcb352942759b470e5535426390" class="sns-link">📚 What I'm Reading.</a>
+        </li>
+        <li>
+          <a href="https://open.spotify.com/playlist/4L5YoZao0D90mf80iTsarN?si=62767b1dc7ac4880" class="sns-link">🎧 What I'm Listening.</a>
+        </li>
+      </ul>
     </div>
 </section>      
 
-  </section>  
+</div>  
   
 </Layout>
 
@@ -70,14 +88,35 @@ const links = {
     gap: 2rem;
     grid-template-columns: 1fr 2fr;
   }
+
+  .sns-link {
+    color: light-dark(
+      var(--color-base-dark),
+      var(--color-base-light)
+  );
+    transition: color 0.2s;
+    &:hover {
+      color: deeppink;
+    }
+  }
+
   section {
     width: 100%;
   }
   * {
-    font-family: var(--font-family-title);
+    font-family: var(--font-family-alegreya);
   }
   h2 {
     margin-block-start: var(--gutter-l);
+  }
+
+  .sns {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .upcoming-event {
@@ -98,16 +137,34 @@ const links = {
   }
   
   .link {
+    font-style: italic;
     display: inline-block;
     text-decoration: none;
-    margin-top: 1rem;
-    color: #666;
-    border-bottom: 1px dashed #666;
+    color: color-mix(in oklch, light-dark(
+      var(--color-base-dark),
+      var(--color-base-light)
+  ), white 35%);
+    border-bottom: 1px dashed color-mix(in oklch, light-dark(
+      var(--color-base-dark),
+      var(--color-base-light)
+  ), white 35%);
     transition: color 0.2s, border-color 0.2s;
+    &:hover {
+      color: light-dark(
+      var(--color-base-dark),
+      var(--color-base-light)
+  );
+    border-color: 1px dashed light-dark(
+      var(--color-base-dark),
+      var(--color-base-light)
+  );
   }
-  
-  .link:hover {
-    color: #000;
-    border-color: #000;
+  }
+
+       /* モバイル対応 */
+       @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
