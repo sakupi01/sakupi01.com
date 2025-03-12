@@ -1,16 +1,7 @@
 ---
-const { title, image, date, excerpt, tags } = Astro.props;
-function formatRFC2822Date(dateStr: string): string {
-  // Parse the RFC 2822 date string directly
-  const date = new Date(dateStr);
+import { formatRFC2822Date } from "../utils/formatRFC2822Date";
 
-  // Format the date using Intl.DateTimeFormat
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(date);
-}
+const { title, image, date, excerpt, tags } = Astro.props;
 ---
 <div class="hero-section">
   <ul class="tags">

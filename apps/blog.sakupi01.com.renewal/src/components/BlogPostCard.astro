@@ -1,10 +1,12 @@
 ---
-const { url, title, date, excerpt, tags } = Astro.props;
+import { formatRFC2822Date } from "../utils/formatRFC2822Date";
+
+const { url, title, date, excerpt } = Astro.props;
 ---
 
 <li class="blog-post-card">
     <a href={url}>
-      <p class="published"><em><b>Published on {date.toISOString().slice(0,10)}</b></em></p>
+      <p class="published"><em><b>Published on {formatRFC2822Date(date)}</b></em></p>
       <h3 class="title">{title}</h3>
     </a>
     <p class="excerpt"><em>{excerpt}</em></p>
