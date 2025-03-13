@@ -1,16 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "strict": true,
-    "lib": ["ESNext", "DOM"],
-    "types": ["vite/client", "@cloudflare/workers-types"],
-    "jsxImportSource": "react",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./app/*"]
-    }
-  }
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
 }

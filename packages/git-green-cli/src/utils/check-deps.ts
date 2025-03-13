@@ -5,6 +5,7 @@ import { join } from "node:path";
  */
 export const checkTailwindCSS = async () => {
   const path2Config = join(process.cwd(), "tailwind.config");
-  const exists = fs.existsSync(`${path2Config}.${"ts" || "js"}`);
-  return exists;
+  const existsTS = fs.existsSync(`${path2Config}.ts`);
+  const existsJS = fs.existsSync(`${path2Config}.js`);
+  return existsTS || existsJS;
 };

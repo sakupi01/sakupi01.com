@@ -20,11 +20,11 @@
     "build": "tsup",
     "build:publish": "tsup",
     "clean": "rimraf dist && rimraf .turbo && rimraf node_modules",
-    "check:format": "bunx biome format --changed --write .",
-    "check:lint": "bunx biome lint --changed --write .",
+    "check:format": "pnpm biome format --changed --write .",
+    "check:lint": "pnpm biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "bunx biome check --changed --write .",
-    "check": "bun run check:typecheck & bunx biome check --write . --no-errors-on-unmatched"
+    "check:lint-format": "pnpm biome check --changed --write .",
+    "check": "pnpm run check:typecheck & pnpm biome check --write . --no-errors-on-unmatched"
   },
   "devDependencies": {
     "tsup": "^8.1.0",
@@ -38,6 +38,6 @@
     "@inquirer/prompts": "5.0.5",
     "commander": "^12.1.0",
     "ora": "^8.0.1",
-    "zod": "^3.23.8"
+    "zod": "catalog:"
   }
 }

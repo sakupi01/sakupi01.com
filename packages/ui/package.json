@@ -6,19 +6,16 @@
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./ui.css": "./dist/index.css",
     "./index.css": "./src/index.css"
   },
   "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./src/styles.css -o dist/index.css",
-    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
-    "check:format": "bunx biome format --changed --write .",
-    "check:lint": "bunx biome lint --changed --write .",
+    "check:format": "pnpm biome format --changed --write .",
+    "check:lint": "pnpm biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "bunx biome check --changed --write .",
+    "check:lint-format": "pnpm biome check --changed --write .",
     "check:style": "stylelint 'src/**/*.css'",
-    "check": "bun run check:typecheck & bunx biome check --write . --no-errors-on-unmatched & bun run check:style",
+    "check": "pnpm run check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & bun run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
     "build:storybook": "storybook build -o ./storybook-static",
     "gen": "turbo gen react-component",
@@ -26,7 +23,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
-    "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-essentials": "8.3.0",
     "@storybook/addon-interactions": "8.3.0",
@@ -47,12 +43,10 @@
     "react-dom": "^18.2.0",
     "storybook": "8.3.0",
     "stylelint": "^16.14.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "stylelint-config-standard": "^37.0.0"
   },
   "dependencies": {
-    "blocks": "link:@storybook/addon-docs/blocks",
-    "class-variance-authority": "0.7.0",
-    "clsx": "2.1.0",
-    "stylelint-config-standard": "^37.0.0"
+    "blocks": "link:@storybook/addon-docs/blocks"
   }
 }
