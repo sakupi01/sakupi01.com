@@ -6,7 +6,7 @@ import { createComponent } from "../utils/create-components";
 import { fetchComponent } from "../utils/registry";
 
 // Define the command to generate the heatmap under the given directory if it is not already present
-// > bun git-heatmap generate <components...> -d <directory>
+// > pnpm git-heatmap generate <components...> -d <directory>
 export const generate = (program: Command) =>
   program
     .command("gen")

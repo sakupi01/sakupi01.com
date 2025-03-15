@@ -7,7 +7,7 @@ import { createUtils } from "../utils/create-utils";
 import { fetchUtils } from "../utils/registry/index";
 
 // Define the command to initialize the environment to generate the heatmap in tailwindcss and with given types and constants
-// > bun git-heatmap init -d <directory>
+// > pnpm git-heatmap init -d <directory>
 export const init = (program: Command) =>
   program
     .command("init")
