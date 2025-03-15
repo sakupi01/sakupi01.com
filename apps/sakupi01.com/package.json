@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
     "@repo/ui": "workspace:*",
     "astro": "^5.2.5",
     "jsdom": "^26.0.0",

@@ -20,11 +20,21 @@ import { customClassName } from "./src/remark/customClassName";
 import { handleHTML } from "./src/remark/remark-embedder/handleHTML";
 import { CodeSandboxTransformer } from "./src/remark/remark-embedder/transformer";
 
+import partytown from "@astrojs/partytown";
+
 const cache = remarkEmbedderCache(".cache/remark-embedder.json");
 
 export default defineConfig({
   site: "https://blog.sakupi01.com/",
-  integrations: [mdx(), cacheSave(cache)],
+  integrations: [
+    mdx(),
+    cacheSave(cache),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
   markdown: {
     shikiConfig: {
       themes: {
