@@ -43,7 +43,7 @@ jobs:
 
       # Install Turbo globally to ensure it's available
       - name: Install Turbo globally
-        run: npm install -g turbo
+        run: pnpm install -g turbo
 
       - name: 💅🏻 Type Check, Lint and format
         run: pnpm run check:all
