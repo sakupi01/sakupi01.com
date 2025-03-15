@@ -3,18 +3,18 @@
 ---
 
 <nav>
-  <a href={import.meta.env.PUBLIC_HOME} class="nav-item">{"<home />"}</a>
+  <a href="/" class="nav-item">{"<home />"}</a>
   <button popovertarget="blogs" class="popovertarget soudable" data-id="--blogs-button">
       {"blogs"}
   </button>
   <div id="blogs" popover data-id="--blogs-button">
-      <a href="/dev/" class="soudable">{"dev"}</a>
-      <a href="/life/" class="soudable">{"life"}</a>
-      <a href="/tags/" class="soudable">{"tags"}</a>
-      <a href="/" class="soudable">{"all"}</a>
+      <a href={`${import.meta.env.PUBLIC_BLOG}dev/`} class="soudable">{"dev"}</a>
+      <a href={`${import.meta.env.PUBLIC_BLOG}life/`} class="soudable">{"life"}</a>
+      <a href={`${import.meta.env.PUBLIC_BLOG}tags/`} class="soudable">{"tags"}</a>
+      <a href={`${import.meta.env.PUBLIC_BLOG}`} class="soudable">{"all"}</a>
   </div>
   <a href="https://sakupi01.github.io/slides/" target="_blank" class="nav-item sondable">{"talks"}</a>
-  <a href="/rss.xml" target="_blank" class="nav-item soundable">{"rss"}</a>
+  <a href={`${import.meta.env.PUBLIC_BLOG}feed.xml`} target="_blank" class="nav-item soundable">{"rss"}</a>
 </nav>
 
 <style>

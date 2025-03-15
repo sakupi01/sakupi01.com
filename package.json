@@ -30,8 +30,7 @@
     "bench": "turbo bench",
     "coverage": "turbo coverage",
     "build-packages": "turbo build:publish",
-    "prepare": "husky",
-    "postinstall": "patch-package"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -43,7 +42,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lost-pixel": "^3.16.0",
-    "patch-package": "^8.0.0",
     "postcss": "^8.4.38",
     "turbo": "2.0.2-canary.1",
     "typescript": "5.4.5",

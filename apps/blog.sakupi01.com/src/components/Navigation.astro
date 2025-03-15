@@ -3,7 +3,7 @@
 ---
 
 <nav>
-  <a href="https://sakupi01.com/" class="nav-item">{"home"}</a>
+  <a href={`${import.meta.env.PUBLIC_HOME}`} class="nav-item">{"home"}</a>
   <button popovertarget="blogs" class="popovertarget soudable" data-id="--blogs-button">
       {"<blogs />"}
   </button>
@@ -14,7 +14,7 @@
       <a href="/" class="soudable">{"all"}</a>
   </div>
   <a href="https://sakupi01.github.io/slides/" target="_blank" class="nav-item sondable">{"talks"}</a>
-  <a href="/rss.xml" target="_blank" class="nav-item soundable">{"rss"}</a>
+  <a href="/feed.xml" target="_blank" class="nav-item soundable">{"rss"}</a>
 </nav>
 
 <style>
