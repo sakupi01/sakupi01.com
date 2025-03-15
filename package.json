@@ -43,7 +43,7 @@
     "clsx": "^2.1.1",
     "lost-pixel": "^3.16.0",
     "postcss": "^8.4.38",
-    "turbo": "2.0.2-canary.1",
+    "turbo": "^2.4.4",
     "typescript": "5.4.5",
     "vite": "5.2.12",
     "vitest": "^2.1.5"
@@ -54,7 +54,10 @@
   "volta": {
     "node": "23.1.0"
   },
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
     "husky": "9.0.11",
     "lucide-react": "^0.394.0",
