@@ -20,9 +20,9 @@ jobs:
           node-version: '23.1.0'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v3
         with:
-          version: 10.3.0
+          version: latest
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -31,7 +31,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Cache pnpm dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         id: pnpm-cache-result
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -41,7 +41,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-# This job is for checking the code style, type and lint errors.
   check-all: 
     needs: install-dependencies
     runs-on: ubuntu-latest
@@ -58,12 +57,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23.1.0'
+          node-version: 'lts/*'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v3
         with:
-          version: 10.3.0
+          version: latest
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -72,7 +71,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Cache pnpm dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         id: pnpm-cache-result
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -80,7 +79,7 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-
 
       - name: 💅🏻 Type Check, Lint and format
-        run: pnpm check:all
+        run: pnpm run checkAll 
 
   pa11y-ci: 
     needs: install-dependencies
@@ -98,12 +97,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23.1.0'
+          node-version: 'lts/*'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v3
         with:
-          version: 10.3.0
+          version: latest
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -112,12 +111,60 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Cache pnpm dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         id: pnpm-cache-result
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-
 
+      - name: Build UI
+        working-directory: ./packages/ui
+        run: pnpm run build 
+
       - name: Build App
-        run: pnpm build 
+        run: pnpm run build 
+
+      - name: 🐣 Pa11y Test
+        working-directory: ${{ github.workspace }}/apps/blog.sakupi01.com
+        run: pnpm run start & sleep 3; pnpm pa11y
+
+# This job is for executing tests.
+  test: 
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+        id: pnpm-cache-result
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
+
+      - name: 🧪 Test
+        run: pnpm run test:unit
