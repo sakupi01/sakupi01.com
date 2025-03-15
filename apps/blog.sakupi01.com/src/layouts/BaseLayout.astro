@@ -1,0 +1,45 @@
+---
+import "@repo/ui/index.css";
+import "../style/index.css";
+interface Props {
+  pageTitle: string;
+  description: string;
+  url: string;
+}
+const { pageTitle = "saku's blog", description, url } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:type" content="website" />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.svg`} />
+		<meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
+		<meta name="twitter:card" content="summary" />
+		<script is:inline src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js" type="module"></script>
+		<script>
+			(async function() {
+			// @ts-ignore
+			if (CSS['paintWorklet'] === undefined)
+			// @ts-ignore
+			await import('https://unpkg.com/css-paint-polyfill@next/dist/css-paint-polyfill.js')
+		
+			// @ts-ignore
+			CSS.paintWorklet.addModule("/_scripts/curved-underline.js");
+		  })();
+		</script>
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+	</head>
+	<body class="page">
+		<slot />
+	</body>
+</html>

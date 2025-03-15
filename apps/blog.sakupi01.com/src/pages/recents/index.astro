@@ -1,0 +1,27 @@
+---
+import BlogPostCard from "../../components/BlogPostCard.astro";
+import { allPosts } from "../../utils/contents";
+import Title from "../../components/Title.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout pageTitle="saku's Blog">
+  <main>
+    <Title title="Recent Posts ..." style="font-size: var(--font-size-h2);" />
+    <ul class="posts">
+       {
+          allPosts.slice(0, 4).map((post) => (
+            <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
+          ))
+       }
+    </ul>
+  </main>
+</BaseLayout>
+
+<style>
+  .posts {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+</style>

@@ -1,0 +1,94 @@
+/*
+----------------------------------------------------------------------------
+Typography settings.
+----------------------------------------------------------------------------
+*/
+
+/*
+----------------------------------------------------------------------------
+Font-face rules.
+
+'font-display: swap;' ensures that all text will be rendered with a fallback system font until custom font is ready.
+----------------------------------------------------------------------------
+*/
+
+/*
+For English
+200: Thin
+400: Regular
+600: Bold
+800: Extra Bold
+900: Heavy
+*/
+@font-face {
+    font-family: "Operator Mono Lig";
+    font-weight: 200;
+    src: url('./fonts/OperatorMonoLig/OperatorMonoLig-Light.otf') format('otf');
+    unicode-range: U+0041-007A; /* A-Z, a-z */
+    font-display: swap;
+    size-adjust: 105%;
+}
+
+@font-face {
+    font-family: "Operator Mono Lig";
+    font-weight: 400;
+    src: url('./fonts/OperatorMonoLig/OperatorMonoLig-LightItalic.otf') format('otf');
+    unicode-range: U+0041-007A;
+    font-display: swap;
+    size-adjust: 105%;
+}
+
+@font-face {
+    font-family: "Operator Mono Lig";
+    font-weight: 600;
+    src: url('./fonts/OperatorMonoLig/OperatorMonoLig-Book.otf') format('otf');
+    unicode-range: U+0041-007A;
+    font-display: swap;
+    size-adjust: 110%;
+}
+
+@font-face {
+    font-family: "Operator Mono Lig";
+    font-weight: 800;
+    src: url('./fonts/OperatorMonoLig/OperatorMonoLig-BookItalic.otf') format('otf');
+    unicode-range: U+0041-007A;
+    font-display: swap;
+    size-adjust: 105%;
+}
+
+@font-face {
+    font-family: "Operator Mono Lig";
+    font-weight: 900;
+    src: url('./fonts/OperatorMonoLig/OperatorMonoLig.otf') format('otf');
+    unicode-range: U+0041-007A;
+    font-display: swap;
+    size-adjust: 115%;
+}
+
+:root {
+    --base-font-family: var(--font-family-inter), var(--font-fallback);
+    --base-font-family-title: var(--font-family-inter), var(--font-fallback);
+    --base-font-family-operator: var(--font-family-operator), var(--font-fallback);
+    --base-font-size: 100%;
+    --base-font-size-2k: 110%; /* 2K screens */
+    --base-font-size-4k: 200%; /* 4K screens */
+    --font-size-body: var(--step-0);
+    --font-size-s: var(--step-05);
+    --font-size-h5: var(--step-1);
+    --font-size-h4: var(--step-2);
+    --font-size-h3: var(--step-3);
+    --font-size-h2: var(--step-4);
+    --font-size-h1: var(--step-5);
+    --font-size-xl: var(--step-6);
+
+    /* Only adjust line-height when fonts get large */
+    --base-line-height: 1.5;
+    --line-height-h4: 1.3;
+    --line-height-h3: 1.3;
+    --line-height-h2: 1.2;
+    --line-height-h1: 1.2;
+    --line-height-xl: 1.2;
+
+    /* Max line-length (aka measure) to improve readability of editorial content */
+    --type-max-line-length: null;
+}

@@ -3,32 +3,32 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-        @apply font-pacifico;
-    }
-* {
+  html {
+    @apply font-pacifico;
+  }
+  * {
     --color-base: #ecfff6;
     --color-base-text: #3f4c46;
-}
-/* GitHub (Default) */
-:root {
-  --color-primary: #30a14e;
-  --color-primary-text: #ffffff;
-  --color-primary-hover: #216e39;
-  --color-primary-hover-text: #ffffff;
-  --color-primary-active: #40c463;
-  --color-primary-active-text: #ffffff;
-  --color-primary-disabled: #ebedf0;
-  --color-primary-disabled-text: #9be9a8;
-  --color-primary-background: #ffffff;
-  --color-primary-background-text: #3f4c46;
-  --color-level-0: #ebedf0;
-  --color-level-1: #9be9a8;
-  --color-level-2: #40c463;
-  --color-level-3: #30a14e;
-  --color-level-4: #216e39;
-}
-  
+  }
+  /* GitHub (Default) */
+  :root {
+    --color-primary: #30a14e;
+    --color-primary-text: #ffffff;
+    --color-primary-hover: #216e39;
+    --color-primary-hover-text: #ffffff;
+    --color-primary-active: #40c463;
+    --color-primary-active-text: #ffffff;
+    --color-primary-disabled: #ebedf0;
+    --color-primary-disabled-text: #9be9a8;
+    --color-primary-background: #ffffff;
+    --color-primary-background-text: #3f4c46;
+    --color-level-0: #ebedf0;
+    --color-level-1: #9be9a8;
+    --color-level-2: #40c463;
+    --color-level-3: #30a14e;
+    --color-level-4: #216e39;
+  }
+
   /* GitHub Dark */
   .custom-github-dark {
     --color-primary: #26a641;
@@ -66,7 +66,6 @@
     --color-level-3: #5eb3e6; /* 中間の青色 */
     --color-level-4: #004c8c; /* 濃い青色 */
   }
-
 
   /* Autumn */
   .custom-autumn {

@@ -7,15 +7,16 @@
     "build": "remix vite:build",
     "dev": "remix vite:dev",
     "start": "PORT=4000 remix-serve $(pwd)/build/server/index.js",
-    "check:format": "bunx biome format --changed --write .",
-    "check:lint": "bunx biome lint --changed --apply .",
+    "check:format": "pnpm biome format --changed --write .",
+    "check:lint": "pnpm biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "bunx biome check --changed --apply .",
+    "check:lint-format": "pnpm biome check --changed --write .",
     "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
-    "check": "bun check:typecheck & bunx biome check --apply . --no-errors-on-unmatched & bun check:markuplint",
+    "check": "pnpm check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm check:markuplint",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@remix-run/node": "2.9.2",
     "@remix-run/react": "2.9.2",
@@ -34,13 +35,9 @@
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/client-preset": "4.2.6",
     "@remix-run/dev": "2.9.2",
+    "@types/dom-to-image": "^2.6.7",
     "git-green-cli": "^1.0.0",
-    "tailwindcss": "^3.4.4",
-    "vite-tsconfig-paths": "^4.2.1",
-    "@types/dom-to-image": "^2.6.7"
-  },
-  "engines": { "node": "20.x" },
-  "volta": {
-    "node": "20.14.0"
+    "tailwindcss": "catalog:",
+    "vite-tsconfig-paths": "^4.2.1"
   }
 }

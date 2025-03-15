@@ -1,0 +1,57 @@
+---
+import BlogPostCard from "../../components/BlogPostCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { allPosts } from "../../utils/contents";
+
+export async function getStaticPaths() {
+  const dynamicTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+  return dynamicTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags.includes(tag),
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+<Layout pageTitle={`Pages related to #${tag}`} description={`Posts tagged with #${tag}`} url={`/tags/${tag}/`}>
+  <p class="description">Posts tagged with <em><a href={`/tags/${tag}`}>#{tag}</a></em> ...</p>
+  <ul class="posts">
+    {posts.map((post) => <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} /> )}
+  </ul>
+</Layout>
+
+<style>
+  .description {
+    font-size: 1.25em;
+    margin-bottom: 1em;
+    font-family: var(--font-family-alegreya);
+    font-weight: 600;
+    font-optical-sizing: auto;
+    a {
+      font-family: var(--font-family-operator);
+      font-weight: 600;
+      font-optical-sizing: auto;
+      transition: color .2s;
+    color: var(--focusable);
+    &:hover {
+        color: var(--focused);
+        text-decoration: underline;
+        text-decoration-color: var(--focused);
+        text-decoration-thickness: 0.2rem;
+        text-decoration-style: dotted;
+        text-decoration-skip-ink: none;
+    }
+    }
+  }
+  .posts {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+</style>

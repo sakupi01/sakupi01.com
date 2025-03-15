@@ -1,6 +1,6 @@
 {
-  "extends": ["../../biome.json", "../../react-internal.json"],
+  "extends": ["../../biome.json"],
   "files": {
-    "ignore": [".next/**"]
+    "ignore": [".astro/**", "./public/remark-link-card/**"]
   }
 }

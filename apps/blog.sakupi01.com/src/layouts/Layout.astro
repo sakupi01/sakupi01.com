@@ -1,0 +1,22 @@
+---
+import "@repo/ui/index.css";
+import "../style/index.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  pageTitle: string;
+  description: string;
+  url: string;
+}
+const { pageTitle, description, url } = Astro.props;
+---
+
+<BaseLayout pageTitle={pageTitle} description={description} url={url}>
+	<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+</BaseLayout>

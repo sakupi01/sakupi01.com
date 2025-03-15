@@ -3,7 +3,7 @@ name: 'Check'
 on: [push]
 
 jobs:
-  install-dependencies:
+  check:
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -14,113 +14,36 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '22.x'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.3.0
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        id: pnpm-cache-result
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
-      - name: Cache bun dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        id: bun-cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun
-
-# This job is for checking the code style, type and lint errors.
-  check-all: 
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    env:
-     TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-     TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
-    steps:
-      - name: Checkout Commit
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Restore bun dependencies
-        id: bun-cache
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun
+      # Install Turbo globally to ensure it's available
+      - name: Install Turbo globally
+        run: pnpm install -g turbo
 
       - name: 💅🏻 Type Check, Lint and format
-        run: bun run checkAll 
-  pa11y-ci: 
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    env:
-     TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-     TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
-    steps:
-      - name: Checkout Commit
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Restore bun dependencies
-        id: bun-cache
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun
-
-      - name: Build UI
-        working-directory: ./packages/ui
-        run: bun run build 
-
-      - name: Build App
-        run: bun run build 
-
-      - name: 🐣 Pa11y Test
-        working-directory: ${{ github.workspace }}/apps/blog.sakupi01.com
-        run: bun run start & sleep 3; bun pa11y
-
-# This job is for executing tests.
-  test: 
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-    steps:
-      - name: Checkout Commit
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Restore bun dependencies
-        id: bun-cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun
-
-      - name: 🧪 Test
-        run: bun run test:unit
+        run: pnpm run check:all

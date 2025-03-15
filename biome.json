@@ -25,10 +25,11 @@
       "**/*.tsx",
       "**/*.json",
       "**/*.js",
+      "**/*.mjs",
       "**/*.jsx",
       "**/*.css",
       "**/*.md",
-      "**/*.graphql"
+      "**/*.astro"
     ],
     "ignore": ["dist/**", "node_modules/**", "coverage/**", "**/generated/**"]
   }

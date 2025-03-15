@@ -1,0 +1,26 @@
+---
+import BlogPostCard from "../components/BlogPostCard.astro";
+import { allPosts } from "../utils/contents";
+import Layout from "../layouts/Layout.astro";
+import Title from "../components/Title.astro";
+---
+
+<Layout pageTitle="saku's Blog" description="Blog Archive" url="/">
+  <Title title="Archive ..." />
+	<ul class="posts">
+		{allPosts.map((post) => {
+      const url = post.data.tags.includes("zenn")
+        ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
+        : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+        return <BlogPostCard url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
+    })}
+	</ul>
+</Layout>
+
+<style>
+  .posts {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+</style>

@@ -1,81 +1,78 @@
 .graph {
-    --week-width: calc(var(--block-size, 10px) + var(--block-gap, 3px));
-    @apply text-xs gap-1;
-  
-    display: inline-grid;
-    grid-template-areas:
-      'null months'
-      'days blocks';
-    grid-template-columns: auto 1fr;
-  }
-  
-  .months {
-    display: grid;
-    grid-area: months;
-    grid-template-columns:
-      calc(var(--week-width) * 5) /* Jan */
-      calc(var(--week-width) * 4) /* Feb */
-      calc(var(--week-width) * 4) /* Mar */
-      calc(var(--week-width) * 5) /* Apr */
-      calc(var(--week-width) * 4) /* May */
-      calc(var(--week-width) * 4) /* Jun */
-      calc(var(--week-width) * 5) /* Jul */
-      calc(var(--week-width) * 4) /* Aug */
-      calc(var(--week-width) * 4) /* Sep */
-      calc(var(--week-width) * 5) /* Oct */
-      calc(var(--week-width) * 4) /* Nov */
-      calc(var(--week-width) * 5) /* Dec */;
-  }
-  
+  --week-width: calc(var(--block-size, 10px) + var(--block-gap, 3px));
+  @apply text-xs gap-1;
 
+  display: inline-grid;
+  grid-template-areas:
+    "null months"
+    "days blocks";
+  grid-template-columns: auto 1fr;
+}
 
-  .days {
-    grid-area: days;
-  }
-  
-  .months,
-  .days {
-    opacity: 0.4;
-  }
+.months {
+  display: grid;
+  grid-area: months;
+  grid-template-columns:
+    calc(var(--week-width) * 5) /* Jan */
+    calc(var(--week-width) * 4) /* Feb */
+    calc(var(--week-width) * 4) /* Mar */
+    calc(var(--week-width) * 5) /* Apr */
+    calc(var(--week-width) * 4) /* May */
+    calc(var(--week-width) * 4) /* Jun */
+    calc(var(--week-width) * 5) /* Jul */
+    calc(var(--week-width) * 4) /* Aug */
+    calc(var(--week-width) * 4) /* Sep */
+    calc(var(--week-width) * 5) /* Oct */
+    calc(var(--week-width) * 4) /* Nov */
+    calc(var(--week-width) * 5) /* Dec */;
+}
 
-  .blocks {
-    @apply auto-cols-contribution-calendar grid-flow-col;
-    grid-area: blocks;
-  }
-  
-  .grids li {
-    @apply rounded-block-round;
-  }
-  
-  .grids li[data-level='-1'] {
-    visibility: hidden;
-  }
-  
-  .grids li[data-level='0'] {
-    @apply bg-level-0;
-  }
-  
-  .grids li[data-level='1'] {
-    @apply bg-level-1;
-  }
-  
-  .grids li[data-level='2'] {
-    @apply bg-level-2;
-  }
-  
-  .grids li[data-level='3'] {
-    @apply bg-level-3;
-  }
-  
-  .grids li[data-level='4'] {
-    @apply bg-level-4;
-  }
-  
-  .days li:nth-child(odd) {
-    visibility: hidden;
-  }
-  .days,
-  .blocks {
-    @apply grid grid-rows-contribution-calendar gap-block-gap;
-  }
-  
+.days {
+  grid-area: days;
+}
+
+.months,
+.days {
+  opacity: 0.4;
+}
+
+.blocks {
+  @apply auto-cols-contribution-calendar grid-flow-col;
+  grid-area: blocks;
+}
+
+.grids li {
+  @apply rounded-block-round;
+}
+
+.grids li[data-level="-1"] {
+  visibility: hidden;
+}
+
+.grids li[data-level="0"] {
+  @apply bg-level-0;
+}
+
+.grids li[data-level="1"] {
+  @apply bg-level-1;
+}
+
+.grids li[data-level="2"] {
+  @apply bg-level-2;
+}
+
+.grids li[data-level="3"] {
+  @apply bg-level-3;
+}
+
+.grids li[data-level="4"] {
+  @apply bg-level-4;
+}
+
+.days li:nth-child(odd) {
+  visibility: hidden;
+}
+.days,
+.blocks {
+  @apply grid grid-rows-contribution-calendar gap-block-gap;
+}
