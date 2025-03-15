@@ -79,4 +79,4 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-
 
       - name: 💅🏻 Type Check, Lint and format
-        run: pnpm run checkAll 
+        run: pnpm run check:all 
