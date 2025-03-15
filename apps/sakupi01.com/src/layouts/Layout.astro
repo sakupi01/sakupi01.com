@@ -93,6 +93,19 @@ const { pageTitle = "saku's blog", description, url } = Astro.props;
         }
       });
     </script>
+     <script
+     is:inline
+     type="text/partytown"
+     async
+     src="https://www.googletagmanager.com/gtag/js?id=G-KC1QTQK44J"></script>
+   <script is:inline type="text/partytown">
+     window.dataLayer = window.dataLayer || [];
+     function gtag() {
+     dataLayer.push(arguments);
+     }
+     gtag("js", new Date());
+     gtag("config", "G-KC1QTQK44J");
+   </script>
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
   </head>
