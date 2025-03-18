@@ -5,7 +5,7 @@ const { url, title, date, excerpt } = Astro.props;
 ---
 
 <li class="blog-post-card">
-    <a href={url}>
+    <a href={url} target="_parent" rel="noopener">
       <p class="published"><em><b>Published on {formatRFC2822Date(date)}</b></em></p>
       <h3 class="title">{title}</h3>
     </a>

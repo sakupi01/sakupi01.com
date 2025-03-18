@@ -1,18 +1,22 @@
 ---
-import BlogPostCard from "../../components/BlogPostCard.astro";
 import { allPosts } from "../../utils/contents";
 import Title from "../../components/Title.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPostCardForIFrame from "../../components/BlogPostCardForIFrame.astro";
 ---
 
-<BaseLayout pageTitle="saku's Blog">
+<BaseLayout pageTitle="saku's Blog" description="Recent Blogs Archive" url="/recents">
   <main>
     <Title title="Recent Posts ..." style="font-size: var(--font-size-h2);" />
     <ul class="posts">
        {
-          allPosts.slice(0, 4).map((post) => (
-            <BlogPostCard url={post.slug} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
-          ))
+          allPosts.slice(0, 4).map((post) => 
+            {
+              const url = post.data.tags.includes("zenn")
+        ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
+        : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+            return <BlogPostCardForIFrame url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />}
+          )
        }
     </ul>
   </main>
@@ -23,5 +27,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     display: grid;
     gap: 1rem;
     padding: 1rem 0;
+  }
+  main {
+    padding: 0;
   }
 </style>
