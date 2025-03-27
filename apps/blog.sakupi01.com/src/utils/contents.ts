@@ -38,19 +38,27 @@ const allHouseLifeBlogPosts = (await getCollection("blog")).filter(
   (entry) => entry.slug.startsWith("life") && entry.data.status === "published",
 );
 
-export const allTechPosts = [
+export const allTechPosts = await Promise.all([
   ...(await zennArticles()),
   ...allHouseTechBlogPosts,
-].sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
-
-export const allLifePosts = [...allHouseLifeBlogPosts].sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
-
-export const allPosts = [...(await zennArticles()), ...allHouseBlogPosts].sort(
-  (a, b) => {
+]).then((posts) =>
+  posts.sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-  },
+  }),
+);
+
+export const allLifePosts = await Promise.all([...allHouseLifeBlogPosts]).then(
+  (posts) =>
+    posts.sort((a, b) => {
+      return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+    }),
+);
+
+export const allPosts = await Promise.all([
+  ...(await zennArticles()),
+  ...allHouseBlogPosts,
+]).then((posts) =>
+  posts.sort((a, b) => {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  }),
 );
