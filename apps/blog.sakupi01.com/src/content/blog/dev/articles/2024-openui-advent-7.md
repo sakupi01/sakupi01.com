@@ -14,14 +14,14 @@ status: 'published'
 ## 🎄はじめに
 
 :::note{.message}
-🎄 この記事は[OpenUI Advent Calendar](https://adventar.org/calendars/10293)の7日目の記事です。
+🎄 この記事は[OpenUI Advent Calendar](https://adventar.org/calendars/10293)の 7 日目の記事です。
 :::
 
-[Customizable Select Element Ep.4](https://blog.sakupi01.com/dev/articles/2024-openui-advent-6)では、GregとMasonによる調査結果を受けた、DomenicによるOpen UI内での初期提案について見ていきました。
+[Customizable Select Element Ep.4](https://blog.sakupi01.com/dev/articles/2024-openui-advent-6)では、Greg と Mason による調査結果を受けた、Domenic による Open UI 内での初期提案について見ていきました。
 
 今回から、これまでにどのような提案が議論され、実装されてきたのか、または議論中なのかを見ていきます。
 
-CSEは、現状の形になる前に命名の変遷を辿ってきました。
+CSE は、現状の形になる前に命名の変遷を辿ってきました。
 初めは`<selectmenu>`だったものが、`<selectlist>`になり、今となっては`<select>`です。
 最初に、この変遷の経緯を確認していきます。
 
@@ -29,8 +29,8 @@ CSEは、現状の形になる前に命名の変遷を辿ってきました。
 
 ### Open UI Propsalのステージ
 
-まず、Open UIでのProposalの進み方を確認しておきます。
-Open UIでは、Proposalの策定段階が5つのStageに分けられており、以下のように区分されます。
+まず、Open UI での Proposal の進み方を確認しておきます。
+Open UI では、Proposal の策定段階が 5 つの Stage に分けられており、次のように区分されます。
 
 | Stage | 目的 | 入る基準 | 出る基準 |
 |-------|------|----------|----------|
@@ -42,55 +42,55 @@ Open UIでは、Proposalの策定段階が5つのStageに分けられており�
 
 *参考: [Open UI Working Mode](https://open-ui.org/working-mode/)*
 
-よって、CSEのPRではStage 0: Research段階のものが最も古く、それが以下に当たります。
+よって、CSE の PR では Stage 0: Research 段階のものが最も古く、それが以下に当たります。
 
 - [Add initial curated page and research for `<select>` by wdencker · Pull Request #19 · openui/open-ui](https://github.com/openui/open-ui/pull/19)
 
-このPRがResearchとして十分な内容を含むと認められたとき、Stage 1: Editor's Draft、つまりExplainerの作成が始まります。
+この PR が Research として十分な内容を含むと認められたとき、Stage 1: Editor's Draft、つまり Explainer の作成が始まります。
 
 ### `<selectmenu>`Explainerの作成
 
-CSEのExplainerは、[Dan Clark](https://github.com/dandclark)によって[MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers)の中で考案が始まりました。
+CSE の Explainer は、[Dan Clark](https://github.com/dandclark)によって[MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers)の中で考案が始まりました。
 
 - [MSEdgeExplainers/ControlUICustomization/explainer.md at main · MicrosoftEdge/MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ControlUICustomization/explainer.md)
 
-当時MS内でExplainerを作成過程で議論されていたのが、`<select>`をカスタマイズ可能とする際のオプトイン方法でした。オプトインを、属性によって制御するのか、はたまた新しい要素を作成するのか。それぞれのメリット・デメリットがMS・WHATWGで検討されました。
+当時 MS 内で Explainer を作成過程で議論されていたのが、`<select>`をカスタマイズ可能とする際のオプトイン方法でした。オプトインを、属性によって制御するのか、はたまた新しい要素を作成するのか。それぞれのメリット・デメリットが MS・WHATWG で検討されました。
 
 - [Opt-in for `<select>` customizability · Issue #364 · MicrosoftEdge/MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/364)
 
-最初の問題提起をしたDanの主張を簡単にまとめると、
+最初の問題提起をした Dan の主張を簡単にまとめると、
 
 - `<select>`をカスタマイズ可能にするには、互換性を保つためにオプトインさせる必要があり、２通りの方法がある
 
 1. `custom`属性を付与する方法
 
-- 例えば、`<input type="range">`をカスタマイズ可能にしたいとなった場合、`<input>`はHTMLパーサによって子にDOMの追加が制限されているため、`<range>`などの新しい要素を実装する必要がある
-- しかし、`<select>`はHTMLパーサが子にDOMの追加を特に制限していないため、カスタマイズ可能にするために新しい要素を作成する必要はない
+- 例えば、`<input type="range">`をカスタマイズ可能にしたいとなった場合、`<input>`は HTML パーサによって子に DOM の追加が制限されているため、`<range>`などの新しい要素を実装する必要がある
+- しかし、`<select>`は HTML パーサが子に DOM の追加を特に制限していないため、カスタマイズ可能にするために新しい要素を作成する必要はない
 - よって、`<select custom="">`のような属性を用いてオプトインすると良いと考えているが、以下に挙げる問題もある
   - `custom`属性の有無によって`<select>`のパースの仕方を変えることになるので、パース中に`custom`属性を動的に追加/削除された場合の正しい挙動を再現する実装が難しそう
 - （おそらく、もし今後の話：）`<input>` をカスタマイズ可能にするとなった時、新しい要素を作成することになるので、`<select>`に対してだけ`custom`属性を導入するのは一貫性がない
 
 2. `<selectmenu>`のような新しい要素を導入する方法
 
-- `custom`属性を使うのではなく、新しい要素を導入する方法もあるが、以下のような問題がある
+- `custom`属性を使うのではなく、新しい要素を導入する方法もあるが、次のような問題がある
   - 命名はどうするのか。`<selectmenu>`はどうか？
   - 既存の`<select>`とほぼ同等の機能を持つ新要素に対する抵抗感を招く可能性がある
 
 ***
 
-これは最初MS内で議論された内容でしたが、WHATWGにも提案が持ち込まれ、より多くの関係者を交えた議論となります。
+これは最初 MS 内で議論された内容でしたが、WHATWG にも提案が持ち込まれ、より多くの関係者を交えた議論となります。
 
 - [Opt-in for `<select>` customizability · Issue #5791 · whatwg/html](https://github.com/whatwg/html/issues/5791)
 
 ここでの議論の結論としては、以下です。
 
-- `<input>` + `<datalist>`によって実現されるComboboxのような形式にも適応できるようにする
-- `<option>`に任意のHTMLを指定できるようにする
+- `<input>` + `<datalist>`によって実現される Combobox のような形式にも適応できるようにする
+- `<option>`に任意の HTML を指定できるようにする
 - `<select>`の各部品はカスタマイズ可能にする
-- ポップアップ（ドロップダウン部分）はwindowの範囲を超えないようにする
+- ポップアップ（ドロップダウン部分）は window の範囲を超えないようにする
 - **以上の機能を持った`<select>`を、新しい要素として実装する**
 
-この「新しい要素」が`<selectmenu>`となって、MSのExplainerを元に実装着手が意思表示されます。
+この「新しい要素」が`<selectmenu>`となって、MS の Explainer を元に実装着手が意思表示されます。
 
 - [Intent to Prototype: Customizable `<select>` Element](https://groups.google.com/a/chromium.org/g/blink-dev/c/9TcfjaOs5zg/m/WAiv6WpUAAAJ)
 

@@ -14,7 +14,7 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の17日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 17 日目の記事です。
 :::
 
 [Ep.14](https://blog.sakupi01.com/dev/articles/2024-openui-advent-16)では、`<selectlist>`の`slot`属性と`behavior`属性の使用が廃止された経緯をお話ししました。`slot`属性と`behavior`属性は「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」ための手段だったのですが、この手段が廃止されたことにより、これからどう話が進むのかをみていきます。
@@ -26,22 +26,22 @@ status: 'published'
 
 ### ここまでの整理
 
-ここまでの経緯を一旦整理しておきます。`slot`属性と`behavior`属性が廃止されるまで、主に4つのIssueが関連しあっていました。
+ここまでの経緯を一旦整理しておきます。`slot`属性と`behavior`属性が廃止されるまで、主に 4 つの Issue が関連しあっていました。
 
 - [Hooking up native controller code to user-provided UI parts - MSEdgeExplainers/ControlUICustomization/explainer.md at main · MicrosoftEdge/MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ControlUICustomization/explainer.md#hooking-up-native-controller-code-to-user-provided-ui-parts)
-  - `slot`属性と`part`属性を使って「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」手法が、初期にMSのExplainerで提案される
+  - `slot`属性と`part`属性を使って「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」手法が、初期に MS の Explainer で提案される
 - [[SELECT] The use of "part" clashes with custom elements containing <selectmenu> · Issue #354 · openui/open-ui](https://github.com/openui/open-ui/issues/354)
-  - `part`属性を使うと、`<selectmenu>`がShadow DOMでラップされていた場合に、外部からスタイルが適用される問題が指摘される。ここで`part`属性が`behavior`属性に変更される
+  - `part`属性を使うと、`<selectmenu>`が Shadow DOM でラップされていた場合に、外部からスタイルが適用される問題が指摘される。ここで`part`属性が`behavior`属性に変更される
 - [[select] Should the inner HTML & styles of the selected option be copied into selected-value? · Issue #571 · openui/open-ui](https://github.com/openui/open-ui/issues/571)
   - `slot`属性と`behavior`属性を使用せず、選択された`<option>`のクローンを作成して`<button>`に反映することが提案＆議論されるが、一旦取り下げられる。そのまま`slot`属性と`behavior`属性の使用は続行
 - [[select] Don't reuse slot="" and ::part(); behavior="" is also strange · Issue #702 · openui/open-ui](https://github.com/openui/open-ui/issues/702)
-  - WHATWG側から、`slot`属性と`behavior`属性の使用への疑問が呈され、結果として`slot`属性と`behavior`属性の廃止が決定。暫定代替案として、選択された`<option>`のクローンを反映する`<selectedvalue>`が提案される
+  - WHATWG 側から、`slot`属性と`behavior`属性の使用への疑問が呈され、結果として`slot`属性と`behavior`属性の廃止が決定。暫定代替案として、選択された`<option>`のクローンを反映する`<selectedvalue>`が提案される
 
 という流れを辿って、`<selectedvalue>`が提案されるところまで来ました。
 
 ### 新しい`<selectlist>`のAnatomy
 
-`slot`属性と`behavior`属性の廃止後に出された新しいExplainerでは、[Issueでのコメント](https://github.com/openui/open-ui/issues/702#issuecomment-1662708138)に基づき、以下のようなAnatomyとなりました。
+`slot`属性と`behavior`属性の廃止後に出された新しい Explainer では、[Issueでのコメント](https://github.com/openui/open-ui/issues/702#issuecomment-1662708138)に基づき、次のような Anatomy となりました。
 
 - [Use new selectmenu anatomy in explainer by josepharhar · Pull Request #798 · openui/open-ui](https://github.com/openui/open-ui/pull/798)
 
@@ -59,7 +59,7 @@ status: 'published'
 > - `<selectedvalue>` - 現在選択されているoptionのテキストを含む要素。ユーザがoptionを選択するたびに、ブラウザはこの要素のテキストコンテンツを選択されたoptionのテキストコンテンツで置き換える。
 > - `<listbox>` - `<option>`と`<optgroup>`を含むラッパー。もしAuthorがこの部分を提供しない場合、`<selectlist>`が自動的に作成する。
 
-使用例も、以下のようになっています。
+使用例も、次のようになっています。
 
 ```html
 <selectlist>
@@ -74,7 +74,7 @@ status: 'published'
 </selectlist>
 ```
 
-この差分を見る限り、かなり現在のCSEの仕様に近い形になったように見えます。
+この差分を見る限り、かなり現在の CSE の仕様に近い形になったように見えます。
 
 しかし、この段階では、`<selectedvalue>`は選択された`<option>`の中身をまるっとクローンしてくる現在の仕様とは異なり、まだ単にプレーンテキストで置換するのみというふうに読み取れます。
 
@@ -86,14 +86,14 @@ status: 'published'
 
 - [Naming of the selected value element · Issue #808 · openui/open-ui](https://github.com/openui/open-ui/issues/808)
 
-上記Issueでは、`<selectedoption>`が有力候補として挙げられ、特に大きな反対もなく、`<selectedoption>`が採用されて[Explainerに反映](https://github.com/openui/open-ui/pull/833)されます。
+上記 Issue では、`<selectedoption>`が有力候補として挙げられ、特に大きな反対もなく、`<selectedoption>`が採用されて[Explainerに反映](https://github.com/openui/open-ui/pull/833)されます。
 
 :::note{.memo}
 
-📝 小話: Open UIのIssueで管理されてるselectは、実は２種類ある
+📝 小話: Open UI の Issue で管理されてる select は、実は２種類ある
 
-- [select](https://github.com/openui/open-ui/labels/select): 単一選択の`<select>`としてShipしようとしているもの。現段階のCSEはこのタグに該当。議論中は「select-v1」とされることもある。
-- [select-v2](https://github.com/openui/open-ui/labels/select-v2): 複数選択の`<select>`の意。select-v1のShip後、仕様策定しようとしているもの。まだあまり議論は進んでいない。
+- [select](https://github.com/openui/open-ui/labels/select): 単一選択の`<select>`として Ship しようとしているもの。現段階の CSE はこのタグに該当。議論中は「select-v1」とされることもある。
+- [select-v2](https://github.com/openui/open-ui/labels/select-v2): 複数選択の`<select>`の意。select-v1 の Ship 後、仕様策定しようとしているもの。まだあまり議論は進んでいない。
 
 :::
 
@@ -101,15 +101,15 @@ status: 'published'
 
 ここで再び、元々[選択された`<option>`のクローンが検討された背景のあるIssue](https://github.com/openui/open-ui/issues/571)に戻ります。
 
-ここでJarharが提案した、**「プレーンテキストだけではない、選択された`<option>`の中身をまるっとクローンする`<selectedoption>`の実装」が、HTMLで初めて採用される実装の出発点でもあり、現在の`<selectedcontent>`の元**となります。
+ここで Jarhar が提案した、**「プレーンテキストだけではない、選択された`<option>`の中身をまるっとクローンする`<selectedoption>`の実装」が、HTMLで初めて採用される実装の出発点でもあり、現在の`<selectedcontent>`の元**となります。
 
 （※ これ以前の時点で、`<selectedmenu>`→`<selectlist>`に変更されているので、この先は`<selectlist>`と記述します）
 
 ### 選択された`<option>`の子要素を`<selectedoption>`にクローンする提案の再出発
 
-Jarjarのコメントが非常によくまとまっているので、この節はコメントを意訳したものです。
+Jarjar のコメントが非常によくまとまっているので、この節はコメントを意訳したものです。
 
-この提案は、Mason FreedとDomenicと話し合われた結果、至った結論のまとめです。
+この提案は、Mason Freed と Domenic と話し合われた結果、至った結論のまとめです。
 
 - [comment](https://github.com/openui/open-ui/issues/571#issuecomment-1696637459)
 
@@ -119,33 +119,33 @@ Jarjarのコメントが非常によくまとまっているので、この節�
 
 #### 1. 選択された`<option>`の子Nodeを`<selectedoption>`のShadowRootにクローンする
 
-`<selectedoption>`はUAのShadowRootを持ち、選択された`<option>`が変わるたびに`<selectedoption>`のShadowRootのすべての子を削除し、`<option>`を`cloneNode()`して、そのクローンの各子Nodeを`<selectedoption>`の**ShadowRootに**追加します。
+`<selectedoption>`は UA の ShadowRoot を持ち、選択された`<option>`が変わるたびに`<selectedoption>`の ShadowRoot のすべての子を削除し、`<option>`を`cloneNode()`して、そのクローンの各子 Node を`<selectedoption>`の**ShadowRootに**追加します。
 
-また、Author側からUA ShadowRoot内の`<selectedoption>`のスタイルをする上で、`<selectedoption>`のShadowRoot内のコンテンツをターゲットに指定するための、`::selectedoption()`のような疑似要素を提供する必要があります。
+また、Author 側から UA ShadowRoot 内の`<selectedoption>`のスタイルをする上で、`<selectedoption>`の ShadowRoot 内のコンテンツをターゲットに指定するための、`::selectedoption()`のような疑似要素を提供する必要があります。
 
-これは、SVGの[`<use>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use)の使い方に似ています。
+これは、SVG の[`<use>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use)の使い方に似ています。
 
 この手法の問題点:
 
-- スクリプトがUA ShadowRootである`<selectedoption>`や`<selectlist>`にアクセスできてしまいます。
-- `document.querySelector(::selectedoption)`は、UA ShadowRoot内のNodeにスクリプトでアクセスする口となり得ます。そこからShadowTreeを遡ることもできます。
-- `<script>`要素をクローンした場合はどうなるでしょうか？（`currentScript`を使用してツリー内のNodeにアクセスできる）
+- スクリプトが UA ShadowRoot である`<selectedoption>`や`<selectlist>`にアクセスできてしまいます。
+- `document.querySelector(::selectedoption)`は、UA ShadowRoot 内の Node にスクリプトでアクセスする口となり得ます。そこから ShadowTree を遡ることもできます。
+- `<script>`要素をクローンした場合はどうなるでしょうか？（`currentScript`を使用してツリー内の Node にアクセスできる）
 - `<script>`をクローンしないようにすることもできますが、`<iframe>`はどうでしょうか？（`frameElement`を使用できる）
 - クローン/追加中にスクリプトが同期的に実行されないようにするために、[Side effects due to tree insertion or removal (script, iframe) #808](https://github.com/whatwg/dom/issues/808)を解決する必要があるかもしれません。
 
 #### 2. 選択された`<option>`の子Nodeを`<selectedoption>`のLight DOMにクローンする
 
-1のように、クローン先にShadowRootを持つ代わりに、`<selectedoption>`のLight DOM子NodeをクローンされたNodeで置き換えます。
+1 のように、クローン先に ShadowRoot を持つ代わりに、`<selectedoption>`の Light DOM 子 Node をクローンされた Node で置き換えます。
 
 この手法の問題点:
 
-- HTMLには現在、Light DOMをこのように変更するものはありません。仕様は`<selectedoption>`の子Nodeを設定することを、AuthorのConformance Errorとすることができます。
+- HTML には現在、Light DOM をこのように変更するものはありません。仕様は`<selectedoption>`の子 Node を設定することを、Author の Conformance Error とすることができます。
 - クローン/追加中にスクリプトが同期的に実行されないようにするために、[Side effects due to tree insertion or removal (script, iframe) #808](https://github.com/whatwg/dom/issues/808)を解決する必要があるかもしれません。
 
 :::note{.memo}
 📝 Light DOM
 
-Shadow RootがアタッチされているHostがLight treeと呼ばれることから、Light treeを構成するNodeは一般的にLight DOMと呼ばれます。
+Shadow Root がアタッチされている Host が Light tree と呼ばれることから、Light tree を構成する Node は一般的に Light DOM と呼ばれます。
 >
 > - The node tree of a shadow root’s host is sometimes referred to as the **light tree**.
 > [DOM - Shadow Tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree)
@@ -155,7 +155,7 @@ Shadow RootがアタッチされているHostがLight treeと呼ばれること�
 :::note{.memo}
 📝 Conformance Error
 
-Conformance Errorとは、仕様に従っていない状態を指します。HTMLやCSSなどの仕様には、どのように要素や属性を使用すべきかが定義されていますが、これに従わない場合、Conformance Errorとなります。例えば、以下のようなサイトでチェックすることができます。
+Conformance Error とは、仕様に従っていない状態を指します。HTML や CSS などの仕様には、どのように要素や属性を使用すべきかが定義されていますが、これに従わない場合、Conformance Error となります。例えば、次のようなサイトでチェックすることができます。
 
 [The W3C Markup Validation Service](https://validator.w3.org/)
 
@@ -163,7 +163,7 @@ Conformance Errorとは、仕様に従っていない状態を指します。HTM
 
 #### 3. CSSでコンテンツを内部的にミラーリングするための`element()`のサポート
 
-FirefoxはCSSでコンテンツを**ミラーリング**する方法を実装しています:
+Firefox は CSS でコンテンツを**ミラーリング**する方法を実装しています:
 
 <https://developer.mozilla.org/en-US/docs/Web/CSS/element>
 
@@ -172,24 +172,24 @@ FirefoxはCSSでコンテンツを**ミラーリング**する方法を実装し
 この手法の問題点:
 
 - `<selectedoption>`と`<option>`それぞれに、別のスタイリングを適用できない。
-- Listboxに表示される`<option>`のボックスサイズは、`<selectlist>`の`<button>`部分のボックスサイズとは通常異なります。そのため、ミラーリングされた画像はcropまたはstretchしてフィットさせる必要があります。
-- `<selectedoption>`にDOMの実態を提供しないため、`<selectedoption>`の中身が何であるかを知る術がありません。支援技術はこれを読み取れないか、対処するための修正が必要です。
-- ChromiumとWebKitにはこれの実装がないため、実装コストがかかります。
+- Listbox に表示される`<option>`のボックスサイズは、`<selectlist>`の`<button>`部分のボックスサイズとは通常異なります。そのため、ミラーリングされた画像は crop または stretch してフィットさせる必要があります。
+- `<selectedoption>`に DOM の実態を提供しないため、`<selectedoption>`の中身が何であるかを知る術がありません。支援技術はこれを読み取れないか、対処するための修正が必要です。
+- Chromium と WebKit にはこれの実装がないため、実装コストがかかります。
 
 #### 4. Magical mirroring
 
-3のような、単なる画像としてのミラーリングではなく、選択された`<option>`の子Nodeが`<selectedoption>`の**Flat treeまたはLayout treeにも現れるようにミラーリング**する方法を見つけることができるかもしれません。
+3 のような、単なる画像としてのミラーリングではなく、選択された`<option>`の子 Node が`<selectedoption>`の**Flat treeまたはLayout treeにも現れるようにミラーリング**する方法を見つけることができるかもしれません。
 
 :::note{.memo}
 📝 Flat tree, Layout tree, etc
 
-- [Node tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#node-and-node-tree): DOMツリーの基本的な構造で、Nodeクラスから構成されるツリー。
-- [Shadow tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree): Shadow Rootがルートのツリー。hostを通じて、必ず別のNode treeと接続されている。
-- Light tree: Shadow Rootのhostとなるツリー
-- [**Flat tree**](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree): Shadow treeを含む、複合的なツリーをフラット化して、単一のNode Treeにしたもの。
+- [Node tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#node-and-node-tree): DOM ツリーの基本的な構造で、Node クラスから構成されるツリー。
+- [Shadow tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree): Shadow Root がルートのツリー。host を通じて、必ず別の Node tree と接続されている。
+- Light tree: Shadow Root の host となるツリー
+- [**Flat tree**](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree): Shadow tree を含む、複合的なツリーをフラット化して、単一の Node Tree にしたもの。
 ![Tree Flattening](../../../../assets/images/tree-flattening.png)
 *Tree Flattening - 出典: chromium.googlesource.com /[DOM](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree)*
-- **Layout tree**: LayoutObjectをNodeとして構成されるNode tree。Viewport内でのNodeの正確な位置やサイズなどが計算された、Paintのinputとなるツリー。つまり、ブラウザレンダリングフェーズの中でも、Layoutフェーズ時に構築される。
+- **Layout tree**: LayoutObject を Node として構成される Node tree。Viewport 内での Node の正確な位置やサイズなどが計算された、Paint の input となるツリー。つまり、ブラウザレンダリングフェーズの中でも、Layout フェーズ時に構築される。
 
 :::
 
@@ -198,12 +198,12 @@ FirefoxはCSSでコンテンツを**ミラーリング**する方法を実装し
 この手法の問題点:
 
 - 実装が難しいか不可能かもしれません。
-- NodeがDOMツリー、Flat tree、Layout treeに一度だけ現れるという不変条件を達成する必要があります。
-- ミラーリングでは、「同じNode」が<`selectedoption>`と`<option>`の両方の子として現れます。CSSセレクタではどうなるでしょうか？例えば、`selectedoption > .foo { ... }`と`option > .foo { ... }`は、異なるスタイリングの目標を達成するために異なる動作を与えることが期待されていますが、CSSセレクタは「Node」を選択するため、「同じNode」をターゲットにします。
+- Node が DOM ツリー、Flat tree、Layout tree に一度だけ現れるという不変条件を達成する必要があります。
+- ミラーリングでは、「同じ Node」が<`selectedoption>`と`<option>`の両方の子として現れます。CSS セレクタではどうなるでしょうか？例えば、`selectedoption > .foo { ... }`と`option > .foo { ... }`は、異なるスタイリングの目標を達成するために異なる動作を与えることが期待されていますが、CSS セレクタは「Node」を選択するため、「同じ Node」をターゲットにします。
 
 #### 5. あきらめて全員にスクリプトを追加させる
 
-「Light DOMへのクローン」を実現するために必要な、以下のようなスクリプトを開発者に提供します:
+「Light DOM へのクローン」を実現するために必要な、次のようなスクリプトを開発者に提供します:
 
 ```js
 selectlist.addEventListener('change', () => {
@@ -219,41 +219,41 @@ selectlist.addEventListener('change', () => {
 
 この手法の問題点:
 
-- 開発者の80%が、`<selectlist>`のユースケースがこの動作をすることを期待しているとされています。そんな中、このスクリプトをコピー＆ペーストして動作させる必要があるならば、`<selectlist>`の持つ価値が失われてしまいます。宣言的な解決策の提供は重要で、もしできなければ、開発者は`<selectlist>`を使用しないかもしれません。
+- 開発者の 80%が、`<selectlist>`のユースケースがこの動作をすることを期待しているとされています。そんな中、このスクリプトをコピー＆ペーストして動作させる必要があるならば、`<selectlist>`の持つ価値が失われてしまいます。宣言的な解決策の提供は重要で、もしできなければ、開発者は`<selectlist>`を使用しないかもしれません。
 
 ***
 
-このように、一口にクローンすると言ってもさまざまな手法が考えられ、それぞれにpros/consがあることがわかります。単にクローンするにしてもLight DOMにクローンするのか、Shadow DOMにクローンするのかに判断の余地があったり、ミラーリングは実装やDOM的な懸念があったりします。
+このように、一口にクローンすると言ってもさまざまな手法が考えられ、それぞれに pros/cons があることがわかります。単にクローンするにしても Light DOM にクローンするのか、Shadow DOM にクローンするのかに判断の余地があったり、ミラーリングは実装や DOM 的な懸念があったりします。
 
-これに対して、Domenicは、クローンによるLight DOMの変更というのは前例のないことではあるが、このユースケースを達成するための唯一の合理的な選択肢であると考えている、とフィードバックします。
+これに対して、Domenic は、クローンによる Light DOM の変更というのは前例のないことではあるが、このユースケースを達成するための唯一の合理的な選択肢であると考えている、とフィードバックします。
 
-Light DOMに別の要素のLight DOMをクローンすると、`<selectedoption>`は具体的には以下のような挙動をすることになります。
+Light DOM に別の要素の Light DOM をクローンすると、`<selectedoption>`は具体的には次のような挙動をすることになります。
 
-以下の図では、選択された`<option>`の子Nodeが、`<selectedoption>`の**Light DOM**にクローンされる様子を示しています。
-Light DOMに直接挿入されるため、クローンされた要素は、Author Style Sheetの適用が可能となります。
+次の図では、選択された`<option>`の子 Node が、`<selectedoption>`の**Light DOM**にクローンされる様子を示しています。
+Light DOM に直接挿入されるため、クローンされた要素は、Author Style Sheet の適用が可能となります。
 
 ![UAによってLight DOMにクローンされたNodeが直接挿入される様子](../../../../assets/images/insert-to-light-dom.png)
 *UAによってLight DOMにクローンされたNodeが直接挿入される様子*
 
-こうした、要素が自身のLight DOMを変更するという挙動は、他の長年のHTML機能に対するリクエストを解決するためにも必要かもしれないとDomenicは述べます。
+こうした、要素が自身の Light DOM を変更するという挙動は、他の長年の HTML 機能に対するリクエストを解決するためにも必要かもしれないと Domenic は述べます。
 
-例えば、上記のように、UA が Light DOM を変更して良いのであれば、これまで実現できなかった以下のようなユースケースもカバーできるようになるかもしれません:
+例えば、上記のように、UA が Light DOM を変更して良いのであれば、これまで実現できなかった次のようなユースケースもカバーできるようになるかもしれません:
 
-- `<include src="foo.html"></include>` のように、foo.htmlの内容が`<include>`のLight DOM内に入るようにする機能
+- `<include src="foo.html"></include>` のように、foo.html の内容が`<include>`の Light DOM 内に入るようにする機能
   - [Client side include feature for HTML · Issue #2791 · whatwg/html](https://github.com/whatwg/html/issues/2791)
-- `<relativetime>2023-08-28T00:00:00Z</relativetime>`のように、Author側からのinputに対して、UAが内部的に日時を計算し、動的にLight DOMを変更することで結果を表示する機能。`<p>`のように、Authorのinputがそのまま表示されるのではなく、UAが能動的にLight DOMを変更する必要があるのがポイント。
+- `<relativetime>2023-08-28T00:00:00Z</relativetime>`のように、Author 側からの input に対して、UA が内部的に日時を計算し、動的に Light DOM を変更することで結果を表示する機能。`<p>`のように、Author の input がそのまま表示されるのではなく、UA が能動的に Light DOM を変更する必要があるのがポイント。
   - [Proposal: measurement or number or quantity semantic HTML tag · Issue #9294 · whatwg/html](https://github.com/whatwg/html/issues/9294)
   - [A tag to display date and/or time to the user in his preferred format. · Issue #2404 · whatwg/html](https://github.com/whatwg/html/issues/2404)
 
-Domenicは、この実装によって、プラットフォームが長年苦しんできた「Light DOMは完全にAuthorの領域であり、UAスクリプトによって変更されるべきではない」という制約に対して、今回意識的にその境界を越えることができれば、今後の新しい選択肢が開けるかもしれないという証拠を提供したい、と述べています。
+Domenic は、この実装によって、プラットフォームが長年苦しんできた「Light DOM は完全に Author の領域であり、UA スクリプトによって変更されるべきではない」という制約に対して、今回意識的にその境界を越えることができれば、今後の新しい選択肢が開けるかもしれないという証拠を提供したい、と述べています。
 
 - [comment](https://github.com/openui/open-ui/issues/571#issuecomment-1696744818)
 
 ***
 
-こうして、`<selectedoption>`の提案が再スタートを切り、選択された`<option>`を`<selectedcontent>`のLight DOMにクローンする仕様が策定＆実装されていくことになります。
+こうして、`<selectedoption>`の提案が再スタートを切り、選択された`<option>`を`<selectedcontent>`の Light DOM にクローンする仕様が策定＆実装されていくことになります。
 
-HTML史上初となる、UAからLight DOMへのクローン追加実装。CSEのみならず、HTMLの新たな可能性を切り開くきっかけと言え、非常に興味深いものとなっていきそうです！
+HTML 史上初となる、UA から Light DOM へのクローン追加実装。CSE のみならず、HTML の新たな可能性を切り開くきっかけと言え、非常に興味深いものとなっていきそうです！
 
 次回からは、この`<selectedoption>`について、どのような実装上の課題があり、どう解決されていくのかを見ていきます。
 

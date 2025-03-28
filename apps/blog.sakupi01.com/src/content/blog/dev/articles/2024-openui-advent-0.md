@@ -14,14 +14,14 @@ status: 'published'
 ## 🎄はじめに
 
 :::note{.message}
-🎄 この記事は[OpenUI Advent Calendar](https://adventar.org/calendars/10293)の0日目の記事です。
+🎄 この記事は[OpenUI Advent Calendar](https://adventar.org/calendars/10293)の 0 日目の記事です。
 :::
 
 ## 🎄アドベントカレンダーの概要
 
-12/1から12/25までの25日間、[OpenUI Advent Calendar](https://adventar.org/calendars/10293)を開催します。
+12/1 から 12/25 までの 25 日間、[OpenUI Advent Calendar](https://adventar.org/calendars/10293)を開催します。
 
-本Advent Calendarでは、OpenUIの概要から、主に[Customizable Select Element](https://open-ui.org/components/customizableselect/)、 [Global Design System](https://github.com/openui/design-system)、 時間があればその他気になるProposalについて書いていこうと思います。また、それに関する周辺Web標準技術の話（HTML, CSS, ECMAScript, ARIAなど）についても、随時取り入れたいと思います。狭く深く掘り下げていくスタイルです。
+本 Advent Calendar では、OpenUI の概要から、主に[Customizable Select Element](https://open-ui.org/components/customizableselect/)、 [Global Design System](https://github.com/openui/design-system)、 時間があればその他気になる Proposal について書いていこうと思います。また、それに関する周辺 Web 標準技術の話（HTML, CSS, ECMAScript, ARIA など）についても、随時取り入れたいと思います。狭く深く掘り下げていくスタイルです。
 
 深掘りたいときに深掘り始めるスタイルなので、あちこち寄り道したり、スケジュール通りに進まなかったりするかもしれませんが、寄り道の過程も楽しみつつ読んでいただければ幸いです。
 

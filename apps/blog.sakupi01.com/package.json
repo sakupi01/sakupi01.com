@@ -1,13 +1,14 @@
 {
   "name": "blog.sakupi01.com",
   "type": "module",
-  "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "build:cached": "astro build -- --force",
     "preview": "astro preview",
     "astro": "astro",
+    "check:textlint": "textlint \"**/*.md\"",
+    "check:textlint:fix": "textlint \"**/*.md\" --fix",
     "check:format": "pnpm biome format --changed --write .",
     "check:lint": "pnpm biome lint --changed --write .",
     "check:typecheck": "tsc --noEmit",
@@ -39,5 +40,8 @@
     "sharp": "catalog:",
     "unist-util-visit": "^5.0.0",
     "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@proofdict/textlint-rule-proofdict": "^3.1.2"
   }
 }
