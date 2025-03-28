@@ -14,12 +14,12 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の11日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 11 日目の記事です。
 :::
 
-[Customizable Select Element Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-8)から、 `appearance: base-select;`で提供される、CSEのデフォルトの見た目が決定された背景の議論をお話ししています。
+[Customizable Select Element Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-8)から、 `appearance: base-select;`で提供される、CSE のデフォルトの見た目が決定された背景の議論をお話ししています。
 
-Ep.9では、`<option>::checkmark`が現状の見た目となった背景について深掘りました。
+Ep.9 では、`<option>::checkmark`が現状の見た目となった背景について深掘りました。
 今回は、`::picker-icon`部分について取り上げます。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
@@ -29,18 +29,18 @@ Ep.9では、`<option>::checkmark`が現状の見た目となった背景につ�
 
 ### ボタン要素右の矢印アイコン
 
-CSEのデフォルトのスタイルでは、ポップオーバー部分をトリガーする`<button>`の右に「▼」矢印アイコンが表示されます。
+CSE のデフォルトのスタイルでは、ポップオーバー部分をトリガーする`<button>`の右に「▼」矢印アイコンが表示されます。
 
 初期段階では、この矢印アイコンは`select::after`として実装されていましたが、後に`::select-arrow`となり、現在では`::picker-icon`となっています。
 
-デフォルトスタイルを決める[Issue](https://github.com/w3c/csswg-drafts/issues/10857)の初期段階では、`select::after`という既存の擬似要素をそのまま使用して提案されていました。（現在はこのIssueの親コメントの内容は最新のものに変わっている）
+デフォルトスタイルを決める[Issue](https://github.com/w3c/csswg-drafts/issues/10857)の初期段階では、`select::after`という既存の擬似要素をそのまま使用して提案されていました。（現在はこの Issue の親コメントの内容は最新のものに変わっている）
 
-もともと`::before`や`::after`で実装されていたのは、`::before`や`::after`が「`diplay: none;`などで簡単に上書きできる」という要件を満たしつつ、UAスタイルシートでの実装も容易だったためです。
+もともと`::before`や`::after`で実装されていたのは、`::before`や`::after`が「`diplay: none;`などで簡単に上書きできる」という要件を満たしつつ、UA スタイルシートでの実装も容易だったためです。
 
 - [[css-ui] Pseudo-elements for checkmark and dropdown icon for appearance base `<select>` · Issue #10908 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/10908)
 
 しかし、デフォルトの擬似要素に加えて、`::before``::after`を要素に当てたいというユースケースも考えられます。
-例えば、`<li>`のデフォルトの行頭文字はBulletで`::marker`としてレンダーされますが、`<li>`に`::marker`だけでなく`::before`でも「何か別の要素（🎄）」を配置したい場合、以下のように記述できます。
+例えば、`<li>`のデフォルトの行頭文字は Bullet で`::marker`としてレンダーされますが、`<li>`に`::marker`だけでなく`::before`でも「何か別の要素（🎄）」を配置したい場合、次のように記述できます。
 
 ```css
 li::marker {
@@ -56,21 +56,21 @@ li::before {
 ![`::marker`を上書きする](../../../../assets/images/marker-null-list.png)
 *`::marker`を上書きする*
 
-しかし、もし`::marker`が存在せず、UAスタイルシートに`li::before`でBulletが実装されていた場合はどうでしょうか。`<li>`の`::before`はもうUAによって使われているため、Bulletと「何か別の要素（🎄）」の二つを配置することは困難です。
+しかし、もし`::marker`が存在せず、UA スタイルシートに`li::before`で Bullet が実装されていた場合はどうでしょうか。`<li>`の`::before`はもう UA によって使われているため、Bullet と「何か別の要素（🎄）」の二つを配置することは困難です。
 
 ***
 
-これに関して、デフォルトでは`::select-arrow`などの新しい擬似要素を提案するべきとの[指摘](https://github.com/w3c/csswg-drafts/issues/10857#issuecomment-2347867882)があり、TPAC 2024のOpen UIとCSSWGのJoint Sessionで話し合われる運びになりました。
+これに関して、デフォルトでは`::select-arrow`などの新しい擬似要素を提案するべきとの[指摘](https://github.com/w3c/csswg-drafts/issues/10857#issuecomment-2347867882)があり、TPAC 2024 の Open UI と CSSWG の Joint Session で話し合われる運びになりました。
 
 - [Cascading Style Sheets (CSS) Working Group Teleconference – 24 September 2024](https://www.w3.org/2024/09/24-css-minutes.html#t07)
 
-先ほどの`::marker`のようなケースのみならず、既存の`::before``::after`をUAで使用するとさまざまな考慮事項が発生します。
+先ほどの`::marker`のようなケースのみならず、既存の`::before``::after`を UA で使用するとさまざまな考慮事項が発生します。
 
-例えば、Authorスタイルシートの`::after`を使ってボタン要素右の矢印アイコンを全く独自のものに置き換えるケース考えてみましょう。
-以下のように、UAスタイルシートがボタン要素右の矢印アイコンを`::after`で実装すると、以下をやらねばならなくなります。
+例えば、Author スタイルシートの`::after`を使ってボタン要素右の矢印アイコンを全く独自のものに置き換えるケース考えてみましょう。
+次のように、UA スタイルシートがボタン要素右の矢印アイコンを`::after`で実装すると、以下をやらねばならなくなります。
 
-1. UAスタイルシートの`select::after`に何が当たっているかDevToolsを開いて確認する
-2. Authorスタイルシートで以下の3つのプロパティを上書きする
+1. UA スタイルシートの`select::after`に何が当たっているか DevTools を開いて確認する
+2. Author スタイルシートで次の 3 つのプロパティを上書きする
 3. 独自のアイコンにするためのスタイルを当てる
 
 ```css title={UAスタイルシート}
@@ -81,7 +81,7 @@ select::after {
 }
 ```
 
-一方、UAが、`::before` `::after`ではなく新しい擬似要素で実装すると、新しい擬似要素を`display: none;`するだけで、デフォルトの矢印アイコンを削除でき、Authorスタイルシートでの上書きが容易になります。
+一方、UA が、`::before` `::after`ではなく新しい擬似要素で実装すると、新しい擬似要素を`display: none;`するだけで、デフォルトの矢印アイコンを削除でき、Author スタイルシートでの上書きが容易になります。
 
 加えて、目的に沿った命名の擬似要素を定義することで、要素の目的を明確にできるという利点もあります。
 
@@ -92,23 +92,23 @@ select::after {
 
 #### 擬似要素のカテゴリ
 
-新しい擬似要素を実際に仕様書に記載する際、擬似要素をTree-AbidingとするかElement-Backedにするかという話がありました。
+新しい擬似要素を実際に仕様書に記載する際、擬似要素を Tree-Abiding とするか Element-Backed にするかという話がありました。
 
-擬似要素は2種類に大別でき、Tree-AbidingとElement-Backedはそれぞれ以下のような特徴があります。
+擬似要素は 2 種類に大別でき、Tree-Abiding と Element-Backed はそれぞれ次のような特徴があります。
 
-- `tree-abiding`な擬似要素: TreeにAbide（従う・倣らう）要素。それ自体は要素としてBox Treeの中には存在しない。レンダーするコンテンツは、`content`プロパティ内に指定する e.g. `::before`, `::after`, `::select-arrow`（`::picker-icon`）
+- `tree-abiding`な擬似要素: Tree に Abide（従う・倣らう）要素。それ自体は要素として Box Tree の中には存在しない。レンダーするコンテンツは、`content`プロパティ内に指定する e.g. `::before`, `::after`, `::select-arrow`（`::picker-icon`）
   - [CSS Pseudo-Elements Module Level 4](https://www.w3.org/TR/css-pseudo-4/#treelike)
 
 ![Tree-Abiding擬似要素](../../../../assets/images/tree-abiding.png)
 *Tree-Abiding擬似要素*
 
-- `element-backed`な擬似要素: Tree Abidingの中でも、Box Tree内のイチ要素となるもの e.g. `::part()`, `::picker`
+- `element-backed`な擬似要素: Tree Abiding の中でも、Box Tree 内のイチ要素となるもの e.g. `::part()`, `::picker`
   - [CSS Pseudo-Elements Module Level 4](https://drafts.csswg.org/css-pseudo-4/#element-backed)
 
 ![Element-Backed擬似要素](../../../../assets/images/element-backed.png)
 *Element-Backed擬似要素*
 
-`::selected-arrow`は、元々`select::after`として定義＆実装されていたように、それ自体はBox Treeの中には存在しない`tree-abiding`な擬似要素なので、仕様書にも`tree-abiding`な擬似要素とカテゴライズされることになりました。
+`::selected-arrow`は、元々`select::after`として定義＆実装されていたように、それ自体は Box Tree の中には存在しない`tree-abiding`な擬似要素なので、仕様書にも`tree-abiding`な擬似要素とカテゴライズされることになりました。
 
 > gregwhitworth RESOLVED: add pseudo-elements for the select button and option checkmarks which are **fully stylable pseudo-elements** **with content specified by the content property**
 > <https://logs.csswg.org/irc.w3.org/css/2024-10-24/>
@@ -117,7 +117,7 @@ select::after {
 
 #### `::selected-arrow`、`::picker-icon`に決定される
 
-`::selected-arrow`は暫定的な名前だったため、要素に対する議論＆投票が行われ、最終的に`::picker-icon`に決定され、Chromiumの実装に反映されました。
+`::selected-arrow`は暫定的な名前だったため、要素に対する議論＆投票が行われ、最終的に`::picker-icon`に決定され、Chromium の実装に反映されました。
 
 > RESOLVED: go with ::picker-icon
 > <https://github.com/w3c/csswg-drafts/issues/10908#issuecomment-2489173316>
@@ -170,7 +170,7 @@ select::after {
   - [ ] ボタン要素や選択肢ポップオーバーの色
   - [ ] その他のスタイル
 
-上記Issueに記されているデフォルトスタイルになった背景について、次回からも引き続き見ていこうと思います。
+上記 Issue に記されているデフォルトスタイルになった背景について、次回からも引き続き見ていこうと思います。
 
 それでは、また明日⛄
 

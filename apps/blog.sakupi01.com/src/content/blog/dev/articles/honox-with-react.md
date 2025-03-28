@@ -13,9 +13,9 @@ status: 'draft'
 
 ## はじめに
 
-[Hono](https://hono.dev/)のフルスタックメタフレームワークである[HonoX](https://github.com/honojs/honox)に[react-renderer](https://github.com/honojs/middleware/tree/main/packages/react-renderer)ミドルウェアを適用して、ReactベースのUIフレームワークである[YamadaUI](https://yamada-ui.com/)と[React Flow](https://reactflow.dev/)を使用してポートフォリオサイトを作成しました。
+[Hono](https://hono.dev/)のフルスタックメタフレームワークである[HonoX](https://github.com/honojs/honox)に[react-renderer](https://github.com/honojs/middleware/tree/main/packages/react-renderer)ミドルウェアを適用して、React ベースの UI フレームワークである[YamadaUI](https://yamada-ui.com/)と[React Flow](https://reactflow.dev/)を使用してポートフォリオサイトを作成しました。
 
-本記事では、作成したポートフォリオサイトをCloudflare Pagesにデプロイするまでの方法をまとめています。
+本記事では、作成したポートフォリオサイトを Cloudflare Pages にデプロイするまでの方法をまとめています。
 
 <https://sakupi01.com/>
 
@@ -23,15 +23,15 @@ status: 'draft'
 
 ## HonoXとは
 
-HonoXは、HonoとViteを組み合わせてできたHonoのメタフレームワークです。ファイルベースルーティングやIslandアーキテクチャによるClient ComponentとServer Componentの棲み分け、SSRを実現し、Next.jsのようなフルスタックWebフレームワークの書き心地を実現したHonoアプリを作成できます。
+HonoX は、Hono と Vite を組み合わせてできた Hono のメタフレームワークです。ファイルベースルーティングや Island アーキテクチャによる Client Component と Server Component の棲み分け、SSR を実現し、Next.js のようなフルスタック Web フレームワークの書き心地を実現した Hono アプリを作成できます。
 
-詳細は、以下のyusukebeさんの記事を参照ください。
+詳細は、次の yusukebe さんの記事を参照ください。
 
 <https://zenn.dev/yusukebe/articles/724940fa3f2450>
 
 ### セットアップ
 
-[Starter template](https://github.com/honojs/honox?tab=readme-ov-file#starter-template)に倣って、以下のコマンドを実行し、`x-basic`を選択します。(※今回はパッケージマネジャにbunを使用しています)
+[Starter template](https://github.com/honojs/honox?tab=readme-ov-file#starter-template)に倣って、次のコマンドを実行し、`x-basic`を選択します。(※今回はパッケージマネジャに bun を使用しています)
 
 ```bash
 bun create hono@latest
@@ -39,7 +39,7 @@ bun create hono@latest
 
 ## ディレクトリの構造と役割
 
-実行完了すると、以下のようなディレクトリ構成でHonoXアプリが作成されます。
+実行完了すると、次のようなディレクトリ構成で HonoX アプリが作成されます。
 
 ```
 .
@@ -60,9 +60,9 @@ bun create hono@latest
 
 <https://github.com/honojs/honox?tab=readme-ov-file#project-structure>
 
-上記の構成とコメントからわかるように、ファイルベースのルーティングやError Boundaryの設置ができることがわかります。
+上記の構成とコメントからわかるように、ファイルベースのルーティングや Error Boundary の設置ができることがわかります。
 
-このディレクトリで`bun install`->`bun run dev`を実行し、<http://localhost:5173> にアクセスすると以下のように初期画面が表示されます。
+このディレクトリで`bun install`->`bun run dev`を実行し、<http://localhost:5173> にアクセスすると次のように初期画面が表示されます。
 ![HonoXアプリの初期画面](../../../../assets/images/hello-hono.png)
 *HonoXアプリの初期画面*
 
@@ -104,7 +104,7 @@ declare module 'hono' {
 ```
 
 このように、デフォルトの設定では`hono/jsx-renderer`のレンダラーが使用されており、アプリケーション全体を通して`hono/jsx`コンポーネントが使用されています。
-例えば、`hono/jsx`からインポートされた`useState`を使用して、以下のように`[route]/app/islands/counter.tsx`を実装できます。
+例えば、`hono/jsx`からインポートされた`useState`を使用して、次のように`[route]/app/islands/counter.tsx`を実装できます。
 
 ```tsx showLineNumbers {1} title="./app/islands/counter.tsx"
 import { useState } from 'hono/jsx'
@@ -122,19 +122,19 @@ export default function Counter() {
 
 ***
 
-しかし、今回はReactベースのUIライブラリを使用するため、**`hono/jsx`をレンダーする`hono/jsx-renderer`は使用できません。ReactベースのUIライブラリを使用するためには、`react`のJSX(`ReactNode`)をレンダーするための`react-dom/client`が必要です。**
+しかし、今回は React ベースの UI ライブラリを使用するため、**`hono/jsx`をレンダーする`hono/jsx-renderer`は使用できません。ReactベースのUIライブラリを使用するためには、`react`のJSX(`ReactNode`)をレンダーするための`react-dom/client`が必要です。**
 
-そこで、次のステップでは、`ReactNode`のレンダラーを提供する`react-dom/client`にレンダラーを変更し、使用するJSXを`react`から提供されている`ReactNode`にします🏃🏻‍♀️
+そこで、次のステップでは、`ReactNode`のレンダラーを提供する`react-dom/client`にレンダラーを変更し、使用する JSX を`react`から提供されている`ReactNode`にします🏃🏻‍♀️
 
 ## React化する
 
 ### レンダラーを変更する
 
-HonoXの面白い特徴として、レンダラーとしてHono純正の`hono/jsx-renderer`以外の任意のレンダラーを使用できます。
+HonoX の面白い特徴として、レンダラーとして Hono 純正の`hono/jsx-renderer`以外の任意のレンダラーを使用できます。
 
-今回は、HonoXでReactのレンダラーを用いることでReactベースのUIライブラリであるYamadaUIやReact Flowを使用可能にしていきます。
+今回は、HonoX で React のレンダラーを用いることで React ベースの UI ライブラリである YamadaUI や React Flow を使用可能にしていきます。
 
-まず、HonoXでReactNodeをレンダリングするために必要なモジュールをインストールします。
+まず、HonoX で ReactNode をレンダリングするために必要なモジュールをインストールします。
 
 ```bash
 bun add @hono/react-renderer react react-dom hono --exact
@@ -162,13 +162,13 @@ createClient({
 });
 ```
 
-このように設定すると以下のような型エラーが出ると思いますが、こちらはKnown Issueとして確認されており、後続のリリースで修正されると思われますので、現時点では黙認しておきます。
+このように設定すると次のような型エラーが出ると思いますが、こちらは Known Issue として確認されており、後続のリリースで修正されると思われますので、現時点では黙認しておきます。
 ![Known Type Error in the use of react-renderer](../../../../assets/images/type-error-createclient.png)
 *Known Type Error in the use of react-renderer*
 
 <https://github.com/honojs/honox/issues/87>
 
-次に、`@hono/react-renderer`のレンダラーが受け取るpropsを定義します。今回はページごとに`title`と`description`をheadに設定したかったので以下のように定義しました。
+次に、`@hono/react-renderer`のレンダラーが受け取る props を定義します。今回はページごとに`title`と`description`を head に設定したかったので次のように定義しました。
 
 ```ts showLineNumbers title="./app/global.d.ts"
 import "@hono/react-renderer";
@@ -185,7 +185,7 @@ declare module "@hono/react-renderer" {
 }
 ```
 
-最後に、Reactレンダラーを適用して完成です。
+最後に、React レンダラーを適用して完成です。
 
 ```tsx showLineNumbers {1, 3} title="./app/routes/_renderer.tsx"
 import { reactRenderer } from '@hono/react-renderer'
@@ -210,7 +210,7 @@ export default reactRenderer(({ children, head }) => {
 })
 ```
 
-各rootでは`global.d.ts`で定義したpropsを渡して、以下のようにレンダリングを構成できます。
+各 root では`global.d.ts`で定義した props を渡して、次のようにレンダリングを構成できます。
 
 ```tsx showLineNumbers title="./app/routes/index.tsx"
 import { createRoute } from "honox/factory";
@@ -228,18 +228,18 @@ export default createRoute((c) => {
 
 ### ライブラリを使用する
 
-viteはデフォルトではすべての依存関係を外部化、つまり、開発中にバンドルは行なわずプログラムの配布前にのみ行なうということをします。これにより、ビルドの高速化しています。
+vite はデフォルトではすべての依存関係を外部化、つまり、開発中にバンドルは行なわずプログラムの配布前にのみ行なうということをします。これにより、ビルドの高速化しています。
 
-しかし、Viteの**SSR**ではリンクされた依存関係はHMRをするために外部化しない、つまりSSRではリンクされたパッケージをバンドルに含めてビルドします。([Vite - 外部 SSR](https://ja.vitejs.dev/guide/ssr.html#ssr-externals))
+しかし、Vite の**SSR**ではリンクされた依存関係は HMR をするために外部化しない、つまり SSR ではリンクされたパッケージをバンドルに含めてビルドします。([Vite - 外部 SSR](https://ja.vitejs.dev/guide/ssr.html#ssr-externals))
 
 しかし、外部化したい、つまりリンクされたパッケージでもバンドルに含めずビルドしたい場合には`ssr.externals`に入れる必要があります。
 
-具体的に`ssr.externals`に含めるパッケージとしては以下のようなものが考えられるでしょう。
+具体的に`ssr.externals`に含めるパッケージとしては次のようなものが考えられるでしょう。
 
 **1. ブラウザ環境でのみ使用されるパッケージ**
 
 クライアントサイドレンダリング用のライブラリは、サーバー側レンダリング時には不要だからです。
-例えば、YamadaUIの場合は以下のようなエラーが出ます。
+例えば、YamadaUI の場合は次のようなエラーが出ます。
 
 ```bash
 ...
@@ -253,18 +253,18 @@ viteはデフォルトではすべての依存関係を外部化、つまり、�
 
 **2. Node.js依存のパッケージ**
 
-Node.js依存のコードには、Node.js固有のAPI、グローバル変数、モジュールシステムなどが使われており、これらはブラウザ環境では存在しません。そのため、ViteがNode.js依存コードをそのままトランスパイルしようとするとエラーになります。
+Node.js 依存のコードには、Node.js 固有の API、グローバル変数、モジュールシステムなどが使われており、これらはブラウザ環境では存在しません。そのため、Vite が Node.js 依存コードをそのままトランスパイルしようとするとエラーになります。
 
-そのため、Node.js依存のパッケージは `ssr.external` に含める必要があるでしょう。
-これにより、Viteはそのパッケージをバンドル化せずに、Node.js実行環境から直接読み込むようになります。
+そのため、Node.js 依存のパッケージは `ssr.external` に含める必要があるでしょう。
+これにより、Vite はそのパッケージをバンドル化せずに、Node.js 実行環境から直接読み込むようになります。
 
- `ssr.external` に含めないと、逆にViteはそのパッケージをバンドル化しようとしてエラーとなってしまいます。
+ `ssr.external` に含めないと、逆に Vite はそのパッケージをバンドル化しようとしてエラーとなってしまいます。
 
 <https://ja.vitejs.dev/config/ssr-options#ssr-%E3%82%AA%E3%83%95%E3%82%9A%E3%82%B7%E3%83%A7%E3%83%B3>
 
 ***
 
-従って、`vite.config.ts`の`ssr.external`を以下のように追加して、YamadaUIとReact Flowをクライアントサイドで使用できるようにします。
+従って、`vite.config.ts`の`ssr.external`を次のように追加して、YamadaUI と React Flow をクライアントサイドで使用できるようにします。
 
 ```ts
 export default defineConfig(({ mode }) => {
@@ -284,25 +284,25 @@ export default defineConfig(({ mode }) => {
 });
 ```
 
-これで、HonoXでReactやReactに依存しているUIコンポーネントを使用できるようになりました🎉
+これで、HonoX で React や React に依存している UI コンポーネントを使用できるようになりました🎉
 
-YamadaUIやReact Flowは、各ライブラリの公式ドキュメントに従うことで使用できます。
+YamadaUI や React Flow は、各ライブラリの公式ドキュメントに従うことで使用できます。
 
 - [YamadaUI - Getting Started with Hono](https://yamada-ui.com/getting-started/frameworks/hono)
 - [React Flow](https://reactflow.dev/)
 
 ## bunでCloudflare Pagesにデプロイする
 
-Cloudflare Pagesのプロジェクトを作成し、GitHubと統合します。これにより、`main`ブランチに変更があった際、Cloudflare Pagesへ自動デプロイされるようになります。
+Cloudflare Pages のプロジェクトを作成し、GitHub と統合します。これにより、`main`ブランチに変更があった際、Cloudflare Pages へ自動デプロイされるようになります。
 
-しかし、初期設定のまま、パッケージマネジャとしてbunを使用してCloudflare Pagesで依存関係をインストールすると以下の状態から進行しませんでした。
+しかし、初期設定のまま、パッケージマネジャとして bun を使用して Cloudflare Pages で依存関係をインストールすると次の状態から進行しませんでした。
 
 ```bash
 10:44:26.853 Installing project dependencies: bun install --frozen-lockfile
 10:44:27.101 bun install v1.0.1 (32abb4eb)
 ```
 
-パッケージマネジャにbunを用いる場合は、現状以下の環境変数の設定が必要なようです。
+パッケージマネジャに bun を用いる場合は、現状次の環境変数の設定が必要なようです。
 ![Cloudflare Pagesでbunを使用する環境変数設定](../../../../assets/images/cloudflare-bun-envs.png)
 *Cloudflare Pagesでbunを使用する環境変数設定*
 
@@ -310,15 +310,15 @@ Cloudflare Pagesのプロジェクトを作成し、GitHubと統合します。�
 
 上記の事情により、`SKIP_INSTALL_DEPENDENCY=true`としているのでビルドコマンドに`bun install`を含めます。
 
-あとは、上記を含めたビルドコマンドを構成し、ビルド出力ディレクトリなどを設定したらCloudflare Pagesにデプロイされるはずです🚀
+あとは、上記を含めたビルドコマンドを構成し、ビルド出力ディレクトリなどを設定したら Cloudflare Pages にデプロイされるはずです🚀
 
 ***
 
 ## おまけ - モノリポにおける依存関係との仁義なき戦い
 
-本当は２日前くらいにデプロイ＆この記事を書いていて、「よーし、ツイートして終わり〜〜」と思っていたのですが、投稿時にog画像がいつものようにうまく表示されなくなっていました。
+本当は２日前くらいにデプロイ＆この記事を書いていて、「よーし、ツイートして終わり〜〜」と思っていたのですが、投稿時に og 画像がいつものようにうまく表示されなくなっていました。
 
-ブログアプリはVercelにデプロイしているので、Vercelのログを確認してみたところ、og画像生成のためのファイルにうまくアクセスできていないようでした。
+ブログアプリは Vercel にデプロイしているので、Vercel のログを確認してみたところ、og 画像生成のためのファイルにうまくアクセスできていないようでした。
 ![OG画像にアクセスした時のServerless Functionsでのエラー](../../../../assets/images/vercel-error.png)
 *OG画像にアクセスした時のServerless Functionsでのエラー*
 
@@ -343,9 +343,9 @@ Cloudflare Pagesのプロジェクトを作成し、GitHubと統合します。�
 
 原因を調査したところ、`./apps/blog.sakupi01.com`と`./apps/sakupi01.com`間での依存関係に整合性が取れてなかったことが問題だとわかりました。
 
-具体的には、`./apps/sakupi01.com`を付け足しで作った際にインストールした`@hono/react-renderer`の内部依存パッケージAが、別マイクロサービスである`./apps/blog.sakupi01.com`で`^x.y.z`としてインストールしていたパッケージAとバッティングして、元々`./apps/blog.sakupi01.com`で動いていたパッケージAのバージョンが上書きされてしまったことが原因でした。
+具体的には、`./apps/sakupi01.com`を付け足しで作った際にインストールした`@hono/react-renderer`の内部依存パッケージ A が、別マイクロサービスである`./apps/blog.sakupi01.com`で`^x.y.z`としてインストールしていたパッケージ A とバッティングして、元々`./apps/blog.sakupi01.com`で動いていたパッケージ A のバージョンが上書きされてしまったことが原因でした。
 
-解決方法としては、`npm list --depth=0 --prod`で実際に使用されているパッケージのバージョンを全て吐き出し、`^`を外して、そのバージョンをexactインストールすることで事なきを得ました......
+解決方法としては、`npm list --depth=0 --prod`で実際に使用されているパッケージのバージョンを全て吐き出し、`^`を外して、そのバージョンを exact インストールすることで事なきを得ました......
 
 特にモノリポ開発では、範囲を持ったままパッケージをインストールすることはキケンということを再認識させられるいい機会でした🙇🏻
 

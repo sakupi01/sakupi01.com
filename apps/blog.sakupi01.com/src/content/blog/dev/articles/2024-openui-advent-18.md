@@ -14,19 +14,19 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の18日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 18 日目の記事です。
 :::
 
-[Ep.15](https://blog.sakupi01.com/dev/articles/2024-openui-advent-17)では、`<selectedoption>`を用いて、宣言的に選択された`<option>`の中身をLight DOMにクローンする提案が、合意を得た詳細についてお話ししました。
+[Ep.15](https://blog.sakupi01.com/dev/articles/2024-openui-advent-17)では、`<selectedoption>`を用いて、宣言的に選択された`<option>`の中身を Light DOM にクローンする提案が、合意を得た詳細についてお話ししました。
 
-「Light DOMはAuthorの領域であり、UAによって変更されるべきではない」という制約に対して、今回その境界を越える提案が可決されたことによって、HTML史上初となる、UAからLight DOMへの変更を加える実装がなされていきます。
+「Light DOM は Author の領域であり、UA によって変更されるべきではない」という制約に対して、今回その境界を越える提案が可決されたことによって、HTML 史上初となる、UA から Light DOM への変更を加える実装がなされていきます。
 
 その初の試みとなる`<selectedoption>`は、もちろん実装上の課題も多く、その解決策を模索する議論が続いています。
-今回からは、その関連Issueを中心に、`<selectedoption>`の実装に関する議論の現状を追っていきます。
+今回からは、その関連 Issue を中心に、`<selectedoption>`の実装に関する議論の現状を追っていきます。
 
 ***
 
-※ `<selectedoption>`は、2024/12現在、`<selectedcontent>`にリネームされています。
+※ `<selectedoption>`は、2024/12 現在、`<selectedcontent>`にリネームされています。
 混乱を避けるため、本エントリからは最新版の`<selectedcontent>`と表記します。
 
 > RESOLVED: rename the selectedoption element to selectedcontent
@@ -41,7 +41,7 @@ status: 'published'
 
 ## `<selectedcontent>`の実装に関するIssueまとめ
 
-2024/12現在、`<selectedcontent>`の実装に関するIssueは以下の通りです。そのうちのいくつかは、現在進行形で議論が続いています。
+2024/12 現在、`<selectedcontent>`の実装に関する Issue は次の通りです。そのうちのいくつかは、現在進行形で議論が続いています。
 （※ 時系列で列挙）
 
 1. [How to implement and shape API for `<selectedoption>` element for `<select>` · Issue #10242 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/10242)
@@ -51,25 +51,25 @@ status: 'published'
 5. [select: clarifying what should be used as the chosen value · Issue #1117 · openui/open-ui](https://github.com/openui/open-ui/issues/1117)
 6. [select: Should `<selectedoption>` update when selecting the already-selected option · Issue #1119 · openui/open-ui](https://github.com/openui/open-ui/issues/1119)
 
-これらの中でも、筆者が特に注目している、「クローンタイミング」に関する1~4のIssueに焦点を当てて、その内容について深掘っていきます。
+これらの中でも、筆者が特に注目している、「クローンタイミング」に関する 1~4 の Issue に焦点を当てて、その内容について深掘っていきます。
 
 ## How to implement and shape API for `<selectedoption>` element for `<select>`
 
-本格的な実装に移る前に、実装の方針をより具体的に固めるためのIssueがCSSWGに出されました。
+本格的な実装に移る前に、実装の方針をより具体的に固めるための Issue が CSSWG に出されました。
 
-Open UIでの議論は、WHATWGの見解をもとにLight DOM実装でいくという[議論結果](https://github.com/openui/open-ui/issues/571)となりました。しかし、Light DOMで実装するか、Shadow DOMで実装するかで、CSSの受ける影響が大きいため、CSSWGからの意見を募るIssueが持ちかけられたということです。
+Open UI での議論は、WHATWG の見解をもとに Light DOM 実装でいくという[議論結果](https://github.com/openui/open-ui/issues/571)となりました。しかし、Light DOM で実装するか、Shadow DOM で実装するかで、CSS の受ける影響が大きいため、CSSWG からの意見を募る Issue が持ちかけられたということです。
 
 :::note{.info}
 👍🏻 この時点で固まっている仕様
 
-- 選択された`<option>`で、`cloneNode()`をCallする
-- 選択された`<option>`の、`<option>`を除く`<option>`内の全てのDOMをクローンする
-- `<selectedcontent>`を用いて、宣言的な方法で、クローンされたDOMを`<selectedcontent>`内に追加する
-- 選択された`<option>`が変更されるたびに、`<selectedcontent>`内のDOMを更新する
+- 選択された`<option>`で、`cloneNode()`を Call する
+- 選択された`<option>`の、`<option>`を除く`<option>`内の全ての DOM をクローンする
+- `<selectedcontent>`を用いて、宣言的な方法で、クローンされた DOM を`<selectedcontent>`内に追加する
+- 選択された`<option>`が変更されるたびに、`<selectedcontent>`内の DOM を更新する
 
 :::
 
-上記の仕様を実現するために、以下のようなマークアップになることが固まっています。
+上記の仕様を実現するために、次のようなマークアップになることが固まっています。
 
 ```html
 <select>
@@ -89,14 +89,14 @@ Open UIでの議論は、WHATWGの見解をもとにLight DOM実装でいくと�
 </select>
 ```
 
-未確定なのが、「クローンされたDOMを`<selectedcontent>`内に追加する実装」の部分です。これには2通りの実装方法が考えられます。
+未確定なのが、「クローンされた DOM を`<selectedcontent>`内に追加する実装」の部分です。これには 2 通りの実装方法が考えられます。
 
 ### `<selectedcontent>`をLight DOMで実装した場合
 
-WHATWGの見解に従い、`<selectedcontent>`をLight DOMとし、その子Nodeを`cloneNode()`の結果で置換する方法です。
+WHATWG の見解に従い、`<selectedcontent>`を Light DOM とし、その子 Node を`cloneNode()`の結果で置換する方法です。
 
-この方法であれば、Authorは`selectedcontent`セレクタを直接利用できるため、`<option>`と`<selectedcontent>`を別々にスタイルできます。
-全てがLight DOMの管理下のため、UAでのCSS追加実装は不要です。
+この方法であれば、Author は`selectedcontent`セレクタを直接利用できるため、`<option>`と`<selectedcontent>`を別々にスタイルできます。
+全てが Light DOM の管理下のため、UA での CSS 追加実装は不要です。
 
 ```css
 selectedcontent > span {
@@ -106,9 +106,9 @@ selectedcontent > span {
 
 ### `<selectedcontent>`をShadow DOMで実装した場合
 
-Shadow DOMで実装する場合、`<selectedcontent>`をUA Shadow Rootとし、その子Nodeを`cloneNode()`の結果で置換する方法です。
+Shadow DOM で実装する場合、`<selectedcontent>`を UA Shadow Root とし、その子 Node を`cloneNode()`の結果で置換する方法です。
 
-UA Shadow Rootの中は、（`<input>`の内部`<div>`はスタイルできない、など）Authorスタイルシートからアクセスできないため、新しい擬似要素を定義してAuthorにスタイリングする術を提供する必要があります。そのため、CSSに新しいシンタックスを追加する必要が出てきます。
+UA Shadow Root の中は、（`<input>`の内部`<div>`はスタイルできない、など）Author スタイルシートからアクセスできないため、新しい擬似要素を定義して Author にスタイリングする術を提供する必要があります。そのため、CSS に新しいシンタックスを追加する必要が出てきます。
 
 ```css
 selectedcontent::selectedcontent-content > span {
@@ -116,21 +116,21 @@ selectedcontent::selectedcontent-content > span {
 }
 ```
 
-それだけでなく、Light DOM を動的に UA の Shadow Rootに挿入するとなると、一度[廃止](https://groups.google.com/a/chromium.org/g/blink-dev/c/PNTt4oFXt8c/m/C1bS0ityBAAJ?hl=ja)された過去のある[Sanitizer APIの再実装](https://github.com/WICG/sanitizer-api/blob/main/explainer.md)が完了することも条件となります。
+それだけでなく、Light DOM を動的に UA の Shadow Root に挿入するとなると、一度[廃止](https://groups.google.com/a/chromium.org/g/blink-dev/c/PNTt4oFXt8c/m/C1bS0ityBAAJ?hl=ja)された過去のある[Sanitizer APIの再実装](https://github.com/WICG/sanitizer-api/blob/main/explainer.md)が完了することも条件となります。
 
 ***
 
-これに関して、Open UIとCSSWGのJoint Sessionで懸念点の洗い出しが行われました。
+これに関して、Open UI と CSSWG の Joint Session で懸念点の洗い出しが行われました。
 
 <https://lists.w3.org/Archives/Public/www-style/2024Jul/0011.html>
 
-まず、Shadow DOMでの実装については、Sanitizer APIの実装とCSSの新しいシンタックスが必要になるため、Light DOMでの実装が優先して議論されます。
+まず、Shadow DOM での実装については、Sanitizer API の実装と CSS の新しいシンタックスが必要になるため、Light DOM での実装が優先して議論されます。
 
-Light DOMで実装する場合に、主に「クローンのタイミング」に関する懸念点が挙げられました。
+Light DOM で実装する場合に、主に「クローンのタイミング」に関する懸念点が挙げられました。
 
-初期の案では、クローンする子Nodeが動的に変更された場合は、最初はMutationObserverで実装されることになっていました。
+初期の案では、クローンする子 Node が動的に変更された場合は、最初は MutationObserver で実装されることになっていました。
 
-[MutationObserver API](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)は、マイクロタスクで変更を検知するAPIです。そして、マイクロタスクは、タスクが空になるまで、非同期的に実行される[仕様](https://html.spec.whatwg.org/multipage/webappapis.html#microtask)になっています。
+[MutationObserver API](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)は、マイクロタスクで変更を検知する API です。そして、マイクロタスクは、タスクが空になるまで、非同期的に実行される[仕様](https://html.spec.whatwg.org/multipage/webappapis.html#microtask)になっています。
 
 :::note{.memo}
 📝マイクロタスク
@@ -142,17 +142,17 @@ Light DOMで実装する場合に、主に「クローンのタイミング」�
 > <https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide>
 :::
 
-ここで問題なのが、Layout Flash時の再クローンでした。Layout Flash時とは、スタイルやDOMの変更があった場合に、Layout Treeが**同期的に**再計算されるタイミングです。
+ここで問題なのが、Layout Flash 時の再クローンでした。Layout Flash 時とは、スタイルや DOM の変更があった場合に、Layout Tree が**同期的に**再計算されるタイミングです。
 
-非同期的に変更検知を行うMutationObserverでは、Layout Flash時に同期的に変更を検知することができません。つまり、Layout treeとの整合性を保つためには、同期的なMutationObserverが必要になります。
+非同期的に変更検知を行う MutationObserver では、Layout Flash 時に同期的に変更を検知することができません。つまり、Layout tree との整合性を保つためには、同期的な MutationObserver が必要になります。
 
-Mozillaの[Emillio](https://github.com/emilio)は、Geckoは、独自の同期的なMutationObserverを持っているので、Layout Flash時の変更を検知してクローンできると主張します。しかし、他のブラウザエンジンがそれを実装するにはMutationObserverのポリフィルが必要です。
+Mozilla の[Emillio](https://github.com/emilio)は、Gecko は、独自の同期的な MutationObserver を持っているので、Layout Flash 時の変更を検知してクローンできると主張します。しかし、他のブラウザエンジンがそれを実装するには MutationObserver のポリフィルが必要です。
 
-この議論により、Light DOMでの仕様策定が一旦は決行されることになりましたが、具体的なクローン・再クローンのタイミングは未だ決まっておらず、議論結果によってはLight DOMでの実装が見直される可能性もあるという結論に至りました。
+この議論により、Light DOM での仕様策定が一旦は決行されることになりましたが、具体的なクローン・再クローンのタイミングは未だ決まっておらず、議論結果によっては Light DOM での実装が見直される可能性もあるという結論に至りました。
 
 > RESOLVED: Move forward with the light dom cloning api shape and discuss timing in the issue
 
-次回から、現状採用されている、Light DOMでの実装の中でも肝となる、「どのタイミングでクローンするのか」の議論を具体的に見ていきます。
+次回から、現状採用されている、Light DOM での実装の中でも肝となる、「どのタイミングでクローンするのか」の議論を具体的に見ていきます。
 
 ***
 

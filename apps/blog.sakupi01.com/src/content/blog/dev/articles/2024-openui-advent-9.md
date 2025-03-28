@@ -14,26 +14,26 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の9日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 9 日目の記事です。
 :::
 
 [Customizable Select Element Ep.6](https://blog.sakupi01.com/dev/articles/2024-openui-advent-8)では、`<selectmenu>`が改名され、`<selectlist>`に至るまでの経緯をお話ししました。
 
-しかし、現在のCSEは`<selectlist>`ではなく、`<select>`として[RFC](https://developer.chrome.com/blog/rfc-customizable-select)が発表されています。今回は、`<selectlist>`から、`<select>`に変遷するまでの経緯をお話しします。
+しかし、現在の CSE は`<selectlist>`ではなく、`<select>`として[RFC](https://developer.chrome.com/blog/rfc-customizable-select)が発表されています。今回は、`<selectlist>`から、`<select>`に変遷するまでの経緯をお話しします。
 
 ## `<selectmenu>`のその後：`<selectlist>`から`<select>`に至るまで
 
-主に既存のUIパターンとの混乱を避けるための様々な考慮がなされ、`<selectmenu>`は`<selectlist>`にリネームされました。
+主に既存の UI パターンとの混乱を避けるための様々な考慮がなされ、`<selectmenu>`は`<selectlist>`にリネームされました。
 
-本格的に`<selectlist>`の運用が始まる中で、whatwg/htmlに、`<select>`のHTML/CSSに関するIssueとPRをまとめたIssueが開かれました。
+本格的に`<selectlist>`の運用が始まる中で、whatwg/html に、`<select>`の HTML/CSS に関する Issue と PR をまとめた Issue が開かれました。
 
 - [Customizable `<select>` element · Issue #9799 · whatwg/html](https://github.com/whatwg/html/issues/9799)
 ![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](../../../../assets/images/select-wrapped-issue.png)
 *現在は`<select>`だが、その前の`<selectlist>`時代に開かれている*
 
-そして、このIssueを皮切りに、`<selectlist>`から`<select>`への移行が検討されていくことになります。
+そして、この Issue を皮切りに、`<selectlist>`から`<select>`への移行が検討されていくことになります。
 
-まずその口火を切ったのが、AppleでWHATWGの[Anne van Kesteren](https://x.com/annevk)でした。その後の会話からすると、以下の提案はAnneとJoey Arharを含むcolleaguesの間で話し合われ、それをAnneが代表してここにまとめていることがわかります。
+まずその口火を切ったのが、Apple で WHATWG の[Anne van Kesteren](https://x.com/annevk)でした。その後の会話からすると、次の提案は Anne と Joey Arhar を含む colleagues の間で話し合われ、それを Anne が代表してここにまとめていることがわかります。
 
 提案の内容は以下です。
 
@@ -50,9 +50,9 @@ status: 'published'
 > We understand that **the select element can’t address a variety of scenarios due to parser limitations, but the select element could address them in combination with the datalist element.** **One of our big worries with complete duplication is that we end up not solving the problems with the existing controls and that the duplicated controls will have a variety of shortcomings the older controls did not have.**
 > <https://github.com/whatwg/html/issues/9799#issuecomment-1770254871>
 
-このコメントの内容を理解する前に、まず、CSEが別要素として仕様策定されるべきだと判断された根拠を振り返ってみましょう。
+このコメントの内容を理解する前に、まず、CSE が別要素として仕様策定されるべきだと判断された根拠を振り返ってみましょう。
 
-CSEのExplainerは、当初MS内で検討が始まりましたが、その過程の中で以下のような議論が交されていました。
+CSE の Explainer は、当初 MS 内で検討が始まりましたが、その過程の中で次のような議論が交されていました。
 
 > @mfreed7 pointed out that we'd need to deal with the fact that the custom attribute could be added/removed dynamically, which adds complexity. Parsing is particularly concerning here, since the attribute would change the parsing rules for the subtree of the `<select>`. Is there any scenario where a `<select>` could have script change it to custom when we're in the middle of parsing its subtree?
 
@@ -79,7 +79,7 @@ combobox.addAttribute('newbehavior','true'); // Opt in, but a little late
 - [Opt-in for `<select>` customizability · Issue #364 · MicrosoftEdge/MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/364)
 - [Opt-in for `<select>` customizability · Issue #5791 · whatwg/html](https://github.com/whatwg/html/issues/5791)
 
-これによって、CSEは別要素として実装される方向に舵が切られました。
+これによって、CSE は別要素として実装される方向に舵が切られました。
 
 対して、先ほどの[Anneのコメント](https://github.com/whatwg/html/issues/9799#issuecomment-1770254871)からは、別要素で実装することで考えられる別の問題点が挙げれられています。
 
@@ -88,9 +88,9 @@ combobox.addAttribute('newbehavior','true'); // Opt in, but a little late
 > select要素はパーサーの制限によりさまざまなシナリオに対応できないが、datalist要素と組み合わせることで対応できる。
 > 最大の問題は、既存のControl（つまり`<select>`）の問題はそのままになり、複製されたControl（つまり`<selectlist>`）には、`<select>`にはなかったさまざまな欠点が生じる可能性があることです。
 
-CSEは`<select>`を”完全に”カスタマイズ可能にすることを目指しているので、`<select>`の中に入れる要素やその構造も制限されないようにしなければなりません。
+CSE は`<select>`を”完全に”カスタマイズ可能にすることを目指しているので、`<select>`の中に入れる要素やその構造も制限されないようにしなければなりません。
 
-しかし、当初考えられていた「`<select>`にOpt-in属性を追加する方法」では、パースタイミングの問題により、`<select>`の中に入れる要素が制限されてしまう可能性がありました。
+しかし、当初考えられていた「`<select>`に Opt-in 属性を追加する方法」では、パースタイミングの問題により、`<select>`の中に入れる要素が制限されてしまう可能性がありました。
 
 そのため、`<select>`とは別要素として実装する必要があるという結論に至ったのですが、「`<selectlist>`の中に入れるポップアップ内の任意要素は`<listbox>`でラップする」というのが当時の`<selectlist>`の仕様でした。
 
@@ -113,27 +113,27 @@ CSEは`<select>`を”完全に”カスタマイズ可能にすることを目�
 
 - [Open UI's selectlist demos](https://microsoftedge.github.io/Demos/selectlist/index.html)
 
-しかし、これは既存の`<select>`と`<datalist>`との組み合わせで実現可能であるとAnneは主張します。
+しかし、これは既存の`<select>`と`<datalist>`との組み合わせで実現可能であると Anne は主張します。
 
-加えて、`<selectlist>`という別要素として実装した場合、既存の`<select>`と`<datalist>`の問題は解消されません。Progressive Enhancementの観点からも、`<select>`を採用を検討したいとのことでした。
+加えて、`<selectlist>`という別要素として実装した場合、既存の`<select>`と`<datalist>`の問題は解消されません。Progressive Enhancement の観点からも、`<select>`を採用を検討したいとのことでした。
 
-さまざまな意見が交換された結果、Anneの提案通り、2023/12の段階で以下のようにまとまることになります。
+さまざまな意見が交換された結果、Anne の提案通り、2023/12 の段階で次のようにまとまることになります。
 
-1. Reusing the `<select>` element will work: `<select>`はCSEの実現に利用できる
+1. Reusing the `<select>` element will work: `<select>`は CSE の実現に利用できる
 2. We can change the parser for `<select>` to allow particular new child tags like `<button>` and `<datalist>`: `<select>`のパーサーを変更して（緩めて）、`<button>`や`<datalist>`などの新しい子要素を許可できる
 3. We can work incrementally, first by making these parser changes in the spec etc.: まずは仕様などでパーサーの変更を行い、段階的に進めることができる
-4. Using `<datalist>` as a child of `<select>` will work to replace the listbox with custom content: `<select>`の子要素として`<datalist>`を使用することで、listboxをカスタムコンテンツで置き換えることができる
+4. Using `<datalist>` as a child of `<select>` will work to replace the listbox with custom content: `<select>`の子要素として`<datalist>`を使用することで、listbox をカスタムコンテンツで置き換えることができる
 
 ---
 
-このWHATWGでの議論の結果を以て、Open UIでも正式に`<selectlist>`/`<listbox>`から`<select>`/`<datalist>`を使用することに決定され、[Open UIのselectlistのExplainer](https://open-ui.org/components/selectlist/)も`<select>`に変更されました。
+この WHATWG での議論の結果を以て、Open UI でも正式に`<selectlist>`/`<listbox>`から`<select>`/`<datalist>`を使用することに決定され、[Open UIのselectlistのExplainer](https://open-ui.org/components/selectlist/)も`<select>`に変更されました。
 
 - [selectlist feedback from apple · Issue #970 · openui/open-ui](https://github.com/openui/open-ui/issues/970)
 
 > I updated the explainer to be `<select>` instead of `<selectlist>`: <https://open-ui.org/components/selectlist/>
 > <https://github.com/whatwg/html/issues/9799#issuecomment-1885356884>
 
-`<selectlist>`から`<select>`への変更理由は、最近developer.chrome.comから発表されたRFCでも触れられています。
+`<selectlist>`から`<select>`への変更理由は、最近 developer.chrome.com から発表された RFC でも触れられています。
 
 - [Enhance the existing `<select>` element | Request for developer feedback: customizable select  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/rfc-customizable-select#enhance_the_existing_select_element)
 
@@ -141,8 +141,8 @@ CSEは`<select>`を”完全に”カスタマイズ可能にすることを目�
 
 ***
 
-また良い長さになってしまったので終わってしまうんですが、Anneの提案以降に議論された`<select>`に至る過程が興味深いものだったので、また書くかもしれません。
-今度は、そんなCustomizableな`<select>`の現状を見ていきたいと思います。
+また良い長さになってしまったので終わってしまうんですが、Anne の提案以降に議論された`<select>`に至る過程が興味深いものだったので、また書くかもしれません。
+今度は、そんな Customizable な`<select>`の現状を見ていきたいと思います。
 
 それでは、また明日⛄
 

@@ -14,15 +14,15 @@ status: 'published'
 ## はじめに
 
 `<select>`のスタイルや機能拡張を行うために、これまでに多くの関連機能が提案され、仕様策定され、実装されてきました。
-その中でも特に、Customizable Select Elementを実現する上で欠かせなかった、HTML Parserの緩和に関するバグが、後方互換性の心配が非常に低くなる程度に修正され、Shipの[Intent](https://groups.google.com/a/chromium.org/g/blink-dev/c/kN5LTzuTLVs/m/6HqTsmk3EQAJ)が発表されました。
+その中でも特に、Customizable Select Element を実現する上で欠かせなかった、HTML Parser の緩和に関するバグが、後方互換性の心配が非常に低くなる程度に修正され、Ship の[Intent](https://groups.google.com/a/chromium.org/g/blink-dev/c/kN5LTzuTLVs/m/6HqTsmk3EQAJ)が発表されました。
 
 - [Feature: Customizable `<select>` Element](https://chromestatus.com/feature/5737365999976448)
 
-本エントリでは、今回のIntentに影響を与えた、Parser Relaxationについて見ていきます。
+本エントリでは、今回の Intent に影響を与えた、Parser Relaxation について見ていきます。
 
 ## Parser Relaxation
 
-新しい`<select>`では、以下のように、カスタムの`<button>`を設置したり、`<option>`の中に任意のタグを挿入したりすることができます。これによって、独自のボタンで`::picker`（選択肢のポップアップ）をトリガーしたり、`<option>`の中に`<img>`や任意のコンテンツを入れて、選択肢として表示することが可能になります。
+新しい`<select>`では、次のように、カスタムの`<button>`を設置したり、`<option>`の中に任意のタグを挿入したりすることができます。これによって、独自のボタンで`::picker`（選択肢のポップアップ）をトリガーしたり、`<option>`の中に`<img>`や任意のコンテンツを入れて、選択肢として表示することが可能になります。
 
 ```html
 <style>
@@ -51,7 +51,7 @@ option::checkmark {
 
 - [Codepen: Country select with Flags](https://codepen.io/sakupi01/pen/EaYOqRL)
 
-しかし、現状の`<select>`では`<option>`, `<optgroup>`, `<hr>`のみを内部要素として許可しているため、これらの要素以外を含む`<select>`がうまくパースされるよう、`<select>`のContent Modelを変更し、それに応じてHTMLパーサに変更を加える必要があります。
+しかし、現状の`<select>`では`<option>`, `<optgroup>`, `<hr>`のみを内部要素として許可しているため、これらの要素以外を含む`<select>`がうまくパースされるよう、`<select>`の Content Model を変更し、それに応じて HTML パーサに変更を加える必要があります。
 
 > Content model:
 > Zero or more option, optgroup, hr, and script-supporting elements.
@@ -63,9 +63,9 @@ option::checkmark {
 
 ## Parser RelaxationはChrome 131でShipされていた
 
-このParser Relaxationは、Chrome 131でShipのIntentが出ており、実際にChrome 131でShipされていました。
+この Parser Relaxation は、Chrome 131 で Ship の Intent が出ており、実際に Chrome 131 で Ship されていました。
 
-この時点では、パーサの変更による既存の`<select>`との後方互換性が懸念されていたため、まず一度Parser RelaxationをShipしてみて、ユーザからのフィードバックを受けつつ、適切な対処がされるというモチベーションでした。
+この時点では、パーサの変更による既存の`<select>`との後方互換性が懸念されていたため、まず一度 Parser Relaxation を Ship してみて、ユーザからのフィードバックを受けつつ、適切な対処がされるというモチベーションでした。
 
 > This change is in support of the customizable `<select>` feature but is being shipped first because it can be done separately and has some compat risk which I'd like to get feedback on.
 > ...
@@ -76,17 +76,17 @@ option::checkmark {
 
 ## Parser Relaxation無効化の背景
 
-Chrome 131でShip後、選択肢ドロップダウンが正常に動作しない問題が複数報告されます。
+Chrome 131 で Ship 後、選択肢ドロップダウンが正常に動作しない問題が複数報告されます。
 
 - [Chrome v131.0.6778.70 - Select2 Dropdown Displaying Blank Information #10](https://issues.chromium.org/issues/379034733#comment10)
 
-このバグは、`<option>`が`<div>`など任意のHTML要素の子要素となっていた場合、ドロップダウンが開かないというものでした。
+このバグは、`<option>`が`<div>`など任意の HTML 要素の子要素となっていた場合、ドロップダウンが開かないというものでした。
 
 > Basically if options inside select element are wrapped in other HTML tag like astro-slot (Astro/SolidJS setup) or even a simple DIV, dropdown does not open. Reproducible only on Chrome 131, after this <https://chromestatus.com/feature/5145948356083712>
 >
 > ref: <https://issues.chromium.org/issues/379034733#comment10>
 
-この問題は、Parser Relaxationの変更によって発生したものであることが判明し、Chrome 131, 132でParser Relaxationを無効化することで対応されました。
+この問題は、Parser Relaxation の変更によって発生したものであることが判明し、Chrome 131, 132 で Parser Relaxation を無効化することで対応されました。
 
 > I disabled this new parser behavior in chrome 131 due to a bug with one of multiple code paths which collects options to render in the select's popup which doesn't exist in the spec.
 > ...
@@ -102,21 +102,21 @@ Chrome 131でShip後、選択肢ドロップダウンが正常に動作しない
 
 ## Parser Relaxationの有効化
 
-一時は無効化された機能でしたが、上記のバグは以下で修正され、これまでに、Parser Relaxationによるその他リグレッションのほとんども解消されてきました。
+一時は無効化された機能でしたが、上記のバグは以下で修正され、これまでに、Parser Relaxation によるその他リグレッションのほとんども解消されてきました。
 
 - [Update ListBoxSelectType slotting (6036311) · Gerrit Code Review](https://chromium-review.googlesource.com/c/chromium/src/+/6036311)
 
-Chrome 133からはParser RelaxationはFinchされており、その他Customizable Select Element関連の実装もChrome 134でShipされることに繋がります。
+Chrome 133 からは Parser Relaxation は Finch されており、その他 Customizable Select Element 関連の実装も Chrome 134 で Ship されることに繋がります。
 
 - [Disable SelectParserRelaxation by default (6092097) · Gerrit Code Review](https://chromium-review.googlesource.com/c/chromium/src/+/6092097)
 
 ## そのほかの懸念
 
-Relaxation以前のパーサの挙動では動作していた`<select /> <input />`といった書き方が、Parser Relaxationによって動作しなくなるという懸念は、現時点でも依然として残るようです。
+Relaxation 以前のパーサの挙動では動作していた`<select /> <input />`といった書き方が、Parser Relaxation によって動作しなくなるという懸念は、現時点でも依然として残るようです。
 
 - [Input element after `<select />` is not rendered [379612186] - Chromium](https://issues.chromium.org/issues/379612186)
 
-たとえば、以下のようなHTMLで、`<input>`がレンダーされる/されないという挙動の違いが確認されています。
+たとえば、次のような HTML で、`<input>`がレンダーされる/されないという挙動の違いが確認されています。
 
 - [Codepen: Self-closing Select Parse🫤](https://codepen.io/sakupi01/pen/QwLqJxw)
 
@@ -134,14 +134,14 @@ Relaxation以前のパーサの挙動では動作していた`<select /> <input 
 | ---- | ---- |
 | ![Chrome Canary 134](../../../../assets/images/input-is-not-rendered.png) | ![Chrome 131](../../../../assets/images/input-is-rendered.png) |
 
-これに関しては、専用のフラグが用意されているため、もしロールアウトして問題があっても、Chromeのリリースを伴わずに機能を無効にすることができます。
+これに関しては、専用のフラグが用意されているため、もしロールアウトして問題があっても、Chrome のリリースを伴わずに機能を無効にすることができます。
 
 - [Add InputClosesSelect flag (5936092) · Gerrit Code Review](https://chromium-review.googlesource.com/c/chromium/src/+/5936092)
 
 ***
 
-数多くの構文と動作変更を繰り返してきたCustomizable Select ElementのShipは、[Joey Arhar](https://github.com/josepharhar)による、辛抱強い繰り返しの実装の末に実現されています。
+数多くの構文と動作変更を繰り返してきた Customizable Select Element の Ship は、[Joey Arhar](https://github.com/josepharhar)による、辛抱強い繰り返しの実装の末に実現されています。
 
 - [owner: jarhar@chromium.org · Gerrit Code Review](https://chromium-review.googlesource.com/q/owner:jarhar@chromium.org)
 
-Webの開発体験を大きく変えるたくさんの機能の実現にも貢献してきた、Customizable Select Element。長年実現が待ち望まれていた新しい機能のリリースなだけ、とてもワクワクさせられます🎉
+Web の開発体験を大きく変えるたくさんの機能の実現にも貢献してきた、Customizable Select Element。長年実現が待ち望まれていた新しい機能のリリースなだけ、とてもワクワクさせられます🎉
