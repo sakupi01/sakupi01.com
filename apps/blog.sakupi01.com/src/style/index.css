@@ -145,6 +145,16 @@ body {
 
 /* Individual heading styles */
 @scope (article) {
+  p:has(baseline-status) {
+    border: 1px solid;
+    padding: 1rem 2rem 0.5rem 2rem;
+    border-radius: 4px;
+    background: light-dark(transparent, var(--color-base-lightest));
+    color: var(--color-base-darkest);
+    border: 2px solid
+      light-dark(var(--color-primary-medium), var(--color-primary-medium));
+  }
+
   blockquote {
     width: 95%;
     margin: 20px auto;
@@ -209,15 +219,16 @@ body {
     background-position: 0 0;
     border-radius: 8px;
     overflow: hidden;
-    padding: 1rem 5rem 1rem 5rem;
     color: var(--color-base-dark);
+    padding: 1rem 5rem;
 
     p:first-child {
       font-weight: 900;
       font-size: 1.1em;
     }
 
-    :last-child {
+    :last-child,
+    :first-child {
       margin-bottom: 0;
     }
   }
@@ -254,6 +265,7 @@ body {
   }
 
   aside.message {
+    padding: 1rem 1rem 1rem 5rem;
     &::before {
       content: "FYI";
       font-style: italic;

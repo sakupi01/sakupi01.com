@@ -54,7 +54,7 @@ Invoker Commands の [CommandEvent](https://html.spec.whatwg.org/multipage/inter
 キーボードやモバイルデバイスは数ある入力デバイスのうちのひとつに過ぎず、マウス、キーボードはもちろんのこと、タッチスクリーンや音声コントロール、アイトラッキング、ペンタッチなど、世の中には私たちが想像し得ないほどの様々な入力デバイスが存在します。<br />
 それゆえ、 *"Show Interest"* する具体的な操作は、それぞれの入力デバイスに応じて多岐に渡ります。
 
-そこに、その多様な操作を抽象的に示す *"Show Interest"* という概念を意図的に導入することで、これまでは **多様な入力デバイスに対して同等な *"Show Interest"* の挙動（e.g. hover）を実装することは極めて困難** でしたが、**多様な入力デバイスに応じた適切な *"Show/Lose Interest"* の仕組みを、ブラウザが肩代わりして標準化する** ことを見据えています。
+そこに、その多様な操作を抽象的に示す *"Show Interest"* という概念を意図的に導入します。これにより、これまでは **多様な入力デバイスに対して同等な *"Show Interest"* の挙動（e.g. hover）を実装することは極めて困難** だったのが、**多様な入力デバイスに応じた適切な *"Show/Lose Interest"* の仕組みを、ブラウザが肩代わりして標準化する** ことを見据えています。
 
 > However, as mentioned above, “showing” and “losing” interest are intentional abstractions that do not refer to specific actions such as “hover” or “long press”. This is on purpose: the developer should not have to worry about handling all of the various input modalities specifically, in the same way that a `<button>` element can be activated in various ways such as tapping, clicking, or hitting Enter on the keyboard. The user agent provides this functionality “for free”: developers don’t need think about HIDs.
 >
@@ -77,6 +77,7 @@ Invoker Commands の [CommandEvent](https://html.spec.whatwg.org/multipage/inter
 同様に、`interest-target-hide-delay` は、フォーカスが外れてから Interest Target が非表示になるまでの遅延時間を制御します。
 
 :::note{.memo}
+📝 interest-target-delay
 
 `interest-target-show-delay` & `interest-target-hide-delay`のショートハンドとして、`interest-target-delay` が提案されています。
 
