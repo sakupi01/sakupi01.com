@@ -143,7 +143,6 @@ body {
   }
 }
 
-/* Individual heading styles */
 @scope (article) {
   p:has(baseline-status) {
     border: 1px solid;
