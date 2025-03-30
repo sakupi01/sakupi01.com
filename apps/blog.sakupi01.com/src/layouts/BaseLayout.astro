@@ -1,133 +1,91 @@
 ---
 import "@repo/ui/index.css";
 import "../style/index.css";
+
 interface Props {
   pageTitle: string;
   description: string;
   url: string;
 }
+
 const { pageTitle = "saku's blog", description, url } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-		<meta property="og:title" content={pageTitle} />
-		<meta property="og:type" content="website" />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.png`} />
-		<meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
-		<meta name="twitter:card" content="summary" />
-		<script is:inline src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js" type="module"></script>
-		<script is:inline>
-			const getInitialTheme = () => {
-			  const savedTheme = localStorage.getItem('theme');
-			  if (savedTheme) {
-				return savedTheme;
-			  }
-			  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-			};
-			
-			const theme = getInitialTheme();
-			document.documentElement.classList.toggle('dark', theme === 'dark');
-		  </script>
-			 <script>
-				(function() {
-				  const themeToggle = document.getElementById('themeToggle');
-				
-				  // Function to set theme in localStorage and update DOM
-				  const setTheme = (theme: 'light' | 'dark') => {
-				  localStorage.setItem('theme', theme);
-				  document.documentElement.classList.toggle('dark', theme === 'dark');
-				  themeToggle?.classList.toggle('theme-toggle--toggled', theme === 'light');
-				  };
-			  
-				  // Initialize theme from localStorage or system preference
-				  const initializeTheme = () => {
-					const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-					if (savedTheme) {
-					  setTheme(savedTheme);
-					} else {
-					  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-					  setTheme(prefersDark ? 'dark' : 'light');
-					}
-				  };
-			  
-				  // Initialize theme on page load
-				  initializeTheme();
-			  
-				  // Create audio elements for theme toggle sounds
-				  const lightToAudio = new Audio('/sounds/light-dark-toggle.mp3');
-				  const darkToAudio = new Audio('/sounds/light-dark-toggle.mp3');
-				  
-				  // Set default properties for audio elements
-				  [lightToAudio, darkToAudio].forEach(audio => {
-				  audio.volume = 0.4;
-				  audio.preload = 'auto';
-				  });
-				  
-				  // Toggle theme when button is clicked
-				  themeToggle?.addEventListener('click', () => {
-				  const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-				  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-				  
-				  const soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
-				  
-				  if (soundEnabled) {
-					const audio = newTheme === 'light' ? lightToAudio : darkToAudio;
-					audio.play().catch(e => console.warn('Audio playback failed:', e));
-				  }
-				  
-				  setTheme(newTheme);
-				  });
-				
-				  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-				  if (!localStorage.getItem('theme')) {
-					setTheme(e.matches ? 'dark' : 'light');
-				  }
-				  });
-				})();
-			  </script>
-			  
-		<script>
-			(async function() {
-			// @ts-ignore
-			if (CSS['paintWorklet'] === undefined)
-			// @ts-ignore
-			await import('https://unpkg.com/css-paint-polyfill@next/dist/css-paint-polyfill.js')
-		
-			// @ts-ignore
-			CSS.paintWorklet.addModule("/_scripts/curved-underline.js");
-		  })();
-		</script>
-		  <script
-		  is:inline
-		  type="text/partytown"
-		  async
-		  src="https://www.googletagmanager.com/gtag/js?id=G-KC1QTQK44J"></script>
-		<script is:inline type="text/partytown">
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag() {
-			dataLayer.push(arguments);
-		  }
-		  gtag("js", new Date());
-		  gtag("config", "G-KC1QTQK44J");
-		</script>
-		<script type="module">
-		if (!("anchorName" in document.documentElement.style)) {
-			import("https://unpkg.com/@oddbird/css-anchor-positioning");
-		}
-		</script>
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body class="page">
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.png`} />
+    <meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
+    <meta name="twitter:card" content="summary" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js"></script>
+    
+    <script is:inline>
+      const getInitialTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          return savedTheme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      
+      const theme = getInitialTheme();
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    </script>
+
+    <script>
+      import { setupThemeToggle } from "../functions/setUpThemeToggle";
+      setupThemeToggle();
+    </script>
+    
+    <script>
+      (async function() {
+        // @ts-ignore
+        if (CSS['paintWorklet']) {
+          // @ts-ignore
+          await import('https://unpkg.com/css-paint-polyfill')
+          
+          // @ts-ignore
+          CSS.paintWorklet.addModule("/_scripts/curved-underline.js");
+        }
+
+        if (!("anchorName" in document.documentElement.style)) {
+          // @ts-ignore
+          import("https://unpkg.com/@oddbird/css-anchor-positioning");
+        }
+      })();
+    </script>
+    
+    <script
+      is:inline
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-KC1QTQK44J">
+    </script>
+    
+    <script is:inline type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-KC1QTQK44J");
+    </script>
+    
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="page">
+    <slot />
+  </body>
 </html>
