@@ -13,7 +13,7 @@ const { url, title, date, excerpt } = Astro.props;
       <h3 class="title">{title}</h3>
     </a>
     <p class="excerpt">{excerpt}</p>
-    <a href={`${import.meta.env.PUBLIC_BLOG}${url}`}>Read more...</a>
+    <a href={url}>Read more...</a>
 </li>
 
 <style>
