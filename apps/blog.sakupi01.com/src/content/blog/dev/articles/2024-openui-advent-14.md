@@ -14,23 +14,23 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の14日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 14 日目の記事です。
 :::
 
-[Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)では、`<selectedcontent>`とはどんな要素なのか、その契機となったIssueの紹介、`part`属性と`slot`属性についてお話ししました。
+[Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)では、`<selectedcontent>`とはどんな要素なのか、その契機となった Issue の紹介、`part`属性と`slot`属性についてお話ししました。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
 ### `part`属性を使用することの問題
 
-[Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)でも述べたように、`<selectmenu>`内の`<slot>`で置き換える要素をカスタマイズ可能にしたい場合、その要素に`part`属性を追加する必要があります。これは、`::part()`を使用して、Shadow DOMにスタイルを適用するためです。
+[Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)でも述べたように、`<selectmenu>`内の`<slot>`で置き換える要素をカスタマイズ可能にしたい場合、その要素に`part`属性を追加する必要があります。これは、`::part()`を使用して、Shadow DOM にスタイルを適用するためです。
 
-しかし、`<selectmenu>`自体が別のShadow Rootにラップされていた場合はどうでしょうか？
+しかし、`<selectmenu>`自体が別の Shadow Root にラップされていた場合はどうでしょうか？
 
-Issueでは、例えば、`<my-custom-select>`という別のCustom ElementのShadow Root内に`<selectmenu>`がある場合、その中の`<div slot="button" part="button">`が`<my-custom-select>`の外部からスタイル適用される可能性があるとしています。
+Issue では、例えば、`<my-custom-select>`という別の Custom Element の Shadow Root 内に`<selectmenu>`がある場合、その中の`<div slot="button" part="button">`が`<my-custom-select>`の外部からスタイル適用される可能性があるとしています。
 
-CSSで`my-custom-select::part(button)`というセレクタを使用すると、`<my-custom-select>`のShadow Root内の要素へのスタイル適用を許してしまうことになります。
+CSS で`my-custom-select::part(button)`というセレクタを使用すると、`<my-custom-select>`の Shadow Root 内の要素へのスタイル適用を許してしまうことになります。
 
 ```html
 <my-custom-select>
@@ -54,13 +54,13 @@ CSSで`my-custom-select::part(button)`というセレクタを使用すると、
 
 - [[Enabling Custom Control UI] The use of "part" clashes with custom elements containing <selectmenu> · Issue #483 · MicrosoftEdge/MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/483)
 
-この問題を解決するために、`part`属性ではない別の属性名の立案が求められ、Open UI内での議論へ波及します。
+この問題を解決するために、`part`属性ではない別の属性名の立案が求められ、Open UI 内での議論へ波及します。
 
 ### Rename `part` to `behavior`
 
 - [[SELECT] The use of "part" clashes with custom elements containing <selectmenu> · Issue #354 · openui/open-ui](https://github.com/openui/open-ui/issues/354)
 
-Open UI内での議論では、以下のような`part`の代替案となる属性名が提案されます。
+Open UI 内での議論では、次のような`part`の代替案となる属性名が提案されます。
 
 - component
 - subcomponents
@@ -74,21 +74,21 @@ Open UI内での議論では、以下のような`part`の代替案となる属�
 
 <https://github.com/openui/open-ui/issues/354#issuecomment-954161227>
 
-最終的に`behavior`属性が採用されることになり、WPTにも反映されることになります。
+最終的に`behavior`属性が採用されることになり、WPT にも反映されることになります。
 
 - [3258284: [SelectMenu] Use behavior content attribute instead of part for applying controller code](https://chromium-review.googlesource.com/c/chromium/src/+/3258284)
 
 ### 要素をCloneしてカスタマイズ可能にする`<selectedcontent>`の提案
 
-さて、ここまでで、[`<selectedcontent>`の背景](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13#selectedcontentの背景)で述べたIssue提案時の状態になりました。
+さて、ここまでで、[`<selectedcontent>`の背景](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13#selectedcontentの背景)で述べた Issue 提案時の状態になりました。
 
 - [[select] Should the inner HTML & styles of the selected option be copied into selected-value? · Issue #571 · openui/open-ui](https://github.com/openui/open-ui/issues/571)
 
-Issueの期待は、「選択された`<option>`のスタイルが、`<select>`自体のスタイルよりも優先されて表示されるようにするべき」というものだったのに対し、`behavior`属性と`slot`属性を用いると、`<selectmenu>`内の要素をカスタマイズ可能にすることができます。
+Issue の期待は、「選択された`<option>`のスタイルが、`<select>`自体のスタイルよりも優先されて表示されるようにするべき」というものだったのに対し、`behavior`属性と`slot`属性を用いると、`<selectmenu>`内の要素をカスタマイズ可能にすることができます。
 
 その際に問題なのが、「選択された`<option>`をどう`<select>`自体のスタイルよりも優先させるか」つまり、「`<option>`の内部をどう`<select>`のボタンに持ってくるか」という部分でした。
 
-仮に、「`<option>`の内部」を「選択された`<option>`のvalueのみ」というスコープに留めると、`<option>`要素が選択された際に、`<slot name="selected-value">`に、選択された`<option>`のvalueを反映することでカスタマイズを可能にする、というワークアラウンドが考えられている、とGregは述べています。
+仮に、「`<option>`の内部」を「選択された`<option>`の value のみ」というスコープに留めると、`<option>`要素が選択された際に、`<slot name="selected-value">`に、選択された`<option>`の value を反映することでカスタマイズを可能にする、というワークアラウンドが考えられている、と Greg は述べています。
 
 ```html
 <selectmenu>
@@ -118,9 +118,9 @@ s.addEventListener('change', () => {
 
 しかし、上記は単なる限定的な範囲でのワークアラウンドに過ぎず、`<select>`のボタン部分に反映できるのは、選択された`<option>`の**valueのみ**です。
 
-もともとこのIssueを出した人が、「選択された`<option>`のスタイルが、`<select>`自体のスタイルよりも優先されて表示されるようにするべき」の達成期待値をどこまで持っていたかは不明ですが、その時点での`<selectmenu>`では、`<option>`に任意のコンテンツ/スタイルを設定できるように仕様が固まりつつあったため、「`<select>`のボタン部分には、選択された`<option>`のvalueに限らず、`<option>`内のコンテンツを反映できる方法を考えるべきか？」と、Gregから、Issueの返信として意見が募られます。
+もともとこの Issue を出した人が、「選択された`<option>`のスタイルが、`<select>`自体のスタイルよりも優先されて表示されるようにするべき」の達成期待値をどこまで持っていたかは不明ですが、その時点での`<selectmenu>`では、`<option>`に任意のコンテンツ/スタイルを設定できるように仕様が固まりつつあったため、「`<select>`のボタン部分には、選択された`<option>`の value に限らず、`<option>`内のコンテンツを反映できる方法を考えるべきか？」と、Greg から、Issue の返信として意見が募られます。
 
-すべてのコンテンツを複製して反映するのか、複製するとしたらデフォルトなのか、オプトインなのか、それとも複製せずにvalueだけを反映するのか、このIssueを皮切りに議論が展開されていくことになります。
+すべてのコンテンツを複製して反映するのか、複製するとしたらデフォルトなのか、オプトインなのか、それとも複製せずに value だけを反映するのか、この Issue を皮切りに議論が展開されていくことになります。
 
 ***
 

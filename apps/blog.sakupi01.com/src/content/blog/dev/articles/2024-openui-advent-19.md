@@ -14,7 +14,7 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の19日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 19 日目の記事です。
 :::
 
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`が、どうして仕様に入ることになったのか、どういった技術的背景があるのかをお話ししています。
@@ -22,26 +22,26 @@ status: 'published'
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
 *2024/12/9時点でのselectの各パーツの定義*
 
-[Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)では、UAによるLight DOMへのNodeクローン実装について、CSSWGとの合意を得た詳細についてお話ししました。
+[Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)では、UA による Light DOM への Node クローン実装について、CSSWG との合意を得た詳細についてお話ししました。
 
-今回からは、Light DOMでの実装の中でも肝となる、「どのタイミングでクローンするのか」の議論を具体的に見ていきます。
+今回からは、Light DOM での実装の中でも肝となる、「どのタイミングでクローンするのか」の議論を具体的に見ていきます。
 
 ## Timing of cloning for the `<selectedoption>` element
 
-前回までで、Light DOMへのNodeクローンはCSSWGとの合意を得ましたが、その実装については未確定でした。
+前回までで、Light DOM への Node クローンは CSSWG との合意を得ましたが、その実装については未確定でした。
 
 :::note{.info}
 👍🏻 この時点で固まっている仕様
 
-- 選択された`<option>`で、`cloneNode()`をCallする
-- 選択された`<option>`の、`<option>`を除く`<option>`内の全てのDOMをクローンする
-- `<selectedcontent>`を用いて、宣言的な方法で、クローンされたDOMを`<selectedcontent>`の**Light DOM内に追加する**
-- 選択された`<option>`が変更されるたびに、`<selectedcontent>`内のDOMを更新する
+- 選択された`<option>`で、`cloneNode()`を Call する
+- 選択された`<option>`の、`<option>`を除く`<option>`内の全ての DOM をクローンする
+- `<selectedcontent>`を用いて、宣言的な方法で、クローンされた DOM を`<selectedcontent>`の**Light DOM内に追加する**
+- 選択された`<option>`が変更されるたびに、`<selectedcontent>`内の DOM を更新する
 
 :::
 
-具体的には、前回のCSSWGとOpen UIの[会合](https://lists.w3.org/Archives/Public/www-style/2024Jul/0011.html)の中で、「`<option>`の子Nodeを”どのタイミングで”クローンして、`<selectedoption>`に反映するのか」という議論が発散してしまいました。
-そのため、今回以下のIssueがWHATWGに切り出されます。
+具体的には、前回の CSSWG と Open UI の[会合](https://lists.w3.org/Archives/Public/www-style/2024Jul/0011.html)の中で、「`<option>`の子 Node を”どのタイミングで”クローンして、`<selectedoption>`に反映するのか」という議論が発散してしまいました。
+そのため、今回次の Issue が WHATWG に切り出されます。
 
 - [Timing of cloning for the `<selectedoption>` element · Issue #10520 · whatwg/html](https://github.com/whatwg/html/issues/10520)
 
@@ -49,9 +49,9 @@ status: 'published'
 
 1. 同期的にクローンする
 2. マイクロタスク実行時にクローンする
-3. Custom Element Reaction実行時にクローンする
+3. Custom Element Reaction 実行時にクローンする
 
-Jarharが行ったBlinkの初期実装では、マイクロタスクを使用したかったことから、そのタイミングで発火するMutationObserverを使用していました。
+Jarhar が行った Blink の初期実装では、マイクロタスクを使用したかったことから、そのタイミングで発火する MutationObserver を使用していました。
 
 では、そもそもどうしてマイクロタスクで実行したかったのでしょうか？
 
@@ -61,26 +61,26 @@ Jarharが行ったBlinkの初期実装では、マイクロタスクを使用し
 
 「コールバックキュー」とは、非同期処理の結果をキューイングするためのキューで、コールバックキュー内のタスクを実行するためのキューが、「タスクキュー」です。
 
-「タスクキュー」とは、文字通り、タスクのキューです。そのキューを構成するのが「タスク」で、MDNでは以下のように説明されています。
+「タスクキュー」とは、文字通り、タスクのキューです。そのキューを構成するのが「タスク」で、MDN では次のように説明されています。
 
 > A task is any JavaScript scheduled to be run by the standard mechanisms such as initially starting to execute a program, an event triggering a callback, and so forth. Other than by using events, you can enqueue a task by using setTimeout() or setInterval().
 > <https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide/In_depth>
 
 つまり、タスクは「プログラムの実行開始やイベントが、コールバックをトリガーするなどの標準的なメカニズムにより実行されるよう、**スケジューリングされた JavaScript のこと**」です。
 
-具体的なタスクの例としては、以下のようなものがあります。
+具体的なタスクの例としては、次のようなものがあります。
 
 - イベントリスナの、コールバック関数
 - `setTimeout()`や`setInterval()`で登録されたコールバック関数
 
 そして、本題の「マイクロタスク」は「**コールバックキュー内のタスクキューが空になった後にのみ実行される短いタスク**」と説明できました。
 
-例えば、DevtoolsのPerformanceタブでJavaScriptの実行順序を観察してみると、`dispatchEvent`というコールバックキュー内のタスクが実行された後に、「Run microtasks」でマイクロタスクが実行されていることがわかります。
+例えば、Devtools の Performance タブで JavaScript の実行順序を観察してみると、`dispatchEvent`というコールバックキュー内のタスクが実行された後に、「Run microtasks」でマイクロタスクが実行されていることがわかります。
 
 ![JSでのマイクロタスクの実行タイミング](../../../../assets/images/devtools-perf.png)
 *JSでのマイクロタスクの実行タイミング*
 
-そして、このマイクロタスクの実行タイミングが、ブラウザレンダリングの過程でどこに当たるのかを図で表すと以下のようになります。
+そして、このマイクロタスクの実行タイミングが、ブラウザレンダリングの過程でどこに当たるのかを図で表すと次のようになります。
 
 ![JS実行タイミングとレンダリングの相関図](../../../../assets/images/js-rendering-relationship.png)
 *JS実行タイミングとレンダリングの相関図*
@@ -89,21 +89,21 @@ Jarharが行ったBlinkの初期実装では、マイクロタスクを使用し
 
 ### マイクロタスクを使うメリット
 
-つまり、マイクロタスクキューは、JS一連の実行タイミングの中でも最後に非同期実行されるキューです。
+つまり、マイクロタスクキューは、JS 一連の実行タイミングの中でも最後に非同期実行されるキューです。
 
-マイクロタスクは、タスクキューのタスクが完了するたびに実行され、短期間で多くの小さな非同期処理を効率的に処理する特性を持っています。これにより、例えば、複数のDOM変更を一度にまとめて処理することで、レンダリングのオーバーヘッドを減少させることができます。そのため、パフォーマンスの点で優れた実装が見込めます。
+マイクロタスクは、タスクキューのタスクが完了するたびに実行され、短期間で多くの小さな非同期処理を効率的に処理する特性を持っています。これにより、例えば、複数の DOM 変更を一度にまとめて処理することで、レンダリングのオーバーヘッドを減少させることができます。そのため、パフォーマンスの点で優れた実装が見込めます。
 
-それをすでにある仕様で実現できるのがMutationObserverであっため、Blinkでの初期実装はMutationObserverでクローンタイミングを制御していました。
+それをすでにある仕様で実現できるのが MutationObserver であっため、Blink での初期実装は MutationObserver でクローンタイミングを制御していました。
 
 ### 同期的なMutationObserver： CEReactions MutationObserverの提案
 
-これに対して、Custom Elementの文脈で利用される`attributeChangedCallback`や`connectedCallback`などの「CEReactionタイミング」での変更を検知する、CEReactions MutationObserverの実装を提案する意見もありました。
+これに対して、Custom Element の文脈で利用される`attributeChangedCallback`や`connectedCallback`などの「CEReaction タイミング」での変更を検知する、CEReactions MutationObserver の実装を提案する意見もありました。
 
-CEReactionsは、Custom Elementのライフサイクルに関連するタイミングで発火するコールバック関数のことです。このタイミングを利用することで、Custom Elementのライフサイクルに合わせて**同期的に**クローンを行うことができます。
+CEReactions は、Custom Element のライフサイクルに関連するタイミングで発火するコールバック関数のことです。このタイミングを利用することで、Custom Element のライフサイクルに合わせて**同期的に**クローンを行うことができます。
 
-[Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)でも述べたように、非同期的に変更検知を行うMutationObserverでは、Layout Flash時に同期的に変更を検知することができません。つまり、非同期的な処理では、Layout Treeとの整合性が保たれない恐れがあります。これは、マイクロタスクタイミングを使った非同期処理のデメリットでもあり、CEReactionsタイミングを使って解決することができる問題でもあります。
+[Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)でも述べたように、非同期的に変更検知を行う MutationObserver では、Layout Flash 時に同期的に変更を検知することができません。つまり、非同期的な処理では、Layout Tree との整合性が保たれない恐れがあります。これは、マイクロタスクタイミングを使った非同期処理のデメリットでもあり、CEReactions タイミングを使って解決することができる問題でもあります。
 
-CEReactionsを使った手法を主張するMozillaの[smaug](https://github.com/smaug----)は、以下のように述べています。
+CEReactions を使った手法を主張する Mozilla の[smaug](https://github.com/smaug----)は、次のように述べています。
 
 > The over-cloning would happen only if one mutates the content of the selected option, no? The normal case is that user selects one option and the contents get cloned once. So CEReaction or even more synchronous cloning might not be too bad in this case.
 >
@@ -115,11 +115,11 @@ CEReactionsを使った手法を主張するMozillaの[smaug](https://github.com
 >
 > comment on [2255746553](https://github.com/whatwg/html/issues/10520#issuecomment-2255746553)
 
-MutationObserverは、キューイングによるパフォーマンス向上が利点でしたが、CEReactionsは同期的な処理で、Layout Treeとの整合性を保つことができます。
+MutationObserver は、キューイングによるパフォーマンス向上が利点でしたが、CEReactions は同期的な処理で、Layout Tree との整合性を保つことができます。
 
 ***
 
-最終的に、クローンタイミング実装の初期勘案では、主に２つの方法が挙げられましたが、Jarharは、最終的にマイクロタスクを使ったMutationObserverを使う方向を示します。
+最終的に、クローンタイミング実装の初期勘案では、主に２つの方法が挙げられましたが、Jarhar は、最終的にマイクロタスクを使った MutationObserver を使う方向を示します。
 
 > I think we should go with microtasks instead of CEReactions for the following reasons:
 >
@@ -132,11 +132,11 @@ MutationObserverは、キューイングによるパフォーマンス向上が�
 >
 > comment on [2265868320](https://github.com/whatwg/html/issues/10520#issuecomment-2265868320)
 
-以下が、これまでの議論結果を含めたBlinkでの再実装です。
+以下が、これまでの議論結果を含めた Blink での再実装です。
 
 - [5758741: Improve <selectedoption> performance](https://chromium-review.googlesource.com/c/chromium/src/+/5758741)
 
-ここまでが、[議論](https://github.com/whatwg/html/issues/10520)の1/3程度の内容でした。
+ここまでが、[議論](https://github.com/whatwg/html/issues/10520)の 1/3 程度の内容でした。
 
 ***
 

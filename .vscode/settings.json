@@ -16,5 +16,5 @@
   "cSpell.words": ["clsx", "sakupi", "Zenn"],
   "markuplint.enable": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "textlint.configPath": "./articles/.textlintrc.json"
+  "textlint.configPath": "./apps/blog.sakupi01.com/.textlintrc"
 }

@@ -15,56 +15,56 @@ status: 'published'
 ## はじめに
 
 :::note{.message}
-🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の4日目の記事です。
+🎄 この記事は[Open UI Advent Calendar](https://adventar.org/calendars/10293)の 4 日目の記事です。
 :::
 
-[Customizable Select Element Ep.1](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3)では、Form Controlの歴史について触れ、Form ControlのスタイルはCSSから制御することができず、ブラウザやOSに依存していたことを振り返りました。
+[Customizable Select Element Ep.1](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3)では、Form Control の歴史について触れ、Form Control のスタイルは CSS から制御することができず、ブラウザや OS に依存していたことを振り返りました。
 
 ## ブラウザエンジンの発展と、Web標準の台頭、より柔軟なスタイリングの可能性
 
 ### The Browser Wars
 
-1990年代後半、MosaicのライセンスがMSに供与され、それをベースとしてMSがIEをリリース。その前年に、Netscape社のNetscape Navigatorはv1.0をリリースしていました。
+1990 年代後半、Mosaic のライセンスが MS に供与され、それをベースとして MS が IE をリリース。その前年に、Netscape 社の Netscape Navigator は v1.0 をリリースしていました。
 
-このMSとNetscape間で、サポートする機能の優位性に関する競争が激化。両ブラウザがWeb標準に対する独自の解釈を持ったまま、独自機能を次々と開発した結果、ブラウザ間で一貫性の問題が生じる状況が生まれました。
+この MS と Netscape 間で、サポートする機能の優位性に関する競争が激化。両ブラウザが Web 標準に対する独自の解釈を持ったまま、独自機能を次々と開発した結果、ブラウザ間で一貫性の問題が生じる状況が生まれました。
 
 この時期は俗に「ブラウザ戦争」と呼ばれています。（正確には「第一次ブラウザ戦争」）
 
-「Netscapeでは動作するが、IEでは動作しない」（その逆も然り）という状況が起こり、「このサイトは...で表示するのが最適」というバッジを貼って開発する状況になっていました。
+「Netscape では動作するが、IE では動作しない」（その逆も然り）という状況が起こり、「このサイトは...で表示するのが最適」というバッジを貼って開発する状況になっていました。
 
 ### OSに依存したレンダリング
 
-それに加え、1990年代後半から2000年代初頭にかけてのWebブラウザは、OSに強く依存していました。
+それに加え、1990 年代後半から 2000 年代初頭にかけての Web ブラウザは、OS に強く依存していました。
 
-各OSは独自のUIガイドラインと、それに対応するネイティブコントロールを持っており、ブラウザは、これらのネイティブコントロールをそのまま使用することで、OSと一貫性を保ったUIを提供していました。
-つまり、ブラウザはOSネイティブなレンダリングエンジンを利用していたわけで、[Ep3.](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3#form-controlにおけるスタイリングの制限)でも述べたように、同じWebページでも異なるOS上で表示すると、Form Controlの見た目が大きく異なっていたのです。
+各 OS は独自の UI ガイドラインと、それに対応するネイティブコントロールを持っており、ブラウザは、これらのネイティブコントロールをそのまま使用することで、OS と一貫性を保った UI を提供していました。
+つまり、ブラウザは OS ネイティブなレンダリングエンジンを利用していたわけで、[Ep3.](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3#form-controlにおけるスタイリングの制限)でも述べたように、同じ Web ページでも異なる OS 上で表示すると、Form Control の見た目が大きく異なっていたのです。
 
 ---
 
-Webが普及していくなか、ブラウザ戦争の激化に加え、コントロールがOSに依存していては、開発者側で一貫した見た目にできないことが課題として浮き彫りになっていきました。
+Web が普及していくなか、ブラウザ戦争の激化に加え、コントロールが OS に依存していては、開発者側で一貫した見た目にできないことが課題として浮き彫りになっていきました。
 
 ### Web標準の台頭: Web Standards ProjectによるWeb標準化の推進
 
-この状況を打開するために、Web標準化の動きが活発化しました。
+この状況を打開するために、Web 標準化の動きが活発化しました。
 
-有志によって、[WaSP（Web Standards Project）](https://www.webstandards.org/)が立ち上げられ、W3Cの仕様を推奨事項ではなく「標準」とすることで、W3Cの仕様に準拠したブラウザの開発が各社に働きかけられました。
+有志によって、[WaSP（Web Standards Project）](https://www.webstandards.org/)が立ち上げられ、W3C の仕様を推奨事項ではなく「標準」とすることで、W3C の仕様に準拠したブラウザの開発が各社に働きかけられました。
 
-（恒常的に標準をサポートしようとし続けてきた）Operaを踏まえると、2000年にリリースされたIE 5は、W3Cの勧告をある程度なレベルでサポートしており、これはIEにとってもWeb標準化にとっても非常に大きなマイルストーンでした。
+（恒常的に標準をサポートしようとし続けてきた）Opera を踏まえると、2000 年にリリースされた IE 5 は、W3C の勧告をある程度なレベルでサポートしており、これは IE にとっても Web 標準化にとっても非常に大きなマイルストーンでした。
 
-加えて、WaSPがNetscapeに働きかけ、Netscape Navigatorのv5.0を標準に準拠したものにするよう促し、これは後のFirefoxの基礎となりました。
+加えて、WaSP が Netscape に働きかけ、Netscape Navigator の v5.0 を標準に準拠したものにするよう促し、これは後の Firefox の基礎となりました。
 
 <details>
 <summary>Doctype Switchingに見る、段階的標準化の具体例</summary>
 
-IEは5.xになっても、Box Modelを独自で実装していたため、CSS標準に則って実装していたNetscapeとは異なる見た目になっていました。
+IE は 5.x になっても、Box Model を独自で実装していたため、CSS 標準に則って実装していた Netscape とは異なる見た目になっていました。
 
-- CSS標準: width = コンテンツ幅
+- CSS 標準: width = コンテンツ幅
 - IE5.x: width = コンテンツ幅 - (padding + border)
 
-この差分を解消するために「Box Model Hack」と呼ばれる、異なるブラウザ間のBox Modelの解釈の違いを吸収する方法が編み出されました。
+この差分を解消するために「Box Model Hack」と呼ばれる、異なるブラウザ間の Box Model の解釈の違いを吸収する方法が編み出されました。
 
 - [Box Model Hack](https://tantek.com/CSS/Examples/boxmodelhack.html)
-  - IEが`voice-family`プロパティを正しくパースできないことを利用して、意図した幅を実現する
+  - IE が`voice-family`プロパティを正しくパースできないことを利用して、意図した幅を実現する
 
 ```css title="css"
 /* 
@@ -79,31 +79,31 @@ div.content {
 }
 ```
 
-かといって、IE5.xが突然「CSS標準に準拠した実装にします！」とすると、それまでIE5.xで正常に動作していた何十万、何百万というサイトが崩れてしまうことになります。
+かといって、IE5.x が突然「CSS 標準に準拠した実装にします！」とすると、それまで IE5.x で正常に動作していた何十万、何百万というサイトが崩れてしまうことになります。
 
 そこで、後方互換性を保つために[Doctype Switching](https://www.w3.org/html/wg/wiki/DoctypeSwitching)が生まれ、ブラウザに「どのモードで解釈するか」を指示できるようになりました。
 これにより、仕様に準拠した記法への段階的な移行が可能になりました。
 
-- Standardsモード（標準準拠モード）: W3Cの標準に準拠したモード
-- Quirksモード（後方互換モード）: 旧来ブラウザと互換性のあるモード
+- Standards モード（標準準拠モード）: W3C の標準に準拠したモード
+- Quirks モード（後方互換モード）: 旧来ブラウザと互換性のあるモード
 
 </details>
 
-WaSPにより、Web技術の標準化が推進され、ブラウザベンダーは標準に準拠したブラウザを段階的に開発するようになり、その中で自ずとOSネイティブなレンダリングエンジンから独立していくようになります。
+WaSP により、Web 技術の標準化が推進され、ブラウザベンダーは標準に準拠したブラウザを段階的に開発するようになり、その中で自ずと OS ネイティブなレンダリングエンジンから独立していくようになります。
 
 ### CSSの発展とモダンブラウザの登場
 
-Web標準化が推進されたことにより、ブラウザはCSSを用いて、より柔軟に要素のスタイルを制御できるようになりました。
+Web 標準化が推進されたことにより、ブラウザは CSS を用いて、より柔軟に要素のスタイルを制御できるようになりました。
 
-[Ep3.でも触れた](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3##form-controlにおけるスタイリングの制限)ように、[CSS2.2](https://www.w3.org/TR/CSS22/conform.html#conformance)の時点では、Form Controlに対するスタイリングは実験的な機能として定義されていました。
+[Ep3.でも触れた](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3##form-controlにおけるスタイリングの制限)ように、[CSS2.2](https://www.w3.org/TR/CSS22/conform.html#conformance)の時点では、Form Control に対するスタイリングは実験的な機能として定義されていました。
 
-しかし、CSS3では、例えば`padding`の定義されている、[CSS Box Model ModuleのConformanceの項](https://drafts.csswg.org/css-box/#w3c-conformance)には、そのような記述はされていません。（※ CSS3では、異なる機能を扱いやすいチャンクに分割するModules構造の仕様となりました。）
+しかし、CSS3 では、例えば`padding`の定義されている、[CSS Box Model ModuleのConformanceの項](https://drafts.csswg.org/css-box/#w3c-conformance)には、そのような記述はされていません。（※ CSS3 では、異なる機能を扱いやすいチャンクに分割する Modules 構造の仕様となりました。）
 
-MDNにも[CSS property compatibility table for form controls](https://developer.mozilla.org/en-US/docs/Learn/Forms/Property_compatibility_table_for_form_controls)といったページがあることから、完全ではないながらも、Form Controlに対するスタイリングはCSS3で実現可能とされたと言えるでしょう。
+MDN にも[CSS property compatibility table for form controls](https://developer.mozilla.org/en-US/docs/Learn/Forms/Property_compatibility_table_for_form_controls)といったページがあることから、完全ではないながらも、Form Control に対するスタイリングは CSS3 で実現可能とされたと言えるでしょう。
 
-そして、2000年代中期に入ってからは、Firefox、Safari、Chromeなどのモダンブラウザが登場し、これらはCSS3の機能を積極的にサポートするようになりました。
+そして、2000 年代中期に入ってからは、Firefox、Safari、Chrome などのモダンブラウザが登場し、これらは CSS3 の機能を積極的にサポートするようになりました。
 
-こうした一連の活動により、ブラウザは OS に依存したForm Control のレンダリングから、CSS3をサポートするレンダリングエンジンを搭載したブラウザでの、標準に則ったレンダリングへ移行しました。
+こうした一連の活動により、ブラウザは OS に依存した Form Control のレンダリングから、CSS3 をサポートするレンダリングエンジンを搭載したブラウザでの、標準に則ったレンダリングへ移行しました。
 
 ---
 
