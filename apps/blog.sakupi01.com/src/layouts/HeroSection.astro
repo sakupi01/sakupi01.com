@@ -1,5 +1,8 @@
 ---
-import { formatRFC2822Date } from "../utils/formatRFC2822Date";
+import {
+  convertToValidTimeDateString,
+  formatRFC2822Date,
+} from "../utils/formatRFC2822Date";
 
 const { title, image, date, excerpt, tags } = Astro.props;
 ---
@@ -13,8 +16,8 @@ const { title, image, date, excerpt, tags } = Astro.props;
     </ul>
     <h1 class="title">{title}</h1>
     {image && <img src={image} alt={title} />}
-    <p class="published"><em><b>Published on {formatRFC2822Date(date)}</b></em></p>
-    <p class="excerpt"><em>{excerpt}</em></p>
+    <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
+    <p class="excerpt">{excerpt}</p>
 </div>
 
 <style>
@@ -47,8 +50,18 @@ const { title, image, date, excerpt, tags } = Astro.props;
     }
   }
 
-    .excerpt {
-      opacity: 0.8;
+  .published {
+      margin-block-end: 0;
+      margin-block-start: var(--gutter-m);
+      opacity: .7;
+      font-style: italic;
+      font-weight: bold;
     }
+    .excerpt {
+      opacity: .8;
+      text-wrap: pretty;
+      margin-block-end: 0;
+      font-style: italic;
+  }
   }
 </style>

@@ -1,15 +1,18 @@
 ---
-import { formatRFC2822Date } from "../utils/formatRFC2822Date";
+import {
+  convertToValidTimeDateString,
+  formatRFC2822Date,
+} from "../utils/formatRFC2822Date";
 
 const { url, title, date, excerpt } = Astro.props;
 ---
 
 <li class="blog-post-card">
     <a href={url}>
-      <p class="published"><em><b>Published on {formatRFC2822Date(date)}</b></em></p>
+      <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
       <h3 class="title">{title}</h3>
     </a>
-    <p class="excerpt"><em>{excerpt}</em></p>
+    <p class="excerpt">{excerpt}</p>
     <a href={`${import.meta.env.PUBLIC_BLOG}${url}`}>Read more...</a>
 </li>
 
@@ -38,10 +41,13 @@ const { url, title, date, excerpt } = Astro.props;
       margin-block-end: 0;
       margin-block-start: var(--gutter-m);
       opacity: .7;
+      font-style: italic;
+      font-weight: bold;
     }
     .excerpt {
       opacity: .8;
       text-wrap: pretty;
       margin-block-end: 0;
+      font-style: italic;
   }
 </style>
