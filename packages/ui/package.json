@@ -6,7 +6,9 @@
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./index.css": "./src/index.css"
+    "./index.css": "./src/index.css",
+    "./sakupi01.com.css": "./src/sakupi01.com.css",
+    "./sakupi01.com.markdown.css": "./src/sakupi01.com.markdown.css"
   },
   "type": "module",
   "scripts": {
@@ -15,7 +17,7 @@
     "check:typecheck": "tsc --noEmit",
     "check:lint-format": "pnpm biome check --changed --write .",
     "check:style": "stylelint 'src/**/*.css'",
-    "check": "pnpm run check:typecheck & pnpm biome check --apply . --no-errors-on-unmatched & pnpm run check:style",
+    "check": "pnpm run check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
     "build:storybook": "storybook build -o ./storybook-static",
     "gen": "turbo gen react-component",

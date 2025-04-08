@@ -58,7 +58,6 @@ function convertCssToJson(inputPath, outputPath) {
 
     // Regular expression to match CSS custom properties, handling multi-line values
     const cssVarRegex = /--([^:]+):\s*([^;]+);/g;
-    let match;
 
     // Process each CSS variable
     while (true) {
