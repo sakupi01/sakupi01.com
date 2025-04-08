@@ -1,5 +1,5 @@
 import { ColorItem, ColorPalette } from "@storybook/blocks";
-import tokens from "../css/tokens.json";
+import tokens from "../css/tokens/tokens.json";
 
 type ColorList = Record<
   string, // color scheme name (e.g. gray)
