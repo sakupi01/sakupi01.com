@@ -83,7 +83,9 @@ function convertCssToJson(inputPath, outputPath) {
 // Get the command line arguments
 const args = process.argv.slice(2);
 if (args.length !== 2) {
-  console.log("node cssToJson.js src/css/tokens.css src/css/tokens.json");
+  console.log(
+    "node cssToJson.js src/css/tokens/tokens.css src/css/tokens/tokens.json",
+  );
   process.exit(1);
 }
 

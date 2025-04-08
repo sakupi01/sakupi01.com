@@ -5,10 +5,10 @@
   "sideEffects": ["**/*.css"],
   "main": "src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./index.css": "./src/index.css",
-    "./sakupi01.com.css": "./src/sakupi01.com.css",
-    "./sakupi01.com.markdown.css": "./src/sakupi01.com.markdown.css"
+    ".": "./src/css/index.ts",
+    "./index.css": "./src/css/index.css",
+    "./sakupi01.com.css": "./src/css/sakupi01.com.css",
+    "./sakupi01.com.markdown.css": "./src/css/sakupi01.com.markdown.css"
   },
   "type": "module",
   "scripts": {
@@ -19,7 +19,7 @@
     "check:style": "stylelint 'src/**/*.css'",
     "check": "pnpm run check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
-    "build:storybook": "storybook build -o ./storybook-static",
+    "build": "storybook build -o ./storybook-static && node transfer.js",
     "gen": "turbo gen react-component",
     "build-storybook": "storybook build"
   },

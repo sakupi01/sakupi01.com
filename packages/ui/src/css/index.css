@@ -21,22 +21,22 @@ CSS Cascade Layers.
 2. Base scaffold, containing "semantic" design tokens.
 ----------------------------------------------------------------------------
 */
-@import "css/tokens" layer(baseStyle) screen;
-@import "css/base/index" layer(baseStyle) screen;
+@import "tokens/index" layer(baseStyle) screen;
+@import "base/index" layer(baseStyle) screen;
 
 /*
 ----------------------------------------------------------------------------
 Global (including reset).
 ----------------------------------------------------------------------------
 */
-@import "css/global/index" layer(global) screen;
+@import "global/index" layer(global) screen;
 
 /*
 ----------------------------------------------------------------------------
 Layout.
 ----------------------------------------------------------------------------
 */
-@import "css/layout/index" layer(layout) screen;
+@import "layout/index" layer(layout) screen;
 
 /*
 ----------------------------------------------------------------------------
@@ -44,16 +44,16 @@ Forms, components and web components.
 ----------------------------------------------------------------------------
 */
 
-/* @import 'css/form/index' layer(components) screen;
-@import 'css/components/index' layer(components) screen;
-@import 'css/web-components/index' layer(components) screen; */
+/* @import 'form/index' layer(components) screen;
+@import 'components/index' layer(components) screen;
+@import 'web-components/index' layer(components) screen; */
 
 /*
 ----------------------------------------------------------------------------
 Utilities.
 ----------------------------------------------------------------------------
 */
-@import "css/utilities/index" layer(utils) screen;
+@import "utilities/index" layer(utils) screen;
 
 /*
 ----------------------------------------------------------------------------
@@ -61,4 +61,4 @@ THEME overrides.
 ----------------------------------------------------------------------------
 */
 
-/* @import 'css/theme/index' layer(theme) screen; */
+/* @import 'theme/index' layer(theme) screen; */

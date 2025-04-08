@@ -22,7 +22,6 @@
     "coverage": {},
     "storybook": {},
     "build:publish": {},
-    "build:storybook": {},
     "dev": {
       "cache": false,
       "persistent": true
