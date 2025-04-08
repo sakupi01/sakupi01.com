@@ -43,7 +43,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build storybook of @repo/ui
-        run: pnpm run build
+        run: pnpm build:ui
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

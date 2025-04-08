@@ -4,7 +4,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "build/**",
+        "storybook-static/**"
+      ]
     },
     "test": {
       "dependsOn": ["^build"]
@@ -21,6 +27,7 @@
     "bench": {},
     "coverage": {},
     "storybook": {},
+    "build:ui": {},
     "build:publish": {},
     "dev": {
       "cache": false,

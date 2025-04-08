@@ -15,6 +15,7 @@
   "scripts": {
     "build": "turbo build",
     "start": "turbo start",
+    "build:ui": "turbo build:ui",
     "clean:workspaces": "turbo clean",
     "dev": "turbo dev",
     "lint": "turbo check:lint",

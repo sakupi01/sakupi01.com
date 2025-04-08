@@ -19,7 +19,7 @@
     "check:style": "stylelint 'src/**/*.css'",
     "check": "pnpm run check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
-    "build": "storybook build -o ./storybook-static && node transfer.js",
+    "build:ui": "storybook build -o ./storybook-static && node transfer.js",
     "gen": "turbo gen react-component",
     "build-storybook": "storybook build"
   },
