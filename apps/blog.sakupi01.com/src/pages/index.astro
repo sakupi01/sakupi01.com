@@ -6,7 +6,7 @@ import Title from "../components/Title.astro";
 ---
 
 <Layout pageTitle="saku's Blog" description="Blog Archive" url="/">
-  <Title title="Archive ..." />
+  <Title title="Archive | blog.sakupi01.com" />
 	<ul class="posts">
 		{allPosts.map((post) => {
       const url = post.data.tags.includes("zenn")
