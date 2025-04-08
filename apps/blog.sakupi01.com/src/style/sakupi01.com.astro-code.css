@@ -1,0 +1,53 @@
+/*
+----------------------------------------------------------------------------
+Styles for Astro Code Highlighter
+----------------------------------------------------------------------------
+*/
+.astro-code {
+  border: 1.5px solid
+    light-dark(
+      color-mix(in oklch, var(--color-base-dark), white 50%),
+      color-mix(in oklch, var(--color-base-light), black 50%)
+    );
+  border-radius: 0.25rem;
+  padding: 0.7rem 1rem;
+  margin-block-end: var(--gutter-m);
+  font-family: var(--base-font-family-operator);
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-weight: 600;
+  background-color: transparent !important;
+
+  /* color: light-dark(currentColor, var(--shiki-dark)) !important; */
+  code {
+    font-family: var(--base-font-family-operator);
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 600;
+    font-size: inherit;
+    border: none;
+    background-color: inherit;
+    border-radius: 0;
+    color: inherit;
+    padding: 0;
+  }
+}
+
+/* biome-ignore format: biome currently doesn't support this feature - 2025.05 */
+@container style(--theme: dark) {
+.astro-code {
+  color: var(--shiki-dark) !important;
+  text-decoration: light-dark(
+    var(--shiki-light-text-decoration),
+    
+  ) !important;
+
+  span {
+    color: var(--shiki-dark) !important;
+    text-decoration: light-dark(
+      var(--shiki-light-text-decoration),
+      
+    ) !important;
+  }
+}
+}

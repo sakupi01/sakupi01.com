@@ -6,7 +6,9 @@
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./index.css": "./src/index.css"
+    "./index.css": "./src/index.css",
+    "./sakupi01.com.css": "./src/sakupi01.com.css",
+    "./sakupi01.com.markdown.css": "./src/sakupi01.com.markdown.css"
   },
   "type": "module",
   "scripts": {
