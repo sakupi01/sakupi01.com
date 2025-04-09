@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interest Invokers</title>
+    <meta http-equiv="origin-trial" data-feature="Interest Invokers" data-expires="2025-08-19" content="Atws4BXJcWWhW8YFwczvb1pdPuTKS8M7bs7YQnTJfjoZ2sVnYhFrDTUGWRXiBvp9IYpLO+VI/qVmvQtBcza4hAUAAABoeyJvcmlnaW4iOiJodHRwczovL3N0dWRpby5zYWt1cGkwMS5jb206NDQzIiwiZmVhdHVyZSI6IkhUTUxJbnRlcmVzdFRhcmdldEF0dHJpYnV0ZSIsImV4cGlyeSI6MTc1NTU2MTYwMH0=">
 </head>
 <body>
     <h1>Interest Invokers</h1>
-    <p>This is a list of interest invokers.</p>
-    <ul>
-        <li><a href="https://www.google.com">Google</a></li>
-        <li><a href="https://www.yahoo.com">Yahoo</a></li>
-        <li><a href="https://www.bing.com">Bing</a></li>
-        <li><a href="https://www.duckduckgo.com">DuckDuckGo</a></li>
-        <li><a href="https://www.baidu.com">Baidu</a></li>
-        <li><a href="https://www.yandex.com">Yandex</a></li>
-        <li><a href="https://www.ask.com">Ask</a></li>
-    </ul>
+    <p>Explainer: <a href="https://open-ui.org/components/interest-invokers.explainer/">https://open-ui.org/components/interest-invokers.explainer/</a></p>
+    <p>This is a demo of interest invokers.</p>
+    <a interesttarget="my-hovercard" href="...">Hover to show the hovercard</a>
+    <span popover="hint" id="my-hovercard">This is the hovercard</span>
+    
+    <p>Use <code>interesttarget</code> to declaratively build a hovercard using <code>popover</code> (in this case using <code>popover=hint</code>):</p>
+    <button interesttarget="my-popover" type=button>Hover for popover</button>
+    <div id="my-popover" popover="hint">Hello world</div>
 </body>
 </html>
