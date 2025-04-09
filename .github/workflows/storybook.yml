@@ -43,23 +43,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build storybook of @repo/ui
-        run: pnpm build:ui
+        run: cd packages/ui && pnpm build:ui
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./packages/ui/storybook-static
-      
-      - name: post preview url to pull-request
-        if: github.event.action == 'opened'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🎉 Storybook preview created!!\n' +
-                'https://sakupi01.github.io/sakupi01.com/'
-            })
