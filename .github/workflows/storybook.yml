@@ -50,15 +50,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./packages/ui/storybook-static
-      
-      - name: post preview url to pull-request
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🎉 Storybook preview created!!\n' +
-                'https://sakupi01.github.io/sakupi01.com/'
-            })
