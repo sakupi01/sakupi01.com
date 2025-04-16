@@ -13,19 +13,14 @@ status: 'published'
 
 ## Table of Contents
 
+### 目次
+
 ## はじめに
 
-Document Outline Algorithm は、文書の構造を動的に定義するためのアルゴリズムとして、長い間 Living Standard に記載され、標準とされてきました。
-しかし、このアルゴリズムは夢物語であり、どのブラウザでも実装されておらず、実際には存在しないものでした。
+Document Outline Algorithm は、文書の構造を動的に定義するためのアルゴリズムとして、長い間仕様に記載され、標準とされてきました。
+しかし、このアルゴリズムはどのブラウザでも実装されておらず、実際には存在しないものでした。
 
-本エントリは、このアルゴリズムが夢見ていた世界をその歴史から振り返り、HTML が保持し続けていた”技術的負債”の記憶を記録します。
-
-話は以下の流れで進めます。少し長くて複雑な絡み合いの発生する記事なので、以下を参考に。
-
-First off, you should know that the algorithm never really existed.
-Sure, it was in the spec. And sure, there was a warning about using it in the spec.
-But no browser ever implemented it, as [Bruce Lawson reminded us](https://brucelawson.co.uk/2022/why-the-html-outlining-algorithm-was-removed-from-the-spec-the-truth-will-shock-you/).
-We have been living in a flat document structure the whole time.
+本エントリは、このアルゴリズムが夢見ていた世界をその歴史から振り返り、Outline Algorithm の UA Style Remove されようとしている今、その勧告が私たちに示唆するところを解釈していきたいと思います。
 
 ## Structure? - Skip it for now
 
