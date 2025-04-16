@@ -60,6 +60,24 @@ For English
 }
 
 @font-face {
+  font-family: cascadia;
+  font-weight: 200 900;
+  src: url("/fonts/Cascadia/CascadiaMonoNF.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 103%;
+}
+
+@font-face {
+  font-family: cascadia;
+  font-weight: 200 900;
+  src: url("/fonts/Cascadia/CascadiaMonoNFItalic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 103%;
+}
+
+@font-face {
   font-family: Alegreya;
   font-style: italic;
   font-weight: 400 900;
@@ -84,6 +102,7 @@ For English
   --base-font-family: var(--font-family-inter), var(--font-fallback);
   --base-font-family-title: var(--font-family-alegreya), var(--font-fallback);
   --base-font-family-operator: var(--font-family-operator), var(--font-fallback);
+  --base-font-family-cascadia: var(--font-family-cascadia), var(--font-fallback);
   --base-font-family-alegreya: var(--font-family-alegreya), var(--font-fallback);
   --base-font-size: 100%;
   --base-font-size-2k: 110%; /* 2K screens */
