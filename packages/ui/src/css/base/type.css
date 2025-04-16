@@ -23,7 +23,8 @@ For English
 @font-face {
   font-family: "Operator Mono Lig";
   font-weight: 200;
-  src: url("./fonts/OperatorMonoLig/OperatorMonoLig-Light.otf") format("otf");
+  src: url("../../fonts/OperatorMonoLig/OperatorMonoLig-Light.otf")
+    format("otf");
   unicode-range: U+0041-007A; /* A-Z, a-z */
   font-display: swap;
   size-adjust: 105%;
@@ -32,7 +33,7 @@ For English
 @font-face {
   font-family: "Operator Mono Lig";
   font-weight: 400;
-  src: url("./fonts/OperatorMonoLig/OperatorMonoLig-LightItalic.otf")
+  src: url("../../fonts/OperatorMonoLig/OperatorMonoLig-LightItalic.otf")
     format("otf");
   unicode-range: U+0041-007A;
   font-display: swap;
@@ -42,7 +43,7 @@ For English
 @font-face {
   font-family: "Operator Mono Lig";
   font-weight: 600;
-  src: url("./fonts/OperatorMonoLig/OperatorMonoLig-Book.otf") format("otf");
+  src: url("../../fonts/OperatorMonoLig/OperatorMonoLig-Book.otf") format("otf");
   unicode-range: U+0041-007A;
   font-display: swap;
   size-adjust: 110%;
@@ -51,7 +52,7 @@ For English
 @font-face {
   font-family: "Operator Mono Lig";
   font-weight: 800;
-  src: url("./fonts/OperatorMonoLig/OperatorMonoLig-BookItalic.otf")
+  src: url("../../fonts/OperatorMonoLig/OperatorMonoLig-BookItalic.otf")
     format("otf");
   unicode-range: U+0041-007A;
   font-display: swap;
@@ -67,10 +68,31 @@ For English
   size-adjust: 115%;
 }
 
+@font-face {
+  font-family: Alegreya;
+  font-style: italic;
+  font-weight: 400 900;
+  src: url("../../fonts/Alegreya/Alegreya-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  size-adjust: 115%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-style: normal;
+  font-weight: 400 900;
+  src: url("../../fonts/Alegreya/Alegreya-VariableFont_wght.ttf")
+    format("truetype");
+  size-adjust: 115%;
+  font-display: swap;
+}
+
 :root {
   --base-font-family: var(--font-family-inter), var(--font-fallback);
-  --base-font-family-title: var(--font-family-inter), var(--font-fallback);
+  --base-font-family-title: var(--font-family-alegreya), var(--font-fallback);
   --base-font-family-operator: var(--font-family-operator), var(--font-fallback);
+  --base-font-family-alegreya: var(--font-family-alegreya), var(--font-fallback);
   --base-font-size: 100%;
   --base-font-size-2k: 110%; /* 2K screens */
   --base-font-size-4k: 200%; /* 4K screens */

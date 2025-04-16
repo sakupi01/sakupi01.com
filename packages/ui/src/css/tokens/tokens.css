@@ -201,8 +201,8 @@
     roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
   --font-family-inter: inter;
-  --font-family-operator: "Operator Mono Lig", monospace;
-  --font-family-alegreya: "Alegreya", serif;
+  --font-family-operator: "Operator Mono Lig";
+  --font-family-alegreya: alegreya;
 
   /* Fluid type scale.
   /* @link https://utopia.fyi/type/calculator?c=480,16,1.125,1440,20,1.2,6,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */

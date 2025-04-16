@@ -18,7 +18,7 @@ Styles for Astro Code Highlighter
   font-weight: 600;
   background-color: transparent !important;
 
-  /* color: light-dark(currentColor, var(--shiki-dark)) !important; */
+  color: light-dark(currentColor, var(--shiki-dark)) !important;
   code {
     font-family: var(--base-font-family-operator);
     font-optical-sizing: auto;
@@ -35,6 +35,9 @@ Styles for Astro Code Highlighter
 
 /* biome-ignore format: biome currently doesn't support this feature - 2025.05 */
 @container style(--theme: dark) {
+  details .astro-code {
+    background-color: var(--color-base-darkest) !important;
+  }
 .astro-code {
   color: var(--shiki-dark) !important;
   text-decoration: light-dark(
