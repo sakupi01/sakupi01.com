@@ -56,9 +56,8 @@ Article Markdown Style
     color: var(--focusable);
 
     &:hover {
-      color: var(--focused);
       text-decoration: underline;
-      text-decoration-color: var(--focused);
+      text-decoration-color: var(--focusable);
       text-decoration-thickness: 0.2rem;
       text-decoration-style: dotted;
       text-decoration-skip-ink: none;
@@ -227,10 +226,18 @@ Article Markdown Style
 
   h2 {
     margin: 2rem 0 2rem -1.5rem;
+
+    &::before {
+      color: var(--color-cyan-2);
+    }
   }
 
   h3 {
     margin: 2rem 0 2rem -1.5rem;
+
+    &::before {
+      color: var(--color-violet-2);
+    }
   }
 
   h4 {
@@ -251,6 +258,8 @@ Article Markdown Style
   ----------------------------------------------------------------------------
   */
   :is(h1, h2, h3, h4, h5, h6, [class*="h--"]) {
+    font-family: var(--base-font-family-alegreya);
+
     a {
       color: var(--color-text);
     }
@@ -269,6 +278,16 @@ Article Markdown Style
 
     + * {
       margin-top: 0;
+    }
+  }
+
+  :is(h2, h3) {
+    &::before {
+      content: "¶";
+      opacity: 0.2;
+      font-size: 2em;
+      position: absolute;
+      transform: translateY(-0.2em) translateX(-0.2em);
     }
   }
 
@@ -391,7 +410,7 @@ Article Markdown Style
         font: 800 .8rem / 1.2 var(--base-font-family-operator);
 
         &:hover {
-          text-decoration-color: var(--focused);
+          text-decoration-color: var(--focusable);
         }
       }
 
@@ -422,9 +441,22 @@ Article Markdown Style
         }
 
         summary {
-          text-decoration-color: var(--focused);
+          text-decoration-color: var(--focusable);
         }
       }
+    }
+  }
+
+  /*
+  ----------------------------------------------------------------------------
+  Image Centering
+  ----------------------------------------------------------------------------
+  */
+  p {
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
