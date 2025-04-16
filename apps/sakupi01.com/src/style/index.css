@@ -33,7 +33,7 @@
   }
 
   code {
-    font-family: var(--font-family-operator);
+    font-family: var(--base-font-family-operator);
     font-optical-sizing: auto;
     font-style: italic;
     font-weight: 600;
