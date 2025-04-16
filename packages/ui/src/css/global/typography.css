@@ -125,6 +125,6 @@ small {
 }
 
 code {
-  font-family: var(--base-font-family-operator);
+  font-family: var(--base-font-family-cascadia);
   font-optical-sizing: auto;
 }

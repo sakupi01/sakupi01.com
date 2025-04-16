@@ -10,7 +10,7 @@ const { title, image, date, excerpt, tags } = Astro.props;
   <ul class="tags">
       {tags.map((tag: any) => (
         <li>
-          <em><b><a href={`/tags/${tag}`}>#{tag}</a></b></em>
+          <a href={`/tags/${tag}`}>#{tag}</a>
         </li>
       ))}
     </ul>
@@ -23,7 +23,7 @@ const { title, image, date, excerpt, tags } = Astro.props;
 <style>
   .hero-section {
     margin-bottom: 2rem;
-    font-family: var(--base-font-family-operator);
+    font-family: var(--base-font-family-cascadia);
     font-weight: 400;
     font-optical-sizing: auto;
     .title {
@@ -55,7 +55,7 @@ const { title, image, date, excerpt, tags } = Astro.props;
       margin-block-start: var(--gutter-m);
       opacity: .7;
       font-style: italic;
-      font-weight: bold;
+      font-weight: 400;
     }
     .excerpt {
       opacity: .8;
