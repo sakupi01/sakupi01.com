@@ -201,7 +201,7 @@
     roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
   --font-family-inter: inter;
-  --font-family-operator: "Operator Mono Lig";
+  --font-family-operator: operator;
   --font-family-alegreya: alegreya;
 
   /* Fluid type scale.
