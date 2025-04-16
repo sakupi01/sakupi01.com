@@ -24,6 +24,9 @@ const { pageTitle = "saku's blog", description, url } = Astro.props;
     <meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.png`} />
     <meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
     <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     
     <script src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js"></script>  
