@@ -3,26 +3,36 @@
 ---
 
 <nav>
-  <a href={`${import.meta.env.PUBLIC_HOME}`} class="nav-item">{"home"}</a>
-  <button popovertarget="blogs" class="popovertarget soudable" data-id="--blogs-button">
+  <a href={`${import.meta.env.PUBLIC_HOME}`} class="nav-item soundable">{"home"}</a>
+  <button popovertarget="blogs" class="popovertarget soundable" data-id="--blogs-button">
       {"<blogs />"}
   </button>
   <div id="blogs" popover data-id="--blogs-button">
-      <a href="/dev/" class="soudable">{"dev"}</a>
-      <a href="/life/" class="soudable">{"life"}</a>
-      <a href="/tags/" class="soudable">{"tags"}</a>
-      <a href="/" class="soudable">{"all"}</a>
+      <a href="/dev/" class="soundable">{"dev"}</a>
+      <a href="/life/" class="soundable">{"life"}</a>
+      <a href="/tags/" class="soundable">{"tags"}</a>
+      <a href="/" class="soundable">{"all"}</a>
   </div>
-  <a href={import.meta.env.PUBLIC_SLIDES} target="_blank" class="nav-item sondable">{"talks"}</a>
-  <a href={import.meta.env.PUBLIC_STUDIO} target="_blank" class="nav-item sondable">{"studio"}</a>
+  <a href={import.meta.env.PUBLIC_SLIDES} target="_blank" class="nav-item soundable">{"talks"}</a>
+  <a href={import.meta.env.PUBLIC_STUDIO} target="_blank" class="nav-item soundable">{"studio"}</a>
   <a href="/feed.xml" target="_blank" class="nav-item soundable">{"rss"}</a>
 </nav>
+
 
 <style>
   nav {
     display: flex;
     gap: 1rem;
+
+    @media (max-width: 768px) {
+      gap: 0.5rem;
+    }
   }
+  
+  .soundable {
+    align-content: center;
+  }
+
     :where(a, button) {
         color: inherit;
     }
@@ -93,7 +103,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const soundableTabs = document.querySelectorAll('.soudable');
+    const soundableTabs = document.querySelectorAll('.soundable');
     const tabClickAudio = new Audio('/sounds/tab-click.mp3');
     
     // Check if sound is enabled before playing audio

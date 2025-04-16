@@ -7,10 +7,9 @@ import BlogPostCardForIFrame from "../../components/BlogPostCardForIFrame.astro"
 
 <BaseLayout pageTitle="saku's Blog" description="Recent Blogs Archive" url="/recents">
   <main>
-    <Title title="Recent Posts ..." style="font-size: var(--font-size-h2);" />
     <ul class="posts">
        {
-          allPosts.slice(0, 4).map((post) => 
+          allPosts.map((post) => 
             {
               const url = post.data.tags.includes("zenn")
         ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`

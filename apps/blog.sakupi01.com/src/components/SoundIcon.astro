@@ -1,6 +1,4 @@
 ---
-// CuteSoundToggle.astro
-// より豊かなアニメーションを持つかわいいサウンドトグルコンポーネント
 interface Props {
   soundOnUrl?: string;
   soundOffUrl?: string;
@@ -15,7 +13,7 @@ interface Props {
 
 <button
   id="soundToggle"
-  class={`sound-toggle`}
+  class="sound-toggle"
   type="button"
   title="Toggle sound"
   aria-label="Toggle sound"
@@ -61,32 +59,27 @@ interface Props {
 </button>
 
 <style>
-  /* ベーススタイル */
   .sound-toggle {
     position: relative;
     border: none;
     background: transparent;
     cursor: pointer;
-    /* padding: 12px; */
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  
-  .sound-toggle:hover {
+
+    &:hover {
     transform: scale(1.1);
   }
-  
-  .sound-toggle:active {
+    &:active {
     transform: scale(0.95);
   }
-
-  /* メガホンコンテナ - エフェクトの中心点 */
+  }
+  
   .megaphone-container {
     position: relative;
     width: 1.1em;
     height: 1.1em;
   }
 
-  /* メガホン本体 */
   .megaphone {
     width: 100%;
     height: 100%;
@@ -110,7 +103,6 @@ interface Props {
     75% { transform: rotate(5deg); }
   }
   
-  /* サウンド波アニメーション */
   .sound-wave {
     stroke: var(--color-primary-medium);
     stroke-width: 1.5;
@@ -121,7 +113,6 @@ interface Props {
                 transform calc(600ms * 0.65) cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
-  /* 各波ごとに遅延を設定 */
   .sound-wave-1 {
     transition-delay: 0ms;
   }
@@ -163,7 +154,6 @@ interface Props {
     transition-delay: 250ms;
   }
   
-  /* 波紋エフェクト */
   .ripples {
     position: absolute;
     top: 0;
@@ -183,7 +173,6 @@ interface Props {
     transform-origin: center;
   }
   
-  /* 波紋アニメーション */
   @keyframes ripple {
     0% {
       opacity: 0.7;
@@ -197,7 +186,6 @@ interface Props {
     }
   }
 
-  /* サウンドがオンの状態 */
   .sound-toggle:not(.sound-toggle--toggled) .sound-wave {
     opacity: 1;
     transform: scale(1);
@@ -236,7 +224,6 @@ interface Props {
     transform: scale(0.95);
   }
 
-  /* アクセシビリティ対応 */
   .sound-toggle-sr {
     position: absolute;
     width: 1px;
@@ -249,7 +236,6 @@ interface Props {
     border-width: 0;
   }
 
-  /* 省モーションの場合 */
   @media (prefers-reduced-motion: reduce) {
     .sound-toggle:not(.sound-toggle--force-motion) * {
       transition: none !important;
@@ -261,8 +247,20 @@ interface Props {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const soundToggle = document.getElementById('soundToggle');
+
+    const isMobile = () => {
+        return window.matchMedia("(max-width: 768px)").matches;
+    };
+    if (soundToggle) {
+        if (isMobile()) {
+            soundToggle.style.display = "none";
+        } else {
+            console.log("show");
+            soundToggle.style.display = "block";
+        }
+    }
     
-    // 音声状態をLocalStorageに保存し、DOMを更新する関数
+    
     const setSoundState = (soundOn: boolean): void => {
       localStorage.setItem('soundEnabled', soundOn ? 'true' : 'false');
       
@@ -275,50 +273,40 @@ interface Props {
       }
     };
 
-    // LocalStorageから設定を取得するか、デフォルトでオンに設定
     const getSoundPreference = (): boolean => {
-      const savedPref = localStorage.getItem('soundEnabled');
-      return savedPref === null ? true : savedPref === 'true';
+      const isMobile = () => {
+        return window.matchMedia("(max-width: 768px)").matches;
+      };
+      return isMobile() ? false : (localStorage.getItem('soundEnabled') === null ? true : localStorage.getItem('soundEnabled') === 'true');
     };
 
-    // 初期状態を設定
     setSoundState(getSoundPreference());
 
-    // トグルサウンド用の音声要素を作成
     const soundOnAudio = new Audio("/sounds/sound-on.mp3");
     const soundOffAudio = new Audio("/sounds/sound-off.mp3");
     
-    // 音声要素のデフォルトプロパティを設定
     [soundOnAudio, soundOffAudio].forEach(audio => {
       audio.volume = 0.4;
       audio.preload = 'auto';
     });
     
-    // クリックアニメーション用の関数
     const playClickAnimation = () => {
-      // アニメーションクラスを追加
       soundToggle?.classList.add('animate-click');
       
-      // アニメーション終了後にクラスを削除
       setTimeout(() => {
         soundToggle?.classList.remove('animate-click');
-      }, 1200); // アニメーション全体の時間
+      }, 1200);
     };
     
-    // ボタンクリック時にサウンドをトグル
     soundToggle?.addEventListener('click', () => {
       const currentState = !soundToggle.classList.contains('sound-toggle--toggled');
       const newState = !currentState;
       
-      // クリックアニメーションを再生
       playClickAnimation();
       
-      // 状態変更に基づいて適切なサウンドを再生
       if (newState) {
-        // サウンドをオンにする
         soundOnAudio.play().catch((e: Error) => console.warn('Failed to play sound: ', e));
       } else {
-        // サウンドをオフにする
         soundOffAudio.play().catch((e: Error) => console.warn('Failed to play sound: ', e));
       }
       
