@@ -1,7 +1,6 @@
 ---
 title: "The Outline Algorithm Utopia"
-excerpt: "本エントリでは、Document Outline Algorithm のというユートピアの作り出した夢の世界と、その中で繰り広げられた
-  HTML の歴史を振り返ります。"
+excerpt: "本エントリでは、Document Outline Algorithm というユートピアの作り出した夢の世界と、その中で繰り広げられた HTML の歴史を振り返ります。"
 date: 2025-04-16
 beginColor: 'from-purple-300'
 middleColor: 'via-pink-200'
@@ -35,11 +34,11 @@ HTML は当初「フラットな構造のマークアップ言語」として設
 閉じタグの省略を許容していたことは、HTML というマークアップ言語が、「文書の見た目から読者が理解する ”視覚的な構造” にのみ依存していた」ことに由来するひとつの特徴と言えます。
 
 つまり、大きなフォントのテキストを見れば「見出し」と認識し、その後に続く通常サイズのテキストを「その見出しに属する本文」と理解してもらうことのみを達成できれば良かったわけです。
-**極端な例だと、CSSを使って、実際には見出しではない要素を、見た目上は見出しのように表示させることができれば問題ありませんでした。**
+極端な例だと、CSSを使って、実際には見出しではない要素を、見た目上は見出しのように表示させることができれば、何の問題もありませんでした。
 
 ## Structure is *CRUCIAL* for the Modern Web
 
-しかし、Web が DOM を中心とした「構造的な Document Model」 へと進化するにつれて、「見た目から受け取る情報」から構築される「視覚的な意味」が、「HTMLの意味的構造（semantic structure）」と必ずしも一致しないことは、HTML の黎明期では問題にはなりませんでしたが、現代の Web においてはそうはいかなくなります。
+「見た目から受け取る情報」から構築される「視覚的な意味」が、「HTMLの意味的構造（semantic structure）」と必ずしも一致しないことは、HTML の黎明期では問題にはなりませんでした。しかし、現代の Web が DOM を中心とした ”構造的な Document Model” へと進化し、DOM を利用した展開が進むにつれて、そうはいかなくなります。
 
 HTML の黎明期では考慮の余地がなかった、アクセシビリティツリーや検索エンジンなどの **”プログラム的な利用における構造解釈の重要性”** が現代の Web では表面に現れ、これは DOM 構造に強く依存します。私たちが視覚的に捉えるHTML セマンティクスとDOM構造から派生するセマンティクスの間にギャップが生じることは、避けなければなりません。
 
@@ -47,7 +46,10 @@ HTML の黎明期では考慮の余地がなかった、アクセシビリティ
 
 ## The Birth of Utopia - Defining Structural Content
 
-HTML Headings は、ネストされた DOM 構造において、ネストに相当した見出しレベルを持つことが推奨されています。しかし、List などとは異なり、文書のネスト構造を見出しレベルに自動反映する仕組みは存在せず、見出しレベルの適切なハンドリングは、完全に開発する側に委ねられています。
+HTML Headings は、ネストされた DOM 構造において、ネストに相当した見出しレベルを持つことが推奨されます。<br />
+しかし、`<ol>` 中の `<li>` などとは異なり、文書のネスト構造を見出しレベルに自動反映する仕組みは存在しません。見出しレベルの適切なハンドリングは、完全に開発する側に委ねられています。
+
+その「見出しレベルの自動ハンドリング」を実現するために考案されたのが、Sectioning であり、Document Outline Algorithm です。
 
 ### Sectioning & Document Outline Algorithm
 
@@ -55,13 +57,15 @@ Document Outline Algorithm は、2007 年の TPAC における HTML5 の仕様�
 
 - [TPAC 2007: Agenda for the W3C Combined Technical Plenary / Advisory Committee Meeting](https://www.w3.org/2007/11/07-TechPlenAgenda.html)
 
-この HTML5 で導入された Document Outline Algorithm は、文書を `<section>` や `<article>` などといった [Sectioning Root](https://web.archive.org/web/20220305000915/https://html.spec.whatwg.org/multipage/semantics.html#sectioning-root) または [Sectioning Content](https://web.archive.org/web/20220305000915/https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2) Element で分割（俗に ”Sectioning” ）することなどで、Outline という「Heading を持った Section で構成される枠」を生成するものでした。<br />
+この HTML5 で導入された Document Outline Algorithm は、文書を `<section>` や `<article>` などといった [Sectioning Root](https://web.archive.org/web/20220305000915/https://html.spec.whatwg.org/multipage/semantics.html#sectioning-root) または [Sectioning Content](https://web.archive.org/web/20220305000915/https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2) Element で分割（俗に ”Sectioning” ）することなどで、 ”Outline” という「Heading を持った Section で構成される枠」を生成するものでした。<br />
 
-当時の仕様によると、Sectioning は主に以下の場合に行われ、この Sectioning を利用して階層構造を決定するアルゴリズムが、実に「Document Outline Algorithm」だったのです。
+当時の仕様によると、Sectioning は主に以下の場合に行われます。
 
 - `<section>` や `<article>` などの Sectioning Content Element を使用する場合
 - h1-6 の見出し要素を使用して作成された、「暗黙のセクション」を使用する場合
 - `<hgroup>` 要素を使用してグループ化したセクションの見出しを使用する場合
+
+この Sectioning を利用して階層構造を決定するアルゴリズムが、実に「Document Outline Algorithm」です。
 
 Outline Algorithm の登場で、「フラットな構造」を基本としていた HTML に、**階層構造を表現する**という画期的なアイディアが持ち込まれることになります。
 
@@ -78,7 +82,7 @@ Outline Algorithm の登場で、「フラットな構造」を基本として�
 >
 > 4.3 Sections — HTML 5.1 Nightly <https://web.archive.org/web/20121214011658/http://www.w3.org/html/wg/drafts/html/master/sections.html#headings-and-sections>
 
-例えば、以下のようなマークアップは Sectioning で正とされ、このようなマークアップをしても Sectioning と Outline Algorithm によって、「to-be」で示した Heading Level で支援技術に伝わります。
+例えば、以下のようなマークアップは Sectioning で正とされます。 「as-is」のようなマークアップをしても、「to-be」で示した Heading Level で支援技術に伝わるというのが、Sectioning と Outline Algorithm の主たる産物です。
 
 ```html
 <!-- as-is -->
@@ -127,7 +131,7 @@ Sectioning と Outline Algorithm が登場したことにより、我々は「�
 ブラウザはこの「夢」を全く具現化しなかったわけではありません。
 
 `<section>` や `<article>`、`<nav>` といった Sectioning Content Element を実装し、Section のネストレベルに応じた UA Style を提供しました。
-これによって、Section のネストが深くなるほど `margin` と `font-size` が小さくなるようなスタイルが適用され、**見た目上は**「見出しレベルを自動調整」されるようになりました。
+これによって、Section のネストが深くなるほど `margin` と `font-size` が小さくなるようなスタイルが適用され、**見た目上は**「見出しレベルが自動調整」されるようになりました。
 
 <p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="Pwozwve" data-pen-title="Untitled" data-user="sakupi01" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/sakupi01/pen/Pwozwve">
@@ -138,14 +142,14 @@ Sectioning と Outline Algorithm が登場したことにより、我々は「�
 
 <br />
 
-しかし、Document Outline Algorithm は仕様上は存在しながらも、なかなかブラウザに実装されない「机上の空論」状態が続き、 **実際には存在しない** ものでした。<br />
+しかし、Document Outline Algorithm は仕様上は存在しながらも、なかなかブラウザに実装されない「机上の空論」状態が続きます。<br />
 故に、以下のように Sectioning を駆使したマークアップをしても、Outline Algorithm 自体は実装されていないので、支援技術には伝わりません。
 
 ![Sectioning を用いたマークアップでも、アクセシビリティツリーには露出されない](../../../../assets/images/sectioning-a11ytree.png)
 *Sectioning を用いたマークアップでも、アクセシビリティツリーには露出されない*
 
 この空論を前提としたマークアップが現実世界に俄かに広がってしまうことは、防がなければなりません。さもなければ、Sectioning Contents の作り出す「見た目（視覚的な構造）」と実際の「セマンティクス構造」の間に不一致が生じてしまう。<br />
-それゆえ、「セマンティクス構造」を見た目に合わせてもらう方向で解決しようと、W3C では、Sectioning Content Element と組み合わせて使う場合の見出し要素レベルの重要性の主張や、仕様から Document Outline Algorithm を前提とした記述の削除に関する議論が繰り返されました。
+それゆえ、「セマンティクス構造」を見た目に合わせてもらう方向で解決しようと、W3C では、Sectioning Content Element と組み合わせて使う場合の見出し要素レベルの重要性の主張や、仕様から Document Outline Algorithm を前提とした記述を削除する議論が繰り返されました。
 
 - [revisiting heading advice from Steve Faulkner on 2014-01-05 (<public-html@w3.org> from January 2014)](https://lists.w3.org/Archives/Public/public-html/2014Jan/0004.html)
 - [Do not recommend using nested sections with h1 · Issue #169 · w3c/html](https://github.com/w3c/html/issues/169)
@@ -202,7 +206,7 @@ MDN には掲載されているので、Living Standard 時代でもそれなり
 ```
 
 2004 年の XHTML2.0 の仕様にはこれが含まれることになりますが、最終的に後方互換性を捨てた XHTML2.0 では、それ以外の Headings を deprecated 候補とし、
-代わりに Sectioning Content Elements と `<h>` を用いて、見出しレベルの設定を UA 側に委ねる状態になった時期すらありました。
+代わりに Sectioning Content Elements と `<h>` を用いて、見出しレベルの設定を UA 側に委ねる状態にした時期すらありました。
 
 - [XHTML Block Text Module](https://web.archive.org/web/20030621072307/http://www.w3.org/TR/xhtml2/mod-block-text.html#sec_8.5.)
 
@@ -224,8 +228,8 @@ MDN には掲載されているので、Living Standard 時代でもそれなり
 今度は、「Outline Algorithm で Outline を生成すること」ではなく「Sectioning Content 内の見出しレベルを調整すること」に焦点が当てられました。
 それが、[Anne van Kesteren](https://annevankesteren.nl/about) を中心に動きのあった 「Heading Level Concept」 です。
 
-Anne は 過去（2014年）の[James Craig](https://www.w3.org/Bugs/Public/show_bug.cgi?id=25003#c12) の主張をきっかけに、Heading Level に関する [Polyfill](https://github.com/annevk/html-heading-level-polyfill) を作成します。
-加えて、このコメントを皮切りに、滞り気味だった Outline Algorithm 廃止の議論が再燃していくことになります。
+Anne は 過去（2014年）の[James Craig の主張](https://www.w3.org/Bugs/Public/show_bug.cgi?id=25003#c12)をきっかけに、Heading Level に関する [Polyfill](https://github.com/annevk/html-heading-level-polyfill) を作成します。
+そして、このコメントを皮切りに、滞り気味だった Outline Algorithm 廃止の議論が再燃していくことになります。
 
 <https://github.com/whatwg/html/issues/83#issuecomment-359871505>
 
@@ -249,7 +253,7 @@ function determineLevel(el) {
 Outline Algorithm という机上の空論を主張し続けるのではなく、 ”プログラム的な利用における構造解釈の重要性” という今の Web が、支援技術を利用するユーザが、
 喫緊で必要としているものにアプローチするという点で、Heading Level Concept は非常に筋の通った提案だったように思います。
 
-Heading Level Concept の特徴を仕様の [PR](https://github.com/whatwg/html/pull/3499) を参考にまとめると、以下のようなものだったことがわかります。
+Heading Level Concept の特徴を仕様の [PR](https://github.com/whatwg/html/pull/3499) を元にまとめると、以下のようなものだったことがわかります。
 
 - Heading 要素と Heading Level Concept を導入
 - Outline Algorithm を Document Headings Concept に置き換え
@@ -268,7 +272,7 @@ Heading Level Concept の特徴を仕様の [PR](https://github.com/whatwg/html/
 
 - [Consider adding a headinglevelstart attribute · Issue #5033 · whatwg/html](https://github.com/whatwg/html/issues/5033)
 
-ニーズが現代 Web が抱える課題に合致しており、「これぞ顧客が本当に求めていたもの」感がありますが、悲しいことに、この構想は後方互換の問題により、実装が頓挫してしまいます。
+現代の Web が抱える課題にニーズが合致しており、「これぞ顧客が本当に求めていたもの」感がありますが、悲しいことに、この構想は後方互換の問題により、実装が頓挫してしまいます。
 > Unfortunately, this was not a success (too many h1s got adjusted to be h2s) so we've removed this code and abandoned this particular plan for dealing with heading levels in HTML: <https://bugzilla.mozilla.org/show_bug.cgi?id=1590366>.
 >
 > [Intent to prototype: heading levels](https://groups.google.com/g/mozilla.dev.platform/c/SdnMKYwWxzU/m/U-v_b8c2BwAJ?pli=1)
@@ -387,7 +391,7 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
 
 Outline Algorithm は実装されなかったものの、ブラウザは Sectioning Content Element 内の Heading Element に対して、
 ネストレベルに応じた`font-size`と`margin`を適用するスタイルを実装していました。
-これにより、見た目上は「見出しレベルを自動調整」されているように見えた ”まま” でした。
+これにより、**見た目上は**「見出しレベルを自動調整」されているように見えたままでした。
 
 ```css
 In the following CSS block, x is shorthand for the following selector: :is(article, aside, nav, section)
@@ -411,7 +415,7 @@ x x x x x h1 { margin-block: 2.33em; font-size: 0.67em; }
 - 視覚的には階層化された見出しに見えるが、アクセシビリティツリーでは全て同じレベルの `<h1>` として解釈される
 - 開発者が「全部 `<h1>` でも OK」という誤解を持ったまま実装する
 
-もし、Outline Algorithm の夢が実現していたら、この実装は適切だと言えたでしょう。しかし、Outline Algorithm というユートピアが消滅した今、残されたのは「見た目（視覚的な構造）」をセマンティクス構造に合わせる方向での解決策であり、それが今回の変更にあたります。
+もし、Outline Algorithm の夢が実現していたら、この UA Style は適切だと言えたでしょう。しかし、Outline Algorithm が消滅した今、残されたのは「見た目（視覚的な構造）」をセマンティクス構造に合わせる方向での解決策であり、それが今回の変更にあたります。
 
 - [Remove UA style for h1-h6 in section (et. al.) and hgroup · Issue #7867 · whatwg/html](https://github.com/whatwg/html/issues/7867)
 - [Remove UA styles for h1 in article, aside, nav, section by zcorpan · Pull Request #11102 · whatwg/html](https://github.com/whatwg/html/pull/11102)
@@ -422,14 +426,14 @@ x x x x x h1 { margin-block: 2.33em; font-size: 0.67em; }
 
 - [Default styles for h1 elements are changing | MDN Blog](https://developer.mozilla.org/en-US/blog/h1-element-styles/)
 
-この Intent が出た今、ようやく Document Outline Algorithm の最後の痕跡が消え去ろうとしています。
+この Intent が出た今、ようやく Document Outline Algorithm 最後の痕跡が消え去ろうとしています。
 
 ## We've been living in a Flat Document Structure the whole time at the end
 
 [CERN で Tim Berners-Lee が HTML を開発した当初から存在](https://info.cern.ch/hypertext/WWW/MarkUp/Tags.html#15)し、いわば HTML Element の初期メンのブルーくらいのポジションであった Heading。
 にも関わらず、30 年以上も仕様と実装と顧客のニーズが交わることなく、幾度となく誤解や誤実装を生み続けてきました。
 
-Outline Algorithm が実装されなかった理由がどこかに明記されていたわけではありませんが、関与した人物のコメントを見るに、単にその実装の複雑さが大きかったのかなと思います。
+Outline Algorithm が実装されなかった理由がどこかに明記されていたわけではありませんが、関与した人物のコメントを見るに、単にその実装の複雑さが唯一かつ最大の理由だったのかなと思います。
 
 > Determining the level of any given heading requires traversing through its previous siblings and their descendants, its parent and the previous siblings and descendants of that, et cetera. That is too much complexity and optimizing it with caches is evidently not deemed worth it for such a simple feature.
 >
@@ -446,7 +450,7 @@ Outline Algorithm が実装されなかった理由がどこかに明記され�
 
 ところで、Outline Algorithm を取り巻く 30 余年の中で、何がどう変わったんでしょうか？
 
-「何もどうも変わっていない」が答えです。
+答えは、「何もどうも変わっていない」です。
 
 30 年以上前に Tim Berners-Lee が「フラットなマークアップ」として設計した HTML の本質は、結局のところ今も変わっていません。
 我々が使い続けていたのは、常にフラットな文書構造だったという事実が残っただけです。
