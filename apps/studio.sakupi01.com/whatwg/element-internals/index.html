@@ -1,67 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElementInternals and form-associated custom elements</title>
+    <title>ElementInternals and form-associated custom elements | studio.sakupi01.com</title>
 </head>
+
 <body>
     <h1>ElementInternals and form-associated custom elements</h1>
-    <p>Summary: ElementInternals is a new addition to custom elements API, which allows developers to manage a custom element's internal states such as default ARIA role or ARIA label as well as having custom elements participate in form-associated behavior like submissions and validations.</p>
-    <p>Spec: <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#the-elementinternals-interface">https://html.spec.whatwg.org/multipage/custom-elements.html#the-elementinternals-interface</a></p>
-    <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals">https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals</a></p>
+    <p>Summary: ElementInternals is a new addition to custom elements API, which allows developers to manage a custom
+        element's internal states such as default ARIA role or ARIA label as well as having custom elements participate
+        in form-associated behavior like submissions and validations.</p>
+    <p>Spec: <a
+            href="https://html.spec.whatwg.org/multipage/custom-elements.html#the-elementinternals-interface">https://html.spec.whatwg.org/multipage/custom-elements.html#the-elementinternals-interface</a>
+    </p>
+    <p>MDN: <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals">https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals</a>
+    </p>
     <p>Other Resources:</p>
     <ul>
-        <li><a href="https://html.spec.whatwg.org/dev/custom-elements.html#element-internals">HTML Standard, Edition for Web Developers: Element Internals</a></li> 
-        <li><a href="https://webkit.org/blog/13711/elementinternals-and-form-associated-custom-elements/">ElementInternals and Form-Associated Custom Elements | WebKit</a></li>
+        <li><a href="https://html.spec.whatwg.org/dev/custom-elements.html#element-internals">HTML Standard, Edition for
+                Web Developers: Element Internals</a></li>
+        <li><a href="https://webkit.org/blog/13711/elementinternals-and-form-associated-custom-elements/">ElementInternals
+                and Form-Associated Custom Elements | WebKit</a></li>
     </ul>
 
     <p>=== ElementInternals and form-associated custom elements. ===</p>
 
 
     <form>
-      <label for="some-text-field">Some Text Field</label>
-      <some-text-field id="some-text-field" name="some-text-field" required></some-text-field>
-      <some-button><button>Submit</button></some-button>
+        <label for="some-text-field">Some Text Field</label>
+        <some-text-field id="some-text-field" name="some-text-field" required></some-text-field>
+        <some-button><button>Submit</button></some-button>
     </form>
 </body>
+
 </html>
 
 <script>
-class SomeButtonElement extends HTMLElement {
-    // declare that a custom element is associated with forms
-    static formAssociated = true;
-    // declare that the custom element has an attribute that should be observed
-    static observedAttributes = ['value'];
-    #internals;
-    #shadowRoot;
-    constructor()
-    {
-        super();
-        // This will define a simple custom element whose ARIA role is button by default
-        this.#internals = this.attachInternals();
-        this.#internals.ariaRole = 'button';
-        // NO: this.setAttribute('role', 'button'); because this prevents users of this custom element to override ARIA role like this because the constructor will override the role content attribute upon upgrades
-        this.#shadowRoot = this.attachShadow({mode: 'closed'});
-        this.#shadowRoot.innerHTML = '<slot></slot>';
+    class SomeButtonElement extends HTMLElement {
+        // declare that a custom element is associated with forms
+        static formAssociated = true;
+        // declare that the custom element has an attribute that should be observed
+        static observedAttributes = ['value'];
+        #internals;
+        #shadowRoot;
+        constructor() {
+            super();
+            // This will define a simple custom element whose ARIA role is button by default
+            this.#internals = this.attachInternals();
+            this.#internals.ariaRole = 'button';
+            // NO: this.setAttribute('role', 'button'); because this prevents users of this custom element to override ARIA role like this because the constructor will override the role content attribute upon upgrades
+            this.#shadowRoot = this.attachShadow({ mode: 'closed' });
+            this.#shadowRoot.innerHTML = '<slot></slot>';
+        }
+        attributeChangedCallback(name, oldValue, newValue) {
+            this.#internals.setFormValue(newValue);
+        }
     }
-    attributeChangedCallback(name, oldValue, newValue)
-    {
-        this.#internals.setFormValue(newValue);
-    }
-}
-customElements.define('some-button', SomeButtonElement);
+    customElements.define('some-button', SomeButtonElement);
 
-class SomeTextFieldElement extends HTMLElement {
-    static formAssociated = true;
-    #internals;
-    #shadowRoot;
-    constructor()
-    {
-        super();
-        this.#internals = this.attachInternals();
-        this.#shadowRoot = this.attachShadow({mode: 'closed', delegatesFocus: true}); // enable SD focus delegation
-        this.#shadowRoot.innerHTML = `
+    class SomeTextFieldElement extends HTMLElement {
+        static formAssociated = true;
+        #internals;
+        #shadowRoot;
+        constructor() {
+            super();
+            this.#internals = this.attachInternals();
+            this.#shadowRoot = this.attachShadow({ mode: 'closed', delegatesFocus: true }); // enable SD focus delegation
+            this.#shadowRoot.innerHTML = `
       <style>
         input:invalid {
           border: 1px solid red;
@@ -71,33 +79,31 @@ class SomeTextFieldElement extends HTMLElement {
       </style>
       <input autofocus>
     `;
-        const input = this.#shadowRoot.querySelector('input');
-        console.log('input', input);
-        input.addEventListener('change', () => {
-            this.#internals.setFormValue(input.value, input.value);
-            this.updateValidity(input.value);
-        });
-    }
-    // reports a validation error to the user using the browser's native UI using setValidity() and reportValidity()
-    // With this setup, :invalid pseudo class will automatically apply to the element
-    updateValidity(newValue)
-    {
-        if (newValue.length >= 5) {
-            this.#internals.setValidity({ });
-            return;
+            const input = this.#shadowRoot.querySelector('input');
+            console.log('input', input);
+            input.addEventListener('change', () => {
+                this.#internals.setFormValue(input.value, input.value);
+                this.updateValidity(input.value);
+            });
         }
-        this.#internals.setValidity({tooShort: true}, 
-            'value is too short', this.#shadowRoot.querySelector('input'));
-        this.#internals.reportValidity();
+        // reports a validation error to the user using the browser's native UI using setValidity() and reportValidity()
+        // With this setup, :invalid pseudo class will automatically apply to the element
+        updateValidity(newValue) {
+            if (newValue.length >= 5) {
+                this.#internals.setValidity({});
+                return;
+            }
+            this.#internals.setValidity({ tooShort: true },
+                'value is too short', this.#shadowRoot.querySelector('input'));
+            this.#internals.reportValidity();
+        }
+        // Called when the browser is trying to restore element's state to state in which case reason is "restore", 
+        // or when the browser is trying to fulfill autofill on behalf of user in which case reason is "autocomplete". 
+        // In the case of "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
+        // e.g. When the user navigates away to some other page and comes back to this page, browser can restore this state via formStateRestoreCallback
+        formStateRestoreCallback(state, reason) {
+            this.#shadowRoot.querySelector('input').value = state;
+        }
     }
-    // Called when the browser is trying to restore element's state to state in which case reason is "restore", 
-    // or when the browser is trying to fulfill autofill on behalf of user in which case reason is "autocomplete". 
-    // In the case of "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
-    // e.g. When the user navigates away to some other page and comes back to this page, browser can restore this state via formStateRestoreCallback
-    formStateRestoreCallback(state, reason)
-    {
-        this.#shadowRoot.querySelector('input').value = state;
-    }
-}
-customElements.define('some-text-field', SomeTextFieldElement);
+    customElements.define('some-text-field', SomeTextFieldElement);
 </script>

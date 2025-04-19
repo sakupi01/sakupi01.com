@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>`corner-shape` property | studio.sakupi01.com</title>
+    <style>
+        .corner_shape {
+            display: grid;
+            place-content: center;
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            border-radius: 25px;
+        }
+
+        .squircle {
+            corner-shape: squircle;
+        }
+
+        .rond {
+            corner-shape: round;
+        }
+
+        .bevel {
+            corner-shape: bevel;
+        }
+
+        .scoop {
+            corner-shape: scoop;
+        }
+
+        .notch {
+            corner-shape: notch;
+        }
+
+        .straight {
+            corner-shape: straight;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>`corner-shape` property </h1>
+    <p>Summary: Enable fine-tuning corners, on top of the existing border-radius, by specifying the shape/curvature of
+        the corner. This allows shapes like squircles, notches, scoops etc., and animating between them.</p>
+    <p>Intent: <a
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ</a>
+    </p>
+    <p>Spec: <a
+            href="https://drafts.csswg.org/css-borders-4/#corner-shaping">https://drafts.csswg.org/css-borders-4/#corner-shaping</a>
+    </p>
+    <p>Explainer: <a
+            href="https://github.com/noamr/explainers/blob/main/corner-shape-explainer.md">https://github.com/noamr/explainers/blob/main/corner-shape-explainer.md</a>
+    </p>
+    <p>Other Resources:</p>
+    <ul>
+        <li><a href="https://www.figma.com/blog/desperately-seeking-squircles/">Desperately seeking squircles | Figma
+                Blog</a></li>
+        <li><a href="https://noamr.github.io/squircle-testbed/">https://noamr.github.io/squircle-testbed/</a></li>
+    </ul>
+    <p>=== This is a demo of CSS <code>corner-shape</code> ===</p>
+    <p>https://drafts.csswg.org/css-borders-4/#typedef-corner-shape-value</p>
+
+    <p>// <code>corner-shape: squircle;</code>, which equals to <code>superellipse(4)</code>.</p>
+    <div class="corner_shape squircle">Squircle</div>
+    <p>// <code>corner-shape: round;</code>, which equals to <code>superellipse(2)</code>.</p>
+    <div class="corner_shape round">Round</div>
+    <p>// <code>corner-shape: bevel;</code>, which equals to <code>superellipse(1)</code>.</p>
+    <div class="corner_shape bevel">Bevel</div>
+    <p>// <code>corner-shape: notch;</code>, which equals to <code>superellipse(0)</code>.</p>
+    <div class="corner_shape notch">Notch</div>
+    <p>// <code>corner-shape: scoop;</code>, which equals to <code>superellipse(0.5)</code>.</p>
+    <div class="corner_shape scoop">Scoop</div>
+    <p>// <code>corner-shape: straight;</code>, which equals to <code>superellipse(infinity)</code>.</p>
+    <div class="corner_shape straight">Straight</div>
+</body>
+
+</html>

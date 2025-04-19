@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The CSS `shape()` function | studio.sakupi01.com</title>
+    <style>
+        .flag_path {
+            width: 600px;
+            height: 400px;
+            background: blue;
+            clip-path: path("M 0 20 \ C 25 0 75 40 100 20 \ V 80 \ C 75 100 25 60 0 80 \z");
+        }
+
+        @property --animated-wave-height {
+            syntax: "<length>";
+            inherits: false;
+            initial-value: 40px;
+        }
+
+        @keyframes curve {
+            from {
+                --animated-wave-height: 0px;
+            }
+
+            to {
+                --animated-wave-height: 180px;
+            }
+        }
+
+        .flag_shape {
+            width: 10vw;
+            height: 8vw;
+            background: green;
+            clip-path: shape(from 0% 20px,
+                    curve to 100% 20px with 25% 0% / 75% 40px,
+                    vline to calc(100% - 20px),
+                    curve to 0% calc(100% - 20px) with 75% 100% / 25% calc(100% - 40px),
+                    close);
+        }
+
+        .corner_shape {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            border-radius: 25px;
+            /* https://drafts.csswg.org/css-borders-4/#typedef-corner-shape-value */
+            corner-shape: squircle;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>The CSS `shape()` function </h1>
+    <p>Summary: shape() allows responsive custom shapes in CSS properties that accept a shape, currently limited to
+        clip-path. It lets the author define a series of commands, equivalent to the commands in path(), but where the
+        commands accept responsive units (e.g. % or vw), as well as any CSS values such as custom properties or rather
+        than pixel-values.</p>
+    <p>Intent: <a
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/AliA6N9kaxo/m/YIlLj-0iAgAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/AliA6N9kaxo/m/YIlLj-0iAgAJ</a>
+    </p>
+    <p>Intent: <a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/ls5D7zDNQj8/m/snQD8tygAwAJ">Intent to
+            implement and ship: Support offset-path: shape()</a></p>
+    <p>Spec: <a
+            href="https://drafts.csswg.org/css-shapes-2/#shape-function">https://drafts.csswg.org/css-shapes-2/#shape-function</a>
+    </p>
+    <p>Other Resources:</p>
+    <ul>
+        <li><a href="https://webkit.org/blog/16794/the-css-shape-function/">The CSS shape() function | WebKit</a></li>
+        <li><a href="https://developer.chrome.com/blog/css-shape?hl=en">Use shape() for responsive clipping  |  Blog  | 
+                Chrome for Developers</a></li>
+    </ul>
+    <p>=== This is a demo of CSS <code>shape()</code> function for <code>clip-path</code>. <code>shape()</code> counts
+        for only <code>clip-path</code> currently, but other properties will also take advantage of <code>shape()</code>
+        in the future spec. ===</p>
+
+    <p>// Originally Non-responsive SVG <code>clip-path</code> with <code>path()</code> function</p>
+    <div class="flag_path"></div>
+
+    <p>// Advanced Responsive SVG <code>clip-path</code> with <code>shape()</code> function</p>
+    <div class="flag_shape"></div>
+</body>
+
+</html>
