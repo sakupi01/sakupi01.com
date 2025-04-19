@@ -43,7 +43,7 @@ importers:
         specifier: 1.9.4
         version: 1.9.4
       '@codspeed/vitest-plugin':
-        specifier: ^3.1.1
+        specifier: 3.1.1
         version: 3.1.1(vite@6.2.5(@types/node@22.13.1)(jiti@2.4.2)(terser@5.38.2)(yaml@2.7.0))(vitest@2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2))
       '@repo/typescript-config':
         specifier: workspace:*
@@ -55,22 +55,22 @@ importers:
         specifier: 18.3.6
         version: 18.3.6(@types/react@18.3.20)
       autoprefixer:
-        specifier: ^10.4.19
+        specifier: 10.4.20
         version: 10.4.20(postcss@8.5.2)
       class-variance-authority:
-        specifier: ^0.7.0
+        specifier: 0.7.0
         version: 0.7.0
       clsx:
-        specifier: ^2.1.1
+        specifier: 2.1.1
         version: 2.1.1
       lost-pixel:
-        specifier: ^3.16.0
+        specifier: 3.22.0
         version: 3.22.0(@types/node@22.13.1)(playwright-core@1.50.1)(typescript@5.4.5)
       postcss:
-        specifier: ^8.4.38
+        specifier: 8.5.2
         version: 8.5.2
       turbo:
-        specifier: ^2.4.4
+        specifier: 2.4.4
         version: 2.4.4
       typescript:
         specifier: 5.4.5
@@ -79,7 +79,7 @@ importers:
         specifier: 6.2.5
         version: 6.2.5(@types/node@22.13.1)(jiti@2.4.2)(terser@5.38.2)(yaml@2.7.0)
       vitest:
-        specifier: ^2.1.5
+        specifier: 2.1.9
         version: 2.1.9(@types/node@22.13.1)(jsdom@26.0.0)(msw@2.7.0(@types/node@22.13.1)(typescript@5.4.5))(terser@5.38.2)
 
   apps/blog.sakupi01.com:
@@ -155,7 +155,7 @@ importers:
         version: 3.23.8
     devDependencies:
       '@proofdict/textlint-rule-proofdict':
-        specifier: ^3.1.2
+        specifier: 3.1.2
         version: 3.1.2
 
   apps/git-kusa:
@@ -219,7 +219,7 @@ importers:
         specifier: 'catalog:'
         version: 3.4.3(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3))
       vite-tsconfig-paths:
-        specifier: ^4.2.1
+        specifier: 4.3.2
         version: 4.3.2(typescript@5.7.3)(vite@5.2.12(@types/node@22.13.1)(terser@5.38.2))
 
   apps/sakupi01.com:
@@ -241,58 +241,58 @@ importers:
         version: 0.33.5
     devDependencies:
       '@types/jsdom':
-        specifier: ^21.1.7
+        specifier: 21.1.7
         version: 21.1.7
 
   packages/git-green:
     devDependencies:
       '@chromatic-com/storybook':
-        specifier: ^1.5.0
+        specifier: 1.9.0
         version: 1.9.0(react@18.3.1)
       '@storybook/addon-essentials':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(storybook@8.3.0)
       '@storybook/addon-interactions':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(storybook@8.3.0)
       '@storybook/addon-links':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(react@18.3.1)(storybook@8.3.0)
       '@storybook/addon-onboarding':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(react@18.3.1)(storybook@8.3.0)
       '@storybook/blocks':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)
       '@storybook/react':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.0)(typescript@5.4.5)
       '@storybook/react-vite':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(@storybook/test@8.3.0(storybook@8.3.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.34.6)(storybook@8.3.0)(typescript@5.4.5)(vite@6.2.5(@types/node@22.13.1)(jiti@2.4.2)(terser@5.38.2)(yaml@2.7.0))
       '@storybook/test':
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0(storybook@8.3.0)
       eslint:
-        specifier: ^8.57.0
+        specifier: 8.57.1
         version: 8.57.1
       eslint-plugin-react-hooks:
-        specifier: ^4.6.0
+        specifier: 4.6.2
         version: 4.6.2(eslint@8.57.1)
       eslint-plugin-react-refresh:
-        specifier: ^0.4.6
+        specifier: 0.4.19
         version: 0.4.19(eslint@8.57.1)
       eslint-plugin-storybook:
-        specifier: ^0.8.0
+        specifier: 0.8.0
         version: 0.8.0(eslint@8.57.1)(typescript@5.4.5)
       storybook:
-        specifier: ^8.1.5
+        specifier: 8.3.0
         version: 8.3.0
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.3(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.4.5))
       typescript:
-        specifier: ^5.2.2
+        specifier: 5.4.5
         version: 5.4.5
 
   packages/git-green-cli:
@@ -317,10 +317,10 @@ importers:
         version: 3.23.8
     devDependencies:
       tsup:
-        specifier: ^8.1.0
+        specifier: 8.3.6
         version: 8.3.6(jiti@2.4.2)(postcss@8.5.3)(typescript@5.7.3)(yaml@2.7.0)
       vitest:
-        specifier: ^1.6.0
+        specifier: 1.6.1
         version: 1.6.1(@types/node@22.13.1)(jsdom@26.0.0)(terser@5.38.2)
 
   packages/typescript-config: {}
@@ -371,10 +371,10 @@ importers:
         specifier: 8.3.0
         version: 8.3.0(storybook@8.3.0)
       '@turbo/gen':
-        specifier: ^1.11.3
+        specifier: 1.13.4
         version: 1.13.4(@types/node@20.17.17)(typescript@5.4.5)
       '@types/node':
-        specifier: ^20.10.6
+        specifier: 20.17.17
         version: 20.17.17
       '@types/react':
         specifier: 18.3.3
@@ -383,22 +383,22 @@ importers:
         specifier: 18.3.0
         version: 18.3.0
       react:
-        specifier: ^18.2.0
+        specifier: 18.3.1
         version: 18.3.1
       react-dom:
-        specifier: ^18.2.0
+        specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       storybook:
         specifier: 8.3.0
         version: 8.3.0
       stylelint:
-        specifier: ^16.14.1
+        specifier: 16.14.1
         version: 16.14.1(typescript@5.4.5)
       stylelint-config-standard:
-        specifier: ^37.0.0
+        specifier: 37.0.0
         version: 37.0.0(stylelint@16.14.1(typescript@5.4.5))
       typescript:
-        specifier: ^5.3.3
+        specifier: 5.4.5
         version: 5.4.5
 
 packages:
@@ -8151,10 +8151,6 @@ packages:
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
-  tinyglobby@0.2.10:
-    resolution: {integrity: sha512-Zc+8eJlFMvgatPZTl6A9L/yht8QqdmUNtURHaKZLmKBE12hNPSrqNkUp2cs3M/UKmNVVAMFQYSjYIVHDjW5zew==}
-    engines: {node: '>=12.0.0'}
-
   tinyglobby@0.2.12:
     resolution: {integrity: sha512-qkf4trmKSIiMTs/E63cxH+ojC2unam7rJ0WrauAzpT3ECNTxGRMlaXxVbfxMUC/w0LaYk6jQ4y/nGR9uBO3tww==}
     engines: {node: '>=12.0.0'}
@@ -12820,7 +12816,7 @@ snapshots:
   axios@1.7.7:
     dependencies:
       follow-redirects: 1.15.9
-      form-data: 4.0.0
+      form-data: 4.0.1
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -17272,17 +17268,25 @@ snapshots:
     dependencies:
       postcss: 8.5.2
 
-  postcss-import@15.1.0(postcss@8.5.3):
+  postcss-import@15.1.0(postcss@8.5.2):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.2
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.10
 
-  postcss-js@4.0.1(postcss@8.5.3):
+  postcss-js@4.0.1(postcss@8.5.2):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.3
+      postcss: 8.5.2
+
+  postcss-load-config@4.0.2(postcss@8.5.2)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.4.5)):
+    dependencies:
+      lilconfig: 3.1.3
+      yaml: 2.7.0
+    optionalDependencies:
+      postcss: 8.5.2
+      ts-node: 10.9.2(@types/node@22.13.1)(typescript@5.4.5)
 
   postcss-load-config@4.0.2(postcss@8.5.2)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3)):
     dependencies:
@@ -17290,22 +17294,6 @@ snapshots:
       yaml: 2.7.0
     optionalDependencies:
       postcss: 8.5.2
-      ts-node: 10.9.2(@types/node@22.13.1)(typescript@5.7.3)
-
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.4.5)):
-    dependencies:
-      lilconfig: 3.1.3
-      yaml: 2.7.0
-    optionalDependencies:
-      postcss: 8.5.3
-      ts-node: 10.9.2(@types/node@22.13.1)(typescript@5.4.5)
-
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3)):
-    dependencies:
-      lilconfig: 3.1.3
-      yaml: 2.7.0
-    optionalDependencies:
-      postcss: 8.5.3
       ts-node: 10.9.2(@types/node@22.13.1)(typescript@5.7.3)
 
   postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.3)(yaml@2.7.0):
@@ -17349,9 +17337,9 @@ snapshots:
       postcss-modules-values: 4.0.0(postcss@8.5.2)
       string-hash: 1.1.3
 
-  postcss-nested@6.2.0(postcss@8.5.3):
+  postcss-nested@6.2.0(postcss@8.5.2):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.2
       postcss-selector-parser: 6.1.2
 
   postcss-resolve-nested-selector@0.1.6: {}
@@ -17391,7 +17379,7 @@ snapshots:
 
   posthog-node@3.5.0:
     dependencies:
-      axios: 1.7.7
+      axios: 1.7.9
       rusha: 0.8.14
     transitivePeerDependencies:
       - debug
@@ -18628,11 +18616,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.3
-      postcss-import: 15.1.0(postcss@8.5.3)
-      postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.4.5))
-      postcss-nested: 6.2.0(postcss@8.5.3)
+      postcss: 8.5.2
+      postcss-import: 15.1.0(postcss@8.5.2)
+      postcss-js: 4.0.1(postcss@8.5.2)
+      postcss-load-config: 4.0.2(postcss@8.5.2)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.4.5))
+      postcss-nested: 6.2.0(postcss@8.5.2)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
       sucrase: 3.35.0
@@ -18655,11 +18643,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.3
-      postcss-import: 15.1.0(postcss@8.5.3)
-      postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3))
-      postcss-nested: 6.2.0(postcss@8.5.3)
+      postcss: 8.5.2
+      postcss-import: 15.1.0(postcss@8.5.2)
+      postcss-js: 4.0.1(postcss@8.5.2)
+      postcss-load-config: 4.0.2(postcss@8.5.2)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3))
+      postcss-nested: 6.2.0(postcss@8.5.2)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
       sucrase: 3.35.0
@@ -18739,11 +18727,6 @@ snapshots:
   tinycolor2@1.6.0: {}
 
   tinyexec@0.3.2: {}
-
-  tinyglobby@0.2.10:
-    dependencies:
-      fdir: 6.4.3(picomatch@4.0.2)
-      picomatch: 4.0.2
 
   tinyglobby@0.2.12:
     dependencies:
@@ -18919,7 +18902,7 @@ snapshots:
       source-map: 0.8.0-beta.0
       sucrase: 3.35.0
       tinyexec: 0.3.2
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.12
       tree-kill: 1.2.2
     optionalDependencies:
       postcss: 8.5.3
