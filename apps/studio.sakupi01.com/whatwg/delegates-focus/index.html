@@ -1,64 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShadowRoot DelegatesFocus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadowRoot DelegatesFocus | studio.sakupi01.com</title>
 
-    <style>
-      div:focus {
-            border: 2px solid red;
-          }
-    </style>
+  <style>
+    div:focus {
+      border: 2px solid red;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>`shadowrootdelegatesfocus` attribute</h1>
-    <p>Summary: A shadow host with `shadowrootdelegatesfocus` set to true will delegate its focus to its first focusable child.</p>
-    <p>Spec: <a href="https://dom.spec.whatwg.org/#shadowroot-delegates-focus">https://dom.spec.whatwg.org/#shadowroot-delegates-focus</a></p>
-    <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus">https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus</a></p>
-    <p>Other Resources:</p>
-    <ul>
-        <li><a href="https://github.com/WICG/webcomponents/issues/126">Introduce "delegatesFocus" flag to shadow root #126</a></li>
-        <li><a href="https://docs.google.com/document/d/1k93Ez6yNSyWQDtGjdJJqTBPmljk9l2WS3JTe5OHHB50/edit?usp=sharing">Design doc</a></li>
-    </ul>
+  <h1>`shadowrootdelegatesfocus` attribute</h1>
+  <p>Summary: A shadow host with `shadowrootdelegatesfocus` set to true will delegate its focus to its first focusable
+    child.</p>
+  <p>Spec: <a
+      href="https://dom.spec.whatwg.org/#shadowroot-delegates-focus">https://dom.spec.whatwg.org/#shadowroot-delegates-focus</a>
+  </p>
+  <p>MDN: <a
+      href="https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus">https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus</a>
+  </p>
+  <p>Other Resources:</p>
+  <ul>
+    <li><a href="https://github.com/WICG/webcomponents/issues/126">Introduce "delegatesFocus" flag to shadow root
+        #126</a></li>
+    <li><a
+        href="https://docs.google.com/document/d/1k93Ez6yNSyWQDtGjdJJqTBPmljk9l2WS3JTe5OHHB50/edit?usp=sharing">Design
+        doc</a></li>
+  </ul>
 
-    <p>=== This is a demo of <code>shadowrootdelegatesfocus</code> attribute. ===</p>
-    <progress id="indeterminate"></progress>
+  <p>=== This is a demo of <code>shadowrootdelegatesfocus</code> attribute. ===</p>
+  <progress id="indeterminate"></progress>
 
-    <div>
-      <template shadowrootmode="open">
-        <style>
-          :host {
-            display: block;
-            border: 1px dotted black;
-            padding: 10px;
-            margin: 10px;
-          }
-          :focus {
-            outline: 2px solid blue;
-          }
-        </style>
-        <div>DSD WITHOUT <code>shadowrootdelegatesfocus</code></div>
-        <input type="text" placeholder="Input inside DSD" />
-      </template>
-    </div>
-    
-    <div>
-      <template shadowrootmode="open" shadowrootdelegatesfocus>
-        <style>
-          :host {
-            display: block;
-            border: 1px dotted black;
-            padding: 10px;
-            margin: 10px;
-          }
-          :focus {
-            outline: 2px solid blue;
-          }
-        </style>
-        <div>DSD WITH <code>shadowrootdelegatesfocus</code></div>
-        <input type="text" placeholder="Input inside DSD" />
-      </template>
-    </div>
+  <div>
+    <template shadowrootmode="open">
+      <style>
+        :host {
+          display: block;
+          border: 1px dotted black;
+          padding: 10px;
+          margin: 10px;
+        }
+
+        :focus {
+          outline: 2px solid blue;
+        }
+      </style>
+      <div>DSD WITHOUT <code>shadowrootdelegatesfocus</code></div>
+      <input type="text" placeholder="Input inside DSD" />
+    </template>
+  </div>
+
+  <div>
+    <template shadowrootmode="open" shadowrootdelegatesfocus>
+      <style>
+        :host {
+          display: block;
+          border: 1px dotted black;
+          padding: 10px;
+          margin: 10px;
+        }
+
+        :focus {
+          outline: 2px solid blue;
+        }
+      </style>
+      <div>DSD WITH <code>shadowrootdelegatesfocus</code></div>
+      <input type="text" placeholder="Input inside DSD" />
+    </template>
+  </div>
 </body>
+
 </html>

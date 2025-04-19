@@ -1,98 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration for Reference Target for Cross-Root ARIA</title>
-    <meta http-equiv="origin-trial" data-feature="Interest Invokers" data-expires="2025-08-19" content="Ar7iO1r4y9MREBRxJl7O1zsVXgu77If5QxAEQzoONAOkVqwuqWbaxG4qGXup9Sj1U/jpD6x29sF16yvqdVmr0QYAAABmeyJvcmlnaW4iOiJodHRwczovL3N0dWRpby5zYWt1cGkwMS5jb206NDQzIiwiZmVhdHVyZSI6IlNoYWRvd1Jvb3RSZWZlcmVuY2VUYXJnZXQiLCJleHBpcnkiOjE3NDk1MTM2MDB9">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration for Reference Target for Cross-Root ARIA | studio.sakupi01.com</title>
 </head>
+
 <body>
-    <h1>Registration for Reference Target for Cross-Root ARIA</h1>
-    <p>Explainer: <a href="https://github.com/WICG/webcomponents/blob/gh-pages/proposals/reference-target-explainer.md">https://github.com/WICG/webcomponents/blob/gh-pages/proposals/reference-target-explainer.md</a></p>
-    <p>Intent: <a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/C3pELgMqzCY/m/Lpb6DkueAQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/C3pELgMqzCY/m/Lpb6DkueAQAJ</a></p>
-    <p>Origin Trial: <a href="https://developer.chrome.com/origintrials/#/view_trial/2164542570904944641">https://developer.chrome.com/origintrials/#/view_trial/2164542570904944641</a></p>
-    <p>Spec: <a href="">TBD</a></p>
-    <p>Other Resources:</p>
-    <ul>
-        <li><a href="https://alice.pages.igalia.com/blog/how-shadow-dom-and-accessibility-are-in-conflict/">Solving Cross-root ARIA Issues in Shadow DOM</a></li>
-        <li><a href="https://blogs.igalia.com/mrego/solving-cross-root-aria-issues-in-shadow-dom/">How Shadow DOM and accessibility are in conflict</a></li>
-    </ul>
+  <h1>Registration for Reference Target for Cross-Root ARIA</h1>
+  <p>Explainer: <a
+      href="https://github.com/WICG/webcomponents/blob/gh-pages/proposals/reference-target-explainer.md">https://github.com/WICG/webcomponents/blob/gh-pages/proposals/reference-target-explainer.md</a>
+  </p>
+  <p>Intent: <a
+      href="https://groups.google.com/a/chromium.org/g/blink-dev/c/C3pELgMqzCY/m/Lpb6DkueAQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/C3pELgMqzCY/m/Lpb6DkueAQAJ</a>
+  </p>
+  <p>Origin Trial: <a
+      href="https://developer.chrome.com/origintrials/#/view_trial/2164542570904944641">https://developer.chrome.com/origintrials/#/view_trial/2164542570904944641</a>
+  </p>
+  <p>Spec: <a href="">TBD</a></p>
+  <p>Other Resources:</p>
+  <ul>
+    <li><a href="https://alice.pages.igalia.com/blog/how-shadow-dom-and-accessibility-are-in-conflict/">Solving
+        Cross-root ARIA Issues in Shadow DOM</a></li>
+    <li><a href="https://blogs.igalia.com/mrego/solving-cross-root-aria-issues-in-shadow-dom/">How Shadow DOM and
+        accessibility are in conflict</a></li>
+  </ul>
 
-    <p>=== This is a demo of Reference Target for Cross-Root ARIA. ===</p>
-    
-    <p>=== Phase 1 adds the ability to designate a single element as the target for all IDREF properties that refer to the host. ===</p>
-    
-    <p>// <code>shadowrootreferencetarget</code></p>
-    <label for="wc-input">WC input</label>
-    <wc-input id="wc-input">
-        <template
-        shadowrootmode="closed"
-        shadowrootreferencetarget="real-input"
-        >
-        <input id="real-input">
+  <p>=== This is a demo of Reference Target for Cross-Root ARIA. ===</p>
+
+  <p>=== Phase 1 adds the ability to designate a single element as the target for all IDREF properties that refer to the
+    host. ===</p>
+
+  <p>// <code>shadowrootreferencetarget</code></p>
+  <label for="wc-input">WC input</label>
+  <wc-input id="wc-input">
+    <template shadowrootmode="closed" shadowrootreferencetarget="real-input">
+      <input id="real-input">
     </template>
-</wc-input>
+  </wc-input>
 
-<p>// <code>referenceTarget</code> attribute on the <code>ShadowRoot</code> object,</p>
+  <p>// <code>referenceTarget</code> attribute on the <code>ShadowRoot</code> object,</p>
 
-<label for="wc-input-2">WC input 2</label>
-<wc-input-2 id="wc-input-2"></wc-input-2>
+  <label for="wc-input-2">WC input 2</label>
+  <wc-input-2 id="wc-input-2"></wc-input-2>
 
 
-<p>=== (Not implemented yet!) Phase 2 adds a way to re-target specific properties (like aria-activedescendant) to refer a separate element. ===</p>
-<p>// <code>ShadowRoot</code> <code>referenceTargetMap</code> attribute</p>
-<input
-  role="combobox"
-  aria-controls="fancy-listbox"
-  aria-activedescendant="fancy-listbox"
-/>
+  <p>=== (Not implemented yet!) Phase 2 adds a way to re-target specific properties (like aria-activedescendant) to
+    refer a separate element. ===</p>
+  <p>// <code>ShadowRoot</code> <code>referenceTargetMap</code> attribute</p>
+  <input role="combobox" aria-controls="fancy-listbox" aria-activedescendant="fancy-listbox" />
 
-<wc-listbox id="fancy-listbox">
-    <template
-      shadowrootmode="closed"
-      shadowrootreferencetargetmap="aria-controls: real-listbox,
-                                    aria-activedescendant: option-1"
-    >
+  <wc-listbox id="fancy-listbox">
+    <template shadowrootmode="closed" shadowrootreferencetargetmap="aria-controls: real-listbox,
+                                    aria-activedescendant: option-1">
       <div id="real-listbox" role="listbox">
         <div id="option-1" role="option">Option 1</div>
         <div id="option-2" role="option">Option 2</div>
       </div>
-      </template>
-      </wc-listbox>
+    </template>
+  </wc-listbox>
 
 </body>
+
 </html>
 
 <script>
-    customElements.define(
-      "wc-input",
-      class WcInput extends HTMLElement {
-        constructor() {
-          super();
-        }
-      }
-    );
-
-    customElements.define(
-        "wc-input-2",
-        class WcInput2 extends HTMLElement {
-            constructor() {
-                super();
-        this.shadowRoot_ = this.attachShadow({ 
-          mode: "closed",
-          referenceTarget: "real-input",
-        });
-        this.shadowRoot_.innerHTML = `<input id="real-input">`;        
+  customElements.define(
+    "wc-input",
+    class WcInput extends HTMLElement {
+      constructor() {
+        super();
       }
     }
   );
 
   customElements.define(
-        "wc-listbox",
-        class WcListbox extends HTMLElement {
-            constructor() {
-                super();
-            }
-        }
-    );
-  </script>
+    "wc-input-2",
+    class WcInput2 extends HTMLElement {
+      constructor() {
+        super();
+        this.shadowRoot_ = this.attachShadow({
+          mode: "closed",
+          referenceTarget: "real-input",
+        });
+        this.shadowRoot_.innerHTML = `<input id="real-input">`;
+      }
+    }
+  );
+
+  customElements.define(
+    "wc-listbox",
+    class WcListbox extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+  );
+</script>

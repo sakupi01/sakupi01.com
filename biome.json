@@ -29,6 +29,7 @@
       "**/*.jsx",
       "**/*.css",
       "**/*.md",
+      "**/*.html",
       "**/*.astro"
     ],
     "ignore": ["dist/**", "node_modules/**", "coverage/**", "**/generated/**"]
