@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heading Level Concept | studio.sakupi01.com</title>
+
+  <style>
+    /* not working somehow */
+    :heading {
+      color: green;
+    }
+
+    /* still not working somehow */
+    :heading(1) {
+      color: red;
+    }
+
+    /* still not working somehow */
+    :heading(2) {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>`headingoffset`, `headingreset` attributes & `:heading`, `:heading(N)` pseudo selectors</h1>
+  <p>Summary: A system for creating structured headings within a document.</p>
+  <p>Intent <a
+      href="https://groups.google.com/a/chromium.org/g/blink-dev/c/8yl-pJhuLHE/m/0l7fGKgaAAAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/8yl-pJhuLHE/m/0l7fGKgaAAAJ</a>
+  <p>[wip] Spec: <a href="https://github.com/whatwg/html/pull/11086">https://github.com/whatwg/html/pull/11086</a>
+  </p>
+  <p>Other Resources:</p>
+  <ul>
+    <li><a href="https://chromestatus.com/feature/5090991750250496">Structured Headings, the headingoffset &
+        headingreset attributes, and the :heading pseudo class - Chrome Platform Status</a></li>
+    <li><a href="https://github.com/whatwg/html/issues/5033">Consider adding a headinglevelstart attribute · Issue #5033
+        · whatwg/html</a></li>
+  </ul>
+
+  <p>=== This is a demo of `headingoffset`, `headingreset` attributes & `:heading`, `:heading(N)` pseudo selectors ===
+  </p>
+  <main headingoffset="0">
+    <h1>Settings</h1>
+    <section headingoffset="1">
+      <h1>Account</h1> <!-- h2として解釈 -->
+
+      <dialog id="non-modal" open headingrese>
+        <h1>Not a Modal Dialog</h1>
+        <p>This is not a Modal Dialog, headingreset is not applied and taken control by the heading level algorithm.</p>
+        <p>So, the heading level remains as h2.</p>
+        <p>see WPT:
+          https://chromium-review.googlesource.com/c/chromium/src/+/5445406/23/content/test/data/accessibility/html/heading-with-headingoffset-dialog.html
+        </p>
+      </dialog>
+
+      <dialog id="modal" headingreset>
+        <button autofocus>Close</button>
+        <h1>Modal Dialog</h1> <!-- `headingreset` があるため、h2 ではなく、h1として解釈される -->
+        <p>This is a Modal Dialog, headingreset is applied.</p>
+        <p>So, the heading level is reset and now h1.</p>
+      </dialog>
+      <button>Show Modal Dialog</button>
+
+    </section>
+  </main>
+
+  <img src="../../assets/headingoffset.png" alt="headingoffset is properly applied, and h1 is converted to h2"
+    width="800" height="600" />
+</body>
+
+</html>
+
+<script>
+  const dialog = document.querySelector("#non-modal");
+  const modalDialog = document.querySelector("#modal");
+  const showButton = document.querySelector("dialog + button");
+  const closeButton = document.querySelector("dialog button");
+
+  // "Show the dialog" button opens the dialog modally
+  showButton.addEventListener("click", () => {
+    modalDialog.showModal();
+  });
+
+  // "Close" button closes the dialog
+  closeButton.addEventListener("click", () => {
+    modalDialog.close();
+    dialog.close(); // Ensure non-modal dialog is also closed
+  });
+</script>
