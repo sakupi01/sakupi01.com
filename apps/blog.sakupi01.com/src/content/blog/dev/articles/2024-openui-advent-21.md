@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day21 / Customizable Select Element Ep.19"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 子Node変更検知タイミングの仕様決定（現時点で）"
 date: 2024-12-21
+update: 2024-12-21
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

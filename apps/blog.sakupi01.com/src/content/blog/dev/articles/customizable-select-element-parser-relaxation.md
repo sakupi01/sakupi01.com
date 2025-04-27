@@ -2,6 +2,7 @@
 title: "Customizable Select ElementにおけるParser RelaxationのアップデートとShipの背景"
 excerpt: "長年の議論を経て、ようやく仕様が固まった、CustomizableなSelect要素の現状について、Parser Relaxationのを軸に解説します"
 date: 2025-01-26
+update: 2025-01-26
 beginColor: 'from-rose-300'
 middleColor: 'via-amber-200'
 endColor: 'to-violet-300'

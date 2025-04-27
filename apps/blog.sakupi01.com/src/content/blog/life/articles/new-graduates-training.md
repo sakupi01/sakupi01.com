@@ -5,6 +5,7 @@ coverImage:
   url: "/todo-atode-all.png"
   alt: 'オフィスの外観'
 date: 2024-07-14
+update: 2024-07-14
 category: 'life'
 tags: ['job', 'poem', 'training']
 status: 'published'

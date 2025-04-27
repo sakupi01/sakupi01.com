@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 3 / Customizable Select Element Ep.1"
 excerpt: "Form Controlの歴史と、ブラウザやOSに依存するForm Controlのスタイルについて"
 date: 2024-12-03
+update: 2024-12-03
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

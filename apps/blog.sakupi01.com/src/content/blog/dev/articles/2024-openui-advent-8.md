@@ -3,6 +3,7 @@
 title: "🎄Open UI Advent Calendar: Day 8 / Customizable Select Element Ep.6"
 excerpt: "`<selectmenu>`のその後：`<selectlist>`に至るまで"
 date: 2024-12-08
+update: 2024-12-08
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

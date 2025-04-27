@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 17 / Customizable Select Element Ep.15"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `slot`属性と`behavior`属性が使用廃止を受け、CSE Anatomyが改訂。HTML史上初となる、UAからLight DOMへ変更を加える実装検討へ"
 date: 2024-12-17
+update: 2024-12-17
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

@@ -11,12 +11,12 @@ interface Props {
 }
 
 const { frontmatter, slug } = Astro.props;
-const { title, excerpt, date, tags } = frontmatter;
+const { title, excerpt, date, update, tags } = frontmatter;
 ---
 
 <Layout pageTitle={title} description={excerpt} url={slug}>
   <article>
-    <HeroSection title={title} date={date} excerpt={excerpt} tags={tags} />
+    <HeroSection title={title} date={date} update={update} excerpt={excerpt} tags={tags} />
     <slot />
   </article>
   

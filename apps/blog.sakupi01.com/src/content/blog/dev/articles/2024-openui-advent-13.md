@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 13 / Customizable Select Element Ep.11"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `<selectedcontent>`提案のきっかけと、選択された`<option>`のvalueとスタイルを反映する初期の仕組みとして、`part`属性と`slot`属性について"
 date: 2024-12-13
+update: 2024-12-13
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

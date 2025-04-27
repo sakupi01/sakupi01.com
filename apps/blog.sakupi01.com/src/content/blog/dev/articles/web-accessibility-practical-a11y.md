@@ -2,6 +2,7 @@
 title: "📝note: What is web accessibility?"
 excerpt: "Practical Accessibility のメモ"
 date: 2024-10-24
+update: 2024-10-24
 beginColor: 'from-purple-300'
 middleColor: 'via-pink-200'
 endColor: 'to-orange-300'

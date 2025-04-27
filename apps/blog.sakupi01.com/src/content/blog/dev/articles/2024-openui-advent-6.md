@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 6 / Customizable Select Element Ep.4"
 excerpt: "Open UIでCustomizable Select Elementの初期提案"
 date: 2024-12-06
+update: 2024-12-06
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

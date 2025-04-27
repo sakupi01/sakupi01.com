@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   const items = await Promise.all(
     allHouseBlogPosts.map(async (post) => ({
       title: post.data.title,
-      pubDate: post.data.date,
+      pubDate: post.data.update,
       description: post.data.excerpt,
       link: `/posts/${post.slug}/`,
       content: await marked.parse(post.body),

@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 2 / Web UIの抱える課題とOpen UIの発足背景"
 excerpt: "Web UIの抱える課題とOpen UIの発足背景について"
 date: 2024-12-02
+update: 2024-12-02
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

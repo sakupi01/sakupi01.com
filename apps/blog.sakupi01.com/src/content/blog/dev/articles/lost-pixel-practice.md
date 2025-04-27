@@ -2,6 +2,7 @@
 title: "Lost PixelとGithub Actionsを用いたVRTのユースケース"
 excerpt: "撮影したスナップショットをGithub上で管理し、PR上で差分検知を行うことで、意図せぬビジュアルのデグレを防いでくれるLost Pixelの具体的な運用方法についてです"
 date: 2024-04-21
+update: 2024-04-21
 beginColor: 'from-cyan-200'
 middleColor: 'via-emerald-300'
 endColor: 'to-amber-200'

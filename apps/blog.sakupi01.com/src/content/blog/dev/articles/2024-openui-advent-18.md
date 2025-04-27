@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 18 / Customizable Select Element Ep.16"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - Light DOMへのクローン追加実装に関して、CSSWGとの合意形成。UAによるLight DOMへのNodeクローンタイミングに関する懸念を深掘る"
 date: 2024-12-18
+update: 2024-12-18
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

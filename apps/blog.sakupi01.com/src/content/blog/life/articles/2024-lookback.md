@@ -5,6 +5,7 @@ coverImage:
   url: "/graduation-ceremony.jpg"
   alt: '大学卒業式'
 date: 2024-12-31
+update: 2024-12-31
 category: 'life'
 tags: ['life', 'poem', 'lookback']
 status: 'published'

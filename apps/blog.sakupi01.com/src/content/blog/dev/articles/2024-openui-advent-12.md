@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 12 / Customizable Select Element Ep.10"
 excerpt: "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker()`のデフォルト色から深掘る、system-color/ color-scheme/ prefers-color-schemeの関係"
 date: 2024-12-12
+update: 2024-12-12
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

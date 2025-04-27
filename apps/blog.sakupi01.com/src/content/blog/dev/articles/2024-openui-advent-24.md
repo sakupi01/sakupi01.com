@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 24 / Global Design System Part2"
 excerpt: "Open UIが提唱するデザインシステム、Global Design Systemとその未来"
 date: 2024-12-24
+update: 2024-12-24
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

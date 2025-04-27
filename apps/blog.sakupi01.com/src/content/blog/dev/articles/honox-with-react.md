@@ -2,6 +2,7 @@
 title: "HonoXでReactベースのUIライブラリYamadaUIを使用する"
 excerpt: "HonoのフルスタックメタフレームワークであるHonoXにreact-rendererを使用して、React依存のUIライブラリであるYamadaUIやReact Flowを使用してアプリを作成した方法をまとめました"
 date: 2024-05-05
+update: 2024-05-05
 beginColor: 'from-red-500'
 middleColor: 'via-orange-300'
 endColor: 'to-yellow-400'

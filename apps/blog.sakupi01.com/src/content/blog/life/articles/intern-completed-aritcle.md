@@ -5,6 +5,7 @@ coverImage:
   url: "/IMG_0737.jpg"
   alt: 'オフィスの外観'
 date: 2024-03-01
+update: 2024-03-01
 category: 'life'
 tags: ['job', 'poem']
 status: 'published'

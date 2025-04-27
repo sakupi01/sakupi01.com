@@ -2,6 +2,7 @@
 title: "🎄Open UI Advent Calendar: Day 14 / Customizable Select Element Ep.12"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `part`属性をCSEのUA実装で使用することの問題から、`part`属性を`behavior`属性にリネームへ。`<option>`のvalueのみならず、内部コンテンツ自体を`<selectedcontent>`に反映する仕様策定の示唆"
 date: 2024-12-14
+update: 2024-12-14
 beginColor: 'from-red-500'
 middleColor: 'via-lime-500'
 endColor: 'to-green-700'

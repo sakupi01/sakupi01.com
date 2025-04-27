@@ -2,6 +2,7 @@
 title: "Standardizing User Intent with Interest Invokers ! (... and it's complicated)"
 excerpt: "本エントリでは、Interest Invokers の仕様策定において重要な「Show Interest」という概念と、 HIDs (Human Interface Devices) の「Show Interest」に係る議論の現状を解説します。"
 date: 2025-03-27
+update: 2025-03-27
 category: 'dev'
 tags: ['openui', 'interest invokers', 'invokers',  'web accessibility', 'standards', 'html', 'css']
 status: 'published'
