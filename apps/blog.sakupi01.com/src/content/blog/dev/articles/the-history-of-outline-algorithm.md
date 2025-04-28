@@ -77,7 +77,7 @@ Outline Algorithm の登場で、「フラットな構造」を基本として�
 > 4.4 Sections — HTML 5.1 Nightly <https://web.archive.org/web/20121214011658/http://www.w3.org/html/wg/drafts/html/master/sections.html#outlines>
 
 *「Subsequent headings of equal or higher rank start new (implied) sections, headings of lower rank start implied subsections that are part of the previous one. (同等以上のランクの見出しは、新しい（暗黙の）セクションを開始し、よりランクの低い見出しは、前のセクションの一部である暗黙のサブセクションを開始する) 」*
-<br /> ー Document Outline Algorithm を含む Sectioning Contents により、 HTML5.1 では当初、見出し要素（h1-6, `<hrgroup>`）の順序は重要ではない（意訳）と述べられていました。
+<br /> ー Document Outline Algorithm を含む Sectioning Contents により、 HTML5.1 では当初、見出し要素（h1-6, `<hgroup>`）の順序は重要ではない（意訳）と述べられていました。
 
 > Sections may contain headings of any rank, but authors are strongly encouraged to **either use only h1 elements**, or to use elements of the appropriate rank for the section's nesting level.
 >
@@ -287,7 +287,7 @@ Heading Level Concept の特徴を仕様の [PR](https://github.com/whatwg/html/
 Outline Algorithm を使用から削除するまでに辿った3つのアプローチを整理しておきます。
 
 1. **Flat Content**: フラットな構造のマークアップ言語。元来の HTML の形であり、Outline Algorithm が消滅した今もこれにあたる。
-2. **Document Outline Algorithm**: 机上の空論。Sectioning や「暗黙のセクション」、`<hrgroup>`要素によって、見出しレベルを自動調整する。
+2. **Document Outline Algorithm**: 机上の空論。Sectioning や「暗黙のセクション」、`<hgroup>`要素によって、見出しレベルを自動調整する。
 3. **Heading Level Concept**: Outline Algorithm を Document Headings Concept に置き換え、Sectioning Content Element のネストに応じた見出しレベルを自動調整しようとしたもの。
 
 Brian Kardell が以下に動作する Demo を用意しているので、ぜひ参考にされたいです。
@@ -297,7 +297,7 @@ Brian Kardell が以下に動作する Demo を用意しているので、ぜひ
 ![N+1個目の Standard](../../../../assets/images/n-plus-one-standards.png)
 
 :::note{.message}
-Oh, there's a forgotten `hrgroup` 🫢
+Oh, there's a forgotten `hgroup` 🫢
 
 <details>
 
@@ -370,7 +370,7 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
 <!-- https://github.com/whatwg/html/issues/5002#issuecomment-542647846 -->
 ```
 
-こうした過去がありましが、結局 [Outline Algorithm が頓挫したタイミング](https://github.com/whatwg/html/pull/7829/)で `<hrgroup>` の仕様も塗り替えられ、
+こうした過去がありましが、結局 [Outline Algorithm が頓挫したタイミング](https://github.com/whatwg/html/pull/7829/)で `<hgroup>` の仕様も塗り替えられ、
 現在は「任意の**ひとつの** h1-6 とひとつ以上の`<p>`を包含可能な要素」として振る舞うよう規定されています。
 これにより、過去に議論されていた「”`<h1>` 以外の小見出し” をどう解釈するか」問題は仕様で握られたことになります。
 
@@ -599,15 +599,16 @@ Heading Level Concept により、見出しレベルが h1~6 に限られなく�
 
 そのため、CSS 側では `:heading` および `:heading()` 疑似クラスの導入が検討されています。
 
-- [CSS pseudo-selector for h1-h6? · Issue #1008 · w3c/csswg-draft](shttps://github.com/w3c/csswg-drafts/issues/1008)
+- [CSS pseudo-selector for h1-h6? · Issue #1008 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/1008)
 - [[css-selectors-5] add `:heading`, `:heading(An+B)` pseudo classes by keithamus · Pull Request #11836 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/pull/11836)
 - [[selectors] Adding a `:heading()` selector for headingoffset? · Issue #10296 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/10296)
 
 ***
 
-以下に Demo を用意しました。Chrome Dev 136 以上のビルドで動作が確認できます。
+以下に Demo を用意しました。`headingoffset`, `headingreset` attributes に関しては、Chrome Dev 136 以上のビルドで動作が確認できます。
 
 - [Heading Level Concept | studio.sakupi01.com](https://studio.sakupi01.com/whatwg/headingoffset/)
+- [5445406: Prototype 'headingoffset'/`headingreset` attributes on HTMLElement.](https://chromium-review.googlesource.com/c/chromium/src/+/5445406)
 
 Outline Algorithm 亡き今、Heading Level Concept による見出しの自動調整へ、期待が高まります。
 

@@ -8,28 +8,30 @@
 
   <style>
     /* not working somehow */
-    :heading {
+    :where(:heading) {
       color: green;
     }
 
     /* still not working somehow */
-    :heading(1) {
+    :where(:heading(1)) {
       color: red;
     }
 
     /* still not working somehow */
-    :heading(2) {
+    :where(:heading(2)) {
       color: blue;
     }
   </style>
 </head>
 
 <body>
-  <h1>`headingoffset`, `headingreset` attributes & `:heading`, `:heading(N)` pseudo selectors</h1>
+  <h1>`headingoffset`, `headingreset` attributes & `:heading`, `:heading(N)` pseudo classes</h1>
   <p>Summary: A system for creating structured headings within a document.</p>
   <p>Intent <a
       href="https://groups.google.com/a/chromium.org/g/blink-dev/c/8yl-pJhuLHE/m/0l7fGKgaAAAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/8yl-pJhuLHE/m/0l7fGKgaAAAJ</a>
   <p>[wip] Spec: <a href="https://github.com/whatwg/html/pull/11086">https://github.com/whatwg/html/pull/11086</a>
+  <p>5445406: Prototype 'headingoffset'/`headingreset` attributes on HTMLElement.: <a
+      href="https://chromium-review.googlesource.com/c/chromium/src/+/5445406">https://chromium-review.googlesource.com/c/chromium/src/+/5445406</a>
   </p>
   <p>Other Resources:</p>
   <ul>
@@ -39,12 +41,14 @@
         · whatwg/html</a></li>
   </ul>
 
-  <p>=== This is a demo of `headingoffset`, `headingreset` attributes & `:heading`, `:heading(N)` pseudo selectors ===
+  <p>=== This is a demo of `headingoffset`, `headingreset` attributes & `:heading`, `:heading(N)` pseudo classes ===
+  <p>=== This is a demo of `headingoffset`, `headingreset` attributes are only prototyped in Chrome Dev 136. pseudo
+    classes are still under construction ===
   </p>
   <main headingoffset="0">
     <h1>Settings</h1>
     <section headingoffset="1">
-      <h1>Account</h1> <!-- h2として解釈 -->
+      <h1>Account</h1> <!-- interpreted as h2 -->
 
       <dialog id="non-modal" open headingrese>
         <h1>Not a Modal Dialog</h1>
@@ -57,7 +61,7 @@
 
       <dialog id="modal" headingreset>
         <button autofocus>Close</button>
-        <h1>Modal Dialog</h1> <!-- `headingreset` があるため、h2 ではなく、h1として解釈される -->
+        <h1>Modal Dialog</h1> <!-- with `headingreset`, interpreted as h1. NOT h2 -->
         <p>This is a Modal Dialog, headingreset is applied.</p>
         <p>So, the heading level is reset and now h1.</p>
       </dialog>
