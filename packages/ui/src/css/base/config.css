@@ -10,11 +10,18 @@ Config settings.
   --article-max-width: 900px;
 
   /* Spacing and gutters. Use for margin|padding, and gap in flex|grid layouts. */
-  --gutter-xs: var(--space-2xs-xs);
-  --gutter-s: var(--space-xs-s);
-  --gutter-m: var(--space-s-m);
-  --gutter-l: var(--space-m-l);
-  --gutter-xl: var(--space-l-xl);
+  --gap-xs: var(--space-2xs-xs);
+  --gap-s: var(--space-xs-s);
+  --gap-m: var(--space-s-m);
+  --gap-l: var(--space-m-l);
+  --gap-xl: var(--space-l-xl);
+
+  /* Spacing and gutters. Use for margin|padding, and gap in flex|grid layouts. */
+  --gutter-xs: var(--lh-2xs-xs);
+  --gutter-s: var(--lh-xs-s);
+  --gutter-m: var(--lh-s-m);
+  --gutter-l: var(--lh-m-l);
+  --gutter-xl: var(--lh-l-xl);
 
   /* :focus-visible.
         - Uses transparent outline so high contrast mode works.

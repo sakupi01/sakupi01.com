@@ -127,7 +127,7 @@ header {
   font-style: italic;
   font-weight: 600;
   font-optical-sizing: auto;
-  margin-block: var(--gutter-s) var(--gutter-s);
+  margin-block: var(--gutter-s);
 }
 
 footer {

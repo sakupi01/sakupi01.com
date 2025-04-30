@@ -33,12 +33,10 @@ const { url, title, date, excerpt } = Astro.props;
       letter-spacing: .03em;
       text-wrap: pretty;
       font-size: 1.3rem;
-      margin-block-start: 0;
-      margin-block-end: var(--gutter-xs);
+      margin-block: var(--gutter-xs);
     }
     .published {
-      margin-block-end: 0;
-      margin-block-start: var(--gutter-m);
+      margin-block: var(--gutter-m) 0;
       opacity: .7;
       font-style: italic;
       font-weight: 400;
@@ -46,7 +44,7 @@ const { url, title, date, excerpt } = Astro.props;
     .excerpt {
       opacity: .8;
       text-wrap: pretty;
-      margin-block-end: 0;
       font-style: italic;
+      margin-block-end: 0;
   }
 </style>
