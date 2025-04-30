@@ -7,7 +7,7 @@ export const handleHTML = (html: any, info: { url: any; transformer: any }) => {
     transformer.name === "@remark-embedder/transformer-oembed" ||
     url.includes("twitter.com")
   ) {
-    return `<div style="max-width: max-content; margin-left: auto; margin-right: auto">${html}</div>`;
+    return `<div style="margin-block-end: var(--gutter-m);">${html}</div>`;
   }
   return html;
 };

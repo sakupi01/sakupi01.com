@@ -298,9 +298,8 @@ Article Markdown Style
   */
   .rlc-container {
     width: 100%;
-    max-width: 800px;
-    max-height: 120px;
-    margin: 2rem auto;
+    max-height: 152px;
+    margin: 2rem 0;
     background-color: light-dark(var(--color-gray-0), var(--color-base-dark));
     color: light-dark(var(--color-base-darkest), var(--color-base-light));
     text-decoration: none;
@@ -311,7 +310,6 @@ Article Markdown Style
     align-items: stretch;
     transition-property: all;
     /* stylelint-disable-next-line declaration-property-value-no-unknown */
-    transition-duration: var(200ms, var(--default-transition-duration));
     transition-duration: 200ms;
     transition-timing-function: var(--ease-in-out);
 
@@ -339,8 +337,11 @@ Article Markdown Style
     .rlc-description {
       font-size: var(--font-size-s);
       color: light-dark(var(--color-base-dark), var(--color-base-light));
-      overflow: hidden;
       line-height: 1rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
     }
 
     .rlc-url-container {
