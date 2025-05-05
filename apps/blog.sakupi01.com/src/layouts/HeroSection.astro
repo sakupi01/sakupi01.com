@@ -11,7 +11,7 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
     <Title title={title}></Title>
     {image && <img src={image} alt={title} />}
     <div class="dates">
-      <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p> /
+      <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
       <p class="update"> Updated on <time datetime={convertToValidTimeDateString(update)}>{formatRFC2822Date(update)}</time></p>
     </div>
     <p class="excerpt">{excerpt}</p>
