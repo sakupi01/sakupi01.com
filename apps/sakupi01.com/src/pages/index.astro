@@ -27,7 +27,7 @@ const links = {
       ))}
     </ul>
   </section>
-
+<hr />
 <section>
   <h2>
     On The Blog
@@ -35,6 +35,7 @@ const links = {
   <iframe style="width: 100%; height: 70vh;" src={`${import.meta.env.PUBLIC_BLOG}recents`} allowfullscreen allow="clipboard-write; encrypted-media; picture-in-picture" loading="lazy" sandbox="allow-scripts allow-same-origin allow-top-navigation-by-user-activation" />
 </section>
 
+<hr />
 <section>
   <h2>
     At Conferences & Events
@@ -49,9 +50,10 @@ const links = {
     <a class="link" href="https://cssday.nl/" target="_blank">Find me!</a>
   </div>
 </section>
+<hr />
 
 <div class="grid">
-    <section style="display: grid; place-content: start; place-items: start;">
+    <section class="podcast">
       <h2>
         On Podcasts
       </h2>
@@ -86,11 +88,6 @@ const links = {
 <style>
   iframe {
     content-visibility: auto;
-  }
-  .grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 1fr 2fr;
   }
 
   .sns-link {
@@ -163,8 +160,13 @@ const links = {
   );
   }
   }
+  .grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
        /* モバイル対応 */
-       @media (max-width: 768px) {
+    @media (max-width: 768px) {
     .grid {
       grid-template-columns: 1fr;
     }

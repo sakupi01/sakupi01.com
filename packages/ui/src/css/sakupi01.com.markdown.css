@@ -204,15 +204,17 @@ Article Markdown Style
 
   hr {
     /* stylelint-disable-next-line custom-property-pattern */
-    --curved-underlineWidth: 3;
+    --curved-underlineWidth: 2;
     /* stylelint-disable-next-line custom-property-pattern */
     --curved-underlineColor: #ccc;
     /* stylelint-disable-next-line custom-property-pattern */
-    --curved-underlineSpread: 60;
+    --curved-underlineSpread: 45;
 
     background: paint(curved-underline);
     height: 20px;
     border: 0;
+    margin: 5lh auto;
+    width: 30%;
   }
 
   /*
@@ -221,11 +223,11 @@ Article Markdown Style
   ----------------------------------------------------------------------------
   */
   h1 {
-    margin: 2rem 0 2rem -1.5rem;
+    margin-block: var(--gutter-l);
   }
 
   h2 {
-    margin: 2rem 0 2rem -1.5rem;
+    margin-block: var(--gutter-m);
 
     &::before {
       color: var(--color-cyan-2);
@@ -233,7 +235,7 @@ Article Markdown Style
   }
 
   h3 {
-    margin: 2rem 0 2rem -1.5rem;
+    margin-block: var(--gutter-m);
 
     &::before {
       color: var(--color-violet-2);
@@ -241,15 +243,15 @@ Article Markdown Style
   }
 
   h4 {
-    margin: 2rem 0 2rem -1.5rem;
+    margin-block: var(--gutter-s);
   }
 
   h5 {
-    margin: 2rem 0 2rem -1.5rem;
+    margin-block: var(--gutter-xs);
   }
 
   h6 {
-    margin: 2rem 0 2rem -1.5rem;
+    margin-block: var(--gutter-xs);
   }
 
   /*

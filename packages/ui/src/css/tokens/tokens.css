@@ -197,12 +197,12 @@
   --color-ivory-7: oklch(10% var(--chroma-ivory, none) var(--hue-ivory, none));
 
   /* Typography. */
-  --font-fallback: inter, "Hiragino Kaku Gothic ProN", system-ui, "Segoe UI",
-    roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
+  --font-san-serif-fallback: arial, helvetica, sans-serif;
+  --font-fallback-cascadia: "Fallback for Cascadia";
+  --font-fallback-alegreya: "Fallback for Alegreya";
   --font-family-inter: inter;
   --font-family-operator: operator;
-  --font-family-cascadia: cascadia;
+  --font-family-cascadia: "Cascadia Code";
   --font-family-alegreya: alegreya;
 
   /* Fluid type scale.
