@@ -18,6 +18,8 @@
       width: 100%;
       max-width: var(--article-max-width);
       margin: 1rem auto 3rem;
+
+      /* margin-trim: block; */
     }
   }
 }
