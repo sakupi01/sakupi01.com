@@ -36,6 +36,29 @@ Base Styles under sakupi01.com
 @scope (body) {
   * {
     line-height: 1.5;
+
+    ::selection {
+      color: light-dark(var(--color-base-light), var(--color-base-dark));
+      background-color: light-dark(
+        var(--color-base-dark),
+        var(--color-base-light)
+      );
+    }
+  }
+
+  hr {
+    /* stylelint-disable-next-line custom-property-pattern */
+    --curved-underlineWidth: 2;
+    /* stylelint-disable-next-line custom-property-pattern */
+    --curved-underlineColor: #ccc;
+    /* stylelint-disable-next-line custom-property-pattern */
+    --curved-underlineSpread: 45;
+
+    background: paint(curved-underline);
+    height: 20px;
+    border: 0;
+    margin: 5lh auto;
+    width: 30%;
   }
 
   /*

@@ -1,5 +1,4 @@
 @import "./font.css";
-@import "https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&family=Alegreya:ital,wght@0,400..900;1,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap";
 
 /*
 ----------------------------------------------------------------------------
@@ -8,11 +7,15 @@ Typography settings.
 */
 
 :root {
-  --base-font-family: var(--font-family-inter), var(--font-fallback);
-  --base-font-family-title: var(--font-family-alegreya), var(--font-fallback);
-  --base-font-family-operator: var(--font-family-operator), var(--font-fallback);
-  --base-font-family-cascadia: var(--font-family-cascadia), var(--font-fallback);
-  --base-font-family-alegreya: var(--font-family-alegreya), var(--font-fallback);
+  --base-font-family: var(--font-family-inter), var(--font-san-serif-fallback);
+  --base-font-family-title: var(--font-family-alegreya),
+    var(--font-fallback-alegreya), serif;
+  --base-font-family-operator: var(--font-family-operator),
+    var(--font-san-serif-fallback);
+  --base-font-family-cascadia: var(--font-family-cascadia),
+    var(--font-fallback-cascadia);
+  --base-font-family-alegreya: var(--font-family-alegreya),
+    var(--font-fallback-alegreya), serif;
   --base-font-size: 100%;
   --base-font-size-2k: 110%; /* 2K screens */
   --base-font-size-4k: 200%; /* 4K screens */
