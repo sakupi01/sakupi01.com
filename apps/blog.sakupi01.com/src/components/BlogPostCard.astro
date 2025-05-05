@@ -10,7 +10,7 @@ const { url, title, date, excerpt } = Astro.props;
 <li class="blog-post-card">
     <a href={url}>
       <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
-      <h3 class="title">{title}</h3>
+      <h2 class="title">{title}</h2>
     </a>
     <p class="excerpt">{excerpt}</p>
     <a href={url}>Read more...</a>
@@ -29,22 +29,21 @@ const { url, title, date, excerpt } = Astro.props;
     color: var(--color-text);
 }
     .title {
-      letter-spacing: .03em;
-      text-wrap: pretty;
-      font-size: 1.3rem;
+      letter-spacing: .03rem;
+      text-wrap: balance;
+      font-optical-sizing: auto;
+      font-size: 1.5rem;
       margin-block: var(--gutter-xs);
     }
 
     .published {
       margin-block: var(--gutter-m) 0;
       opacity: .7;
-      font-style: italic;
       font-weight: 400;
     }
     .excerpt {
       opacity: .8;
       text-wrap: pretty;
       margin-block-end: 0;
-      font-style: italic;
   }
 </style>

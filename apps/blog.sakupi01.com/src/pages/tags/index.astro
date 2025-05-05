@@ -10,7 +10,7 @@ function getTags() {
 
 const tags = getTags();
 ---
-<Layout pageTitle="saku's blog - Tags" description="Tags Archive" url="/tags/">
+<Layout pageTitle="@sakupi01.com blog - Tags" description="Tags Archive" url="/tags/">
   <Title title="Tags Archive ..." />
   <ul class="tags">
     {tags.map((tag: any) => (
@@ -27,7 +27,6 @@ const tags = getTags();
     font-family: var(--base-font-family-cascadia);
     font-weight: 600;
     font-optical-sizing: auto;
-    font-style: italic;
     a {
       transition: color .2s;
     color: var(--focusable);

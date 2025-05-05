@@ -5,11 +5,15 @@ import Header from "../components/Header.astro";
 
 interface Props {
   pageTitle?: string;
-  description: string;
+  description?: string;
   url: string;
 }
 
-const { pageTitle = "saku's blog", description, url } = Astro.props;
+const {
+  pageTitle = "@sakupi01.com",
+  description = "The personal website of saku. A front-end developer, who loves Web & UI",
+  url,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -17,7 +21,7 @@ const { pageTitle = "saku's blog", description, url } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="The personal website of saku. Front-end developer, Design Technologist, and enthusiast of all things Web & UI" />
+    <meta name="description" content="The personal website of saku. A Front-end developer, Design Technologist, and an enthusiast of all things about Web & UI" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />

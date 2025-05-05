@@ -4,11 +4,11 @@ const { title, style } = Astro.props;
 
 <h1 class="title" style=`${style}`>{title}</h1>
 
-
 <style>
   .title {
-  font-optical-sizing: auto;
-  font-weight: 600;
-  margin-block-start: var(--gutter-l);
+    margin-block: var(--gutter-l) var(--gutter-xs);
+    letter-spacing: .03em;
+    text-wrap: pretty;
+    font-optical-sizing: auto;
   }
 </style>

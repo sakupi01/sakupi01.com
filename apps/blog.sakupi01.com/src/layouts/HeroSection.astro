@@ -1,4 +1,5 @@
 ---
+import Title from "../components/Title.astro";
 import {
   convertToValidTimeDateString,
   formatRFC2822Date,
@@ -7,17 +8,12 @@ import {
 const { title, image, date, update, excerpt, tags } = Astro.props;
 ---
 <div class="hero-section">
-  <ul class="tags">
-      {tags.map((tag: any) => (
-        <li>
-          <a href={`/tags/${tag}`}>#{tag}</a>
-        </li>
-      ))}
-    </ul>
-    <h1 class="title">{title}</h1>
+    <Title title={title}></Title>
     {image && <img src={image} alt={title} />}
-    <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
-    <p class="update"> Updated on <time datetime={convertToValidTimeDateString(update)}>{formatRFC2822Date(update)}</time></p>
+    <div class="dates">
+      <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p> /
+      <p class="update"> Updated on <time datetime={convertToValidTimeDateString(update)}>{formatRFC2822Date(update)}</time></p>
+    </div>
     <p class="excerpt">{excerpt}</p>
 </div>
 
@@ -27,11 +23,7 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
     font-family: var(--base-font-family-cascadia);
     font-weight: 400;
     font-optical-sizing: auto;
-    .title {
-      margin-block-start: var(--gutter-l);
-      letter-spacing: .03em;
-      text-wrap: pretty;
-    }
+
     .tags {
       list-style: none;
       display: flex;
@@ -51,17 +43,21 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
     }
   }
 
-      .published {
-      margin-block: var(--gutter-m);
-      opacity: .7;
-      font-style: italic;
-      font-weight: 400;
-    }
+  .dates {
+    display: grid;
+    gap : 1rem;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: 1fr;
+
+    .published {
+    opacity: .7;
+    font-weight: 400;
+  }
+  }
     .excerpt {
       opacity: .8;
       text-wrap: pretty;
       margin-block-end: 0;
-      font-style: italic;
   }
   }
 </style>

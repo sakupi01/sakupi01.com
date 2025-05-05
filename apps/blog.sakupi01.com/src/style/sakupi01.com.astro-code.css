@@ -14,7 +14,6 @@ Styles for Astro Code Highlighter
   margin-block-end: var(--gutter-m);
   font-family: var(--base-font-family-cascadia);
   font-optical-sizing: auto;
-  font-style: italic;
   font-weight: 400;
   background-color: transparent !important;
 
@@ -22,7 +21,6 @@ Styles for Astro Code Highlighter
   code {
     font-family: var(--base-font-family-cascadia);
     font-optical-sizing: auto;
-    font-style: italic;
     font-weight: 400;
     font-size: inherit;
     border: none;

@@ -56,7 +56,6 @@ Base Styles under sakupi01.com
   code {
     font-family: var(--base-font-family-cascadia);
     font-optical-sizing: auto;
-    font-style: italic;
     font-weight: 400;
     font-size: 90%;
     background-color: var(--astro-code-background);
@@ -124,7 +123,6 @@ header {
   color: var(--header-text);
   padding: .5rem;
   font-family: var(--base-font-family-cascadia);
-  font-style: italic;
   font-weight: 600;
   font-optical-sizing: auto;
   margin-block: var(--gutter-s);

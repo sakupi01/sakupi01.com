@@ -35,7 +35,6 @@
   code {
     font-family: var(--base-font-family-cascadia);
     font-optical-sizing: auto;
-    font-style: italic;
     font-weight: 400;
     font-size: 90%;
     background-color: var(--astro-code-background);

@@ -29,22 +29,21 @@ const { url, title, date, excerpt } = Astro.props;
     color: var(--color-text);
 }
     .title {
-      margin-block-start: var(--gutter-l);
-      letter-spacing: .03em;
-      text-wrap: pretty;
-      font-size: 1.3rem;
+      letter-spacing: .03rem;
+      text-wrap: balance;
+      font-optical-sizing: auto;
+      font-size: 1.5rem;
       margin-block: var(--gutter-xs);
     }
+
     .published {
       margin-block: var(--gutter-m) 0;
       opacity: .7;
-      font-style: italic;
       font-weight: 400;
     }
     .excerpt {
       opacity: .8;
       text-wrap: pretty;
-      font-style: italic;
       margin-block-end: 0;
   }
 </style>
