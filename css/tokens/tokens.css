@@ -202,7 +202,7 @@
   --font-fallback-alegreya: "Fallback for Alegreya";
   --font-family-inter: inter;
   --font-family-operator: operator;
-  --font-family-cascadia: "Cascadia Code";
+  --font-family-cascadia: cascadia;
   --font-family-alegreya: alegreya;
 
   /* Fluid type scale.
