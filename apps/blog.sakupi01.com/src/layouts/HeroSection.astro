@@ -31,16 +31,13 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
       gap: 0.5rem;
       padding: 0;
       a {
-      transition: color .2s;
-      &:hover {
-          color: var(--focusable);
-          text-decoration: underline;
-          text-decoration-color: var(--focusable);
-          text-decoration-thickness: 0.2rem;
-          text-decoration-style: dotted;
-          text-decoration-skip-ink: none;
+            transition: all .15s linear;
+            color: var(--focusable);
+
+            &:hover {
+                border-bottom: 1px solid var(--focusable);
+            }
       }
-    }
   }
 
   .dates {

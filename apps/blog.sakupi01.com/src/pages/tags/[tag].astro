@@ -34,19 +34,13 @@ const { posts } = Astro.props;
     font-weight: 600;
     font-optical-sizing: auto;
     a {
-      font-family: var(--base-font-family-cascadia);
-      font-weight: 600;
-      font-optical-sizing: auto;
-      transition: color .2s;
-    color: var(--focusable);
-    &:hover {
-        text-decoration: underline;
-        text-decoration-color: var(--focusable);
-        text-decoration-thickness: 0.2rem;
-        text-decoration-style: dotted;
-        text-decoration-skip-ink: none;
-    }
-    }
+            transition: all .15s linear;
+            color: var(--focusable);
+
+            &:hover {
+                border-bottom: 1px solid var(--focusable);
+            }
+      }
   }
   .posts {
     display: grid;
