@@ -18,7 +18,7 @@ Font-face rules.
 @font-face {
   font-family: "Fallback for Cascadia";
   src: local(arial);
-  size-adjust: 121%;
+  size-adjust: 102%;
   ascent-override: 98%;
   descent-override: 0%;
   line-gap-override: 0%;
@@ -62,4 +62,20 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 115%;
+}
+
+@font-face {
+  font-family: cascadia;
+  font-weight: 200 900;
+  src: url("/fonts/Cascadia/CascadiaMonoNF.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: cascadia;
+  font-weight: 200 900;
+  src: url("/fonts/Cascadia/CascadiaMonoNFItalic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
 }
