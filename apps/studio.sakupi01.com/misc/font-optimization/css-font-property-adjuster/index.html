@@ -369,7 +369,13 @@
         </div>
 
         <h3>Font Features: <code>font-variant</code> and <code>font-feature-settings</code></h3>
-        <p>Control OpenType features in the font. These can significantly enhance typography and readability.</p>
+        <p>Control OpenType features in the font. <code>proportional-width</code> for
+            <code>font-variant-east-asian</code> or <code>palt</code> for
+            <code>font-feature-settings</code> are for controlling proportional metrics. When it's used, OpenType's font
+            spacing
+            information is referred to instead of referring to equal amplitude. This feature is available
+            for specific font families.
+        </p>
         <details>
             <summary>Expand Font Feature Controls</summary>
             <div class="feature-section">
