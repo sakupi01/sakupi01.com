@@ -8,7 +8,7 @@ const { url, title, date, excerpt } = Astro.props;
 ---
 
 <li class="blog-post-card">
-  <a href={url} class="title-container">
+  <a href={url} class="title-container" target="_parent" rel="noopener">
     <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
     <h2 class="title">{title}</h2>
   </a>
@@ -28,7 +28,7 @@ const { url, title, date, excerpt } = Astro.props;
 .title-container {
   color: var(--color-text);
   border-bottom: none;
-  
+  outline: none;
   .title {
     letter-spacing: .03rem;
     text-wrap: balance;
