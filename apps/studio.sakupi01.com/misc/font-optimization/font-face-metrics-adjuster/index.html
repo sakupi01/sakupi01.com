@@ -23,50 +23,11 @@
     <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/sakupi01.com.css">
     <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/sakupi01.com.markdown.css">
     <style>
-        /* General styles from original file */
-        .heading {
-            font-family: var(--base-font-family-alegreya);
-            font-optical-sizing: auto;
-            font-weight: 600;
-            margin-block: var(--gutter-xs);
+        :where(html) {
+            color-scheme: only light;
         }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--header-text);
-            padding: .5rem;
-            font-family: var(--base-font-family-cascadia);
-            font-weight: 600;
-            font-optical-sizing: auto;
-            margin-block-start: var(--gutter-s);
-            margin-block-end: var(--gutter-s);
-        }
-
-        header .header-icon {
-            margin: 10px;
-        }
-
-        header .header-icon a {
-            width: 4rem;
-            display: flex;
-            transition: filter .2s;
-        }
-
-        header .header-icon a:hover {
-            filter: brightness(1.5);
-        }
-
-        a {
-            transition: all .15s linear;
-            color: var(--focusable);
-        }
-
-        a:hover {
-            border-bottom: 1px solid var(--focusable);
-        }
-
+    </style>
+    <style>
         :root {
             --primary-color: var(--color-code-dark);
             --secondary-color: var(--color-code-light);
@@ -164,7 +125,7 @@
 
         .metrics-display {
             margin-top: 20px;
-            background-color: #333;
+            border: 1px solid #333;
             padding: 15px;
             border-radius: 5px;
             font-family: monospace;
