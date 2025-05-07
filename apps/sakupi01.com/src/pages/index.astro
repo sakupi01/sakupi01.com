@@ -90,15 +90,9 @@ const links = {
     content-visibility: auto;
   }
 
-  .sns-link {
-    color: light-dark(
-      var(--color-base-dark),
-      var(--color-base-light)
-  );
+  a {
+    color: var(--color-text)
     transition: color 0.2s;
-    &:hover {
-      color: deeppink;
-    }
   }
 
   section {
@@ -139,26 +133,6 @@ const links = {
   .link {
     font-style: italic;
     display: inline-block;
-    text-decoration: none;
-    color: color-mix(in oklch, light-dark(
-      var(--color-base-dark),
-      var(--color-base-light)
-  ), white 35%);
-    border-bottom: 1px dashed color-mix(in oklch, light-dark(
-      var(--color-base-dark),
-      var(--color-base-light)
-  ), white 35%);
-    transition: color 0.2s, border-color 0.2s;
-    &:hover {
-      color: light-dark(
-      var(--color-base-dark),
-      var(--color-base-light)
-  );
-    border-color: 1px dashed light-dark(
-      var(--color-base-dark),
-      var(--color-base-light)
-  );
-  }
   }
   .grid {
     display: grid;

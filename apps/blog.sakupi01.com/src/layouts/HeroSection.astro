@@ -23,21 +23,6 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
     font-family: var(--base-font-family-cascadia);
     font-weight: 400;
     font-optical-sizing: auto;
-
-    .tags {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 0;
-      a {
-            transition: all .15s linear;
-            color: var(--focusable);
-
-            &:hover {
-                border-bottom: 1px solid var(--focusable);
-            }
-      }
   }
 
   .dates {
@@ -47,7 +32,7 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
     grid-template-rows: 1fr;
 
     .published {
-    opacity: .7;
+    color: var(--color-text);
     font-weight: 400;
   }
   }

@@ -26,6 +26,10 @@ Base Styles under sakupi01.com
     var(--color-primary-medium),
     var(--color-primary-medium)
   );
+  --link-border: light-dark(
+    color-mix(in oklch, var(--color-base-dark), white 50%),
+    color-mix(in oklch, var(--color-base-light), black 30%)
+  );
   --code-color: light-dark(var(--color-code-light), var(--color-code-dark));
   --focusable: deeppink;
   --focused: hotpink;
@@ -69,6 +73,13 @@ Base Styles under sakupi01.com
   a {
     text-decoration-line: none;
     word-wrap: break-word;
+    transition: all .15s linear;
+    padding: 0.05rem 0.1rem;
+    border-bottom: 1px solid var(--link-border);
+
+    &:hover {
+      border-bottom: 1px solid var(--focusable);
+    }
   }
 
   /*
@@ -135,6 +146,37 @@ Base Styles under sakupi01.com
 
     tbody tr:last-child {
       border: none;
+    }
+  }
+
+  /*
+  ----------------------------------------------------------------------------
+  Shared Heading Styles
+  ----------------------------------------------------------------------------
+  */
+  :is(h1, h2, h3, h4, h5, h6, [class*="h--"]) {
+    font-family: var(--base-font-family-alegreya);
+    color: light-dark(var(--color-base-dark), var(--color-base-light));
+
+    a {
+      color: var(--color-text);
+      border-bottom: none;
+    }
+
+    &:hover {
+      a {
+        color: var(--color-text);
+        border-bottom: none;
+
+        &::after {
+          content: " #";
+          color: var(--color-notify-medium);
+        }
+      }
+    }
+
+    + * {
+      margin-top: 0;
     }
   }
 }
