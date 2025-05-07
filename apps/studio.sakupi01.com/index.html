@@ -22,6 +22,10 @@
   <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/sakupi01.com.css">
   <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/sakupi01.com.markdown.css">
   <style>
+    :where(html) {
+      color-scheme: only light;
+    }
+
     .title {
       font-family: var(--base-font-family-alegreya);
       margin-block: var(--gutter-l) var(--gutter-xs);
@@ -52,6 +56,8 @@
         margin: 10px;
 
         a {
+          color: var(--color-text);
+          border-bottom: none;
           width: 4rem;
           display: flex;
           transition: filter .2s;
