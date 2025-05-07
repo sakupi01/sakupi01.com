@@ -179,24 +179,80 @@ Base Styles under sakupi01.com
       margin-top: 0;
     }
   }
-}
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--header-text);
-  padding: .5rem;
-  font-family: var(--base-font-family-cascadia);
-  font-weight: 600;
-  font-optical-sizing: auto;
-  margin-block: var(--gutter-s);
-}
+  /*
+  ----------------------------------------------------------------------------
+  Page Tittle
+  ----------------------------------------------------------------------------
+  */
+  .title {
+    margin-block: var(--gutter-l) var(--gutter-xs);
+    letter-spacing: .03em;
+    text-wrap: balance;
+    font-optical-sizing: auto;
+  }
 
-footer {
-  padding: 2rem;
-  text-align: center;
-  font-family: var(--base-font-family-alegreya);
-  font-optical-sizing: auto;
-  font-weight: 400;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--header-text);
+    padding: .5rem;
+    font-family: var(--base-font-family-cascadia);
+    font-weight: 600;
+    font-optical-sizing: auto;
+    margin-block: var(--gutter-s);
+
+    .left {
+      /* stylelint-disable-next-line no-descending-specificity */
+      a {
+        color: var(--color-text);
+        border-bottom: none;
+        width: 4rem;
+        display: flex;
+        transition: filter .2s;
+
+        &:hover {
+          filter: brightness(1.5);
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (width <= 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .left {
+      margin-bottom: 1rem;
+    }
+
+    .right {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      /* stylelint-disable-next-line selector-id-pattern */
+      #soundToggle {
+        display: none;
+      }
+    }
+  }
+
+  footer {
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--base-font-family-alegreya);
+    font-optical-sizing: auto;
+    font-weight: 400;
+  }
 }
