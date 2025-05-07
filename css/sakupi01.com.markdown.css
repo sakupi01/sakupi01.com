@@ -51,15 +51,6 @@ Article Markdown Style
     }
   }
 
-  a {
-    transition: all .15s linear;
-    color: var(--focusable);
-
-    &:hover {
-      border-bottom: 1px solid var(--focusable);
-    }
-  }
-
   /*
   ----------------------------------------------------------------------------
   Baseline Status
@@ -252,32 +243,9 @@ Article Markdown Style
 
   /*
   ----------------------------------------------------------------------------
-  Shared Heading Styles
+  Markdown Heading Styles
   ----------------------------------------------------------------------------
   */
-  :is(h1, h2, h3, h4, h5, h6, [class*="h--"]) {
-    font-family: var(--base-font-family-alegreya);
-
-    a {
-      color: var(--color-text);
-    }
-
-    &:hover {
-      a {
-        color: var(--color-text);
-        text-decoration: none;
-
-        &::after {
-          content: " #";
-          color: var(--color-notify-medium);
-        }
-      }
-    }
-
-    + * {
-      margin-top: 0;
-    }
-  }
 
   :is(h2, h3) {
     &::before {

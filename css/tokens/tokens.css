@@ -28,7 +28,7 @@
   --chroma-2: 0.17;
   --chroma-3: 0.15;
   --chroma-4: 0.12;
-  --chroma-gray: 0;
+  --chroma-gray: 0.01;
   --chroma-ivory: 0.0054;
 
   /* Colors. */
@@ -181,12 +181,12 @@
     var(--lightness, 67%) var(--chroma-gray, none) var(--hue-gray, none)
   );
   --color-gray-3: oklch(49% var(--chroma-gray, none) var(--hue-gray, none));
-  --color-gray-4: oklch(32% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-4: oklch(45% var(--chroma-gray, none) var(--hue-gray, none));
   --color-gray-5: oklch(25% var(--chroma-gray, none) var(--hue-gray, none));
   --color-gray-6: oklch(18% var(--chroma-gray, none) var(--hue-gray, none));
   --color-gray-7: oklch(10% var(--chroma-gray, none) var(--hue-gray, none));
   --color-ivory-0: oklch(98% var(--chroma-ivory, none) var(--hue-ivory, none));
-  --color-ivory-1: oklch(97% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-1: oklch(88% var(--chroma-ivory, none) var(--hue-ivory, none));
   --color-ivory-2: oklch(
     var(--lightness, 67%) var(--chroma-ivory, none) var(--hue-ivory, none)
   );
