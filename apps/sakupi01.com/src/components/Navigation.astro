@@ -7,12 +7,12 @@
   <button popovertarget="blogs" class="popovertarget soundable" data-id="--blogs-button">
       {"blogs"}
   </button>
-  <div id="blogs" popover data-id="--blogs-button">
-      <a href={`${import.meta.env.PUBLIC_BLOG}dev/`} class="soundable">{"dev"}</a>
-      <a href={`${import.meta.env.PUBLIC_BLOG}life/`} class="soundable">{"life"}</a>
-      <a href={`${import.meta.env.PUBLIC_BLOG}tags/`} class="soundable">{"tags"}</a>
-      <a href={`${import.meta.env.PUBLIC_BLOG}`} class="soundable">{"all"}</a>
-  </div>
+  <ul id="blogs" popover data-id="--blogs-button">
+      <li><a href={`${import.meta.env.PUBLIC_BLOG}dev/`} class="soundable">{"dev"}</a></li>
+      <li><a href={`${import.meta.env.PUBLIC_BLOG}life/`} class="soundable">{"life"}</a></li>
+      <li><a href={`${import.meta.env.PUBLIC_BLOG}tags/`} class="soundable">{"tags"}</a></li>
+      <li><a href={`${import.meta.env.PUBLIC_BLOG}`} class="soundable">{"all"}</a></li>
+  </ul>
   <a href={`${import.meta.env.PUBLIC_SLIDES}`} target="_blank" class="nav-item soundable">{"talks"}</a>
   <a href={`${import.meta.env.PUBLIC_STUDIO}`} target="_blank" class="nav-item soundable">{"studio"}</a>
   <a href={`${import.meta.env.PUBLIC_BLOG}feed.xml`} target="_blank" class="nav-item soundable">{"rss"}</a>
@@ -23,80 +23,87 @@
     display: flex;
     gap: 1rem;
 
-    @media (max-width: 768px) {
-      gap: 0.5rem;
-    }
-  }
-  
-  .soundable {
-    align-content: center;
-  }
-
-    :where(a, button) {
+    :is(a, button) {
         color: inherit;
     }
 
-    .popovertarget {
-      anchor-name: --blogs-button;
-          &:hover:not(:has(:popover-open)) {
-      transform: translateY(-3px);
+    @media (max-width: 768px) {
+      gap: 0.5rem;
     }
+    .soundable {
+      align-content: center;
     }
-    [popover] {
-      position: absolute;
-      opacity: 0;
-      translate: 0 -50px;
-      background: var(--color-base-lightest);
-      color: #333;
-      padding: 1rem;
-      border: 0.5px solid #ddd;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      min-width: 150px;
-      transition: translate .3s allow-discrete,
-                          opacity .3s,
-                          display .3s allow-discrete;
-      margin-bottom: 10px;
-      --center: anchor(--blogs-button 50%);
-      position-anchor: --blogs-button;
-      left: var(--center);
-      top: anchor(--blogs-button bottom);
-    }
-
-    @supports (position-area: bottom center) {
+  
+      .popovertarget {
+        anchor-name: --blogs-button;
+        transition: all .15s linear;
+            &:hover:not(:has(:popover-open)) {
+        transform: translateY(-3px);
+      }
+      }
       [popover] {
-        position-anchor: attr(data-id type(<custom-ident>), none);
-        position-area: bottom center;
-        position-try: normal flip-block;
-      }
-    }
-
-    :popover-open {
-      opacity: 1;
-      translate: 0 0;
-      display: grid;
-      gap: 1rem;
-      grid-auto-rows: min-content;
-      a:hover {
-        &::before {
-          content: "<";
-          color: var(--header-text);
-        }
-        &::after {
-          content: " />";
-          color: var(--header-text);
-        }
-      }
-    }
-
-    @starting-style {
-      :popover-open {
+        position: absolute;
         opacity: 0;
         translate: 0 -50px;
+        background: var(--color-base-lightest);
+        color: #333;
+        padding: 1rem;
+        border: 0.5px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        min-width: 150px;
+        transition: translate .3s allow-discrete,
+                            opacity .3s,
+                            display .3s allow-discrete;
+        margin-bottom: 10px;
+        --center: anchor(--blogs-button 50%);
+        position-anchor: --blogs-button;
+        left: var(--center);
+        top: anchor(--blogs-button bottom);
+        li {
+          list-style: none;
+        }
       }
-    }
-    .nav-item:hover {
-          transform: translateY(-3px);
+      :popover-open {
+        opacity: 1;
+        translate: 0 0;
+        display: grid;
+        gap: 1rem;
+        grid-auto-rows: min-content;
+        a:hover {
+          &::before {
+            content: "<";
+            color: var(--header-text);
+          }
+          &::after {
+            content: " />";
+            color: var(--header-text);
+          }
+        }
+      }
+  
+      @starting-style {
+        :popover-open {
+          opacity: 0;
+          translate: 0 -50px;
+        }
+      }
+  
+      @supports (position-area: bottom center) {
+        [popover] {
+          position-anchor: attr(data-id type(<custom-ident>), none);
+          position-area: bottom center;
+          position-try: normal flip-block;
+        }
+      }
+  
+  
+      .nav-item {
+        border-bottom: none;
+        &:hover {
+            transform: translateY(-3px);
+      }
+      }
     }
 </style>
 
