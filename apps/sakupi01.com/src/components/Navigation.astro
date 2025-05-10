@@ -89,14 +89,6 @@
         }
       }
   
-      @supports (position-area: bottom center) {
-        [popover] {
-          position-anchor: attr(data-id type(<custom-ident>), none);
-          position-area: bottom center;
-          position-try: normal flip-block;
-        }
-      }
-  
   
       .nav-item {
         border-bottom: none;
@@ -105,6 +97,14 @@
       }
       }
     }
+
+@supports (position-area: bottom center) {
+        [popover] {
+          position-anchor: attr(data-id type(<custom-ident>), none);
+          position-area: bottom center;
+          position-try: normal flip-block;
+        }
+      }
 </style>
 
 <script>
