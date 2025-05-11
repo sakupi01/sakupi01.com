@@ -19,7 +19,7 @@
 </nav>
 
 <style>
-  nav {
+nav {
     display: flex;
     gap: 1rem;
 
@@ -28,83 +28,86 @@
     }
 
     @media (max-width: 768px) {
-      gap: 0.5rem;
+        gap: 0.5rem;
     }
+    
     .soundable {
-      align-content: center;
+        align-content: center;
     }
-  
-      .popovertarget {
-        anchor-name: --blogs-button;
-        transition: all .15s linear;
-            &:hover:not(:has(:popover-open)) {
-        transform: translateY(-3px);
-      }
-      }
-      [popover] {
-        position: absolute;
-        opacity: 0;
-        translate: 0 -50px;
-        background: var(--color-base-lightest);
-        color: #333;
-        padding: 1rem;
-        border: 0.5px solid #ddd;
-        border-radius: 6px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        min-width: 150px;
-        transition: translate .3s allow-discrete,
-                            opacity .3s,
-                            display .3s allow-discrete;
-        margin-bottom: 10px;
-        --center: anchor(--blogs-button 50%);
-        position-anchor: --blogs-button;
-        left: var(--center);
-        top: anchor(--blogs-button bottom);
-        li {
-          list-style: none;
+
+    .nav-item {
+        border-bottom: none;
+        &:hover {
+            transform: translateY(-3px);
         }
-      }
-      :popover-open {
+    }
+}
+
+.popovertarget {
+    /* anchor positioning polyfill doesn't support nesting syntax */
+    anchor-name: --blogs-button;
+    transition: all .15s linear;
+    &:hover:not(:has(:popover-open)) {
+        transform: translateY(-3px);
+    }
+}
+
+[popover] {
+    position: absolute;
+    opacity: 0;
+    translate: 0 -50px;
+    background: var(--color-base-lightest);
+    color: #333;
+    padding: 1rem;
+    border: 0.5px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    min-width: 150px;
+    transition: translate .3s allow-discrete,
+                opacity .3s,
+                display .3s allow-discrete;
+    margin-bottom: 10px;
+    --center: anchor(--blogs-button 50%);
+    position-anchor: --blogs-button;
+    left: var(--center);
+    top: anchor(--blogs-button bottom);
+    
+    li {
+        list-style: none;
+    }
+    
+    &:popover-open {
         opacity: 1;
         translate: 0 0;
         display: grid;
         gap: 1rem;
         grid-auto-rows: min-content;
+        
         a:hover {
-          &::before {
-            content: "<";
-            color: var(--header-text);
-          }
-          &::after {
-            content: " />";
-            color: var(--header-text);
-          }
+            &::before {
+                content: "<";
+                color: var(--header-text);
+            }
+            &::after {
+                content: " />";
+                color: var(--header-text);
+            }
         }
-      }
-  
-      @starting-style {
-        :popover-open {
-          opacity: 0;
-          translate: 0 -50px;
+        
+        @starting-style {
+            opacity: 0;
+            translate: 0 -50px;
         }
-      }
-  
-  
-      .nav-item {
-        border-bottom: none;
-        &:hover {
-            transform: translateY(-3px);
-      }
-      }
     }
+}
 
 @supports (position-area: bottom center) {
-        [popover] {
-          position-anchor: attr(data-id type(<custom-ident>), none);
-          position-area: bottom center;
-          position-try: normal flip-block;
-        }
-      }
+    [popover] {
+        position-anchor: attr(data-id type(<custom-ident>), none);
+        position-area: bottom center;
+        position-try: normal flip-block;
+    }
+}
 </style>
 
 <script>
