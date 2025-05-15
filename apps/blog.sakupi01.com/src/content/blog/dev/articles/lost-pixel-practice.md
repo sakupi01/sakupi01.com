@@ -8,7 +8,7 @@ middleColor: 'via-emerald-300'
 endColor: 'to-amber-200'
 category: 'dev'
 tags: ['lost-pixel', 'vrt', 'testing', 'cicd']
-status: 'published'
+status: 'draft'
 ---
 ## Table of Contents
 
