@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  pageTitle = "@sakupi01.com",
-  description = "The personal website of saku. A front-end developer, who loves Web & UI",
+  pageTitle = "Home",
+  description = "The personal website of saku. A Front-end developer, Design Technologist, and an enthusiast of all things about Web & UI",
   url,
 } = Astro.props;
 ---
@@ -19,9 +19,11 @@ const {
 <!doctype html>
 <html lang="ja">
   <head>
+    <title>{pageTitle} | @sakupi01.com</title>
     <meta charset="UTF-8" />
+    <meta name="supported-color-schemes" content="light dark">
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="The personal website of saku. A Front-end developer, Design Technologist, and an enthusiast of all things about Web & UI" />
+    <meta name="description" content={description} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
@@ -134,10 +136,11 @@ const {
       if (CSS['paintWorklet'] === undefined)
       // @ts-ignore
       await import('https://unpkg.com/css-paint-polyfill@next/dist/css-paint-polyfill.js')
-
+      
       // @ts-ignore
       CSS.paintWorklet.addModule("/_scripts/curved-underline.js");
-      })();
+    })();
+    console.log("HAAAAAAAAAAAI!🌸 - @sakupi01.com");
     </script>
     
     <script
