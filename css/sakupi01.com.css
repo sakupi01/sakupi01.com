@@ -42,10 +42,10 @@ Base Styles under sakupi01.com
     line-height: 1.5;
 
     ::selection {
-      color: light-dark(var(--color-base-light), var(--color-base-dark));
+      color: light-dark(white, black);
       background-color: light-dark(
-        var(--color-base-dark),
-        var(--color-base-light)
+        var(--color-base-darkest),
+        var(--color-base-lightest)
       );
     }
   }
@@ -156,7 +156,7 @@ Base Styles under sakupi01.com
   */
   :is(h1, h2, h3, h4, h5, h6, [class*="h--"]) {
     font-family: var(--base-font-family-alegreya);
-    color: light-dark(var(--color-base-dark), var(--color-base-light));
+    color: light-dark(var(--color-base-dark), var(--color-base-lightest));
 
     a {
       color: var(--color-text);
