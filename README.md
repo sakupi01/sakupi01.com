@@ -1,6 +1,6 @@
 # stuff
 
-🌸 `/apps/sakupi01.com` : Portfolio(<https://sakupi01.com>)
+🌸 `/apps/sakupi01.com` : Home(<https://sakupi01.com>)
 
 🌸 `/apps/blog.sakupi01.com` : Blog(<https://blog.sakupi01.com>)
 
