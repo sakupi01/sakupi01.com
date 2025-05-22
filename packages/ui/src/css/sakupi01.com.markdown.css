@@ -390,14 +390,10 @@ Article Markdown Style
           color-mix(in oklab, oklch(87.57% 0.0326 17.79deg), white 40%),
           oklch(89.64% 0.0447 83.9deg)
         );
-        color: var(--color-base-medium);
+        color: var(--color-base-dark);
         padding: .8rem;
         transition: content-visibility .8s allow-discrete, height .8s
           allow-discrete, opacity .8s, block-size .8s;
-
-        ul {
-          list-style: none;
-        }
       }
 
       &[open] {
