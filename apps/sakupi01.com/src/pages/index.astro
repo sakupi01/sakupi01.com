@@ -60,7 +60,7 @@ const links = {
       <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator" width="100%" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
     </section>      
     
-    <section>
+    <section class="etc">
       <h2>
         etc, etc...
       </h2>
@@ -112,10 +112,6 @@ const links = {
     list-style: none;
     padding: 0;
     margin: 0;
-
-    li::marker {
-      content: none;
-    }
   }
 
   .upcoming-event {
@@ -142,6 +138,14 @@ const links = {
     display: grid;
     gap: 2rem;
     grid-template-columns: 1fr 1fr;
+
+  }
+  .etc {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
   }
        /* モバイル対応 */
     @media (max-width: 768px) {
