@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Carousels | studio.sakupi01.com</title>
+    <style>
+        .base {
+            width: 30vw !important;
+            border: 1px solid #ff0000;
+            padding: 0;
+            list-style-type: none;
+            counter-reset: item;
+            inline-size: 100cqi;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 20ch;
+            gap: 1.25rem;
+            padding-block: .5rem;
+            scroll-padding-inline: 5vmin;
+
+            >li {
+                display: grid;
+                place-content: center;
+                padding: 0;
+                width: 100px;
+                height: 100px;
+                border-radius: 10px;
+                border: 1px solid black;
+            }
+        }
+
+        /* snap scrollbars */
+        .carousel {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+
+            li {
+                scroll-snap-align: start;
+            }
+        }
+
+        /* scroll arrow buttons */
+        .carousel {
+            anchor-name: attr(data-anchor-name type(<custom-ident>), --carousel-container);
+
+            &::scroll-button(*) {
+                position: absolute;
+                position-anchor: attr(data-anchor-name type(<custom-ident>), --carousel-container);
+
+                &:focus-visible {
+                    outline-offset: 5px;
+                }
+            }
+
+            /* The browser will create real buttons, with your content inside, as siblings to the scroller.  */
+            &::scroll-button(left) {
+                position-area: block-end span-inline-end;
+                /* Specify content with optional accessible fallback alt text. */
+                content: "⬅" / "Scroll Left";
+            }
+
+            &::scroll-button(right) {
+                position-area: block-end span-inline-start;
+                content: "⮕" / "Scroll Right";
+            }
+        }
+
+        /* scroll marker */
+        .carousel {
+            scroll-marker-group: after;
+
+            &::scroll-marker-group {
+                position: fixed;
+                position-anchor: attr(data-anchor-name type(<custom-ident>), --carousel-container);
+                position-area: block-end;
+                margin: 10px;
+                display: grid;
+                grid-auto-columns: 20px;
+                grid-auto-flow: column;
+                gap: 20px;
+            }
+
+            li::scroll-marker {
+                content: " ";
+                cursor: pointer;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                border: 1px solid #333;
+                background-color: lightgray;
+
+                /* ⭐ Pseudo-element's Nesting is not allowed.
+                see: https://github.com/w3c/csswg-drafts/issues/9702
+                To sum up the issue, Nesting Selectors is de-sugared during its parse, and it ends up with :is() functional-pseudo-class.
+                However, the :is() doesn't accept pseudo-elements, (because of the historical reasons), so the nesting of pseudo-elements is not allowed.
+                The short historical reasons and current status: Pseudo-element is substantially not a simple selector, and it substantially behaves as a combinator.
+                It's Defined in a CSS Data Model, like so: https://www.w3.org/TR/selectors-4/#data-model
+                However, the :is(), functional-pseudo-class, works as a simple selector, and it does not accept pseudo-elements, which behaves as a combinator.
+                So, if you nest a pseudo-element, it ends up with de-sugared to :is() and will eliminates the pseudo-element.
+                */
+                /* &:target-current {
+                    background-color: purple;
+                    border-color: purple;
+                } */
+            }
+
+            li::scroll-marker:target-current {
+                background-color: purple;
+                border-color: purple;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Carousels with CSS </h1>
+    <p>Summary: Enable fine-tuning corners, on top of the existing border-radius, by specifying the shape/curvature of
+        the corner. This allows shapes like squircles, notches, scoops etc., and animating between them.</p>
+    <p>Intent: <a
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ</a>
+    </p>
+    <p>Spec: <a
+            href="https://drafts.csswg.org/css-overflow-5/#scroll-navigation">https://drafts.csswg.org/css-overflow-5/#scroll-navigation</a>
+    </p>
+    <p>Explainer: <a href="https://flackr.github.io/carousel/">https://flackr.github.io/carousel/</a>
+    </p>
+    <p>Other Resources:</p>
+    <ul>
+        <li><a href="https://developer.chrome.com/blog/carousels-with-css">Carousels with CSS  |  Blog  |  Chrome for
+                Developers</a></li>
+        <li><a href="https://chrome.dev/carousel/">Carousel Gallery</a></li>
+        <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/carousel/">Carousel (Slide Show or Image Rotator) Pattern
+                | APG | WAI | W3C</a></li>
+    </ul>
+    <p>=== This is a demo of CSS <code>::scroll-button()</code> and <code>::scroll-marker()</code> ===</p>
+
+    <ul class="base carousel" data-anchor-name="--carousel-container">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li>
+        <li>Item 7</li>
+        <li>Item 8</li>
+        <li>Item 9</li>
+        <li>Item 10</li>
+    </ul>
+</body>
+
+</html>
