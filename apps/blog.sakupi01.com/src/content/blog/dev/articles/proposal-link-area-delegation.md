@@ -46,7 +46,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 インタラクティブな要素同士を子孫関係におくことができない旨は仕様に明記されており、例えば`<a>`の Content Model であれば次のように定義されています。
 
 > Transparent, but there must be no interactive content descendant, a element descendant, or descendant with the tabindex attribute specified.
-> ***
+>
 > 透明、しかしインタラクティブなコンテンツの子孫、a要素の子孫、tabindex属性が指定された子孫が存在してはならない。
 > <https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element>
 
