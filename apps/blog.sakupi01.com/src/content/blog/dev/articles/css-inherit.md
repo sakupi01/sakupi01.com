@@ -1,5 +1,5 @@
 ---
-title: "🔓 Unlocking Parent Style Inheritance✨/ Nested で Dynamic で Adoptive を実現する `inherit()` という提案"
+title: "🔓 Unlocking Parent Style Inheritance✨/ Nested で Dynamic で Adoptive なスタイルを実現する `inherit()`"
 excerpt: "「親要素の任意プロパティ」にアクセスする手段として、`inherit()` の仕様が CSS Values and Units Module Level 5 で策定されています。これにより、Custom Properties を経由せず、親要素のプロパティを子要素から直接自己参照でき、長年望まれてきた非常に多くのユースケースが一挙に解決されることが期待されています。"
 date: 2025-05-28
 update: 2025-05-28
@@ -17,9 +17,9 @@ status: 'published'
 
 `var()` は Custom Properties を参照する関数ですが、CSS に「親要素の任意プロパティ」にアクセスする手段は存在しません。
 
-`inherit()` は、「プロパティの（自己）参照」を参照する手段として、プロポーザル の Original Post でも大きな注目を集め、現在仕様策定中の [CSS Values and Units Module Level 5](https://www.w3.org/TR/css-values-5/) に盛り込まれる予定の提案です。
+`inherit()` は、CSS の Custom Properties を経由せず、親要素のプロパティを子要素から直接自己参照できるようにすることで、ネストの深さに応じたスタイリングや、親に依存した動的なスタイリング、利用側の環境に適応したアダプティブな UI コンポーネントの実装が可能になることが期待される提案です。
 
-`inherit()` は、CSS の Custom Properties を経由せず、親要素のプロパティを子要素から直接自己参照できるようにすることで、ネストの深さに応じたスタイリングや、親に依存した動的なスタイリング、利用側の環境に適応したアダプティブな UI コンポーネントの実装が可能になることが期待されています。
+このプロポーザル本体や関連するプロポーザルは Original Post で大きな注目を集め、現在仕様策定中の [CSS Values and Units Module Level 5](https://www.w3.org/TR/css-values-5/) に盛り込まれる予定となっています。
 
 - [[css-values-5] `inherit()` function: like `var()` for parent value, for any property · Issue #2864 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2864)
 
@@ -36,7 +36,7 @@ Custom Properties は `var()` を用いて自己を参照することができ�
 > This, finally, is a cyclic substitution context, since it matches the substitution context from the first substitution, causing the substitution to just produce the [guaranteed-invalid value](https://drafts.csswg.org/css-variables-2/#guaranteed-invalid). This percolates back up the nested invocations, eventually resulting in `--one` becoming [invalid at computed-value time](https://drafts.csswg.org/css-values-5/#invalid-at-computed-value-time).
 > ー [CSS Values and Units Module Level 5](https://drafts.csswg.org/css-values-5/#cyclic-substitution-contexts)
 
-それゆえ、以下のような`var()` を介した Custom Properties の自己参照を行うコードは無効と判定されます。
+それゆえ、以下のような`var()` を介した Custom Properties の自己参照を行うコードは、ブラウザにおけるスタイル計算のタイミングで無効と判定されます。
 
 ```css
 /* invalid */
@@ -68,7 +68,7 @@ Custom Properties は `var()` を用いて自己を参照することができ�
 
 単純に考えると、`var()`のもつ自己参照の制限を緩め、任意のプロパティを `var()` で参照できるように仕様を拡張すれば良いように思えます。
 
-しかし、`var()` は、 **「任意の親要素から」** から定義された Custom Properties の参照が可能であり、`inherit()` では **「自己参照を可能にする」** 可能性を踏まえると、`var()` を拡張して **「任意の親要素から」** **「自己参照を可能にする」** 場合、参照元の検出にかかる計算コストが増大する可能性があります。
+しかし、`var()` は、 **「任意の親要素」** から定義された Custom Properties の参照が可能であり、`inherit()` では **「自己参照を可能にする」** 可能性を踏まえると、`var()` を拡張して **「任意の親要素から」** **「自己参照を可能にする」** 場合、参照元の検出にかかる計算コストが増大する可能性があります。
 
 詳細: [#limitation-or-implementation-details](#limitation-or-implementation-details)
 
@@ -317,10 +317,10 @@ e.g.2, 利用側のスタイルに応じた Tooltip
 
 ## Limitation or Implementation details
 
-パフォーマンスとスタイル無効化の範囲を限定するため、`inherit()` は**直接の親要素のみ**にアクセス可能です。
+パフォーマンスとスタイル無効化の範囲を限定するため、`inherit()` は **直接の親要素のみ** にアクセス可能です。
 
-多くのレイアウトエンジンでは、**スタイルの無効化（Style Invalidation）**が重要な最適化の手段となっています。
-プロパティが変更された際、その影響を受ける要素のみを再計算することで、パフォーマンスを維持しています。
+多くのレイアウトエンジンでは、**スタイルの無効化（Style Invalidation）**が重要な最適化の手段となっており、
+プロパティが変更された際、その影響を受ける要素のみを限定的に再計算することで、パフォーマンスを維持しています。
 
 ```md
 - 親→子のみの場合: Parent [color変更] → 直接の子要素のみ無効化
@@ -334,7 +334,7 @@ e.g.2, 利用側のスタイルに応じた Tooltip
 - [Reduce the scope and complexity of style calculations](https://web.dev/articles/reduce-the-scope-and-complexity-of-style-calculations)
 - [How Blink invalidates styles when `:has()` in use? - Byungwoo's Blog](https://blogs.igalia.com/blee/posts/2023/05/31/how-blink-invalidates-styles-when-has-in-use.html)
 
-とはいえ、祖先要素の値が必要な場合は、Custom Properties を変数として介すことで対応することができるようです。
+とはいえ、祖先要素の値が必要な場合は、対症療法的な手段として、Custom Properties を変数として介して用いることができます。
 
 ```css
 .intermediate {
@@ -439,7 +439,7 @@ Computed Values、つまりプロパティの値を直接参照することは�
 
 `inherit()` は今後 Custom Properties の実装から進み、段階的にプロパティの参照に実装が進む予定となっています。
 まだ Standard Position も出ておらず、実装の Intent があるわけでもありませんが、「プロパティ値の（自己）参照」が可能になることで、
-長年望まれてきた非常に多くのユースケースが一挙に解決されることが期待されます。
+長年望まれてきた非常に多くのユースケースが一挙に解決されるのではないでしょうか。
 
 <https://x.com/LeaVerou/status/1350491359745077248>
 
