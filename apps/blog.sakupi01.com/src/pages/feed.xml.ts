@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       pubDate: post.data.update,
       description: post.data.excerpt,
-      link: `/posts/${post.slug}/`,
+      link: `/${post.slug}/`,
       content: await marked.parse(post.body),
     })),
   );
