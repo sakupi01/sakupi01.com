@@ -16,7 +16,7 @@ Article Markdown Style
     font-optical-sizing: auto;
     font-style: italic;
     color: var(--color-base-darkest);
-    padding: 1.2em 30px 1.2em 75px;
+    padding: 1.2em 30px 1.2em 3rem;
     border: 1px dotted light-dark(var(--color-primary-medium), transparent);
     border-left: 8px solid var(--color-primary-medium);
     line-height: 1.6;
@@ -108,7 +108,7 @@ Article Markdown Style
     background-position: 0 0;
     border-radius: 8px;
     overflow: hidden;
-    padding: 1rem 5rem;
+    padding: 1rem 3.5rem;
     color: var(--color-base-dark);
 
     p:first-child {
