@@ -303,7 +303,7 @@ Article Markdown Style
     transition-timing-function: var(--ease-in-out);
 
     &:hover {
-      scale: 103%;
+      border: 1px solid var(--focusable);
     }
 
     .rlc-info {
