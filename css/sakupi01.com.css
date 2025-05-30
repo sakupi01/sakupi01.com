@@ -105,6 +105,7 @@ Base Styles under sakupi01.com
   */
   table {
     width: 100%;
+    table-layout: fixed;
     margin-bottom: 1.5rem;
     border: 1.5px solid
       light-dark(
@@ -112,7 +113,7 @@ Base Styles under sakupi01.com
         color-mix(in oklch, var(--color-base-light), black 60%)
       );
     color: var(--color-base-dark);
-    background: light-dark(var(--color-ivory-1), var(--color-gray-0));
+    background: light-dark(var(--color-gray-1), var(--color-gray-0));
 
     th {
       font-weight: 600;
@@ -124,6 +125,8 @@ Base Styles under sakupi01.com
       padding: 0.5rem;
       color: #fff;
       background-color: var(--color-expression-medium);
+      word-break: break-all;
+      vertical-align: middle;
     }
 
     td {
@@ -133,6 +136,8 @@ Base Styles under sakupi01.com
           color-mix(in oklch, var(--color-base-light), black 50%)
         );
       padding: 0.5rem;
+      word-break: break-all;
+      vertical-align: middle;
     }
 
     thead tr {

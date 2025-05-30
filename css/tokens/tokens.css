@@ -186,7 +186,7 @@
   --color-gray-6: oklch(18% var(--chroma-gray, none) var(--hue-gray, none));
   --color-gray-7: oklch(10% var(--chroma-gray, none) var(--hue-gray, none));
   --color-ivory-0: oklch(98% var(--chroma-ivory, none) var(--hue-ivory, none));
-  --color-ivory-1: oklch(88% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-1: oklch(94% var(--chroma-ivory, none) var(--hue-ivory, none));
   --color-ivory-2: oklch(
     var(--lightness, 67%) var(--chroma-ivory, none) var(--hue-ivory, none)
   );

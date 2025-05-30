@@ -11,7 +11,7 @@
     width: 100%;
     max-width: var(--main-max-width);
     margin: 0 auto;
-    padding: 0 2.5rem;
+    padding: 0 1.5rem;
 
     article {
       /* Set explicit max-width for article content. */
