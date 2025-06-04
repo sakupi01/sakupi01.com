@@ -66,7 +66,7 @@ SIM は事前に Amazon で購入しておいた。忘れないようにパス�
 
 雑なググりで酷評だった中国南方航空の機内食とその他サービスは、期待以上だった。ワインが出たり xxゲンダッツが出たり。機内食のチョイスは「Beef with Rise」か「Chicken with Rise」だったけど、前者は明らか「ほぼ牛丼」な気がしたので、チキンで。
 
-<img src="../../public/images/IMG_0666.jpg" alt="名もなき料理" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="../../images/IMG_0666.jpg" alt="名もなき料理" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *名もなき料理*
 
@@ -97,7 +97,7 @@ Flight Layover
 ここからアムステルダムまで 11 時間の耐久フライト。海外本当に若いうちしか行ける自信ない・・・
 多分日本時間で 3:00AM くらい。第一次機内食提供。もうもはや何食なのかもわからない時間に出される名のない料理を特にお腹も空いてない胃袋に詰め込む虚無感が、長時間フライトの醍醐味だよなあ〜などとくだらないポジティブシンキングを巡らせる。
 
-<img src="../../public/images/IMG_0684.jpg" alt="オムレツらしい料理" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="../../images/IMG_0684.jpg" alt="オムレツらしい料理" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *オムレツらしい料理*
 
@@ -124,7 +124,7 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 
 アムステルダムはカンファレンスメインなので、観光はあんまりできない。交通はチャリが目立つ。多くない？って聞いたら、彼曰く、やたらとレンタサイクルとかもあって、交通事故防止のために一時期そうしたら一気に増えたらしい。なんかマジで高速2ケツで走ってるし、橋の周りほぼチャリだらけだし、歩行者の人権ないくらいなので、流石に試してみたくなってきた。
 
-<img src="../../public/images/IMG_0725.jpg" alt="色々教えてくれた気さくな運転手さん" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="../../images/IMG_0725.jpg" alt="色々教えてくれた気さくな運転手さん" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *色々教えてくれた気さくな運転手さん*
 
@@ -133,8 +133,8 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <div style="display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
  gap: 3px; place-items: center;">
-<img src="../../public/images/IMG_0730.jpg" alt="優しいコーヒー"/>
-<img src="../../public/images/IMG_0737.jpg" alt="待ちに待ったベッド"/>
+<img src="../../images/IMG_0730.jpg" alt="優しいコーヒー"/>
+<img src="../../images/IMG_0737.jpg" alt="待ちに待ったベッド"/>
 </div>
 
 *優しいコーヒーと待ちに待ったベッド*
@@ -142,7 +142,7 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 8:30 AM くらい、部屋の掃除が終わったから入っていいよと、優しい受付嬢から。部屋に入る、シャワー浴びる、short nap を2時間くらいする。めっちゃ晴れててもったい、かつお腹が空いたので起きてサイクリングを試みる。
 今夜は pre-con のイベントがあるので、1日自転車を借りることにした。18ユーロ、予想以上のお値段だったけど、ホテルで断りにくかったしまあいいや。
 
-<img src="../../public/images/IMG_0742.jpg" alt="一日お世話になるチャリ" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="../../images/IMG_0742.jpg" alt="一日お世話になるチャリ" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *一日お世話になるチャリ*
 
@@ -151,12 +151,12 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../public/images/IMG_0772.jpg" alt="アムステルダムの街並み"/>
-<img src="../../public/images/IMG_0767.jpg" alt="アムステルダムの街並み"/>
-<img src="../../public/images/IMG_0796.jpg" alt="アムステルダムの街並み"/>
-<img src="../../public/images/IMG_0778.jpg" alt="アムステルダムの街並み"/>
-<img src="../../public/images/IMG_0758.jpg" alt="アムステルダムの街並み"/>
-<img src="../../public/images/IMG_0804.jpg" alt="Duch Pancakes"/>
+<img src="../../images/IMG_0772.jpg" alt="アムステルダムの街並み"/>
+<img src="../../images/IMG_0767.jpg" alt="アムステルダムの街並み"/>
+<img src="../../images/IMG_0796.jpg" alt="アムステルダムの街並み"/>
+<img src="../../images/IMG_0778.jpg" alt="アムステルダムの街並み"/>
+<img src="../../images/IMG_0758.jpg" alt="アムステルダムの街並み"/>
+<img src="../../images/IMG_0804.jpg" alt="Duch Pancakes"/>
 </div>
 
 *アムステルダムの街並み 〜Duch Pancakes を添えて〜*
