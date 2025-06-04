@@ -2,7 +2,7 @@
 title: "From 7 Hours Behind"
 excerpt: "DISCLAIMER: Non-Tech. Pure life stuff here. Don't read if you expect tech."
 date: 2025-06-02
-update: 2025-06-02
+update: 2025-06-04
 category: 'life'
 tags: ['life', 'css', 'diary', 'europe']
 status: 'published'
@@ -25,7 +25,7 @@ Ah, meaning current pointer xD
 
 ここからは唐突のである調で〜
 
-## (🌸)Day 0, 02/06/2025
+## Day 0, 02/06/2025
 
 ### The Day Before The Departure
 
@@ -51,9 +51,33 @@ SIM は事前に Amazon で購入しておいた。忘れないようにパス�
 
 電話してたら 23:00 過ぎてしまった。。。明日ちゃんと体調回復してるか、チェックインできるかだけ心配。
 
-## Day 1, 03/06/2025
+## 🌸 Day 1, 03/06/2025
 
 ### The Departure Day
+
+羽田に 11:00 手前くらいについて、10分くらい待ってすんなりチェックイン完了。オンラインチェックインできてればこんな早く来ることもなかったけど、すんなり行ったからいいか〜。<br />
+特にすることもなかったので、さっとセキュリティとイミグレーションを済ませて出国！（ここで土地的には日本だけど、外国にいる気分になる）
+
+めっちゃ早く出国したのでラウンジで作業。全然お腹が空かないけど最後の日本食食べとかなきゃと思って、選ばれたのは牛丼でした。（意外とガッツリじゃないか...）
+
+仕事に集中してしまい、ボーディングのファイナルコールのアナウンスが聞こえたので、ゲートにダッシュでなんとか間に合う。
+
+15:40、ここから広州まで約 5 時間のフライト。着席して 1 時間後くらい、毎度恒例意味のわからないタイミングでの機内食。まだ牛が胃の中で鳴いてるよ〜〜って。
+
+雑なググりで酷評だった中国南方航空の機内食とその他サービスは、期待以上だった。ワインが出たり xxゲンダッツが出たり。機内食のチョイスは「Beef with Rise」か「Chicken with Rise」だったけど、前者は明らか「ほぼ牛丼」な気がしたので、チキンで。
+
+<img src="../../public/images/IMG_0666.jpg" alt="名もなき料理" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*名もなき料理*
+
+広州空港に着陸。Transfer 手続きを済ませる。トランジットエリアのカフェに入る。ここで2つ、ハプニング発生。
+
+Air Port Free Wifi が使えない。。。しんどい。。。まあこれは、いいや、、、ローカルでできることやるし。。。
+
+ふたつめ、換金しておいた💰を使うための Wise デビッドカードがない。忘れてきた。マジか........................................。これは全く予想してなかった。。。てか財布にいないなら家のどこにいるのかわからないのも二重にしんどい。。。<br />
+まあ、どのみち AUS の銀行残高から使っていく予定だったので、現地の友達と会うまでは AUD から使って、友達と会ったら立て替えてもらって Wise でオンライン送金するか？いや、めんどくさいから普通に日本のクレカ使い始めそう。
+
+23:40 のボーディング開始時刻までカフェにステイ。そういえばフロカンのプロポーザル考えてみるか〜、など。
 
 ### Schedule
 
@@ -62,11 +86,80 @@ SIM は事前に Amazon で購入しておいた。忘れないようにパス�
 
 ### Stay
 
-Flight Layover around Indian Ocean or somewhere idk.
+Flight Layover
 
 ## Day 2, 04/06/2025
 
 ### Arrival & Pre-Conference Day
+
+00:20 発のフライトから始まる。ギリギリまでパソコン触っていた。のんびりゲートに行ったら「待ってたよ！！」と。まさかの最終乗客コールされていたらしい。ごめんなさい。
+
+ここからアムステルダムまで 11 時間の耐久フライト。海外本当に若いうちしか行ける自信ない・・・
+多分日本時間で 3:00AM くらい。第一次機内食提供。もうもはや何食なのかもわからない時間に出される名のない料理を特にお腹も空いてない胃袋に詰め込む虚無感が、長時間フライトの醍醐味だよなあ〜などとくだらないポジティブシンキングを巡らせる。
+
+<img src="../../public/images/IMG_0684.jpg" alt="オムレツらしい料理" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*オムレツらしい料理*
+
+マジで寝れないので、QP コーワゴールドαや各種薬を飲んで、今日の体調を危惧する。
+
+着陸 1 時間前くらいに、2 回目の機内食。これも名のない魚料理。お腹は空いてないけど、食べる。
+
+Amsterdam が見えてきた〜〜！無事着陸！
+
+EU へイミグレーションする。入国審査官とのコミュニケーションがウケた。
+
+The Guy: "The purpose of your visit?"<br/>
+Me: "For the conference."<br/>
+The Guy: "Which conference?"<br/>
+Me: "CSS Day conference. It's a conference about CSS."<br/>
+The Guy: "What's that?"<br/>
+Me: "It's Cascading Style Sheet. It's used in Web browsers to make the Web more stylish!"<br/>
+The Guy: "Oh, Okay... How long are you staying here?"<br/>
+...
+
+ニヤニヤしながら晴れて入国！baggage belt に行った瞬間荷物がきた。タイミング神。
+
+事前に呼んでおいた Taxi でホテルへ向かう。せっかくなのでいろんな情報を聞く。観光地とか、スーパーとか、食べ物とか、交通周りとか、英語の割合とか、夜外出ていいかとか、聞いておいた。街の建物の歴史なんかも教えてくれた。
+
+アムステルダムはカンファレンスメインなので、観光はあんまりできない。交通はチャリが目立つ。多くない？って聞いたら、彼曰く、やたらとレンタサイクルとかもあって、交通事故防止のために一時期そうしたら一気に増えたらしい。なんかマジで高速2ケツで走ってるし、橋の周りほぼチャリだらけだし、歩行者の人権ないくらいなので、流石に試してみたくなってきた。
+
+<img src="../../public/images/IMG_0725.jpg" alt="色々教えてくれた気さくな運転手さん" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*色々教えてくれた気さくな運転手さん*
+
+ホテルに着く。7:30AM くらい。まだ部屋の準備ができてないので、カフェで作業するかと思ったけど、まだ開いてないらしい。「私がコーヒー淹れてあげるからロビーでくつろいでいいわよ！なんのコーヒーにする？」と、Reception の人がめっちゃ気がきくこと言ってくれたので、カフェがあくまでロビーで少し仕事。11時間フライト後、さすがに眠すぎる頭痛すぎる、、、
+
+<div style="display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
+ gap: 3px; place-items: center;">
+<img src="../../public/images/IMG_0730.jpg" alt="優しいコーヒー"/>
+<img src="../../public/images/IMG_0737.jpg" alt="待ちに待ったベッド"/>
+</div>
+
+*優しいコーヒーと待ちに待ったベッド*
+
+8:30 AM くらい、部屋の掃除が終わったから入っていいよと、優しい受付嬢から。部屋に入る、シャワー浴びる、short nap を2時間くらいする。めっちゃ晴れててもったい、かつお腹が空いたので起きてサイクリングを試みる。
+今夜は pre-con のイベントがあるので、1日自転車を借りることにした。18ユーロ、予想以上のお値段だったけど、ホテルで断りにくかったしまあいいや。
+
+<img src="../../public/images/IMG_0742.jpg" alt="一日お世話になるチャリ" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*一日お世話になるチャリ*
+
+街をサイクリングして、Dutch Pancakes を食べて、Anne Frank House と Museum に行く。アムステルダムめっちゃ運河の街。ベネチア...？そして建築が本当にヨーロピアンでみてるだけで楽しめる。薄っぺらいのが特徴の Dutch Pancakes もおいしかった。
+
+<div style="  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+ gap: 3px; place-items: center;">
+<img src="../../public/images/IMG_0772.jpg" alt="アムステルダムの街並み"/>
+<img src="../../public/images/IMG_0767.jpg" alt="アムステルダムの街並み"/>
+<img src="../../public/images/IMG_0796.jpg" alt="アムステルダムの街並み"/>
+<img src="../../public/images/IMG_0778.jpg" alt="アムステルダムの街並み"/>
+<img src="../../public/images/IMG_0758.jpg" alt="アムステルダムの街並み"/>
+<img src="../../public/images/IMG_0804.jpg" alt="Duch Pancakes"/>
+</div>
+
+*アムステルダムの街並み 〜Duch Pancakes を添えて〜*
 
 ### Schedule
 
@@ -247,7 +340,7 @@ Brussels
 
 ### Stay
 
-Flight Layover around Indian Ocean or somewhere idk.(Not... again...)
+Flight Layover
 
 ### Today
 
