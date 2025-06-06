@@ -2,7 +2,7 @@
 title: "From 7 Hours Behind"
 excerpt: "DISCLAIMER: Non-Tech. Pure life stuff here. Don't read if you expect tech."
 date: 2025-06-02
-update: 2025-06-04
+update: 2025-06-06
 category: 'life'
 tags: ['life', 'css', 'diary', 'europe']
 status: 'published'
@@ -146,7 +146,7 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 
 *一日お世話になるチャリ*
 
-街をサイクリングして、Dutch Pancakes を食べて、Anne Frank House と Museum に行く。アムステルダムめっちゃ運河の街。ベネチア...？そして建築が本当にヨーロピアンでみてるだけで楽しめる。薄っぺらいのが特徴の Dutch Pancakes もおいしかった。
+街をサイクリングして、Dutch Pancakes を食べて、運河下りをする。アムステルダムめっちゃ運河の街。ベネチア...？そして建築が本当にヨーロピアンでみてるだけで楽しめる。薄っぺらいのが特徴の Dutch Pancakes もおいしかった。ビールでお馴染みハイネケンミュージアムが運河下の Meeting Point の目の前だったのでチラ見できた。
 
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -156,10 +156,34 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <img src="../../images/IMG_0796.jpg" alt="アムステルダムの街並み"/>
 <img src="../../images/IMG_0778.jpg" alt="アムステルダムの街並み"/>
 <img src="../../images/IMG_0758.jpg" alt="アムステルダムの街並み"/>
-<img src="../../images/IMG_0804.jpg" alt="Duch Pancakes"/>
+<img src="../../images/IMG_0871.jpg" alt="アムステルダムの街並み"/>
 </div>
 
-*アムステルダムの街並み 〜Duch Pancakes を添えて〜*
+*アムステルダムの街並み*
+
+<img src="../../images/IMG_0804.jpg" alt="Duch Pancakes" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*Duch Pancakes*
+
+本当は Anne Frank House と Van Gogh Museum に行きたかったけど、どちらも事前予約が必要で売り切れてた、かつ時間がなかった。またくる理由ができたということで。
+
+そのあとは pre-con のイベント会場へ。会場はアムステルダム中央からおよそ 5km ほど離れた郊外で、チャリで 20 分くらいかかった。太ももパンパン。
+
+<div style="  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+ gap: 3px; place-items: center;">
+<img src="../../images/IMG_0910.jpg" alt="pre-conference"/>
+<img src="../../images/IMG_0913.jpg" alt="pre-conference"/>
+<img src="../../images/IMG_0912.jpg" alt="無限に並ぶハイネケン"/>
+</div>
+
+*pre-conference・無限に並ぶハイネケン*
+
+<img src="../../images/IMG_0907.jpg" alt="20:30 くらい。信じられないくらい明るい" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*20:30 くらい。信じられないくらい明るい*
+
+そういえば今日は中国にいたところから始まり、アムスに到着し、全力で町中をチャリで駆け回り、カンファレンス前夜祭にいるんだった、、、流石に疲れた。
 
 ### Schedule
 
@@ -175,7 +199,60 @@ Amsterdam
 
 ### CSS Day 1
 
-...
+7:00 AM くらい起床。身支度して朝食へ。今日の服はコレにチュールスカート🧚
+
+![SUSHI T-shirt](../../../../assets/images/IMG_0998.jpg)
+
+*SUSHI T-shirt*
+
+ホテルの朝食めっちゃおいしかった。これがヨーロッパクオリティ・・・？？？ Sourdough Bread 日本にも普通に売ってて欲しいんだよなあ、、、
+
+<div style="  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+ gap: 3px; place-items: center;">
+<img src="../../images/IMG_0936.jpg" alt="Breakfast"/>
+<img src="../../images/IMG_0932.jpg" alt="Breakfast"/>
+</div>
+
+*Breakfast*
+
+いよいよ待ちに待ったカンファレンスへ！！！
+
+会場くらいにいったので、一旦その辺にいた人たちと話す。French と Swiss の銀行でデザインシステム作ってる人たちだった。デザインシステムの重要性わかってもらうの難しいよね、みたいな話をしてた気がする。
+
+トークとか、その感想とかメモはあとで別記事にまとめるので、ここでは割愛。
+
+現地参加した何よりの理由、ここでしかできない話をすること。気合い入れて話すことリストみたいなの作って行ってたけど、割と自然にいっぱいディスカッションできて最高だった〜！！
+今日話してくれた人たち。
+
+- Una Kravets(Chrome の CSS 系 DevRel。I/O で Web UI の発表してたり)
+- Rachel Andrew(Chrome の CSS 系 DevRel. Baseline。multicol や reading-flow など Layout 系の標準化)
+- Sacha Greif（State of なんとかの作者）
+- Eric Leese (devtools のひと)
+- Philip Walton（baseline-checker の作者）
+- Miriam Suzanne（Sass. CascadeLayers, Container Queries. if/function/mixin）
+- Brecht De Ruyte（OpenUI, Customizable Range）
+- Tim Nguyen（Form Control FPWD issuer, WebKit, Dialog Element, Popover API, View Transition API implementer）
+
+<div style="  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+ gap: 3px; place-items: center;">
+<img src="../../images/7130CA8D-032C-45F4-8CA8-F07FCF2A3A8A.jpg" alt="Una"/>
+<img src="../../images/CA14CE12-31E9-4647-BB0A-BDAFCD32833D.jpg" alt="Sacha"/>
+<img src="../../images/91116440-079B-47EA-BA9D-93134B01152E.jpg" alt="Mia"/>
+</div>
+
+*（左から）Una, Sacha, Mia*
+
+写真をちゃんと撮らなきゃ。話した内容忘れたくなくて、速攻仲良くなった人たちにアウトプットしに行ったり、メモに走るから写真撮ってもらうの忘れる。
+
+Mia とのやりとり忘れたくなさすぎて、懇親会一旦抜けてパソコンしてたら、”Are you playing something with CSS?” って Brecht から話しかけにきてくれた・・・！！！そんなことある？！
+
+こっからがすごくて、今日のトークのこととか、OpenUI での Range の proposal が難しいっていう話とか CSS Carousels の A11y の話とかしてたら、登壇者限定のバッジとステッカー、登壇者が選んだ人だけにあげれるんだけど、きみにあげるよ！って言ってくれた！嬉しかった〜〜！
+
+<img src="../../images/IMG_1066.jpg" alt="Brecht がくれたステッカーとバッジ" style="margin: auto; width: 300px; object-fit: contain;"/>
+
+*Brecht がくれたステッカーとバッジ*
 
 ### Schedule
 
@@ -189,7 +266,38 @@ Amsterdam
 
 ### CSS Day 2
 
-...
+流石にめっちゃ疲れた感じの朝だった。毎日 QP コーワゴールドα を飲んでるけど、効いてるのかどうかわからない。とりあえず、身支度してカンファレンスへ。
+今日はタコさん T-shirt にジーンズ。
+
+![タコさん T-shirt](../../../../assets/images/IMG_1067.jpg)
+
+*タコさん T-shirt*
+
+今日はこんな人たちと話せた〜！
+
+- Brad Frost （Atomic Design, Global Design System）
+- Tim Nguyen（Form Control FPWD issuer, WebKit, Dialog Element, Popover API, View Transition API implementer）
+- Josh Tumath（OS-level font scaleのenvやってる, BBC Design System）
+- Bramus（Google の DevRel。 Scroll Driven Animation, View Transition。 I/O でアニメーション系の発表してたり）
+
+<div style="  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+ gap: 3px; place-items: center;">
+<img src="../../images/3EB4316D-A3C1-4FD3-8AF1-84FDAC94ABF1.jpg" alt="Una"/>
+<img src="../../images/2DD23E2D-B57D-4E8D-B58A-CB38A6FD20F5.jpg" alt="Sacha"/>
+<img src="../../images/D3F36BEE-09FC-4D39-87E6-E8C1899B4055.jpg" alt="Mia"/>
+</div>
+
+*（左から）Brad Frost, Brecht と Ian Frost, Bramus*
+
+Tech 的にお腹が満たされた話は、しかるべきブログでまた。Tim とはめっちゃいい話できたなあ〜〜。Brecht ともめっちゃ仲良くなって、次の行き先のおすすめスポット教えてくれたりした。
+
+とりあえず、そんな感じで、今日はちゃんとブログ残せた。えらい。寝る。CSS Day 最高だった。仕様作ったり、実装したり、Web をゴリゴリ作ってる人たちと、こんな近くで生でたくさんディスカッションできるなんて正直思ってなかった。
+本当に行って良かった〜〜〜。実現してくれた会社の人たちに感謝しかない。
+
+![The End of CSS Day](../../../../assets/images/IMG_1050.jpg)
+
+*The End of CSS Day*
 
 ### Schedule
 
