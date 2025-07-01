@@ -110,15 +110,98 @@
                 border-color: purple;
             }
         }
+
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+            }
+
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            @supports selector(::scroll-marker:target-current) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
+            }
+
+            /* false case */
+            @supports not selector(::scroll-marker:target-current) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
+
+                    .success {
+                        display: none;
+                    }
+                }
+            }
+        }
     </style>
 </head>
 
 <body>
     <h1>Carousels with CSS </h1>
-    <p>Summary: Enable fine-tuning corners, on top of the existing border-radius, by specifying the shape/curvature of
-        the corner. This allows shapes like squircles, notches, scoops etc., and animating between them.</p>
+    <p>Summary: This is a combined Intent to ship for the following features:
+
+        <br />
+        <code>::scroll-marker</code> and <code>::scroll-marker-group</code> for scrolling containers:
+        <br />
+        Pseudo elements that allow to create a set of focusable markers for all of the associated items within the
+        scrolling container.
+        <br />
+
+        <code>::scroll-button(<direction>)</code>:
+        <br />
+        Focusable pseudo-element button that allows scrolling the scrolling container in the associated direction.
+        <br />
+
+        <code>::column</code>:
+        <br />
+        Supports associating <code>::scroll-marker</code> elements with column fragments and scroll snap aligning to
+        columns.
+    </p>
     <p>Intent: <a
-            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ</a>
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/7EQ8-VzPZh0/m/NMyrGCjuAAAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/7EQ8-VzPZh0/m/NMyrGCjuAAAJ</a>
     </p>
     <p>Spec: <a
             href="https://drafts.csswg.org/css-overflow-5/#scroll-navigation">https://drafts.csswg.org/css-overflow-5/#scroll-navigation</a>
@@ -147,6 +230,17 @@
         <li>Item 9</li>
         <li>Item 10</li>
     </ul>
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support this feature.</p>
+        <p class="success judge">✅ Your browser supports this feature!</p>
+        <p>This is a demo for <a href=" https://drafts.csswg.org/css-overflow-5/#scroll-navigation" target="_top">
+                https://drafts.csswg.org/css-overflow-5/#scroll-navigation</a>
+        </p>
+        <p class="note">Try it in Chrome 135 or over.
+        </p>
+        <small><time datetime="2025-07-01">This DEMO is last updated on: 2025-07-01</time></small>
+    </div>
 </body>
 
 </html>

@@ -125,7 +125,7 @@
             /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
             /* put the feature name */
             /* true case */
-            @supports (x: if(style(*): *; )) {
+            @supports (--some-property: if(style(x): x)) {
                 .checker-dialog {
                     background: rgba(205 255 205 / 0.8);
 
@@ -140,7 +140,7 @@
             }
 
             /* false case */
-            @supports not (x: if(style(*): *; )) {
+            @supports not (--some-property: if(style(x): x)) {
                 .checker-dialog {
                     background: rgba(255 205 205 / 0.8);
 
@@ -299,7 +299,7 @@
         <p class="note">Try it in Chrome Canary with <br />
             <code>--enable-experimental-web-platform-features</code>.
         </p>
-        <small><time datetime="2025-06-29">This DEMO is last updated on: 2025-06-29</time></small>
+        <small><time datetime="2025-07-01">This DEMO is last updated on: 2025-07-01</time></small>
     </div>
 </body>
 

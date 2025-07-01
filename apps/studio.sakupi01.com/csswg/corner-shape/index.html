@@ -38,6 +38,72 @@
         .straight {
             corner-shape: straight;
         }
+
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+            }
+
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            @supports (corner-shape: squircle) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
+            }
+
+            /* false case */
+            @supports not (corner-shape: squircle) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
+
+                    .success {
+                        display: none;
+                    }
+                }
+            }
+        }
     </style>
 </head>
 
@@ -47,6 +113,9 @@
         the corner. This allows shapes like squircles, notches, scoops etc., and animating between them.</p>
     <p>Intent: <a
             href="https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ</a>
+    </p>
+    <p>ChromeStatus: <a
+            href="https://chromestatus.com/feature/5357329815699456?gate=6250071248863232">https://chromestatus.com/feature/5357329815699456?gate=6250071248863232</a>
     </p>
     <p>Spec: <a
             href="https://drafts.csswg.org/css-borders-4/#corner-shaping">https://drafts.csswg.org/css-borders-4/#corner-shaping</a>
@@ -75,6 +144,19 @@
     <div class="corner_shape scoop">Scoop</div>
     <p>// <code>corner-shape: straight;</code>, which equals to <code>superellipse(infinity)</code>.</p>
     <div class="corner_shape straight">Straight</div>
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support this feature.</p>
+        <p class="success judge">✅ Your browser supports this feature!</p>
+        <p>This is a demo for <a href="https://drafts.csswg.org/css-borders-4/#corner-shaping"
+                target="_top">https://drafts.csswg.org/css-borders-4/#corner-shaping</a>
+        </p>
+        <p class="note">Try it in Chrome 139 or over. <br />
+            <a href="https://chromestatus.com/feature/5357329815699456?gate=6250071248863232"
+                target="_top">https://chromestatus.com/feature/5357329815699456?gate=6250071248863232</a>.
+        </p>
+        <small><time datetime="2025-07-01">This DEMO is last updated on: 2025-07-01</time></small>
+    </div>
 </body>
 
 </html>
