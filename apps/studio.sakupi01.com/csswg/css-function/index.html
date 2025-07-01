@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Custom Function | studio.sakupi01.com</title>
+    <style>
+        .unfined-styles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 250px);
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        @scope(.if-component) {
+
+            /* ⭐ If a default value and a parameter type are both provided, then the default value must parse successfully according to that parameter type’s syntax. 
+            Otherwise, the @function rule is invalid. */
+            /* Custom Properties Registration Bug: CSS-wide keywords are not accepted.
+                https://issues.chromium.org/issues/428484826 
+            */
+            @function --shadow(--shadow-color: inherit) {
+                /* @function --shadow(--shadow-color <color> : inherit) { THIS DOESN't WORK bc inherit is not parsed as color!! */
+                /* If --shadow-color argument isn't passed,
+     or doesn't successfully parse as a <color>,
+     try to use the --shadow-color *property*
+     from the element instead */
+
+                /* var(--shadow-color) refers to the --shadow-color parameter,
+     rather than a custom property,
+     but can still use a fallback value as normal */
+                result: 2px 2px var(--shadow-color);
+            }
+
+            @function --border(--border-color) {
+                result: oklch(from var(--border-color, inherit) .3 c h) 2px solid;
+            }
+
+            @function --text-color(--text-color) returns <color> {
+                result: oklch(from var(--text-color, inherit) .3 c h);
+            }
+
+            @function --bg-color(--bg-color) returns <color> {
+                result: oklch(from var(--bg-color, inherit) l c h / .5);
+            }
+
+            :scope {
+                --state: attr(data-state type(<custom-ident>), success);
+
+                --color: if(style(--state: success): green;
+                        style(--state: disabled): gray;
+                        style(--state: info): blue;
+                        style(--state: danger): red;
+                        else: black;
+                    );
+                color: var(--color);
+
+                button {
+                    --shadow-color: black;
+                    background-color: --bg-color(var(--color));
+                    color: --text-color(var(--color));
+                    border: --border(var(--color));
+                    box-shadow: --shadow(var(--color));
+                    padding: 0.5rem 1rem;
+                    border-radius: 0.25rem;
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+        @scope(.if-and-function-fluid-typography) {
+
+            @function --fluid-typography(--size <custom-ident>: p) returns <length> {
+                result: if(style(--size: h1): var(--step-5);
+                        style(--size: h2): var(--step-4);
+                        style(--size: h3): var(--step-3);
+                        style(--size: h4): var(--step-2);
+                        style(--size: h5): var(--step-1);
+                        style(--size: h6): var(--step-0);
+                        style(--size: p): var(--step-05);
+                        else: 1rem);
+
+                /* Order doesn't matter bc it' s a declarative language ! --step-05: clamp(0.7778rem, 0.75rem + 0.0926vw, 0.8333rem); */
+                --step-0: clamp(0.875rem, 0.8325rem + 0.3083vw, 1rem);
+                --step-1: clamp(0.9844rem, 0.8766rem + 0.3594vw, 1.2rem);
+                --step-2: clamp(1.1074rem, 0.9411rem + 0.5543vw, 1.44rem);
+                --step-3: clamp(1.2458rem, 1.0048rem + 0.8036vw, 1.728rem);
+                --step-4: clamp(1.4016rem, 1.0656rem + 1.12vw, 2.0736rem);
+                --step-5: clamp(1.802rem, 0.5096rem + 4.3081vw, 4.3869rem);
+                --step-6: clamp(2.0273rem, 0.2991rem + 5.7606vw, 5.4836rem);
+            }
+
+
+            h1 {
+                font-size: --fluid-typography(h1);
+            }
+
+            h2 {
+                font-size: --fluid-typography(h2);
+            }
+
+            h3 {
+                font-size: --fluid-typography(h3);
+            }
+
+            h4 {
+                font-size: --fluid-typography(h4);
+            }
+
+            h5 {
+                font-size: --fluid-typography(h5);
+            }
+
+            h6 {
+                font-size: --fluid-typography(h6);
+            }
+
+            p {
+                font-size: --fluid-typography(p);
+            }
+
+        }
+
+
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                background: rgba(205 230 255 / 0.8);
+
+                .judge {
+                    display: none;
+                }
+            }
+
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            /* @supports (x: if(style(*): *; )) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
+            }
+
+            /* false case */
+            @supports not (x: if(style(*): *; )) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
+
+                    .success {
+                        display: none;
+                    }
+                }
+            }
+
+            */
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>CSS Custom Function</h1>
+    <p>Summary: Custom Functions are similar to custom properties, but instead of returning a single fixed value, it
+        returns a value based on other custom properties, parameters, and conditionals. </p>
+    <p>Intent: <a
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/bvi4D7eD7wI">https://groups.google.com/a/chromium.org/g/blink-dev/c/bvi4D7eD7wI</a>
+    </p>
+    <p>Spec: <a href="https://drafts.csswg.org/css-mixins-1/">CSS Functions and Mixins Module</a>
+    </p>
+    <p>
+        Explainer:
+    </p>
+    <ul>
+        <li><a href="https://css.oddbird.net/sasslike/mixins-functions/"> CSS Mixins & Functions
+                Explainer</a>
+        </li>
+        <li>Author: Miriam Suzanne (Based heavily on a
+            custom-function proposal by Tab Atkins)
+        </li>
+    </ul>
+    <p>Proposal: <a href="https://github.com/w3c/csswg-drafts/issues/9350"> Proposal: Custom CSS Functions & Mixins ·
+            Issue #9350 · w3c/csswg-drafts</a>
+    </p>
+    <p>TAG Design Review: <a href="https://github.com/w3ctag/design-reviews/issues/1031
+">https://github.com/w3ctag/design-reviews/issues/1031
+        </a>
+    </p>
+    <p>Debuggability: The Devtools team is working on “basic support”: “basic support” primarily means that callsites
+        can
+        be clicked, you’ll be taken to the relevant function, and you’ll be able to edit the contents of the function.
+        see,
+        <a href="https://developer.chrome.com/blog/new-in-devtools-138#at-function">What's new in DevTools, Chrome 138
+             |  Blog  |  Chrome for Developers </a>
+    </p>
+    <p>Standard Positions:</p>
+    <ul>
+        <li><a href="https://github.com/WebKit/standards-positions/issues/437">CSS Functions and Mixins 1 (@function) ·
+                Issue #437 · WebKit/standards-positions`</a></li>
+        <li><a href="https://github.com/mozilla/standards-positions/issues/1148">CSS Functions and Mixins 1 (@function)
+                · Issue #1148 · mozilla/standards-positions</a></li>
+    </ul>
+    <p>Other Resources:</p>
+    <ul>
+        <li><a href="https://odland.dev/2024/12/12/web-wish-12-custom-css-functions.html"> Web Wish 12: Custom CSS
+                Functions</a></li>
+        <li><a href="https://medium.com/css-magic/custom-css-functions-the-next-big-leap-in-styling-5acbd69f5526">
+                Custom CSS Functions: The Next Big Leap in Styling? | by Ferid Brković</a></li>
+        <li><a href="https://www.bram.us/2025/02/18/css-at-function-and-css-if/"> CSS @function + CSS if() = 🤯 –
+                Bram.us</a></li>
+    </ul>
+    <p>Bug Reports: <a href="https://issues.chromium.org/issues/428484826"> https://issues.chromium.org/issues/428484826
+        </a>
+    </p>
+    <p>=== <code>@function</code> is a sort of Custom Property ===</p>
+    <div class="unfined-styles-container">
+        <div class="if-component" data-state="success">
+            <div>I'm Success Button:
+                <button>
+                    data-state="success"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
+        </div>
+        <div class="if-component" data-state="disabled">
+            <div>I'm Disabled Button:
+                <button>
+                    data-state="disabled"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
+        </div>
+        <div class="if-component" data-state="info">
+            <div>I'm Info Button:
+                <button>
+                    data-state="info"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
+        </div>
+        <div class="if-component" data-state="danger">
+            <div>I'm Danger Button:
+                <button>
+                    data-state="danger"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
+        </div>
+        <div class="if-component" data-state="else">
+            <div>I'm else case Button:
+                <button>
+                    data-state="else"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p>=== Fluid Typography with <code>if()</code> ===</p>
+    <div class="if-and-function-fluid-typography">
+        <h1 data-size="h1">This is Fluid H1 size.</h1>
+        <h2 data-size="h2">This is Fluid H2 size.</h2>
+        <h3 data-size="h3">This is Fluid H3 size.</h3>
+        <h4 data-size="h4">This is Fluid H4 size.</h4>
+        <h5 data-size="h5">This is Fluid H5 size.</h5>
+        <h6 data-size="h6">This is Fluid H6 size.</h6>
+        <p data-size="p">This is Fluid P size.</p>
+    </div>
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support this feature.</p>
+        <p class="success judge">✅ Your browser supports this feature!</p>
+        <p>This is a demo for <a href="https://drafts.csswg.org/css-mixins-1/"
+                target="_top">https://drafts.csswg.org/css-mixins-1/</a>
+        </p>
+        <p class="note">Try it in Chrome with <br />
+            <code>--enable-experimental-web-platform-features</code>.
+        </p>
+        <small><time datetime="2025-06-29">This DEMO is last updated on: 2025-06-29</time></small>
+    </div>
+</body>
+
+</html>

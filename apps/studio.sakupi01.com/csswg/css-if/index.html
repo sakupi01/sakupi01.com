@@ -4,26 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Carousels | studio.sakupi01.com</title>
+    <title>CSS if function | studio.sakupi01.com</title>
     <style>
-        body {
-            container: layout inline-size;
+        .container-uses-if {
+            display: grid;
+            gap: 1rem;
+            padding: 1rem;
+            grid-template-columns: repeat(auto-fit, 250px);
         }
 
-        @scope (.if-component-container) {
+
+        /* Using support at-rule is commonly called a feature query. 
+        The rule must be placed at the top level of your code or nested inside any other conditional group at-rule. */
+        @scope(.if-component) {
+            /* Use @property so that we don't need to define fallback value every time we use var() */
+            /* Use @property to avoid IACVT when we use attr() or if()*/
+            /* Cannot use new attr() and @property at the same time */
+            /* This is because attr() — similar to custom properties that use the var() function. */
+            /* @property --state {
+            syntax: "<custom-ident>";
+            inherits: false;
+            initial-value: success;
+        } */
+
+            /* This doesn't help with IACVT in if() function bc @property registers Custom Property in later phase than parsing time of if(), so @property overrides the value and everything's gonna be green... */
+            /* Custom Property doesn't help with IACVT in if() function, therefor, using else is the only way that we can survive from IACVT in if().*/
+            /* @property --color {
+            syntax: '<color>';
+            inherits: false;
+            initial-value: green;
+        } */
             :scope {
-                container: layout inline-size;
-                display: grid;
-                gap: 1rem;
-                padding: 1rem;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
+                /* Define a base custom property for the state */
+                /* So, new attr() - which can fetch from attr, is typed, and can have fallback - is like a super set of custom properties. Let's use with if()! It's more powerful, and can be encapsulated in a component(@property must be global). */
+                --state: attr(data-state type(<custom-ident>), success);
 
-
-            .if-component {
-                --color: if(style(--state: success): green; style(--state: disabled): gray; style(--state: info): blue; style(--state: danger): red; else: black; );
+                /* Use the CSS if() function to set the conditional property */
+                --color: if(style(--state: success): green;
+                        style(--state: disabled): gray;
+                        style(--state: info): blue;
+                        style(--state: danger): red;
+                        else: black;
+                        /* Perfectly defines fallback for IACVT */
+                    );
                 color: var(--color);
 
+                /* Use the conditional Custom Properties in the component leveraging inheritance of Custom Properties! */
                 button {
                     background-color: oklch(from var(--color) l c h / .5);
                     color: oklch(from var(--color) .3 c h);
@@ -33,61 +59,247 @@
                     cursor: pointer;
                 }
             }
+        }
 
-            div[data-state="success"] {
-                --state: attr(data-state type(<custom-ident>), success);
+        @scope(.if-ivact-component) {
+            :scope {
+
+                /* Define a custom property for the state */
+                --state: attr(data-state type(<custom-ident>), definedCondition);
+
+                /* Use the CSS if() function to set the color based on the state */
+                /* Lacking out defined fallback for IACVT */
+                --color: if(style(--state: definedCondition): green);
+                color: var(--color);
+
+                /* Use the conditional Custom Properties in the component leveraging inheritance of Custom Properties! */
+                button {
+                    background-color: oklch(from var(--color) l c h / .5);
+                    color: oklch(from var(--color) .3 c h);
+                    border: oklch(from var(--color) .3 c h) 2px solid;
+                    padding: 0.5rem 1rem;
+                    border-radius: 0.25rem;
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
             }
 
-            div[data-state="disabled"] {
-                --state: attr(data-state type(<custom-ident>), disabled);
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            @supports (x: if(style(*): *; )) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
             }
 
-            div[data-state="info"] {
-                --state: attr(data-state type(<custom-ident>), info);
-            }
+            /* false case */
+            @supports not (x: if(style(*): *; )) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
 
-            div[data-state="danger"] {
-                --state: attr(data-state type(<custom-ident>), danger);
+                    .success {
+                        display: none;
+                    }
+                }
             }
         }
     </style>
 </head>
 
 <body>
-    <h1>Carousels with CSS </h1>
-    <p>Summary: Enable fine-tuning corners, on top of the existing border-radius, by specifying the shape/curvature of
-        the corner. This allows shapes like squircles, notches, scoops etc., and animating between them.</p>
+    <h1>CSS if function</h1>
+    <p>Summary: The CSS if() function provides a concise way to express conditional values. It accepts a series of
+        condition-value pairs, delimited by semicolons. The function evaluates each condition sequentially and returns
+        the value associated with the first true condition. If none of the conditions evaluate to true, the function
+        returns an empty token stream. This allows web authors to express complex conditional logic in a simple and
+        concise way. </p>
     <p>Intent: <a
-            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/UKLLVghiHYQ/m/tv0ANlToEQAJ</a>
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/EOz7NK6Y0cE">https://groups.google.com/a/chromium.org/g/blink-dev/c/EOz7NK6Y0cE</a>
+    </p>
+    <p>ChromeStatus: <a href="https://chromestatus.com/feature/6313805904347136?gate=5132766385274880"> CSS if()
+            function</a>
     </p>
     <p>Spec: <a
-            href="https://drafts.csswg.org/css-overflow-5/#scroll-navigation">https://drafts.csswg.org/css-overflow-5/#scroll-navigation</a>
+            href="https://drafts.csswg.org/css-values-5/#if-notation">https://drafts.csswg.org/css-values-5/#if-notation</a>
     </p>
-    <p>Explainer: <a href="https://flackr.github.io/carousel/">https://flackr.github.io/carousel/</a>
+    <p>Explainer:</p>
+    <ul>
+        <li> <a
+                href="https://docs.google.com/document/d/1mbHBUR40jUBay7QZxgbjX7qixs5UZXkdL9tVwGvbmt0/edit?usp=sharing">https://docs.google.com/document/d/1mbHBUR40jUBay7QZxgbjX7qixs5UZXkdL9tVwGvbmt0/edit?usp=sharing</a>
+        </li>
+        <li>Author: Munira Tursunova
+        </li>
+    </ul>
+    <p>Initial Proposal: <a href="https://github.com/w3c/csswg-drafts/issues/10064"> [css-values-5] What is the MVP for
+            inline conditionals on custom properties? · Issue #10064 · w3c/csswg-drafts</a>
     </p>
+    <p>TAG Design Review: <a
+            href="https://github.com/w3ctag/design-reviews/issues/1045">https://github.com/w3ctag/design-reviews/issues/1045</a>
+    </p>
+    <p>Debuggability: CSS if()
+        debuggability is tied into CSS Value Debugger work:<a
+            href="https://docs.google.com/document/d/1zyKdPREtKT8OU4WtlHV_Wxet3SvyUtAXrTdFLPmYmdU">
+            https://docs.google.com/document/d/1zyKdPREtKT8OU4WtlHV_Wxet3SvyUtAXrTdFLPmYmdU</a>
+    </p>
+    <p>Standard Positions:</p>
+    <ul>
+        <li><a href="https://github.com/WebKit/standards-positions/issues/453">CSS if() function · Issue #453 ·
+                WebKit/standards-positions</a></li>
+        <li><a href="https://github.com/mozilla/standards-positions/issues/1167"> CSS if() function · Issue #1167 ·
+                mozilla/standards-positions</a></li>
+    </ul>
     <p>Other Resources:</p>
     <ul>
-        <li><a href="https://developer.chrome.com/blog/carousels-with-css">Carousels with CSS  |  Blog  |  Chrome for
-                Developers</a></li>
-        <li><a href="https://chrome.dev/carousel/">Carousel Gallery</a></li>
-        <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/carousel/">Carousel (Slide Show or Image Rotator) Pattern
-                | APG | WAI | W3C</a></li>
+        <li><a href="https://geoffgraham.me/unconditional-love-for-conditional-css/"> Unconditional Love for Conditional
+                CSS - Geoff Graham</a></li>
+        <li><a href="https://lea.verou.me/blog/2024/css-conditionals/"> Inline conditionals in CSS? • Lea Verou</a></li>
+        <li><a href="https://geoffgraham.me/conditionals-on-custom-properties/"> Conditionals on Custom Properties -
+                Geoff Graham</a></li>
+        <li><a href="https://www.bram.us/2025/02/18/css-at-function-and-css-if/"> CSS @function + CSS if() = 🤯 –
+                Bram.us</a></li>
     </ul>
-    <p>=== This is a demo of <code>if()</code> ===</p>
+    <p>=== This is a demo for <code>if()</code> ===</p>
 
-    <div class="if-component-container">
+    <div class="container-uses-if">
         <div class="if-component" data-state="success">
-            <div>I'm Success Button: <button>Click Me</button></div>
+            <div>I'm Success Button:
+                <button>
+                    data-state="success"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
         </div>
         <div class="if-component" data-state="disabled">
-            <div>I'm Disabled Button: <button>Click Me</button></div>
+            <div>I'm Disabled Button:
+                <button>
+                    data-state="disabled"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
         </div>
         <div class="if-component" data-state="info">
-            <div>I'm Info Button: <button>Click Me</button></div>
+            <div>I'm Info Button:
+                <button>
+                    data-state="info"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
         </div>
         <div class="if-component" data-state="danger">
-            <div>I'm Danger Button: <button>Click Me</button></div>
+            <div>I'm Danger Button:
+                <button>
+                    data-state="danger"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
         </div>
+        <div class="if-component" data-state="else">
+            <div>I'm else case Button:
+                <button>
+                    data-state="else"
+                    <br />
+                    <small>I can inherit Custom Props, btw!</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p>=== What if we use a wrong Custom Properties and we don't define <code>else</code> condition...? ===</p>
+    <div class="container-uses-if">
+        <div class="if-ivact-component" data-state="iacvt">
+            <div>
+                <p>Data-state is not valid case and there's no else case in if(), so I'm Invalid At Computed Value
+                    Time!:</p>
+                <button>
+                    data-state="iacvt"
+                    <br />
+                    <small>NO ELSE is so bad:</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p>=== What if there's no Custom Properties to refer to but Custom Property has fallback...? ===</p>
+    <div class="container-uses-if">
+        <div class="if-ivact-component">
+            <div>
+                <p>Data-state is null and there's no else case in if(), but there's a fallback, so I'm sufficed!:
+                </p>
+                <button>
+                    no data-state
+                    <br />
+                    <small>NO data-state attr for component but with else() and fallback for Custom Properties works at
+                        least:</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p>=== Other Queries? ===</p>
+
+    <p>=== Attr Regulations ===</p>
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support this feature.</p>
+        <p class="success judge">✅ Your browser supports this feature!</p>
+        <p>This is a demo for <a href="https://drafts.csswg.org/css-values-5/#if-notation"
+                target="_top">https://drafts.csswg.org/css-values-5/#if-notation</a>
+        </p>
+        <p class="note">Try it in Chrome Canary with <br />
+            <code>--enable-experimental-web-platform-features</code>.
+        </p>
+        <small><time datetime="2025-06-29">This DEMO is last updated on: 2025-06-29</time></small>
     </div>
 </body>
 
