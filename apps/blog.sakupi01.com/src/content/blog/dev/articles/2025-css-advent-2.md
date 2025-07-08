@@ -2,7 +2,7 @@
 title: "🎨 CSS Advent Calendar: Day 2 / CSS “to save HTML”"
 excerpt: "CSS Advent Calendar Day 2"
 date: 2025-08-02
-update: 2024-08-02
+update: 2025-08-02
 category: 'dev'
 tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
 status: 'published'
