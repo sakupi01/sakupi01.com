@@ -2,7 +2,7 @@
 title: "🎨 CSS Advent Calendar: Day 1 / Pre-Styling Era"
 excerpt: "CSS Advent Calendar Day 1"
 date: 2025-08-01
-update: 2024-08-01
+update: 2025-08-01
 category: 'dev'
 tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
 status: 'published'
