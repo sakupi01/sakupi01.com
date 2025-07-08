@@ -2,7 +2,7 @@
 title: "🎨 CSS Advent Calendar: Day 0 / Prologue"
 excerpt: "CSS Advent Calendar Prologue"
 date: 2025-07-31
-update: 2024-07-31
+update: 2025-07-31
 category: 'dev'
 tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
 status: 'published'
