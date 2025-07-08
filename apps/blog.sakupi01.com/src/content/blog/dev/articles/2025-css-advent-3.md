@@ -2,7 +2,7 @@
 title: "🎨 CSS Advent Calendar: Day 3 / CSS is Optional. Protect the Content!"
 excerpt: "CSS Advent Calendar Day 3"
 date: 2025-08-03
-update: 2024-08-03
+update: 2025-08-03
 category: 'dev'
 tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
 status: 'published'
