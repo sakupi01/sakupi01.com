@@ -101,8 +101,6 @@ line-mode browser で世界初の Web ページとして公開された [World W
 
 仕様になく、実装もされていないようなタグや属性に遭遇しても、ブラウザは処理を停止せず、理解できる部分を可能な限り表示し続ける。新しい要素や属性が追加されても、古いブラウザでコンテンツが完全に表示されなくなることはない。この 30 年で、HTML は何度もバージョンアップし、パーサすら変え、ブラウザは劇的に進化し、CSS や JavaScript といった技術が誕生したにも関わらず、初期の HTML ドキュメントは今日のモダンブラウザで完璧に表示される。
 
-ここまで完璧な互換性が保たれたシステムは、他にないと言っても良いのではないでしょうか。
-
 1991年に公開されたこの世界初の Web ページが、30年以上経った今でも問題なく読むことができるのは、「理解不能なものは無視する」という Web 初期からの設計思想があったからです。
 
 - [The World Wide Web project](https://info.cern.ch/hypertext/WWW/TheProject.html)
@@ -122,7 +120,7 @@ CSS の Design Principles でも、以下のような記述があります。
 >
 > [Web Platform Design Principles](https://www.w3.org/TR/design-principles/#css-content-should-be-visible)
 
-ゆえに、CSS はデフォルトではすべて表示されるようになっています。
+ゆえに CSS は、デフォルトで「すべてのコンテンツが隠れず表示」されるようなデフォルト値に設定されています。
 
 たとえば、UA スタイルシートが適用される前の display 、（`* { display: initial;}`）でページを表示させると、すべての要素が `display: inline;` にフォールバックします。
 
@@ -140,7 +138,7 @@ CSS の Design Principles でも、以下のような記述があります。
 
 HTML パーサが理解できないものは無視し、CSS が適用できないプロパティがあってもレンダリングを続け、デフォルトではコンテンツの表示を保証し、JavaScript でエラーが発生してもページの表示は保たれる。
 
-つまり、我々が User としても Author としても（はたまた UA の実装者としても）書く HTML や CSS や JS は、あくまで **"Hints"** であるということです。
+つまり、我々が User や Author (または UA 実装者)として書く、 HTML/CSS/JS は、あくまで "Hints" であるということです。
 
 そしてこの "Hints" という思想は、「Protect the Content」という共通の目標から生まれています。この目標からの共通思想が、Web を for **All** であり、 of **trust** であり、 on **everything** にさせ得る所以だと思います。
 
