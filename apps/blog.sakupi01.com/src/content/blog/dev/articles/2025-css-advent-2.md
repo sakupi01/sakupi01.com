@@ -19,7 +19,7 @@ status: 'published'
 
 「Web では font も color もカスタマイズできないなら、`<IMG>` で画像として表示すればいい。」
 
-そうなれば、リンクは動作せず、ユーザとのインタラクションも不能になり、画像のロードに失敗すれば全てのコンテンツを失う可能性だってある。だが、きちんと読み込まれれば、思い描いた通りに装飾されたドキュメントがインターネットで共有できる。それでいい。
+そうなれば、リンクは動作せず、ユーザとのインタラクションも不可能になり、画像のロードに失敗すれば全てのコンテンツを失う可能性だってある。だが、きちんと読み込まれれば、思い描いた通りに装飾されたドキュメントがインターネットで共有できる。それでいい。
 
 これに対し、「そんなわけがない。」として、多くのプロポーザルが出され始めることになります。
 
@@ -49,7 +49,7 @@ status: 'published'
 
 人間にとって *"an easily parsable format"* とはとてもいえなそうな文法ですが、ファイル圧縮がされておらず、接続速度が 14.4k 前後だった当時に誕生したことを鑑みると、理にかなったフォーマットだったのかもしれません。
 
-よくみると、この記法には、フォントサイズに単位が指定されていません。それどころか、この RFC には単位に関する言及がまったくなく、数値は状況応じて解釈されるようです。
+よくみると、この記法には、フォントサイズに単位が指定されていません。それどころか、この RFC には単位に関する言及がまったくなく、数値は状況に応じて解釈されるようです。
 
 > Describes the size of the character representation in general UNITS, which **could** be interpreted as a typographic 'point' size.
 
@@ -70,31 +70,31 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 
 - [WWW-Talk Oct-Dec 1993: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0264.html)
 
-```css
+```lisp
 (HEAD,BODY fontSize=normal
-BGColor=white
-FGColor=black
-(H1 fontSize=largest
-BGColor=red
-FGColor=white)
-(H2 fontSize=large)
-(P)
-(A FGColor=red)
-(CMD,KBD,SCREEN,LISTING,EXAMPLE fontFamily=fixed)
-(BOLD,EMPH,STRONG fontWeight=bold)
-(I fontSlant=italic)
-(ADDRESS
-(P fontSlant=italic))
-(OL
-(LI numStyle=roman
-(LI numStyle=number
-(LI numStyle=alpha)
-)
-)
-)
-(FOOTNOTE fontSize=small
-(P)
-)
+  BGColor=white
+  FGColor=black
+  (H1 fontSize=largest
+    BGColor=red
+    FGColor=white)
+  (H2 fontSize=large)
+  (P)
+  (A FGColor=red)
+  (CMD,KBD,SCREEN,LISTING,EXAMPLE fontFamily=fixed)
+  (BOLD,EMPH,STRONG fontWeight=bold)
+  (I fontSlant=italic)
+  (ADDRESS
+    (P fontSlant=italic))
+  (OL
+    (LI numStyle=roman
+      (LI numStyle=number
+        (LI numStyle=alpha)
+      )
+    )
+  )
+  (FOOTNOTE fontSize=small
+    (P)
+  )
 )
 ```
 
@@ -108,18 +108,18 @@ FGColor=white)
 >
 > [WWW-Talk Oct-Dec 1993: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0265.html)
 
-また、Pei-Yuan Wei の提案は、今日でも使われている以下のような Link タグでの外部スタイルシート参照の方法を提案しているのも特筆すべき点です。
+また、Pei-Yuan Wei の提案は、今日でも使われている Link タグでの外部スタイルシート参照を提案しているのも、特筆すべき点です。
 
 ```html
 <LINK REL="STYLE" HREF="URL_to_a_stylesheet">
 ```
 
-今日の我々からするとどことなく自然、当時の人々にとっては非常に画期的な記法の StyleSheet を提案した Pei-Yuan Wei の提案の4日後に、Steven Heaney がコメントを返します。
-端的にいうと、Web におけるスタイリングに関して車輪の再発明をするのではなく、SGML文書をスタイリングするためにすでに存在した、 FOSI という言語をベースにするのが最適だというものでした。
+今日の我々からするとどことなく自然、当時の人々にとっては非常に画期的な記法の StyleSheet の提案の4日後に、Steven Heaney がコメントを返します。
+端的にいうと、車輪の再発明をするのではなく、SGML文書をスタイリングするために既にに存在した、 FOSI という言語をベースにするのが最適だというものでした。
 
 - [WWW-Talk Oct-Dec 1993: Re: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0295.html)
 
-メールの内容を見てもらうとわかると思いますが、FOSI 自体が SGML で書かれているため、StyleSheet の記法とは縁遠い記法に見えますが、当時の Web を開発する人々が SGML の派生形である HTML に最も精通していたとすると、当時はこれが理にかなった提案だったのかもしれません。
+メールの内容を見てもらうとわかると思いますが、FOSI 自体が SGML で書かれているため、StyleSheet とは縁遠い記法に見えます。しかし、当時の Web を開発する人々が SGML の派生形である HTML に最も精通していたとすると、当時はこれが理にかなった提案だったのかもしれません。
 
 とはいえ、ViolaWWW は残念ながら Unix システム上でのみ普及していた X Window System をメインの動作環境としていたため、Mosaic が Windows に移植されるとすぐにその座を Mosaic に明け渡すことになります。
 
