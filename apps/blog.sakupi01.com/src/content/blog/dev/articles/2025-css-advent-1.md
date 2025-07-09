@@ -107,7 +107,7 @@ line-mode browser の登場によって、「The Web for All.」の思想が、�
 > [WWW-Talk Jan-Mar 1993: proposed new tag: IMG](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html)
 
 今後の展開からすると、この提案は Mosaic によるやや恣意的で軽率なものであったようにも捉えられるものでした。
-しかし、結局のところ Web はオープンなものであり、理論上はあらゆる人からの貢献や提案が歓迎されます。Web は当初からこうして発展してきたことが顕著に現れている提案のひとsつです。
+しかし、結局のところ Web はオープンなものであり、理論上はあらゆる人からの貢献や提案が歓迎されます。Web は当初からこうして発展してきたことが顕著に現れている提案のひとつです。
 
 そしてこの頃から、**HTML にスタイルを適用する、Web で見た目をコントロールする需要**が叫ばれるようになります。
 
@@ -151,7 +151,7 @@ Marc は Robert の StyleSheet RFC に[反応](http://1997.webhistory.org/www.li
 
 ## The birth of Web Design?
 
- `<IMG>` は、Mosaic が実装を急いだため、www-talk の議論半ばの段階で Mosaic に Ship されます。この当時は標準化団体やこれといった HTML の仕様も存在しなかったため、こうした独自実装が実装されました。
+ `<IMG>` は、Mosaic が実装を急いだため、www-talk の議論半ばの段階で Mosaic に Ship されます。この当時は標準化団体やこれといった HTML の仕様も存在しなかったため、こうした独自仕様が実装されました。
 
 Mosaic が **`<IMG>`** を実装したことにより、これまでテキストベースだった Web に初めてグラフィックが導入されることになりました。
 
@@ -164,7 +164,7 @@ Mosaic が **`<IMG>`** を実装したことにより、これまでテキスト
 
 その後の HTML にスタイルする手法が全く生まれなかったのかというと、実は HTML を HTML で装飾する手法が編み出されました。
 
-Marc は Moazic の NCSA を去り、Jim Clark と共に Firefox の前身である Netscape を設立します。
+Marc は Mosaic の NCSA を去り、Jim Clark と共に Netscape Communications を設立します。Netscape Communications が開発した Netscape Navigator は、後に Firefox の前身となるブラウザです。
 
 その過程で、さらなる進化と差別化を求め、他の Web のコミュニティと事前に議論することなく、独自 HTML タグを好き勝手に発明し、Netscape Navigator に実装し始めました。そこで生まれたのが、`<FONT>` や、`<CENTER>` に代表される、「スタイルするための HTML タグ」です。
 結果として、Netscape Navigator は、大成功を収め、市場で [90%以上のシェア](https://en.wikipedia.org/wiki/Netscape#:~:text=Its%20Netscape%20web%20browser%20was,than%20one%20percent%20in%202006.)を誇るブラウザとなりました。
