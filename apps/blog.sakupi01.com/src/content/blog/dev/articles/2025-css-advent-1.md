@@ -89,14 +89,14 @@ line-mode browser の登場によって、「The Web for All.」の思想が、�
 ---
 
 米国 NCSA（National Center for Supercomputing Applications）で働いていた研究者 が Tim のブラウザに興味を示し、米国のイリノイからスイスのジュネーブにある CERN のコンピュータに接続、CERN の Web ブラウザのコピーをダウンロードすることに成功します。
-そして、ブラウザの重要性に気づいて NCSA が開発し始めたのが **Mozaic ブラウザ** です。
+そして、ブラウザの重要性に気づいて NCSA が開発し始めたのが **Mosaic ブラウザ** です。
 
 当時はまだ、ブラウザをコントロールする方法は Tim の考案した HTML しかありませんでした。
 そして、HTML には「各ダグや属性の機能」をまとめた程度の[非常にシンプルな定義](https://info.cern.ch/hypertext/WWW/MarkUp/Tags.html)しかありませんでした。つまり、ブラウザがどう `<H1>` を表示するか、どう `<A>` を表示するかは、ブラウザがどう実装するかに委ねられていました。
 
 ## The `<IMG>` tag Proposal
 
-スタイルに関しての議論がまだ出てきていない頃、Mozaic の開発チームに所属していた Marc Andreessen が唐突に **`<IMG>`** を提案します。
+スタイルに関しての議論がまだ出てきていない頃、Mosaic の開発チームに所属していた Marc Andreessen が唐突に **`<IMG>`** を提案します。
 
 > I'd like to propose a new, optional HTML tag:
 >
@@ -106,7 +106,7 @@ line-mode browser の登場によって、「The Web for All.」の思想が、�
 >
 > [WWW-Talk Jan-Mar 1993: proposed new tag: IMG](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html)
 
-今後の展開からすると、この提案は Mozaic によるやや恣意的で軽率なものであったようにも捉えられるものでした。
+今後の展開からすると、この提案は Mosaic によるやや恣意的で軽率なものであったようにも捉えられるものでした。
 しかし、結局のところ Web はオープンなものであり、理論上はあらゆる人からの貢献や提案が歓迎されます。Web は当初からこうして発展してきたことが顕著に現れている提案のひとsつです。
 
 そしてこの頃から、**HTML にスタイルを適用する、Web で見た目をコントロールする需要**が叫ばれるようになります。
@@ -125,7 +125,7 @@ www-talk mailing list
 1993年から1996年くらいまでアクティブだった、World Wide Web の開発者やユーザーが参加するメーリングリストです。Web の初期の歴史において重要な役割を果たしたものとして、今回の考古学でも非常にお世話になります。
 :::
 
-この RFC に関する詳細は Day2 で触れるとして、こういったドキュメントのスタイルに関する提案がありつつも、Marc や当時の Mozaic チームにとっての最優先事項は、事業インパクトの強い `<IMG>` の実装でした。
+この RFC に関する詳細は Day2 で触れるとして、こういったドキュメントのスタイルに関する提案がありつつも、Marc や当時の Mosaic チームにとっての最優先事項は、事業インパクトの強い `<IMG>` の実装でした。
 Marc は Robert の StyleSheet RFC に[反応](http://1997.webhistory.org/www.lists/www-talk.1993q4/0266.html)を示したり、外部からの根強い需要を認識しつつも、ドキュメントをスタイリングすることについて否定的な意見を持っていたようでした。
 
 > HTML is the kind of thing that can only be loved by a computer scientist.
@@ -151,12 +151,12 @@ Marc は Robert の StyleSheet RFC に[反応](http://1997.webhistory.org/www.li
 
 ## The birth of Web Design?
 
- `<IMG>` は、Mozaic が実装を急いだため、www-talk の議論半ばの段階で Mozaic に Ship されます。この当時は標準化団体やこれといった HTML の仕様も存在しなかったため、こうした独自実装が実装されました。
+ `<IMG>` は、Mosaic が実装を急いだため、www-talk の議論半ばの段階で Mosaic に Ship されます。この当時は標準化団体やこれといった HTML の仕様も存在しなかったため、こうした独自実装が実装されました。
 
-Mozaic が **`<IMG>`** を実装したことにより、これまでテキストベースだった Web に初めてグラフィックが導入されることになりました。
+Mosaic が **`<IMG>`** を実装したことにより、これまでテキストベースだった Web に初めてグラフィックが導入されることになりました。
 
-![IMG Tag の実装された Mozaic](../../../../assets/images/mozaic.png)
-*IMG Tag の実装された Mozaic*
+![IMG Tag の実装された Mosaic](../../../../assets/images/mozaic.png)
+*IMG Tag の実装された Mosaic*
 
 任意のツールで装飾したドキュメントを、ピクセルパーフェクトで Web に表示できるようになったという展開は、Web で装飾することを渇望していた当時の人々にとって非常に心踊る出来事だったに違いありません。
 
@@ -179,7 +179,7 @@ Marc は Moazic の NCSA を去り、Jim Clark と共に Firefox の前身であ
 
 ---
 
-ただ、Mozaic には `<IMG>` が存在し、その直後にはこれといった装飾手法がなかったこと、`<FONT>` や `<CENTER>` などが Netscape に実装されたとしても柔軟な装飾が難しかったことから、「Web で装飾が必要なもの全部画像にして `<IMG>` で表示しよう！」という考えが些かの間に広まるのは想像に易いです。
+ただ、Mosaic には `<IMG>` が存在し、その直後にはこれといった装飾手法がなかったこと、`<FONT>` や `<CENTER>` などが Netscape に実装されたとしても柔軟な装飾が難しかったことから、「Web で装飾が必要なもの全部画像にして `<IMG>` で表示しよう！」という考えが些かの間に広まるのは想像に易いです。
 
 そこに危機感を覚えたのが、人々が「Web でドキュメントをスタイルする方法」を提案し始めました。その中の一人が Håkon Wium Lie であり、彼が提案したものが、いうまでもなく **CHSS**（Cascading HTML Style Sheets）です。
 
