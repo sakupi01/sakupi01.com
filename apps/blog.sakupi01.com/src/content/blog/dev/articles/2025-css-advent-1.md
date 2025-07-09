@@ -34,7 +34,9 @@ WorldWideWeb ブラウザの生誕 30 年を記念して、現代のブラウザ
 
 :::
 
-当時は、SGML、LaTex、Microsoft Word などを筆頭に、既に様々なドキュメントツールがありました。しかし、多くは商用だったり記法が複雑だったりで大変なので、Tim は WorldWideWeb を作る上でシンプルで万人に受け入れられるような記法が必要だと考えました。それと同時に、もちろん、ドキュメントを共有するための仕組みが必要でした。
+WWW は、CERN に散らばっていた論文を、個別にメールで問い合わせたりなどすることなく、効率的に共有したいという Tim の思いから生まれました。その実現のため、研究者が好きなときに、誰の許可も得ることなく、自由に情報にアクセスできる仕組みを考える必要がありました。
+
+当時のドキュメントツールとしては、SGML、LaTex、Microsoft Word などがありました。しかし、多くは商用だったり記法が複雑だったりで、Tim が目指す「誰でも簡単に情報を共有できる」という理想には適していませんでした。そこで Tim は、シンプルで万人に受け入れられるような記法と、それを共有するための仕組みを同時に考案する必要がありました。
 
 その結果として Tim が提案したのが、HTTP（HyperText Transfer Protocol）と、HTTP で共有する用のテキストフォーマットとしての HTML（HyperText Markup Language）でした。混乱を避けるために予め述べておきますが、この時点の HTML はあくまで Tim が考案したもので、標準化団体などにより国際標準として認められたものではありません。
 
@@ -126,7 +128,8 @@ www-talk mailing list
 :::
 
 この RFC に関する詳細は Day2 で触れるとして、こういったドキュメントのスタイルに関する提案がありつつも、Marc や当時の Mosaic チームにとっての最優先事項は、事業インパクトの強い `<IMG>` の実装でした。
-Marc は Robert の StyleSheet RFC に[反応](http://1997.webhistory.org/www.lists/www-talk.1993q4/0266.html)を示したり、外部からの根強い需要を認識しつつも、ドキュメントをスタイリングすることについて否定的な意見を持っていたようでした。
+
+そもそも、Web は Tim が CERN で研究論文を効率的に共有するために生まれたものです。研究論文の共有という原点に立ち返れば、必要なのは構造化された情報の伝達であり、「見た目の美しさ」は二の次という考え方は理解できます。Marc は Robert の StyleSheet RFC に[反応](http://1997.webhistory.org/www.lists/www-talk.1993q4/0266.html)を示したり、外部からの根強い需要を認識しつつも、ドキュメントをスタイリングすることについて否定的な意見を持っていたようでした。
 
 > HTML is the kind of thing that can only be loved by a computer scientist.
 > Yes, it expresses the underlying structure of a document, but **documents are more than just structured text databases; they have visual impact**.
@@ -158,7 +161,7 @@ Mosaic が **`<IMG>`** を実装したことにより、これまでテキスト
 ![IMG Tag の実装された Mosaic](../../../../assets/images/mozaic.png)
 *IMG Tag の実装された Mosaic*
 
-任意のツールで装飾したドキュメントを、ピクセルパーフェクトで Web に表示できるようになったという展開は、Web で装飾することを渇望していた当時の人々にとって非常に心踊る出来事だったに違いありません。
+任意のツールで装飾したドキュメントを、画像として正確 Web に表示できるようになったという展開は、Web で装飾することを渇望していた当時の人々にとって非常に心踊る出来事だったに違いありません。
 
 ## The `<FONT>` `<CENTER>` tag &c
 
@@ -181,7 +184,7 @@ Marc は Mosaic の NCSA を去り、Jim Clark と共に Netscape Communications
 
 ただ、Mosaic には `<IMG>` が存在し、その直後にはこれといった装飾手法がなかったこと、`<FONT>` や `<CENTER>` などが Netscape に実装されたとしても柔軟な装飾が難しかったことから、「Web で装飾が必要なもの全部画像にして `<IMG>` で表示しよう！」という考えが些かの間に広まるのは想像に易いです。
 
-そこに危機感を覚えたのが、人々が「Web でドキュメントをスタイルする方法」を提案し始めました。その中の一人が Håkon Wium Lie であり、彼が提案したものが、いうまでもなく **CHSS**（Cascading HTML Style Sheets）です。
+そこに危機感を覚えた人々が「Web でドキュメントをスタイルする方法」を続々と提案し始めました。その中の一人が Håkon Wium Lie であり、彼が提案したものが、いうまでもなく **CHSS**（Cascading HTML Style Sheets）です。
 
 ## Appendix
 
