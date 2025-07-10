@@ -78,7 +78,7 @@ Håkon Lie のプロポーザルでは以下のような記述があります。
 
 ## The entire Web cannot be broken
 
-ところで、ブラウザはパースできない HMTL タグを無視するようにできています。
+ところで、ブラウザは未知の HTML タグに遭遇してもエラーで停止することなく、`HTMLUnknownElement` として扱い、レンダリングを続行するようにできています。
 
 `<html>` 配下の要素を全消しして、`<hoge />` などという超適当なタグを挿入しても、なぜかご親切に `<head>` が入り、`<body>` が入り、`<hoge />` が `<hoge></hoge>` に変換されて、その中に文字列なんか入れていてもその文字列がちゃんと表示されます。
 
@@ -97,26 +97,15 @@ line-mode browser で世界初の Web ページとして公開された [World W
 >
 > [HyperText Mark-up Language](https://info.cern.ch/hypertext/WWW/MarkUp/MarkUp.html)
 
-ここに Web の根本的な設計思想が現れていると思います。
+仕様になく、実装もされていないようなタグや属性に遭遇しても、ブラウザは処理を停止せず、理解できる部分を可能な限り表示し続けます。新しい要素や属性を古いブラウザで利用しても、サイトが壊れることはありません。
 
-仕様になく、実装もされていないようなタグや属性に遭遇しても、ブラウザは処理を停止せず、理解できる部分を可能な限り表示し続け、新しい要素や属性が追加されても、古いブラウザでコンテンツが完全に表示されなくなることはないという **「前方互換性」**。
+この 30 年で、HTML は何度もバージョンアップし、パーサすら変え、ブラウザは劇的に進化し、CSS や JavaScript といった技術が誕生したにも関わらず、初期の HTML ドキュメントは今日のモダンブラウザで完璧に表示されます。
 
-この 30 年で、HTML は何度もバージョンアップし、パーサすら変え、ブラウザは劇的に進化し、CSS や JavaScript といった技術が誕生したにも関わらず、初期の HTML ドキュメントは今日のモダンブラウザで完璧に表示されるという **「後方互換性」**。
-
-1991年に公開された世界初の Web ページが、30年以上経った今でも問題なく読むことができるのは、「理解不能なものは無視する」という前方互換性の設計思想と、既存の要素を切り捨てない後方互換性の両方が Web 初期から貫かれてきたからです。
-
-- [The World Wide Web project](https://info.cern.ch/hypertext/WWW/TheProject.html)
-
-たとえば、`<NOTE>` タグのように仕様から削除され、後方互換性が切り捨てられた要素でも、「未知のタグとして無視する」前方互換性の仕組みによって、エラーとならずにコンテンツが表示され続けます。
-
-![NOTE という今は亡きタグだが、コンテンツは表示される](../../../../assets/images/note-tag.png)
-*NOTE という今は亡きタグだが、コンテンツは表示される [Cascading HTML Style Sheets -- A Proposal](https://www.w3.org/People/howcome/p/cascade.html)*
+Web 上のあらゆるページが（どんなに古いページであろうが）表示されるのは、 Web 初期から貫かれてきた「後方互換性」と「理解不能でもエラーにしない」という設計思想が相補的に機能しているからです。
 
 ### Protect the Content
 
-これは HTML のみに適用される設計思想ではありません。
-
-CSS の Design Principles でも、以下のような記述があります。
+「Web 上のあらゆるコンテンツは守られる」という思想に加え、CSS の Design Principles には、以下のような記述があります。
 
 > 4.5. **Content should be viewable and accessible by default**
 >
@@ -124,7 +113,7 @@ CSS の Design Principles でも、以下のような記述があります。
 >
 > [Web Platform Design Principles](https://www.w3.org/TR/design-principles/#css-content-should-be-visible)
 
-ゆえに CSS は、デフォルトで「すべてのコンテンツが隠れず表示」されるようなデフォルト値に設定されています。
+ゆえに CSS は、「Web 上のあらゆるコンテンツが隠れないように表示」されるようなデフォルト値に設定されています。
 
 たとえば、UA スタイルシートが適用される前の display 、（`* { display: initial;}`）でページを表示させると、すべての要素が `display: inline;` にフォールバックします。
 
@@ -140,11 +129,11 @@ CSS の Design Principles でも、以下のような記述があります。
 
 ---
 
-HTML パーサが理解できないものは無視し、CSS が適用できないプロパティがあってもレンダリングを続け、デフォルトではコンテンツの表示を保証し、JavaScript でエラーが発生してもページの表示は保たれる。
+HTML パーサが理解できないものは無視し、CSS が適用できないプロパティがあってもレンダリングを続け、デフォルトではコンテンツの表示を保証し、JavaScript でエラーが発生しても HTML と CSS によってページの表示は保たれる。
 
 つまり、我々が User や Author (または UA 実装者)として書く、 HTML/CSS/JS は、あくまで "Hints" であるということです。
 
-そしてこの "Hints" という思想は、「Protect the Content」という共通の目標から生まれています。この目標からの共通思想が、Web を for **All** であり、 of **trust** であり、 on **everything** にさせ得る所以だと思います。
+そしてこの "Hints" という思想は、「Web 上のあらゆるコンテンツは守られる」べき、という共通の目標から生まれています。この目標からの共通思想が、Web を for **All** であり、 of **trust** であり、 on **everything** にさせ得る所以だと思います。
 
 > The Web for **All**. Web of **trust**. Web on **everything**.
 >
