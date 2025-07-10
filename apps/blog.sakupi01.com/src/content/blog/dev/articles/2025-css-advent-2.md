@@ -115,7 +115,7 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 ```
 
 今日の我々からするとどことなく自然、当時の人々にとっては非常に画期的な記法の StyleSheet の提案の4日後に、Steven Heaney がコメントを返します。
-端的にいうと、車輪の再発明をするのではなく、SGML文書をスタイリングするために既にに存在した、 FOSI という言語をベースにするのが最適だというものでした。
+端的にいうと、車輪の再発明をするのではなく、SGML文書をスタイリングするために既に存在した、 FOSI という言語をベースにするのが最適だというものでした。
 
 - [WWW-Talk Oct-Dec 1993: Re: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0295.html)
 
