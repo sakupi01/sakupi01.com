@@ -36,7 +36,8 @@ Candidate Recommendation - The W3C Recommendation Track
 
 W3C の全ての Technical Report は、Recommendation Track に従って、以下のようなステータスがつけられています。
 
-![alt text](../../../../assets/images/rt.png)
+![Recommendation Track](../../../../assets/images/rt.png)
+*Recommendation Track*
 
 **Candidate Recommendation（CR）** は、Recommendation Track において、技術要件を満たし広範なレビューを受けた文書のことです。広範なコミュニティに最終レビューを促し、実装経験を収集することを目的として公開されます。
 
