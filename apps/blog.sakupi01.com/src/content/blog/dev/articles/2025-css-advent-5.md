@@ -34,7 +34,7 @@ CSS は CHSS を前身として、Hakon Wium Lie と Bert Bos によって 1995 
 
 ## The Cascade
 
-「単一のスタイルシートがプレゼンテーションに「Influence」すること以上に、「複数のスタイルシートが相互に影響して「Influence」するために、なぜ『Cascade』という方法論である必要があるのか」ということを、CSS の仕様では、**「Modularity」** と **「Balance」** に分けて説明しています。
+単一のスタイルシートがプレゼンテーションに "Influence" すること以上に、「複数のスタイルシートが相互に影響して "Influence" するために、なぜ "Cascade" という方法論である必要があるのか」ということを、CSS の仕様では、**"Modularity"** と **"Balance"** に分けて説明しています。
 
 ## Modularity for the Cascade
 
@@ -130,29 +130,20 @@ CHSS では、これをパーセンテージで「どの程度影響力がある
 CSS1, CSS2 の Working Draft まで、 「Author `!important` が User `!important` よりも優先される」という定義でしたが、CSS2 の Proposed Recommendation を以て、この順序が変更されました。
 「User `!important` が Author `!important` よりも優先される」という定義は、CSS の最初から存在していたわけではなく、CSS1 最初の提案から約 3 年後に変更されたものです。
 
-仕様にもある通り、これは単なる仕様変更ではなく、**「a semantic change」**と明記されています。
-Author `!important` が User `!important` よりも優先されるという、**常に Author の権限が大きかった** 時代から、**User の権限が大きくなる** 可能性を持てるようになりました。**「a balance of power」**が User と Author の間で取れるようになったのです。
+仕様にもある通り、これは単なる仕様変更ではなく、「a semantic change」と明記されています。
+Author `!important` が User `!important` よりも優先されるという、**常に Author の権限が大きかった**時代から、**User の権限を大きくできる可能性**を持てるようになりました。「a balance of power」が User と Author の間で取れるようになったのです。
 
 ---
 
 こうした背景を踏まえると、`!important` が Cascade においてどういう意味を持つべきとされているのかが見えてきます。
 
-もちろん、`!important` を用いれば、同一オリジン間での優先度を上げることもでき、そういった使い方をすることもできます。例えば、拡張機能など、いかなる状況でも詳細度を上げなければどうしようもない局面においては、`!important` を用いて「最大限の影響力」を表現をするのは仕方がありません。
+もちろん、`!important` を用いれば、同一オリジン間での優先度を上げるような使い方もできます。例えば、拡張機能など、いかなる状況でも詳細度を上げなければどうしようもない局面においては、`!important` を用いて「最大限の影響力」を表現をするのは仕方がありません。
 
 しかし、`!important` はあくまで「balance」を取るために導入されたものであり、non-`!important` な宣言に対しても、「balance」を取る目的で利用されることが望まれています。
 
 > **for balance**, an "!important" declaration takes precedence over a normal declaration.
 
-それゆえ、他の宣言を無理矢理上書きする目的で `!important` を用いることは、理念に反した使い方をしているということを承知しておきたいです。
-
-さらに、異なるオリジンのスタイルを `!important` を用いて上書きすることにおいては、より危険な「バランスを崩す」行為だと筆者は考察しています。
-
-そもそもなぜ「balance」が必要だったのかというと、それまでどう頑張っても User が Author よりも必ず優先される方法がなかったからです。
-「User が Author よりも優先される手段」として `!important` を導入することで、User のスタイルを Author のスタイルから絶対に上書きされないように、バランスをとる。つまり、`!important` は User にとっての **「守り」の手段**です。
-
-それゆえ、例えば Author から `!important` を用いて User の non-`!important` なスタイルを上書きすることは、本来 `!important` が「守り」の手段であることに反し、「攻め」の手段として不本意な使われ方をしていることになります。
-
-`!important` を用いて、何かを「上書き」する場合は、仕様の想定に反した使い方をしている可能性があることを、ぜひ念頭に置いておきたいものです。
+それゆえ、他の宣言を無理矢理上書きする目的で `!important` を用いて、何かを「上書き」する場合は、仕様の想定に反した使い方をしている可能性があることを、ぜひ念頭に置いておきたいものです。
 
 ## Appendix
 
