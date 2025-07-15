@@ -19,12 +19,14 @@ status: 'published'
 前回までで、Cascade が「Suggest/Influence」するものであり、`!important` が「create a balance」するものであるという、Cascade の基本思想を解説してきました。
 これを踏まえた上で、2025年現在、我々が慣れ親しんでいる CSS の Cascade について、改めて整理したいと思います。
 
-Cascade に関しての詳説は、すでに日本語でも良質なものが多く存在します。よって、本エントリでは、CSS や Cascade の根幹となる思想を基に、Cascade を解説していくものにできればと思います。
+Cascade に関しての詳説は、すでに日本語でも良質なものが多く存在します。よって、本エントリでは、あくまで CSS や Cascade の根幹となる思想を理解していくものにできればと思います。（Cascade に関する詳細は [MDN などのドキュメント](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/Cascade)を参照ください。）
 
 CSS Snapshot 2024（執筆時点で最新） によると、現在の主要なブラウザや WPT は、基本的には CSS Cascading and Inheritance Level 4 を実装しているべきとされています。よって、今回参照するのは、2025 年現在、 Stable な Candidate Recommendation Snapshot でとして勧告されている Level4 の仕様です。
 
 - [CSS Cascading and Inheritance Level 4](https://web.archive.org/web/20250524044012/https://www.w3.org/TR/css-cascade-4/)
 - [CSS Snapshot 2024](https://www.w3.org/TR/css-2024/#css-official)
+
+なぜ、Candidate Recommendation や Level4 を参照するのかに関する詳細は、以下の note を参照ください。
 
 :::note{.info}
 
@@ -63,19 +65,22 @@ W3C が、特許保護を確保しながら（CRS）、同時に仕様の継続�
 
 :::note{.message}
 
-「Level」 という仕組み
+<details>
 
+<summary>「Level」 という仕組み </summary>
 CSS の仕様は、基本的にカテゴリごとに 「Module」で分割されています。そして「Module」は、Recommendation Track(RT) で同一ステータスとして括るのが妥当な区切りで「Level」分けされる仕組みになっています。Editors Draft でない限り、各 Module の 各 Level に RT のステータスが紐づく仕組みです。
 
 本エントリで参照するのは、執筆時点で最新の 2024年に公開された CSS Snapshot で「Official Definition」とマークされている CSS Cascading and Inheritance「Level 4」です。だだ、同 Module としては、「Fairly Stable Modules with limited implementation experience」とマークされている CRS の「[Level 5](https://www.w3.org/TR/css-cascade-5/)」や、のちに紹介する「Cascade Layers」「Scope」などの機能を盛り込んだ、WD の「[Level 6](https://www.w3.org/TR/css-cascade-6/)」も存在します。
 
 同じ「CSS Cascading and Inheritance」というカテゴリではありますが、RT で同一のステータスとして管理されるに相応しくなく、それぞれの実装状況や仕様の安定具合に応じて異なる進捗を持たせるのが妥当であれば、異なる Level に分類されます。
 
+</details>
+
 :::
 
 ## The Cascade - Cascade Sorting Order
 
-現在、皆さんがみているこのページのスタイルは、完全に CSS ルールの競合が解決され、計算された結果として現れているスタイルです。
+現在、皆さんがみているこのページのスタイルは、CSS ルールの競合が完全に解決され、計算された結果です。
 
 2025/07/12 現在、CSS には全 638 プロパティあり、その全てに対して、最終的には単一の値（[Actual Value](https://www.w3.org/TR/css-cascade-4/#actual)）が決定されます。
 
@@ -89,7 +94,8 @@ CSS の仕様は、基本的にカテゴリごとに 「Module」で分割され
 
 CSS Cascading and Inheritance Level 4 時点での Cascade Sorting Order を図解すると、以下のようになります。
 
-![alt text](../../../../assets/images/the-cascade.png)
+![The Whole Cascade Universe](../../../../assets/images/the-cascade.png)
+*The Whole Cascade Universe*
 
 図が示す通り、[Origin and Importance](https://www.w3.org/TR/css-cascade-4/#cascade-origin) が、Cascade Sorting Order の中で最も優先度の高い競合解決です。どんなに Specificity が高くとも、それは同一 Origin and Importance の中でのみ効力を持ち、低い Specificity でもより高い Origin and Importance に属する場合は、そちらが優先されるということになります。
 
