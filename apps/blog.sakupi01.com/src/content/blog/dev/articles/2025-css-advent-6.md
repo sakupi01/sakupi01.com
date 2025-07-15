@@ -90,6 +90,15 @@ CSS の仕様は、基本的にカテゴリごとに 「Module」で分割され
 
 後日詳細に解説しますが、 Actual Value の導出には、多くの競合解決・計算過程を経ることになります。
 
+e.g. 値の指定されていない `width` の Actual Value 導出まで：
+
+1. Winning declaration (none)
+2. Cascaded value (none)
+3. Specified value (auto (initial value))
+4. Computed value (auto)
+5. Used Value (120px)
+6. Actual Value (120px)
+
 その内の Cascade というステップで利用するアルゴリズムが、仕様でいうところの「[Cascade Sorting Order](https://www.w3.org/TR/css-cascade-4/#cascade-sort)」です。Cascade Sorting Order によって、 [Cascaded Value](https://www.w3.org/TR/css-cascade-4/#cascaded) が導出されます。Cascaded Value は、Cascade Sorting Order によって CSS ルールの競合が解決された状態の値を指します。
 
 CSS Cascading and Inheritance Level 4 時点での Cascade Sorting Order を図解すると、以下のようになります。
