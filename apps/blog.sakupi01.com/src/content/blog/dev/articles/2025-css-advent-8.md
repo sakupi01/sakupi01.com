@@ -18,15 +18,17 @@ status: 'published'
 
 前回までで、Level4 時点での Cascade について一通り解説してきました。
 
-今日からは一旦 Cascade から離れた話題に移りたいと思います。Day8 では、CSS の基本処理について見ていきます。
+今日からは、一旦 Cascade から離れ、 CSS の基本処理について見ていきます。
 
-実際にレンダリングエンジンで CSS がどのように処理されるのか、今後の内容に直結する最低限の範囲を確認しておく温度感で進めます。CSS の中でも特に「Style Resolution」の部分にフォーカスするため、Layout や Paint などのレンダリングの過程は、今回は割愛します。
+ここでは、今後の内容に直結する実際にレンダリングエンジンで CSS がどのように処理されるのか、最低限の範囲を確認しておく温度感で進めます。
+
+実際にレンダリングエンジンで CSS がどのように処理されるのかの中でも、特に「Style Resolution」にフォーカスするため、Layout や Paint などのレンダリングの過程は、今回は割愛します。
 
 ## Style Resolution
 
-document 内の各要素に対して、ブラウザはその要素に適用される**すべての CSS プロパティ**に値を割り当てます。たった1つの `<h1>` でも 638 の CSS プロパティ（2025/07/19 時点：[Current Property Names](https://www.w3.org/Style/CSS/all-properties.en.html)）が当たっており、何かしらの値を持っています。
+document 内の各要素に対して、ブラウザはその要素に適用される**すべての CSS プロパティ**に値を割り当てます。たった1つの `<h1>` でも 638 個 の CSS プロパティ（2025/07/19 時点：[Current Property Names](https://www.w3.org/Style/CSS/all-properties.en.html)）が当たっており、何かしらの値を持っています。
 
-メインスレッドで CSS が字句解析されパースされたあと、要素に対して単一かつ表示可能な値になるまで計算が繰り返されます。この値は、Cascade、Inheritance/依存関係、単位変換、表示環境に基づく Defaulting の計算結果です。
+メインスレッドで CSS がトークナイズされパースされたあと、要素に対して単一かつ表示可能な値になるまで計算が繰り返されます。Cascade、Inheritance を含む Defaulting といった、一連の Value Processing 結果の値です。
 
 :::note{.info}
 
@@ -64,7 +66,7 @@ p > a {
 
 ### Filtering
 
-「CSS 文法上の誤りがあるものを排除する」ことが、主たる目的とする過程です。仕様上では、**[Filtering](https://www.w3.org/TR/css-cascade-4/#filtering)** と呼ばれる過程に該当します。
+**[Filtering](https://www.w3.org/TR/css-cascade-4/#filtering)** とは、CSS 仕様上の「CSS 文法上の誤りがあるものを排除する」ことを、主たる目的とする過程です。
 
 ここでのチェックは、known property name（文法的に正しいプロパティ名）に match するかどうかだけでなく、「そもそも Style Sheet に入っているか」や「Style Rule に包含されているか」などもありますが、要は 「CSS 的に正しいかどうか静的に確認」する処理です。値が [declared value](#1-declared-values) として抽出され、適用外の値が **invalid at parse-time** となるのはこの段階です。
 
@@ -74,11 +76,11 @@ Filtering の結果、単一の要素に適用可能な「declared value のリ�
 
 Filtering の結果、単一の要素に対して複数の宣言が適用された場合、[Cascading](https://www.w3.org/TR/css-cascade-4/#cascading) でその競合を解決しなければなりません。
 
-UA Stylesheet、User Stylesheet、Author Stylesheet、その中でもインラインスタイルや `@import` でのスタイル読み込みなど、さまざまなソースからすべてのスタイルを集約し、最終的に唯一の宣言を採用する必要があります。Author StyleSheet で何も指定していなくとも、ほとんどのブラウザで UA StyleSheet が適用されていることを鑑みると、この過程は必須と言っても良いでしょう。
+Author/User/UA Stylesheet、その中でもインラインスタイルや `@import` でのスタイル読み込みなど、さまざまなソースからすべてのスタイルを集約し、最終的に唯一の宣言を採用する必要があります。Author StyleSheet で何も指定していなくとも、ほとんどのブラウザで UA StyleSheet が適用されていることを鑑みると、この過程は必須と言っても良いでしょう。
 
 Cascading の過程で、単一の宣言を採用するアルゴリズムが、 Cascading Sorting Order です。こうして宣言を単一に絞ることで、後続の [Value Processing](#value-processing) において値を単一に絞って計算していくことができます。Cascading の結果、単一に絞られた値は、**[cascaded value](#2-cascaded-value)** となります。
 
-Cascade に関しては、このアドベントカレンダーでも多分に触れてきました。詳細は、[Day3](2025-css-advent-3)~[Day5](2025-css-advent-5) を参照されたいです。
+Cascade に関しては、このアドベントカレンダーでも多分に触れてきました。詳細は、[Day3](2025-css-advent-3)~[Day5](2025-css-advent-5) を参照して下さい。
 
 ### Defaulting
 
@@ -99,7 +101,7 @@ Cascading の結果として cascaded value が得られましたが、すべて
 :::note{.memo}
 💡 FUN FACT
 
-UA Stylesheet によって設定される値と initial value は異なります。例えば、`<div>` の `display` は UA Stylesheet によって `block` に設定されますが、`display` プロパティ自体の initial value は `inline` です。
+UA Stylesheet によって設定される値と仕様に定義される initial value は異なります。例えば、`<div>` の `display` は UA Stylesheet によって `block` に設定されますが、`display` プロパティ自体の initial value は `inline` です。
 :::
 
 #### Inheritance
