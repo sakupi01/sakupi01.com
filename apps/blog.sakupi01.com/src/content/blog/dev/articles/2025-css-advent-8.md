@@ -68,7 +68,19 @@ p > a {
 
 **[Filtering](https://www.w3.org/TR/css-cascade-4/#filtering)** とは、CSS 仕様上の「CSS 文法上の誤りがあるものを排除する」ことを、主たる目的とする過程です。
 
-ここでのチェックは、known property name（文法的に正しいプロパティ名）に match するかどうかだけでなく、「そもそも Style Sheet に入っているか」や「Style Rule に包含されているか」などもありますが、要は 「CSS 的に正しいかどうか静的に確認」する処理です。値が [declared value](#1-declared-values) として抽出され、適用外の値が **invalid at parse-time** となるのはこの段階です。
+ブラウザの実装では、パーサがトークンを読み進める段階で、プロパティ名の検証、値の妥当性チェックなどを行います。例えば、Chromium では [CSS パーサ](https://chromium.googlesource.com/chromium/blink/+/master/Source/core/css/parser/)が各宣言を解析する際に、[プロパティのメタデータ](https://chromium.googlesource.com/chromium/blink/+/refs/heads/main/Source/core/css/CSSProperties.in)（受け入れ可能な値の型、初期値など）と照合して妥当性を判断しています。
+
+ここでのチェックには、known property name（文法的に正しいプロパティ名）に match するかどうかやプロパティとして正しいかどうかのほかに、「そもそも Style Sheet に入っているか」や「Style Rule に包含されているか」などのチェックもあります。要は 「CSS 的に正しいかどうか静的に確認」する処理です。その結果として、値が [declared value](#1-declared-values) として抽出され、適用外の値は **invalid at parse-time** となります。
+
+```css
+/* ブラウザ内部での扱い（概念的な表現） */
+.element {
+  /* clllr: red; → invalid at parse-time として無視される（プロパティ名が不正） */
+  /* width: red; → invalid at parse-time として無視される（値の型が不正） */
+  
+  /* 有効な宣言のみが declared value として残る */
+}
+```
 
 Filtering の結果、単一の要素に適用可能な「declared value のリスト」が得られます。
 
