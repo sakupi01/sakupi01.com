@@ -1,5 +1,5 @@
 ---
-title: "🎨 CSS Advent Calendar: Day 6 / Cascade for Cascading Style Sheets - Origin&Importance Part1"
+title: "🎨 CSS Advent Calendar: Day 6 / Cascade for Cascading Style Sheets - UA Origin in Cascade"
 excerpt: "CSS Advent Calendar Day 6"
 date: 2025-08-06
 update: 2025-08-06
