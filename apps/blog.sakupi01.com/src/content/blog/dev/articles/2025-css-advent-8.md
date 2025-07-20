@@ -28,13 +28,13 @@ status: 'published'
 
 document 内の各要素に対して、ブラウザはその要素に適用される**すべての CSS プロパティ**に値を割り当てます。たった1つの `<h1>` でも 638 個 の CSS プロパティ（2025/07/19 時点：[Current Property Names](https://www.w3.org/Style/CSS/all-properties.en.html)）が当たっており、何かしらの値を持っています。
 
-メインスレッドで CSS がトークナイズされパースされたあと、要素に対して単一かつ表示可能な値になるまで計算が繰り返されます。Cascade、Inheritance を含む Defaulting といった、一連の Value Processing 結果の値です。
+ここで導出される「何かしらの値」は Filtering、 Cascading、Defaulting といった、 Style Resolution の一連の結果です。
 
 :::note{.info}
 
 📝 用語の整理
 
-普段曖昧になってしまいがちな用語について、確認しておきます。
+普段曖昧になってしまいがちな用語について、あらかじめ確認しておきます。
 
 - **Style Sheet**: Style Sheet は、 Style Rule の集合から構成されます。
 - **[Style Rule](https://www.w3.org/TR/css-syntax-3/#style-rule)**: Selector List の後に波括弧（`{}`）で囲まれたブロックが続き、中に Style Declaration が包含される規則。例えば以下は、典型的な Style Rule です。（"Rule" というと、 Style Rule のほかに [At-rules](https://www.w3.org/TR/css-syntax-3/#at-rules) や [@charset Rule](https://www.w3.org/TR/css-syntax-3/#charset-rule) も存在します。）
