@@ -64,6 +64,35 @@ p > a {
 
 :::
 
+```html
+<div class="card">
+  <h2>タイトル</h2>
+</div>
+```
+
+```css
+/* UA Stylesheet */
+h2 { 
+  font-size: 1.5em; 
+  margin: 0.83em 0; 
+  color: CanvasText;
+}
+
+/* Author Stylesheet */
+.card h2 { 
+  colr: blue;      /* typo */
+  font-size: 24px; 
+  margin-top: 16px;
+}
+
+h2 { 
+  color: red; 
+  font-weight: bold;
+}
+```
+
+この `<h2>` 要素に対して、ブラウザは Filtering → Cascading → Defaulting の順で処理を行い、最終的にすべてのプロパティに値を決定します。以下のセクションで、この例を使って各段階を見ていきます。
+
 ### Filtering
 
 **[Filtering](https://www.w3.org/TR/css-cascade-4/#filtering)** とは、CSS 仕様上の「CSS 文法上の誤りがあるものを排除する」ことを、主たる目的とする過程です。
@@ -73,12 +102,25 @@ p > a {
 ここでのチェックには、known property name（文法的に正しいプロパティ名）に match するかどうかやプロパティとして正しいかどうかのほかに、「そもそも Style Sheet に入っているか」や「Style Rule に包含されているか」などのチェックもあります。要は 「CSS 的に正しいかどうか静的に確認」する処理です。その結果として、値が [declared value](#1-declared-values) として抽出され、適用外の値は **invalid at parse-time** となります。
 
 ```css
-/* ブラウザ内部での扱い（概念的な表現） */
-.element {
-  /* clllr: red; → invalid at parse-time として無視される（プロパティ名が不正） */
-  /* width: red; → invalid at parse-time として無視される（値の型が不正） */
-  
-  /* 有効な宣言のみが declared value として残る */
+/* 有効値が declared values として残る*/
+
+/* UA Stylesheet からの declared values */
+h2 { 
+  font-size: 1.5em;
+  margin: 0.83em 0;
+  color: CanvasText;
+}
+
+/* Author Stylesheet からの declared values */
+.card h2 { 
+  /* colr: blue;      invalid at parse-time として無視される（プロパティ名が不正） */
+  font-size: 24px;
+  margin-top: 16px;
+}
+
+h2 { 
+  color: red;
+  font-weight: bold;
 }
 ```
 
@@ -87,6 +129,17 @@ Filtering の結果、単一の要素に適用可能な「declared value のリ�
 ### Cascading
 
 Filtering の結果、単一の要素に対して複数の宣言が適用された場合、[Cascading](https://www.w3.org/TR/css-cascade-4/#cascading) でその競合を解決しなければなりません。
+
+```css
+/* 競合する declared values list */
+/* 競合解決の末生き残るものが、ascaded values */
+
+/* font-size: 1.5em;    UA Stylesheet */
+font-size: 24px;     /* Author Stylesheet (.card h2) */
+
+/* color: CanvasText;   UA Stylesheet */
+color: red;          /* Author Stylesheet (h2) */
+```
 
 Author/User/UA Stylesheet、その中でもインラインスタイルや `@import` でのスタイル読み込みなど、さまざまなソースからすべてのスタイルを集約し、最終的に唯一の宣言を採用する必要があります。Author StyleSheet で何も指定していなくとも、ほとんどのブラウザで UA StyleSheet が適用されていることを鑑みると、この過程は必須と言っても良いでしょう。
 
@@ -98,7 +151,29 @@ Cascade に関しては、このアドベントカレンダーでも多分に触
 
 Cascading の結果として cascaded value が得られましたが、すべてのプロパティが cascaded value を持つとは限りません。例えば、Author/User/UA Stylesheet で宣言されていないプロパティは、cascaded value を持ちません。
 
+```css
+/* e.g, cascaded value が存在しないプロパティ */
+display: ?;     
+font-family: ?; 
+line-height: ?; 
+```
+
 しかし、レンダリングを行うためには、**すべての要素のすべてのプロパティが必ず値を持つ必要があります**。[Defaulting](https://www.w3.org/TR/css-cascade-4/#defaulting) は、cascaded value が存在しない場合に適切な値を決定する過程です。
+
+```css
+/* Defaulting の結果 */
+
+/* cascaded value のまま */
+font-size: 24px;     
+margin: 0.83em 0;    
+margin-top: 16px;    
+color: red;          
+font-weight: bold;   
+
+display: block;      /* UA Stylesheet で設定される（h2 の場合） */
+font-family: serif;  /* initial value */
+line-height: normal; /* initial value */
+```
 
 #### Initial Values
 
