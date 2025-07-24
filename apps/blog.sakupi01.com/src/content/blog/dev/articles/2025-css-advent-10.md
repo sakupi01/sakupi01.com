@@ -16,13 +16,13 @@ status: 'published'
 🌏 この記事は CSS Advent Calendar の 10 日目の記事です。
 :::
 
-CSS エコシステム動向における手始めとして、ブラウザ/ブラウザベンダの動向をみていきます。
+CSS エコシステム動向における手始めとして、ブラウザ/ブラウザベンダの CSS における技術的負債とも捉えられる「ベンダプレフィクス」と「UA StyleSheet」への対処をとりあげます。
+
+## The Browser Wars, Standards Emergence
 
 Web で最初の標準化団体である W3C が発足したのは 1994年10月で、CHSS が提案されたのも同年の 10月。W3C が発足した当初は、まだまだ標準化団体としての影響力が弱く、ベンダが実装を試行錯誤せざるを得なかったのも頷ける時期です。
 
 歴とした”標準”やガイドラインがない中、各ベンダは牧歌的な機能実装を繰り返していたといえます。結果として、UA Style を含め、互換性をよそに機能開発が優先され、俗にいう「ブラウザ戦争」の時代につながります。
-
-## The Browser Wars, Standards Emergence
 
 ブラウザ戦争に関しては、 [🎄Open UI Advent Calendar: Day 4 / Customizable Select Element Ep.2](https://blog.sakupi01.com/dev/articles/2024-openui-advent-4) でも述べましたが、「MS の IE」 vs 「Netscape Communications の NN (Netscape Navigator)」 という構図で機能実装の競争が激化した出来事です。当時のメジャーなベンダが独自解釈で仕様を実装に移した結果、開発に支障をきたすほど一貫性の問題が顕著に現れました。
 
@@ -52,33 +52,31 @@ Vendor Prefix の問題点や、その解決策としての Origin Trials につ
 
 - [Web 標準化のフィードバックサイクルを円滑にする Origin Trials について | blog.jxck.io](https://blog.jxck.io/entries/2016-09-29/vender-prefix-to-origin-trials.html)
 
+ブラウザ戦争の影響を色濃く受けたベンダプレフィクスに加え、UA StyleSheet の差分も、ブラウザ互換性の話題に上がる項目の一つです。
+
 ## UA Styles
 
-UA Style に関しても、各ブラウザがそれぞれの UA StyleSheet を持っています。これも、 Web の黎明期から今日のモダンブラウザまで、変わらず乖離し続けているものの一つです。
+UA Style に関しても、Web の黎明期から今日のモダンブラウザまで、変わらず乖離し続けています。
 
-1989年に CERN で Tim が World Wide Web を提案してから、CHSS が 1994年に提案されるまでに、すでに複数のブラウザが誕生していました。
-例えば、1990年に登場し、世界で初めてパブリックからのアクセスが可能になったブラウザである line-mode browser は、以下のような見た目を持っていました。スタイル言語が存在しない時代ながらも、パラグラフ間に間隔があったり、文字が緑だったり、マージンがあったりします。
+世界で初めてパブリックからのアクセスが可能になったブラウザである line-mode browser でも、すでに以下のような見た目を持っていました。スタイル言語が存在しない時代ながらも、パラグラフ間に間隔があったり、文字が緑だったり、マージンがあったりします。
 
 ![line-mode browser](../../../../assets/images/line-mode.png)
 
-このように、スタイル言語の登場以前にも、すでにブラウザがそれぞれのデフォルトスタイルを持ってページを表示していました。
-
-ただし、Author が意図的にスタイルを適用することはこの時点ではできなかったため、 CHSS/CSS が登場し、Author スタイルを適用できるようになったことは、これまでに説明してきた通りです。
+このように、スタイル言語の登場以前からずっと、ブラウザはそれぞれのデフォルトスタイルを持っていました。
 
 とはいえ、「標準」を機能させる基盤が整っていない状況の中、ブラウザ戦争が起こり、モダンブラウザが登場し、そこで UA StyleSheet がCSS として初めて定義されたのは CSS2 の仕様からでした。
 
 - [Cascading Style Sheets (CSS) Level 2](https://drafts.csswg.org/css2/#html-stylesheet)
 
 その間、ブラウザは独自の UA StyleSheet を持ち続け、Author はそれに依存してスタイルを適用してきました。Day8 でもみたように、UA StyleSheet は、生の HTML ページの見た目を想像以上に整えている重要なスタイルシートです。
-標準が影響を持つ以前に、ブラウザは増え、広く普及しました。そのデフォルトの見た目に最も影響を与えるスタイルを統一したいという思いはずっと根底に存在していますが、完璧に均すには、リスクが大きすぎる状況になっていました。
+標準が影響を持つ以前に、ブラウザは増え、広く普及しました。そのデフォルトの見た目に最も影響を与えるスタイルを統一したいという思いはずっと根底に存在していますが、完璧に均すには、互換性のリスクが大きすぎる状況になっていました。
 
 今では推奨される [UA StyleSheet](https://html.spec.whatwg.org/multipage/rendering.html#rendering) が HTML Living Standard に定義されて、W3C や WHATWG が推奨するドラフトも「仕様」として機能するまでには至ってます。
+しかしそれでも、UA StyleSheet の差分は依然として存在し、ブラウザ間で一貫した見た目にするための”ハック”が存在してきました。
 
-しかしそれでも、UA StyleSheet の差分は依然として存在し、ブラウザ間で一貫した見た目にするための様々な”ハック”が存在してきました。
+### Reset/Normalize/Remedy ... CSS
 
-## Reset/Normalize/Remedy ... CSS
-
-### Reset CSS
+#### Reset CSS
 
 2006年に Eric Meyer によって発表された Reset CSS の思想は、UA StyleSheet の差分の影響を受けないよう、全ての UA スタイルをリセットするという手法です。これは、今後登場する多くの Reset 系 スタイルシート に影響を及ぼすものとなります。
 
@@ -107,7 +105,7 @@ Reset CSS はブラウザ間の差分をなくすことを前提としつつ、`
 
 初期 Reset CSS のように「全てをリセットする」というアプローチは、今でいう `all: initial;` に近い考え方です。 UA StyleSheet の差分が顕著な時代は、一貫したスタイルを実現するために有効だったかもしれませんが、UA StyleSheet の差分が小さくなるにつれ、「UA Style ”全て”をリセットする」ことは、むしろ Author に多くのスタイルを強いる負担につながりました。
 
-### Normalize CSS
+#### Normalize CSS
 
 Normalize CSS は、ブラウザ間のデフォルトスタイルの差分を解消し、より一貫性のあるスタイルを提供することを目的としたサードパーティのスタイルシートです。
 
@@ -119,7 +117,7 @@ Reset CSS が全てのスタイルをリセットするのに対し、Normalize 
 
 nicolas Normalize の後継として出てきた modern-normalize をみると、Normalize する行数がかなり減っているのがわかります。
 
-### CSS Remedy
+#### CSS Remedy
 
 Reset や Normalize とはすこし毛色の違うものとして、CSS Remedy があります。
 
