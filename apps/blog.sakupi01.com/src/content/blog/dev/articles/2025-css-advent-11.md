@@ -34,7 +34,8 @@ CSS 自体に適応性のサポートが十分でなかったのであれば、�
 
 Web というメディアでデザインする上で、エコシステム（デザイナや開発者）側が「解釈/実践してきたもの」と標準（Web プラットフォーム）側が「思い描いてきたもの」には、大きな乖離が生まれていました。
 
-当時の Web デザインは、Printed Design（印刷物に施されるデザイン）に近いものでした。ポスターや新聞などをイメージして欲しいのですが、Printed Design の前提には以下のような特徴があります。
+当時は、 DTP（Desktop Publishing）出身の人が Web デザインに参画するケースが多かったため、Printed Design（印刷物に施されるデザイン）に近い Fixed なデザインが多くありました。
+ポスターや新聞などをイメージして欲しいのですが、Printed Design の前提には以下のような特徴があります。
 
 - 固定のキャンバス
   - 固定のフォント/フォントサイズ/ etc...
@@ -92,12 +93,12 @@ Web において ”キャンバス” を事前に予測することはほぼ�
 
 レスポンシブデザインは、モバイルデバイスを含む様々な端末やデバイスサイズに**適応可能**（レスポンシブ）なよう**デザインする手法**のことを指します。
 
-レスポンシブといえば、そもそも HTML は基本的にレスポンシブにできています。
-CSS を含まない HTML only のページを作成し、ウィンドウサイズを変更すると、ブラウザは View Port 幅に合わせてコンテンツを自動的に Re-Flow（再フロー）します。コンテンツは見切れたりしません。
+レスポンシブといえば、そもそも HTML や UA Style は基本的にレスポンシブに組まれています。
+Author CSS を含まない HTML only のページを作成し、ウィンドウサイズを変更すると、ブラウザは View Port 幅に合わせてコンテンツを自動的に Re-Flow（再フロー）します。コンテンツは見切れたりしません。
 
-しかし、そこに当時のレスポンシブでない CSS を用いた Web デザイン（つまり、Printed Design）が入り、”特定のキャンバス”を想定したサイズや位置を表現すると、 HTML はレスポンシブではなくなります。
+しかし、そこに当時のレスポンシブでない CSS を用いた Web デザイン（つまり、Printed Design）が入り、”特定のキャンバス”を想定したサイズや位置を表現すると、 レスポンシブなページとは言えなくなります。
 
-実は、レスポンシブデザインの前段となる考え方は、2000年前後から存在していました。iPhone 登場以前の 2001年に、WaSP にいた John Allsopp が執筆した [A Dao of Web Design](https://alistapart.com/article/dao/) や、[Interactive architecture](https://alistapart.com/article/fluidgrids/)は、レスポンシブデザインの先駆けとなった考え方です。
+実は、レスポンシブデザインの前段となる考え方は、ブラウザの CSS サポートが整ってきた 2000年前後から存在していました。iPhone 登場以前の 2001年に、WaSP にいた John Allsopp が執筆した [A Dao of Web Design](https://alistapart.com/article/dao/) や、[Interactive architecture](https://alistapart.com/article/fluidgrids/)は、レスポンシブデザインの先駆けとなった考え方です。
 
 > “a multiple-loop system in which one enters into a conversation; a continual and constructive information exchange.”
 > Emphasis mine, as I think that’s a subtle yet powerful distinction:
@@ -105,7 +106,8 @@ CSS を含まない HTML only のページを作成し、ウィンドウサイ�
 >
 > [Interactive architecture](https://archive.org/details/interactivearchi0000foxm) : Fox, Michael, 1967 August 22- : Internet Archive
 
-しかし、当時はまだ Web 技術（CSS）が「適応可能なデザイン」に十分に対応していなかったこともあり、この考え方はすぐには広まりませんでした。
+しかし、当時はまだ CSS のポテンシャルを引き出せていない実装が多かったり、CSS 自体も、複雑なデザインをレスポンシブに再現するための機能が不足していました。
+よって、この考え方はすぐには広まりませんでした。
 
 現に、CSS2.1 までは、クライアントサイドでのマルチデバイスのケアは `<link>` の media 属性での判別のみに留まっていました。
 
