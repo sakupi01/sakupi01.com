@@ -27,3 +27,7 @@ status: 'published'
 それでは、また明日 🧚‍♀️
 
 See you tomorrow!
+
+---
+
+<advent-calendar-2025 />
