@@ -6,22 +6,18 @@ class AdventCalendar2025 extends HTMLElement {
 
   async connectedCallback() {
     try {
-      // Mock data for testing - day0 is fetched
-      const mockPosts = [
-        {
-          title:
-            "🎨 CSS Advent Calendar: Day 0 / Introduction to CSS Evolution",
-          pubDate: "2025-07-31",
-          description:
-            "A journey through CSS from its inception to modern techniques",
-          link: "/dev/articles/2025-css-advent-0",
-          content: "...",
-          tags: ["css", "advent-calendar", "web-development"],
-        },
-      ];
+      // Fetch actual blog posts from blog.sakupi01.com
+      const response = await fetch("https://blog.sakupi01.com/blog.json");
+      if (!response.ok) {
+        throw new Error(`fetch error. status: ${response.status}`);
+      }
+      const posts = await response.json();
+
+      console.log("Fetched posts:", posts.length);
+      console.log("Sample post structure:", posts[0]);
 
       // Process the data
-      this.adventData = this.processAdventData(mockPosts);
+      this.adventData = this.processAdventData(posts);
 
       // Render the calendar
       this.render();
@@ -117,7 +113,7 @@ class AdventCalendar2025 extends HTMLElement {
       const styleElement = document.createElement("style");
       styleElement.id = "advent-calendar-2025-styles";
       styleElement.textContent = `
-        advent-calendar-2025 {
+      advent-calendar-2025 {
           display: block;
           width: 100%;
           aspect-ratio: 4 / 3;
@@ -233,9 +229,9 @@ class AdventCalendar2025 extends HTMLElement {
         }
 
         .day-number {
-          font-size: 1.25rem;
-          font-weight: 700;
           color: var(--color-primary-medium);
+          font-size: 1.5rem;
+          margin-block: 0;
         }
 
         .day-status {
@@ -412,7 +408,7 @@ class AdventCalendar2025 extends HTMLElement {
                       ? `
                     <div class="day-content">
                       <div class="day-header">
-                        <span class="day-number">${cell.day}</span>
+                        <h4 class="day-number">${cell.day}</h4>
                         <span class="day-status">${cell.isWritten ? "✨" : ""}</span>
                       </div>
                       ${
@@ -420,14 +416,13 @@ class AdventCalendar2025 extends HTMLElement {
                           ? `
                         <a href="${cell.link}" class="main-link" target="_parent" rel="noopener">
                           <div class="day-info" data-status="written">
-                            <h3 class="day-title">${cell.title}</h3>
+                            <h5 class="day-title">${cell.title}</h5>
                             <p class="day-description">${cell.description}</p>
                           </div>
                         </a>
                       `
                           : `
                         <div class="day-info" data-status="unwritten">
-                          <h3 class="day-title">${cell.title}</h3>
                           <p class="day-description">${cell.description}</p>
                         </div>
                       `
