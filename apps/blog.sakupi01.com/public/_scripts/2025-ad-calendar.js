@@ -13,9 +13,6 @@ class AdventCalendar2025 extends HTMLElement {
       }
       const posts = await response.json();
 
-      console.log("Fetched posts:", posts.length);
-      console.log("Sample post structure:", posts[0]);
-
       // Process the data
       this.adventData = this.processAdventData(posts);
 
