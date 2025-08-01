@@ -1,5 +1,5 @@
 ---
-title: "🎨 CSS Advent Calendar: Day 13 / CSS meets Node.js Ecosystem - the first shot"
+title: "🎨 CSS Advent Calendar: Day 13 / CSS meets npm Ecosystem - the first shot ... AltCSS"
 excerpt: "CSS Advent Calendar Day 13"
 date: 2025-08-13
 update: 2025-08-13
@@ -23,45 +23,66 @@ status: 'published'
 SPA はその「即時応答性」によってユーザ体験を大きく変え、コミュニティによって醸成されたさまざまなフレームワークによって時代を築いていくことになります。
 
 SPA フレームワークでは、初期の MPA と比較して、基本的に大量の JS が必要です。
-それらを処理するために必要だったのが、 Node.js に代表されるサーバサイド JS と Grunt/Gulp/Webpack などのビルドツールでした。
-SPA 開発に必要な大量の JS を処理するために、サーバサイド JS やビルドツールの利用はデファクトになっていきます。
+それらの処理に、 Grunt/Gulp/Webpack など npm エコシステムのビルドツールが必要になりました。
 
-いわゆる「Web フロントエンド」と呼ばれる開発領域が確立されていくのは、Node.js やビルドツールによって Web アプリケーション 開発が本格的に SPA 化するこの頃からです。
+いわゆる「Web フロントエンド」と呼ばれる開発領域が確立されていくのは、Node.js や npm エコシステムが普及したこの頃からです。
+SPA が主流になることで、Web アプリケーション開発も本格的に変化していきました。
 そして、CSS の開発スタイルにも変化が見られるようになります。
 
 ## CSS Pre-Processors - Change/Extend CSS for Dream Spec
 
 実は、JS のビルドプロセスが確立される以前にも、CSS のプリプロセッサは存在しました。
 
-「メタ CSS」とも言える Sass は 2006年に登場し、Sass Variables や Nesting、Mixin など、最近の CSS 標準でもまだ完璧な実現には至っていないような独自機能を提供していました。
+Ruby コミュニティでは「書きたくない言語は Ruby ぽく書いてコンパイルしちゃえ」という文化があり、CoffeeScript なども同様の思想で作られていました。
+その流れの中で、「メタ CSS」とも言える Sass が 2006年に登場し、Sass Variables や Nesting、Mixin など、最近の CSS 標準でもまだ完璧な実現には至っていないような独自機能を提供していました。
 
-しかし、2006年当時に提供されていた Sass は Ruby ベースでした。
-`gem` で Sass をローカルにインストールし、手動で `.scss` をコンパイルする必要があり、HTML/CSS/JS をやってきた人々にとっては、違和感のあるものだったと想像します。
+しかし、最初の Sass にはいくつかのハードルがありました。
+まず、Ruby 環境が必要で、`gem` で Sass をローカルにインストールし、手動でコンパイルする必要がありました。
+HTML/CSS/JS をやってきた人々にとっては、違和感のあるものだったと想像します。
 
 ```bash
 gem install sass
-sass --watch input.scss:output.css
+sass --watch input.sass:output.css
 ```
 
-Sass が浸透しづらい中、2010年に登場した Less 最大の功績は、「ブラウザ上でコンパイルできる」ことでした。
+さらに、`.sass` の記法はインデントベースの Ruby ライクなもので、CSS とは大きく異なるものでした。
 
-```html
-<link rel="stylesheet/less" href="styles.less">
-<script src="less.js"></script>
+```sass
+div
+  margin: 0
+  p
+    font-size: 16px
 ```
 
-Ruby-based Sass に比べた手軽さと、Bootstrap が Less を採用したこともあり、Less は一気に広まりました。
-プリプロセッサは「特殊なツール」から「標準的な選択肢」として一定の知名度を得ることができたのではないかと思います。
+こうした背景から、2009年に登場した Less は、標準の CSS により近い記法を採用しました。
 
-しかし、「ブラウザ上でコンパイルする」ということ自体プロダクションには不向きなことは明白で、
-「サーバサイドで事前にコンパイル」するための手法が求められるようになっていきます。
+```less
+div {
+  margin: 0;
+  p {
+    font-size: 16px;
+  }
+}
+```
 
-### Node.js & Build Tools contribute CSS Evolution
+さらに、Less は Node.js 環境で動作し、Web 開発者にとってより馴染みのある環境で使えました。
+Bootstrap が Less を採用したことも相まって、Less は一定の普及をみせます。
+
+一方で、Sass コミュニティも Less の影響を受け、2010年に SCSS 記法を導入しました。
+`.scss` は標準の CSS により近い記法で、Sass の機能を使いながらも、Web をやっていた人たちにとってより身近な構文で書けるようになりました。
+
+結果的に、SCSS の導入によって Sass はより幅広い採用を得ることになりました。
+標準 CSS 記法との後方互換性もある `.scss` は、一つの選択肢として一定の知名度を得ることができたのではないかと思います。
+
+しかし、プロダクションでの利用を考えると、「サーバサイドで事前にコンパイル」するための手法が求められるようになっていきます。
+
+### Node.js & Build Tool Ecosystems contribute CSS Evolution
 
 2009年に Node.js が登場し、ブラウザ以外の JS のランタイムが生まれます。
-Node.js の登場は、CSS プリプロセッサでいう「サーバサイドで事前にコンパイル」するフェーズを可能にするものとして、大きな転機となるものでした。
+Node.js そのものが CSS プリプロセッサのコンパイルを可能にしたわけではありませんが、
+Node.js によって npm エコシステムが広まったことで、ビルド系のツールも充実していきました。
 
-後続して、Grunt や Gulp とった「タスクランナー」が登場し、「メタ CSS」 のコンパイルや auto-prefix、 minify を含む一連の作業を「ビルドプロセス」として自動化することが可能になりました。
+Grunt や Gulp といった「タスクランナー」が登場し、「メタ CSS」 のコンパイルや auto-prefix、minify を含む一連の作業を「ビルドプロセス」として自動化することが可能になりました。
 
 ```js
 gulp.task('css', function() {
@@ -73,7 +94,7 @@ gulp.task('css', function() {
 });
 ```
 
-CSS のビルドプロセスが、ローカルでの手動実行→ブラウザ JS→サーバサイドでの事前自動ビルドというふうに移り変わり、CSS が JS からの「ビルド成果物」として扱われるように変化していることが見て取れます。
+CSS のビルドプロセスが、ローカルでの手動実行→サーバサイドでの事前自動ビルドというふうに移り変わり、CSS が JS からの「ビルド成果物」として扱われるように変化していることが見て取れます。
 
 ## PostCSS - Pioneer CSS Ecosystem!
 
@@ -88,9 +109,7 @@ JS 界隈だと、TS のようなものに近く、CSS プリプロセッサは 
 よって、CSS プリプロセッサと PostCSS は排他的なため、両方を組み合わせて使うこともできます。
 例えば Sass で開発して、PostCSS で最適化するといった具合です。
 
-PostCSS がもたらしたものとして大きかったのが **「プラグインアーキテクチャ」** というモデルだったように思います。
-
-PostCSS の創始者 [Andrey Sitnik](https://github.com/ai) は、「エコシステムの広がりによって、ツールは発展する」というビジョンを持って PostCSS の開発を始めています。
+PostCSS の創始者 [Andrey Sitnik](https://github.com/ai) は、「エコシステムの広がりによって、ツールは発展する」というビジョンを持って PostCSS の開発を始めていました。
 
 > PostCSS is not a preprocessor or a way to add syntactic sugar. It is a framework for creating CSS tools.
 >
@@ -101,6 +120,8 @@ PostCSS の創始者 [Andrey Sitnik](https://github.com/ai) は、「エコシ�
 > ー [Five years of PostCSS: State of the Union—Martian Chronicles, Evil Martians’ team blog](https://evilmartians.com/chronicles/five-years-of-postcss-state-of-the-union)
 
 「実験場としてのエコシステム」につながるメンタルモデルを持った PostCSS は、そのプラグインアーキテクチャにより、これまでに存在しなかった CSS エコシステムを形成しました。
+CSS ツールチェインにおける **「プラグインエコシステム」** の拡充は、PostCSS が CSS エコシステムにもたらした大きな変化の一つだったと言えます。
+
 その中には、CSS を書く上でデファクトで使うようなプラグインから、 CSS 標準に貢献したものまでさまざまにあります。
 
 たとえば、Autoprefixer は、「どのブラウザでどのプレフィックスが必要か」という複雑性から我々を解放し、標準的な CSS を書くことに集中できるようにしてくれています。
