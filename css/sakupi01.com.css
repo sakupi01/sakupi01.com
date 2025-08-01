@@ -37,7 +37,7 @@ Base Styles under sakupi01.com
   --card-bg-hover: light-dark(var(--color-gray-1), var(--color-base-darkest));
 }
 
-@scope (body) to (advent-calendar-2025) {
+@scope (body) {
   * {
     line-height: 1.5;
 
