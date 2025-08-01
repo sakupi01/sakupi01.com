@@ -163,3 +163,7 @@ CSS 仕様の策定にも影響を与えたものとして例を挙げると、 
 
 - [Five years of PostCSS: State of the Union—Martian Chronicles, Evil Martians’ team blog](https://evilmartians.com/chronicles/five-years-of-postcss-state-of-the-union)
 - [The evolution of scalable CSS, Part 1: CSS scalability issues](https://andreipfeiffer.dev/blog/2022/scalable-css-evolution/part1-scalability-issues)
+
+---
+
+<advent-calendar-2025 />
