@@ -19,8 +19,8 @@ status: 'published'
 
 1989年に CERN で Tim Berners-Lee が World Wide Web というコンセプトを提唱し、1990年に彼自身のコンピュータである NeXT で動作する最初の Web ブラウザ、 WorldWideWeb（later, Nexus） を開発しました。
 
-![NeXT で動作した最初の Web ブラウザ](../../../../assets/images/next-browser.png)
-*NeXT で動作した最初の Web ブラウザ*
+![Tim Berners-Lee: WorldWideWeb, the first Web client](../../../../assets/images/www.png)
+*出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)*
 
 :::note{.memo}
 
@@ -203,6 +203,7 @@ Mosaic には `<IMG>` が存在し、その直後にはこれといった装飾�
 - [The Origin of the IMG Tag - The History of the Web](https://thehistoryoftheweb.com/the-origin-of-the-img-tag/)
 - [The Languages Which Almost Became CSS](https://blog.cloudflare.com/the-languages-which-almost-became-css/)
 - [Vision for W3C](https://www.w3.org/TR/w3c-vision/#vision-web)
+- [Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/People/Berners-Lee/WorldWideWeb.html)
 
 ---
 
