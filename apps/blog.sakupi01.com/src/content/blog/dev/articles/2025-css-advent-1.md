@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 1 / Pre-Styling Era"
-excerpt: "CSS Advent Calendar Day 1"
+excerpt: "1989年の WorldWideWeb ブラウザから始まる、CSS 誕生前の Web の歴史の振り返り。スタイルのない時代から IMG タグ、FONT タグの登場。"
 date: 2025-08-01
 update: 2025-08-01
 category: 'dev'
@@ -15,7 +15,7 @@ status: 'published'
 🎨 この記事は CSS Advent Calendar の 1 日目の記事です。
 :::
 
-## The birth of the Web was without style
+## The Web was not stylable
 
 1989年に CERN で Tim Berners-Lee が World Wide Web というコンセプトを提唱し、1990年に彼自身のコンピュータである NeXT で動作する最初の Web ブラウザ、 WorldWideWeb（later, Nexus） を開発しました。
 
@@ -38,7 +38,9 @@ WWW は、CERN に散らばっていた論文を、個別にメールで問い�
 
 当時のドキュメントツールとしては、SGML、LaTex、Microsoft Word などがありました。しかし、多くは商用だったり記法が複雑だったりで、Tim が目指す「誰でも簡単に情報を共有できる」という理想には適していませんでした。そこで Tim は、シンプルで万人に受け入れられるような記法と、それを共有するための仕組みを同時に考案する必要がありました。
 
-その結果として Tim が提案したのが、HTTP（HyperText Transfer Protocol）と、HTTP で共有する用のテキストフォーマットとしての HTML（HyperText Markup Language）でした。混乱を避けるために予め述べておきますが、この時点の HTML はあくまで Tim が考案したもので、標準化団体などにより国際標準として認められたものではありません。
+その結果として Tim が提案したのが、**HTTP**（HyperText Transfer Protocol）と、HTTP で共有する用のテキストフォーマットとしての **HTML**（HyperText Markup Language）です。
+
+混乱を避けるために予め述べておきますが、この時点の HTML はあくまで Tim が考案したもので、標準化団体などにより国際標準として認められたものではありません。
 
 Tim が提案した、世界で最初の HTML の提案は、1989年に書かれた以下であるとされています。
 
@@ -98,7 +100,7 @@ line-mode browser の登場によって、「The Web for All.」の思想が、�
 
 ## The `<IMG>` tag Proposal
 
-スタイルに関しての議論がまだ出てきていない頃、Mosaic の開発チームに所属していた Marc Andreessen が唐突に **`<IMG>`** を提案します。
+スタイルに関しての議論がまだ出てきていない頃、Mosaic の開発チームに所属していた Marc Andreessen が唐突に **`<IMG>` を提案**します。
 
 > I'd like to propose a new, optional HTML tag:
 >
@@ -173,7 +175,8 @@ Marc は Mosaic の NCSA を去り、Jim Clark と共に Netscape Communications
 結果として、Netscape Navigator は、大成功を収め、市場で [90%以上のシェア](https://en.wikipedia.org/wiki/Netscape#:~:text=Its%20Netscape%20web%20browser%20was,than%20one%20percent%20in%202006.)を誇るブラウザとなりました。
 単なるテキストドキュメントだった HTML が装飾可能になったことは、Web を一般に普及させる上で大きな役割を果たしたといえるでしょう。
 
-ただ、Netscape （Marc Andreessen）は、装飾のためだけに言語を増やすことを嫌い、StyleSheet でははなく、代わりスタイルを定義する HTML タグ使う道を選びました。
+とはいえ、Netscape （Marc Andreessen）は、装飾のためだけに言語を増やすことを嫌いました。
+当初は StyleSheet の代わりに、スタイルを定義する HTML タグを定義する道が選ばれたのです。
 
 > Then why don't you just implement one of the many style sheet proposals that are on the table. This would pretty much solve the problem if done correctly.
 > So then I get to tell people, **"Well, you get to learn this language to write your document, and then you get to learn that language for actually making your document look like you want it to." Oh, they'll love that.**
@@ -182,9 +185,11 @@ Marc は Mosaic の NCSA を去り、Jim Clark と共に Netscape Communications
 
 ---
 
-ただ、Mosaic には `<IMG>` が存在し、その直後にはこれといった装飾手法がなかったこと、`<FONT>` や `<CENTER>` などが Netscape に実装されたとしても柔軟な装飾が難しかったことから、「Web で装飾が必要なもの全部画像にして `<IMG>` で表示しよう！」という考えが些かの間に広まるのは想像に易いです。
+Mosaic には `<IMG>` が存在し、その直後にはこれといった装飾手法がなかったこと、`<FONT>` や `<CENTER>` などが Netscape に実装されたとしても柔軟な装飾が難しかったことから、
+**「Web で装飾が必要なもの全部画像にして `<IMG>` で表示しよう！」** という考えが些かの間に広まってしまう。
 
-そこに危機感を覚えた人々が「Web でドキュメントをスタイルする方法」を続々と提案し始めました。その中の一人が Håkon Wium Lie であり、彼が提案したものが、いうまでもなく **CHSS**（Cascading HTML Style Sheets）です。
+そこに危機感を覚えた人々が「Web でドキュメントをスタイルする方法」を続々と提案し始めました。
+その中の一人が Håkon Wium Lie であり、彼が提案したものが、いうまでもなく **CHSS**（Cascading HTML Style Sheets）でした。
 
 ## Appendix
 
