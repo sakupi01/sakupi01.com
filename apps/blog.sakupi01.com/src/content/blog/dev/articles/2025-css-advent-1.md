@@ -198,3 +198,7 @@ Marc は Mosaic の NCSA を去り、Jim Clark と共に Netscape Communications
 - [The Origin of the IMG Tag - The History of the Web](https://thehistoryoftheweb.com/the-origin-of-the-img-tag/)
 - [The Languages Which Almost Became CSS](https://blog.cloudflare.com/the-languages-which-almost-became-css/)
 - [Vision for W3C](https://www.w3.org/TR/w3c-vision/#vision-web)
+
+---
+
+<advent-calendar-2025 />
