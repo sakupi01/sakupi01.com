@@ -264,7 +264,7 @@ class AdventCalendar2025 extends HTMLElement {
         }
 
         /* Link hover state */
-        .ac2025__cell--written .ac2025__link:hover {
+        .ac2025__cell--written .ac2025__link:hover, .ac2025__link:focus {
           background: light-dark(
             color-mix(in oklch, var(--color-primary-medium), white 90%),
             color-mix(in oklch, var(--color-primary-medium), black 85%)
@@ -272,12 +272,6 @@ class AdventCalendar2025 extends HTMLElement {
           box-shadow: inset 0 0 0 var(--ac2025-border-hover) var(--color-primary-medium), 
                       var(--ac2025-shadow-hover);
           border-radius: var(--ac2025-border-radius-sm);
-        }
-
-        /* Link focus state */
-        .ac2025__link:focus {
-          outline: 2px solid var(--focusable);
-          outline-offset: 2px;
         }
 
         /* =============================================
