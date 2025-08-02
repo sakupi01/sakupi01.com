@@ -19,9 +19,9 @@ status: 'published'
 
 「Web では font も color もカスタマイズできないなら、`<IMG>` で画像として表示すればいい。」
 
-そうなれば、リンクは動作せず、ユーザとのインタラクションも不可能になり、画像のロードに失敗すれば全てのコンテンツを失う可能性だってある。だが、きちんと読み込まれれば、思い描いた通りに装飾されたドキュメントがインターネットで共有できる。それでいい。
+そうなれば、リンクは動作せず、ユーザとのインタラクションも不可能になり、画像のロードに失敗すれば全てのコンテンツを失う可能性だってある。だが、きちんと読み込まれれば、思い描いた通りに装飾されたドキュメント（画像）がインターネットで共有できる。それでいい。
 
-これに対し、「そんなわけがない。」として、多くのプロポーザルが出され始めることになります。
+これに対し、「そんなわけがない。」として、ドキュメントをスタイルするためのプロポーザルが各所から出され始めることになります。
 
 - [Historical Style Sheets Proposals](https://www.w3.org/Style/History/Overview.en.html)
 
@@ -63,10 +63,11 @@ status: 'published'
 
 スタイルシートを最初にサポートしたブラウザは Pei-Yuan Wei によってわずか 4日で開発された ViolaWWW です。
 
-![スタイルシートを最初にサポートしたブラウザ ViolaWWW](../../../../assets/images/ViolaWWW.png)
-*スタイルシートを最初にサポートしたブラウザ ViolaWWW*
+![スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの](../../../../assets/images/ViolaWWW.png)
+*スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの*
 
-Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイルシートを考案します。このスタイルシートでは、セレクタ、それに応じた Rules、プロパティと Value の Declaration が明確に確認でき、現在の CSS の形に非常に近いものを感じます。
+Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイルシートを考案します。このスタイルシートでは、セレクタ、
+それに応じた Rules、プロパティ が確認でき、現在の CSS の形に非常に近いものを感じます。
 
 - [WWW-Talk Oct-Dec 1993: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0264.html)
 
@@ -98,7 +99,7 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 )
 ```
 
-さらに注目すべき点は、入れ子構造や Inheritance の概念が導入されていることです。
+さらに注目すべき点は、ネストや Inheritance の概念が導入されていることです。
 
 > Note that properties are inherited down the tree, unless overridden.
 > So, the color information that is specifed at the top is used all over,
@@ -115,7 +116,7 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 ```
 
 今日の我々からするとどことなく自然、当時の人々にとっては非常に画期的な記法の StyleSheet の提案の4日後に、Steven Heaney がコメントを返します。
-端的にいうと、車輪の再発明をするのではなく、SGML文書をスタイリングするために既に存在した、 FOSI という言語をベースにするのが最適だというものでした。
+端的にいうと、車輪の再発明をするのではなく、SGML文書をスタイリングするために既に存在した、 FOSI という言語をベースに設計した方が良いというものでした。
 
 - [WWW-Talk Oct-Dec 1993: Re: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0295.html)
 
