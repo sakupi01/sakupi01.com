@@ -140,3 +140,7 @@ CHSS には今日の CSS の主要概念である Cascade (Origin & Importance) 
 - [Historical Style Sheets Proposals](https://www.w3.org/Style/History/Overview.en.html)
 - [PhD Thesis: Cascading Style Sheets](https://www.wiumlie.no/2006/phd/)
 - [A Brief(ish) History of the Web Universe: Part III The Early Web | briankardell](https://briankardell.wordpress.com/2016/02/05/a-briefish-history-of-the-web-universe-part-iii-the-early-web/)
+
+---
+
+<advent-calendar-2025 />
