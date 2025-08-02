@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 2 / CSS “to save HTML”"
-excerpt: "CSS Advent Calendar Day 2"
+excerpt: "CSS 以前のドキュメントスタイル手法の提案 - Prevent the Web from becoming a giant fax machine!!"
 date: 2025-08-02
 update: 2025-08-02
 category: 'dev'
