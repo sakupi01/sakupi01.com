@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 3 / CSS is Optional. Protect the Content!"
-excerpt: "CSS Advent Calendar Day 3"
+excerpt: "ヒントとしての CSS、あるいはコンテンツを守るための Web の設計思想"
 date: 2025-08-03
 update: 2025-08-03
 category: 'dev'
@@ -15,9 +15,10 @@ status: 'published'
 🎨 この記事は CSS Advent Calendar の 3 日目の記事です。
 :::
 
-## CSS is *Hints*. CSS is *Suggestions*. CSS is *Optional*
+## CSS is *Hints*. CSS is *Suggestions*. CSS is *Optional*.
 
-CHSS では、今日の CSS の主要概念である 「Cascade」が導入されました。CHSS のプロポーザルを読んでいくと、あるニュアンスが繰り返し伝えられているように感じられます。
+CHSS は、**「Cascade」**が導入されたものとして初の提案です。
+CHSS のプロポーザルを読んでいくと、あるニュアンスが繰り返し伝えられているように感じられます。
 
 - [Cascading HTML Style Sheets -- A Proposal](https://web.archive.org/web/20231228175110/https://www.w3.org/People/howcome/p/cascade.html)
 
@@ -89,7 +90,7 @@ Håkon Lie のプロポーザルでは以下のような記述があります。
 
 ### 30 years old document, yet we can still read it on the Web
 
-line-mode browser で世界初の Web ページとして公開された [World Wide Web](https://info.cern.ch/hypertext/WWW/TheProject.html) のリンク先には、HTML の仕様も含まれています。つまり、これは Web ほぼ初期の HTML 仕様です。
+line-mode browser で世界初の Web ページとして公開された [World Wide Web](https://info.cern.ch/hypertext/WWW/TheProject.html) のリンク先には、HTML の仕様も含まれています。つまり、これは Web ほぼ初期の HTML 仕様と言っても良いでしょう。
 
 そこには以下のような記述があります。
 
@@ -125,7 +126,7 @@ CSS の Design Principles においては、以下のような記述がありま
 もし display の初期値が `display: block;` であれば、見切れたり、overflow したりするページが発生するでしょう。
 しかし、display の初期値は `display: inline;` であるため、見切れることなく、**すべてのコンテンツが表示されることが保証されます**。
 
-これは、**"Content should be viewable and accessible by default"** という Design Principle に基づいた例の一つです。
+これは、**"Content should be viewable and accessible by default"** という Design Principle に基づいた例の一つであると思います。
 
 ---
 
@@ -143,14 +144,14 @@ HTML パーサが理解できないものは無視し、CSS が適用できな�
 
 これらの背景を踏まえると、「Cascade」が今日まで生き残り、最重要概念とされる理由が自ずと見えてきます。
 
-Cascade が異なる Origin（(Rendering Results,) User Agent, User, Author）に、**"Hints"** として、スタイルを **"Suggest"** するものだと捉えると、Cascade は CSS のみならず、Web にとっても重要な概念であることがわかります。
+Cascade が異なる Origins（(Rendering Results,) User Agent, User, Author）に、**"Hints"** として、スタイルを **"Suggest"** するものだと捉えると、Cascade は CSS のみならず、Web にとっても重要な概念であることがわかります。
 
 したがって、Cascade は Web を Web たらしめる概念を包括するため、我々がそれと調和を図ろうとしないことはタブーとみなすことができます。
 
 しかし、我々にとって CSS は「扱いづらい」ものであったり、それゆえにハックやツールによって「強制する」ものであったり、結果として「いや、もうなんかよくわかんないけどこれでいいや」なものであったりしたのかもしれません。
-本来なら、その「CSS の扱いづらさ」や Cascade との調和を図らずにいた（または、Cascade を実用する方法が存在しなかった）ゆえの「苦悩の結果」の詳細を書きたいところですが、ここで書くにはスペースがなさすぎる上に、本連載できちんと取り上げるべき内容のため、ここでは割愛します。
+本来なら、その「CSS の扱いづらさ」や「苦悩の結果」の詳細を書きたいところですが、ここで書くにはスペースがなさすぎる上に、本連載できちんと取り上げるべき内容のため、ここでは割愛します。
 
-CSS は本来「hints」として設計されたにも関わらず、我々は長年にわたって CSS を「コントロールする」ものとして扱おうとしてきました。これらの中には「hints」を「force」に変え、そこから苦悩が生まれるような試みも多分にあった、ということだけ、ここでは触れておこうと思います。
+CSS は本来「hints」として設計されたにも関わらず、我々は長年にわたって CSS を「コントロールする」ものとして扱おうとしてきました。これらの中には「hints」を「force」に変え、そこから苦悩が生まれるような試みも多分にあった、ということだけ、ここでは触れておくことにします。
 
 これからは数回に分けて、我々が Cascade との調和と逆行する形で辿ってきた CSS の歴史から、Cascade Layer が誕生した今までを振り返ろうと思います。
 途中全く関係ないような話も出てくるかもしれませんが、帰結に向かうための "Hints" になるものだと思って読んでいただけると幸いです。
@@ -159,3 +160,7 @@ CSS は本来「hints」として設計されたにも関わらず、我々は�
 
 - [Historical Style Sheets Proposals](https://www.w3.org/Style/History/Overview.en.html)
 - [Web Platform Design Principles](https://www.w3.org/TR/design-principles/)
+
+---
+
+<advent-calendar-2025 />
