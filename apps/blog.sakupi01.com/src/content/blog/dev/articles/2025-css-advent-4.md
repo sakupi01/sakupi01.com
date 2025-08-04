@@ -71,14 +71,14 @@ h1.font.size = 24pt 100%
 例えば以下のように、`h2.font.size` は 40% の影響力を持ち、`h2.font.size` は 60% の影響力を持つとして、それぞれ異なるスタイルシートで宣言されているとします。
 
 ```css title="stylesheetA"
-h2.font.size = 24pt 40%
+h2.font.size = 20pt 40%
 ```
 
 ```css title="stylesheetB"
 h2.font.size = 24pt 60%
 ```
 
-重み付けされるということは、`h2` の font size は `h2.font.size = (24pt * 100% + 20pt * 40%) / (100% + 40%)` と計算され、最終的な font size は **22.86pt** になります。
+重み付けされるということは、`h2` の font size は `h2.font.size = (20pt * 40% + 24pt * 60%) / (40% + 60%)` と計算され、最終的な font size は **22.4pt** になります。
 
 ---
 
