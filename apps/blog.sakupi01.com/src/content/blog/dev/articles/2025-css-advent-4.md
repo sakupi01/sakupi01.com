@@ -36,15 +36,15 @@ CHSS は「Cascade のための提案」と言ってもいいほど、Cascade �
 
 - [Cascading HTML Style Sheets -- A Proposal](https://web.archive.org/web/20231228175110/https://www.w3.org/People/howcome/p/cascade.html)
 
-そんな世界で初めての Cascade では、User StyleSheet と `LINK` タグの外部スタイルシートが考慮されます。
+そんな世界で初めての Cascade では、User StyleSheet と `<LINK>` での外部スタイルシートが考慮されます。
 
-> The proposed scheme supplies the brower with an ordered list (cascade) of style sheets. The user supplies the initial sheet which may request total control of the presentation, but -- more likely -- hands most of the influence over to the style sheets referenced in the incoming document.
+> The proposed scheme supplies the brower with an ordered list (cascade) of style sheets. The user supplies the initial sheet which **may** request **total control of the presentation**, but -- more likely -- hands most of the **influence** over to the style sheets referenced in the incoming document.
 
 > `<LINK REL="style" HREF="http://NYT.com/style">`
 >
 > The LINK element is used to indicate the URL of the style sheet. Multiple style sheets can be referenced from the same document, and will be appended to the cascade and merged as they are encountered.
 
-つまり、User StyleSheet を最低レイヤーとして、その後に `LINK` でロードされた Author StyleSheet が順次追加される「積み重ね」の構造を作る、これが Cascade です。User StyleSheet が基盤となり、基本的には後続の Author StyleSheet が上書きする形で利用することが想定されています。
+つまり、User StyleSheet を最低レイヤーとして、その後に `<LINK>` でロードされた Author StyleSheet が順次追加される「積み重ね」の構造を作る、これが Cascade です。User StyleSheet が基盤となり、基本的には後続の Author StyleSheet が上書きする形で利用することが想定されています。
 
 ただし、各スタイルシートの実際の影響力は、[後述する方法](#weighted-influence:~:text=このパーセンテージは、スタイルシートレベルで適用することも可能)によって調整されます。
 
@@ -88,12 +88,14 @@ h2.font.size = 24pt 60%
 
 ただし、以下のように特定のプロパティに対して順序を上書くようなパーセンテージを指定した場合は、そのプロパティ間で優先順位が調節されます。
 
-```css title="stylesheetA"
+```css
+/* stylesheetA.css */
 20%
 h1.color = red 40%
 ```
 
-```css title="stylesheetB"
+```css
+/* stylesheetB.css */
 40%
 h1.color = red 20%
 ```
@@ -105,7 +107,7 @@ CHSS では、現 CSS と似た形の「詳細度」も考慮されています�
 ```css
 40%
 font.family = times
-h1.font.family = helvetica 100%s
+h1.font.family = helvetica 100%
 ```
 
 まず、このスタイルシートはデフォルトで 40% の影響力を持つことを示し、特に指定されていなければ全てのプロパティに対してその影響力が適用されます。ただし、`h1.font.family` のように、より詳細な指定をしている場合はその指定が優先されます。
@@ -196,3 +198,7 @@ Volume o---------x----------o 50%
 - [PhD Thesis: Cascading Style Sheets](https://www.wiumlie.no/2006/phd/#ch-problems)
 - [Interview with Håkon Wium Lie. The inventor of CSS explains how it…](https://medium.com/net-magazine/interview-with-h%C3%A5kon-wium-lie-f3328aeca8ed)
 - [Dev.Opera — CSS: It was twenty years ago today — an interview with Håkon Wium Lie](https://web.archive.org/web/20240105013339/https://dev.opera.com/articles/css-twenty-years-hakon/)
+
+---
+
+<advent-calendar-2025 />
