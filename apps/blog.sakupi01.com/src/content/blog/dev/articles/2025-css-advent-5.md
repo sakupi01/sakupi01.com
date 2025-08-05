@@ -150,3 +150,8 @@ Author `!important` が User `!important` よりも優先されるという、**
 - [Cascading Style Sheets: a draft specification](https://www.w3.org/Style/CSS/draft1.html)
 - [CSS history](https://www.w3.org/Style/CSS/history.html)
 - [Thinking about style sheets](https://www.w3.org/Style/mail/kh-2-may-95.html)
+
+---
+
+<advent-calendar-2025 />
+
