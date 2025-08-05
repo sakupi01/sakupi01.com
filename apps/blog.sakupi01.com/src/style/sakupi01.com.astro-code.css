@@ -15,7 +15,10 @@ Styles for Astro Code Highlighter
   font-family: var(--base-font-family-cascadia);
   font-optical-sizing: auto;
   font-weight: 400;
-  background-color: transparent !important;
+  background-color: light-dark(
+    var(--color-base-lightest),
+    var(--color-base-darkest)
+  ) !important;
 
   color: light-dark(currentColor, var(--shiki-dark)) !important;
   code {
