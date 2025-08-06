@@ -19,8 +19,10 @@ status: 'published'
 [前回の記事](https://blog.sakupi01.com/dev/articles/2025-css-advent-13)では、npm エコシステムの広がりによって、
 CSS プリプロセッサや PostCSS といったツールが普及し、CSS の開発体験に変化が現れた様子を見てきました。
 
-一方、2008年頃から、ツールの進化と並行で、大規模化する CSS をいかに扱うかという模索が進んでいました。
-さまざまな方面から、「CSS アーキテクチャ」、もっと言えば「デザインをどうシステマティックに扱うか」に繋がる方法論が模索されるようになったのは、この頃からです。
+一方で、Web サイトの複雑化とともに大規模な CSS をいかに管理するかという課題が顕在化してきました。
+
+BEM を考案した Yandex社は、[2006年ごろから HTML/CSS 分離の模索](https://en.bem.info/methodology/history/#the-introduction-of-blocks)を始め、さらに 2008年頃からは、Natalie Downe の [CSS Systems](https://blog.natbat.net/post/46614243624/css-systems) や Nicole Sullivan の [OOCSS](https://github.com/stubbornella/oocss/wiki) が提唱されます。
+こうして、2000年後半は、「デザインをどうシステマティックに扱うか」や「CSS アーキテクチャ」に繋がるさまざまな方法論が登場し始めました。
 
 それぞれが後の「コンポーネント志向」や CSS 設計、デザインシステムという方法論につながる思想を含んでいるため、ここで一度、初期の CSS 設計論を整理しておきます。
 
@@ -52,9 +54,10 @@ Web サイトが複雑化するにつれて CSS ファイルが肥大化し、�
 }
 ```
 
-端的に言えば、とってつけたようなセレクタがあちこちに散らばっていて、全体としてスタイルの一貫を持つことが難しい故に、扱いづらさが露見していました。
+Web サイトの大規模化に伴い、コードの大規模化が進む中、とってつたけたようなセレクタがあちこちに散らばるといった問題が発生していました。
+本来ならそのスタイルに優先順位や秩序が設けられ、スタイルが要素に閉じていれば解決するであろう諸問題ですが、それができない「扱いづらさ」が露見していました。
 
-これに対応するためのアプローチとして、発端となったのは Nicole Sullivan の OOCSS (Object-Oriented CSS) でした。
+これに対応するための具体的なアプローチとして、発端となったのは Nicole Sullivan の OOCSS (Object-Oriented CSS) でした。
 
 ## Express Scopes and States
 
@@ -62,16 +65,14 @@ Web サイトが複雑化するにつれて CSS ファイルが肥大化し、�
 
 2008年、Nicole Sullivan は [OOCSS](https://github.com/stubbornella/oocss/wiki) という「オブジェクト指向の考え方を CSS に適用した設計モデル」を提案しました。
 
-CSS を「オブジェクト」として捉え、「**再利用可能な部品として設計**」し、 Class セレクタを用いて構造とスタイルの「関心の分離」を行うものです。
+CSS を「オブジェクト」として捉え、「**再利用可能な部品として設計**」し、 Class セレクタを用いて「構造とスタイル」・「コンテナとコンテンツ」の「関心の分離」を行うものです。
 OOCSS は以下２つの基本原則から成り立っています。
 
-#### Principle 1: Separate structure and skin
-
-繰り返し使われる視覚的特徴（background, border, gradation ...）を「Skin」として定義し、
-異なるコンテナ（OOCSS では Module）間で適用できるようにしています。
+- Principle 1: Separate structure and skin: 繰り返し使われる視覚的特徴（background, border, gradation ...）を「Skin」として定義し、異なるコンテナ（OOCSS では Module）間で適用できるようにしています。
+- Principle 2: Separate container and content: DOM 構造に依存したスタイルを避け、コンポーネントがどこに置かれても同じスタイルを適用できるようにします。ネストしたセレクタを使用せず、コンポーネントに対してセマンティックな Class 名を作成します。異なる DOM 構造を持っていても、全体に一貫したスタイルを適用できるようにするための原則です。
 
 ```css
-/* Module */
+/* Module - Container - Structure */
 .bd {
   flex: 1;
 }
@@ -92,15 +93,13 @@ OOCSS は以下２つの基本原則から成り立っています。
 }
 ```
 
-#### Principle 2: Separate container and content
-
-DOM 構造に依存したスタイルを避け、コンポーネントがどこに置かれても同じスタイルを適用できるようにします。
-ネストしたセレクタを使用せず、コンポーネントに対してセマンティックな Class 名を作成します。
-異なる DOM 構造を持っていても、全体として一貫したスタイルを伝えられるようにするための原則です。
+位置・レイアウト・大きさなどの構造系のプロパティと、色・装飾などの見た目に関するプロパティを、同じクラス内に記述しないようにする命名規則だと言えます。
 
 ### BEM - Component-Based Naming
 
 同じく2000年代後半、ロシアの Yandex 社は [Block, Element, Modifier (BEM)](https://en.bem.info/methodology/) という命名規則を提案しました。
+
+- [Lego 2.0. Birth of BEM - History / Methodology / BEM](https://en.bem.info/methodology/history/#lego-20-birth-of-bem)
 
 ```css
 /* Block - Independent component */
@@ -127,7 +126,7 @@ DOM 構造に依存したスタイルを避け、コンポーネントがどこ�
 }
 ```
 
-`block__element--modifier` はシンプルな命名規則だったことに加え、以下に示すメリットが顕著に享受できたため、広く受け入れられていたのではないでしょうか。
+`block__element--modifier` というシンプルな命名規則は、以下に示すメリットを明確に提供したため、広く受け入れられていたのではないでしょうか。  
 
 - **名前空間の明確化**: どのスタイルブロックに属するのか一目瞭然
 - **低い詳細度**: すべてクラスセレクタで済むため詳細度が一定
@@ -153,10 +152,9 @@ DOM 構造に依存したスタイルを避け、コンポーネントがどこ�
 ```
 
 詳細度を低く保つとともに、BEM はコンポーネントベースの「セマンティックな命名規則」を提供します。
-つまり、**HTML のコンテンツや構造に基づいて、CSS の命名規則を定義している**ということです。
+つまり、HTML の**コンテンツの性質**や構造に基づいて、CSS の命名規則を定義しているというのが、単に構造と見た目で Class 名を分離する OOCSS との差です。
 
-BEM が意識していたのかどうかは計り知れませんが、HTML Standard でも「Class 名はコンテンツを説明するのが望ましい」とされています。
-（おそらく、JS から Class 名を利用する文脈でだと思いますが・・・）
+興味深いことに、HTML Standard でも「Class 名はコンテンツの性質を説明するのが望ましい」と推奨されています。これは BEM のアプローチと一致する考え方です。
 
 > There are no additional restrictions on the tokens authors can use in the class attribute,
 > but**authors are encouraged to use values that describe the nature of the content**,
@@ -167,10 +165,9 @@ BEM が意識していたのかどうかは計り知れませんが、HTML Stand
 ### Semantic CSS?
 
 これらの方法論では、低い詳細度に命名規則を与えて構造化することで「関心の分離」を行なっています。
-「関心の分離」つまり、「HTML にはコンテンツについての知識のみを含めるべきで、スタイルの定義はすべて CSS に任せよう」という考え方が根底に存在します。
+「関心の分離」つまり、「HTML にはコンテンツや構造についての知識のみを含めるべきで、スタイルの定義はすべて CSS に任せよう」という考え方が根底に存在します。
 
-ここで、BEM のような「セマンティックな命名」、つまり 「HTML がどういったコンテンツを表現しているか」に基づいた命名をしていると、
-特定のコンテンツに依存した名前空間を定義することになります。
+OOCSS は構造系セレクタと見た目を表現するセレクタで分離する発想のためまだしも、BEM のような「セマンティックな命名」、つまり 「HTML がどういった**コンテンツの性質**を表現しているか」に基づいた命名をしていると、特定のコンテンツに依存した名前空間を定義することになります。
 
 例えば、`.box` や `.media-object` といった「見た目ベースのクラス」であれば、ニュース/製品情報/ユーザープロフィールなど「同じ見た目が必要なあらゆる場所」で使い回せるものの、
 `.news` という「セマンティックなクラス」はニュース記事という「特定のコンテンツ」でしか使えません。
@@ -187,12 +184,15 @@ BEM が意識していたのかどうかは計り知れませんが、HTML Stand
 </div>
 ```
 
-つまり、BEM の「関心の分離」では、HTML が CSS に依存していないだけで、**CSS は コンテンツやマークアップ構造に依存した命名規則**を持っています。
-これが、見た目の汎用性の足枷になっていると、 Nicolas Gallagher が
-[About HTML semantics and front-end architecture](https://nicolasgallagher.com/about-html-semantics-front-end-architecture/) で述べています。
-要は、Semantics と Presentation を完全に分離しようという主張です。
+つまり、BEM の「関心の分離」では、構造やコンテンツの性質がスタイルに依存していないだけで、**スタイルはコンテンツの性質やマークアップ構造に依存した命名規則**を持っている --
+要は、**構造やコンテンツの性質とスタイルを双方向から完全に分離しよう**と主張したのが、 Nicolas Gallagher
+[About HTML semantics and front-end architecture](https://nicolasgallagher.com/about-html-semantics-front-end-architecture/) です。
 
-見た目で高度に汎化された Class 名を使うことで、**デザインの一貫性を保ちながら**、CSS の記述量の大幅な削減を可能にするというアイディアが提唱されました。
+特定の構造やコンテンツに依存しない「高度に汎化された Class 名」を使うことで、**デザインの幅に一定の制限を設けながら**、CSS の記述量の大幅な削減を可能にするというアイディアの提唱でした。
+
+これは、のちに「高度に汎化された Class 名」の極地として登場する、 Tailwind CSS に代表されるユーティリティファースト CSS の考え方に影響を与えるものとなります。
+
+- [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
 
 ## Organize CSS into a Logical Structure
 
@@ -255,8 +255,7 @@ h1 { font-size: 2em; }
 ```
 
 ITCSS で特徴的な点は、**CSS の詳細度を用いて、優先度が自動的に上から下へ増加していくように設計されている**ことでしょう。
-この構造では、カスケード（特に詳細度アルゴリズム）の特性を活かしながら、詳細度の管理をより予測可能なものにすることができています。
-当時の標準技術で、かなり実用的に「レイヤー」を表現できている方法論です。
+ITCSS が、カスケード（特に詳細度アルゴリズム）の特性を活かしながら、詳細度の管理をより予測可能なものにしたことは、当時の標準技術で、CSS に "レイヤー" という構造化をもたらしました。
 
 ## CSS Architecture - How to express Layers, Scopes, and States
 
@@ -277,12 +276,12 @@ Philip Walton が [CSS Architecture](https://philipwalton.com/articles/css-archi
 
 それを実現する BEM などの命名規則は、後に CSS Modules などのツールによって自動化される部分も出てきますが、「名前空間によって構造を作る」という点で「スコープ」の考え方につながるものとなってきます。
 
-命名における「関心の分離」の解釈に関しても既に粒度が生まれていました。
+命名における関心の分離の解釈にも、粒度の差が生まれていました。
 BEM や SMACSS はコンポーネントという「セマンティクスを含んだ単位」で名前空間を分離します。
-しかし、OOCSS や Nicolas Gallagher の考え方は、Semantics と Presentation を完全に分離し、「見た目のみの単位」でしか名前空間を持ちません。
-後の Utility-First CSS (Tailwind CSS など) やデザイントークンにも接続される、「関心の分離」の解釈です。
+しかし、OOCSS や Nicolas Gallagher の考え方は、、構造やコンテンツの性質とスタイルを完全に分離し、「見た目のみの単位」でしか名前空間を持ちません。
+後の Utility-First CSS (Tailwind CSS など) やデザイントークンにも接続される、「関心の分離」の思想の根源がここに接続されてくるでしょう。
 
-また、SMACSS や ITCSS に見られた「スタイルのカテゴライズ」は、詳細度を用いた「レイヤー」という考え方を提示し、カスケードの特性を活かした優先度制御の可能性を示しています。
+また、SMACSS や ITCSS に見られた「スタイルのカテゴライズ」は、詳細度を用いた「レイヤー」という構造化を提示し、カスケードの特性を活かした優先度制御の可能性を示しています。
 
 こうした「CSS アーキテクチャ」、または「デザインをシステマティックに扱う方法論」は、Web デザインを「予測可能」「再利用可能」「保守的」「スケーラブル」にする進化を後押しする基盤となっていきます。
 
@@ -295,6 +294,7 @@ BEM や SMACSS はコンポーネントという「セマンティクスを含�
 - [Adactio: Journal—Pattern primer](https://adactio.com/journal/5028)
 - [Home - Scalable and Modular Architecture for CSS](https://smacss.com/)
 - [BEM](https://en.bem.info/)
+  - [History / Methodology / BEM](https://en.bem.info/methodology/history/#layout-with-independent-blocks)
   - [Methodology / BEM](https://en.bem.info/methodology/)
 - [About HTML semantics and front-end architecture – Notes by Nicolas Gallagher](https://nicolasgallagher.com/about-html-semantics-front-end-architecture/)
 - [CSS Architecture — Philip Walton](https://philipwalton.com/articles/css-architecture/)
