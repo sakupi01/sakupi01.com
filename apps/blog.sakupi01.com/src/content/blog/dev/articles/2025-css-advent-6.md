@@ -203,3 +203,9 @@ UA StyleSheet がなければ、我々はもっと冗長で大規模なスタイ
 - [Levels, snapshots, modules…](https://www.w3.org/Style/2011/CSS-process.en.html)
 - [CSS Snapshot 2024](https://www.w3.org/TR/css-2024/)
 - [15.2 The CSS user agent style sheet and presentational hints | HTML Standard](https://html.spec.whatwg.org/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints)
+
+
+---
+
+<advent-calendar-2025 />
+
