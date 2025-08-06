@@ -81,7 +81,7 @@ P  { font-size: 12pt ! important; font-style: italic }
 
 `!important` を用いると、その宣言の優先度を上げることができます。
 
-:::.note{.memo}
+:::note{.memo}
 
 FUN FACT: The `!legal` keyword
 
