@@ -29,11 +29,13 @@ Web 標準で「カプセル化」を実現する手段として真っ先に上�
 :::note{.memo}
 📝 なぜ Light DOM にクローンしないのか
 
-敢えて `#shadow-root` を作成し、その中に元の SVG を Clone しているのは、User Agent が Author 領域である Light DOM を直接触らないようにするためです。
+要するに、ブラウザが勝手に DOM をいじらないようにするためです。
+
+正確には、敢えて `#shadow-root` を作成し、その中に元の SVG を Clone しているのは、User Agent が Author 領域である Light DOM を直接触らないようにするためです。
 仕様が Conformance Error を示すことができる Author の領域は、基本的に Author の責任しか所在しないようにするという意図があります。
 （UA からの Light DOM（Author 領域）の操作は、Customizable Select Element の `<selectedoption>` で初めて可能になりましたが）
 
-また、Conformance Error とは、仕様に従っていない状態を指します。HTML や CSS などの仕様には、どのように要素や属性を使用すべきかが定義されていますが、これに従わない場合、Conformance Error となります。例えば、次のようなサイトでチェックすることができます。
+Conformance Error とは、仕様に従っていない状態を指します。HTML や CSS などの仕様には、どのように要素や属性を使用すべきかが定義されていますが、これに従わない場合、Conformance Error となります。例えば、次のようなサイトでチェックすることができます。
 
 [The W3C Markup Validation Service](https://validator.w3.org/)
 :::
@@ -68,7 +70,7 @@ Form Controls の議論では、しばしば「In-Page Controls」という用�
 ---
 
 以下の例では、Shadow DOM 内ユニバーサルセレクタが、 Light DOM 要素に影響を与えず、Light DOM からのスタイルが Shadow DOM 内の要素に影響を与えないことを示しています。
-このように、「スタイルのカプセル化」を実現する手段として、特に Web Components の文脈で耳にすることが多いのではないでしょうか。
+このように、Shadow DOM は「スタイルのカプセル化」を実現する手段として、特に Web Components の文脈で耳にすることが多いのではないでしょうか。
 
 <p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="myeWjKG" data-pen-title="Untitled" data-user="sakupi01" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/sakupi01/pen/myeWjKG">
@@ -79,13 +81,86 @@ Form Controls の議論では、しばしば「In-Page Controls」という用�
 
 ## Shadow DOM Style Sharing
 
-Shadow DOM 間、Shadow DOM - Light DOM 間でスタイルを共有する方法の模索も進んでいます。
+複数のスタイルシートを DOM に適用/共有する方法の模索も進んでいます。
 
 Shadow DOM とスタイルを共有する以上、そのスタイルはカプセル化されている必要があり、スタイルのスコーピングに関連してくるので、ここで現状を整理しておきます。
 
-### CSS Module Scripts
+### `<link rel="stylesheet">` & `@import`
 
-コミュニティベースの CSS Module Scripts ではなく、標準側において ES Modules としてスタイルシートを読み込む手段です。
+Shadow Tree 内で外部スタイルシートを読み込ませる方法として、 `<link rel="stylesheet">` や `@import` を利用することができます。
+
+```html
+<!-- link rel="stylesheet" -->
+<my-element>
+  <template shadowrootmode="open">
+    <!-- スタイルシート 1 -->
+    <link rel="stylesheet" href="/theme.css">
+    <!-- スタイルシート 2 -->
+    <link rel="stylesheet" href="/component.css">
+  </template>
+</my-element>
+
+<!-- @import -->
+<my-element>
+  <template shadowrootmode="open">
+    <style>
+      /* スタイルシート 3 */
+      @import url("/theme.css");
+      /* スタイルシート 4 */
+      @import url("/component.css");
+    </style>
+  </template>
+</my-element>
+```
+
+ただ、複数のスタイルを適用/共有する際、同じスタイルシートでも各コンポーネントのスタイルシート毎にロードが発生するため、大量の Web Components 全てに共通スタイルを当てたい場合などは特にパフォーマンスの懸念がありました。
+
+- [Why are CSS Modules needed? webcomponents/proposals/css-modules-v1-explainer.md at gh-pages · WICG/webcomponents](https://github.com/WICG/webcomponents/blob/gh-pages/proposals/css-modules-v1-explainer.md#why-are-css-modules-needed)
+
+### Constructable StyleSheets & `adoptedStyleSheets`
+
+そこで、「共通の Constructable なスタイルシートを作成し、同期的に複数の DOM に適用可能にする」、[Constructable StyleSheet](https://www.w3.org/TR/cssom-1/#dom-cssstylesheet-cssstylesheet)（スタイルシートを CSSOM としてプログラムから操作可能にするインスタンス）と [`adoptedStyleSheets`](https://www.w3.org/TR/cssom-1/#extensions-to-the-document-or-shadow-root-interface) の実装が 2023年に揃いました。
+
+<baseline-status featureId="constructed-stylesheets"></baseline-status>
+
+基本的な使い方としては、Shadow/Light 問わず DOM 間で共通したスタイルシートインスタンスである Constructable StyleSheet を、`new CSSStyleSheet()` で作成し、その中にスタイルを書き込み、`adoptedStyleSheets` プロパティに追加することで、DOM に適用します。
+
+```js
+const css = new CSSStyleSheet()
+css.replaceSync(`
+p {
+  color: #00f;
+}
+`)
+
+class AdoptedCss extends HTMLElement {
+  constructor() {
+    super()
+    this.attachShadow({mode: 'open'})
+    this.shadowRoot.adoptedStyleSheets = [css]
+  }
+
+  connectedCallback() {
+    this.render()
+  }
+
+  render() {
+    this.shadowRoot.innerHTML = `<p>Adopted CSS</p>`
+  }
+}
+
+customElements.define('adopted-css', AdoptedCss)
+```
+
+ただし、新たな課題として、JS 側で定義した CSS のみからしか Constructable StyleSheet を作成するため、CSS のパースを JS/CSS どちら側でも行う必要があります。
+
+これへの対応としては、JS ではなく、`.css` で CSS を記述し、Constructable StyleSheet を作成する方法として提案されている、CSS Module Scripts(Imperative/Declarative)が利用できます。
+
+### CSS Module Scripts - Load Constructable StyleSheets Imperatively
+
+コミュニティベースの CSS Module Scripts ではなく、標準側において ES Modules として Constructable StyleSheet を読み込む手段です。
+
+<baseline-status featureId="css-modules"></baseline-status>
 
 :::note{.info}
 
@@ -114,7 +189,7 @@ MS を中心に WHATWG側で[CSS Module Scripts](https://github.com/whatwg/html/
 
 :::
 
-CSS Module Scripts の用例としては、CSS Module Scripts でスタイルシートをインポートし、[Constructable StyleSheet](https://www.w3.org/TR/cssom-1/#dom-cssstylesheet-cssstylesheet)（スタイルシートを CSSOM としてプログラムから操作可能にするインスタンス）として読み込み、[`adoptedStyleSheets`](https://www.w3.org/TR/cssom-1/#extensions-to-the-document-or-shadow-root-interface) プロパティでコンポーネントに同期させるものが主でしょう。
+CSS Module Scripts で Constructable StyleSheet としてスタイルシートをインポートし、`adoptedStyleSheets` プロパティでコンポーネントに適用します。
 
 ```js
 /*non-Declarative CSS Moudule Scripts*/
@@ -129,17 +204,17 @@ shadowRoot.adoptedStyleSheets = [themeSheet, componentSheet];
 *出典：[Constructable Stylesheets  |  Articles  |  web.dev](https://web.dev/articles/constructable-stylesheets)*
 
 CSS Module Scripts + Constructable StyleSheet + Adopted StyleSheets を組み合わせることで、特定のスタイルシートを同期的にコンポーネントに適用するだけでなく、Light DOM と Shadow DOM の両方でスタイルシートを共有することができます。
-Web Components の文脈においては、Light DOM のグローバルスタイルのみを Shadow DOM （Web Components）に適用したいという需要が大きいため、CSS Module Scripts は Web Components の文脈で特に重要になってきます。
+Web Components の文脈においては、Light DOM のグローバルスタイルのみを Shadow DOM （Web Components）に適用したいといった需要があるため、CSS Module Scripts は Web Components の文脈で特に重要になってきます。
 
-### Declarative CSS Module Scripts? or ... `@sheet`
+## Declarative Shadow DOM Style Sharing - CSS Module Scripts? or ... `@sheet`
 
-しかし、CSS Module Scripts は JS-way です。
+とはいえ、CSS Module Scripts は JS-way です。
 2024年に Declarative Shadow DOM の実装が揃ったこともあり、宣言的なユースケースに対応した方法の需要が高まっているのが昨今です。
-CSS Module Scripts （+ Constructable StyleSheet + Adopted StyleSheets）を宣言的に実現する方法として、現状では主に以下の２つが議論中です。
+複数のスタイルシートを宣言的に DOM に適用する方法として、現状では主に以下の２つが議論中です。
 
 #### Declarative CSS Module Scripts & Declarative Shadow DOM `adoptedstylesheets` attribute
 
-スタイルシートを Constructable StyleSheet として宣言する方法です。
+まず、宣言的に Constructable StyleSheet を作成し、`adoptedStyleSheets` 属性で DOM にスタイルシートを適用する方法です。
 
 - `<script type="css-module" specifier="/foo.css">` : `type="css-module"` と `specifier` の指定で、CSS Module Scripts でスタイルシートを Constructable StyleSheet としてインポートしていたものの Declarative 版
 - `<template shadowrootmode="open" adoptedstylesheets="/foo.css">` : `adoptedstylesheets`属性で、JS `adoptedStyleSheets` プロパティで Shadow DOM にスタイルシートを適用していたものの Declarative 版
@@ -172,8 +247,11 @@ CSS Module Scripts （+ Constructable StyleSheet + Adopted StyleSheets）を宣�
 
 #### `@sheet`
 
+また、そもそも Constructable StyleSheet を経由せず、複数のスタイルシートを直接 DOM に適用する宣言的な方法として、 `@sheet` が存在します。
+
 `@sheet` は、ひとつのCSSファイル内で複数のシートを宣言できる at-rule です。
-`@sheet` で特徴的なのは、スタイルシートの実質的な「ネイティブ手動バンドル」を可能にしている点です。
+
+`@sheet` で特徴的なのは、スタイルシートの実質的な「**ネイティブ手動バンドル**」を可能にしている点です。
 これにより、複数のスタイルシートを最小のネットワークリクエストで読み込むことができ、1つの通信で複数のスタイルシートが一回の通信で供給可能になることが `@sheet` の旨みです。
 
 ただし、`@sheet` で複数のスタイルシートを一つにまとめるので、それらを取り出す手段が必要になります。
@@ -214,7 +292,37 @@ div {
 - [Multiple stylesheets per file · Issue #5629 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/5629#issuecomment-1498299448)
 - [Support fragment references in the `<link>` tag's `href` attribute · Issue #11019 · whatwg/html](https://github.com/whatwg/html/issues/11019)
 
-### `<iframe>`
+## Scoped CSS (`<style scoped>`)
+
+かつて HTML に存在していた `<style scoped>` についても触れておきます。
+
+`<style scoped>` は、HTML において、特定の要素内でのみスタイルを適用するための属性として提案されていました。
+
+`<style scoped>` は、特定の HTML 区間にスタイルの適用範囲を限定する機能として提案されていました。
+Shadow DOM とは異なり、外部からのスタイルは引き続き影響を与えることができ、内部のスタイルが外部に漏れ出さないようにする、いわゆる「片方向」のカプセル化を実現するものです。
+
+```html
+<div>
+  <!-- 親要素からのスタイルの影響は受ける -->
+  <style scoped>
+    /* このスタイルは親要素とその子孫にのみ適用される */
+    p { color: red; }
+  </style>
+  <p>このテキストは赤色</p>
+</div>
+<p>このテキストは赤色ではない</p>
+```
+
+しかし、`<style scoped>` は 2016年に HTML から削除されています。
+
+大きな理由としては、実装の複雑さと、より強力なカプセル化を実現する Shadow DOM の仕様策定が同時期に進んでいたことが挙げられます。
+
+- [Remove `<style scoped>` · Issue #552 · whatwg/html](https://github.com/whatwg/html/issues/552)
+
+しかし、興味深いことに、CSS 側の [`@scope`](https://developer.chrome.com/docs/css-ui/at-scope) では、`<style scoped>` と似たようなカプセル化を提供しながらも、仕様策定・実装に至っています。
+HTML で Removal となり、CSS で実現した背景に関しては、また後日見て行こうと思います。
+
+## `<iframe>`
 
 最後に、`<iframe>` もスタイルをカプセル化する手段の一つであると言えます。
 
