@@ -1,6 +1,6 @@
 ---
-title: "🎨 CSS Advent Calendar: Day 7 / The Cascade for Cascading Style Sheets - The Whole Cascade Universe"
-excerpt: "CSS Advent Calendar Day 7"
+title: "🎨 CSS Advent Calendar: Day 7 / The Cascade for Cascading Style Sheets - The Whole Cascade Universe v1"
+excerpt: "Origin の続きと「守り」の手段としての `!important`、Cascade Sorting Order の全体像"
 date: 2025-08-07
 update: 2025-08-07
 category: 'dev'
@@ -70,7 +70,7 @@ Origin and Importance の Origin のみの世界だと、Author が絶対的な�
 
 ### Origin and Importance
 
-Cascade Sorting Orderの先頭に位置し、最も優先して判断されます。詳細は、[Day6](2025-css-advent-6) から [Day7](2025-css-advent-7) の内容を参照ください。
+Cascade Sorting Orderの先頭に位置し、最も優先して判断されます。Origin and Importance に関しては、[Day6](2025-css-advent-6) から [Day7](2025-css-advent-7) で説明してたものです。
 
 ### Context
 
@@ -134,18 +134,21 @@ HTMLElement の style 属性が、Specificity の定義に含まれています�
 
 最終的に完成する Cascade Sorting Order を図解すると以下のようになります。
 
-![The Whole Cascade Universe(spec Level4)](../../../../assets/images/level4-cascade.png)
-*The Whole Cascade Universe(spec Level4)*
+<cascade-accordion disabled show-layers="false" show-scope-proximity="false"></cascade-accordion>
 
 これにより、例えば以下のようなよくある CSS の適用順序は、Cascade Sorting Order で説明がつきます。
 
-- 同じ詳細度の場合、後にの宣言が優先される：Order of Appearance
+- 同じ詳細度の場合、後の宣言が優先される：Order of Appearance
 - 後に宣言されていても、詳細度が高いほうが優先される：Specificity > Order of Appearance
 - style 属性が付与されていても、Shadow DOM 内の宣言が優先される：Context > Specificity
-- `!important` を付与すると、style 属性より優先される：Origin and Importance > Element Attached Styles > Specificity
+- `!important` を付与すると、style 属性より優先される：Origin and Importance > The Style Attribute > Specificity
 
 ## Appendix
 
 - [Cascading Style Sheets, level 1](https://www.w3.org/TR/WD-css1-951117.html)
 - [CSS history](https://www.w3.org/Style/CSS/history.html)
 - [Thinking about style sheets](https://www.w3.org/Style/mail/kh-2-may-95.html)
+
+---
+
+<advent-calendar-2025 />
