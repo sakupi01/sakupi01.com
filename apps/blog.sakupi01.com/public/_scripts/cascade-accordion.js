@@ -181,6 +181,7 @@ class CascadeAccordion extends HTMLElement {
 
   getLayers() {
     const layers = [];
+    const cascadeInfo = this.getCascadeLevel();
 
     // 1. Origin and Importance (CSS Level 1)
     layers.push({
@@ -242,7 +243,7 @@ class CascadeAccordion extends HTMLElement {
       title: "The Style Attribute",
       render: () => `
                         <details class="style-attribute" name="cascade-accordion">
-                            <summary>The Style Attribute (Inline Styles)</summary>
+                            <summary> ${cascadeInfo.level < 5 ? "Top in Specificity: " : ""}The Style Attribute</summary>
                             <div class="layer-content">
                                 <div class="content-grid">
                                     <div class="content-section content-section-important">
@@ -361,6 +362,7 @@ class CascadeAccordion extends HTMLElement {
   getStyles() {
     // Recalculate positions based on visible layers
     const visibleLayers = this.getLayers();
+    const cascadeInfo = this.getCascadeLevel();
 
     return `
                     /* Reset and base styles */
@@ -530,7 +532,6 @@ class CascadeAccordion extends HTMLElement {
                         background: var(--bg-color);
                         // color: contrast-color(var(--bg-color));
                         color: white;
-                        clip-path: polygon(0% 0, 100% 0, 97% 100%, 3% 100%);
                     }
 
                     .context {
@@ -538,15 +539,22 @@ class CascadeAccordion extends HTMLElement {
                         background: var(--bg-color);
                         // color: contrast-color(var(--bg-color));
                         color: white;
-                        clip-path: polygon(3% 0, 97% 0, 94% 100%, 6% 100%);
                     }
 
                     .style-attribute {
-                        --bg-color: linear-gradient(90deg, #f093fb 0%, #39175c 100%);
-                        background: var(--bg-color);
+                        ${
+                          cascadeInfo.level < 5
+                            ? `
+                          --bg-color: #fa7070;
+                          background: var(--bg-color);
+                          `
+                            : `
+                          --bg-color: linear-gradient(90deg, #f093fb 0%, #39175c 100%);
+                          background: var(--bg-color);
+                          `
+                        }
                         // color: contrast-color(var(--bg-color));
                         color: white;
-                        clip-path: polygon(6% 0, 94% 0, 91% 100%, 9% 100%);
                     }
 
                     .cascade-layers {
@@ -554,7 +562,6 @@ class CascadeAccordion extends HTMLElement {
                         background: var(--bg-color);
                         // color: contrast-color(var(--bg-color));
                         color: white;
-                        clip-path: polygon(9% 0, 91% 0, 88% 100%, 12% 100%);
                     }
 
                     .selector-specificity {
@@ -562,7 +569,6 @@ class CascadeAccordion extends HTMLElement {
                         background: var(--bg-color);
                         // color: contrast-color(var(--bg-color));
                         color: white;
-                        clip-path: polygon(12% 0, 88% 0, 85% 100%, 15% 100%);
                     }
 
                     .scope-proximity {
@@ -570,7 +576,6 @@ class CascadeAccordion extends HTMLElement {
                         background: var(--bg-color);
                         // color: contrast-color(var(--bg-color));
                         color: white;
-                        clip-path: polygon(15% 0, 85% 0, 82% 100%, 18% 100%);
                     }
 
                     .order-appearance {
@@ -578,7 +583,6 @@ class CascadeAccordion extends HTMLElement {
                         background: var(--bg-color);
                         // color: contrast-color(var(--bg-color));
                         color: #1a1a1a;
-                        clip-path: polygon(18% 0, 82% 0, 79% 100%, 21% 100%);
                     }
 
                     /* Dynamic positioning for visible layers */
@@ -592,6 +596,7 @@ class CascadeAccordion extends HTMLElement {
                             .${layer.class} {
                                 margin-top: ${index === 0 ? "0" : "-1px"};
                                 z-index: ${visibleLayers.length - index};
+                                clip-path: polygon(${percentage}% 0, ${100 - percentage}% 0, ${100 - percentage - 3}% 100%, ${percentage + 3}% 100%);
                             }
                             
                             .${layer.class} summary {
