@@ -146,3 +146,7 @@ Web がこの先より一般化していく中で、スマホ以外の端末や�
 - [A Dao of Web Design – A List Apart](https://alistapart.com/article/dao/)
 - [Responsive Web Design – A List Apart](https://alistapart.com/article/responsive-web-design/)
 - [Responsive web design | MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design)
+
+---
+
+<advent-calendar-2025 />
