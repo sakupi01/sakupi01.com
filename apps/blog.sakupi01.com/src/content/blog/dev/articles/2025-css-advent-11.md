@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 11 / The Birth of Responsive Design"
-excerpt: "CSS Advent Calendar Day 11"
+excerpt: "iPhone の登場と、Web デザインにおける適応性の黎明"
 date: 2025-08-11
 update: 2025-08-11
 category: 'dev'
