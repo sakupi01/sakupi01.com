@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 12 / Web Apps are demanded! - The Emergence of SPA"
-excerpt: "CSS Advent Calendar Day 12"
+excerpt: "アプリケーションとしての Web の進化と SPA"
 date: 2025-08-12
 update: 2025-08-12
 category: 'dev'
@@ -136,3 +136,7 @@ JavaScript が Web アプリケーションの中心的な役割を果たすよ�
 - [Ajax: A New Approach to Web Applications](https://designftw.mit.edu/lectures/apis/ajax_adaptive_path.pdf)
 - [Single-page application](https://en.wikipedia.org/wiki/Single-page_application)
 - [Comparing the "Why" of Single Page App Frameworks - The History of the Web](https://thehistoryoftheweb.com/comparing-the-why-of-single-page-app-frameworks/)
+
+---
+
+<advent-calendar-2025 />
