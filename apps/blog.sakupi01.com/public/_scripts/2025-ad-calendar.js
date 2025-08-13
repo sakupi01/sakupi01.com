@@ -110,48 +110,101 @@ class AdventCalendar2025 extends HTMLElement {
       const styleElement = document.createElement("style");
       styleElement.id = "advent-calendar-2025-styles";
       styleElement.textContent = `
-      advent-calendar-2025 {
+        /* =============================================
+           Component: AdventCalendar2025
+           Namespace: ac2025
+           ============================================= */
+
+        /* Base component */
+        .ac2025 {
+          /* Component-specific CSS variables for theming */
+          /* Dynamic spacing based on container width */
+          --ac2025-spacing-xs: clamp(0.25rem, 0.5cqw, 0.4rem);
+          --ac2025-spacing-sm: clamp(0.375rem, 0.75cqw, 0.5rem);
+          --ac2025-spacing-md: clamp(0.5rem, 1cqw, 0.75rem);
+          --ac2025-spacing-lg: clamp(0.75rem, 1.5cqw, 1rem);
+          
+          /* Dynamic cell height based on container width */
+          --ac2025-cell-height: clamp(60px, 12cqw, 140px);
+          --ac2025-header-height: clamp(2.5rem, 4cqw, 3.5rem);
+          
+          /* Dynamic font sizes using container query units */
+          --ac2025-font-size-xs: clamp(0.65rem, 1.2cqw, 0.85rem);
+          --ac2025-font-size-sm: clamp(0.7rem, 1.5cqw, 0.9rem);
+          --ac2025-font-size-md: clamp(0.8rem, 1.8cqw, 1.1rem);
+          --ac2025-font-size-lg: clamp(0.9rem, 2.5cqw, 1.75rem);
+          
+          /* Static values for animations and styling */
+          --ac2025-transition-duration: 0.2s;
+          --ac2025-transition-easing: ease;
+          
+          --ac2025-border-radius-sm: max(2px, 0.2cqw);
+          --ac2025-border-radius-md: max(4px, 0.4cqw);
+          
+          --ac2025-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.1);
+          --ac2025-border-hover: max(2px, 0.2cqw);
+
           display: block;
           width: 100%;
-          aspect-ratio: 4 / 3;
+          container-type: inline-size;
+          container-name: calendar;
+          box-sizing: border-box;
         }
 
-        /* Table-based calendar */
-        .calendar-table {
-          container-name: calendarTable;
-          container-type: inline-size;
+        /* Ensure all children use border-box */
+        .ac2025 *,
+        .ac2025 *::before,
+        .ac2025 *::after {
+          box-sizing: border-box;
+        }
+
+        /* =============================================
+           Structure: Calendar Table Layout
+           ============================================= */
+        
+        .ac2025__table {
+          table-layout: fixed;
           width: 100%;
           border-collapse: separate;
           border-spacing: 2px;
           background: var(--link-border);
-          border-radius: 4px;
+          border-radius: var(--ac2025-border-radius-md);
           overflow: hidden;
           margin: 0;
         }
 
-        /* Weekday headers */
-        .weekday-header {
+        .ac2025__weekday-header {
           background: var(--card-bg-hover);
-          padding: 0.75rem 0.5rem;
+          padding: var(--ac2025-spacing-md) var(--ac2025-spacing-sm);
           text-align: center;
           font-weight: 600;
           color: var(--color-text);
-          font-size: 0.9rem;
+          font-size: var(--ac2025-font-size-sm);
           border: none;
-          position: relative;
+          height: var(--ac2025-header-height);
         }
 
-        /* Calendar cells */
-        .calendar-cell {
-          background: var(--card-bg);
+        /* =============================================
+           Structure: Calendar Cell Base
+           ============================================= */
+        
+        .ac2025__cell {
           width: 14.28%; /* 100% / 7 days */
           padding: 0;
           border: none;
           position: relative;
           vertical-align: top;
+          height: var(--ac2025-cell-height);
+          overflow: hidden; /* Prevent content overflow */
+          /* Contain any overflowing content */
+          contain: layout style paint;
+          /* Each cell can also be a container for even more granular control */
+          container-type: inline-size;
+          container-name: cell;
         }
 
-        .calendar-cell.empty {
+        /* Cell States (using modifiers) */
+        .ac2025__cell--empty {
           background: light-dark(
             color-mix(in oklch, var(--card-bg), transparent 50%),
             color-mix(in oklch, var(--card-bg), transparent 50%)
@@ -159,220 +212,361 @@ class AdventCalendar2025 extends HTMLElement {
           opacity: 0.3;
         }
 
-        .calendar-cell.written {
+        .ac2025__cell--active {
+          background: var(--card-bg);
+        }
+
+        .ac2025__cell--written {
           background: light-dark(
             color-mix(in oklch, var(--color-primary-medium), white 95%),
             color-mix(in oklch, var(--color-primary-medium), black 90%)
           );
-          .day-content {
-            transition: all 0.2s ease;
-            cursor: pointer;
-          }
         }
 
-        .calendar-cell.unwritten {
+        .ac2025__cell--unwritten {
+          background: var(--card-bg);
           opacity: 0.6;
         }
 
-        /* Day content wrapper with grid */
-        .day-content {
+        /* =============================================
+           Structure: Day Content Container
+           ============================================= */
+        
+        .ac2025__day-content {
           display: grid;
-          grid-template-rows: auto 1fr auto;
-          box-sizing: border-box;
-          padding: 0.75rem 0.75rem 0 0.75rem;
+          grid-template-rows: auto 1fr;
+          height: 100%;
+          /* Contain any overflowing content */
+          contain: layout style;
         }
 
-        .calendar-cell.written:hover .day-content {
-          background: var(--card-bg-hover);
-          transform: scale(1.02);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          border-radius: 2px;
+        /* Apply padding only to unwritten cells */
+        .ac2025__cell--unwritten .ac2025__day-content {
+          padding: var(--ac2025-spacing-sm);
         }
 
-        .calendar-cell.written:hover .day-content {
+        /* =============================================
+           Structure: Link Container (using subgrid)
+           ============================================= */
+        
+        .ac2025__link {
+          display: grid;
+          grid-template-rows: subgrid;
+          grid-row: 1 / -1;
+          text-decoration: none;
+          border: none;
+          color: inherit;
+          padding: var(--ac2025-spacing-sm);
+          transition: all var(--ac2025-transition-duration) var(--ac2025-transition-easing);
+          /* Ensure link fills cell properly */
+          width: 100%;
+          height: 100%;
+        }
+
+        /* Link hover state */
+        .ac2025__cell--written .ac2025__link:hover, .ac2025__link:focus {
           background: light-dark(
             color-mix(in oklch, var(--color-primary-medium), white 90%),
             color-mix(in oklch, var(--color-primary-medium), black 85%)
           );
+          box-shadow: inset 0 0 0 var(--ac2025-border-hover) var(--color-primary-medium), 
+                      var(--ac2025-shadow-hover);
+          border-radius: var(--ac2025-border-radius-sm);
         }
 
-        .empty-cell {
-          height: 100%;
-        }
-
-        .main-link {
-          grid-row: 1 / 3;
-          grid-column: 1;
-          display: grid;
-          grid-template-rows: subgrid;
-          text-decoration: none;
-          border: none;
-          transition: all 0.2s ease;
-          color: inherit;
-        }
-
-        /* Day header with number and status */
-        .day-header {
+        /* =============================================
+           Components: Day Header
+           ============================================= */
+        
+        .ac2025__day-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 0.5rem;
-          grid-row: 1;
-          grid-column: 1;
+          margin-bottom: var(--ac2025-spacing-sm);
         }
 
-        .main-link .day-header {
-          padding: 0;
-        }
-
-        .day-number {
+        .ac2025__day-number {
           color: var(--color-primary-medium);
-          font-size: 1.5rem;
-          margin-block: 0;
+          font-size: var(--ac2025-font-size-lg);
+          margin: 0;
+          line-height: 1;
         }
 
-        .day-status {
-          font-size: 1rem;
+        .ac2025__day-status {
+          font-size: var(--ac2025-font-size-md);
           font-weight: 700;
         }
 
-        .calendar-cell.written .day-status {
+        .ac2025__day-status--written {
           color: var(--color-primary-medium);
         }
 
-        .calendar-cell.unwritten .day-status {
+        .ac2025__day-status--unwritten {
           color: var(--color-text);
           opacity: 0.4;
         }
 
-        /* Day info */
-        .day-info {
+        /* =============================================
+           Components: Day Info
+           ============================================= */
+        
+        .ac2025__day-info {
           display: flex;
           flex-direction: column;
-          grid-row: 2;
-          grid-column: 1;
-          flex: 1;
+          min-height: 0;
         }
 
-        .main-link .day-info {
-          padding: 0;
-        }
-
-        .day-title {
-          font-size: 1rem;
+        .ac2025__day-title {
+          font-size: var(--ac2025-font-size-md);
           color: var(--color-text);
-          margin-bottom: 0.4rem;
+          margin-bottom: var(--ac2025-spacing-xs);
           line-height: 1.2;
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          margin: 0;
-        }
-
-        .day-description {
-          font-size: 0.75rem;
-          color: var(--color-text);
-          opacity: 0.7;
-          line-height: 1.3;
-          margin-bottom: 0.5rem;
-          flex: 1;
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
+          margin: 0;
+          font-weight: 600;
         }
 
-        .day-content:focus-within {
-          outline: 2px solid var(--focusable);
-          outline-offset: 2px;
+        .ac2025__day-description {
+          font-size: var(--ac2025-font-size-xs);
+          color: var(--color-text);
+          opacity: 0.7;
+          line-height: 1.3;
+          margin: 0;
+          flex: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
-        @media (max-width: 650px) {
-          .day-description, .day-status, .day-title {
+        /* =============================================
+           Utilities: Empty Cell
+           ============================================= */
+        
+        .ac2025__empty-cell {
+          height: 100%;
+        }
+
+        /* =============================================
+           Container Queries for Responsive Design
+           ============================================= */
+        
+        /* Extra small container: < 400px */
+        @container calendar (max-width: 400px) {
+          .ac2025__table {
+            border-spacing: 1px;
+          }
+
+          .ac2025__cell {
+            height: 50px;
+          }
+
+          .ac2025__weekday-header {
+            font-size: 0.6rem;
+            padding: 0.3rem 0.1rem;
+            height: 2rem;
+          }
+
+          .ac2025__day-number {
+            font-size: 0.75rem;
+          }
+
+          /* Only show day number at very small sizes */
+          .ac2025__day-status {
+            display: none;
+          }
+        }
+
+        /* Small container: 400px - 600px */
+        @container calendar (min-width: 400px) and (max-width: 600px) {
+          .ac2025__cell {
+            height: 70px;
+          }
+
+          /* Hide text content but show emoji */
+          .ac2025__day-description,
+          .ac2025__day-title {
             display: none;
           }
 
-          .day-info[data-status="written"]::after {
-            content: "🎨" / "Written";
-            display: grid;
-            place-content: center;
-            margin-left: 0.2rem;
-            font-size: 5cqw;
-
+          /* Show emoji indicator for written days inline */
+          .ac2025__day-info--written::after {
+            content: "🎨";
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-size: clamp(0.8rem, 3cqw, 1.2rem);
+            text-align: center;
           }
-          
-          .calendar-header {
-            margin-bottom: 1rem;
-          }
-
-          .calendar-title {
-            font-size: 1.1rem;
-          }
-
-          .calendar-subtitle {
-            font-size: 0.9rem;
-          }
-
-          .calendar-cell {
-            height: 100px;
-          }
-
-          .day-content {
-            padding: 0.4rem;
-          }
-
-          .day-number {
-            font-size: 1rem;
-          }
-          
-          .weekday-header {
-            padding: 0.4rem 0.2rem;
-            font-size: 0.7rem;
-          }
-
         }
 
-        /* Progressive enhancement for reduced motion */
+        /* Medium container: 600px - 900px */
+        @container calendar (min-width: 600px) and (max-width: 900px) {
+          .ac2025__day-title {
+            -webkit-line-clamp: 3;
+            font-size: clamp(0.85rem, 1.5cqw, 0.95rem);
+          }
+
+          .ac2025__day-description {
+            font-size: clamp(0.65rem, 1.2cqw, 0.75rem);
+            -webkit-line-clamp: 4;
+          }
+        }
+
+        /* Large container: > 900px */
+        @container calendar (min-width: 900px) {
+          /* Content is fully visible with default styles */
+        }
+
+        /* Extra large container: > 1400px */
+        @container calendar (min-width: 1400px) {
+          .ac2025__table {
+            border-spacing: 3px;
+          }
+
+          .ac2025__day-header {
+            margin-bottom: 0.75rem;
+          }
+
+          .ac2025__day-title {
+            -webkit-line-clamp: 3;
+            margin-bottom: 0.5rem;
+          }
+
+          .ac2025__day-description {
+            -webkit-line-clamp: 3;
+          }
+        }
+
+        /* =============================================
+           Aspect-ratio based Container Queries
+           ============================================= */
+        
+        /* Portrait orientation (taller than wide) */
+        @container calendar (aspect-ratio < 1/1) {
+          .ac2025__cell {
+            height: clamp(40px, 8cqw, 80px);
+          }
+          
+          .ac2025__table {
+            border-spacing: 1px;
+          }
+        }
+
+        /* Square-ish containers */
+        @container calendar (1/1 <= aspect-ratio <= 3/2) {
+          .ac2025__cell {
+            height: clamp(70px, 12cqw, 110px);
+          }
+        }
+
+        /* Wide containers */
+        @container calendar (aspect-ratio > 2/1) {
+          .ac2025__cell {
+            height: clamp(90px, 8cqw, 140px);
+          }
+          
+          .ac2025__day-title {
+            -webkit-line-clamp: 3;
+          }
+        }
+
+        /* =============================================
+           Cell-level Container Queries
+           ============================================= */
+        
+        /* Adjust content within individual cells based on cell size */
+        @container cell (max-width: 80px) {
+          .ac2025__day-number {
+            font-size: 0.875rem !important;
+          }
+          
+          .ac2025__day-status {
+            font-size: 0.75rem !important;
+          }
+        }
+
+        @container cell (min-width: 120px) {
+          .ac2025__day-info {
+            gap: 0.25rem;
+          }
+        }
+
+        /* =============================================
+           Accessibility & Progressive Enhancement
+           ============================================= */
+        
         @media (prefers-reduced-motion: reduce) {
-          .day-content {
+          .ac2025__link {
             transition: none;
           }
-
-          .calendar-cell:hover .day-content {
-            transform: none;
-          }
-
-          .day-link:hover {
-            transform: none;
-          }
         }
 
-        /* High contrast mode support */
         @media (prefers-contrast: high) {
-          .calendar-table {
+          .ac2025__table {
             border: 2px solid;
           }
 
-          .calendar-cell.written {
+          .ac2025__cell--written {
             background: highlight;
             color: highlighttext;
           }
         }
 
-        /* Print styles */
+        /* =============================================
+           Fallback for browsers without container query support
+           ============================================= */
+        
+           /* Fallback to viewport-based media queries */
+           @media (max-width: 650px) {
+             .ac2025__cell {
+               height: 80px;
+             }
+ 
+             .ac2025__weekday-header {
+               padding: 0.4rem 0.2rem;
+               font-size: 0.7rem;
+             }
+ 
+             .ac2025__day-description,
+             .ac2025__day-status,
+             .ac2025__day-title {
+               display: none;
+             }
+ 
+             .ac2025__day-info--written::after {
+               content: "🎨";
+               display: inline-block;
+               margin-left: 0.5rem;
+               font-size: 1rem;
+              text-align: center;
+             }
+           }
+
+
+        /* =============================================
+           Print Styles with Container Awareness
+           ============================================= */
+        
         @media print {
-          .calendar-table {
+          .ac2025 {
+            container-type: normal; /* Disable container queries for print */
+          }
+          
+          .ac2025__table {
             border-collapse: collapse;
             border-spacing: 0;
           }
 
-          .calendar-cell {
+          .ac2025__cell {
             border: 1px solid #000;
+            height: auto;
+            min-height: 80px;
           }
 
-          .day-content:hover {
-            transform: none;
+          .ac2025__link:hover {
             box-shadow: none;
           }
         }
@@ -382,62 +576,81 @@ class AdventCalendar2025 extends HTMLElement {
 
     // Render the calendar content
     this.innerHTML = `
-      <table class="calendar-table">
-        <!-- Weekday headers -->
-        <thead>
-          <tr>
-            ${weekdays.map((day) => `<th class="weekday-header">${day}</th>`).join("")}
-          </tr>
-        </thead>
-        
-        <!-- Calendar body -->
-        <tbody>
-          ${calendarGrid
-            .map(
-              (week) => `
-            <tr class="calendar-week">
-              ${week
-                .map(
-                  (cell) => `
-                <td class="${cell ? (cell.isWritten ? "calendar-cell written" : "calendar-cell unwritten") : "calendar-cell empty"}">
-                  ${
-                    cell
-                      ? `
-                    <div class="day-content">
-                      <div class="day-header">
-                        <h4 class="day-number">${cell.day}</h4>
-                        <span class="day-status">${cell.isWritten ? "✨" : ""}</span>
-                      </div>
-                      ${
-                        cell.isWritten
-                          ? `
-                        <a href="${cell.link}" class="main-link" target="_parent" rel="noopener">
-                          <div class="day-info" data-status="written">
-                            <h5 class="day-title">${cell.title}</h5>
-                            <p class="day-description">${cell.description}</p>
-                          </div>
-                        </a>
-                      `
-                          : `
-                        <div class="day-info" data-status="unwritten">
-                          <p class="day-description">${cell.description}</p>
-                        </div>
-                      `
-                      }
-                    </div>
-                  `
-                      : '<div class="empty-cell"></div>'
-                  }
-                </td>
-              `,
-                )
-                .join("")}
+      <div class="ac2025">
+        <table class="ac2025__table">
+          <!-- Weekday headers -->
+          <thead>
+            <tr>
+              ${weekdays.map((day) => `<th class="ac2025__weekday-header">${day}</th>`).join("")}
             </tr>
-          `,
-            )
-            .join("")}
-        </tbody>
-      </table>
+          </thead>
+          
+          <!-- Calendar body -->
+          <tbody>
+            ${calendarGrid
+              .map(
+                (week) => `
+              <tr class="ac2025__week">
+                ${week
+                  .map((cell) => {
+                    if (!cell) {
+                      return `<td class="ac2025__cell ac2025__cell--empty">
+                          <div class="ac2025__empty-cell"></div>
+                        </td>`;
+                    }
+
+                    const cellClass = cell.isWritten
+                      ? "ac2025__cell ac2025__cell--active ac2025__cell--written"
+                      : "ac2025__cell ac2025__cell--active ac2025__cell--unwritten";
+
+                    const statusClass = cell.isWritten
+                      ? "ac2025__day-status ac2025__day-status--written"
+                      : "ac2025__day-status ac2025__day-status--unwritten";
+
+                    const infoClass = cell.isWritten
+                      ? "ac2025__day-info ac2025__day-info--written"
+                      : "ac2025__day-info ac2025__day-info--unwritten";
+
+                    if (cell.isWritten) {
+                      return `
+                          <td class="${cellClass}">
+                            <div class="ac2025__day-content">
+                              <a href="${cell.link}" class="ac2025__link" target="_parent" rel="noopener">
+                                <div class="ac2025__day-header">
+                                  <h4 class="ac2025__day-number">${cell.day}</h4>
+                                  <span class="${statusClass}">✨</span>
+                                </div>
+                                <div class="${infoClass}" data-status="written">
+                                  <h5 class="ac2025__day-title">${cell.title}</h5>
+                                  <p class="ac2025__day-description">${cell.description}</p>
+                                </div>
+                              </a>
+                            </div>
+                          </td>
+                        `;
+                    }
+                    return `
+                          <td class="${cellClass}">
+                            <div class="ac2025__day-content">
+                              <div class="ac2025__day-header">
+                                <h4 class="ac2025__day-number">${cell.day}</h4>
+                                <span class="${statusClass}"></span>
+                              </div>
+                              <div class="${infoClass}" data-status="unwritten">
+                                <p class="ac2025__day-description">${cell.description}</p>
+                              </div>
+                            </div>
+                          </td>
+                        `;
+                  })
+                  .join("")}
+              </tr>
+            `,
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>
     `;
   }
 }
