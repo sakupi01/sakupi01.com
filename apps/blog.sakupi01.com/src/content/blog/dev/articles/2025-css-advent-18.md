@@ -18,7 +18,7 @@ status: 'published'
 
 OOCSS/BEM/SMACSS/ITCSS、CSS Modules、CSS in JS、ユーティリティファースト etc ...
 プロダクトの性質やチームの成熟度、あるいは好みによって、どういった手法を取るのかに違いはあれど、
-エコシステム実らせてきた CSS 設計のプラクティスでは、主に以下の達成が考えられてきました。
+エコシステムが実らせてきた CSS 設計のプラクティスでは、主に以下の達成が考えられてきました。
 
 1. Component で影響範囲を最小限に保って開発したい
 2. 他との衝突を防ぐため、各詳細度はできるだけ一定に・低く保ちたい
@@ -33,10 +33,10 @@ OOCSS/BEM/SMACSS/ITCSS、CSS Modules、CSS in JS、ユーティリティファ�
 
 Cascade を俯瞰すると、UA / User / Author という、出自も関心も異なる３つのスタイルが「Origin」として定義され、「Importance」によって Balance が意識されることで「レイヤリング」をしていることが実態としてあることがわかります。
 
-つまり、「Origin&Importance」 は、UA / User / Author という出自も関心も異なるスタイルを、「Origin」 として管理することで「Suggest」し合えるようにし、「Importance」を用いて「Balance」をとれるようにする、Cascade の中で何よりも優先度の高い仕組みであると言えます。
+つまり、「Origin&Importance」 は、出自も関心も異なるスタイルを、「Origin」 として管理することで「Suggest」し合えるようにし、「Importance」を用いて「Balance」をとれるようにする、Cascade の中で何よりも優先度の高い仕組みであると言えます。
 どんなに高い詳細度よりも、Cascade ではこのレイヤリングが優先して考えられます。
 
-『”関心の異なるスタイル” におけるレイヤリングの権化とも言える「Origin」＆「Importance」という仕組み -- この仕組みを、単一の Origin 内にある ”関心の異なるスタイル” 間でも、「Suggestion」と「Balance」をとるために利用できないか？』という思想で提案されたのが「Cascade Layers」(当時は Cascade Origins) であるというのが、Explainer からの解釈です。
+関心の異なるスタイルにおけるレイヤリングの権化とも言える「Origin」＆「Importance」という仕組み -- この仕組みを、単一の Origin 内にある 関心の異なるスタイル間でも、「Suggestion」と「Balance」をとるために利用できないか？という思想で提案されたのが「Cascade Layers」(当時は Cascade Origins) であるというのが、Explainer からの解釈です。
 
 > In the same way that Cascade Origins help to balance styling concerns across stakeholders – layering browser defaults, user preferences, and document styles – it can be useful to have similar layering of concerns within a single origin.
 >
@@ -87,7 +87,7 @@ import styles from './NewFeature.module.css';
 }
 ```
 
-要は、「単一クラスセレクタで詳細度を低く保つ規則から逸脱するスタイル」を当てられると、スタイルの詳細度事情に踏み込んだ「ワークアラウンド感のあるスタイル」を当てる必要があるという点で、詳細度は脆い解決策でした。
+要は、単一のクラスセレクタで詳細度を低く保つ「クラスベースでルール」を運用してるのに、それ無視した詳細度の高い定義が混ぜられると破綻するため、詳細度では管理が難くなってしまいます。
 
 ## Goals of Cascade Layers
 
@@ -130,11 +130,11 @@ z-index のレイヤーや、Top Layer との混同の懸念もありました�
 
 ### Where Custom Origins should be placed?
 
-#### Before/After Shadow DOM?
+#### Before/After Shadow Context?
 
 Cascade Layers は当初は「Custom Origins」として既存の Author Origin の位置に配置するとされていました。
 
-既存の Author Origin の位置に配置できると、エンジンに既に実装されている Origin の Order Resolution ロジックを再利用できる可能性があり、実装上の負担が軽くなると期待されていたためです。（comments）
+Author Origin の位置に配置できると、エンジンに既に実装されている Origin の Order Resolution ロジックを再利用できる可能性があり、実装上の負担が軽くなると期待されていたためです。（comments）
 
 しかし、Shadow DOM との相互作用において、計算が複雑化する懸念がありました。
 
@@ -154,28 +154,29 @@ Shadow DOM は各コンポーネントが独自の Context を持つ階層構造
 
 - [[css-cascade] How do Cascade Layers interact with Shadow DOM · Issue #4984 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/4984)
 
-レイヤーが Origin レベルにあると、全ての Context が問答無用でその影響を受けることになるため、Cascade Layers では、**Context（Shadow DOM）の後** に Cascade Layer を配置することで、この問題を解決しました。
+レイヤーが Origin レベルにあると、全ての Context が問答無用でその影響を受けることになり、管理する Origin が肥大化するため、Cascade Layers を **Context（Shadow DOM）の後** に配置することで、この問題を解決しました。
 
 この設計により、各 Context が排他的にレイヤーを持つことができ、Light DOM の `@layer reset` と Shadow DOM 内の `@layer reset` は完全に独立して動作できます。
 
 #### Before/After Specificity?
 
-Context（Shadow DOM）の後に Cascade Layer を配置することは決まりましたが、${何} の前に配置すればいいのかも決める必要がありました。
+Context（Shadow DOM）の後に Cascade Layer を配置することは決まりましたが、カスケードのどこに配置すればいいのかも決める必要がありました。
 
-Cascade Level 4 では、 Style Attribute（インラインスタイル） は Specificity 内で無条件に最優先されます。
-つまり、 **Style Attribute の優先度を変えるような位置に Cascade Layers を配置すると、Style Attribute を「無条件に最優先されるもの」として扱ってきた既存のコードが壊れてしまう可能性**があります。
+Cascade Level 4 では、 Style Attribute（インラインスタイル） は Specificity 内で無条件に最も優先されます。
+つまり、 Style Attribute の優先度を変えるような位置に Cascade Layers を配置すると、Style Attribute を「無条件に最も優先されるもの」として扱ってきた**既存のコードが壊れてしまう**懸念がありました。
+
+しかし、 Cascade Layers としては、**Style Attribute 以外の Specificity** の部分の優先順位を上回れれば、[クラスベースの詳細度バトル問題](#the-difficulties)の解決という文脈では十分です。
 
 <cascade-accordion disabled show-layers="false" show-scope-proximity="false"></cascade-accordion>
 
-[詳細度バトルの問題](#the-difficulties)を解決するために Cascade Layers として**優先順位を上回る必要があるのは、Style Attribute 以外の Specificity** の部分で十分です。
-
-後方互換性を保ちつつ、顕在化している問題に対処するには、Specificity から Style Attribute を分離し、**Style Attribute よりも後ろ、それ以外の Specificity よりも前の位置**に Cascade Layer を配置することが最も妥当です。
+後方互換性を保ちつつ、顕在化している問題に対処するには、上の図でいう **Style Attribute よりも低優先、それ以外の Specificity よりも高優先な位置**に Cascade Layers を配置することが最も妥当でした。
+そのために、Cascade Layers 以降の仕様では、Specificity から Style Attribute が分離される構図になります。
 
 - [[css-cascade] Where do Cascade Layers fit in the cascade? · Issue #5003 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/5003)
 
 ---
 
-こうした理由で、Cascade Layers は「Context と Style Attribute の後、Specificity の前」に配置されることになっています。
+Shadow Context と Style Attribute の理由から、Cascade Layers の優先度は「Context と Style Attribute よりも低優先、Specificity よりも高優先」とされることになりました。
 
 ### Variations on important layering
 
@@ -188,17 +189,18 @@ Cascade Layers における `!important` の扱いについても、いくつか
 3. **Intertwine**: レイヤーを交互に配置し、前のレイヤーの important なスタイルを次のレイヤーの通常スタイルで override できるように
 4. **Customize**: 追加の構文を提供して important レイヤーの順序をカスタマイズ可能に
 
-Revert とすることで、レイヤリング順序をコントロールでき、必要に応じたオーバーライドが引き続き可能なだけでなく、それを既存の Origin と動作合わせることで一貫性を保てることが主要な理由ではありました。
+レイヤリング順序をコントロールでき、必要に応じたオーバーライドが引き続き可能なだけでなく、既存の Origin の動作と揃えることができる -- 最終的に「Reverse」が、Cascade Layers の `!important` の挙動として採用されたのは、こうした理由からです。
 
-加えて、既存の Origin と動作を揃えることで、必須スタイルを「守る」ために `!important` を利用してマーキングするという本来の意図を維持し、Author に適切な使用法を促すことができるというニュアンスも、議論で強調されていたように感じます。
+加えて、既存の Origin と動作を揃えることで、必須スタイルを「守る」ために `!important` を利用してマーキングするという本来の意図を維持し、Author に `!important` の適切な使用法を促すことができるというニュアンスも、議論では強調されていたように感じます。
 
-> miriam: there's a need to escape your layer. That's a strong use case to say this one style is **required for this to work so you have to go to extra effort to override it** which is what !important is for.
+> miriam: there's a need to escape your layer. That's a strong use case to say this one style is **required for this to work so you have to go to extra effort to override it which is what !important is for**.
 >
 > fantasai: If a library is using it for not important things that's bad on the library
 >
 > [comment](https://github.com/w3c/csswg-drafts/issues/4971#issuecomment-628115258)
 
-最終的に、Origins と同じように、important レイヤーの順序を逆転させること（Reverse）になりました。
+以上の理由から、`!important` の挙動は最終的に Reverse になりました。
+これは、Origins と同じように、`!important` レイヤーでは順序を逆転させる、つまり `!important` でない場合に一番優先度の低いレイヤーが、`!important` レイヤーでは最も優先度が高くなる（その逆も然り）ことを意味します。
 
 ---
 
