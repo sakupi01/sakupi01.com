@@ -1,8 +1,8 @@
 ---
-title: "🔓 Unlocking Parent Style Inheritance✨/ Nested で Dynamic で Adoptive なスタイルを実現する `inherit()`"
+title: "Unlocking Parent Style Inheritance✨/ Nested で Dynamic で Adoptive なスタイルを実現する `inherit()`"
 excerpt: "「親要素の任意プロパティ」にアクセスする手段として、`inherit()` の仕様が CSS Values and Units Module Level 5 で策定されています。これにより、Custom Properties を経由せず、親要素のプロパティを子要素から直接自己参照でき、長年望まれてきた非常に多くのユースケースが一挙に解決されることが期待されています。"
 date: 2025-05-28
-update: 2025-05-28
+update: 2025-08-15
 category: 'dev'
 tags: ['css', 'Future Feature', 'Style Queries', 'standards']
 status: 'published'
@@ -31,19 +31,40 @@ CSS の Custom Properties は、`var()` を用いて親要素から子要素へ�
 
 ### Background
 
-Custom Properties は `var()` を用いて自己を参照することができません。
+Custom Properties は `var()` を用いて自己を参照することができません。この制限を理解するには、仕様における `var()` の動作メカニズムを知る必要があります。
 
-> This, finally, is a cyclic substitution context, since it matches the substitution context from the first substitution, causing the substitution to just produce the [guaranteed-invalid value](https://drafts.csswg.org/css-variables-2/#guaranteed-invalid). This percolates back up the nested invocations, eventually resulting in `--one` becoming [invalid at computed-value time](https://drafts.csswg.org/css-values-5/#invalid-at-computed-value-time).
-> ー [CSS Values and Units Module Level 5](https://drafts.csswg.org/css-values-5/#cyclic-substitution-contexts)
+#### self-reference `var()` makes Cyclic Substitution Context
 
-それゆえ、以下のような`var()` を介した Custom Properties の自己参照を行うコードは、ブラウザにおけるスタイル計算のタイミングで無効と判定されます。
+`var()` は [Arbitrary Substitution Functions](https://drafts.csswg.org/css-values-5/#arbitrary-substitution) と呼ばれる関数の一種です。
+Custom Properties など、 parse time で実値が不明として parse されないプロパティに対して、computed-value time で値を補完するために Arbitrary Substitution Functions は機能する関数です。
+
+Arbitrary Substitution Functions を解決するには少々特殊なプロセスが必要で、**[Substitution Context](https://drafts.csswg.org/css-values-5/#substitution-context)**を生成して「[Guard](https://drafts.csswg.org/css-values-5/#guarded)」するという仕組みになっています。
+
+例えば、以下のような `var()` を介した Custom Properties の自己参照を行うコードは、Substitution Context を利用して以下のような流れで解決されます。
 
 ```css
 /* invalid */
 .element {
-    --depth: calc(var(--depth) + 1);
+  --depth: calc(var(--depth) + 1);
 }
 ```
+
+1. `--depth` プロパティの計算 / Substitution プロセスの開始
+   1. `--depth` プロパティの計算が始まると、`«"property", "--depth"»` という Substitution Context を作成し、Guard される（「現在 `--depth` を解決中」とマークする）
+2. `var(--depth)` の発見
+   1. `calc(var(--depth) + 1)` の中で `var(--depth)` を発見。再度 `--depth` の値を取得しようと試みる
+3. 循環の検出
+   1. `«"property", "--depth"»` という Substitution Context を作成しようとするが、すでに同じコンテキストが Guard されていることを検出
+   2. **[Cyclic Substitution Context](https://drafts.csswg.org/css-values-5/#cyclic-substitution-contexts)** と判定される
+4. 無効値の返却
+   1. Custom Properties のデフォルト値であり、computed-value time でプロパティ全体を無効とする **[guaranteed-invalid value](https://drafts.csswg.org/css-variables-2/#guaranteed-invalid-value)** を返す
+
+この結果、自己参照を行うような Custom Properties はブラウザにおける computed-value time で無効と判定されます。
+
+> When a substitution context is guarded, it means that, for the duration of the guard, **an attempt to guard a matching substitution context again will mark all substitution contexts involved in the cycle as cyclic substitution contexts**.
+>
+> [Self-Referencing Custom Properties], is a cyclic substitution context, since it matches the substitution context from the first substitution, causing the substitution to just produce the [guaranteed-invalid value](https://drafts.csswg.org/css-variables-2/#guaranteed-invalid). This percolates back up the nested invocations, eventually resulting in `--one` becoming [invalid at computed-value time](https://drafts.csswg.org/css-values-5/#invalid-at-computed-value-time).
+> ー [CSS Values and Units Module Level 5](https://drafts.csswg.org/css-values-5/#cyclic-substitution-contexts)
 
 もし、自己参照することができれば、親の値を基準とした計算（ネストの深さを追跡したり、親の値を継承した count 処理したり）ができ、その値をスタイルに用いることできるはずです。
 
@@ -68,9 +89,8 @@ Custom Properties は `var()` を用いて自己を参照することができ�
 
 単純に考えると、`var()`のもつ自己参照の制限を緩め、任意のプロパティを `var()` で参照できるように仕様を拡張すれば良いように思えます。
 
-しかし、`var()` は、 **「任意の親要素」** から定義された Custom Properties の参照が可能であり、`inherit()` では **「自己参照を可能にする」** 可能性を踏まえると、`var()` を拡張して **「任意の親要素から」** **「自己参照を可能にする」** 場合、参照元の検出にかかる計算コストが増大する可能性があります。
-
-詳細: [#limitation-or-implementation-details](#limitation-or-implementation-details)
+しかし、`var()` は Arbitrary Substitution Functions という性質上、 **「任意の親要素」** から定義された Custom Properties の参照が可能です。
+今回、 **「自己参照を可能にしたい」** ことを踏まえると、`var()` を拡張して **「任意の親要素」** から **「自己参照を可能にする」** 場合、参照元の検出にかかる計算コストが増大する可能性があります。（詳細: [#limitation-or-implementation-details](#limitation-or-implementation-details)）
 
 ---
 
@@ -110,6 +130,33 @@ Custom Properties は `var()` を用いて自己を参照することができ�
 ## ✨ The Proposal: CSS `inherit()` Function
 
 エンジン側の計算コストを抑えつつ、任意のプロパティから値の参照を可能にするものとして提案されたのが、`inherit()` です。
+
+### How `inherit()` overcomes the pain points
+
+`var()` で自己参照するのと最も異なる点は、`inherit()` が親要素の Computed Value を参照する設計になっていることでしょう。
+
+```css
+/* inherit() だと循環参照が発生しない */
+.parent {
+  --depth: 1;  /* ① 先に計算される at computed-value time*/
+}
+
+.child {
+  /*② 親の Computed Value（1）を参照 */
+  --depth: calc(inherit(--depth) + 1);  /* = 2*/
+}
+```
+
+> Like the inherit keyword, the `inherit()` functional notation resolves to the computed value of a property on the parent. Rather than resolving to the value of the same property, however, it resolves to a sequence of component values representing the computed value of the property specified as its first argument.
+> -- [CSS Values and Units Module Level 5](https://drafts.csswg.org/css-values-5/#inherit-notation)
+
+この「computed value を参照する」という点が重要で、
+
+- CSSの計算は親→子の順序で進行する
+- 子要素が `inherit()` を解決する時点で、親の値はすでに確定済み
+- 新たな計算ループが発生しない
+
+という仕組みを実現しています。
 
 ### Defining and using `inherit()`
 
