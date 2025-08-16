@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 7 / The Cascade for Cascading Style Sheets - The Whole Cascade Universe v1"
-excerpt: "Origin の続きと「守り」の手段としての `!important`、Cascade Sorting Order の全体像"
+excerpt: "Origin の続きと、Cascade Sorting Order の全体像"
 date: 2025-08-07
 update: 2025-08-07
 category: 'dev'
@@ -41,7 +41,7 @@ User Declarations は、ユーザがブラウザの設定で行うスタイル�
 
 Cascade Sorting Order の Origin のみをとると、User Agent < User < Author となり、Author が最も優先度が高いスタイルシートとなります。
 
-### Importance - "I am `!important`. Please DO NOT override me!"
+### Importance - "I am `!important`! Please DO NOT override me!"
 
 Origin and Importance の Origin のみの世界だと、Author が絶対的な優先度を持っていることになります。
 
@@ -132,7 +132,7 @@ HTMLElement の style 属性が、Specificity の定義に含まれています�
 
 ---
 
-最終的に完成する Cascade Sorting Order を図解すると以下のようになります。
+以上を踏まえ、最終的に完成する Cascade Sorting Order を図解すると以下のようになります。
 
 <cascade-accordion disabled show-layers="false" show-scope-proximity="false"></cascade-accordion>
 

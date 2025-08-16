@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 13 / CSS meets npm Ecosystem - the first shot ... AltCSS"
-excerpt: "CSS Advent Calendar Day 13"
+excerpt: "AltCSS とも言える SassとPostCSS の登場、エコシステムへの影響"
 date: 2025-08-13
 update: 2025-08-13
 category: 'dev'

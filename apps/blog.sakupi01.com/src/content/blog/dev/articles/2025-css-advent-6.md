@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 6 / Cascade for Cascading Style Sheets - UA Origin in Cascade"
-excerpt: "CSS Advent Calendar Day 6"
+excerpt: "Cascade Sorting Order と UA Origin の解剖"
 date: 2025-08-06
 update: 2025-08-06
 category: 'dev'
@@ -103,8 +103,7 @@ e.g. 値の指定されていない `width` の Actual Value 導出まで：
 
 CSS Cascading and Inheritance Level 4 時点での Cascade Sorting Order を図解すると、以下のようになります。
 
-![The Whole Cascade Universe](../../../../assets/images/the-cascade.png)
-*The Whole Cascade Universe*
+<cascade-accordion disabled show-layers="false" show-scope-proximity="false"></cascade-accordion>
 
 図が示す通り、[Origin and Importance](https://www.w3.org/TR/css-cascade-4/#cascade-origin) が、Cascade Sorting Order の中で最も優先度の高い競合解決です。どんなに Specificity が高くとも、それは同一 Origin and Importance の中でのみ効力を持ち、低い Specificity でもより高い Origin and Importance に属する場合は、そちらが優先されるということになります。
 
@@ -204,8 +203,6 @@ UA StyleSheet がなければ、我々はもっと冗長で大規模なスタイ
 - [CSS Snapshot 2024](https://www.w3.org/TR/css-2024/)
 - [15.2 The CSS user agent style sheet and presentational hints | HTML Standard](https://html.spec.whatwg.org/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints)
 
-
 ---
 
 <advent-calendar-2025 />
-
