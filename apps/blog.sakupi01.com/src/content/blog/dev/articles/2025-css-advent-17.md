@@ -1,5 +1,5 @@
 ---
-title: "🎨 CSS Advent Calendar: Day 17 / CSS meets npm Ecosystem - the second shot ... Component-Based CSS"
+title: "🎨 CSS Advent Calendar: Day 17 / Specificity Architecture is what CSS Architecture is"
 excerpt: "「詳細度設計」としての「CSS アーキテクチャ」、その未来’"
 date: 2025-08-17
 update: 2025-08-17
@@ -20,7 +20,7 @@ CSS は「hints/suggestions」として Cascade と共に生まれ、「optional
 
 この柔軟な性質こそが CSS の強さであり、同時に我々が「どう CSS と向き合うか」について考えを広げられた源泉でもあったように思います。
 
-## Scoping and Layering: Web の進化と共に歩んだ CSS アーキテクチャ
+## Scoping and Layering
 
 SPA の隆盛と「アプリケーションとしての Web」が拡大していく中で、さまざまな CSS 設計方法論が考案され、Web フロントエンドエコシステム周りの対応も講じられてきました。
 
