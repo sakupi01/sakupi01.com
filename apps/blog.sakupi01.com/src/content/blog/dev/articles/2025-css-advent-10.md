@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 10 / Interoperability in CSS, &c."
-excerpt: "CSS Advent Calendar Day 10"
+excerpt: "CSS におけるブラウザの負債とエコシステム側の解決策"
 date: 2025-08-10
 update: 2025-08-10
 category: 'dev'
@@ -161,3 +161,7 @@ UA StyleSheet よりも広いスコープですが、”CSS の技術的負債�
 - [Body Margin 8px | Miriam Eric Suzanne](https://www.miriamsuzanne.com/2022/07/04/body-margin-8px/)
 - [A look at CSS Resets in 2018 | bitsofcode](https://bitsofco.de/a-look-at-css-resets-in-2018/)
 - [Killer Collection of CSS Resets | Perishable Press](https://perishablepress.com/a-killer-collection-of-global-css-reset-styles/)
+
+---
+
+<advent-calendar-2025 />

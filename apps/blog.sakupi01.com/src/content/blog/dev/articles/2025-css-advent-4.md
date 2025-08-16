@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 4 / The Initial Cascade"
-excerpt: "CSS Advent Calendar Day 4"
+excerpt: "Cascade Layers 以前の Cascade"
 date: 2025-08-04
 update: 2025-08-04
 category: 'dev'
