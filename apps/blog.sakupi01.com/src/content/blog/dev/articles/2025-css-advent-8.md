@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 8 / Basics of Style Resolution"
-excerpt: "CSS Advent Calendar Day 8"
+excerpt: "何重ものフィルタリングと計算処理を経て、適用されるスタイルが決定するまでの仕組み"
 date: 2025-08-08
 update: 2025-08-08
 category: 'dev'
@@ -40,13 +40,13 @@ document 内の各要素に対して、ブラウザはその要素に適用さ�
 - **[Style Rule](https://www.w3.org/TR/css-syntax-3/#style-rule)**: Selector List の後に波括弧（`{}`）で囲まれたブロックが続き、中に Style Declaration が包含される規則。例えば以下は、典型的な Style Rule です。（"Rule" というと、 Style Rule のほかに [At-rules](https://www.w3.org/TR/css-syntax-3/#at-rules) や [@charset Rule](https://www.w3.org/TR/css-syntax-3/#charset-rule) も存在します。）
 
 ```css
-/* Style Rules */
+/* Style Rule */
 p > a {
   color: blue; /* Declaration = Name (Property): Value; */
   text-decoration: underline; /* Declaration = Name (Property): Value; */
 }
 
-/* At-rules */
+/* At-rule */
 @font-face {
   font-family: 'MyFont'; /* Declaration = Name (Descriptor): Value; */
   src: url('myfont.woff2') format('woff2');  /* Declaration = Name (Descriptor): Value; */
@@ -401,3 +401,7 @@ Layout を完了して実際に利用される値。
 - [CSS Style Calculation in Blink](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/css/style-calculation.md)
 - [Reduce the scope and complexity of style calculations](https://web.dev/articles/reduce-the-scope-and-complexity-of-style-calculations)
 - [CSS Foundations: What is IACVT?](https://www.bram.us/2024/02/26/css-what-is-iacvt/)
+
+---
+
+<advent-calendar-2025 />

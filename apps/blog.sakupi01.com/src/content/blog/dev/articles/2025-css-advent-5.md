@@ -1,6 +1,6 @@
 ---
-title: "🎨 CSS Advent Calendar: Day 5 / Cascade for Cascading Style Sheets - Behind the Scenes"
-excerpt: "CSS Advent Calendar Day 5"
+title: "🎨 CSS Advent Calendar: Day 5 / Cascade for Cascading Style Sheets - Behind the Scenes of Importance"
+excerpt: "Cascade の登場と Importance の裏側"
 date: 2025-08-05
 update: 2025-08-05
 category: 'dev'
@@ -154,4 +154,3 @@ Author `!important` が User `!important` よりも優先されるという、**
 ---
 
 <advent-calendar-2025 />
-
