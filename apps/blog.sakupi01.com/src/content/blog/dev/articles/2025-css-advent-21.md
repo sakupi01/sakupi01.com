@@ -16,23 +16,9 @@ status: 'published'
 🌏 この記事は CSS Advent Calendar の 21 日目の記事です。
 :::
 
-ただっ広い「Cascade」の一部である「詳細度」にプラクティスが留まらなくなった、アプリ時代の Web 開発。
+本連載の終盤では、Web における UI の特性と今後の Web Design のあり方について、考察していきます。
 
-Cascade Layers や `@scope` によって、アプリ時代の Web で我々が確立してきた設計思想/プラクティスに、「hints」であり「suggestions」であり「balance」をとるという **Cascade** の特性を活かすことが可能になります。
-
-ところで、「hints/suggestions」という CSS の言語特性は、CSS が「**Declarative**」であるということを CSS-way で表現しているものだと言い換えることができます。
-
-Flexbox、Grid、Box Alignment、Relative Units、Intrinsic Sizing、Aspect Ratios、Min/Max/Clamp、Logical Properties、Container Queries、`:has()`、`@scope`、`sibling-index`、`calc-size()`、Reading Flow ...
-
-昨今の CSS の進化を俯瞰すると、「Declarative」であるという CSS の特性がより色濃く表現されるようになってきていることがわかります。
-
-Web における UI を構築する手段 -- レイアウトとコンテンツが、より分かりやすく、より強力な形で、「hints/suggestions」を体現する「Declarative」な特性で可能になってきているのが、ここ数年の CSS の進化の特徴です。
-
-しかし、これらの機能に対する「思考の変換」の追従はできているのでしょうか。
-
-本連載の終盤では、Web における UI の「Declarative」な特性と今後の Web Design のあり方について、考察していきます。
-
-その前談として、Web Design の歴史を振り返り、これまで Web Design における「思考の変換」がどのようにされてきたのかを振り返っていきます。
+その前談となる本エントリでは、Web Design の歴史を振り返り、これまで Web Design における「思考の変換」がどのようにされてきたのかを振り返ります。
 
 ## A Quick History of Web Design
 
@@ -40,7 +26,7 @@ Web におけるこれまでのデザインの歴史を解釈すると、**レ�
 
 詳細に入る前に、これまでの Web Design 史の Overview を提示しておきます。
 
-![ Web Design 史の Overview](../../../../assets/images/web-design-timeline.png)
+![Web Design 史の Overview](../../../../assets/images/web-design-timeline.png)
 
 ### Flow Layout
 
@@ -63,7 +49,7 @@ Normal Flow による Web のデフォルトのレイアウト、いわゆる �
 
 ### Table Layout
 
-その次に Web Design に変化を起こすのが HTML Table の登場です。
+その次に Web Design に変化を起こすのが、 HTML Table の登場です。
 
 Table には Columns/Rows があり、ヘッダがあり、セルがあることで、表形式のデータを表現する目的があります。
 当時のデザイナは、この二次元構造を画像やコンテンツの配置に利用することで、Flow Layout ではできなかった二次元的なレイアウトを実現できるのではないかと考えました。
@@ -72,7 +58,7 @@ Table には Columns/Rows があり、ヘッダがあり、セルがあること
 ![Table Layout](../../../../assets/images/table-layout.png)
 *出典： [Tables for Layout? Absurd. - The History of the Web](https://thehistoryoftheweb.com/tables-layout-absurd/)*
 
-ただし、Table Layout では、Table の構造に依存したレイアウトのみしか実現できず、二次元構造以上の見た目を実現したいという欲求が発生します。
+ただし、Table Layout では、Table の構造に依存したレイアウトのみしか実現できず、二次元構造よりも複雑な見た目を実現したいという欲求が発生します。
 
 加えて当時は、ブラウザ戦争の影響によるブラウザ間の互換性の問題もありました。
 IE で動作しても Netscape では動作しない、またその逆もあるという状況です。
@@ -84,9 +70,9 @@ IE で動作しても Netscape では動作しない、またその逆もある�
 このような状況の中で、「どのブラウザでも動作し、思い描いたデザインを実現できる」手段が「Flash」でした。
 
 Flash では、画像や図形、文字、音声、動画などを組み合わせ、タイムラインに沿って変化するアニメーションを組むことができ、ユーザの操作や入力を動作に反映させることもできました。
-Adobe が JavaScript を拡張したものである ActionScript を用いることで、動作をカスタマイズすることも可能でした。
-Flash は Adobe が提供するプラグインソフトである「Flash Player」を組み込んだ Web ブラウザ上で動作します。
+Flash の制御に使われたのが、Adobe が JavaScript を拡張したものである ActionScript でした。
 
+Flash は Adobe が提供するプラグインソフトである「Flash Player」を組み込んだ Web ブラウザ上で動作するものです。
 よって、Flash は、当時のブラウザ間の互換性の問題を解決し、デザイナが思い描いた通りのデザインを実現できる手段として利用されました。
 これが、「**Flash Web Design**」の時代です。
 
@@ -94,17 +80,27 @@ Flash によってデザインされた Web サイトは、例えば以下のよ
 
 - [Flash Websites - Web Design Museum](https://www.webdesignmuseum.org/flash-websites)
 - [Beautifl - Flashのギャラリーサイト](https://beautifl.net/)
+- [Japanese Flash Web Design Archives - かつての優れたFlashサイトコレクション](https://tters.jp/jfwda)
 
-Flash の問題として、Flash はブラウザのプラグインとして動作し、コンテンツのレンダリングにブラウザの処理を利用できないことがありました。
-つまり、Flash はブラウザと対話できないため、画面幅に応じたレイアウトやスクロールバーの出現の制御など、ブラウザが本来担うレンダリング処理の恩恵が全く受けられませんでした。
-加えて、Flash によって作られたコンテンツのセキュリティ、パフォーマンス、SEO、アクセシビリティなどの担保が難しいことも問題として露見しました。
+Flash の問題として、ブラウザのプラグインとして動作するため、コンテンツのレンダリングにブラウザの処理を利用できないことがありました。
+つまり、Flash はブラウザと対話できないため、画面幅に応じたレイアウトやスクロールバーの出現の制御など、ブラウザが本来担うレンダリング処理の恩恵が全く受けられなかったということです。
+加えて、Flash によって作られたコンテンツはセキュリティ、パフォーマンス、SEO、アクセシビリティなどの担保が難しいことも問題として露見しました。
 
-そこで、やはり Web Design は "Web" を使ってなされるべきだという考え方に帰結します。
+そんな中 iPhone は、Flash をサポートしないという方針を打ち出しました。
+モバイルタッチ操作と相性が悪かったり、Flash Player はモバイルデバイスのバッテリを著しく消耗させたり、脆弱性が多く、セキュリティリスクが高かったりしたことが主要な理由です。
 
-2003年、Jeffrey Zeldman による「[Designing with Web Standards](https://www.google.co.jp/books/edition/Designing_with_Web_Standards/zZ4K3-vdN3oC?hl=en&gbpv=0)」が出版され、Web 標準に基づいた開発の重要性が広く認識され始めました。
-この中で、デザイナたちは CSS の限られた機能でレイアウトを実現する必要に迫られるようになります。
+「Thoughts on Flash」では、Appleが、Steve Jobs の記名で、Apple の Flash についての考え方を説明されています。
+Flash ではなく HTML5 を推奨するといった内容で、Flash の問題点を指摘したものです。
 
-### Float Web Desgin
+- [Thoughts on Flash - Apple](https://web.archive.org/web/20100630153444/http://www.apple.com/hotnews/thoughts-on-flash/)
+
+HTML5 などの Web 技術が発展し、動画の再生やアニメーションの作成など Flash Player でしか実現できなかった機能が、Flash を利用せずに実現できるようになったことで、Web 標準に基づいた開発の重要性が広く認識され始めました。
+
+そして、やはり Web Design は "Web" を使ってなされるべきだという考え方に収束していきます。
+
+### Float Web Design
+
+そこで Table の次に注目された Web 標準機能が CSS Float でした。
 
 Float は本来、画像の周りにテキストを回り込ませるための機能です。
 しかし、当時の CSS にはレイアウトのための専用機能が存在しなかったため、この Float を「hack」として転用し、ページ全体のレイアウトを構築する手法が考えられました。
@@ -132,7 +128,7 @@ Float によるレイアウトには、大きく分けて「Fluid」と「Fixed�
 Fluid Layout の利点は、様々な画面サイズに柔軟に対応できることでした。
 コンテンツは利用可能な幅に応じて流動的に調整されます。
 
-しかし、実際にはデザイン上の課題が多く残る手法であった側面がありました。
+しかし、実際にはデザイン上の課題が多く残る手法でもありました。
 
 - 大きな画面では行長が極端に長くなり、読みづらくなる
 - 固定サイズの画像がレイアウトを破壊する可能性がある
@@ -161,8 +157,7 @@ Fluid Layout の課題を受けて、「Fixed-Width Layout」、という選択�
 
 ### Responsive Web Design
 
-2010年、Ethan Marcotte が「[Responsive Web Design](https://alistapart.com/article/responsive-web-design/)」を提唱しました。
-これは「Fluid vs Fixed」の論争に終止符を打ち、マルチデバイスにサイトを対応させるための解決策となるものでした。
+2010年に Ethan Marcotte が提唱した「[Responsive Web Design](https://alistapart.com/article/responsive-web-design/) は、「Fluid vs Fixed」の論争に終止符を打ち、マルチデバイスにサイトを対応させるための解決策となるものでした。
 
 Responsive Web Design は3つの技術要素から構成されます。
 
@@ -185,7 +180,7 @@ Framework は安定したレイアウトシステムを提供しましたが、�
 
 ### Thoughts of Web Design has been changing in between...
 
-ここまでの歴史を振り返ると、デザインと Web というメディア間進化のせめぎ合いで、Web Design の思想転換が起こってきたことがわかります。
+ここまでの歴史を振り返ると、デザインと Web というメディア間の進化のせめぎ合いで、Web Design の思想転換が起こってきたことがわかります。
 
 **1. グラフィックデザインの理想**
 
@@ -205,79 +200,7 @@ Flash 時代は、Web の制約から完全に逃れることでデザインの�
 Float Layout 時代は、CSS の hack を駆使して Fluid と Fixed 両者の妥協点を探りました。
 Responsive Web Design 時代は、Web の多様性を受け入れつつ、段階的な適応でデザインの一貫性を保とうとしました。
 
-つまり、「**アートとしてのデザイン**」と「**Web というメディアとしてのデザイン**」の交差の中で、Web Design の思想転換が起こってきました。
-
-### Component-Based Design の台頭
-
-Responsive Web Design の普及と並行して、Web 開発は「Component-Based」なアプローチへとシフトしていきました。
-本アドベントカレンダーでも述べた BEM、SMACSS、OOCSS といった CSS 設計手法が登場し、再利用可能なコンポーネントを組み合わせてページを構築する手法が主流となりました。
-
-![Web Design with Component-Based Design](../../../../assets/images/component-based-design.png)
-
-React、Vue、Angular といったコンポーネントベースの JS Framework の登場により、この流れはさらに加速しました。
-コンポーネントは独立した再利用可能な単位として設計され、デザインをシステマティックに組み立てることが、アタリマエの時代になったと言っても良いでしょう。
-
-### Extrinsic Design の限界
-
-しかし、Component-Based Design においても、レイアウトの根底にあるのは依然として「Extrinsic（外部的）」なアプローチでした。
-Media Query で画面幅に応じた離散的なスタイルを組み、root を基準に rem で font-size を指定し、Breakpoint による離散的にスタイルを切り替える。
-
-このアプローチでは、すべてのスタイリングが「外部の基準値」に依存します。
-View Port の幅、root の font-size、グローバルな Breakpoint など、コンポーネントの外側にある値を参照してレイアウトを決定していることが特徴です。
-
-Responsive Web Design が提唱されてから実に8年以上もの間、この「Extrinsic（外部）」に基づいた Web Design が主流でした。
-Sketch や Figma などのデザインツールもこの間に出現し、デザインツールとしてもExtrinsic なアプローチをサポートする流れが続きます。
-しかし、Extrinsic なアプローチでは、下記に挙げるような問題が残ります。
-
-1. 外部の基準値に依存するため、本当の意味で外部から独立した再利用可能なコンポーネントか不明
-2. Breakpoint での切り替えは段階的であり、連続的な変化に対応できない
-3. コンテンツの量や性質に関わらず、外部の基準でレイアウトが決まる
-
-### Respect the Content!
-
-2010年代、CSS の新機能は、これまでの hack やワークアラウンドなしに、ネイティブで強力なレイアウト機能を提供しました。
-特に強調しておきたいのは、これらの機能が「コンテンツ」や「コンテナ」自身の性質に基づいてレイアウトを決定できることです。
-
-- `min-content`、`max-content`、`fit-content` などの内在的なサイズ指定
-- `fr` 単位による柔軟な空間配分
-- Grid によるコンテンツに基づいた二次元のレイアウト
-- Flexbox によるコンテンツに基づいた一次元のレイアウト
-- `aspect-ratio` による内在的な比率の維持
-- `clamp()`、`min()`、`max()` などの比較関数
-- `ch`、`ex` などのフォント相対単位
-- （Container Queries によるコンテナベースの適応）
-
-これらの登場によって、hack を使わずに、初めて柔軟なレイアウトを実現できる術が整い始めました。
-
-> "I think for the first time, we don't have to choose hacks versus boring layout. **We get to have both at the same time.**"
->
-> Jen Simmons [An Event Apart video - YouTube](https://www.youtube.com/watch?v=jBwBACbRuGY)
-
-### Demand for a New Paradigm Shift
-
-Web Design の歴史を振り返ると、CSS の大きな転換点では常に「**思考の転換**」が必要だったことが読み取れます。
-
-Table Layout から CSS Layout への移行時、我々は「Table」という思考から「Box Model」という思考への転換が必要でした。
-Fixed Layout から Responsive Web Design への移行時、我々は「Fixed」から「Responsive」への思考の転換が必要でした。
-
-Responsive Web Design が提唱されてから、実に長い間、View Port や画面全体の基準値など、「Extrinsic（外部）」に基づいて Web をデザインをするスタイルが主流になっていました。
-そして、この「Extrinsic」な思考により、抜け出せない課題がいくつも残されているのが実情でした。
-
-- View Port 基準の設計では、真に独立したコンポーネントが作れない
-- Media Query による離散的な対応では、連続的な変化に対応できない
-- 外部の基準値に依存することで、コンテンツとレイアウトが乖離する
-- CSS Framework への過度な依存により、画一的なデザインしかできなくなる
-- ...
-
-これらの課題を解決するには、単に新しい CSS プロパティを学ぶだけでは不十分です。
-
-外部の基準ではなく、コンテンツの性質に基づいてデザインすること。
-そのために、「hints」や「suggestions」として CSS を書き、ブラウザとコンテンツに判断を委ねること。
-それによって、CSS の「Declarative」な特性を理解し、活用すること。
-
-こうした Web Design における「思考の転換」が求められます。
-
-その先駆けとして、柔軟なレイアウトを実現できる術が整い始めた変化を踏まえ、2018年に「Web Design のパラダイムシフト」として Jen Simmons が提案したのが「**Intrinsic Web Design**」です。
+つまり、「**アートとしてのデザイン**」と「**Web というメディアとしてのデザイン**」の交差の中で、Web Design の思想転換が起こってきたのです。
 
 ## Appendix
 
@@ -289,13 +212,3 @@ Responsive Web Design が提唱されてから、実に長い間、View Port や
 - [Adobe Flash](https://developer.mozilla.org/ja/docs/Glossary/Adobe_Flash)
 - [Flash Tutorial: Create A Simple Flash Website -HD- - YouTube](https://www.youtube.com/watch?v=vqKIwTF2Zk4)
 - [How to Program in Flash (Basic Actionscript 2.0): 10 Steps](https://www.wikihow.tech/Program-in-Flash-%28Basic-Actionscript-2.0%29)
-- State of CSS
-  - [2022](https://2023.stateofcss.com/en-US/)
-  - [2023](https://2024.stateofcss.com/en-US/)
-  - [2024](https://2025.stateofcss.com/en-US/)
-  - [2025](https://2026.stateofcss.com/en-US/)
-- What's New in Web UI/CSS
-  - [2022](https://developer.chrome.com/blog/insider-july-2022)
-  - [2023](https://developer.chrome.com/blog/whats-new-css-ui-2023)
-  - [2024](https://developer.chrome.com/blog/new-in-web-ui-io-2024)
-  - [2025](https://developer.chrome.com/blog/new-in-web-ui-io-2025-recap)
