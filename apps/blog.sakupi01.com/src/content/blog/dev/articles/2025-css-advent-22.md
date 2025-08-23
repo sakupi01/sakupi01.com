@@ -153,9 +153,38 @@ Fixed Layout の時代には、コンテンツの変化に対応した実装を�
 
 Intrinsic Web Design では、コンテンツの特性に基づいた自然なレイアウトをすることを重視します。
 
-例えば、Grid の `auto-fit` や `auto-fill`、`minmax()` 関数を活用することで、コンテンツの量に応じてグリッドアイテムが自動的に配置されるレイアウトを構築することが挙げられます。
-`grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` のような記述により、レイアウトが画面幅と「コンテンツ数」に応じて自動的に調整されます。
 Grid や Flexbox が Fluid や Fixed なレイアウト手法と異なる点として、コンテンツの量や性質に応じて配置を自動的に調整できる点があります。
+例えば、Grid の `auto-fit` や `auto-fill`、`minmax()` 関数を活用することで、コンテンツの量に応じてグリッドアイテムが自動的に配置されるレイアウトを構築することが挙げられます。
+
+Grid 以前、一次元配置しかできなかった時代において、グリッドレイアウトを実現するには、Media Query を用いて手動で列数を調整する必要がありました。
+
+```css
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  width: 33.333%;  /* 常に3列 */
+}
+/* Media Queryで命令的に調整 */
+@media (max-width: 768px) {
+  .card { width: 50%; }  /* 2列 */
+}
+@media (max-width: 480px) {
+  .card { width: 100%; }  /* 1列 */
+}
+```
+
+しかし、CSS Grid を用いると、コンテンツの量や幅に応じてグリッドアイテムの調整がなされた、 Intrinsic なグリッドレイアウトが実現されます。
+
+```css
+.card-container {
+  display: grid;
+  /* Media Query不要で、250px以上を保ちながら自動的に列数が調整される */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+```
 
 さらに、`fit-content` や `max-content`、`min-content` といった Intrinsic Sizing Keywords も、コンテンツ自体のサイズに基づいたレイアウト制御を可能にする機能です。
 コンテンツが持つ内在的（Intrinsic）な性質を用いることで、コンテンツを尊重しながら変化するレイアウトを実現できるようになり始めました。
