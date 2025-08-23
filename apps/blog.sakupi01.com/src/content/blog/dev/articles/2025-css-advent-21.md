@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 21 / A Quick History of Web Design & Design Tools"
-excerpt: "CSS Advent Calendar Day 21"
+excerpt: "Responsive Web Design までの歴史から見る、Web の制約と特性とデザインの理想"
 date: 2025-08-21
 update: 2025-08-21
 category: 'dev'
@@ -43,7 +43,7 @@ Normal Flow では、 Inline 要素はインライン方向、つまり writing-
   Untitled</a> by saku (<a href="https://codepen.io/sakupi01">@sakupi01</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://public.codepenassets.com/embed/index.js"></script><br />
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
 
 Normal Flow による Web のデフォルトのレイアウト、いわゆる 「**Flow Layout**」が Web Design における最初のレイアウトです。
 
@@ -146,12 +146,12 @@ Jen Simmons も当時を振り返り、次のように述べています。
 Fluid Layout の課題を受けて、「Fixed-Width Layout」、という選択肢が登場します。
 これは、ピクセル単位で幅を固定することで、その範囲で思い描いた Float Web Design を実現しようとするものです。
 
-<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="azvYRGv" data-pen-title="Untitled" data-user="sakupi01" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="azvYRGv" data-pen-title="Fixed-Width Layout" data-user="sakupi01" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/sakupi01/pen/azvYRGv">
-  Untitled</a> by saku (<a href="https://codepen.io/sakupi01">@sakupi01</a>)
+  Fixed-Width Layout</a> by saku (<a href="https://codepen.io/sakupi01">@sakupi01</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://public.codepenassets.com/embed/index.js"></script><br />
+<script async src="https://public.codepenassets.com/embed/index.js"></script>
 
 しかし、Fixed-Width Layout 上でのデザインでは、小さな画面では横スクロールが発生し、大きな画面では不自然な余白が生まれ、多様なデバイスに対応できないという問題がありました。
 
@@ -212,3 +212,7 @@ Responsive Web Design 時代は、Web の多様性を受け入れつつ、段階
 - [Adobe Flash](https://developer.mozilla.org/ja/docs/Glossary/Adobe_Flash)
 - [Flash Tutorial: Create A Simple Flash Website -HD- - YouTube](https://www.youtube.com/watch?v=vqKIwTF2Zk4)
 - [How to Program in Flash (Basic Actionscript 2.0): 10 Steps](https://www.wikihow.tech/Program-in-Flash-%28Basic-Actionscript-2.0%29)
+
+---
+
+<advent-calendar-2025 />

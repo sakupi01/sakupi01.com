@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 22 / Intrinsic Web Design - Beyond Responsive and Embrace the nature of the Web"
-excerpt: "CSS Advent Calendar Day 22"
+excerpt: "Web というメディアが本来持つ性質/値を最大限に活かす「Intrinsic Web Design」という考え方"
 date: 2025-08-22
 update: 2025-08-22
 category: 'dev'
@@ -225,3 +225,7 @@ Intrinsic Web Design では、これまでに紹介してきた Grid、Flexbox�
 - [Know About Web Design Just Changed | Jen Simmons-Hooked on code](https://hookedoncode.com/2018/04/everything-you-know-about-web-design-just-changed-jen-simmons/)
 - [Styling the Intrinsic Web | OddBird](https://www.oddbird.net/talks/intrinsic-web/)
 - [W3C Developer Meetup 2022 - Miriam Suzanne, on CSS Container Queries](https://www.w3.org/2022/09/meetup/speaker-miriam.html)
+
+---
+
+<advent-calendar-2025 />
