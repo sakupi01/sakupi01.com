@@ -30,7 +30,7 @@ React/Vue/Angular といったコンポーネントベースの JS Framework の
 ## Can we query by container...? - No, this is never going to happen!
 
 Component-Based なアプローチが主流となる中で、「コンテナに応じてスタイルを変えたい」という要望が出るようになりました。
-親コンテナを Query する「Container Queries」の皮切りとなった欲求は、直近の「Container Size Queries」が出る以前からも存在し、コンポーネント思考が浸透してきたあたりからずっと議論されてきました。
+親コンテナを Query する「Container Queries」の皮切りとなった欲求は、直近の「Container Queries」が出る以前からも存在し、コンポーネント思考が浸透してきたあたりからずっと議論されてきました。
 
 - [[css-selectors] `:stuck` pseudo-class feature suggestion · Issue #1656 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/1656)
 - [[selectors-5] Proposal for pseudo-selector `:overflowed-content` · Issue #2011 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2011)
@@ -67,7 +67,7 @@ Flow により、親の幅が確定できない循環が発生し、親のサイ
 
 Container Queries は実現が難しいと考えられていましたが、コンポーネント、つまり画面を構成する「コンテンツ」を尊重する CSS の機能は着々と増え始めていました。
 
-しかし、Web Design の思想は、実に長い間、Fluid または Fixed 地続きで Responsive Web Design として考えられてきました。
+しかし、Web Design の思想は、実に長い間、Fluid または Fixed と地続きの Responsive Web Design として考えられてきました。
 
 ![Long-standing Responsive Web Design and what's next](../../../../assets/images/wd-whats-next.png)
 
@@ -91,7 +91,7 @@ CSS Grid の登場により、**行と列を同時に**定義し、アイテム�
 この変化により、従来の「上から下」「左から右」といった単一の方向の思考ではなく、ページ全体を二次元的な空間として捉えることができます。
 Grid によって、要素の配置順序が DOM 構造に縛られることなく、意図に従って自由に配置できる方法が用意されるようになりました。
 
-DOM 構造に依存しないことで、自由度の高い配置が実現できることにより起こるアクセシビリティ上の懸念は、こののちに [Reading Flow](https://developer.chrome.com/blog/reading-flow) によって解決されていくことになります。
+DOM に依存しないレイアウトの実現は、別途アクセシビリティの問題も生じていくことになり、のちに [Reading Flow](https://developer.chrome.com/blog/reading-flow) によって解決されていくことになります。
 
 ## 2. Combine Fluid and Fixed
 
@@ -99,14 +99,14 @@ Float Layout の時代には、「Fluid」と「Fixed」が対立する概念と
 Fluid Layout はパーセンテージベースで流動性を重視する一方、Fixed Layout はピクセル単位の固定幅で見た目の整いを重視していました。
 しかし、この両極端なアプローチでは、コンテンツの性質に応じた最適な配置を実現することが困難でした。
 
-Grid への `fr` の導入は、利用可能な「空間」を表現し、「Fluid」と「Fixed」の境界を埋める手段となりました。
+Grid への `fr` の導入は、利用可能な「空間」を表現し、この「Fluid」と「Fixed」の境界を埋める手段となりました。
 例えば `grid-template-columns: 200px 1fr 100px` と記述することで、左端に 200px 固定エリア、右端に 100px 「固定」エリア、中央に残りの空間を占める流動的なメインコンテンツエリアという具合に、**「Fixed」と「Fluid」を同時に**定義できます。
 
 Grid の `fr` により、コンテンツの特性に応じて「固定すべき部分は固定し、流動すべき空間は流動させる」という、より包括的なレイアウトを考えることが可能になりました。
 
 ## 3. Stages of Squishiness
 
-「Stages of Squishiness」は（画面）幅の変化に対してコンテンツがどのように段階的に適応するかを扱います。
+「Stages of Squishiness」は、（画面）幅の変化に対してコンテンツがどのように段階的に適応するかを扱います。
 
 従来の Responsive Web Design では、Media Query による画面幅に応じた急激なサイズ変更が中心でした。
 例えば「768px 以下では 1 カラム、769px 以上では 2 カラム」といった、画面幅による二分法的な切り替えがこれにあたります。
@@ -148,17 +148,17 @@ clearfix により、親要素が Float された子要素を含むように強�
 
 ## 5. Expand and Contract Content
 
-Fixed Layout の時代には、コンテンツの変化に対応する手段が限られていました。
-テキストの長さが想定より長くなったり、画像のサイズが異なったり、多言語対応や動的コンテンツへの対応をしたりする場合に、コンテンツの可変性に対応できずにレイアウト全体が崩れてしまいます。
+Fixed Layout の時代には、コンテンツの変化に対応した実装をする手段が限られていました。
+よって、テキストの長さが想定より長くなったり、画像のサイズが異なったり、多言語対応や動的コンテンツに対応することが難しく、それゆえにコンテンツの可変性に応じれずにレイアウト全体が崩れるようなことが起こっていました。
 
-Intrinsic Web Design では、コンテンツの自然な特性に基づいてレイアウトする設計を重視します。
+Intrinsic Web Design では、コンテンツの特性に基づいた自然なレイアウトをすることを重視します。
 
 例えば、Grid の `auto-fit` や `auto-fill`、`minmax()` 関数を活用することで、コンテンツの量に応じてグリッドアイテムが自動的に配置されるレイアウトを構築することが挙げられます。
 `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` のような記述により、レイアウトが画面幅と「コンテンツ数」に応じて自動的に調整されます。
 Grid や Flexbox が Fluid や Fixed なレイアウト手法と異なる点として、コンテンツの量や性質に応じて配置を自動的に調整できる点があります。
 
 さらに、`fit-content` や `max-content`、`min-content` といった Intrinsic Sizing Keywords も、コンテンツ自体のサイズに基づいたレイアウト制御を可能にする機能です。
-コンテンツが持つ内在的（Intrinsic）な性質を用いることで、レイアウトがコンテンツを尊重しながら変化するデザインを実現できるようになり始めました。
+コンテンツが持つ内在的（Intrinsic）な性質を用いることで、コンテンツを尊重しながら変化するレイアウトを実現できるようになり始めました。
 
 ## 6. Media Queries, as Needed
 
@@ -172,9 +172,7 @@ Intrinsic Web Design では、これまでに紹介してきた Grid、Flexbox�
 これらの機能により、コンテンツとコンテナの関係性に基づいて自動的に適応するレイアウトを構築できるため、明示的なブレークポイントの定義が不要になる場面が増加しました。
 
 ただし、 Intrinsic Web Design は Media Query が不要になったということを意味するものではありません。
-大幅なレイアウト変更が必要な場合には、依然として Media Query の利用も考えられました。
-
-重要なのは、Media Query を「必要な場合にのみ」使用し、他の Intrinsic な CSS 機能で解決できる部分については、それを優先するということです。
+重要なのは、Intrinsic な CSS 機能で解決できる部分については、それを優先し、そうでない画面幅に応じた離散的な切り替えが必要な場合には Media Query を利用するということです。
 
 ---
 
