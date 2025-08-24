@@ -116,13 +116,11 @@ Fluid Layout はパーセンテージベースで流動性を重視する一方�
 より多くのブレークポイントを追加することも可能ですが、管理が複雑になり、それでも連続的な変化は実現が困難です。
 
 Intrinsic Web Design の「Stages of Squishiness」では、コンテンツタイプごとに異なる「潰れやすさ/Squishiness」の段階を定義します。
-Utopia のように `clamp()` 関数を利用して、上限/下限を持ちつつ各要素が幅に応じてどう流動的に変化するかを制御するイメージです。
+Utopia のように `clamp(1rem, 4vw, 2rem)` のように記述することにより、上限/下限を持ちつつ各要素が幅に応じてどう流動的に変化するかを制御するイメージです。
 
 - [Fluid Responsive Design | Utopia](https://utopia.fyi/)
 
-`min-width`、`max-width`、`clamp()` 関数などを組み合わせて `clamp(1rem, 4vw, 2rem)` のように記述することにより、**上限/下限と流動的な値を同時に**宣言できます。
-
-この手法により、コンテンツが自身の性質に応じて自律的かつ段階的に変化し、Media Query に頼らずとも自然で連続的なレスポンシブを考える余地が生まれました。
+Grid や `min-width`、`max-width`、`clamp()` 関数などを利用することで、コンテンツが自身の性質に応じて自律的かつ段階的に変化し、Media Query に頼らずともコンテンツが自律したレスポンシブを考えることができます。
 
 ## 4. Nested Contexts
 
@@ -156,7 +154,8 @@ Fixed Layout の時代には、コンテンツの変化に対応した実装を�
 
 Intrinsic Web Design では、コンテンツの特性に基づいた自然なレイアウトをすることを重視します。
 
-Grid や Flexbox が Fluid や Fixed なレイアウト手法と異なる点として、コンテンツの量や性質に応じて配置を自動的に調整できる点があります。
+Grid や Flexbox が Fluid や Fixed なレイアウト手法と異なる点として、**コンテンツの量や性質に応じて配置を自動的に調整できる**点があります。
+
 例えば、Grid の `auto-fit` や `auto-fill`、`minmax()` 関数を活用することで、コンテンツの量に応じてグリッドアイテムが自動的に配置されるレイアウトを構築することが挙げられます。
 
 Grid 以前、一次元配置しかできなかった時代において、グリッドレイアウトを実現するには、Media Query を用いて手動で列数を調整する必要がありました。
@@ -200,7 +199,7 @@ Responsive Web Design では、多数の Media Query が必要となります。
 
 - [The ideal viewport doesn’t exist](https://viewports.fyi/)
 
-Intrinsic Web Design では、これまでに紹介してきた Grid、Flexbox、そして各種の Sizing/Calc 機能を組み合わせることで、多くの場面で Media Query に依存しないレイアウトが実現できるようになることを主張しています。
+Intrinsic Web Design では、Grid、Flexbox、そして各種の Sizing/Calc 機能を組み合わせることで、多くの場面で Media Query に依存しないレイアウトが実現できるようになることを主張しています。
 これらの機能により、コンテンツとコンテナの関係性に基づいて自動的に適応するレイアウトを構築できるため、明示的なブレークポイントの定義が不要になる場面が増加しました。
 
 ただし、 Intrinsic Web Design は Media Query が不要になったということを意味するものではありません。
