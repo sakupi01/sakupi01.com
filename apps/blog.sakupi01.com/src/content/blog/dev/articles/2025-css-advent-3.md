@@ -17,7 +17,7 @@ status: 'published'
 
 ## CSS is *Hints*. CSS is *Suggestions*. CSS is *Optional*.
 
-CHSS は、**「Cascade」**が導入されたものとして初の提案です。
+CHSS は、**「Cascade」** が導入されたものとして初の提案です。
 CHSS のプロポーザルを読んでいくと、あるニュアンスが繰り返し伝えられているように感じられます。
 
 - [Cascading HTML Style Sheets -- A Proposal](https://web.archive.org/web/20231228175110/https://www.w3.org/People/howcome/p/cascade.html)
