@@ -1,5 +1,5 @@
 ---
-title: "🎨 CSS Advent Calendar: Day 21 / A Quick History of Web Design & Design Tools"
+title: "🎨 CSS Advent Calendar: Day 21 / A Quick History of Web Design"
 excerpt: "Responsive Web Design までの歴史から見る、Web の制約と特性とデザインの理想"
 date: 2025-08-21
 update: 2025-08-21
