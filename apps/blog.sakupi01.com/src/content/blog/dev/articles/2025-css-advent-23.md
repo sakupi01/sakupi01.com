@@ -212,8 +212,18 @@ Box（コンテナ）と Content（コンテンツ）は、Flow によって実�
 
 - [[css-conditional] [css-contain] Fleshing out @container queries with single-axis containment · Issue #5796 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/5796)
 
-CSS Containment は、Content の Layout/Size/Style/Paint etc の計算が Box に影響することを「封じ込める」CSS プロパティです。
-`contain: size layout style;` とすることで、Box と Content の結びつき、つまり Flow によって生じる Size/Layout/Style における双方向の依存関係を断ち切り、これまで問題になっていたレイアウト時の循環を防ぐことが可能になると考えられました。
+[CSS Containment](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment) は、要素の内部で発生する変更が外部に影響を与えないよう「封じ込める」仕組みです。
+
+通常、CSS では子要素のサイズやスタイルの変更が親要素に影響を与えます（e.g. 子要素のテキストが増えると親要素の高さも増える）。
+これは Flow レイアウトの基本的な性質ですが、Container Queries では「親のサイズを基準に子のスタイルを変更する」必要があるため、循環参照の問題が生じていました。
+
+CSS Containment の `contain: size layout style;` を使用すると、Flow によって生じる Size/Layout/Style における双方向の依存関係を断ち切ることが可能です。
+
+- **Size Containment**: 子要素のサイズ変更が親要素のサイズに影響しない
+- **Layout Containment**: 要素内部のレイアウト変更が外部に影響しない  
+- **Style Containment**: カウンターなどのスタイル情報が要素の境界を越えない
+
+これにより、Box と Content の間の双方向の依存関係を断ち切り、これまで Container Queries で問題になっていたレイアウト時の循環を防ぐことが可能になると考えられました。
 
 しかし、Size Containment は Intrinsic な Sizing を完全に制限してしまうため、Content が Container のサイズを決定できなくなってしまいます。
 
@@ -239,7 +249,7 @@ CSS Containment は、Content の Layout/Size/Style/Paint etc の計算が Box �
 }
 ```
 
-煩雑な Value 指定を避け Declarative にコンテナをクエリするため、Container Queries では以下のように`container-type` を指定します。
+煩雑な Value 指定を避け Declarative にコンテナをクエリするため、Container Queries では以下のように `container-type` を指定します。
 Containment の機能としては、上記と変わりません。
 
 ```css
