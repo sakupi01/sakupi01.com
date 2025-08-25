@@ -143,6 +143,54 @@ SELECT * FROM items WHERE condition = true
 CSS は宣言的な言語として、「何を達成したいか」を記述し、「どのように達成するか」はブラウザに委ねます。
 この宣言的な性質により、異なる環境や条件下でも、ブラウザが最適な方法で意図を実現できる柔軟性を持っています。
 
+---
+
+Media Query/Container Query/`if()`/etc のような条件分岐、`calc()`/`sin()`/`pow()`/`sign()`/etc の計算を行う関数なども、最終的にはこの宣言的な性質の一部として解釈できます。
+
+条件分岐を例にとると、Imperative な言語では「A の場合には B を実行する」という条件分岐が制御フローの一部として存在し、その値を以て処理が実行されます。
+そして、最終的な出力は、条件分岐の結果に依存して決定されます。
+
+しかし、CSS には、**「実行する」という概念がありません**。
+「A の場合には B を有効とする」という条件は存在しても、その値が後続の何かの実行や活性に影響を与えるわけではありません。
+さらに、出力（スタイルルールが適用されるかどうか）の最終決定権は、ブラウザにあります。
+
+例えば、`@media` や `@container` は [Conditional Group Rules](https://drafts.csswg.org/css-conditional-3/#conditional-group-rule) であり、Rules ([Qualified Rule](https://drafts.csswg.org/css-syntax/#qualified-rule)) は「宣言のチャンク」です。
+
+> qualified rule
+>
+> A qualified rule has a prelude consisting of a list of component values, **a list of declarations**, and a list of child rules.
+>
+[CSS Syntax Module Level 3](https://drafts.csswg.org/css-syntax/#qualified-rule)
+
+「宣言」のチャンクに対する条件であるため、条件分岐の結果が後続の何かの実行/活性に影響を与えることもなければ、最終的な値として採用されるかを制御することもできません。
+
+最終的な値を制御できないことは、実際のコードで考えてもわかります。
+
+```css
+/* stylesheet.css */
+
+@media (width > 768px) {
+  .card { padding: 2rem; }
+}
+
+@container (width > 500px) {
+  .card { padding: 3rem; }
+}
+
+.card {
+    padding: if(style(--condition: true): 4rem; else: 1rem;);
+    padding: 5rem;
+}
+```
+
+- "画面幅が" 768px 以上の時は 2rem に
+- "コンテナが" 500px 以上の時は 3rem に
+- `--condition` が true の時は 4rem に
+- それ以外は 1rem に
+- だけど、宣言順序によって**最終的には 5rem に**
+
+よって、条件分岐や関数も、CSS においては制御フローの一部ではなく、適用される宣言をブラウザに委ねるための「宣言」という立ち位置で論じることとします。
+
 ### Being Declarative achieves Full Flexibility in Designing on the Web
 
 Intrinsic Web Design や Every Layout、Utopia のメンタルモデルには、次のような考え方が含まれています。
