@@ -16,9 +16,10 @@ status: 'published'
 🌏 この記事は CSS Advent Calendar の 24 日目の記事です。
 :::
 
-[Day23](/dev/articles/2025-css-advent-23) では、CSS が Declarative であること、その特徴を活かした Declarative な Design をすることで、Declarative であるという CSS の性質に基づいた、Fault Tolerant で柔軟性を備えたデザインが可能になると述べました。
+[Day23](/dev/articles/2025-css-advent-23) では、CSS が Declarative であること、その特徴を活かした Declarative な Web Design をすることで、Declarative であるという CSS の性質に基づいた、Fault Tolerant で柔軟性を備えたデザインが可能になると述べました。
 
-Declarative なマインドセットへのシフトに対して、デザインツールの現状はどうなっているのでしょうか？
+Declarative な Web Design というマインドセットのシフトに対して、実際にどのようなアプローチをとっていけるのでしょうか。
+今回は、デザインツールの現状と、Design System を通じて、Declarative な Web Design を実現するための一つのアプローチを考察しています。
 
 ## Design Tools
 
@@ -33,42 +34,76 @@ Figma においては、Layer や Component, Property, Swap Component などと�
 しかしながら、デザインツールで作成したコンポーネントが、コンポーネントの実装時にそのまま参照可能かというと、そうではありません。
 なぜならば、そこにはデザインツールとブラウザの間で、目的と制約が異なるからです。
 
-これまでに見てきたように、ブラウザでは、ユーザのあらゆる状況という「未知の変数」を入力として、CSS だけでも Value Processing や Cascade と、その他膨大な計算がレンダリングエンジンでなされており、それの計算結果が画面に出力されています。
+これまでに見てきたように、ブラウザは、ユーザのあらゆる状況という「未知の変数」を入力としています。
+CSS だけでも Value Processing や Cascade と、その他膨大な計算がレンダリングエンジンでなされており、それの計算結果が画面に出力されています。
 
 そして、デザインツールがこの出力を完全に再現することは、現時点では困難です。
-
-よって、デザインツールは静的なデザインの作成と管理に最適化されており、ブラウザは動的なコンテンツの実行と表示に最適化されている相補的な関係にあるため、デザインツールが CSS の代替として機能することは、理論的には不可能です。
+デザインツールは静的なデザインの作成と管理に最適化、ブラウザは動的なコンテンツの実行と表示に最適化されており、互いに相補的な関係にあります。
 
 ## The Gap
 
 Web Design という文脈において、CSS が「Declarative なツール」であれば、デザインツールは値やフレームサイズなどの表示要件を具体的に指示する「Imperative なツール」であるといえます。
-
-そして、デザインツールと CSS のギャップは、CSS で Declarative に表現できることが増えるほど拡大するものです。
-
-いくら Auto Layout や Grid、Hug/ Fill Container のような機能が Figma に追加されても、それらは ”Fake-” Flexbox/Grid/Intrinsic Sizing/etc であり、 CSS と同等に機能しません。
+いくら Auto Layout や Grid、Hug/ Fill Container のような機能が Figma に追加されても、背後の処理はブラウザエンジンのそれと異なり、機能は CSS の仕様に従っているわけではありません。
+こうした事情があるため、デザインツールの Flexbox/Grid/Intrinsic Sizing/etc は CSS のような Declarative さを再現して機能しません。
 
 デザインツールは Imperative であるという制約とその目的から、Declarative な CSS の進化に追いつくことは困難です。
-その差は年々拡大していく一方でしょう。
+CSS で Declarative に表現できることが増えれば増えるほど、その差は拡大していく一方でしょう。
 
 ![デザインツールと CSS のギャップは年追うごとに肥大化する](../../../../assets/images/the-gap.png)
 
-よって、皮肉なことに、デザインツールでは、CSS のポテンシャルを最大限に活かした「Declarative Design」を実現することはできません。
+このような技術的制約により、デザインツール単体では CSS の持つ Declarative な特性を完全に表現することは難しく、「Declarative Design」の実現には別のアプローチが必要となります。
 
-## Design System has to be Declarative
+## Bridging the Gap between Design and CSS
 
 ここで、これまで本連載で触れてこなかった「Design System」という存在ついて触れておきます。
 なぜならば、CSS とデザインの仲立ちとなる要素である Design System は、理論的には、この問題を打開するために役立つ可能性があるからです。
 
-Design System の詳細をここで詳しく述べることはしませんが、要するに、Design System とは、デザインの一貫性を保ち、効率的なデザイン・開発を促進する要素の集合体です。
-要素には、ガイドライン、コンポーネント、デザイントークンなどが含まれることが一般的です。
+### Design System
 
-- [What Is a Design System | Design Systems 101 | Figma Blog](https://www.figma.com/blog/design-systems-101-what-is-a-design-system/)
+Design System という言葉自体は非常に幅を持っており、組織やチームによって異なる解釈をすることができます。
+
+Figma の表現を引用すると、Design System の役割は「一貫した製品や体験の外観と感触を維持するための、構成要素と標準のセット」です。
+
+> At its core, a design system is **a set of building blocks and standards** that help **keep the look and feel of products and experiences consistent**.
+>
+> [What Is a Design System | Design Systems 101 | Figma Blog](https://www.figma.com/blog/design-systems-101-what-is-a-design-system/)
+
+また、Jeremy Keith の言葉を借りると、Design System は「Outer Circle」であり、パターンとその連携を伝えるためのさまざまな要素を包含することができるものです。
+
+> The generally-accepted definition of a design system is that **it’s the outer circle** — it encompasses pattern libraries, style guides, and any other artefacts. But there’s something more.
+> Just because you have a collection of design patterns doesn’t mean you have a design system.
+> **A system is a framework.**
+> **It’s a rulebook.**
+> **It’s what tells you how those patterns work together.**
+>
+> Jeremy Keith -- [Design Systems | Brad Frost](https://bradfrost.com/blog/link/design-systems/)
+
+具体的には、以下のような要素で構成されることが一般的です。
+
+- コンポーネントライブラリ: 再利用可能な UI パーツとその振る舞いの定義
+- デザイントークン: Color、Typography、Spacing などの最小単位の値を定義したもの
+- ガイドライン: アクセシビリティガイド、スタイルガイド、ブランドガイド、レイアウトガイドなど、原則や指針を示したもの
+- ドキュメンテーション：デザインシステム構成要素の使い方やベストプラクティスを説明した資料
+- etc
+
+デザイントークンに関しては、W3C の Community Group が存在し、フォーマットの標準化が進められています。
+DTCG(Design Token Community Group) の定義を引用すると、デザイントークンは「プラットフォームに依存しない方法でデザインの決定を表現するための方法論」です。
+
+> Design tokens are **a methodology for expressing design decisions in a platform-agnostic way** so that they can be shared across different disciplines, tools, and technologies.
+> They help establish **a common vocabulary across organisations**.
+>
+> [Design Tokens Format Module](https://second-editors-draft.tr.designtokens.org/format/#introduction)
+
+Salesforce Lightning Design System の創設者であり、DTCG の Chair でもある Jina Anne の説明も、デザイントークンを理解する上で参考になります。
+
 - [WTF are Design Tokens? - YouTube](https://www.youtube.com/watch?v=q5qIowMyVt8&t=16s)
 
-予め、Design System のコンポーネントやデザイントークンを「正しく」構築しておけば、あらゆる状況において一貫したデザインをすばやく展開することができます。
+本記事では、上記のような要素から構成されるものを Design System として扱います。
+
+この Design System のコンポーネントやデザイントークンを、予め「正しく」構築しておけば、あらゆる状況において一貫したデザインをすばやく展開することができます。
 しかしこの、「正しい」という言葉には解釈の余地があります。
 
----
+### Design System has to be ...
 
 **Imperative な考え方**で Design System を構築すると、「正しい」は「緻密な」という意味合いになります。
 デザインツールと強く結合した Design System では、Imperative な考え方の Design System になりやすいです。
@@ -77,6 +112,8 @@ Design System の詳細をここで詳しく述べることはしませんが、
 **Declarative な考え方**で Design System を構築すると、「正しい」は「柔軟な」という意味合いになります。
 Declarative であるという CSS の性質を利用した Design System は、Declarative な考え方の Design System になりやすいです。
 この場合、あらゆる Viewport でもコンテナに対して違和感のないように変化するスペーシングや、コンテナの幅に応じて変化するフォントサイズ、ユーザの環境において最適な色域など、CSS の Declarative なポテンシャルを最大限に活かした「**Fault Tolerant で柔軟な Design System**」が定義されます。
+
+---
 
 例として、カードコンポーネントの作成を考えます。
 
@@ -99,67 +136,148 @@ Imperative な考え方のコンポーネントでは、出力結果の完璧さ
 
 ---
 
+Design System の別の構成要素である、デザイントークンも例にとってみましょう。
+
+Imperative な考え方のデザイントークンでは、出力の完璧さが重要になるため、出力結果がそのままデザイントークンに反映されるでしょう。
+カラーであれば `--button-color-primary: #ff4081;` 、`--button-color-secondary: #ff4081;` 加えて、それぞれに対するホバー状態やフォーカス状態などのバリエーションも定義されるかもしれません。
+
+対して、Declarative な考え方のデザイントークンでは、出力の完璧さは、ルールセットほど重要視されません。
+あらゆる状況でデザイントークンの意図が保たれるように、より抽象的な値でデザイントークンを定義するでしょう。
+以下の例では、button の Color には次のような意図があります。
+
+「通常状態では、Primary Color または Secondary Color のいずれかを使用する。ホバー状態では、背景色を元の色より 20% ダークにすることで、インタラクティブであることを示す。」
+
+極端な例を挙げると、これは CSS で以下のようにエンコードできます。
+
+```css
+:root {
+  /* global tokens */
+  --pink-color-hue: 10;
+  --pink-color-saturation: 80%;
+  --pink-color-lightness: 80%;
+  --green-color-hue: 70;
+  --green-color-saturation: 40%;
+  --green-color-lightness: 80%;
+
+  /* semantic tokens */
+  --semantic-primary-color: hsl(var(--pink-color-hue) var(--pink-color-saturation) var(--pink-color-lightness));
+  --semantic-secondary-color: hsl(var(--green-color-hue) var(--green-color-saturation) var(--green-color-lightness));
+}
+
+button {
+  --button-color: if(style(--state: primary): var(--semantic-primary-color); else: var(--semantic-secondary-color));
+  --state: primary; /* or secondary */
+  background-color: var(--button-color);
+
+  &:hover {
+    --button-color-hover: color-mix(in hsl, var(--button-color) 90%, black 10%);
+    background-color: var(--button-color-hover);
+  }
+}
+```
+
+---
+
 これら2つの Design System のアプローチは根本的に異なるものですが、いずれの成果物も「Design System」になり得ます。
 
 もしデザイナや開発者が Imperative な考え方を持っていて、Figma が Single Source of Truth と考えられているなら、Imperative Design System の方が適しているかもしれません。
 
-しかし、CSS や HTML の本質の観点からデザインを考えることができるチームがあるのであれば、Declarative Design System を構築できるポテンシャルがあると思います。
+しかし、CSS や HTML の観点からデザインを考えることができるチームがあるのであれば、Declarative Design System を構築できるポテンシャルがあると思います。
 
-Web が本質的に制御できないものであることは、本連載でも度々触れてきました。
+### How Declarative Design System relates to Design?
 
-[Day23](/dev/articles/2025-css-advent-23) で詳しく述べましたが、Declarative Design の核心は、**前提に基づいた制御を排除**し、出力のための詳細を**ブラウザに委ねる**ための「**宣言をデザインする**」ことです。
-Web の持つ「未知の変数」に対しても柔軟に・最適に対応することを目指す Declarative Design というマインドセットは、Web を前提とした Design System ならば目指すべきものであると、個人的には考えています。
+混乱を避けるため、ここで扱う用語の整理をしておきます。
 
-とはいえ、Imperative なデザインツールによって構築されたデザインから、Declarative な Design System を構築するためには、どうすればよいのでしょうか？
+1. **Design**: Figma で作成される個別の画面や UI。現状では、 Imperative に作成されるもの。
+2. **Web Design**: Web 上のデザインのあり方に関するマインドセットや哲学。
+3. **Design System**: デザインの一貫性を保つためのコンポーネント・トークン・ガイドライン・etc の集合体。
+
+Web の特性上、Web を完全に制御することができない点は、本連載でも度々触れてきました。
+
+[Day23](/dev/articles/2025-css-advent-23) で詳しく述べましたが、Declarative Web Design の核心は、**前提に基づいた制御を排除**し、出力のための詳細を**ブラウザに委ねる**ための「**宣言をデザインする**」ことです。
+Web を前提とした Design System ならば、Web の持つ「未知の変数」に対しても柔軟に・最適に対応することを目指す Declarative な Design System は目指すべきものであると、個人的には考えています。
+
+しかし、Design System 自体が Declarative であっても、それだけで Declarative な Web Design という哲学が達成されるわけではありません。
+なぜならば、Design System は Design を捉えたルールの集合体であるからです。
+
+では、Declarative Design System を通じて、Declarative Web Design を実現するには、どのように Design を捉えれば良いのでしょうか？
 
 ## Design has to be Semantic
 
-ここ数年で、CSS の機能は飛躍的に増え、Declarative な表現力は大幅に向上しました。
+ここ数年で、CSS の機能は飛躍的に増え、これまで Imperative に実装していた/できなかったことを、Declarative に表現できる幅が広がりました。
 
-そんな CSS をフル活用した「Declarative な Design System」を構築するためには、CSS を使って「**何を**」Declare しているのかを明確にすることが大事です。
+そんな CSS をフル活用した「Declarative な Design System」を構築するためには、CSS で「**何を**」Declare しているのかを明確にすることが大事です。
 
-CSS は、レイアウト/コンポーネント/ステート/etc の、配置/形状/色/切り替え基準/etc にどういう「ルール」をもたせるのかを Declare する文法構造になっています。
-仕様的にも、それが CSS Rules と呼ばれるチャンクに当たります。
+例えば、Form Input のデザインで考えてみます。
+「入力欄の幅を 280px にしたい！」というデザインがあったとき、デザインをそのまま CSS に翻訳すると、以下のようになります。
 
-では、その Declare する「ルール」はどのようにしたら決定できるのでしょうか？
-レイアウト/コンポーネント/ステート/etc の、配置/形状/色/切り替え基準/etc に「**意味づけをする**」と、それを Declare する「ルール」に翻訳することができます。
+```css
+.input {
+  width: 280px;
+}
+```
 
-ということは、デザインに「意味づけをする」と、Imperative であるデザインの本来の「意図」を、スタイルの「ルール」として、CSS がブラウザに Declare できるようになります。
+しかし、なぜ 280px なのか？
+この「デザインの意図」を考えると、「フォーム全体の幅の約半分にしたかった」あるいは「長すぎず短すぎない、ちょうど良い幅にしたかった」などといった理由が見えてくる可能性があります。
+そうして、「デザインの意図」を解釈できると、より適切な CSS に翻訳できます。
 
-つまり、デザインに「意味づけをする」と、**Imperative なデザインを、Declarative な見た目に翻訳できる**ようになるということです。
+```css
+.input {
+  width: min(50cqw, 20rem);
+}
+```
 
-これにより、ブラウザが「デザインの意図」を CSS のルールとして解釈し、あらゆる状況において最適な見た目を「ユーザに伝える」ことができるようになります。
+こうすることで、コンテナの幅が変わってもフォームの意図に従った適切な幅を保つことができます。
 
-そして、この「意味づけ」をする語彙は、CSS が Declarative になればなるほど、CSS の機能が増えれば増えるほど幅が広くなっていきます。
+---
 
-例えば、「Input を 280px の幅にしたい！」というデザインがあった場合、そのデザインになった「意味」を解釈すると、 「Form の半分くらいの幅が心地良いから」という意図がわかるかもしれません。
-ここまでくると、Container Size Queries を使って Declarative なデザインに翻訳できるかもしれません。
-しかし、Container Size Queries が使えなければ、別の意味づけが必要です。
-要は、**CSS が Declare できるレベルまで**、デザインの「意味」を解釈し続ける必要があるということです。
+別の例として、カードコンポーネントの間のスペーシングを考えてみましょう。
 
-最も伝えたいことは、「**Declarative な Design System の構築は、Semantic なデザインにの上に成り立つ**」という考えです。
+「カード同士の間隔を 16px にする」というデザインも同様です。
+デザインをそのまま CSS に翻訳すると、以下のようになります。
 
-![Declarative な Design System の構築は、Semantic なデザインにの上に成り立つ](../../../../assets/images/semantic-design-declarative-design-system.png)
+```css
+.card + .card {
+  margin-top: 16px;
+}
+```
 
-Container Queries や `:has()` の登場によって、「コンポーネントの設計の仕方が変わる」という主張もありますが、やるべきことは、これまでと本質的には変わらないと思います。
+しかし、この固定値の背景には、「適度な余白で見やすくしたかった」あるいは「画面サイズに関係なく調和を保ちたかった」という、何かしらの「デザインの意図」が存在するはずです。
+「デザインの意図」をここまで解釈できると、より適切な CSS に翻訳できます。
 
-**デザインに適切な「意味づけ」をする**ことができており、新しい機能を用いた方が、その**意味をより適切に翻訳できる**のであれば、その機能を用いることで、デザインをより適切な形でブラウザに Declare できるようになる、ということです。
+```css
+.card-container {
+  container-type: inline-size;
+  display: grid;
+  gap: clamp(0.5rem, 2cqw, 1.5rem);
+}
+```
 
+このように、デザインの「意図」を理解することで、デザインを、 CSS で Declare するルールに「翻訳」することができます。
+結果、意図に沿った適切な CSS を適用できるようになり、Declarative な Design System の構築が望めます。
+
+---
+
+注意しなければならないのは、デザインの「意味づけ」のレベルは、 CSS でサポートできる機能に合わせて調整されるということです。
+
+例えば、「コンテンツに応じて柔軟に変化する幅」という理想的な意図があった場合、Container Queries & Units が利用可能なら、個々のコンポーネントを `width: clamp(20ch, 50cqw, 30ch)` のように表現できます。
+しかし、Container Queries が利用可能でないならば、Flexbox を用いて `flex: 1 1 20ch; max-width: 30ch` と表現するかもしれません。
+つまり、CSS の持ち得る表現の幅に合わせて、適切な粒度でデザインを「意味づけ」することが必要です。
+言い換えると、**CSS が Declare できるレベルまで**、デザインの「意味」を解釈し続ける必要があるということです。
+
+## Semantic Design is the Foundation of Declarative Design Systems & Declarative Web Design
+
+ここまでの例から、Declarative な Design System や Web Design を実現するには、デザインが「なぜそうなっているのか」という**意味（Semantic）**を理解することが不可欠だと言えます。
+
+![Declarative な Design System の構築は、Semantic な Design にの上に成り立つ](../../../../assets/images/semantic-design-declarative-design-system.png)
+
+Container Queries や `:has()` の登場によって、「コンポーネントの設計の仕方が変わる」という主張もあるかもしれませんが、Declarative な Design System や Web Design を実現する上での基本的な考え方は変わりません。
+
+例えば、デザインの意図が「いかなる状況でも 300px で固定であること」である場合、それを単純に `width: 300px` と翻訳すれば十分です。
 Container Queries が利用可能になったからといって、コンテナが固定幅のコンポーネントに対して、Container Queries に翻訳できるまでデザインを意味づけしても旨みがありません。
 
-## The Future of Web UI is Declarative
-
-本連載では CSS にフォーカスしてきましたが、Web UI 全般において、 Declarative な表現力はこれからも向上していくことが見込まれます。
-
-State of CSS や What's New in Web UI/CSS などを俯瞰すると、この傾向は明らかです。
-
-例えば、HTML においても、`<dialog>`, `<details>`, `<summary>`, Popover API などの機能が登場し、より多くの UI パターンがネイティブにサポートされるようになっています。
-CSS においても、Cascade Layers, `@scope`, Container Queries, `:has()`, `subgrid`, `@property`, `@when` & `@else`, `@if`, `@function`, `@mixin`  など、Declarative な表現力を向上させる機能が次々と仕様策定/実装されています。
-
-こうした機能を無為にせず、 Declarative な UI を構築していくためには、デザインと Web の本質的な違いを捉えた、Web Design におけるマインドセットの転換が必要です。
-
-今回、Declarative な Web UI を実現する上でのマインドセットの一例として、デザインを Semantic に、Design System を Declarative に捉える方向性を示しました。
-しかし、Web という流動的な変化を踏まえた Design 論法に特に正解はなく、これまでそうであったように、Web や社会の動きに合わせてゆっくりとスタイルが構築されていくものだと思います。
+新しい CSS の機能は、その機能が「デザインの意図」をより適切に表現できるのであれば使用できると思います。
+CSS の新機能を絶対的な技術として捉えるのではなく、「デザインの意図を適切に宣言するための手段」として捉えることが重要だと、筆者は考えています。
 
 ## Appendix
 
