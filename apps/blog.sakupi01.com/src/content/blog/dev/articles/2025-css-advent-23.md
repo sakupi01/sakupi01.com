@@ -18,7 +18,7 @@ status: 'published'
 
 ## Thoughts in Common around Recent Web Design -- Intrinsic Web Design/Every Layout/Utopia
 
-Intrinsic Web Design が Jen Simmons によって提唱されたあたりくらいから、単なる Breakpoint ベースの Responsive から脱却した Web Design に関する考察が活発になり、様々な思想や理論が提唱されるようになりました。
+Intrinsic Web Design が Jen Simmons によって提唱されたあたりから、単なる Breakpoint ベースの Responsive から脱却した Web Design に関する考察が活発になり、様々な思想や理論が提唱されるようになりました。
 
 [Every Layout](https://every-layout.dev/) や [Utopia](https://utopia.fyi/) のアプローチはその代表的な例です。
 
@@ -37,7 +37,7 @@ Utopia は、Web Design における「上限から下限のスケーリング�
 
 ### 1. Give up Control
 
-まず、これらの考え方では、意図的に「**制御を手放す**」ことをしています。
+まず、これらの考え方では、意図的に「**制御を手放すこと**」をしています。
 
 Utopia のスケーリングを例にとると、最小値と最大値を指定するだけで、中間の値はすべて計算式によって決まります。
 Viewport が 768px のとき何px かどうかは不明ですが、最小 1rem・最大 1.5rem の間において流動的な変化になるよう、 Viewport に合わせたスケーリング式が導出されます。
@@ -50,18 +50,20 @@ font-size: clamp(1.2rem, 0.5rem + 0.666vw, 1.33rem);
 *出典： [Designing with fluid type scales | Utopia](https://utopia.fyi/blog/designing-with-fluid-type-scales)*
 
 Intrinsic Web Design にも一貫して同様の特徴がありました。
-例えば、カラムレイアウトを実現する際、Media Query を用いて、それぞれの画面幅の場合に要素の幅を指定するといったことは行わず、**コンテンツの量や幅に応じる**ことができる、例えば Grid などの手法の利用を推奨しています。
+例えば、カラムレイアウトを実現する際、Media Query を用いて、それぞれの画面幅の場合に要素の幅を指定するといったことは行いません。
+**コンテンツの量や幅に応じる**ことができる、Grid などの利用を推奨しています。
 
 - [Day 22 / Intrinsic Web Design - Beyond Responsive and Embrace the nature of the Web | @sakupi01.com](https://blog.sakupi01.com/dev/articles/2025-css-advent-22)
 
-特定の画面幅や状況における結果の出力を目指すのではなく、**ルールのみを設定し、あとはシステムに最適化を委ねる**ことを重視していることが共通点です。
+特定の画面幅や状況における結果の出力を目指すのではなく、**ルールのみを設定し、あとはシステムに最適化を委ねる**ことを重視している点が共通です。
 
 ### 2. Remove Assumptions
 
-これは、デザインに潜在する「**思い込みを取り除く**」ことにも繋がります。
+これは、デザインに潜在する「**前提や制約を取り除く**」ことにも繋がります。
 
-デザインは「Viewport は 1024px」「デフォルト font-size は 16px」「writing-mode は左から右」といった「思い込み/Assumptions」の上に成り立っています。
-なぜならば、デザインツールは、ブラウザのように実際の表示環境を変数として知ることもできなければ、それらを利用したレンダリングエンジン内で行われる複雑な計算をシミュレートすることもできないからです。
+従来のデザインは「Viewport は 1024px」「デフォルト font-size は 16px」「writing-mode は左から右」といった前提の上に成り立っていました。
+rem や logical property が登場する前の CSS では、こうした前提なしにデザインを表現する手段が限られていたことに加え、
+デザインツールは、ブラウザのように実際の表示環境を変数として知ることもできなければ、それらを利用したレンダリングエンジン内で行われる複雑な計算をシミュレートすることもできません。
 
 例えば、ボタンを以下のようにスタイルするとします。
 font-size が 16px、左側の padding が 16px のボタンのスタイルであり、特に何の問題もないかもしれません。
@@ -75,9 +77,9 @@ button {
 
 しかし、16px は、本当に「16px」を意図しているのでしょうか？ padding-left は、本当に「左側」に付与したいのでしょうか？
 
-もし、デフォルト font-size が 16px であることや、LTR であることを前提としているのであれば、今の CSS では、`writing-mode: vertical-rl;` などといった想定外の状況でデザインが破綻するでしょう。
+もし、デフォルト font-size が 16px であることや、LTR であることを前提としているのであれば、`writing-mode: vertical-rl;` といった想定外の状況でデザインが破綻するでしょう。
 
-Every Layout では、代わりに、これらの前提を排除して「文章の始まりに、ブラウザのデフォルト font-size 分だけ padding を設ける」といったルールに落とし込めれば、以下のように CSS をかくことができると主張しています。
+現在の CSS では、本来のデザインの意図を「文章の始まりに、ブラウザのデフォルト font-size 分だけ padding を設ける」というようにセマンティックに解釈できれば、以下のように書くことができます。
 
 ```css
 button {
@@ -86,17 +88,17 @@ button {
 }
 ```
 
-**思い込みを排除した宣言**にできると、想定外の状況に置おいても、**ブラウザに意図した結果の導出を委ねる**ことができます。
+このように**セマンティックな宣言**にできると、様々な表示環境においても、**ブラウザに意図した結果の導出を委ねる**ことができます。
 
 ### 3. Fault Tolerance
 
 想定外の状況に対応できるということは、言い換えるならば「**Fault Tolerance（耐障害性）**」 があるということです。
 
 Responsive Web Design では、「Viewport が 320px から 1920px の間で変化する」といった、「想定された範囲内」での変化に対して、Media Query を用いて対応してきました。
-しかし、実際には、Media Query 定義外の画面幅やユーザ設定の変更、アクセシビリティ機能の利用など、想定/表現できない状況は計り知れないほど存在します。
+しかし実際には、Media Query 定義外の画面幅やユーザ設定の変更、アクセシビリティ機能の利用など、想定/表現できない状況は計り知れないほど存在します。
 そうした想定外の状況に直面した時、Media Query によって定義されたルールは適用されず、`padding-left` は左側に固定され、`font-size: 16px;` はユーザ設定を反映しきれないかもしれません。
 
-Intrinsic Web Design や Every Layout、Utopia では、コントロールを手放し、思い込みを排除することで、**想定外の状況においても、バグを生みにくいデザインにする**ことを目指しているとも言えます。
+Intrinsic Web Design や Every Layout、Utopia では、コントロールを手放し、特定の前提に依存しないことで、**想定外の状況においても、バグを生みにくいデザインにする**ことを目指しているとも言えます。
 
 ## Declarative Design
 
@@ -136,11 +138,10 @@ SELECT * FROM items WHERE condition = true
 
 - [CSS is Hints. CSS is Suggestions. CSS is Optional. / Day 3 / CSS is Optional. Protect the Content! | @sakupi01.com](https://blog.sakupi01.com/dev/articles/2025-css-advent-3#css-is-hints-css-is-suggestions-css-is-optional)
 
-よって、CSS は本質的に宣言的な言語であるといえます。
+よって、CSS は宣言的な言語であるといえます。
 
-CSS はあくまで「Hints」であり、ブラウザに対して「宣言的」であるがゆえ、未知のプロパティや値は単に無視されます。
-よって、パース不能な記述に出会っても処理は停止されません。
-この特性により、新しい機能を段階的に導入でき、古いブラウザでも壊れることなく動作し続ける、真に Fault Tolerant な柔軟性を実現しています。
+CSS は宣言的な言語として、「何を達成したいか」を記述し、「どのように達成するか」はブラウザに委ねます。
+この宣言的な性質により、異なる環境や条件下でも、ブラウザが最適な方法で意図を実現できる柔軟性を持っています。
 
 ### Being Declarative achieves Full Flexibility in Designing on the Web
 
@@ -171,8 +172,8 @@ Intrinsic Web Design や Every Layout、Utopia のメンタルモデルには、
 
 このアプローチを実現するためには、デザインに「**マインドセットの転換**」を求めなければなりません。
 
-デザインツールは、これまでも、これからも、「前提をコントロールした上でのビジュアル結果」を出力するものでしかありません。
-なぜならば、デザインツールはブラウザを模倣し得ないためです。
+デザインツールは、特定の条件下でのビジュアル結果を作成することに特化しています。
+実際のユーザー環境の多様性（OS、デバイス、ユーザー設定、アクセシビリティ機能、etc）をすべてシミュレートすることは困難です。
 
 しかし、前提をコントロールしていては、CSS の本質（Intrinsic）に基づけず、Fault Tolerant で柔軟なデザインは実現できません。
 よって、想定外の状況において、期待したデザインをユーザに届けることができない可能性が否めなくなります。
@@ -247,10 +248,9 @@ Containment の機能としては、上記と変わりません。
 }
 ```
 
-このような背景により、CSS Container Queries は [CSS Containment Module](https://www.w3.org/TR/css-contain-3/#container-queries) の一部として仕様策定されています。
-Container Queries の詳細な利用方法は、[仕様](https://www.w3.org/TR/css-contain-3/#container-queries)や [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries) を参照ください。
+Container Size Queries を利用する際に記述する `container-type: inline-size;` は、Box が Content のインラインサイズに依存することをキャンセルし、Content が Box のインラインサイズをクエリ可能にすることを意味します。
 
-Container Size Queries を利用する際に何となく記述していたであろう `container-type: inline-size;` は、Box が Content のインラインサイズに依存することをキャンセルし、Content が Box のインラインサイズをクエリ可能にすることを意味します。
+このような背景により、CSS Container Queries は [CSS Containment Module](https://www.w3.org/TR/css-contain-3/#container-queries) の一部として仕様策定されています。
 
 実装上の課題を CSS Containment によって克服し、「コンテナに対して宣言的なコンテンツ」を実現可能にした CSS Container Queries は、Declarative な Design の幅を大きく広げる機能です。
 
