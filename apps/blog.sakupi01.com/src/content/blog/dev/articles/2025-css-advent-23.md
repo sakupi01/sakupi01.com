@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 23 / Declarative Web Design"
-excerpt: "CSS Advent Calendar Day 23"
+excerpt: "Intrinsic Web Design/Every Layout/Utopia と Declarative Design. そして、Container Size Queries の実現"
 date: 2025-08-23
 update: 2025-08-23
 category: 'dev'

@@ -1,6 +1,6 @@
 ---
 title: "🎨 CSS Advent Calendar: Day 24 / The Future of Web UI is Declarative. - How Design System can bridge Imperative Design?"
-excerpt: "CSS Advent Calendar Day 24"
+excerpt: "Design と Web Design の思想を橋渡しする Design System。Semantic Design と Declarative Design System の関係性"
 date: 2025-08-24
 update: 2025-08-24
 category: 'dev'
