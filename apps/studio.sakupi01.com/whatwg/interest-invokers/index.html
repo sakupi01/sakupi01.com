@@ -7,25 +7,53 @@
     <title>Interest Invokers | studio.sakupi01.com</title>
     <meta http-equiv="origin-trial" data-feature="Interest Invokers" data-expires="2025-08-19"
         content="Atws4BXJcWWhW8YFwczvb1pdPuTKS8M7bs7YQnTJfjoZ2sVnYhFrDTUGWRXiBvp9IYpLO+VI/qVmvQtBcza4hAUAAABoeyJvcmlnaW4iOiJodHRwczovL3N0dWRpby5zYWt1cGkwMS5jb206NDQzIiwiZmVhdHVyZSI6IkhUTUxJbnRlcmVzdFRhcmdldEF0dHJpYnV0ZSIsImV4cGlyeSI6MTc1NTU2MTYwMH0=">
+    <style>
+        [interestfor] {
+            interest-target-delay: 0s 1s;
+
+            &:has-interest {
+                background: powderblue;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <h1>Interest Invokers</h1>
+    <p>Summary: This attribute adds "interest" behaviors to the element, such that when the user "shows interest" in the
+        element, actions are triggered on the target element, such as showing a popover. The user agent will handle
+        detecting when the user "shows interest" in the element, via methods such as hovering the element with a mouse,
+        hitting special hotkeys on the keyboard, or long-pressing the element on touchscreens. When interest is shown or
+        lost, an `InterestEvent` will be fired on the target, which have default actions in the case of popovers -
+        showing and hiding the popover.</p>
+    <p>Motivation: The `popover=hint` feature (https://chromestatus.com/feature/5073251081912320, shipped in M133)
+        provides
+        "half" of the features needed to build declarative tooltips, hovercards, and menus. The missing piece is the
+        invocation of those UX elements on hover, keyboard activation, or long-press. This feature fills that gap..</p>
+
     <p>Explainer: <a
             href="https://open-ui.org/components/interest-invokers.explainer/">https://open-ui.org/components/interest-invokers.explainer/</a>
     </p>
+    <p>Intents: <a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/LLgsMjTzmAY/m/o6ymyzauAQAJ">Experiment:
+            Interest Invokers</a>
     <p>Origin Trial: <a
             href="https://developer.chrome.com/origintrials/#/view_trial/813462682693795841">https://developer.chrome.com/origintrials/#/view_trial/813462682693795841</a>
     </p>
-    <p>Spec: <a href="">TBD</a></p>
+    <p> Chrome Platform Status: <a href="https://chromestatus.com/feature/4530756656562176">Interest Invokers (the
+            `interestfor` attribute)</a>
+    </p>
+    <p>Spec: <a href="https://github.com/whatwg/html/pull/11006">Add the interestfor attribute #11006</a></p>
+    <p>Tag Review: <a
+            href="https://github.com/w3ctag/design-reviews/issues/1058">https://github.com/w3ctag/design-reviews/issues/1058</a>
+    </p>
     <p>=== This is a demo of interest invokers. ===</p>
-    <a interesttarget="my-hovercard" href="...">Hover to show the hovercard</a>
+    <a interestfor="my-hovercard" href="...">Hover to show the hovercard</a>
     <span popover="hint" id="my-hovercard">This is the hovercard</span>
 
-    <p>Use <code>interesttarget</code> to declaratively build a hovercard using <code>popover</code> (in this case using
+    <p>Use <code>interestfor</code> to declaratively build a hovercard using <code>popover</code> (in this case using
         <code>popover=hint</code>):
     </p>
-    <button interesttarget="my-popover" type=button>Hover for popover</button>
+    <button interestfor="my-popover" type=button>Hover for popover</button>
     <div id="my-popover" popover="hint">Hello world</div>
 </body>
 
