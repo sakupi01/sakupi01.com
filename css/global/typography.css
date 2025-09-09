@@ -125,6 +125,6 @@ small {
 }
 
 code {
-  font-family: var(--base-font-family-cascadia);
+  font-family: var(--base-font-family-cartograph);
   font-optical-sizing: auto;
 }

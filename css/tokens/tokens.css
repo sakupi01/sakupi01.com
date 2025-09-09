@@ -198,10 +198,12 @@
 
   /* Typography. */
   --font-san-serif-fallback: arial, helvetica, sans-serif;
-  --font-fallback-cascadia: "Fallback for Cascadia";
-  --font-fallback-alegreya: "Fallback for Alegreya";
+  --font-fallback-cartograph: "Fallback for Cartograph?";
+  --font-fallback-cascadia: "Fallback for Cascadia?";
+  --font-fallback-alegreya: "Fallback for Alegreya?";
   --font-family-inter: inter;
   --font-family-operator: operator;
+  --font-family-cartograph: cartograph;
   --font-family-cascadia: cascadia;
   --font-family-alegreya: alegreya;
 
