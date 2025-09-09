@@ -12,8 +12,10 @@ Typography settings.
     var(--font-fallback-alegreya), serif;
   --base-font-family-operator: var(--font-family-operator),
     var(--font-san-serif-fallback);
+  --base-font-family-cartograph: var(--font-family-cartograph),
+    var(--font-san-serif-fallback);
   --base-font-family-cascadia: var(--font-family-cascadia),
-    var(--font-fallback-cascadia);
+    var(--font-san-serif-fallback);
   --base-font-family-alegreya: var(--font-family-alegreya),
     var(--font-fallback-alegreya), serif;
   --base-font-size: 100%;

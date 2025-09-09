@@ -64,6 +64,65 @@ Font-face rules.
   size-adjust: 115%;
 }
 
+/* CartographCF */
+@font-face {
+  font-family: cartograph;
+  font-weight: 600;
+  src: url("/fonts/CartographCF/CartographCF-ExtraBold.otf") format("opentype");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 100%;
+}
+
+@font-face {
+  font-family: cartograph;
+  font-weight: 600;
+  src: url("/fonts/CartographCF/CartographCF-ExtraBoldItalic.otf")
+    format("opentype");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 100%;
+}
+
+@font-face {
+  font-family: cartograph;
+  font-weight: 400;
+  src: url("/fonts/CartographCF/CartographCF-DemiBold.otf") format("opentype");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 100%;
+}
+
+@font-face {
+  font-family: cartograph;
+  font-weight: 400;
+  src: url("/fonts/CartographCF/CartographCF-DemiBoldItalic.otf")
+    format("opentype");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 100%;
+}
+
+@font-face {
+  font-family: cartograph;
+  font-weight: 200;
+  src: url("/fonts/CartographCF/CartographCF-Regular.otf") format("opentype");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 100%;
+}
+
+@font-face {
+  font-family: cartograph;
+  font-weight: 200;
+  src: url("/fonts/CartographCF/CartographCF-RegularItalic.otf")
+    format("opentype");
+  unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
+  font-display: swap;
+  size-adjust: 100%;
+}
+
+/* cascadia */
 @font-face {
   font-family: cascadia;
   font-weight: 200 900;
