@@ -33,6 +33,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 115%;
+  font-style: normal;
 }
 
 @font-face {
@@ -43,6 +44,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 115%;
+  font-style: italic;
 }
 
 @font-face {
@@ -52,6 +54,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 115%;
+  font-style: normal;
 }
 
 @font-face {
@@ -62,6 +65,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 115%;
+  font-style: italic;
 }
 
 /* CartographCF */
@@ -72,6 +76,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 100%;
+  font-style: normal;
 }
 
 @font-face {
@@ -82,6 +87,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 100%;
+  font-style: italic;
 }
 
 @font-face {
@@ -91,6 +97,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 100%;
+  font-style: normal;
 }
 
 @font-face {
@@ -101,6 +108,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 100%;
+  font-style: italic;
 }
 
 @font-face {
@@ -110,6 +118,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 100%;
+  font-style: normal;
 }
 
 @font-face {
@@ -120,6 +129,7 @@ Font-face rules.
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
   size-adjust: 100%;
+  font-style: italic;
 }
 
 /* cascadia */
@@ -129,6 +139,7 @@ Font-face rules.
   src: url("/fonts/Cascadia/CascadiaMonoNF.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
+  font-style: normal;
 }
 
 @font-face {
@@ -137,4 +148,5 @@ Font-face rules.
   src: url("/fonts/Cascadia/CascadiaMonoNFItalic.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0100-017F, U+0180-024F;
   font-display: swap;
+  font-style: italic;
 }

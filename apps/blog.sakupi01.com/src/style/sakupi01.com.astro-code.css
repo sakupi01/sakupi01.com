@@ -12,9 +12,6 @@ Styles for Astro Code Highlighter
   border-radius: 0.25rem;
   padding: 0.7rem 1rem;
   margin-block-end: var(--gutter-m);
-  font-family: var(--base-font-family-cartograph);
-  font-optical-sizing: auto;
-  font-weight: 400;
   background-color: light-dark(
     var(--color-base-lightest),
     var(--color-base-darkest)
@@ -25,8 +22,6 @@ Styles for Astro Code Highlighter
     font-family: var(--base-font-family-cartograph);
     font-optical-sizing: auto;
     font-weight: 400;
-    font-size: inherit;
-    border: none;
     background-color: inherit;
     border-radius: 0;
     color: inherit;
