@@ -84,18 +84,22 @@ Base Styles under sakupi01.com
 
   /*
   ----------------------------------------------------------------------------
-  Code
+  Code & Italic style fonts
   ----------------------------------------------------------------------------
   */
+  @scope (main) to (.astro-code) {
+    :is(code, nav, summary, .tag, .dates, .excerpt, .published, .blog-post-card) {
+      font: italic 400 95% var(--base-font-family-cartograph);
+      font-optical-sizing: auto;
+      font-style: italic;
+    }
+  }
+
   code {
-    font-family: var(--base-font-family-cartograph);
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-size: 90%;
-    background-color: var(--astro-code-background);
-    border-radius: 5px;
-    color: var(--code-color);
-    padding: .1em .25em;
+      background-color: var(--astro-code-background);
+      border-radius: 5px;
+      color: var(--code-color);
+      padding: .1em .25em;
   }
 
   /*
@@ -204,6 +208,7 @@ Base Styles under sakupi01.com
     color: var(--header-text);
     padding: .5rem;
     font-family: var(--base-font-family-cartograph);
+    font-style: italic;
     font-weight: 600;
     font-optical-sizing: auto;
     margin-block: var(--gutter-s);

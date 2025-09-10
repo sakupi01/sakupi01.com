@@ -428,7 +428,6 @@ Article Markdown Style
         margin: 0;
         margin-left: calc(-1 * var(--offset));
         background: var(--color-primary-medium);
-        font: 800 .8rem / 1.2 var(--base-font-family-cartograph);
 
         &:hover {
           text-decoration-color: var(--focusable);
