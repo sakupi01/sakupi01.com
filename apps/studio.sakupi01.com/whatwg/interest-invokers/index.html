@@ -55,6 +55,12 @@
     </p>
     <button interestfor="my-popover" type=button>Hover for popover</button>
     <div id="my-popover" popover="hint">Hello world</div>
+    <button> Focus InterestFor via `focus()` </button>
+    <script>
+        document.querySelector('button:last-of-type').addEventListener('click', () => {
+            document.querySelector('button[interestfor]').focus();
+        });
+    </script>
 </body>
 
 </html>
