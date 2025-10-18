@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Layers | studio.sakupi01.com</title>
+    <style>
+        ::backdrop {
+            background-color: black;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <p>=== This is a demo of How Elements on Top Layer overlaps. ===</p>
+    <a interestfor="my-hovercard" href="...">Hover to show the hovercard</a>
+    <span popover="hint" id="my-hovercard">This is the hovercard</span>
+
+    <button interestfor="my-popover" type=button>Hover for popover</button>
+    <div id="my-popover" popover="hint">Hello world</div>
+
+    <button popovertarget="mypopover1">Toggle Popover1</button>
+    <div id="mypopover1" popover>popover content1</div>
+
+    <button popovertarget="mypopover2">Toggle Popover2</button>
+    <div id="mypopover2" popover>
+        <p>
+            This is a Popover on Top Layer.
+            Dialog is in inside.
+        </p>
+        <dialog>
+            <button autofocus>Close</button>
+            <p>This is a Modal Dialog on Top Layer.</p>
+        </dialog>
+        <button>Show Modal Dialog with `showModal()`.</button>
+    </div>
+
+    <script>
+        const dialog = document.querySelector("dialog");
+        const showButton = document.querySelector("dialog + button");
+        const closeButton = document.querySelector("dialog button");
+
+        // ［ダイアログを表示］ボタンでダイアログがモーダルに開く
+        showButton.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        // ［閉じる］ボタンでダイアログを閉じる
+        closeButton.addEventListener("click", () => {
+            dialog.close();
+        });
+    </script>
+</body>
+
+</html>
