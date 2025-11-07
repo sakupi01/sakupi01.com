@@ -1,6 +1,6 @@
 ---
 title: "TPAC 2025 @Kobe Diary"
-excerpt: ""
+excerpt: "TPAC 2025 参加記（Unpolished ver.）"
 date: 2025-11-07
 update: 2025-11-07
 category: 'dev'
