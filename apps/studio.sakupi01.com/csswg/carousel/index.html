@@ -6,28 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Carousels | studio.sakupi01.com</title>
     <style>
+        .container {
+            /* コンテナクエリを使用できるようにするために、コンテナ要素を定義する */
+            container-type: inline-size;
+            width: 50vw;
+        }
+
         .base {
-            width: 30vw !important;
             border: 1px solid #ff0000;
             padding: 0;
             list-style-type: none;
-            counter-reset: item;
             inline-size: 100cqi;
             display: grid;
             grid-auto-flow: column;
-            grid-auto-columns: 20ch;
+            grid-auto-columns: 80cqi;
             gap: 1.25rem;
             padding-block: .5rem;
             scroll-padding-inline: 5vmin;
+            aspect-ratio: 16 / 9;
 
-            >li {
-                display: grid;
-                place-content: center;
-                padding: 0;
-                width: 100px;
-                height: 100px;
+            >.item {
                 border-radius: 10px;
                 border: 1px solid black;
+                overflow: hidden;
+                counter-increment: item;
+
+                >.content {
+                    display: grid;
+                    place-content: center;
+                    font-size: 5cqi;
+                    font-weight: bold;
+                    height: 100%;
+                    width: 100%;
+                }
             }
         }
 
@@ -35,19 +46,47 @@
         .carousel {
             overflow-x: auto;
             scroll-snap-type: x mandatory;
+            overscroll-behavior-inline: contain;
+            scroll-behavior: smooth;
 
-            li {
-                scroll-snap-align: start;
+            >.item {
+                /* We want to enable the <section> elements to be queried. to control opacity and interactivity based on their scroll snap position. */
+                container-type: scroll-state;
+                container-name: snap-container;
+                scroll-snap-align: center;
+
+                >.content {
+                    /* Make all content inside slides inert by default */
+                    interactivity: inert;
+                    opacity: 0.5;
+                    background-color: lightgray;
+                    color: #333;
+                    transition: all 0.3s ease;
+                }
+
+                @container snap-container scroll-state(snapped: inline) {
+                    >.content {
+                        interactivity: auto;
+                        opacity: 1;
+                        background-color: rebeccapurple;
+                        color: white;
+                    }
+                }
             }
+
+
         }
+
 
         /* scroll arrow buttons */
         .carousel {
-            anchor-name: attr(data-anchor-name type(<custom-ident>), --carousel-container);
+            --anchor-name: attr(data-anchor-name type(<custom-ident>), --carousel-container);
+            anchor-name: var(--anchor-name);
+            anchor-scope: var(--anchor-name);
 
             &::scroll-button(*) {
                 position: absolute;
-                position-anchor: attr(data-anchor-name type(<custom-ident>), --carousel-container);
+                position-anchor: var(--anchor-name);
 
                 &:focus-visible {
                     outline-offset: 5px;
@@ -59,16 +98,19 @@
                 position-area: block-end span-inline-end;
                 /* Specify content with optional accessible fallback alt text. */
                 content: "⬅" / "Scroll Left";
+                position-area: left center;
             }
 
             &::scroll-button(right) {
                 position-area: block-end span-inline-start;
                 content: "⮕" / "Scroll Right";
+                position-area: right center;
             }
         }
 
         /* scroll marker */
         .carousel {
+            /* スクロールコンテナーに ::scroll-marker-group 擬似要素を生成するかどうか、生成する場合、既定の視覚的およびタブ順でコンテナーのコンテンツの直前 (before) に配置するか、直後 (after) に配置するかを制御 */
             scroll-marker-group: after;
 
             &::scroll-marker-group {
@@ -82,8 +124,8 @@
                 gap: 20px;
             }
 
-            li::scroll-marker {
-                content: " ";
+            .item::scroll-marker {
+                content: "" / "Content" counter(item);
                 cursor: pointer;
                 aspect-ratio: 1;
                 border-radius: 50%;
@@ -105,9 +147,46 @@
                 } */
             }
 
-            li::scroll-marker:target-current {
+            .item::scroll-marker:target-current {
                 background-color: purple;
                 border-color: purple;
+            }
+        }
+
+        /* scroll-target-group で任意の要素をスクロールマーカーグループとして利用する*/
+        .anonymus-scroll-marker {
+            margin-top: 50px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+
+            .my-scroll-marker-group {
+                position: sticky;
+                top: 20px;
+                width: 80px;
+                margin-left: auto;
+                margin-right: 10px;
+                z-index: 2;
+                padding: 16px 16px 16px 32px;
+                border: 1px solid #ccc;
+
+                /* scroll-target-group に auto を指定した要素がスクロールマーカーグループとなる */
+                scroll-target-group: auto;
+
+                a:target-current {
+                    color: red;
+                }
+            }
+
+            .my-chapters {
+                width: 95%;
+                height: 400px;
+
+                &>div {
+                    background: #eee;
+                    height: 400px;
+                    margin: 10px;
+                    padding: 10px;
+                }
             }
         }
 
@@ -200,6 +279,11 @@
         Supports associating <code>::scroll-marker</code> elements with column fragments and scroll snap aligning to
         columns.
     </p>
+    <p>Why Carousels are often not accessible?: However, making carousels accessible is often challenging. Managing
+        focus,
+        getting screen reader announcements right, and handling off-screen interactive elements is complicated,
+        therefore the carousels on many sites are not accessible.
+    </p>
     <p>Intent: <a
             href="https://groups.google.com/a/chromium.org/g/blink-dev/c/7EQ8-VzPZh0/m/NMyrGCjuAAAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/7EQ8-VzPZh0/m/NMyrGCjuAAAJ</a>
     </p>
@@ -218,18 +302,79 @@
     </ul>
     <p>=== This is a demo of CSS <code>::scroll-button()</code> and <code>::scroll-marker()</code> ===</p>
 
-    <ul class="base carousel" data-anchor-name="--carousel-container">
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-        <li>Item 5</li>
-        <li>Item 6</li>
-        <li>Item 7</li>
-        <li>Item 8</li>
-        <li>Item 9</li>
-        <li>Item 10</li>
-    </ul>
+    <div class="container">
+        <!-- role="region": Identify the carousel as a landmark region on the page, making it easier to navigate to. -->
+        <!-- aria-live="polite": This is the magic ingredient. It tells screen readers to politely announce changes within this region, like when a new slide scrolls into view, without interrupting the user. -->
+        <ul class="base carousel" data-anchor-name="--carousel-container" role="region" aria-label="Sample CSS Carousel"
+            aria-live="polite">
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 1
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 2
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 3
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 4
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 5
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 6
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 7
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 8
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 9
+                </div>
+            </li>
+            <li class="item" role="tabpanel">
+                <div class="content">
+                    Item 10
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <p>↓scroll-target-group を用いると、任意の要素をスクロールマーカーグループとして利用することが可能となり、柔軟なデザインやコンテンツのスクロールマーカーグループを実現できる↓</p>
+    <a
+        href="https://drafts.csswg.org/css-overflow-5/#scroll-target-group">https://drafts.csswg.org/css-overflow-5/#scroll-target-group</a>
+    <div class="anonymus-scroll-marker">
+        <ol class="my-scroll-marker-group">
+            <li><a href="#ch1">Chapter 1</a></li>
+            <li><a href="#ch2">Chapter 2</a></li>
+            <li><a href="#ch3">Chapter 3</a></li>
+        </ol>
+        <div class="my-chapters">
+            <div id="ch1">Chapter 1 content</div>
+            <div id="ch2">Chapter 2 content</div>
+            <div id="ch3">Chapter 3 content</div>
+        </div>
+    </div>
 
     <div class="checker-dialog">
         <p class="error judge">❌ Your browser doesn't support this feature.</p>

@@ -97,7 +97,6 @@ async function fetchSlides(): Promise<SlideItem[]> {
 }
 
 const slides = await fetchSlides();
-const latestSlides = slides.slice(0, 3);
 
 function formatRFC2822Date(dateStr: string): string {
   // Parse the RFC 2822 date string directly
@@ -112,126 +111,253 @@ function formatRFC2822Date(dateStr: string): string {
 }
 ---
 
-<div class="slides-container" aria-label="Featured Talks" >
-  <div class="slides-grid">
-    {latestSlides.length === 0 ? (
-      <div class="loading-indicator">Slide Not Found...</div>
-    ) : (
-      latestSlides.map(slide => (
-        <a href={slide.url} class="slide-card">
-          <figure>
-          {slide.thumbnail ? (
-            <img src={slide.thumbnail} alt={slide.title} class="slide-thumbnail" />
-          ) : (
-            <div class="slide-thumbnail-placeholder">{slide.title.charAt(0)}</div>
-          )}
-          <div class="slide-meta">
-          <figcaption>{slide.title}</figcaption>
-          {slide.description && <p>{slide.description}</p>}
-            <span class="slide-date">{formatRFC2822Date(slide.pubDate)}</span>
-          {slide.tags.length > 0 && (
-            <div class="slide-tags">
-              {slide.tags.map(tag => (
-                <span class="slide-tag">{tag}</span>
-              ))}
-            </div>
-          )}
-          </div>
-          </figure>
-        </a>
-      ))
-    )}
-  </div>
-
+<div class="carousel-container">
+  {slides.length === 0 ? (
+    <div class="loading-indicator">Slide Not Found...</div>
+  ) : (
+    <ul class="carousel" data-anchor-name="--slides-carousel" role="region" aria-label="Slides Carousel" aria-live="polite">
+      {slides.map((slide) => (
+        <li class="carousel-item" role="tabpanel">
+          <a href={slide.url} class="slide-card">
+            <figure>
+              {slide.thumbnail ? (
+                <img src={slide.thumbnail} alt={slide.title} class="slide-thumbnail" />
+              ) : (
+                <div class="slide-thumbnail-placeholder">{slide.title.charAt(0)}</div>
+              )}
+              <div class="slide-meta">
+                <figcaption>{slide.title}</figcaption>
+                {slide.description && <p>{slide.description}</p>}
+                <span class="slide-date">{formatRFC2822Date(slide.pubDate)}</span>
+                {slide.tags.length > 0 && (
+                  <div class="slide-tags">
+                    {slide.tags.map((tag) => (
+                      <span class="slide-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </figure>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
 </div>
 
 <style>
   * {
     font-family: var(--base-font-family-alegreya);
   }
+
   h2 {
     margin-block-start: var(--gutter-l);
   }
-   a {
+
+  a {
     color: var(--color-text);
     border-bottom: none;
     &:hover {
       color: var(--color-text);
       border-bottom: none;
     }
-   }
-  .slides-container {
+  }
+
+  .carousel-container {
+    container-type: inline-size;
+    width: 100%;
     margin: 2rem 0;
   }
 
-  .slides-grid {
-    display: gird;
-    gap: 1rem;
+  .carousel {
+    padding: 0;
+    list-style-type: none;
+    inline-size: 100cqi;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 70cqi;
+    gap: 1.25rem;
+    padding-block: 0.5rem;
+    scroll-padding-inline: 5vmin;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-  .slide-card {
-  --gradPoint: 40%;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  transition: --gradPoint 0.5s, filter 0.8s;
-  color: var(--base-color-dark);
-  border-radius: 12px;
-  &:nth-child(3n) {
-    background: linear-gradient(var(--color1) var(--gradPoint), var(--color2) calc(var(--gradPoint) + 20%));
-  }
-  &:nth-child(3n + 1) {
-    background: linear-gradient(var(--color3) var(--gradPoint), var(--color4) calc(var(--gradPoint) + 20%));
-  }
-  &:nth-child(3n + 2) {
-    background: linear-gradient(var(--color5) var(--gradPoint), var(--color6) calc(var(--gradPoint) + 20%));
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    margin: 0;
+
+    /* scroll-marker-group */
+    scroll-marker-group: after;
+
+    &::scroll-marker-group {
+      position: fixed;
+      position-anchor: attr(data-anchor-name type(<custom-ident>), --slides-carousel);
+      position-area: block-end;
+      display: grid;
+      grid-auto-columns: 20px;
+      grid-auto-flow: column;
+      gap: 20px;
+    }
+
+    /* scroll buttons */
+    --anchor-name: attr(data-anchor-name type(<custom-ident>), --slides-carousel);
+    anchor-name: var(--anchor-name);
+    anchor-scope: var(--anchor-name);
+
+    &::scroll-button(*) {
+      position: absolute;
+      position-anchor: var(--anchor-name);
+      border-width: 0px;
+      border-radius: 50%;
+      background-color: transparent;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &::scroll-button(*):focus-visible {
+      outline-offset: 5px;
+    }
+
+    &::scroll-button(*):hover {
+      background: buttonface;
+    }
+
+    &::scroll-button(*):disabled {
+      opacity: 0.3;
+      background: transparent;
+      cursor: default;
+    }
+
+    &::scroll-button(left) {
+      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='color-scheme: light dark;' width='30' height='12' viewBox='0 0 50 19.392'%3E%3Cg transform='scale(-1, 1) translate(-50, 0)'%3E%3Cpath d='M122.3,334.412a2.087,2.087,0,0,1-.7,2.231c-.651.372-1.1-.242-1.859.185a83.829,83.829,0,0,0-9.713,7.157c-.5.444-.331,1.341-1.347,1.254-1.069-.093-2.019-1.834-1.255-2.7.8-.911,6.691-5.529,7.527-6.274-1.507.049-20.906-.984-22.346-.938s-14.806-.6-18.2.831c-.695.291-1.838-.692-1.989-1.275a2.261,2.261,0,0,1,.671-2.158c.528-.506,1.234-.015,1.667-.059,2.733-.293,15.669-.3,17.063-.206.927.06,22.605,1.091,23.835.83a19.3,19.3,0,0,0-3.439-1.951c-.837-.28-3.578-1.488-4.275-2.323s-.043-3.068,1.115-3.161c1.322-.107,1.653.944,2.138,1.208.511.28,4.694,2.7,5.251,3.114s3.366,2.169,4.415,2.695C121.7,333.3,122.118,333.53,122.3,334.412Z' transform='translate(-72.366 -325.854)' fill='light-dark(black, white)'/%3E%3C/g%3E%3C/svg%3E") / "Scroll Left";
+      position-area: left center;
+    }
+
+    &::scroll-button(right) {
+      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='color-scheme: light dark;' width='30' height='12' viewBox='0 0 50 19.392'%3E%3Cpath d='M122.3,334.412a2.087,2.087,0,0,1-.7,2.231c-.651.372-1.1-.242-1.859.185a83.829,83.829,0,0,0-9.713,7.157c-.5.444-.331,1.341-1.347,1.254-1.069-.093-2.019-1.834-1.255-2.7.8-.911,6.691-5.529,7.527-6.274-1.507.049-20.906-.984-22.346-.938s-14.806-.6-18.2.831c-.695.291-1.838-.692-1.989-1.275a2.261,2.261,0,0,1,.671-2.158c.528-.506,1.234-.015,1.667-.059,2.733-.293,15.669-.3,17.063-.206.927.06,22.605,1.091,23.835.83a19.3,19.3,0,0,0-3.439-1.951c-.837-.28-3.578-1.488-4.275-2.323s-.043-3.068,1.115-3.161c1.322-.107,1.653.944,2.138,1.208.511.28,4.694,2.7,5.251,3.114s3.366,2.169,4.415,2.695C121.7,333.3,122.118,333.53,122.3,334.412Z' transform='translate(-72.366 -325.854)' fill='light-dark(black, white)'/%3E%3C/svg%3E") / "Scroll Right";
+      position-area: right center;
+    }
+
   }
 
-  h3 {
-    margin: 0.5rem 0;
-    font-size: 1.25rem;
+  .carousel-item {
+    container-type: scroll-state;
+    container-name: snap-container;
+    scroll-snap-align: center;
+
+      &::scroll-marker {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='15' style='color-scheme: light dark;' fill='light-dark(gray, white)' viewBox='0 0 50 50'%3E%3Cpath d='M46.4 16.2c-2.3-2.3-5.4-3.5-8.4-4.5-.5-.2-1.1-.3-1.6-.5-1.6-1.6-3.7-2.8-6.2-3.2-1-.2-1.9.1-2.5.6-.9-.3-1.8-.6-2.7-.8-3.2-1-6.4-1.8-9.5-.1-1 .5-1.9 1.2-2.7 2-6.4 1.4-11.7 5-12.4 12.7C0 27 1.9 31.5 4.9 34.9c.1.6.2 1.1.4 1.7 1 3.2 3.3 5.7 6.7 6.5 2.7.6 5.4-.2 7.9-1.2 3.3.4 6.7.3 9.9 0 6.5-.7 13.3-2.8 17.1-8.5 3.6-5.2 4-12.6-.5-17.2zm-17.3.9c2.1.4 4 1.7 4.7 3.8 0 .5-.1 1.1-.2 1.6-.3 1.4-.8 2.6-1.6 3.7-.7.2-1.5.1-2.3-.4-.8-.4-1.6-1-2.2-1.6-.4-.4-1.2-1.7-1.6-1.9 3.4 1.3 5.1-3 3.2-5.2zm-11.6 9.7c.2-1.9 1.1-3.9 2.3-5.5-.4 2.1.3 4.2 1.7 6 1.3 1.7 3.1 3.2 5 4.2-.2.1-.4.2-.6.4-.1 0-.1.1-.2.1-3.9.2-8.7-.8-8.2-5.2zm-6.4 3.1c.1.3.1.7.2 1 .2.6.4 1.2.7 1.8-.4-.2-.7-.5-1-.7.1-.8.1-1.4.1-2.1zm31.2-1.3c-.9 1.7-2.1 3.1-3.7 4.1 2-2.1 3.4-4.7 4-7.6.2-.7.3-1.4.3-2.1.6 1.5.5 3.3-.6 5.6z'/%3E%3C/svg%3E")
+            "  ";
+        cursor: pointer;
+      }
+
+      &::scroll-marker:target-current {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='22' style='color-scheme: light dark;' fill='deeppink' viewBox='0 0 50 50'%3E%3Cpath d='M46.4 16.2c-2.3-2.3-5.4-3.5-8.4-4.5-.5-.2-1.1-.3-1.6-.5-1.6-1.6-3.7-2.8-6.2-3.2-1-.2-1.9.1-2.5.6-.9-.3-1.8-.6-2.7-.8-3.2-1-6.4-1.8-9.5-.1-1 .5-1.9 1.2-2.7 2-6.4 1.4-11.7 5-12.4 12.7C0 27 1.9 31.5 4.9 34.9c.1.6.2 1.1.4 1.7 1 3.2 3.3 5.7 6.7 6.5 2.7.6 5.4-.2 7.9-1.2 3.3.4 6.7.3 9.9 0 6.5-.7 13.3-2.8 17.1-8.5 3.6-5.2 4-12.6-.5-17.2zm-17.3.9c2.1.4 4 1.7 4.7 3.8 0 .5-.1 1.1-.2 1.6-.3 1.4-.8 2.6-1.6 3.7-.7.2-1.5.1-2.3-.4-.8-.4-1.6-1-2.2-1.6-.4-.4-1.2-1.7-1.6-1.9 3.4 1.3 5.1-3 3.2-5.2zm-11.6 9.7c.2-1.9 1.1-3.9 2.3-5.5-.4 2.1.3 4.2 1.7 6 1.3 1.7 3.1 3.2 5 4.2-.2.1-.4.2-.6.4-.1 0-.1.1-.2.1-3.9.2-8.7-.8-8.2-5.2zm-6.4 3.1c.1.3.1.7.2 1 .2.6.4 1.2.7 1.8-.4-.2-.7-.5-1-.7.1-.8.1-1.4.1-2.1zm31.2-1.3c-.9 1.7-2.1 3.1-3.7 4.1 2-2.1 3.4-4.7 4-7.6.2-.7.3-1.4.3-2.1.6 1.5.5 3.3-.6 5.6z'/%3E%3C/svg%3E")
+            "  ";
+        cursor: pointer;
+      }
+      &:nth-child(3n)::scroll-marker {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='15' style='color-scheme: light dark;' fill='light-dark(gray, white)' viewBox='0 0 50 50'%3E%3Cpath d='M46.5 12.5c-.4-1.1-1.3-1.8-2.2-2-4.2-4-11.6-4.3-17.1-4.1-6.9.3-13.9 2.1-19.4 6.5C2 17.5-2.4 25.7 2.5 32.6c2.2 3.2 5.5 4.9 9 5.5 3.3 1.7 6.7 3.3 10.2 4.4 7.8 2.3 17 1.6 23.2-4.3 7.3-7 4.8-17.3 1.6-25.7zm-20.2 2.7c.6 0 1.3 0 1.8.2 1.1.4 1.7 1.3 2 2.3-1-1.2-2.4-2.1-3.8-2.5zm-1.4 6.6c.9.9 1.3 2.2-.2 2.3-2 .2-1.1-1.9.2-2.3zm-11.8 9.8c-.6-.3-2.9-1.1-3.2-1.8-.2-.5 1.4-3.1 2.1-4.2.3.5.7 1 1.2 1.4 0 .3.1.6.2.8.5 1.9 1.5 3.1 2.9 4h-.2c-.8.1-1.6.1-2.5-.1-.2 0-.3 0-.5-.1zM24 36.4c1.6-.7 3-1.5 4.3-2.5.8.2 1.7.3 2.5.5 2.5.4 5.2.9 7.7.6-.9.6-2 1.1-3 1.4-3.9 1.3-7.7 1-11.5 0z'/%3E%3C/svg%3E")
+          "  ";
+      }
+      
+      &:nth-child(3n)::scroll-marker:target-current {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='22' style='color-scheme: light dark;' fill='deeppink' viewBox='0 0 50 50'%3E%3Cpath d='M46.5 12.5c-.4-1.1-1.3-1.8-2.2-2-4.2-4-11.6-4.3-17.1-4.1-6.9.3-13.9 2.1-19.4 6.5C2 17.5-2.4 25.7 2.5 32.6c2.2 3.2 5.5 4.9 9 5.5 3.3 1.7 6.7 3.3 10.2 4.4 7.8 2.3 17 1.6 23.2-4.3 7.3-7 4.8-17.3 1.6-25.7zm-20.2 2.7c.6 0 1.3 0 1.8.2 1.1.4 1.7 1.3 2 2.3-1-1.2-2.4-2.1-3.8-2.5zm-1.4 6.6c.9.9 1.3 2.2-.2 2.3-2 .2-1.1-1.9.2-2.3zm-11.8 9.8c-.6-.3-2.9-1.1-3.2-1.8-.2-.5 1.4-3.1 2.1-4.2.3.5.7 1 1.2 1.4 0 .3.1.6.2.8.5 1.9 1.5 3.1 2.9 4h-.2c-.8.1-1.6.1-2.5-.1-.2 0-.3 0-.5-.1zM24 36.4c1.6-.7 3-1.5 4.3-2.5.8.2 1.7.3 2.5.5 2.5.4 5.2.9 7.7.6-.9.6-2 1.1-3 1.4-3.9 1.3-7.7 1-11.5 0z'/%3E%3C/svg%3E")
+          "  ";
+      }
+
+      &:nth-child(3n - 1)::scroll-marker {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='15' style='color-scheme: light dark;' fill='light-dark(gray, white)' viewBox='0 0 50 50'%3E%3Cpath d='M48.3 23.7c-1-9.9-9.9-15.6-18.8-17.8-8.2-2.1-18.8-2.6-24.6 4.8C.6 16.2 1 23.6 4.3 29.3c-.5 1-.8 2-1 3-.6 4 2 7.6 5.1 10 5.9 4.4 14 4.2 19.6-.4 1.5 0 2.9-.2 4.4-.5 1.8 0 3.5 0 5.3-.1 2.3-.1 3.5-1.9 3.5-3.7 4.5-3.3 7.7-8.2 7.1-13.9zM9.1 17.8c1.1-4.1 4.9-5.8 8.8-6.1.9-.1 1.9-.1 2.9-.1-3.2 1.6-6.3 4.6-8 7.4-.1.1-.1.2-.2.3-1.1.9-2.1 1.9-3 2.9-.2.2-.4.4-.5.6-.4-1.7-.5-3.3 0-5z'/%3E%3C/svg%3E")
+          "  ";
+      }
+      
+      &:nth-child(3n - 1)::scroll-marker:target-current {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='22' style='color-scheme: light dark;' fill='deeppink' viewBox='0 0 50 50'%3E%3Cpath d='M48.3 23.7c-1-9.9-9.9-15.6-18.8-17.8-8.2-2.1-18.8-2.6-24.6 4.8C.6 16.2 1 23.6 4.3 29.3c-.5 1-.8 2-1 3-.6 4 2 7.6 5.1 10 5.9 4.4 14 4.2 19.6-.4 1.5 0 2.9-.2 4.4-.5 1.8 0 3.5 0 5.3-.1 2.3-.1 3.5-1.9 3.5-3.7 4.5-3.3 7.7-8.2 7.1-13.9zM9.1 17.8c1.1-4.1 4.9-5.8 8.8-6.1.9-.1 1.9-.1 2.9-.1-3.2 1.6-6.3 4.6-8 7.4-.1.1-.1.2-.2.3-1.1.9-2.1 1.9-3 2.9-.2.2-.4.4-.5.6-.4-1.7-.5-3.3 0-5z'/%3E%3C/svg%3E")
+          "  ";
+      }
+
+      &:nth-child(3n) > .slide-card {
+        background: linear-gradient(var(--color1) var(--gradPoint), var(--color2) calc(var(--gradPoint) + 20%));
+      }
+      &:nth-child(3n + 1) > .slide-card {
+        background: linear-gradient(var(--color3) var(--gradPoint), var(--color4) calc(var(--gradPoint) + 20%));
+      }
+      &:nth-child(3n + 2) > .slide-card {
+        background: linear-gradient(var(--color5) var(--gradPoint), var(--color6) calc(var(--gradPoint) + 20%));
+      }
+
+    .slide-card {
+      --gradPoint: 40%;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      transition: --gradPoint 0.5s, filter 0.8s, opacity 0.3s, scale 0.3s;
+      color: var(--base-color-dark);
+      border-radius: 12px;
+      height: 100%;
+      opacity: 0.6;
+      scale: 0.95;
+      interactivity: inert;
+
+      
+
+      figure {
+        margin: 0;
+        width: 100%;
+      }
+
+      h3 {
+        margin: 0.5rem 0;
+        font-size: 1.25rem;
+      }
+
+      p {
+        color: inherit;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+
+    @container snap-container scroll-state(snapped: inline) {
+      .slide-card {
+        interactivity: auto;
+        opacity: 1;
+        scale: 1;
+      }
+    }
   }
 
-  p {
-    color: inherit;
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
-    line-height: 1.4;
-    /* 説明文を2行に制限 */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+
+
+  @supports not (background: paint(something)) {
+    .slide-card:hover,
+    .slide-card:focus {
+      filter: hue-rotate(-90deg);
+    }
   }
 
-}
-
-@supports not (background: paint(something)) {
-  .slide-card:hover,
-  .slide-card:focus {
-    filter: hue-rotate(-90deg);
+  @supports (background: paint(something)) {
+    .slide-card:hover,
+    .slide-card:focus {
+      --gradPoint: 100%;
+    }
   }
-}
 
-@supports (background: paint(something)) {
-  .slide-card:hover,
-  .slide-card:focus {
-    --gradPoint: 100%;
-  }
-}
-
-  
   .loading-indicator {
-    grid-column: 1 / -1;
     text-align: center;
     padding: 2rem;
     color: #777;
   }
-  
+
   .slide-thumbnail {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -239,7 +365,7 @@ function formatRFC2822Date(dateStr: string): string {
     border-radius: 0.25rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .slide-thumbnail-placeholder {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -252,27 +378,28 @@ function formatRFC2822Date(dateStr: string): string {
     border-radius: 0.25rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .slide-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 0.75rem;
   }
-  
+
   .slide-tag {
-    background-color: #f0f0f0;
+    background-color: rgba(255, 255, 255, 0.3);
     padding: 0.25rem 0.5rem;
     border-radius: 9999px;
     font-size: 0.7rem;
-    color: #666;
+    color: inherit;
   }
 
   .slide-date {
     font-style: italic;
     font-size: 0.8rem;
-    color: light-dark(#777, #fff);
+    color: inherit;
+    opacity: 0.8;
     margin: 0.5rem 0;
+    display: block;
   }
-
 </style>
