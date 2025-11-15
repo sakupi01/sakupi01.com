@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anchor Positioning | studio.sakupi01.com</title>
+    <style>
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+            }
+
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            @supports (clip-path: shape(from 0 0,
+                    close)) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
+            }
+
+            /* false case */
+            @supports not (clip-path: shape(from 0 0,
+                    close)) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
+
+                    .success {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+
+            #anchor-button {
+                anchor-name: ident("--" attr(id) sibling-index());
+                padding: 1em 2em;
+                font-size: 1.5em;
+            }
+
+            #anchor-positioned-element {
+                width: 200px;
+                height: 100px;
+                background: lightcoral;
+                position-anchor: ident("--" attr(id) sibling-index());
+                position: fixed;
+                left: anchor(right);
+                top: anchor(top);
+                /* centrally aligning the positioned element to the center of the anchor in the inline/block directions */
+                align-self: anchor-center;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Anchor Positioning</h1>
+    <p>Summary: </p>
+    <p>Intent: <a
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/AliA6N9kaxo/m/YIlLj-0iAgAJ">https://groups.google.com/a/chromium.org/g/blink-dev/c/AliA6N9kaxo/m/YIlLj-0iAgAJ</a>
+    </p>
+    <p>Intent: <a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/ls5D7zDNQj8/m/snQD8tygAwAJ">Intent to
+            implement and ship: Support offset-path: shape()</a></p>
+    <p>Spec: <a
+            href="https://drafts.csswg.org/css-shapes-2/#shape-function">https://drafts.csswg.org/css-shapes-2/#shape-function</a>
+    </p>
+    <p>Other Resources:</p>
+    <ul>
+        <li><a href="https://webkit.org/blog/16794/the-css-shape-function/">The CSS shape() function | WebKit</a></li>
+        <li><a href="https://developer.chrome.com/blog/css-shape?hl=en">Use shape() for responsive clipping  |  Blog  | 
+                Chrome for Developers</a></li>
+    </ul>
+    <p>=== This is a demo of Anchor Positioning ===</p>
+
+    <div class="container">
+        <button id="anchor-button" popovertarget="anchor-positioned-element">
+            ⚓Anchor Button⚓
+        </button>
+        <div popover id="anchor-positioned-element">
+            Anchor Positioned Element
+        </div>
+    </div>
+
+
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support this feature.</p>
+        <p class="success judge">✅ Your browser supports this feature!</p>
+        <p>This is a demo for <a href=" https://drafts.csswg.org/css-overflow-5/#scroll-navigation" target="_top">
+                https://drafts.csswg.org/css-overflow-5/#scroll-navigation</a>
+        </p>
+        <p class="note">Try it in Chrome 135 or over.
+        </p>
+        <small><time datetime="2025-07-01">This DEMO is last updated on: 2025-07-01</time></small>
+    </div>
+</body>
+
+</html>
