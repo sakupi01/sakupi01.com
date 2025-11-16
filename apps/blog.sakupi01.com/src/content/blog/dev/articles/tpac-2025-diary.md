@@ -2,7 +2,7 @@
 title: "TPAC 2025 @Kobe Diary"
 excerpt: "TPAC 2025 参加記（Unpolished ver.）"
 date: 2025-11-15
-update: 2025-11-15
+update: 2025-11-16
 category: 'dev'
 tags: ['w3c', 'tpac', 'web', 'diary']
 status: 'published'
@@ -232,7 +232,7 @@ Baseline を採用する目的の一つとして、 unrealized な feature を�
 * Agenda: <https://www.w3.org/events/meetings/2107ef50-86f2-47b9-9b4e-a36cf0e3015a/>
 * Minutes: TBD
 * Time Slots: 8:30AM-9:30AM
-* Attendees: around 20?
+* Attendees: around 20? Lea, Florian, Milliam
 * Main Participating Org: Unknown
 * References:
   * whatever
@@ -243,15 +243,70 @@ Baseline を採用する目的の一つとして、 unrealized な feature を�
 * Agenda: <https://www.w3.org/events/meetings/679c6e5a-f288-4a9b-8887-9d9af4d8b8ad/>
 * Minutes: <https://www.w3.org/2025/11/12-future-of-the-open-web-minutes.html>
 * Time Slots: 11:15AM-12:15PM
-* Attendees: So many!
+* Attendees: Mark Nottingham, Tantek Celik, David Baron, Chris Wilson, Rick Byers, Chris Harrelson, Martin Thomson, Jeffrey Yasskin, Theresa O'Connor, Mason Freed, Alice Boxhall, Alison Maher, Roman Komarov, Adam Rice, Philippe Le Hegaret, Rachel Andrew, Emilio Cobos Alvarez, Noam Rosenthal, and so many
 * Main Participating Org: Google, Microsoft, Apple, Mozilla, Igalia, Invited Experts
 * References: <https://docs.google.com/document/d/1WaXDfwPP6olY-UVQxDZKNkUyqvmHt-u4kREJW4ys6ms/edit?tab=t.0#heading=h.o7pe1jtypsho>
 
-![会場パンパンになった Open Web の breakouts](../../../../assets/images/open-web.png)
+![会場パンパンになり、熱く意見が交わされる Open Web の breakouts](../../../../assets/images/open-web.png)
+*会場パンパンになり、熱く意見が交わされる Open Web の breakouts*
 
-昨今 AI の登場などで曖昧になりつつある「Open Web」の定義を再議論しようという趣旨のセッション。
+率直に、「この場に身を置けただけでも TPAC に来た価値があった」と思えた。
+私がこれまでみてきた中で、これほど「**これからの Web について真剣に議論する**」場はないと感じられる、熱く、どこか緊張感の走るセッションだった。
+
+セッションの趣旨としては、「昨今 AI の登場などで曖昧になりつつある「Open Web」の定義を再議論しよう」というもの。
+あとでブログ一本にまとめる価値があるくらいのすごい議論だったが、一旦ここではメモを。
+
+* 全体として、Terms & Conditions: How contents are get used by who? が主要な問題そう
+* 出版社の人：生成 AI は著作権の仕組みを悪用し、大量のデータを同意なしに収集している。これは deeply exploitative
+  * → bvandersloot: AI が大量生成する "slop" で Web が溢れかえる問題も
+* What is Open Web
+* jyasskin: 好きなコンテンツを自由に選択した UA が解釈し、コンテンツの value を好きなユニ提供できる でも、AI が介在すると、コンテンツを作る価値が薄まってしまう
+* commons vs open?
+* dbaron: Open Web のための新しいツールを作ることが重要
+  * そもそも多様な定義の仕方があるんで、定義は困難
+  * → 新しいブラウザ、パブリッシング、コンテンツ消費ツールを作れる能力こそが Open
+* tantek
+  * Wikipedia と Internet Archive は最も重要なオープン Web サイトで、広告もペイウォールもない
+  * 15 年前のブログポスト今も有効：書く・共有する・発見される能力
+  * → OpenStreetMap 「人類には不可能だと言われたのに実現した」
+* Michael Kleber (Chrome?): クロール後の利用条件について
+  * Policy 側: 法的条件の付与（著作権など）
+  * Technical 側: エージェント認証ベースのアクセス制御
+* → DavidS: まさに IETF で議論してる AI-Prefs と WebBotAuth の話
+* Ads, tracking, Agentic AI: It's not presenting
+* it's difficult to define without usecases.
+* → hadleybeeman: TAG でも agentic AI と user agent の関係を議論中
+* **Everything we're doing is for people.**
+* → reillyg: 初期の Web は「できるから」公開してた。商業化は後から
+* → Tess (hober): 定義より「エコシステム」として捉えるべき。力学とレバーを理解すべき
+* jeffrey: what rules/borders?
+* → robots.txt の社会的契約を無視すると、クラス全体に backfire (MT)
+* web contents はそれが
+* business models for
+* → kleber: 広告は tax として機能。だからみんなアクセス可能に
+* → Isaac (MS Ads): 全部がトラッキングベースである必要はない
+* Chris Wilson: Open web isn't just one thing.
+  * each of these(SNS, chat…) change
+  * How do we take the best parts and how do we beat the worst past.
+  * It's not the binary decision.
+* → AI の成長が massive effect を持つことは確実。shifting dynamics
+* tantek response to ads:
+  * これらのサイトは「貧しい人も裕福な人も」アクセス可能
+  * 一方、広告過多のサイトは古いデバイスや遅いネットワークでは動作しない
+  * → MT: 「Wikipedia の数学記事読んだことある？"accessible" って言えるか？」
+* There're different models for open web.
+  * → rbyers: トレードオフを管理できないから社会全体で決めるべき
+* Ad
+  * → Simon: クライアント側を規制できないのが Open Web の essence。robots.txt 無視もステイ
+* Mark Nottingham
+  * **"open" という言葉は使われすぎている。オープン性には様々な度合いがある**
+  * **それぞれ異なる部分を保護したいと考えており、異なる視点からどう保護するかを考える必要あり**
 
 ---
+
+さっきの時間は fantasai と Tim に囲まれて、3人で丸１時間半くらいつきっきりで CSS の話をしてもらっていた。
+Tim が Editor の Form Control Styling を一緒にすることになり、text-justify の webkit 実装の面倒を見てもらえることになった。
+オフラインで来て、本当によかった。
 
 ### [TBD] Custom Attributes for All
 
@@ -263,25 +318,20 @@ Baseline を採用する目的の一つとして、 unrealized な feature を�
 * Main Participating Org: Google, Microsoft, Apple, Mozilla, Igalia, Invited Experts
 * References: <https://docs.google.com/document/d/1WaXDfwPP6olY-UVQxDZKNkUyqvmHt-u4kREJW4ys6ms/edit?tab=t.0#heading=h.o7pe1jtypsho>
 
-Mutation Observerを使って属性の変更を監視して、要素に追加の機能（"superpowers"）を与える仕組みとして使用していた。
-普通にエルゴノミクス的に良くないし、Shadow DOM境界の問題もあったShadow Root を越えてセレクトしたり監視したりできない。
+Custom の Attribute を HTML 要素に追加できるようにする提案。
 
-なので、MO を使わない方法で属性を superpower したい。
-多くの場合、複数の属性が協調して動作する必要がある。
-
-つまり、要素の本質（要素自体）を変えるのではなく、振る舞いを追加（Mixin）するのがCustom Attributes。で、その mixin の方向はかなり感触だった。
-
-data-*、aria-*との衝突をどう避けるか
-ダッシュ付き属性名を開発者用に予約できるか
-
-諸々の懸念はありつつも、大きな反対意見は出なかった。
-提案に対して大きな反対はなく、興味深いという反応っていう反応だったので、 keith が impl を作ってみて詰めてみようという感じだった。
-
-注意したいのが、これはCustom Element に対する attr ではなく、要素に対するカスタム attr. CE との差分は詰めていく。
-
-<https://www.w3.org/2025/11/12-future-of-the-open-web-minutes.html>
-
----
+* memo
+  * Mutation Observer を使って属性の変更を監視して、要素に追加の機能（"superpowers"）を与える仕組みとして使用していた。
+  * 普通にエルゴノミクス的に良くないし、Shadow DOM境界の問題もあったShadow Root を越えてセレクトしたり監視したりできない。
+  * なので、MO を使わない方法で属性を superpower したい。
+  * 多くの場合、複数の属性が協調して動作する必要がある。
+  * つまり、要素の本質（要素自体）を変えるのではなく、振る舞いを追加（Mixin）するのがCustom Attributes。で、その mixin の方向はかなり感触だった。
+  * data-*、aria-*との衝突をどう避けるか
+  * ダッシュ付き属性名を開発者用に予約できるか
+  * 諸々の懸念はありつつも、大きな反対意見は出なかった。
+  * 提案に対して大きな反対はなく、興味深いという反応っていう反応だったので、 keith が impl を作ってみて詰めてみようという感じだった。
+  * 注意したいのが、これはCustom Element に対する attr ではなく、要素に対するカスタム attr. CE との差分は詰めていく。
+* Ship it! （って言われたけど実際は「良さそう！実験やってき！」の意だと思う）される breakouts だった。なかなかないのでは？
 
 ### [TBD] Fixing IDREFs
 
