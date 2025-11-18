@@ -58,7 +58,6 @@ status: 'published'
 
 ### 自ブログ
 
-- [Next.jsでSSGとmarkdownを使用したブログアプリを作成する - saku](https://blog.sakupi01.com/dev/articles/blog-tech-stack)
 - [Lost PixelとGithub Actionsを用いたVRTのユースケース - saku](https://blog.sakupi01.com/dev/articles/lost-pixel-practice)
 - [HonoXでReactベースのUIライブラリYamadaUIを使用する - saku](https://blog.sakupi01.com/dev/articles/honox-with-react)
 - [📝note: What is web accessibility? - saku](https://blog.sakupi01.com/dev/articles/web-accessibility-practical-a11y)

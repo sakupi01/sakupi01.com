@@ -217,14 +217,7 @@ Google JP からきていた数名の方と神戸牛鉄板焼きに行った。�
 ## Day 3, 12/11/2025 (Breakouts)
 
 今日は一日 Breakout Sessions の日！
-
-Baseline のレビューありがとう。 Jeremy さんにも感謝。
-Polyfill Detection Approach についてはどんな感じで進んでるのか。
-
-Baseline を採用する目的の一つとして、 unrealized な feature を使ってもらいたい、将来的に。
-ただ、今は「この機能は使える！」はできるけど、「この機能を消せる！」は厳しい。
-機能を知っている前提で、利用可否を判断できる。
-そもそも「機能を知らない」を回避できない。
+人が割とたくさんきていると思うので、話せる内容を持っていきたい。
 
 ### For Everyone: Towards a Sustainable Future for Independent Standards Work
 
@@ -304,7 +297,11 @@ Baseline を採用する目的の一つとして、 unrealized な feature を�
 
 ---
 
-さっきの時間は fantasai と Tim に囲まれて、3人で丸１時間半くらいつきっきりで CSS の話をしてもらっていた。
+お昼前に Tim に連絡をとっておき「午後、もしよければ WebKit の CSS 実装について教えてほしい」とお願いしておいた。そしてできれば fantasai とも話したいとのお願いも。
+
+そしてお昼過ぎ。 3F で Tim を待っていると、そこに fantasai が先に来て
+
+お昼過ぎ時間は fantasai と Tim に囲まれて、3人で丸１時間半くらいつきっきりで CSS の話をしてもらっていた。
 Tim が Editor の Form Control Styling を一緒にすることになり、text-justify の webkit 実装の面倒を見てもらえることになった。
 オフラインで来て、本当によかった。
 
