@@ -2,7 +2,7 @@
 title: "TPAC 2025 @Kobe Diary"
 excerpt: "TPAC 2025 参加記（Unpolished ver.）"
 date: 2025-11-15
-update: 2025-11-16
+update: 2025-11-20
 category: 'dev'
 tags: ['w3c', 'tpac', 'web', 'diary']
 status: 'published'
@@ -32,6 +32,8 @@ Lola Odelola の [The Web and the Digital Divide](https://www.youtube.com/watch?
 前段として、以前行ったカンファレンス以来、 nt1m さんと割と仲良くしてもらっていた。彼が WebKit の実装に必要な仕様を直したりテストを書いたりを自分がちょこちょこしていたら、その過程で CSS のスゴい人（fantasai）とも OL で知り合いになっていた。で、その二人が WG のチェア（alan）に自分を TPAC に誘うように言っていてくれた経緯があったのだが、その3人がこの懇親会で一挙に回収できた。（もっと時間がかかると思っていた）
 
 虚無の顔でアイドルの踊りを見ていた Tim を JSConf に誘い（のちに rniwa さんも連れてきてくれた）、fantasai に紹介してもらい、 ちゃっかり長く拘束して色々聞けてしまった。 fantasai が WG の Chair を断り続けている理由、 TPAC での tips、 Standards-way の本質的な部分、 人を巻き込むマインドセットなど、30年近く spec writer やってて包括的に CSS のことを理解している人ならではの話が聞けて、満足感高かった。「喋ったこと、書いてまとめてるやつがあるから。あとで送るね。」とも言ってくれて、超いい人だった。
+
+![ディベロッパーミートアップ会場](../../../../assets/images/dev-mtup.png)
 
 そして、帰りのエレベーターで alan と lola と3人になった。lola は個人的に気になっていた ARIA-AT の提案者でもあるので、感触はどんなもんかをサクッと聞けた。 drawbacks としては、環境多様性があって、挙動の基準づくりがむずい。という回答だった気がする。詳細は breakouts に持ち越し。
 
@@ -139,7 +141,7 @@ AGWG が WCAG3 やってるのもみたけど、「この環境では〜この�
 そのほかは Tim と喋り、rniwaさんと喋り、 JSConf に誘ってきた。どちらとも日曜に東京で都合をつけてくれ、運が良かった。
 Rniwa さんと話しながら部屋に戻っていたところ、 廊下で Anne と Rniwa さんと Emillio の議論になり（聞いてるだけだけど）、「私もこんなに議論できたらなあ〜、勉強なるなあ〜」などと勝手に感動していた。
 
-### 日本会員ディナー
+### 日本会員ディナー@ジェームス亭
 
 訳あって、 前日に W3C CEO の Seth Dobbs 氏の隣席を賜ることになった。つまり、めちゃくちゃウキウキだけだったのにめちゃくちゃ緊張して胃が痛かった。
 
@@ -147,9 +149,20 @@ Rniwa さんと話しながら部屋に戻っていたところ、 廊下で Ann
 
 何か備えていっておけば良かったが、昨日の今日かつ準備する体力もなかったので、割と雑談的な質問をしてしまった。 食事が進まないくらいたくさん喋っていただいて、Seth さんには少し申し訳なかったけど。
 
-写真も撮ってもらった。
+<div style="display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
+ gap: 3px; place-items: center;">
+<img src="../../images/food1.png" alt="ローストビーフ"/>
+<img src="../../images/food2.png" alt="カボチャの前菜的な"/>
+<img src="../../images/with-seth-ceo.png" alt="Seth Dobbs 氏とのディナー"/>
+<img src="../../images/james-tei.png" alt="ジェームス亭"/>
+<img src="../../images/james-tei-outside.png" alt="ジェームス亭外観"/>
+<img src="../../images/seth-and-igarash-san.png" alt="Seth さんと Igarashi さん"/>
+</div>
 
 帰り際、日本のウェブの父、村井純先生ともお会する機会をいただけた。非常に光栄なことに写真を撮らせていただける機会にも恵まれた。
+
+![村井先生との写真](../../../../assets/images/with-murai-prof.png)
 
 TPAC に行く前は「ただの日本会員ディナー会」を想定していたが、思いもよらないオファーと機会の巡り合わせで、非常に稀有な機会を得られた。ありがたかった〜。
 
@@ -212,6 +225,8 @@ TPAC に行く前は「ただの日本会員ディナー会」を想定してい
 
 Google JP からきていた数名の方と神戸牛鉄板焼きに行った。とても美味しかったです。
 
+![神戸牛鉄板焼き](../../../../assets/images/teppan.png)
+
 この日の夕飯は一緒に来ていたメンバーと三宮まで。２日目、出張は３日目。慢性的な疲労が結構溜まってきた。
 
 ## Day 3, 12/11/2025 (Breakouts)
@@ -223,12 +238,29 @@ Google JP からきていた数名の方と神戸牛鉄板焼きに行った。�
 
 * Schedule: <https://www.w3.org/events/meetings/2107ef50-86f2-47b9-9b4e-a36cf0e3015a/>
 * Agenda: <https://www.w3.org/events/meetings/2107ef50-86f2-47b9-9b4e-a36cf0e3015a/>
-* Minutes: TBD
+* Minutes: <https://www.w3.org/2025/11/11-webplatform-design-minutes.html>
 * Time Slots: 8:30AM-9:30AM
 * Attendees: around 20? Lea, Florian, Milliam
 * Main Participating Org: Unknown
 * References:
-  * whatever
+  * For Everyone: Towards a Sustainable Future for Independent Standards Work: <https://webplatform.design/talks/tpac2025/>
+  * Web Platform Collective: <https://github.com/webplatformco>
+
+Web標準という公共財的インフラを、大企業の社員以外の独立した専門家が支えているが、その作業に対する安定的な資金調達の仕組みがないという問題について。
+
+* fscholz: 大企業のメンバーシップモデルはあるが、企業の参加は流動的で、いつ消えるかわからない
+* Open Collectiveを使った寄付モデルやクラウドファンディングだけでは不十分
+* 政府からの資金調達も企業への提案と同様に説得が困難
+* WPT を chrome で初めて行くために igalia を雇用しないといけなかった
+* ボランティアではやっていけない量の standards works が、やまほどある
+* bkardell: W3Cのような組織が資金をプールして、共同で優先順位を決める仕組みは？Igalia はクラファンでそうやってる
+* ドキュメント作成など、実装以外の作業も価値として売り込める
+* 作業の影響や必要時間、金額などを明確に示す透明性が欲しい
+* Open Web Docs とかは年次でそういうレポート出してる。
+* lea のポートフォリオで、どの standards work にどのくらい時間がかかったのかを示すのの公開は考えている？
+* 持続可能性
+* miriam：大口スポンサーが離れた場合の持続性をどう確保する?
+* florian: 引き続き話せる場つくろう
 
 ### Future of the Open Web
 
@@ -297,15 +329,48 @@ Google JP からきていた数名の方と神戸牛鉄板焼きに行った。�
 
 ---
 
-お昼前に Tim に連絡をとっておき「午後、もしよければ WebKit の CSS 実装について教えてほしい」とお願いしておいた。そしてできれば fantasai とも話したいとのお願いも。
+Open Web のセッションの後、最近 web.dev で執筆した記事についてお世話になっていた、 Google の Rick Viscomi さんとお話しする機会があったので、諸々の感謝を伝えた。彼は午前自分が見れなかった [Baseline の Breakout](https://www.w3.org/events/meetings/95b89f3d-1494-4f0e-9968-53fdf15945dc/) の Chair だったので、そのことについて聞けた。内容は、以下のリポにまとまっているそう。
 
-そしてお昼過ぎ。 3F で Tim を待っていると、そこに fantasai が先に来て
+* rviscomi/accelerating-adoption: <https://github.com/rviscomi/accelerating-adoption>
+* Web Features Polyfill Explorer: <https://rviscomi.github.io/accelerating-adoption/>
 
-お昼過ぎ時間は fantasai と Tim に囲まれて、3人で丸１時間半くらいつきっきりで CSS の話をしてもらっていた。
-Tim が Editor の Form Control Styling を一緒にすることになり、text-justify の webkit 実装の面倒を見てもらえることになった。
-オフラインで来て、本当によかった。
+その後、別の Baseline 記事レビュアー、Kadir Topal さんともお話しできた。「Baseline について、何かフィードバックある？」と聞かれた。「利用できない機能の detect」ではなく「利用できるが使ってない機能の detect」、つまりポリフィルの削減に Baseline はまだ使いにくいかもしれない、という話をしたところ、かなり興味を持ってもらえた。
 
-### [TBD] Custom Attributes for All
+余談だが、Kadir さんは JSConf の Pre-event で、記事の内容と TPAC で話したことを共有してくれたらしい。自分は不在だったが、こういう影響力のあるところで影響力のある会話をすると、大きな場で昇華してくれるのはありがたい。
+
+![alt text](../../../../assets/images/kadir-talk.png)
+
+Anyways, どちらからも「記事、すごく良かったよ！」と言ってもらえて、嬉しかった。
+
+---
+
+正直、2日目は疲労で完全にダメで、省エネで過ごしてしまった実感があった。そして「このままではいけない」という感覚があった。なので、３日目は作戦を練って臨んだ。 Breakouts の日は人もたくさんくる。この機に乗じて、話す予定だった人をできるだけ捕まえて、話せるようにする状態を作っておく必要があると思った。
+
+よって、お昼前に Tim に連絡をとっておき、「午後、もしよければ WebKit の CSS 実装について教えてほしい」とお願いしておいた。そしてできれば fantasai とも話したいとお願いも。
+
+そしてお昼過ぎ。 3F のオープン作業スペースで Tim を待っていると、そこに fantasai が先に来て、自然な流れで話が始まった。
+
+彼女は US の大学時代に仕様の proofread を始め、そこから仕様の editorial な部分だけでなく文の「ロジック」部分も見るようになり、それが spec writer として活動し始めた経緯だった。もちろんその活動は一人でもやっていけるが、 Tips として、「複数人で仕様を読みながら、『全員が 100% 同じ解釈をした』となるまでその文章の論理を詰めていく」ことをやっていたそうで、それをやってみるといいよ。とアドバイスをもらった。これは機会があったらぜひやりたい。
+
+* Flexbox Spec Workshop: <https://fantasai.inkedblade.net/style/events/flexbox-workshop>
+
+また、彼女は Layout に非常に強い spec writer であるということも知っていた。なので、仕様の話をしている中でどうやって Layout に精通していったのかについて聞くと、彼女は Gecko の Layout での実装経験を語ってくれた。
+
+* fantasai: /weblog/2023/align-content/: <https://fantasai.inkedblade.net/weblog/2023/align-content/>
+
+CSS には大量の仕様がある。その仕様のエディタをしているのは、 fantasai 含め、容易に数えられるほどの人数しかいない。そんな中、もちろん仕様を書いてくれる人も欲しいが、もっと**リアルワールドのユースケースや実装経験を議論の場に持ってきてくれる人**が必要だ。 TPAC では、もちろんエンジン実装側や Web のプリンシパル文脈での議論も交わされたが、それと同量程度の「この場合はどうなる？」というユースケースの話がなされた。そして、そういったフィードバックを専門とするのは、エンジンの実装者や仕様のエディタではない。デザインシステムを作り、フレームワークを作り、ライブラリを利用している、私たちだ。そんな”貴重な”立場からのフィードバックをとてもありがたいと思っているし、もっとそいういう人が増えてほしい、と fantasai は伝えてくれた。
+
+* 「この Ana Tudor のコメントのようなものは、とてもありがたい」と言っていた： <https://github.com/w3c/csswg-drafts/issues/4410#issuecomment-1086891786>
+
+fantasai とたくさん話している間に、Tim が私でもできそうな WebKit の CSS 実装のタスクをいくつかピックアップしてくれていた。 それを見せてもらいながら、どういう風に実装されているのか、どういう風に動いているのかをざっくり教えてもらった。
+
+話しているうちに、Tim が Editor の Form Control Styling を一緒にさせてもらうことになり、text-justify の WebKit 実装の面倒を見てもらえることになった。（この後 JSConf でペアプロをしてもらう中で、 「`ident()` の実装の方がいいかもしれない」という話になり、結局そっちになりそうだが）
+
+そんなこんなでそのお昼過ぎは、 fantasai と Tim に囲まれて、3人で丸１時間半くらいつきっきりで CSS の仕様の話、実装の話をしてもらっていた。
+
+何か継続的に繋がれるものを得られたのと、つながりが一段深まった感覚があって、この午後の充実感はすごかった。オフラインで来て、本当によかった。
+
+### Custom Attributes for All
 
 * Schedule: <https://www.w3.org/events/meetings/679c6e5a-f288-4a9b-8887-9d9af4d8b8ad/>
 * Agenda: <https://www.w3.org/events/meetings/679c6e5a-f288-4a9b-8887-9d9af4d8b8ad/>
@@ -339,6 +404,24 @@ Custom の Attribute を HTML 要素に追加できるようにする提案。
 * Attendees: So many!
 * Main Participating Org: Google, Microsoft, Apple, Mozilla, Igalia, Invited Experts
 * References: <https://docs.google.com/document/d/1WaXDfwPP6olY-UVQxDZKNkUyqvmHt-u4kREJW4ys6ms/edit?tab=t.0#heading=h.o7pe1jtypsho>
+
+---
+
+### Podcast 収録
+
+この日の夜は、神戸から大阪までドライブをしてもらい、ポッドキャストの収録をした。
+ここ 3日間の TPAC の収穫を放出すべくﾎｸﾎｸしていたのもあり、いつもの Monthly とは違った感じで、かなりテンション高めな回になった（なってしまった（？））。
+
+* ep189 Drive Talk: TPAC 2025 | mozaic.fm: <https://mozaic.fm/episodes/189/tpac2025.html>
+
+大阪ではお好み焼きを食べた。モダン焼きは麺が入っているやつらしい。どちらも美味しかった。「砂ずり」があまり知られてないことも、びっくりしたのでここに残しておく。
+
+<div style="display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
+ gap: 3px; place-items: center;">
+<img src="../../images/canalun-and-jxck.png" alt="ナビ操作に必死な canalun さんと jxck さん"/>
+<img src="../../images/okonomiyaki.png" alt="お好み焼き"/>
+</div>
 
 ## [TBD] Day 4, 13/11/2025
 
@@ -487,6 +570,8 @@ Custom の Attribute を HTML 要素に追加できるようにする提案。
   * tab と fantasai の間で意見が対立した
   * florian: ここでまとまるわけないから、一旦オフラインで話せてよかったとして、次に進もう。 TPAC で話せてよかった。
 
+![白熱する masonry の row/col 概念議論](../../../../assets/images/masonry-syntax.png)
+
 * **Expose environmental variables inside apply's contents block**
   * issue: <https://github.com/w3c/csswg-drafts/issues/12631>
   * 現在の mixin の仕様では、パラメータは `env()`、パブリックのカスタムプロパティは `var()` と2つの異なるシステムを使い分ける必要があるらしい
@@ -546,4 +631,3 @@ Custom の Attribute を HTML 要素に追加できるようにする提案。
 * Friday, 11:00 - 12:30 (CSS)
 * Friday, 14:00 - 16:00 (CSS)
 * Friday, 16:30 - 18:00 (CSS) (WebDX)
-  
