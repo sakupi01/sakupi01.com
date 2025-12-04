@@ -17,7 +17,6 @@ Article Markdown Style
     font-style: italic;
     color: var(--color-base-darkest);
     padding: 1.2em 30px 1.2em 3rem;
-    border: 1px dotted light-dark(var(--color-primary-medium), transparent);
     border-left: 8px solid var(--color-primary-medium);
     line-height: 1.6;
     position: relative;
