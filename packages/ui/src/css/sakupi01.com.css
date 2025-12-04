@@ -240,6 +240,10 @@ html {
     }
   }
 
+  .logo {
+    display: inline-block;
+  }
+
   @media (width <= 768px) {
     header {
       flex-direction: column;
