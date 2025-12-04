@@ -35,9 +35,9 @@
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/client-preset": "4.2.6",
     "@remix-run/dev": "2.9.2",
-    "@types/dom-to-image": "^2.6.7",
+    "@types/dom-to-image": "2.6.7",
     "git-green-cli": "^1.0.0",
     "tailwindcss": "catalog:",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "4.3.2"
   }
 }
