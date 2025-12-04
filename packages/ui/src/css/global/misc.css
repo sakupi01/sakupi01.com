@@ -1,4 +1,4 @@
-:root {
+html {
   scrollbar-color: light-dark(
       var(--scrollbar-thumb-light),
       var(--scrollbar-thumb-dark)

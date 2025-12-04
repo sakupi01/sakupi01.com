@@ -60,7 +60,7 @@ Lola Odelola の [The Web and the Digital Divide](https://www.youtube.com/watch?
 * References:
   * Reference Target​ <https://onedrive.live.com/edit?id=3C830C8020C680D9!497341&resid=3C830C8020C680D9!497341&ithint=file%2Cpptx&authkey=!AIbmxScKhLFKgQ4&wdo=2&cid=3c830c8020c680d9>
   * Declarative CSS Modules <https://docs.google.com/presentation/d/10SagxoHUY9JBlMK2dXej1atndwQdpVEz0YmmJ52dLBg/edit?slide=id.g3a1d0091211_1_93#slide=id.g3a1d0091211_1_93>
-  * JS Templating DOM Parts DOM Scheduling <https://docs.google.com/presentation/d/1r0AXWbP8`RadIBuIFl-hC3O8G6YhTlguxKyluDIWil7g/edit?slide=id.p#slide=id.p>
+  * JS Templating DOM Parts DOM Scheduling: <https://docs.google.com/presentation/d/1r0AXWbP8RadIBuIFl-hC3O8G6YhTlguxKyluDIWil7g/edit?slide=id.p#slide=id.p>
   * heximal: <https://heximal.dev/>
   * Exploring HTML Module​ <https://docs.google.com/presentation/d/1eKio8ZvoeBqMe0Ao161hE-RaGGRagYTZ28KKL6xOkAg/edit?slide=id.p#slide=id.p>
   * HTML module use case examples: <https://gist.github.com/justinfagnani/33c83d8b886e3ed2c362911263e40080>
@@ -179,7 +179,7 @@ TPAC に行く前は「ただの日本会員ディナー会」を想定してい
 * Attendees: Anne, smaug, rniwa, emillio, andreubotella, nicolo-ribaudo, fantasai, kizu, domfarolino, foolip, masonf, noamr, rakina, jake, & many more
 * Main Participating Org: Google, Microsoft, Apple, Mozilla, Igalia
 * References:
-  * whatever
+  * minutes doc: <https://docs.google.com/document/d/1XQLLjETtdBPv-xGiGPRALR4X7hgSb_Lk13bdBucEJ_g/edit?tab=t.0>
 
 ---
 
@@ -407,7 +407,9 @@ Custom の Attribute を HTML 要素に追加できるようにする提案。
 * Time Slots: 11:15AM-12:15PM
 * Attendees: So many!
 * Main Participating Org: Google, Microsoft, Apple, Mozilla, Igalia, Invited Experts
-* References: <https://docs.google.com/document/d/1WaXDfwPP6olY-UVQxDZKNkUyqvmHt-u4kREJW4ys6ms/edit?tab=t.0#heading=h.o7pe1jtypsho>
+* References:
+  * document: <https://docs.google.com/document/d/1WaXDfwPP6olY-UVQxDZKNkUyqvmHt-u4kREJW4ys6ms/edit?tab=t.0#heading=h.o7pe1jtypsho>
+  * related comment: <https://github.com/whatwg/html/issues/10143#issuecomment-3195739405>
 
 ---
 
@@ -440,6 +442,27 @@ Custom の Attribute を HTML 要素に追加できるようにする提案。
 * Main Participating Org: Google, Microsoft, Apple, Mozilla, Igalia
 * References:
   * whatever
+
+* [css-scoping] Scoping of functions, other name-defining at-rules and custom idents · Issue #11798 · w3c/csswg-drafts <https://github.com/w3c/csswg-drafts/issues/11798>
+  * 色々 ident で定義するものが増えてきた。 Light/Shadow DOM 以外で名前空間の衝突を防ぐ方法がない。つまり、Light DOM はグローバル
+
+* [css-fonts-5] Text Fitting: Shrinking and Growing · Issue #12887 · w3c/csswg-drafts <https://github.com/w3c/csswg-drafts/issues/12887>
+
+* [css-fonts-5] Text Fitting: Scaling of things based on font-size · Issue #12888 · w3c/csswg-drafts <https://github.com/w3c/csswg-drafts/issues/12888>
+
+* [css-anchor-position-1] Allow anchor references to match names in outer tree scopes · Issue #9408 · w3c/csswg-drafts <https://github.com/w3c/csswg-drafts/issues/9408>
+
+* [css-grid-3] Masonry Switch Syntax
+<https://github.com/w3c/csswg-drafts/issues/12022>
+
+> RESOLVED: masonry switch will be display: grid-lanes
+
+---
+
+## Link
+
+* whatwg
+  * WHATWG – 13 November 2025 <https://www.w3.org/2025/11/13-whatwg-minutes.html>
 
 ## Day 5, 14/11/2025
 

@@ -3,7 +3,7 @@
 Config settings.
 ----------------------------------------------------------------------------
 */
-:root {
+html {
   /* Layout. */
   --site-max-width: 100ch;
   --main-max-width: 100ch;

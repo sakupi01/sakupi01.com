@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------
 Color settings.
 
-1. Copy the CSS custom properties inside the ':root {}' ruleset, along with their JSDoc comments, into 'base/colors-to-json.scss'.
+1. Copy the CSS custom properties inside the 'html {}' ruleset, along with their JSDoc comments, into 'base/colors-to-json.scss'.
 2. Replace '--' with '$'.
 3. The 'sass-export' Node package then correctly exports all the colors as JSON for consumption by Storybook.
 
@@ -10,7 +10,7 @@ TODO:
 - Write custom Node script to convert these values into JSON without the manual copy/paste step into a Sass file.
 ----------------------------------------------------------------------------
 */
-:root {
+html {
   /**
    * main theme colours
    */

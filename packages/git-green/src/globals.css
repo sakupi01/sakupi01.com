@@ -11,7 +11,7 @@
     --color-base-text: #3f4c46;
   }
   /* GitHub (Default) */
-  :root {
+  html {
     --color-primary: #30a14e;
     --color-primary-text: #ffffff;
     --color-primary-hover: #216e39;

@@ -6,7 +6,7 @@ Typography settings.
 ----------------------------------------------------------------------------
 */
 
-:root {
+html {
   --base-font-family: var(--font-family-inter), var(--font-san-serif-fallback);
   --base-font-family-title: var(--font-family-alegreya),
     var(--font-fallback-alegreya), serif;
