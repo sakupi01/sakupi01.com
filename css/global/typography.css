@@ -81,7 +81,11 @@ Margins on other prose elements.
 ----------------------------------------------------------------------------
 */
 :where(p, :is(ul, ol):not([class])) {
-  margin-block-end: var(--gutter-m);
+  margin-block-end: var(--gutter-xs);
+}
+
+:where(p:not(.hero-section p, aside p)) {
+  margin-block-start: var(--gutter-m);
 }
 
 /*
