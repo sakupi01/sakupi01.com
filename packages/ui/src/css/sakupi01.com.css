@@ -81,7 +81,7 @@ html {
 
   /*
   ----------------------------------------------------------------------------
-  Code & Italic style fonts
+  Code & style of fonts
   ----------------------------------------------------------------------------
   */
   @scope (main) to (.astro-code) {
@@ -95,7 +95,7 @@ html {
         .published,
         .blog-post-card
       ) {
-      font: italic 400 95% var(--base-font-family-cartograph);
+      font: normal 400 95% var(--base-font-family-cartograph);
       font-optical-sizing: auto;
     }
   }

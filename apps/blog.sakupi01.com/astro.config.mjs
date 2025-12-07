@@ -14,8 +14,8 @@ import rehypeStringify from "rehype-stringify";
 import collapse from "remark-collapse";
 import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
-// @ts-ignore
-import rlc from "remark-link-card";
+import remarkBreaks from "remark-breaks";
+import { remarkLinkCard } from "./src/remark/remark-link-card";
 import { customClassName } from "./src/remark/customClassName";
 import { handleHTML } from "./src/remark/remark-embedder/handleHTML";
 import { CodeSandboxTransformer } from "./src/remark/remark-embedder/transformer";
@@ -57,13 +57,14 @@ export default defineConfig({
         },
       ],
       [
-        rlc,
+        remarkLinkCard,
         {
           cache: true,
           shortenUrl: true,
         },
       ],
       remarkGfm,
+      remarkBreaks,
       remarkDirective,
       customClassName,
       [

@@ -100,7 +100,7 @@ Article Markdown Style
     */
     font-size: .8rem;
     position: relative;
-    margin: 0 0 1.5rem;
+    margin: 1.5rem 0;
     background: light-dark(var(--color-gray-1), var(--color-gray-0));
     background-size: 100% 1px;
     background-repeat: no-repeat;
