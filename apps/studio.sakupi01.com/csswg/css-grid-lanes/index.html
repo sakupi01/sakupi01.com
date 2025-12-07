@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS if function | studio.sakupi01.com</title>
+    <style>
+        @import url('../../shared/fonts.css');
+
+        .masonry-memoboard {
+            display: grid-lanes;
+            grid-lanes-direction: row;
+            /* grid-lanes: 1fr 1.2fr 1.5fr .8fr; */
+            grid-template-rows: 1fr 1.2fr 1.5fr .8fr;
+            gap: 1rem 2rem;
+            max-width: 100vw;
+            border-radius: 1rem;
+            padding: 2rem;
+            reading-flow: grid-rows;
+        }
+
+        @supports not (display: grid-lanes) {
+            .masonry-memoboard {
+                display: grid;
+                grid-auto-flow: dense;
+                align-items: start;
+            }
+        }
+
+        .card {
+            --status: attr(data-status type(<custom-ident>));
+            view-transition-name: match-element;
+            border-radius: .5rem;
+            padding: 1.5rem;
+            border-width: 2px;
+            border-style: solid;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            font-family: "Redacted";
+            font-style: italic;
+            cursor: grab;
+            background: if(style(--status: no-status): #F1C1BF;
+                    style(--status: in-progress): #AFF1C6;
+                    style(--status: in-review): #E2C8F1;
+                    style(--status: done): #E8F0BF;
+                    else: #fff);
+            border-color: if(style(--status: no-status): #e0d547;
+                    style(--status: in-progress): #47d4d4;
+                    style(--status: in-review): #A1B3EA;
+                    style(--status: done): #D8A2E8;
+                    else: #ccc);
+            grid-row: if(style(--status: no-status): 1;
+                    style(--status: in-progress): 2;
+                    style(--status: in-review): 3;
+                    style(--status: done): 4;
+                    else: 1);
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px) translateX(-2px);
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+            transform: scale(1.02);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .card .assignee {
+            font-style: italic;
+            font-size: smaller;
+        }
+
+        .card:nth-child(4n + 1) {
+            rotate: -1deg;
+        }
+
+        .card:nth-child(5n + 2) {
+            rotate: 1deg;
+        }
+
+        /*
+        ////////////////////
+        checker layer is always copy/pasted in every demo.
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+            }
+
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            @supports (display: grid-lanes) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
+            }
+
+            /* false case */
+            @supports not (display: grid-lanes) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
+
+                    .success {
+                        display: none;
+                    }
+                }
+            }
+        }
+    </style>
+</head>
+
+<body style="margin-block-end: 10vh;">
+    <h1>CSS Grid-Lanes aka. Masonry</h1>
+    <p>Summary: </p>
+    <p>Intent:
+    </p>
+    <p>ChromeStatus:
+    </p>
+    <p>Spec: <a href="https://www.w3.org/TR/css-grid-3/">https://www.w3.org/TR/css-grid-3/#masonry-model</a>
+    </p>
+    <p>Explainer:</p>
+    <p>TAG Design in-review: <a
+            href="https://github.com/w3ctag/design-in-reviews/issues/1045">https://github.com/w3ctag/design-in-reviews/issues/1045</a>
+    </p>
+    <p>Standard Positions:</p>
+    <ul>
+        <li></li>
+        <li></li>
+    </ul>
+    <p>Other Resources:</p>
+    <ul>
+        <li><a href="https://blog.sakupi01.com/dev/articles/the-state-of-css-masonry">
+                https://blog.sakupi01.com/dev/articles/the-state-of-css-masonry</a></li>
+    </ul>
+    <p>=== This is a demo for CSS Grid-Lanes ===</p>
+
+    <h1>Memoboard w/ Masonry & <code>if()</code> & <code>reading-flow</code></h1>
+
+    <div class="masonry-memoboard">
+        <div class="card" draggable="true" data-status="no-status">
+            <h2>Lorem Ipsum</h2>
+            <p>Lorem ipsum dolor sit amet, <br />consectetur adipiscing elit. Curabitur aliquet.</p>
+            <p class="assignee">RRR</p>
+        </div>
+        <div class="card" draggable="true" data-status="in-progress">
+            <h2>Ut fermentum libero</h2>
+            <p>Maecenas nec venenatis nisi, auctorrrrrrrrr tincidunt lectus. </p>
+            <p class="assignee">CDF</p>
+        </div>
+        <div class="card" draggable="true" data-status="no-status">
+            <h2>Lorem Ipsum ioing</h2>
+            <p>Vivamus vestibulum sed lacus nec pellentesque. Praesent euismod elit vitae neque bibendum.</p>
+            <p class="assignee">UUU</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="no-status">
+            <h2>Lorem Ipsum ioing</h2>
+            <p>Vivamus vestibulum sed lacus nec pellentesque. <br />Praesent euismod elit vitae neque bibendum.</p>
+            <p class="assignee">UUU</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="in-progress">
+            <h2>Imhekl</h2>
+            <p>Nunc consequat aliquet mauris sit amet porrrrrrrta.</p>
+            <p class="assignee">HGH</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="in-progress">
+            <h2>Imhekl</h2>
+            <p>Nunc consequat aliquet mauris sit amet porta. <br />Vivamus egestas dui velit, sit amet accumsan massa
+                elementum id.</p>
+            <p class="assignee">HGH</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="done">
+            <h2>Pellentesque</h2>
+            <p>Quisque laoreet sit amet leo sed porta. <br />Sed et augue vitae turpis tristique volutpat nec at nisl.
+            </p>
+            <p class="assignee">WWW</p>
+        </div>
+        <div class="card" draggable="true" data-status="in-review">
+            <h2>Donec sapien sem</h2>
+            <p>Maecenas nec venenatis nisi, tincidunt lectus. </p>
+            <p class="assignee">QQQ</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="done">
+            <h2>Praesent tristique</h2>
+            <p>Sed et augue vitae turpis tristique. Sed et augue vitae turpis tristique.</p>
+            <p class="assignee">CCC</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="done">
+            <h2>Praesent tristique</h2>
+            <p>Sed et augue vitae turpis tristique.</p>
+            <p>Sed et augue vitae turpis tristique.</p>
+            <p class="assignee">CCC</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="in-review">
+            <h2>Vivamus egestas</h2>
+            <p>Vivamus vestibulum sed.</p>
+            <p class="assignee">BBB</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="in-review">
+            <h2>Curabitur sed imperdiet</h2>
+            <p>Vivamus vestibulum sed lacus nec pellentesque.</p>
+            <p class="assignee">AAA</p>
+        </div>
+
+        <div class="card" draggable="true" data-status="in-review">
+            <h2>Curabitur sed imperdiet</h2>
+            <p>Vivamus vestibulum sed lacus nec pellentesque.</p>
+            <p>Vivamus vestibulum sed lacus nec pellentesque.</p>
+            <p class="assignee">AAA</p>
+        </div>
+    </div>
+
+    <script>
+        const COLUMNS = ["no-status", "in-progress", "in-review", "done"];
+        let draggedCard = null;
+
+        function moveCardTo(card, row) {
+            console.log('here');
+            console.log(card, row);
+            card.dataset.status = row;
+        }
+
+        // Drag start
+        document.addEventListener("dragstart", e => {
+            const card = e.target.closest(".card");
+            if (!card) return;
+
+            draggedCard = card;
+            card.classList.add("dragging");
+            e.dataTransfer.effectAllowed = "move";
+        });
+
+        // Drag end
+        document.addEventListener("dragend", e => {
+            if (draggedCard) {
+                draggedCard.classList.remove("dragging");
+            }
+        });
+
+        // Get the nearest row based on mouse Y position
+        function getNearestRow(mouseY) {
+            const memoboard = document.querySelector(".masonry-memoboard");
+            if (!memoboard) return null;
+
+            const rect = memoboard.getBoundingClientRect();
+            const relativeY = mouseY - rect.top;
+            const rowHeight = rect.height / COLUMNS.length;
+
+            // Calculate which row zone the mouse is in
+            const rowIndex = Math.min(
+                Math.max(0, Math.floor(relativeY / rowHeight)),
+                COLUMNS.length - 1
+            );
+
+            return COLUMNS[rowIndex];
+        }
+
+        // Drag over memoboard
+        document.addEventListener("dragover", e => {
+            const memoboard = e.target.closest(".masonry-memoboard");
+            if (!memoboard || !draggedCard) return;
+
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+        });
+
+        // Drop on memoboard
+        document.addEventListener("drop", e => {
+            const memoboard = e.target.closest(".masonry-memoboard");
+            if (!memoboard || !draggedCard) return;
+
+            e.preventDefault();
+
+            const targetRow = getNearestRow(e.clientY);
+            if (!targetRow) return;
+
+            if (!document.startViewTransition) {
+                moveCardTo(draggedCard, targetRow);
+                return;
+            }
+
+            document.startViewTransition(() => {
+                moveCardTo(draggedCard, targetRow);
+            });
+        });
+    </script>
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support `display: grid-lanes;` feature.</p>
+        <p class="success judge">✅ Your browser supports `display: grid-lanes;` feature!</p>
+        <p>This is a demo for <a href="https://www.w3.org/TR/css-grid-3/"
+                target="_top">https://www.w3.org/TR/css-grid-3/</a>
+        </p>
+        <p class="note">Try it in Chrome Canary with <br />
+            <code>--enable-experimental-web-platform-features</code>.
+        </p>
+        <small><time datetime="2025-12-06">This DEMO is last updated on: 2025-12-06</time></small>
+    </div>
+</body>
+
+</html>
