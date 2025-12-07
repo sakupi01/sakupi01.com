@@ -514,10 +514,6 @@ Masonry だけだった議論が、Masonry を包含した概念を産んだこ�
 
 まだ名前が決まったわけではありませんが、Item Flow がブラウザに実装された暁には、あのとき「Pinterest のようなレイアウトを CSS でやりたい！」と声を上げた人と、その声を WG に届けた Rachel のことを思い出してしまう気がします。
 
-P.S. 今回 Masonry の仕様策定に莫大なリソースが注がれたことは、 Appendix のリンク量からも明らかです。ここまで読んでしまった稀有な方は、以下の NotebookLM も活用ください:)
-
-- <https://notebooklm.google.com/notebook/d172b507-ec08-435e-b0e3-482e7e56d1e5>
-
 ## Appendix
 
 - **Specs**
