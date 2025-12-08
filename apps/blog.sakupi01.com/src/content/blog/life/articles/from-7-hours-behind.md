@@ -66,7 +66,7 @@ SIM は事前に Amazon で購入しておいた。忘れないようにパス�
 
 雑なググりで酷評だった中国南方航空の機内食とその他サービスは、期待以上だった。ワインが出たり xxゲンダッツが出たり。機内食のチョイスは「Beef with Rise」か「Chicken with Rise」だったけど、前者は明らか「ほぼ牛丼」な気がしたので、チキンで。
 
-<img src="../../images/IMG_0666.jpg" alt="名もなき料理" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_0666.jpg" alt="名もなき料理" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *名もなき料理*
 
@@ -97,7 +97,7 @@ Flight Layover
 ここからアムステルダムまで 11 時間の耐久フライト。海外本当に若いうちしか行ける自信ない・・・
 多分日本時間で 3:00AM くらい。第一次機内食提供。もうもはや何食なのかもわからない時間に出される名のない料理を特にお腹も空いてない胃袋に詰め込む虚無感が、長時間フライトの醍醐味だよなあ〜などとくだらないポジティブシンキングを巡らせる。
 
-<img src="../../images/IMG_0684.jpg" alt="オムレツらしい料理" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_0684.jpg" alt="オムレツらしい料理" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *オムレツらしい料理*
 
@@ -124,7 +124,7 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 
 アムステルダムはカンファレンスメインなので、観光はあんまりできない。交通はチャリが目立つ。多くない？って聞いたら、彼曰く、やたらとレンタサイクルとかもあって、交通事故防止のために一時期そうしたら一気に増えたらしい。なんかマジで高速2ケツで走ってるし、橋の周りほぼチャリだらけだし、歩行者の人権ないくらいなので、流石に試してみたくなってきた。（他の公共交通機関も運休してたり微妙だったし）
 
-<img src="../../images/IMG_0725.jpg" alt="色々教えてくれた気さくな運転手さん" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_0725.jpg" alt="色々教えてくれた気さくな運転手さん" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *色々教えてくれた気さくな運転手さん*
 
@@ -133,8 +133,8 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <div style="display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_0730.jpg" alt="優しいコーヒー"/>
-<img src="../../images/IMG_0737.jpg" alt="待ちに待ったベッド"/>
+<img src="/images/IMG_0730.jpg" alt="優しいコーヒー"/>
+<img src="/images/IMG_0737.jpg" alt="待ちに待ったベッド"/>
 </div>
 
 *優しいコーヒーと待ちに待ったベッド*
@@ -142,7 +142,7 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 8:30 AM くらい、部屋の掃除が終わったから入っていいよと、優しい受付嬢から。部屋に入る、シャワー浴びる、short nap を2時間くらいする。めっちゃ晴れててもったい、かつお腹が空いたので起きてサイクリングを試みる。
 今夜は pre-con のイベントがあるので、1日自転車を借りることにした。18ユーロ、予想以上のお値段だったけど、ホテルで断りにくかったしまあいいや。
 
-<img src="../../images/IMG_0742.jpg" alt="一日お世話になるチャリ" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_0742.jpg" alt="一日お世話になるチャリ" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *一日お世話になるチャリ*
 
@@ -151,17 +151,17 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_0772.jpg" alt="アムステルダムの街並み"/>
-<img src="../../images/IMG_0767.jpg" alt="アムステルダムの街並み"/>
-<img src="../../images/IMG_0796.jpg" alt="アムステルダムの街並み"/>
-<img src="../../images/IMG_0778.jpg" alt="アムステルダムの街並み"/>
-<img src="../../images/IMG_0758.jpg" alt="アムステルダムの街並み"/>
-<img src="../../images/IMG_0871.jpg" alt="アムステルダムの街並み"/>
+<img src="/images/IMG_0772.jpg" alt="アムステルダムの街並み"/>
+<img src="/images/IMG_0767.jpg" alt="アムステルダムの街並み"/>
+<img src="/images/IMG_0796.jpg" alt="アムステルダムの街並み"/>
+<img src="/images/IMG_0778.jpg" alt="アムステルダムの街並み"/>
+<img src="/images/IMG_0758.jpg" alt="アムステルダムの街並み"/>
+<img src="/images/IMG_0871.jpg" alt="アムステルダムの街並み"/>
 </div>
 
 *アムステルダムの街並み*
 
-<img src="../../images/IMG_0804.jpg" alt="Duch Pancakes" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_0804.jpg" alt="Duch Pancakes" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *Duch Pancakes*
 
@@ -172,14 +172,14 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_0910.jpg" alt="pre-conference"/>
-<img src="../../images/IMG_0913.jpg" alt="pre-conference"/>
-<img src="../../images/IMG_0912.jpg" alt="無限に並ぶハイネケン"/>
+<img src="/images/IMG_0910.jpg" alt="pre-conference"/>
+<img src="/images/IMG_0913.jpg" alt="pre-conference"/>
+<img src="/images/IMG_0912.jpg" alt="無限に並ぶハイネケン"/>
 </div>
 
 *pre-conference・無限に並ぶハイネケン*
 
-<img src="../../images/IMG_0907.jpg" alt="20:30 くらい。信じられないくらい明るい" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_0907.jpg" alt="20:30 くらい。信じられないくらい明るい" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *20:30 くらい。信じられないくらい明るい*
 
@@ -210,8 +210,8 @@ Amsterdam
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_0936.jpg" alt="Breakfast"/>
-<img src="../../images/IMG_0932.jpg" alt="Breakfast"/>
+<img src="/images/IMG_0936.jpg" alt="Breakfast"/>
+<img src="/images/IMG_0932.jpg" alt="Breakfast"/>
 </div>
 
 *Breakfast*
@@ -237,9 +237,9 @@ Amsterdam
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/7130CA8D-032C-45F4-8CA8-F07FCF2A3A8A.jpg" alt="Una"/>
-<img src="../../images/CA14CE12-31E9-4647-BB0A-BDAFCD32833D.jpg" alt="Sacha"/>
-<img src="../../images/91116440-079B-47EA-BA9D-93134B01152E.jpg" alt="Mia"/>
+<img src="/images/7130CA8D-032C-45F4-8CA8-F07FCF2A3A8A.jpg" alt="Una"/>
+<img src="/images/CA14CE12-31E9-4647-BB0A-BDAFCD32833D.jpg" alt="Sacha"/>
+<img src="/images/91116440-079B-47EA-BA9D-93134B01152E.jpg" alt="Mia"/>
 </div>
 
 *（左から）Una, Sacha, Mia*
@@ -250,7 +250,7 @@ Mia とのやりとり忘れたくなさすぎて、懇親会一旦抜けてパ�
 
 こっからがすごくて、今日のトークのこととか、OpenUI での Range の proposal が難しいっていう話とか CSS Carousels の A11y の話とかしてたら、登壇者限定のバッジとステッカー、登壇者が選んだ人だけにあげれるんだけど、きみにあげるよ！って言ってくれた！嬉しかった〜〜！
 
-<img src="../../images/IMG_1066.jpg" alt="Brecht がくれたステッカーとバッジ" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_1066.jpg" alt="Brecht がくれたステッカーとバッジ" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *Brecht がくれたステッカーとバッジ*
 
@@ -283,9 +283,9 @@ Amsterdam
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/3EB4316D-A3C1-4FD3-8AF1-84FDAC94ABF1.jpg" alt="Una"/>
-<img src="../../images/2DD23E2D-B57D-4E8D-B58A-CB38A6FD20F5.jpg" alt="Sacha"/>
-<img src="../../images/D3F36BEE-09FC-4D39-87E6-E8C1899B4055.jpg" alt="Mia"/>
+<img src="/images/3EB4316D-A3C1-4FD3-8AF1-84FDAC94ABF1.jpg" alt="Una"/>
+<img src="/images/2DD23E2D-B57D-4E8D-B58A-CB38A6FD20F5.jpg" alt="Sacha"/>
+<img src="/images/D3F36BEE-09FC-4D39-87E6-E8C1899B4055.jpg" alt="Mia"/>
 </div>
 
 *（左から）Brad Frost, Brecht と Ian Frost, Bramus*
@@ -322,8 +322,8 @@ Post Conference Day にいく予定だったけど、なんかスピーカーが
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1088.jpg" alt="この後の悲劇を知らない頃に撮った Amsterdam Central"/>
-<img src="../../images/IMG_1096.jpg" alt="この後の悲劇を知らない頃に撮った Amsterdam Central"/>
+<img src="/images/IMG_1088.jpg" alt="この後の悲劇を知らない頃に撮った Amsterdam Central"/>
+<img src="/images/IMG_1096.jpg" alt="この後の悲劇を知らない頃に撮った Amsterdam Central"/>
 </div>
 
 *この後の悲劇を知らない頃に撮った Amsterdam Central*
@@ -341,7 +341,7 @@ Post Conference Day にいく予定だったけど、なんかスピーカーが
 なんかもう待ちきれないので（夜遅くつくのやだし）、見つけた発券機で買ってみた。47 ユーロした。19 ユーロでユーロスターの直行便買えたのに。。。ううううううう。。。
 しかもこの券が特殊で、ユーロスターに乗れないので、エアポートで乗り換え、Rotterdam で乗り換え、Brussels に行く。しかもこの道のり Google Map ででなくて、全部駅員さんに聞きまくる羽目になった。
 
-<img src="../../images/IMG_1101.jpg" alt="あんたはこう乗り換えるんだよ！って教えてくれてる案内の人（ごめんなさい）" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_1101.jpg" alt="あんたはこう乗り換えるんだよ！って教えてくれてる案内の人（ごめんなさい）" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *あんたはこう乗り換えるんだよ！って教えてくれてる案内の人（ごめんなさい）*
 
@@ -352,8 +352,8 @@ Post Conference Day にいく予定だったけど、なんかスピーカーが
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1119.jpg" alt="車窓ビール"/>
-<img src="../../images/IMG_1144.jpg" alt="車窓ビール"/>
+<img src="/images/IMG_1119.jpg" alt="車窓ビール"/>
+<img src="/images/IMG_1144.jpg" alt="車窓ビール"/>
 </div>
 
 *車窓ビール*
@@ -395,11 +395,11 @@ Brussels
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1158.jpg" alt="マネケン"/>
-<img src="../../images/IMG_1182.jpg" alt="ワッフル"/>
-<img src="../../images/IMG_1227.jpg" alt="ワッフル"/>
-<img src="../../images/IMG_1241.jpg" alt="ブリュッセルの街並み"/>
-<img src="../../images/IMG_1231.jpg" alt="ブリュッセルの街並み"/>
+<img src="/images/IMG_1158.jpg" alt="マネケン"/>
+<img src="/images/IMG_1182.jpg" alt="ワッフル"/>
+<img src="/images/IMG_1227.jpg" alt="ワッフル"/>
+<img src="/images/IMG_1241.jpg" alt="ブリュッセルの街並み"/>
+<img src="/images/IMG_1231.jpg" alt="ブリュッセルの街並み"/>
 </div>
 
 *全長 50cm くらいでだいぶ小さかったマネケンと、ワッフルと、ブリュッセルの街並み*
@@ -412,7 +412,7 @@ Brussels
 
 3時間パリへの鉄道旅。お供はビール。
 
-<img src="../../images/IMG_1283.jpg" alt="車窓ビール" style="margin: auto; width: 300px; object-fit: contain;"/>
+<img src="/images/IMG_1283.jpg" alt="車窓ビール" style="margin: auto; width: 300px; object-fit: contain;"/>
 
 *車窓ビール*
 
@@ -424,20 +424,20 @@ Paris Nord ！パリ！
 22:00, キラキラエッフェルを見て帰る（この時間にならないと暗くならない）
 1日終わり。
 
-<img src="../../images/IMG_1291.jpg" alt="Paris Nord" style="margin: auto; width: 300px; object-fit: contain;" />
+<img src="/images/IMG_1291.jpg" alt="Paris Nord" style="margin: auto; width: 300px; object-fit: contain;" />
 
 *Paris Nord*
 
-<img src="../../images/IMG_1364.jpg" alt="ルーブル美術館" style="margin: auto; width: 300px; object-fit: contain;" />
+<img src="/images/IMG_1364.jpg" alt="ルーブル美術館" style="margin: auto; width: 300px; object-fit: contain;" />
 
 *ルーブル美術館*
 
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1380.jpg" alt="セーヌ川"/>
-<img src="../../images/IMG_1414.jpg" alt="晩酌"/>
-<img src="../../images/IMG_1432.jpg" alt="キラキラしてきた"/>
+<img src="/images/IMG_1380.jpg" alt="セーヌ川"/>
+<img src="/images/IMG_1414.jpg" alt="晩酌"/>
+<img src="/images/IMG_1432.jpg" alt="キラキラしてきた"/>
 </div>
 
 *セーヌ川と晩酌とキラキラしてきたエッフェル塔*
@@ -462,9 +462,9 @@ Paris
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1480.jpg" alt="クロワッサン1"/>
-<img src="../../images/IMG_1489.jpg" alt="Emily in Paris Croissant shop"/>
-<img src="../../images/IMG_1499.jpg" alt="クロワッサン2"/>
+<img src="/images/IMG_1480.jpg" alt="クロワッサン1"/>
+<img src="/images/IMG_1489.jpg" alt="Emily in Paris Croissant shop"/>
+<img src="/images/IMG_1499.jpg" alt="クロワッサン2"/>
 </div>
 
 *Croissants*
@@ -472,9 +472,9 @@ Paris
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1515.jpg" alt="Pantheon"/>
-<img src="../../images/IMG_1700.jpg" alt="シャンゼリゼ通りと凱旋門"/>
-<img src="../../images/IMG_1743.jpg" alt="Montmartre"/>
+<img src="/images/IMG_1515.jpg" alt="Pantheon"/>
+<img src="/images/IMG_1700.jpg" alt="シャンゼリゼ通りと凱旋門"/>
+<img src="/images/IMG_1743.jpg" alt="Montmartre"/>
 </div>
 
 *Pantheon, シャンゼリゼ通りと凱旋門, Montmartre*
@@ -485,7 +485,7 @@ Chartier というお手頃（？）価格でフレンチを楽しめるお店�
 
 アペタイザーのでんでんむし（普通にエスカルゴ料理）、メインディッシュに続き、デザートが運ばれ、この席にいる時間にも終わりが見えてきてホッとしていた。すると、向かいの男の人が「デザート何食べてるの？」とこのタイミングでコミュニケーションを仕掛けてきたので、いろいろ話していたら、まさかのメルボルン出身で、私がオーストラリアに留学してたこともあってめっちゃ盛り上がれた。もうちょっと始めから話しかけてればよかった〜。メルボルン郊外ではレストランのマネージャをしているらしく、7年間働きづくめでやっとお休みをとる気になったので、2ヶ月かけて世界を巡っているらしい。楽しんでほしい。レストランの写真も見せてもらった。めっちゃ素敵だった。
 
-<img src="../../images/IMG_1727.jpg" alt="気まずかった Chartier" style="margin: auto; width: 300px; object-fit: contain;" />
+<img src="/images/IMG_1727.jpg" alt="気まずかった Chartier" style="margin: auto; width: 300px; object-fit: contain;" />
 
 *気まずかった Chartier。初めてのでんでん虫*
 
@@ -516,9 +516,9 @@ Paris
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_1785.jpg" alt="Anne"/>
-<img src="../../images/IMG_1867.jpg" alt="オルセー美術館からのながめ"/>
-<img src="../../images/IMG_2057.jpg" alt="エッフェル塔"/>
+<img src="/images/IMG_1785.jpg" alt="Anne"/>
+<img src="/images/IMG_1867.jpg" alt="オルセー美術館からのながめ"/>
+<img src="/images/IMG_2057.jpg" alt="エッフェル塔"/>
 </div>
 
 *友人と再会, オルセー美術館からのながめ, エッフェル塔*
@@ -550,10 +550,10 @@ Strasbourg に電車で移動。
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_2169.jpg" alt="Strasbourg の街並み"/>
-<img src="../../images/IMG_2344.jpg" alt="Strasbourg の街並み"/>
-<img src="../../images/IMG_2374.jpg" alt="Anne, Eva とランチ（Käsespätzle, Flammekueche）"/>
-<img src="../../images/IMG_2385.jpg" alt="Eva が発見した格安ポケカ"/>
+<img src="/images/IMG_2169.jpg" alt="Strasbourg の街並み"/>
+<img src="/images/IMG_2344.jpg" alt="Strasbourg の街並み"/>
+<img src="/images/IMG_2374.jpg" alt="Anne, Eva とランチ（Käsespätzle, Flammekueche）"/>
+<img src="/images/IMG_2385.jpg" alt="Eva が発見した格安ポケカ"/>
 </div>
 
 *Strasbourg の街並み, Anne & Eva とランチ（Käsespätzle, Flammekueche）, Eva が発見した格安ポケカ*
@@ -576,9 +576,9 @@ Strasbourg を離れて、 Colmar と Eguisheim へ。ここも Strasbourg と�
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_2493.jpg" alt="Colmar の街並み"/>
-<img src="../../images/IMG_2544.jpg" alt="Eguisheim の街並み"/>
-<img src="../../images/IMG_2581.jpg" alt="Crème brûlée"/>
+<img src="/images/IMG_2493.jpg" alt="Colmar の街並み"/>
+<img src="/images/IMG_2544.jpg" alt="Eguisheim の街並み"/>
+<img src="/images/IMG_2581.jpg" alt="Crème brûlée"/>
 </div>
 
 *Colmar の街並み, Eguisheim の街並み, Crème brûlée*
@@ -607,9 +607,9 @@ Bern に向かう。Anne のおばさんに会い、ここから2日泊めても
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_2602.jpg" alt="チャリティー"/>
-<img src="../../images/IMG_2640.jpg" alt="Anne のおばさんと夜ご飯"/>
-<img src="../../images/IMG_2646.jpg" alt="Alpacaaaaaaaaas!❤️"/>
+<img src="/images/IMG_2602.jpg" alt="チャリティー"/>
+<img src="/images/IMG_2640.jpg" alt="Anne のおばさんと夜ご飯"/>
+<img src="/images/IMG_2646.jpg" alt="Alpacaaaaaaaaas!❤️"/>
 </div>
 
 *チャリティー, Anne のおばさんと夜ご飯, Alpacaaaaaaaaas!❤️*
@@ -633,16 +633,16 @@ Bern
 
 朝ごはんを食べ、街の観光へ。Bern は首都にしては落ち着いていて、治安ももちろんとてもよく、自然が本当に美しくて、老後はここに住みたくなる。
 
-<img src="../../images/IMG_9350.jpg" alt="Breakfast" style="margin: auto; width: 300px; object-fit: contain;" />
+<img src="/images/IMG_9350.jpg" alt="Breakfast" style="margin: auto; width: 300px; object-fit: contain;" />
 
 *Breakfast*
 
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_2694.jpg" alt="Aare 川"/>
-<img src="../../images/IMG_2768.jpg" alt="Aare 川"/>
-<img src="../../images/IMG_2731.jpg" alt="Dinner"/>
+<img src="/images/IMG_2694.jpg" alt="Aare 川"/>
+<img src="/images/IMG_2768.jpg" alt="Aare 川"/>
+<img src="/images/IMG_2731.jpg" alt="Dinner"/>
 </div>
 
 *Bern の街並み*
@@ -660,9 +660,9 @@ Bern
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_2725.jpg" alt="Aare 川"/>
-<img src="../../images/IMG_2728.jpg" alt="Aare 川"/>
-<img src="../../images/IMG_2779.jpg" alt="Dinner"/>
+<img src="/images/IMG_2725.jpg" alt="Aare 川"/>
+<img src="/images/IMG_2728.jpg" alt="Aare 川"/>
+<img src="/images/IMG_2779.jpg" alt="Dinner"/>
 </div>
 
 *悲劇の Aare 川, Dinner*
@@ -686,7 +686,7 @@ Bern
 
 Geneva 行きの電車から見えた Lausanne がめっちゃ綺麗だった・・・。
 
-<img src="../../images/IMG_2818.jpg" alt="車窓 Lausanne" style="margin: auto; width: 300px; object-fit: contain;" />
+<img src="/images/IMG_2818.jpg" alt="車窓 Lausanne" style="margin: auto; width: 300px; object-fit: contain;" />
 
 *車窓 Lausanne*
 
@@ -699,12 +699,12 @@ Tim にほんとにすごいんだよ、Tim がいなかったら今の自分の
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
  gap: 3px; place-items: center;">
-<img src="../../images/IMG_2888.jpg" alt="CERN"/>
-<img src="../../images/IMG_2902.jpg" alt="CERN"/>
-<img src="../../images/IMG_9546.jpg" alt="CERN"/>
-<img src="../../images/IMG_2886.jpg" alt="CERN"/>
-<img src="../../images/IMG_2869.jpg" alt="CERN"/>
-<img src="../../images/IMG_2876.jpg" alt="CERN"/>
+<img src="/images/IMG_2888.jpg" alt="CERN"/>
+<img src="/images/IMG_2902.jpg" alt="CERN"/>
+<img src="/images/IMG_9546.jpg" alt="CERN"/>
+<img src="/images/IMG_2886.jpg" alt="CERN"/>
+<img src="/images/IMG_2869.jpg" alt="CERN"/>
+<img src="/images/IMG_2876.jpg" alt="CERN"/>
 </div>
 
 *CERN*
