@@ -325,7 +325,7 @@ Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを�
 ### ✅ `display: grid-lanes` で Masonry を有効化
 
 ただし、 2020年当時検討＆一部実装されていた `display: grid` の Gird ベースを「そのまま」 利用するわけではありません。
-`grid-template-*` など Grid のプロパティセットを活かしつつ、 「Masonry は Grid のような完全な２次元モデルではない」という Google 側の主張を取り入れ、 Masonry 用の `display` キーワードを導入して切り替えることになりました。
+`grid-template-*` など Grid のプロパティセットを活かしつつ、 「Masonry は Grid のような完全な２次元モデルではない」という Google 側の主張を取り入れ、 Masonry 用の `display` キーワードを導入して切り替えることになりました。（ただし、Grid との乖離を生まないよう、キーワードに `grid` を含めることが条件）
 
 > RESOLVED: Switch for masonry will be a new display type. Display type must include the word grid in the name. We will open an issue for the exact name.
 > <https://github.com/w3c/csswg-drafts/issues/12022#issuecomment-3200131437>
@@ -333,7 +333,6 @@ Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを�
 - [css-grid-3] Masonry Switch Syntax
   - <https://github.com/w3c/csswg-drafts/issues/12022>
 
-Grid との乖離を生まないよう、キーワードに `grid` を含めることが条件とされました。
 Poll の結果 `grid-lanes` が選ばれ、これで Flexbox でも Grid でもない**新しいレイアウトモデルが誕生**したことになります。
 
 - Masonry Bikeshedding Materials from fantasai on 2025-10-27
