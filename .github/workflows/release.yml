@@ -18,7 +18,7 @@ jobs:
       tag_name: ${{ steps.release-drafter.outputs.tag_name }}
     steps:
       # Get next version
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5
         id: release-drafter
         with:
           config-name: release-drafter-git-green-cli.yml
@@ -34,7 +34,7 @@ jobs:
     steps:
       # Extract SemVers from tag (git-green-cli@1.0.0 -> 1 0 0)
       - name: Create SemVer outputs
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         id: semver
         with:
           script: |
@@ -47,24 +47,24 @@ jobs:
             } 
 
       # Use GitHub App for bypassing ruleset guard
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
         id: app-token
         with:
           app-id: ${{ secrets.PUSH_BYPASS_APP_ID }}
           private-key: ${{ secrets.PUSH_BYPASS_APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: main
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22.x'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
         with:
           version: 10.3.0
 
@@ -80,7 +80,7 @@ jobs:
           git config user.email github-actions@github.com
 
       # Publish packages to npm registry and push updated package.json and package-lock.json
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '21.x'
           registry-url: 'https://registry.npmjs.org'
@@ -94,7 +94,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5
         with:
           config-name: release-drafter-git-green-cli.yml
           publish: true
