@@ -152,12 +152,12 @@ Rniwa さんと話しながら部屋に戻っていたところ、 廊下で Ann
 <div style="display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
  gap: 3px; place-items: center;">
-<img src="../../images/food1.png" alt="ローストビーフ"/>
-<img src="../../images/food2.png" alt="カボチャの前菜的な"/>
-<img src="../../images/with-seth-ceo.png" alt="Seth Dobbs 氏とのディナー"/>
-<img src="../../images/james-tei.png" alt="ジェームス亭"/>
-<img src="../../images/james-tei-outside.png" alt="ジェームス亭外観"/>
-<img src="../../images/seth-and-igarash-san.png" alt="Seth さんと Igarashi さん"/>
+<img src="/images/food1.png" alt="ローストビーフ"/>
+<img src="/images/food2.png" alt="カボチャの前菜的な"/>
+<img src="/images/with-seth-ceo.png" alt="Seth Dobbs 氏とのディナー"/>
+<img src="/images/james-tei.png" alt="ジェームス亭"/>
+<img src="/images/james-tei-outside.png" alt="ジェームス亭外観"/>
+<img src="/images/seth-and-igarash-san.png" alt="Seth さんと Igarashi さん"/>
 </div>
 
 帰り際、日本のウェブの父、村井純先生ともお会する機会をいただけた。非常に光栄なことに写真を撮らせていただける機会にも恵まれた。
@@ -425,8 +425,8 @@ Custom の Attribute を HTML 要素に追加できるようにする提案。
 <div style="display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr) );
  gap: 3px; place-items: center;">
-<img src="../../images/canalun-and-jxck.png" alt="ナビ操作に必死な canalun さんと jxck さん"/>
-<img src="../../images/okonomiyaki.png" alt="お好み焼き"/>
+<img src="/images/canalun-and-jxck.png" alt="ナビ操作に必死な canalun さんと jxck さん"/>
+<img src="/images/okonomiyaki.png" alt="お好み焼き"/>
 </div>
 
 ## [TBD] Day 4, 13/11/2025

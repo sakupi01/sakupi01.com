@@ -32,8 +32,8 @@ Grid 以降で初めて本格的に最重要概念の「レイアウト」に手
 Pinterest のようなレイアウトは **Column Masonry**（Waterfall Layout）と呼ばれ、横方向に Maonry Item が流れ込み（Flow）、縦方向に積み上がる（Stack）レイアウトです。 一方、横方向に積まれるものは **Row Masonry**（Brick Layout）と呼ばれ、それぞれ以下の用語で説明されます。
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-block: var(--gutter-l);">
-  <div><img src="../../images/col-masonry.png" alt="Column Masonry レイアウト例" style="width: 100%; height: auto;" /></div>
-  <div><img src="../../images/row-masonry.png" alt="Row Masonry レイアウトの例" style="width: 100%; height: auto;" /></div>
+  <div><img src="/images/col-masonry.png" alt="Column Masonry レイアウト例" style="width: 100%; height: auto;" /></div>
+  <div><img src="/images/row-masonry.png" alt="Row Masonry レイアウトの例" style="width: 100%; height: auto;" /></div>
 </div>
 
 - **Masonry Container**: Masonry レイアウトのコンテンツを持つ Box。`display` 値で設定される親要素。
@@ -352,7 +352,7 @@ Poll の結果 `grid-lanes` が選ばれ、これで Flexbox でも Grid でも�
 
 この概念と最も一致していたのが `grid-lanes` だったため、筆者もこれに vote しました。
 
-<img alt="道路の車線（レーン）に Masonry の track を見立てる" src="../../images/lanes.png" style="width: 70%; display: grid; place-self: center;"/>
+<img alt="道路の車線（レーン）に Masonry の track を見立てる" src="/images/lanes.png" style="width: 70%; display: grid; place-self: center;"/>
 
 *道路の車線（レーン）に Masonry の track を見立てる: picture source - [Brick by brick: Help us build CSS Masonry  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/masonry-update)*
 
