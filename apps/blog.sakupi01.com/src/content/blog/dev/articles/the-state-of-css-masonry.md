@@ -78,7 +78,7 @@ Layout API の文脈から外れて、 CSS Masonry の標準化作業が始ま�
 
 ![Grid ベース masonry の仕組み](../../../../assets/images/girdtomasonry_transparent.png)
 
-例えば、高さや幅が一定の Grid Axis（e.g, Rows）を `grid-template-rows` で定義し、高さや幅が一定でない Stacking Axis（e.g, Columns） には `masonry` （要素を敷き詰め）を指定すると、 Pinterest のようなレイアウトが実現できます。
+例えば、高さや幅が一定の Grid Axis（e.g, Columns）を `grid-template-columns` で定義し、高さや幅が一定でない Stacking Axis（e.g, Rows） には `masonry` （要素を敷き詰め）を指定すると、 Pinterest のようなレイアウトが実現できます。
 加えて、 `masonry-auto-flow: [ pack | next ] || [definite-first | ordered ]` で、アイテムの積み上げ方を制御する案も出されていました。
 
 これを最初に定義したドラフト（CSS Masonry Layout Module）が、 Wayback Machine で一件だけヒットしたため、記録として掲載しておきます。
