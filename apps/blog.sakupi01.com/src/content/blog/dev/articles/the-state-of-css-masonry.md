@@ -320,7 +320,7 @@ Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを�
 
 ということで、`grid-template-[rows | columns]` を **Masonry の Templating を定義**することにも再利用します。
 
-再喝つですが、`grid-template-rows: masonry` など新しいキーワードが生まれるわけではなく、 `grid-template-rows: repeat(auto-fill, <track-size>)` のように、既存の Grid の記法で Masonry コンテナを定義することになります。
+再喝ですが、`grid-template-rows: masonry` など新しいキーワードが生まれるわけではなく、 `grid-template-rows: repeat(auto-fill, <track-size>)` のように、既存の Grid の記法で Masonry コンテナを定義することになります。
 
 ### ✅ `display: grid-lanes` で Masonry を有効化
 
