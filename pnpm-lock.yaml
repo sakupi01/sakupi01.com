@@ -55,7 +55,7 @@ importers:
         specifier: 18.3.6
         version: 18.3.6(@types/react@18.3.20)
       autoprefixer:
-        specifier: ^10.4.19
+        specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.2)
       class-variance-authority:
         specifier: ^0.7.0
