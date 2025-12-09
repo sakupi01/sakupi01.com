@@ -29,7 +29,7 @@ Grid 以降で初めて本格的に最重要概念の「レイアウト」に手
 
 [CSS Grid Layout Module Level 3](https://www.w3.org/TR/css-grid-3/#masonry-model) で定義される Masonry レイアウトの用語を以下に示します。 今後の記事内でも使用するので、はじめに一度軽く紹介しておきます。
 
-Pinterest のようなレイアウトは **Column Masonry**（Waterfall Layout）と呼ばれ、横方向に Maonry Item が流れ込み（Flow）、縦方向に積み上がる（Stack）レイアウトです。 一方、横方向に積まれるものは **Row Masonry**（Brick Layout）と呼ばれ、それぞれ以下の用語で説明されます。
+Pinterest のようなレイアウトは **Column Masonry**（Waterfall Layout）と呼ばれ、横方向に Masonry Item が流れ込み（Flow）、縦方向に積み上がる（Stack）レイアウトです。 一方、横方向に積まれるものは **Row Masonry**（Brick Layout）と呼ばれ、それぞれ以下の用語で説明されます。
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-block: var(--gutter-l);">
   <div><img src="/images/col-masonry.png" alt="Column Masonry レイアウト例" style="width: 100%; height: auto;" /></div>
@@ -76,7 +76,7 @@ Layout API の文脈から外れて、 CSS Masonry の標準化作業が始ま�
   - <https://github.com/w3c/csswg-drafts/issues/4650>
 
 「CSS Grid の**一軸を通常の Grid**（行や列がある）: **Grid Axis** とし、**もう一方の軸を Masonry**（行や列の概念がなく、詰めて配置）: **Stacking Axis** にする」というのが、 初期 Masonry レイアウトの考え方です。
-よって、初期では **Grid（`display: grid | inline-grid`）をベースとしながら、 Masonry を有効化する**方法が提案されていました。軸を取り消すための `masonry` キーワードを `grid-template-[rows | colums]` へ追加し、これを指定すると Masonry にスイッチする提案です。
+よって、初期では **Grid（`display: grid | inline-grid`）をベースとしながら、 Masonry を有効化する**方法が提案されていました。軸を取り消すための `masonry` キーワードを `grid-template-[rows | columns]` へ追加し、これを指定すると Masonry にスイッチする提案です。
 
 ![Grid ベース masonry の仕組み](../../../../assets/images/girdtomasonry_transparent.png)
 
@@ -326,7 +326,7 @@ Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを�
 
 ### ✅ `display: grid-lanes` で Masonry を有効化
 
-ただし、 2020年当時検討＆一部実装されていた `display: grid` の Gird ベースを「そのまま」 利用するわけではありません。
+ただし、 2020年当時検討＆一部実装されていた `display: grid` の Grid ベースを「そのまま」 利用するわけではありません。
 `grid-template-*` など Grid のプロパティセットを活かしつつ、 「Masonry は Grid のような完全な２次元モデルではない」という Google 側の主張を取り入れ、 Masonry 用の `display` キーワードを導入して切り替えることになりました。（ただし、Grid との乖離を生まないよう、キーワードに `grid` を含めることが条件）
 
 > RESOLVED: Switch for masonry will be a new display type. Display type must include the word grid in the name. We will open an issue for the exact name.
