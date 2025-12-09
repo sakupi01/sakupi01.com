@@ -536,7 +536,7 @@ Masonry だけだった議論が、Masonry を包含した概念を産んだこ�
     - [[css-flexbox][css-grid] Unifying grid-auto-flow and flex-flow · Issue #11480 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/11480)
     - [[css-grid-3][masonry] item-flow row vs. column in masonry layouts · Issue #12803 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/12803)
     - [[css-grid-3][masonry] Adjustments/additions to \`grid\` shorthanding · Issue #12023 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/12023)
-- Minutes
+- **Minutes**
   - [CSSWG] Minutes Virtual F2F 2020-04-30 Part III: CSS Snapshot, Masonry Layout, CSS Backgrounds, Foldable & dual-screen devices [snapshot-2020] [css-backgrounds-4]
     - <https://lists.w3.org/Archives/Public/www-style/2020May/0013.html>
   - [CSSWG] Minutes TPAC F2F 2020-10-20 Part I: Masonry Layout, CSS Contain [css-grid] [css-contain]
@@ -555,7 +555,7 @@ Masonry だけだった議論が、Masonry を包含した概念を産んだこ�
     - [Implement: CSS Layout API](https://groups.google.com/a/chromium.org/g/blink-dev/c/gVvtbIjE2J4/m/0KWy4Ew2CQAJ)
     - [Prototype: CSS Masonry](https://groups.google.com/a/chromium.org/g/blink-dev/c/27RxGVTrlrU/m/RjVBoDylAwAJ)
     - [Ready for Developer Testing: CSS Masonry](https://groups.google.com/a/chromium.org/g/blink-dev/c/EVXdUNT7Nak/m/woQJ90NXDAAJ)
-- TAG Review
+- **TAG Review**
   - CSS Layout API - Issue #224 - w3ctag/design-reviews
     - <https://github.com/w3ctag/design-reviews/issues/224>
 - **Standard Positions**
