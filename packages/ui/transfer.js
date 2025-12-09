@@ -26,7 +26,10 @@ else
 fi
 `;
 
-const vercelIgnorePath = path.join(import.meta.dirname, "storybook-static/vercel-ignore-build-step.sh");
+const vercelIgnorePath = path.join(
+  import.meta.dirname,
+  "storybook-static/vercel-ignore-build-step.sh",
+);
 fs.writeFileSync(vercelIgnorePath, vercelIgnoreScript, { mode: 0o755 });
 
 console.log("Created vercel-ignore-build-step.sh in storybook-static dir");
