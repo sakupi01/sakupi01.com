@@ -2,7 +2,7 @@
 title: "CSS Masonry のあゆみと現状"
 excerpt: "CSS Masonry（Grid-Lanes）の仕様策定の経緯と現状のまとめ"
 date: 2025-12-08
-update: 2025-12-08
+update: 2025-12-21
 category: 'dev'
 tags: ['css', 'web', 'masonry', 'layout']
 status: 'published'
@@ -308,6 +308,17 @@ Item Flow という概念は、結果として WG でも採用され、これに
 
 ただし、 Item Flow の構文はについてはまだ決着がついておらず、それは[後述](#rows-vs-columns-flex-flow--grid-auto-flow-and-masonry-layout)します。
 
+#### ✅ Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係
+
+Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係をどう整理するかが議論され、これはすでに結論が出ています。
+
+- [css-grid-3][masonry] Longhand shorthand relationships of item-flow · Issue #12804 · w3c/csswg-drafts
+  - <https://github.com/w3c/csswg-drafts/issues/12804>
+
+「1. 互いにエイリアスとして振る舞うよう扱う」「2. Item Flow を他の Shorthand として扱う」「3. Item Flow をMasonry 専用の Shorthand として扱う」 が検討された結果、**Option 2: Flex + Grid/Masonry Longhands** が採用されています。
+
+つまり、Flex/Grid 既存のプロパティは互いにエイリアスとして機能する訳ではなく、Masonry 専用のプロパティセット（`masonry-flow` など）を新たに導入することもなくなりました。
+
 ### ✅ `css-grid-3` に含め、`grid-*` 構文を利用する
 
 Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを新規に作成することはなくなり、Masonry の Syntax には `grid-*` 記法を利用することで合意が取られました。
@@ -398,35 +409,34 @@ Flexbox では、`flex-flow: row wrap` は「アイテムが横方向に並び�
 
 この「Shape」と「Flow」が一致しないのが Masonry の特徴でもあり、 この解釈の違いが Item Flow の議論のブロッカーとなっています。逆にいうと、これが決着すれば芋蔓式に解決する問題が残っているのが現状です。
 
+この Issue 内で整理されなかればならないポイントは以下の 3 点です。
+
 > 1. Whether we're re-using grid-auto-flow or adding a new masonry-specific set of properties for this.
 > 2. What the values map to.
 > 3. Naming the initial automatic value that flips depending on grid-template-*.
 > <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3528390437>
 
-現時点では、 この Issue 内のそれ以外の RESOLUTION はすでに出ています。
+#### ✅ 3. 初期値の定義
 
-#### 1. Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係
-
-Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係をどう整理するかが議論され、これはすでに結論が出ています。
-
-- [css-grid-3][masonry] Longhand shorthand relationships of item-flow · Issue #12804 · w3c/csswg-drafts
-  - <https://github.com/w3c/csswg-drafts/issues/12804>
-
-「1. 互いにエイリアスとして振る舞うよう扱う」「2. Item Flow を他の Shorthand として扱う」「3. Item Flow をMasonry 専用の Shorthand として扱う」 が検討された結果、**Option 2: Flex + Grid/Masonry Longhands** が採用されています。
-
-つまり、Flex/Grid 既存のプロパティは互いにエイリアスとして機能する訳ではなく、Masonry 専用のプロパティセット（`masonry-flow` など）を新たに導入することもなくなりました。
-
-#### 3. 初期値の定義
-
-`grid-lanes` の初期値についても、最近決着がついています。
+3 番目の`grid-lanes` の初期値の定義については、最近決着がついています。
 
 > RESOLVED: Whatever property controls the orientation of grid-lanes, its initial value is 'normal' and it resolves to waterfall or brick layout depending on whether grid-template-columns or grid-template-rows was set (respectively), defaulting to waterfall if both or neither are set.
 
 つまり、方向を制御するプロパティの初期値は `normal` で、これは `grid-template-columns` が設定されていれば Waterfall Masonry、`grid-template-rows` が設定されていれば Brick Masonry になる、ということを示します。
 
----
+#### 1/2. Grid or Grid-Lanes specific? そして、direction の定義決め
 
-２(Rows vs Columns)とそれに関連した issue については、引き続き議論されなければならず、関連した issue も未解決な状態です。
+ただし、`normal` で `grid-template-[columns | rows]` のレイアウトが決まったからといって、それが **direction を決めたわけではない**ことに注意したいです。`normal` は単にデフォルト挙動または direction を決めなくても動作させるための応急処置という立ち位置だと考えて良さそうです。direction に関しては、Shape を見るのか Flow を見るのかが引き続き検討されています。
+
+direction 決めの議論には、現時点で２つの立場があり、ざっくりと Google 側と WebKit 側の主張が分かれているように見てとれます。
+
+既存の `grid-auto-flow` を活かす、つまり **Grid と整合性を持たせるためには、 Flow が方向を決定する必要がある**、というのが WebKit 側の主張です。`grid-auto-flow: column` は上から下（ブロック方向）に Flow しますが、 Waterfall レイアウトはインライン方向に Flow するレイアウトです。もし Shape が方向を決定するのであれば、`grid-auto-flow: column` はインライン方向に Flow し、既存の Grid の挙動と矛盾します。
+
+一方で、「Shape が方向の決定権を持っているのであれば column が Waterfall レイアウトを作る」性質と、「`grid-template-columns` が指定されている場合 Waterfall をになる」という決定が自然に合致します。つまり、「column = Waterfall」という言葉の定義を使いたい。しかし、既存の `grid-auto-flow` とは矛盾するのも事実です。それゆえ、**新しいプロパティ（`grid-lanes-direction`）を作って、そこで column と定義しよう**、というのが Google 側の主張です。
+
+この議論に関しては、現在 Poll が行われて議論中です。
+
+- <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3643948079>
 
 ### Reversing: `column/row-reverse` vs `wrap-reverse`
 
@@ -456,6 +466,23 @@ Flexbox や Grid では直感的に理解できた 「reverse」の挙動が、M
   - <https://github.com/w3c/csswg-drafts/issues/12803>
 
 やはり、これも Rows vs Columns の決着によって動く類の議論であり、 `item-flow` というプロパティ名自体も大いに変わる可能性があります。
+
+:::note{.memo}
+Note📝: Grid-Lanes のパフォーマンス
+
+Grid-Lanes の処理性能について気になったので問い合わせ、個人的に fantasai から回答をもらったので共有しておきます。
+結論としては、「Grid-Lanesは `text-wrap: balance` のような重いアルゴリズムにはなっていないから、パフォーマンスの心配はいらない」といった回答をくれました。
+
+例えば `text-wrap: balance | pretty` のように、は、最適な改行位置を見つけるために、計算コストの高い処理を行っています。
+
+`text-wrap: pretty` ではスコアベースのアルゴリズムを採用しているらしく、理論上の計算量が `$O(n!)$`（階乗）になる可能性がある非常に高コストなものです。そのため Blink では、ブラウザがフリーズするのを防ぐため「段落の最後の4行のみを計算対象とする」という制約を設けることで `pretty` を実現しています。`balance` も同様に、行数が増えると計算コストが増大するため、適用される行数に制限があります。
+詳細は、Blink の design doc に記されているとおりです。
+
+- [Score-based Paragraph-level Line Breaking - Google Docs](https://docs.google.com/document/d/1jJFD8nAUuiUX6ArFZQqQo8yTsvg8IuAq7oFrNQxPeqI/edit?tab=t.0)
+
+一方、Grid-Lanes では「アイテムのレイアウトを循環させないアルゴリズムになっている」 と返信がありました。 つまり、balance のように「配置してみて計算し、結果を評価して配置し直す」という計算ループを含まず、単に配置場所を決定する効果的なアルゴリズムを見つけられれば良いとのことです。そのため、既存の Grid Layout と同等か、それ以上のパフォーマンスで動作が期待できるそうです。
+
+:::
 
 ## Demo
 
