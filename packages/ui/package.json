@@ -37,16 +37,16 @@
     "@storybook/react-vite": "8.3.0",
     "@storybook/test": "8.3.0",
     "@storybook/theming": "8.3.0",
-    "@turbo/gen": "^1.11.3",
-    "@types/node": "^20.10.6",
+    "@turbo/gen": "1.13.4",
+    "@types/node": "20.17.17",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "storybook": "8.3.0",
-    "stylelint": "^16.14.1",
-    "typescript": "^5.3.3",
-    "stylelint-config-standard": "^37.0.0"
+    "stylelint": "16.14.1",
+    "typescript": "5.4.5",
+    "stylelint-config-standard": "37.0.0"
   },
   "dependencies": {
     "blocks": "link:@storybook/addon-docs/blocks"
