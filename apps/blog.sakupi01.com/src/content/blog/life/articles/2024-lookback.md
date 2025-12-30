@@ -1,5 +1,5 @@
 ---
-title: "2024年の振り返り"
+title: "2024 In Review"
 excerpt: "2024年の振り返り"
 coverImage: 
   url: "/graduation-ceremony.jpg"
@@ -7,7 +7,7 @@ coverImage:
 date: 2024-12-31
 update: 2024-12-31
 category: 'life'
-tags: ['life', 'poem', 'lookback']
+tags: ['life', 'poem', 'year-in-review']
 status: 'published'
 ---
 ## Table of Contents
