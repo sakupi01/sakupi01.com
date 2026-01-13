@@ -22,16 +22,25 @@ const {
 		<meta name="supported-color-schemes" content="light dark">
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
+		<meta name="author" content="saku" />
+		<meta name="keywords" content="web,ui,css,html,technology,programming,browser,saku" />
+
 		<meta property="og:title" content={pageTitle} />
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content="article" />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.png`} />
 		<meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
+		<meta property="og:site_name" content={`${pageTitle} | @sakupi01.com`} />
+		<meta property="og:locale" content={"ja"} />
 		<meta name="twitter:card" content="summary" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<link rel="canonical" href={`${import.meta.env.PUBLIC_BLOG}${url}`} />
+		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+		
 		<script is:inline src="/_scripts/2025-ad-calendar.js"></script>
 		<script is:inline src="/_scripts/cascade-accordion.js"></script>
 		<script is:inline src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js" type="module"></script>

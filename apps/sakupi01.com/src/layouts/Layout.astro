@@ -24,19 +24,23 @@ const {
     <meta name="supported-color-schemes" content="light dark">
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="author" content="saku" />
+    <meta name="keywords" content="web,ui,css,html,technology,programming,browser,saku" />
+
     <meta property="og:title" content={pageTitle} />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.png`} />
     <meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
     <meta name="twitter:card" content="summary" />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="canonical" href={`${import.meta.env.PUBLIC_BLOG}${url}`} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     
-    <script src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js"></script>  
-
     <script is:inline>
       const getInitialTheme = () => {
         const savedTheme = localStorage.getItem('theme');

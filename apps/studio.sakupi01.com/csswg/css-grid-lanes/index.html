@@ -30,6 +30,8 @@
 
         .card {
             --status: attr(data-status type(<custom-ident>));
+            --width: attr(data-width px, type(<length>));
+            width: var(--width, 200px);
             view-transition-name: match-element;
             border-radius: .5rem;
             padding: 1.5rem;
@@ -182,79 +184,79 @@
     <h1>Memoboard w/ Masonry & <code>if()</code> & <code>reading-flow</code></h1>
 
     <div class="masonry-memoboard">
-        <div class="card" draggable="true" data-status="no-status">
+        <div class="card" draggable="true" data-status="no-status" data-width="200">
             <h2>Lorem Ipsum</h2>
             <p>Lorem ipsum dolor sit amet, <br />consectetur adipiscing elit. Curabitur aliquet.</p>
             <p class="assignee">RRR</p>
         </div>
-        <div class="card" draggable="true" data-status="in-progress">
+        <div class="card" draggable="true" data-status="in-progress" data-width="230">
             <h2>Ut fermentum libero</h2>
             <p>Maecenas nec venenatis nisi, auctorrrrrrrrr tincidunt lectus. </p>
             <p class="assignee">CDF</p>
         </div>
-        <div class="card" draggable="true" data-status="no-status">
+        <div class="card" draggable="true" data-status="no-status" data-width="150">
             <h2>Lorem Ipsum ioing</h2>
             <p>Vivamus vestibulum sed lacus nec pellentesque. Praesent euismod elit vitae neque bibendum.</p>
             <p class="assignee">UUU</p>
         </div>
 
-        <div class="card" draggable="true" data-status="no-status">
+        <div class="card" draggable="true" data-status="no-status" data-width="200">
             <h2>Lorem Ipsum ioing</h2>
             <p>Vivamus vestibulum sed lacus nec pellentesque. <br />Praesent euismod elit vitae neque bibendum.</p>
             <p class="assignee">UUU</p>
         </div>
 
-        <div class="card" draggable="true" data-status="in-progress">
+        <div class="card" draggable="true" data-status="in-progress" data-width="300">
             <h2>Imhekl</h2>
             <p>Nunc consequat aliquet mauris sit amet porrrrrrrta.</p>
             <p class="assignee">HGH</p>
         </div>
 
-        <div class="card" draggable="true" data-status="in-progress">
+        <div class="card" draggable="true" data-status="in-progress" data-width="180">
             <h2>Imhekl</h2>
             <p>Nunc consequat aliquet mauris sit amet porta. <br />Vivamus egestas dui velit, sit amet accumsan massa
                 elementum id.</p>
             <p class="assignee">HGH</p>
         </div>
 
-        <div class="card" draggable="true" data-status="done">
+        <div class="card" draggable="true" data-status="done" data-width="220">
             <h2>Pellentesque</h2>
             <p>Quisque laoreet sit amet leo sed porta. <br />Sed et augue vitae turpis tristique volutpat nec at nisl.
             </p>
             <p class="assignee">WWW</p>
         </div>
-        <div class="card" draggable="true" data-status="in-review">
+        <div class="card" draggable="true" data-status="in-review" data-width="400">
             <h2>Donec sapien sem</h2>
             <p>Maecenas nec venenatis nisi, tincidunt lectus. </p>
             <p class="assignee">QQQ</p>
         </div>
 
-        <div class="card" draggable="true" data-status="done">
+        <div class="card" draggable="true" data-status="done" data-width="250">
             <h2>Praesent tristique</h2>
             <p>Sed et augue vitae turpis tristique. Sed et augue vitae turpis tristique.</p>
             <p class="assignee">CCC</p>
         </div>
 
-        <div class="card" draggable="true" data-status="done">
+        <div class="card" draggable="true" data-status="done" data-width="350">
             <h2>Praesent tristique</h2>
             <p>Sed et augue vitae turpis tristique.</p>
             <p>Sed et augue vitae turpis tristique.</p>
             <p class="assignee">CCC</p>
         </div>
 
-        <div class="card" draggable="true" data-status="in-review">
+        <div class="card" draggable="true" data-status="in-review" data-width="280">
             <h2>Vivamus egestas</h2>
             <p>Vivamus vestibulum sed.</p>
             <p class="assignee">BBB</p>
         </div>
 
-        <div class="card" draggable="true" data-status="in-review">
+        <div class="card" draggable="true" data-status="in-review" data-width="320">
             <h2>Curabitur sed imperdiet</h2>
             <p>Vivamus vestibulum sed lacus nec pellentesque.</p>
             <p class="assignee">AAA</p>
         </div>
 
-        <div class="card" draggable="true" data-status="in-review">
+        <div class="card" draggable="true" data-status="in-review" data-width="220">
             <h2>Curabitur sed imperdiet</h2>
             <p>Vivamus vestibulum sed lacus nec pellentesque.</p>
             <p>Vivamus vestibulum sed lacus nec pellentesque.</p>

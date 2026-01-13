@@ -293,7 +293,7 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
- gap: 10px; place-items: center;">
+ gap: 3px; place-items: center;">
    <figure>
 
    ![セーヌ川](../../../../assets/images/IMG_1380.jpg)
@@ -314,7 +314,7 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
- gap: 10px; place-items: center;">
+ gap: 3px; place-items: center;">
 
  <figure>
 
@@ -347,7 +347,7 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
- gap: 10px; place-items: center;">
+ gap: 3px; place-items: center;">
 
  <figure>
 
@@ -375,7 +375,7 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
 <div style="  display: grid;
   grid-template-columns: repeat(2, 1fr);
- gap: 10px; place-items: center;">
+ gap: 3px; place-items: center;">
  <figure>
 
  ![鹿児島](../../../../assets/images/kagoshima3.png)
