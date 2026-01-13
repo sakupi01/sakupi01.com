@@ -29,7 +29,6 @@
     "he": "^1.2.0",
     "marked": "^15.0.7",
     "open-graph-scraper": "^6.11.0",
-    "pnpm": "^10.3.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "0.13.0",
     "rehype-slug": "6.0.0",
