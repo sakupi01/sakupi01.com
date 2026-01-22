@@ -21,7 +21,7 @@
     "sharp": "catalog:"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.7"
+    "@types/jsdom": "21.1.7"
   },
   "packageManager": "pnpm@10.28.0"
 }
