@@ -17,7 +17,8 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "astro": "^5.2.5",
-    "jsdom": "^26.0.0"
+    "jsdom": "^26.0.0",
+    "sharp": "catalog:"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7"

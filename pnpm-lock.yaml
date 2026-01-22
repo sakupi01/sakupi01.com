@@ -4,6 +4,15 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    sharp:
+      specifier: 0.33.5
+      version: 0.33.5
+    zod:
+      specifier: 3.23.8
+      version: 3.23.8
+
 importers:
 
   .:
@@ -181,6 +190,9 @@ importers:
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
+      sharp:
+        specifier: 'catalog:'
+        version: 0.33.5
     devDependencies:
       '@types/jsdom':
         specifier: ^21.1.7
@@ -6520,7 +6532,7 @@ snapshots:
       express: 4.21.2
       process: 0.11.10
       recast: 0.23.9
-      semver: 7.7.1
+      semver: 7.7.3
       util: 0.12.5
       ws: 8.18.0
     transitivePeerDependencies:
@@ -6750,7 +6762,7 @@ snapshots:
       js-yaml: 4.1.0
       ora: 4.1.1
       rimraf: 3.0.2
-      semver: 7.7.1
+      semver: 7.7.3
       update-check: 1.5.4
 
   '@types/acorn@4.0.6':
@@ -10810,7 +10822,7 @@ snapshots:
     dependencies:
       color: 4.2.3
       detect-libc: 2.0.3
-      semver: 7.7.1
+      semver: 7.7.3
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.33.5
       '@img/sharp-darwin-x64': 0.33.5
