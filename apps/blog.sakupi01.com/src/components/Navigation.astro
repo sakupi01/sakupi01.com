@@ -3,57 +3,70 @@
 ---
 
 <nav>
-  <a href={`${import.meta.env.PUBLIC_HOME}`} class="nav-item soundable">{"home"}</a>
-  <button popovertarget="blogs" class="popovertarget soundable" data-id="--blogs-button">
-      {"<blogs />"}
+  <a href={`${import.meta.env.PUBLIC_HOME}`} class="nav-item soundable"
+    >{"home"}</a
+  >
+  <button
+    popovertarget="blogs"
+    class="popovertarget soundable"
+    data-id="--blogs-button"
+  >
+    {"<blogs />"}
   </button>
   <ul id="blogs" popover data-id="--blogs-button">
-      <li><a href="/dev/" class="soundable">{"dev"}</a></li>
-      <li><a href="/life/" class="soundable">{"life"}</a></li>
-      <li><a href="/tags/" class="soundable">{"tags"}</a></li>
-      <li><a href="/" class="soundable">{"all"}</a></li>
+    <li><a href="/dev/" class="soundable">{"dev"}</a></li>
+    <li><a href="/life/" class="soundable">{"life"}</a></li>
+    <li><a href="/tags/" class="soundable">{"tags"}</a></li>
+    <li><a href="/" class="soundable">{"all"}</a></li>
   </ul>
-  <a href={import.meta.env.PUBLIC_SLIDES} target="_blank" class="nav-item soundable">{"talks"}</a>
-  <a href={import.meta.env.PUBLIC_STUDIO} target="_blank" class="nav-item soundable">{"studio"}</a>
+  <a
+    href={import.meta.env.PUBLIC_SLIDES}
+    target="_blank"
+    class="nav-item soundable">{"talks"}</a
+  >
+  <a
+    href={import.meta.env.PUBLIC_STUDIO}
+    target="_blank"
+    class="nav-item soundable">{"studio"}</a
+  >
   <a href="/feed.xml" target="_blank" class="nav-item soundable">{"rss"}</a>
 </nav>
 
-
 <style>
-nav {
+  nav {
     display: flex;
     gap: 1rem;
 
     :is(a, button) {
-        color: inherit;
+      color: inherit;
     }
 
     @media (max-width: 768px) {
-        gap: 0.5rem;
+      gap: 0.5rem;
     }
-    
+
     .soundable {
-        align-content: center;
+      align-content: center;
     }
 
     .nav-item {
-        border-bottom: none;
-        &:hover {
-            transform: translateY(-3px);
-        }
+      border-bottom: none;
+      &:hover {
+        transform: translateY(-3px);
+      }
     }
-}
+  }
 
-.popovertarget {
+  .popovertarget {
     /* anchor positioning polyfill doesn't support nesting syntax */
     anchor-name: --blogs-button;
-    transition: all .15s linear;
+    transition: all 0.15s linear;
     &:hover:not(:has(:popover-open)) {
-        transform: translateY(-3px);
+      transform: translateY(-3px);
     }
-}
+  }
 
-[popover] {
+  [popover] {
     position: absolute;
     opacity: 0;
     translate: 0 -50px;
@@ -64,69 +77,71 @@ nav {
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     min-width: 150px;
-    transition: translate .3s allow-discrete,
-                opacity .3s,
-                display .3s allow-discrete;
+    transition:
+      translate 0.3s allow-discrete,
+      opacity 0.3s,
+      display 0.3s allow-discrete;
     margin-bottom: 10px;
     --center: anchor(--blogs-button 50%);
     position-anchor: --blogs-button;
     left: var(--center);
     top: anchor(--blogs-button bottom);
-    
-    li {
-        list-style: none;
-    }
-    
-    &:popover-open {
-        opacity: 1;
-        translate: 0 0;
-        display: grid;
-        gap: 1rem;
-        grid-auto-rows: min-content;
-        
-        a:hover {
-            &::before {
-                content: "<";
-                color: var(--header-text);
-            }
-            &::after {
-                content: " />";
-                color: var(--header-text);
-            }
-        }
-        
-        @starting-style {
-            opacity: 0;
-            translate: 0 -50px;
-        }
-    }
-}
 
-@supports (position-area: bottom center) {
-    [popover] {
-        position-anchor: attr(data-id type(<custom-ident>), none);
-        position-area: bottom center;
-        position-try: normal flip-block;
+    li {
+      list-style: none;
     }
-}
+
+    &:popover-open {
+      opacity: 1;
+      translate: 0 0;
+      display: grid;
+      gap: 1rem;
+      grid-auto-rows: min-content;
+
+      a:hover {
+        &::before {
+          content: "<";
+          color: var(--header-text);
+        }
+        &::after {
+          content: " />";
+          color: var(--header-text);
+        }
+      }
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 -50px;
+      }
+    }
+  }
+
+  @supports (position-area: bottom center) {
+    [popover] {
+      position-anchor: attr(data-id type(<custom-ident>), none);
+      position-area: bottom center;
+      position-try: normal flip-block;
+    }
+  }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const soundableTabs = document.querySelectorAll('.soundable');
-    const tabClickAudio = new Audio('/sounds/tab-click.mp3');
-    
-    // Check if sound is enabled before playing audio
-    const soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
-      
-    soundableTabs.forEach(el => {
-      el.addEventListener('click', () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const soundableTabs = document.querySelectorAll(".soundable");
+    const tabClickAudio = new Audio("/sounds/tab-click.mp3");
 
+    // Check if sound is enabled before playing audio
+    const soundEnabled = localStorage.getItem("soundEnabled") !== "false";
+
+    soundableTabs.forEach((el) => {
+      el.addEventListener("click", () => {
         // Only play sound if sound is enabled
-      if (soundEnabled) {
-        tabClickAudio.play().catch(e => console.warn('Audio playback failed:', e));
-      }
+        if (soundEnabled) {
+          tabClickAudio
+            .play()
+            .catch((e) => console.warn("Audio playback failed:", e));
+        }
+      });
     });
   });
-  })
 </script>

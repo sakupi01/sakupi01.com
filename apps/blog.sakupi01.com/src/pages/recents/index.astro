@@ -1,22 +1,32 @@
 ---
-import { allPosts } from "../../utils/contents";
+import BlogPostCardForIFrame from "../../components/BlogPostCardForIFrame.astro";
 import Title from "../../components/Title.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogPostCardForIFrame from "../../components/BlogPostCardForIFrame.astro";
+import { allPosts } from "../../utils/contents";
 ---
 
-<BaseLayout pageTitle="Recent Blogs Archive" description="Recent Blogs Archive" url="/recents">
+<BaseLayout
+  pageTitle="Recent Blogs Archive"
+  description="Recent Blogs Archive"
+  url="/recents"
+>
   <main>
     <ul class="posts">
-       {
-          allPosts.map((post) => 
-            {
-              const url = post.data.tags.includes("zenn")
-        ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
-        : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
-            return <BlogPostCardForIFrame url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />}
-          )
-       }
+      {
+        allPosts.map((post) => {
+          const url = post.data.tags.includes("zenn")
+            ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
+            : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+          return (
+            <BlogPostCardForIFrame
+              url={url}
+              title={post.data.title}
+              date={post.data.date}
+              excerpt={post.data.excerpt}
+            />
+          );
+        })
+      }
     </ul>
   </main>
 </BaseLayout>

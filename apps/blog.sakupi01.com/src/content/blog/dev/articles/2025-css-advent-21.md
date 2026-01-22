@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 21 / A Quick History of Web Design"
 excerpt: "Responsive Web Design までの歴史から見る、Web の制約と特性とデザインの理想"
 date: 2025-08-21
 update: 2025-08-21
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -56,7 +56,7 @@ Table には Columns/Rows があり、ヘッダがあり、セルがあること
 これが「**Table Layout**」の時代です。
 
 ![Table Layout](../../../../assets/images/table-layout.png)
-*出典： [Tables for Layout? Absurd. - The History of the Web](https://thehistoryoftheweb.com/tables-layout-absurd/)*
+_出典： [Tables for Layout? Absurd. - The History of the Web](https://thehistoryoftheweb.com/tables-layout-absurd/)_
 
 ただし、Table Layout では、Table の構造に依存したレイアウトのみしか実現できず、二次元構造よりも複雑な見た目を実現したいという欲求が発生します。
 

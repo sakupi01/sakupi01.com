@@ -63,7 +63,8 @@ function convertCssToJson(inputPath, outputPath) {
     while (true) {
       const match = cssVarRegex.exec(cssContent);
       if (match === null) break;
-      const [_, name, value] = match;
+      const name = match[1];
+      const value = match[2];
 
       // Split the variable name into parts (excluding 'webui' prefix)
       const parts = name.split("-");
@@ -84,7 +85,7 @@ function convertCssToJson(inputPath, outputPath) {
 const args = process.argv.slice(2);
 if (args.length !== 2) {
   console.log(
-    "node cssToJson.js src/css/tokens/tokens.css src/css/tokens/tokens.json",
+    "node cssToJson.js src/css/tokens/tokens.css src/css/tokens/tokens.json"
   );
   process.exit(1);
 }

@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const dynamicTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
   return dynamicTags.map((tag) => {
     const filteredPosts = allPosts.filter((post) =>
-      post.data.tags.includes(tag),
+      post.data.tags.includes(tag)
     );
     return {
       params: { tag },
@@ -19,13 +19,29 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
-<Layout pageTitle={`Posts tagged with #${tag}`} description={`Posts tagged with #${tag}`} url={`/tags/${tag}/`}>
-  <p class="description">Posts tagged with <em><a href={`/${tag}`}>#{tag}</a></em> ...</p>
+
+<Layout
+  pageTitle={`Posts tagged with #${tag}`}
+  description={`Posts tagged with #${tag}`}
+  url={`/tags/${encodeURIComponent(tag)}/`}
+>
+  <p class="description">
+    Posts tagged with <em><a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a></em> ...
+  </p>
   <ul class="posts">
-    {posts.map((post) => {
-      const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`
-      return <BlogPostCard url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
-  })}
+    {
+      posts.map((post) => {
+        const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+        return (
+          <BlogPostCard
+            url={url}
+            title={post.data.title}
+            date={post.data.date}
+            excerpt={post.data.excerpt}
+          />
+        );
+      })
+    }
   </ul>
 </Layout>
 

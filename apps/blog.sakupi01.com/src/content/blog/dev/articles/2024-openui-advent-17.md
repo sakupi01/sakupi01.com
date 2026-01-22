@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 17 / Customizable Select Element Ep.15"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `slot`属性と`behavior`属性が使用廃止を受け、CSE Anatomyが改訂。HTML史上初となる、UAからLight DOMへ変更を加える実装検討へ"
 date: 2024-12-17
 update: 2024-12-17
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -21,7 +22,7 @@ status: 'published'
 [Ep.14](https://blog.sakupi01.com/dev/articles/2024-openui-advent-16)では、`<selectlist>`の`slot`属性と`behavior`属性の使用が廃止された経緯をお話ししました。`slot`属性と`behavior`属性は「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」ための手段だったのですが、この手段が廃止されたことにより、これからどう話が進むのかをみていきます。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
 
@@ -53,7 +54,7 @@ status: 'published'
 > - `<selectedvalue>` - The element which contains the text of the currently selected option. Every time that the user selects an option, the browser will replace the text content of this element with the text content of the selected option.
 > - `<listbox>` - The wrapper that contains the `<option>`(s) and `<optgroup>`(s). If this part was not provided by the author, then `<selectlist>` will automatically create one.
 >
-> ***
+> ---
 >
 > - button (slot) - listboxが開くbuttonが配置されるスロット部分。このスロットには、listboxを開くためのbuttonが配置される。もしAuthorがこの部分を提供しない場合、`<selectlist>`が自動的に作成する。`<selectlist>`の子要素で、**`<listbox>`、`<option>`、`<optgroup>`以外の全ての要素は、このスロットに配置される**。
 > - `<button type=selectlist>` - クリックされたときにlistboxを開くbutton。`type=selectlist`属性値は、このボタンがlistboxを開くことをブラウザに示す。
@@ -64,7 +65,7 @@ status: 'published'
 
 ```html
 <selectlist>
-  <button type=selectlist>
+  <button type="selectlist">
     <span>selected option:</span>
     <selectedoption></selectedoption>
   </button>
@@ -98,7 +99,7 @@ status: 'published'
 
 :::
 
-***
+---
 
 ここで再び、元々[選択された`<option>`のクローンが検討された背景のあるIssue](https://github.com/openui/open-ui/issues/571)に戻ります。
 
@@ -147,9 +148,9 @@ Jarjar のコメントが非常によくまとまっているので、この節�
 📝 Light DOM
 
 Shadow Root がアタッチされている Host が Light tree と呼ばれることから、Light tree を構成する Node は一般的に Light DOM と呼ばれます。
->
+
 > - The node tree of a shadow root’s host is sometimes referred to as the **light tree**.
-> [DOM - Shadow Tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree)
+>   [DOM - Shadow Tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree)
 
 :::
 
@@ -188,8 +189,8 @@ Firefox は CSS でコンテンツを**ミラーリング**する方法を実装
 - [Shadow tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree): Shadow Root がルートのツリー。host を通じて、必ず別の Node tree と接続されている。
 - Light tree: Shadow Root の host となるツリー
 - [**Flat tree**](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree): Shadow tree を含む、複合的なツリーをフラット化して、単一の Node Tree にしたもの。
-![Tree Flattening](../../../../assets/images/tree-flattening.png)
-*Tree Flattening - 出典: chromium.googlesource.com /[DOM](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree)*
+  ![Tree Flattening](../../../../assets/images/tree-flattening.png)
+  _Tree Flattening - 出典: chromium.googlesource.com /[DOM](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree)_
 - **Layout tree**: LayoutObject を Node として構成される Node tree。Viewport 内での Node の正確な位置やサイズなどが計算された、Paint の input となるツリー。つまり、ブラウザレンダリングフェーズの中でも、Layout フェーズ時に構築される。
 
 :::
@@ -207,7 +208,7 @@ Firefox は CSS でコンテンツを**ミラーリング**する方法を実装
 「Light DOM へのクローン」を実現するために必要な、次のようなスクリプトを開発者に提供します:
 
 ```js
-selectlist.addEventListener('change', () => {
+selectlist.addEventListener("change", () => {
   while (selectedoption.firstChild) {
     selectedoption.firstChild.remove();
   }
@@ -222,7 +223,7 @@ selectlist.addEventListener('change', () => {
 
 - 開発者の 80%が、`<selectlist>`のユースケースがこの動作をすることを期待しているとされています。そんな中、このスクリプトをコピー＆ペーストして動作させる必要があるならば、`<selectlist>`の持つ価値が失われてしまいます。宣言的な解決策の提供は重要で、もしできなければ、開発者は`<selectlist>`を使用しないかもしれません。
 
-***
+---
 
 このように、一口にクローンすると言ってもさまざまな手法が考えられ、それぞれに pros/cons があることがわかります。単にクローンするにしても Light DOM にクローンするのか、Shadow DOM にクローンするのかに判断の余地があったり、ミラーリングは実装や DOM 的な懸念があったりします。
 
@@ -234,7 +235,7 @@ Light DOM に別の要素の Light DOM をクローンすると、`<selectedopti
 Light DOM に直接挿入されるため、クローンされた要素は、Author Style Sheet の適用が可能となります。
 
 ![UAによってLight DOMにクローンされたNodeが直接挿入される様子](../../../../assets/images/insert-to-light-dom.png)
-*UAによってLight DOMにクローンされたNodeが直接挿入される様子*
+_UAによってLight DOMにクローンされたNodeが直接挿入される様子_
 
 こうした、要素が自身の Light DOM を変更するという挙動は、他の長年の HTML 機能に対するリクエストを解決するためにも必要かもしれないと Domenic は述べます。
 
@@ -250,7 +251,7 @@ Domenic は、この実装によって、プラットフォームが長年苦し
 
 - [comment](https://github.com/openui/open-ui/issues/571#issuecomment-1696744818)
 
-***
+---
 
 こうして、`<selectedoption>`の提案が再スタートを切り、選択された`<option>`を`<selectedcontent>`の Light DOM にクローンする仕様が策定＆実装されていくことになります。
 

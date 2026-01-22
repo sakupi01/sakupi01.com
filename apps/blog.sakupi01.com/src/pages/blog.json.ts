@@ -10,7 +10,7 @@ export async function GET() {
       link: `https://blog.sakupi01.com/${post.slug}/`,
       content: await marked.parse(post.body),
       tags: post.data.tags,
-    })),
+    }))
   );
   return new Response(JSON.stringify(items));
 }

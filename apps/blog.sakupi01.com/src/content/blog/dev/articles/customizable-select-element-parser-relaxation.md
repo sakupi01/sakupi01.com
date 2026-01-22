@@ -3,13 +3,14 @@ title: "Customizable Select ElementにおけるParser Relaxationのアップデ�
 excerpt: "長年の議論を経て、ようやく仕様が固まった、CustomizableなSelect要素の現状について、Parser Relaxationのを軸に解説します"
 date: 2025-01-26
 update: 2025-01-26
-beginColor: 'from-rose-300'
-middleColor: 'via-amber-200'
-endColor: 'to-violet-300'
-category: 'dev'
-tags: ['customizable select element', 'open ui', 'html', 'standards']
-status: 'published'
+beginColor: "from-rose-300"
+middleColor: "via-amber-200"
+endColor: "to-violet-300"
+category: "dev"
+tags: ["customizable select element", "open ui", "html", "standards"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -27,20 +28,23 @@ status: 'published'
 
 ```html
 <style>
-select,
-::picker(select) {
-  appearance: base-select;
-}
-option::checkmark {
-  display: none;
-}
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+  option::checkmark {
+    display: none;
+  }
 </style>
 <select>
   <button>
     <selectedcontent></selectedcontent>
   </button>
   <option value="andorra">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Andorra.svg/120px-Flag_of_Andorra.svg.png" alt="" />
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Andorra.svg/120px-Flag_of_Andorra.svg.png"
+      alt=""
+    />
     <span>Andorra</span>
   </option>
   ...
@@ -48,7 +52,7 @@ option::checkmark {
 ```
 
 ![Country select with Flags](../../../../assets/images/country-select.png)
-*Country select with Flags*
+_Country select with Flags_
 
 - [Codepen: Country select with Flags](https://codepen.io/sakupi01/pen/EaYOqRL)
 
@@ -122,24 +126,26 @@ Relaxation 以前のパーサの挙動では動作していた`<select /> <input
 - [Codepen: Self-closing Select Parse🫤](https://codepen.io/sakupi01/pen/QwLqJxw)
 
 ```html
-<select></select> <input />
+<select></select>
+<input />
 
 <hr />
 
-<select /> <input />
+<select />
+<input />
 ```
 
-*Experimental Web Platform features enabled*
+_Experimental Web Platform features enabled_
 
-| Chrome Canary 134 | Chrome 131 |
-| ---- | ---- |
+| Chrome Canary 134                                                         | Chrome 131                                                     |
+| ------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | ![Chrome Canary 134](../../../../assets/images/input-is-not-rendered.png) | ![Chrome 131](../../../../assets/images/input-is-rendered.png) |
 
 これに関しては、専用のフラグが用意されているため、もしロールアウトして問題があっても、Chrome のリリースを伴わずに機能を無効にすることができます。
 
 - [Add InputClosesSelect flag (5936092) · Gerrit Code Review](https://chromium-review.googlesource.com/c/chromium/src/+/5936092)
 
-***
+---
 
 数多くの構文と動作変更を繰り返してきた Customizable Select Element の Ship は、[Joey Arhar](https://github.com/josepharhar)による、辛抱強い繰り返しの実装の末に実現されています。
 

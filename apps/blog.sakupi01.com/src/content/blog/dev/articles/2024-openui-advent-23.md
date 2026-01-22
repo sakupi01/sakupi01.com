@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 23 / Global Design System Part1"
 excerpt: "デザインシステムの開発を加速させる、堅牢で柔軟なGlobal Design Systemの提唱"
 date: 2024-12-23
 update: 2024-12-23
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -65,7 +66,7 @@ Chris の記事やコミュニティからのフィードバックを受け、Gl
 
 - [A design system, component library for the web? · Issue #1017 · openui/open-ui](https://github.com/openui/open-ui/issues/1017)
 
-***
+---
 
 元々は一個人の提案から始まった Global Design System ですが、どうして Open UI のプロジェクトとして確立されるに至ったのでしょうか？そもそも、Global Design System の本質とは何なのでしょうか？
 
@@ -87,12 +88,12 @@ GDS が本質的に何を目指すのかを理解し、これからどう動い�
 HTML をベースとして構築されるデザインシステムと HTML レイヤーの間に欠けているものを埋めることが、GDS の役割です。
 
 ![HTMLレイヤー（標準）と各デザインシステムの間にギャップがあることで、共通部分の機械的な複製や、意図しない欠損が生じる可能性がある](../../../../assets/images/missed-layer-between-ds-and-html.png)
-*HTMLレイヤー（標準）と各デザインシステムの間にギャップがあることで、共通部分の機械的な複製や、意図しない欠損が生じる可能性がある*
+_HTMLレイヤー（標準）と各デザインシステムの間にギャップがあることで、共通部分の機械的な複製や、意図しない欠損が生じる可能性がある_
 
 **組織が何度も構築&再構築しているコンポーネントの共通部分が、Web の適切な組織によって承認された成果物として管理され、それがHTMLと既存のデザインシステムの間のギャップを補完するレイヤーとなる**ことで、開発者はより効率的に堅牢なデザインシステムを構築できるようになります。
 
 ![HTMLレイヤー（標準）と各デザインシステムの間をGDSが埋めることで、より堅牢で信頼できるデザインシステムを、効率的に作成できる](../../../../assets/images/gds-layer.png)
-*HTMLレイヤー（標準）と各デザインシステムの間をGDSが埋めることで、より堅牢で信頼できるデザインシステムを、効率的に作成できる*
+_HTMLレイヤー（標準）と各デザインシステムの間をGDSが埋めることで、より堅牢で信頼できるデザインシステムを、効率的に作成できる_
 
 つまり、競合する標準を作成することではなく、現状の HTML と各デザインシステムとのギャップを埋めるために、新しいレイヤーを導入することが目標となります。
 
@@ -112,7 +113,7 @@ GDS が標準の一部でないことは、GDS の概要にも明記されてい
 独自のブランドスタイルや言語に依存した 3rd Party/組織のデザインシステムと GDS との相違点は、”GDS の Brand&Tech Agnostic さ”にあります。
 
 ![OSSコンポーネントライブラリや独自デザインシステムは、そのコンテキストのみでしかGlobalではない](../../../../assets/images/individual-ds-vs-gds.png)
-*OSSコンポーネントライブラリや独自デザインシステムは、そのコンテキストのみでしかGlobalではない*
+_OSSコンポーネントライブラリや独自デザインシステムは、そのコンテキストのみでしかGlobalではない_
 
 共通コンポーネントには、必ず共通かつ一般的なセマンティクスと動作がありますが、スタイルは大きく異なります。
 
@@ -176,7 +177,7 @@ GDS によって、デザインシステムを構築するチームは、**単�
 
 デザインシステムチームは、組織/製品レベルのコンテキストを包含したコンポーネントや、それに関するガイドラインなどを成果物として作成する必要が依然としてあり、それらが GDS によって吸収されることはありません。
 
-***
+---
 
 Part2 では、GDS と Open UI の具体的なインテグレーションと、彼らが実現する未来についてお話しします。
 

@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 12 / Web Apps are demanded! - The Emergenc
 excerpt: "アプリケーションとしての Web の進化と SPA"
 date: 2025-08-12
 update: 2025-08-12
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -41,7 +41,7 @@ MPA は、ページ遷移を基本としたアプリケーション設計です�
 改めて MPA の描画フローを確認すると、以下のような流れになります。（e.g. EC サイト）
 
 - 商品一覧ページ（/products）を表示 → full page load
-- 商品詳細ページ（/products/123）へ遷移 →  full page load
+- 商品詳細ページ（/products/123）へ遷移 → full page load
 - カートに追加（/cart/add）→ カートページへリダイレクト → full page load
 
 full page load が走るということは、そのたびにバックグラウンドで以下のようなプロセスが発生することになります。

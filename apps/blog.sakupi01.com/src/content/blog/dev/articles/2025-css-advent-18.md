@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 18 / Cascade Layers with background story"
 excerpt: "Cascade Layers の背景と、Cascade Layers の提案に至るまでの経緯から考察するメンタルモデル"
 date: 2025-08-18
 update: 2025-08-18
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -24,7 +24,7 @@ OOCSS/BEM/SMACSS/ITCSS、CSS Modules、CSS in JS、ユーティリティファ�
 2. 他との衝突を防ぐため、各詳細度はできるだけ一定に・低く保ちたい
 3. グローバルなスタイル、特に Utility Class/変数、サードパーティのスタイルを括り、コントロールしたい
 
-以上のプラクティスを達成するため、Cascade の中でも最も *Reusable* で *Customizable* な「Class/Attribute セレクタ」を意識しなくてもいいくらいには上手く使えるよう、諸ツールの発展がありました。
+以上のプラクティスを達成するため、Cascade の中でも最も _Reusable_ で _Customizable_ な「Class/Attribute セレクタ」を意識しなくてもいいくらいには上手く使えるよう、諸ツールの発展がありました。
 それでも上記のプラクティスが満たせない場合は、`!important` を用いて Origin&Importance レベルから上書きを試みるというのが、実際に行われていたところでもあると思います。
 
 この一連の手法の根底となっていた Cascade が下図です。
@@ -92,7 +92,7 @@ import styles from './NewFeature.module.css';
 ## Goals of Cascade Layers
 
 上述した問題は、「関心の異なるスタイルの優先度づけ」をする場合に発生する問題です。
-「関心の異なるスタイルの優先度づけ」を UA/User/Author というスケールで既に実現している  Cascade の 「Origin」 や 「Importance」の仕組みに目をつけたのが、 Miriam Suzanne でした。
+「関心の異なるスタイルの優先度づけ」を UA/User/Author というスケールで既に実現している Cascade の 「Origin」 や 「Importance」の仕組みに目をつけたのが、 Miriam Suzanne でした。
 
 Origin や Importance の仕組みに倣って、スタイルの順序や詳細度に依存せず、「**決定論的なスタイル順序**」を構築することを目的として設計されたのが Cascade Layers です。
 
@@ -146,11 +146,11 @@ Shadow DOM は各コンポーネントが独自の Context を持つ階層構造
 もし Cascade Layers を Author Origin の位置に実装すると、「Layer × Context」のすべての組み合わせで Origin ができ、優先順位を決める必要が生じます。
 例えば、3 つの Layer があり 3 つの Context があれば、各組がカスタム Origin を形成することになり、それぞれが `!important` を持つことも考えると、最大 18 の異なる Origin の優先順位を管理することになります。
 
-| Layer↓ / Context→ | Light | Shadow1 | Shadow2 |
-| ---- | ---- | ---- | ---- |
-| base | Origin-A | Origin-B | Origin-C |
-| theme | Origin-D | Origin-E | Origin-F |
-| reset | Origin-G | Origin-H | Origin-I |
+| Layer↓ / Context→ | Light    | Shadow1  | Shadow2  |
+| ----------------- | -------- | -------- | -------- |
+| base              | Origin-A | Origin-B | Origin-C |
+| theme             | Origin-D | Origin-E | Origin-F |
+| reset             | Origin-G | Origin-H | Origin-I |
 
 - [[css-cascade] How do Cascade Layers interact with Shadow DOM · Issue #4984 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/4984)
 

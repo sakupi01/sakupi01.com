@@ -33,32 +33,43 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@codspeed/vitest-plugin": "^3.1.1",
+    "@eslint/js": "^9.39.2",
     "@repo/typescript-config": "workspace:*",
     "@types/react": "18.3.20",
     "@types/react-dom": "18.3.6",
+    "@typescript-eslint/eslint-plugin": "^8.53.1",
+    "@typescript-eslint/parser": "^8.53.1",
     "autoprefixer": "^10.4.19",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "lost-pixel": "^3.16.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-prettier": "^5.5.5",
     "postcss": "^8.4.38",
+    "prettier": "^3.8.0",
+    "prettier-plugin-astro": "^0.14.1",
     "turbo": "^2.4.4",
     "typescript": "5.4.5",
-    "vite": "6.2.5",
-    "vitest": "^2.1.5"
+    "typescript-eslint": "^8.53.1",
+    "vite": "6.2.5"
   },
   "engines": {
     "node": "22.x"
   },
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
     "husky": "9.0.11",
-    "lucide-react": "^0.394.0",
     "markuplint": "^4.11.5",
-    "pa11y-ci": "3.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
-  "packageManager": "pnpm@10.27.0"
+  "packageManager": "pnpm@10.28.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
+  }
 }

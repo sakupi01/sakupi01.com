@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 6 / Customizable Select Element Ep.4"
 excerpt: "Open UIでCustomizable Select Elementの初期提案"
 date: 2024-12-06
 update: 2024-12-06
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## 🎄はじめに
@@ -72,7 +73,7 @@ iOS Safari では、`<select>`のフォントサイズが 16px 未満だとペ�
 これはまだいい方で、`<select multiple>`や、`<option>`などのドロップダウン要素となると、あるプラットフォームではスタイルされるが、別のプラットフォームではスタイルされないといった現象も発生します。
 
 ![プラットフォーム間でのCSS適用の差分](../../../../assets/images/dropdown-difference.png)
-*出典: Stylability of Form Controls*
+_出典: Stylability of Form Controls_
 
 これに関しては、[Mason Freed](https://x.com/mfreed777)が詳細をまとめてくれているので、参考にしてみてください。
 
@@ -125,14 +126,14 @@ iOS Safari では、`<select>`のフォントサイズが 16px 未満だとペ�
 - より高度な機能の導入が容易
   - サーバー駆動の自動補完やオプション内での任意の HTML 表示など
 
-***
+---
 
 Greg や Mason による一連の調査が、Domenic による`<select>`の問題提起を導き、これを契機に Open UI で本格的に`<select>`のリサーチがなされていくことになります。
 
 - [Can we please style the `<select>` control?!](https://www.gwhitworth.com/posts/2019/can-we-please-style-select/)
 - [Add initial curated page and research for `<select>` by wdencker · Pull Request #19 · openui/open-ui](https://github.com/openui/open-ui/pull/19)
 
-***
+---
 
 それでは、また明日⛄
 

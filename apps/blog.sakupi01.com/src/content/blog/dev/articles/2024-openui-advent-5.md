@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 5 / Customizable Select Element Ep.3"
 excerpt: "Web標準化の動きが進んでもなお、CustomizableでないForm Controlの紹介。Customizable Select Element提案の契機となるサーベイ"
 date: 2024-12-05
 update: 2024-12-05
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -40,7 +41,7 @@ OS への技術的な依存が解消されて、標準に則ったブラウザ�
 
 Customizable でない Form Control が存在する根幹の原因は、1995 年に HTML2.0 に定義された Form Control の仕様まで遡ります。
 
-- [RFC 1866 - Hypertext Markup Language - 2.0  - Forms](https://datatracker.ietf.org/doc/html/rfc1866#section-8)
+- [RFC 1866 - Hypertext Markup Language - 2.0 - Forms](https://datatracker.ietf.org/doc/html/rfc1866#section-8)
 
 [Ep.1](https://blog.sakupi01.com/dev/articles/2024-openui-advent-3)でも見たように、当初の仕様では、HTML ドキュメントにデータを入力する方法、そのデータを使用してアクションを実行する方法のみが定義され、Form Control の具体的な構築方法は各ブラウザに委ねられていました。
 
@@ -53,7 +54,7 @@ Customizable でない Form Control が存在する根幹の原因は、1995 年
 ```
 
 ![スライダーはShadow DOMとしてレンダリングされるため、外部から変更できない](../../../../assets/images/slider-shadowdom.png)
-*スライダー内部はShadow DOMとしてレンダリングされるため、外部から変更できない*
+_スライダー内部はShadow DOMとしてレンダリングされるため、外部から変更できない_
 
 - [CSS property compatibility table for form controls - Learn web development | MDN](https://developer.mozilla.org/en-US/docs/Learn/Forms/Property_compatibility_table_for_form_controls#range)
 
@@ -104,7 +105,7 @@ Open UI の Chair である Greg Whitworth は Form Control について、「�
 
 この問題に立ち向かうべく、Open UI に提案された新しい仕様が、Customizable Select Element だったのです。
 
-***
+---
 
 それでは、また明日⛄
 

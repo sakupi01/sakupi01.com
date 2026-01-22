@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import Title from "../../components/Title.astro";
+import Layout from "../../layouts/Layout.astro";
 import { allPosts } from "../../utils/contents";
 
 function getTags() {
@@ -10,17 +10,19 @@ function getTags() {
 
 const tags = getTags();
 ---
+
 <Layout pageTitle="Tags Archive" description="Tags Archive" url="/tags/">
   <Title title="Tags Archive ..." />
   <ul class="tags">
-    {tags.map((tag: any) => (
-      <li class="tag">
-        <a href={`/tags/${tag}`}>#{tag}</a>
-      </li>
-    ))}
+    {
+      tags.map((tag: any) => (
+        <li class="tag">
+          <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+        </li>
+      ))
+    }
   </ul>
 </Layout>
-
 
 <style>
   .tag {

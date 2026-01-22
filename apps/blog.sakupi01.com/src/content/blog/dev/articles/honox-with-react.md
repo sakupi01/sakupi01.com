@@ -3,13 +3,14 @@ title: "HonoXでReactベースのUIライブラリYamadaUIを使用する"
 excerpt: "HonoのフルスタックメタフレームワークであるHonoXにreact-rendererを使用して、React依存のUIライブラリであるYamadaUIやReact Flowを使用してアプリを作成した方法をまとめました"
 date: 2024-05-05
 update: 2024-05-05
-beginColor: 'from-red-500'
-middleColor: 'via-orange-300'
-endColor: 'to-yellow-400'
-category: 'dev'
-tags: ['honox', 'react', 'yamadaui', 'cloudflare']
-status: 'draft'
+beginColor: "from-red-500"
+middleColor: "via-orange-300"
+endColor: "to-yellow-400"
+category: "dev"
+tags: ["honox", "react", "yamadaui", "cloudflare"]
+status: "draft"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -65,41 +66,44 @@ bun create hono@latest
 
 このディレクトリで`bun install`->`bun run dev`を実行し、<http://localhost:5173> にアクセスすると次のように初期画面が表示されます。
 ![HonoXアプリの初期画面](../../../../assets/images/hello-hono.png)
-*HonoXアプリの初期画面*
+_HonoXアプリの初期画面_
 
 ## レンダリングの仕組み
 
 レンダーは`_renderer.tsx`で設定されたレンダラーによって行なわれます。デフォルトの場合だと、`hono/jsx-renderer`のレンダラーであることがわかります。
 
 ```tsx showLineNumbers {1, 3} title="./app/routes/_renderer.tsx"
-import { jsxRenderer } from 'hono/jsx-renderer'
+import { jsxRenderer } from "hono/jsx-renderer";
 
 export default jsxRenderer(({ children, title }) => {
   return (
-    <html lang='en'>
+    <html lang="en">
       <head>
-        <meta charset='UTF-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {title ? <title>{title}</title> : <></>}
       </head>
       <body>{children}</body>
     </html>
-  )
-})
+  );
+});
 ```
 
 レンダラーの引き数や戻り値は`global.d.ts`で定義されています。
 
 ```ts showLineNumbers title="./app/global.d.ts"
-import type {} from 'hono'
+import type {} from "hono";
 
 type Head = {
-  title?: string
-}
+  title?: string;
+};
 
-declare module 'hono' {
+declare module "hono" {
   interface ContextRenderer {
-    (content: string | Promise<string>, head?: Head): Response | Promise<Response>
+    (
+      content: string | Promise<string>,
+      head?: Head
+    ): Response | Promise<Response>;
   }
 }
 ```
@@ -108,20 +112,20 @@ declare module 'hono' {
 例えば、`hono/jsx`からインポートされた`useState`を使用して、次のように`[route]/app/islands/counter.tsx`を実装できます。
 
 ```tsx showLineNumbers {1} title="./app/islands/counter.tsx"
-import { useState } from 'hono/jsx'
+import { useState } from "hono/jsx";
 
 export default function Counter() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   return (
     <div>
       <p>{count}</p>
       <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
-  )
+  );
 }
 ```
 
-***
+---
 
 しかし、今回は React ベースの UI ライブラリを使用するため、**`hono/jsx`をレンダーする`hono/jsx-renderer`は使用できません。ReactベースのUIライブラリを使用するためには、`react`のJSX(`ReactNode`)をレンダーするための`react-dom/client`が必要です。**
 
@@ -165,7 +169,7 @@ createClient({
 
 このように設定すると次のような型エラーが出ると思いますが、こちらは Known Issue として確認されており、後続のリリースで修正されると思われますので、現時点では黙認しておきます。
 ![Known Type Error in the use of react-renderer](../../../../assets/images/type-error-createclient.png)
-*Known Type Error in the use of react-renderer*
+_Known Type Error in the use of react-renderer_
 
 <https://github.com/honojs/honox/issues/87>
 
@@ -189,26 +193,30 @@ declare module "@hono/react-renderer" {
 最後に、React レンダラーを適用して完成です。
 
 ```tsx showLineNumbers {1, 3} title="./app/routes/_renderer.tsx"
-import { reactRenderer } from '@hono/react-renderer'
+import { reactRenderer } from "@hono/react-renderer";
 
 export default reactRenderer(({ children, head }) => {
   return (
-    <html lang='en'>
+    <html lang="en">
       <head>
-        <meta charSet='UTF-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {import.meta.env.PROD ? (
-          <script type='module' src='/static/client.js'></script>
+          <script type="module" src="/static/client.js"></script>
         ) : (
-          <script type='module' src='/app/client.ts'></script>
+          <script type="module" src="/app/client.ts"></script>
         )}
-        {head.title ? <title>{head.title}</title> : ''}
-        {head.title ? <meta name="description" content={`${head.description}`} /> : ''}
+        {head.title ? <title>{head.title}</title> : ""}
+        {head.title ? (
+          <meta name="description" content={`${head.description}`} />
+        ) : (
+          ""
+        )}
       </head>
       <body>{children}</body>
     </html>
-  )
-})
+  );
+});
 ```
 
 各 root では`global.d.ts`で定義した props を渡して、次のようにレンダリングを構成できます。
@@ -219,8 +227,9 @@ import FlowArea from "@/islands/portal/flowarea";
 
 export default createRoute((c) => {
   return c.render(<FlowArea />, {
-    head: { // 該当ページのheadをpropsとして渡している
-      title: "saku's Portfolio - Home", 
+    head: {
+      // 該当ページのheadをpropsとして渡している
+      title: "saku's Portfolio - Home",
       description: "saku's Portfolio",
     },
   });
@@ -259,11 +268,11 @@ Node.js 依存のコードには、Node.js 固有の API、グローバル変数
 そのため、Node.js 依存のパッケージは `ssr.external` に含める必要があるでしょう。
 これにより、Vite はそのパッケージをバンドル化せずに、Node.js 実行環境から直接読み込むようになります。
 
- `ssr.external` に含めないと、逆に Vite はそのパッケージをバンドル化しようとしてエラーとなってしまいます。
+`ssr.external` に含めないと、逆に Vite はそのパッケージをバンドル化しようとしてエラーとなってしまいます。
 
 <https://ja.vitejs.dev/config/ssr-options#ssr-%E3%82%AA%E3%83%95%E3%82%9A%E3%82%B7%E3%83%A7%E3%83%B3>
 
-***
+---
 
 従って、`vite.config.ts`の`ssr.external`を次のように追加して、YamadaUI と React Flow をクライアントサイドで使用できるようにします。
 
@@ -305,7 +314,7 @@ Cloudflare Pages のプロジェクトを作成し、GitHub と統合します�
 
 パッケージマネジャに bun を用いる場合は、現状次の環境変数の設定が必要なようです。
 ![Cloudflare Pagesでbunを使用する環境変数設定](../../../../assets/images/cloudflare-bun-envs.png)
-*Cloudflare Pagesでbunを使用する環境変数設定*
+_Cloudflare Pagesでbunを使用する環境変数設定_
 
 <https://gist.github.com/Hebilicious/88e5a444f42b8dc09fb86dfa865c6ed3>
 
@@ -313,7 +322,7 @@ Cloudflare Pages のプロジェクトを作成し、GitHub と統合します�
 
 あとは、上記を含めたビルドコマンドを構成し、ビルド出力ディレクトリなどを設定したら Cloudflare Pages にデプロイされるはずです🚀
 
-***
+---
 
 ## おまけ - モノリポにおける依存関係との仁義なき戦い
 
@@ -321,7 +330,7 @@ Cloudflare Pages のプロジェクトを作成し、GitHub と統合します�
 
 ブログアプリは Vercel にデプロイしているので、Vercel のログを確認してみたところ、og 画像生成のためのファイルにうまくアクセスできていないようでした。
 ![OG画像にアクセスした時のServerless Functionsでのエラー](../../../../assets/images/vercel-error.png)
-*OG画像にアクセスした時のServerless Functionsでのエラー*
+_OG画像にアクセスした時のServerless Functionsでのエラー_
 
 ```
 ⨯ Error: ENOENT: no such file or directory, open '/var/task/articles/_dev/blog-tech-stack.md'
@@ -350,7 +359,7 @@ Cloudflare Pages のプロジェクトを作成し、GitHub と統合します�
 
 特にモノリポ開発では、範囲を持ったままパッケージをインストールすることはキケンということを再認識させられるいい機会でした🙇🏻
 
-***
+---
 
 ## 参考
 

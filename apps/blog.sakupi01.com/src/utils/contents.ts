@@ -27,15 +27,15 @@ export const zennArticles = async () => {
 };
 
 export const allHouseBlogPosts = (await getCollection("blog")).filter(
-  (entry) => entry.data.status === "published",
+  (entry) => entry.data.status === "published"
 );
 
 const allHouseTechBlogPosts = (await getCollection("blog")).filter(
-  (entry) => entry.slug.startsWith("dev") && entry.data.status === "published",
+  (entry) => entry.slug.startsWith("dev") && entry.data.status === "published"
 );
 
 const allHouseLifeBlogPosts = (await getCollection("blog")).filter(
-  (entry) => entry.slug.startsWith("life") && entry.data.status === "published",
+  (entry) => entry.slug.startsWith("life") && entry.data.status === "published"
 );
 
 export const allTechPosts = await Promise.all([
@@ -44,14 +44,14 @@ export const allTechPosts = await Promise.all([
 ]).then((posts) =>
   posts.sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-  }),
+  })
 );
 
 export const allLifePosts = await Promise.all([...allHouseLifeBlogPosts]).then(
   (posts) =>
     posts.sort((a, b) => {
       return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-    }),
+    })
 );
 
 export const allPosts = await Promise.all([
@@ -60,5 +60,5 @@ export const allPosts = await Promise.all([
 ]).then((posts) =>
   posts.sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-  }),
+  })
 );

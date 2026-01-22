@@ -3,10 +3,11 @@ title: "🎨 CSS Advent Calendar: Day 1 / Pre-Styling Era"
 excerpt: "1989年の WorldWideWeb ブラウザから始まる、CSS 誕生前の Web の歴史の振り返り。スタイルのない時代から IMG タグ、FONT タグの登場。"
 date: 2025-08-01
 update: 2025-08-01
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -20,7 +21,7 @@ status: 'published'
 1989年に CERN で Tim Berners-Lee が World Wide Web というコンセプトを提唱し、1990年に彼自身のコンピュータである NeXT で動作する最初の Web ブラウザ、 WorldWideWeb（later, Nexus） を開発しました。
 
 ![Tim Berners-Lee: WorldWideWeb, the first Web client](../../../../assets/images/www.png)
-*出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)*
+_出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)_
 
 :::note{.memo}
 
@@ -74,7 +75,7 @@ HTML は、当時最も国際的に認められていたテキストマークア
 :::
 
 ![line-mode browser](../../../../assets/images/line-mode.png)
-*line-mode browser*
+_line-mode browser_
 
 とはいえ、line-mode browser はグラフィックないしは複雑なスタイルを持たないブラウザでした。当時のスペックのコンピュータやあらゆる OS で上で動作させ、Web ブラウザを広く使ってもらうことを目標として作られた、高互換のシンプルな CLI ベースのブラウザのため、当然のことでしょう。
 
@@ -144,7 +145,7 @@ www-talk mailing list
 >
 > > only be loved by a computer scientist.
 > >
-> Yup. Marc
+> > Yup. Marc
 >
 > [Marc Andreessen WWW-Talk Jul-Sep 1993: Re: Adobe's PDF](http://1997.webhistory.org/www.lists/www-talk.1993q3/0239.html)
 
@@ -156,12 +157,12 @@ www-talk mailing list
 
 ## The birth of Web Design?
 
- `<IMG>` は、Mosaic が実装を急いだため、www-talk の議論半ばの段階で Mosaic に Ship されます。この当時は標準化団体やこれといった HTML の仕様も存在しなかったため、こうした独自仕様が実装されました。
+`<IMG>` は、Mosaic が実装を急いだため、www-talk の議論半ばの段階で Mosaic に Ship されます。この当時は標準化団体やこれといった HTML の仕様も存在しなかったため、こうした独自仕様が実装されました。
 
 Mosaic が **`<IMG>`** を実装したことにより、これまでテキストベースだった Web に初めてグラフィックが導入されることになりました。
 
 ![IMG Tag の実装された Mosaic](../../../../assets/images/mozaic.png)
-*IMG Tag の実装された Mosaic*
+_IMG Tag の実装された Mosaic_
 
 任意のツールで装飾したドキュメントを、画像として正確 Web に表示できるようになったという展開は、Web で装飾することを渇望していた当時の人々にとって非常に心踊る出来事だったに違いありません。
 

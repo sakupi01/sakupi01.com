@@ -2,8 +2,8 @@
 import "@repo/ui/sakupi01.com.markdown.css";
 import "../style/sakupi01.com.astro-code.css";
 import type { InferEntrySchema } from "astro:content";
-import Layout from "./Layout.astro";
 import HeroSection from "./HeroSection.astro";
+import Layout from "./Layout.astro";
 
 interface Props {
   frontmatter: InferEntrySchema<"blog">;
@@ -16,22 +16,30 @@ const { title, excerpt, date, update, tags } = frontmatter;
 
 <Layout pageTitle={title} description={excerpt} url={slug}>
   <article>
-    <HeroSection title={title} date={date} update={update} excerpt={excerpt} tags={tags} />
+    <HeroSection
+      title={title}
+      date={date}
+      update={update}
+      excerpt={excerpt}
+      tags={tags}
+    />
     <slot />
   </article>
 
   <ul class="tags">
-    {tags.map((tag: any) => (
-      <li>
-        <a href={`/tags/${tag}`}>#{tag}</a>
-      </li>
-    ))}
+    {
+      tags.map((tag: any) => (
+        <li>
+          <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+        </li>
+      ))
+    }
   </ul>
-  
+
   <ul>
     <li>
-      <a 
-        href={`https://twitter.com/intent/tweet?text=${title}%20🌸%20saku's%20blog&url=https://blog.sakupi01.com/${slug}`}
+      <a
+        href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=https://blog.sakupi01.com/${slug}`}
         target="_blank"
         rel="noopener noreferrer"
         class="social-icon"
@@ -40,8 +48,8 @@ const { title, excerpt, date, update, tags } = frontmatter;
       </a>
     </li>
     <li>
-      <a 
-        href={`https://bsky.app/intent/compose?text=${title}%20🌸%20saku's%20blog%0Ahttps://blog.sakupi01.com/${slug}`}
+      <a
+        href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0Ahttps://blog.sakupi01.com/${slug}`}
         target="_blank"
         rel="noopener noreferrer"
         class="social-icon"
@@ -50,7 +58,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
       </a>
     </li>
     <li>
-      <a 
+      <a
         href={`https://github.com/sakupi01/sakupi01.com/tree/main/apps/blog.sakupi01.com/src/content/blog/${slug}.md`}
         target="_blank"
         rel="noopener noreferrer"
@@ -74,10 +82,10 @@ const { title, excerpt, date, update, tags } = frontmatter;
     justify-content: center;
     align-items: center;
     margin-block: 20px;
-    
+
     li {
       list-style: none;
-      
+
       a {
         color: var(--color-text);
         border-bottom: none;
@@ -86,7 +94,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
         gap: 0.5rem;
         display: inline-block;
         transition: transform 0.3s ease;
-        
+
         &:hover {
           transform: rotate(-10deg);
         }

@@ -3,13 +3,14 @@ title: "Cardのマークアップでもう悩まない！NestedでClickableなUI
 excerpt: "本エントリでは、インタラクティブな要素がネストされたUIを、標準的な方法で実現しようという「Link Area Delegation」Proposalについて紹介します。"
 date: 2024-12-16
 update: 2024-12-16
-beginColor: 'from-purple-300'
-middleColor: 'via-pink-200'
-endColor: 'to-orange-300'
-category: 'dev'
-tags: ['openui', 'a11y advent calendar', 'web accessibility', 'a11y']
-status: 'published'
+beginColor: "from-purple-300"
+middleColor: "via-pink-200"
+endColor: "to-orange-300"
+category: "dev"
+tags: ["openui", "a11y advent calendar", "web accessibility", "a11y"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -33,7 +34,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 ```html
 <div class="card" linkarea>
   <a href="/post?id=123" defaultlink>Post Title</a>
-  <img ...>
+  <img ... />
   <button>Join</button>
   <button>Share</button>
 </div>
@@ -53,20 +54,20 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 `<a>`はインタラクティブな要素であるゆえ、`<a>`の中に`<a>`をネストすることはできません。`<button>`もインタラクティブな要素なので、`<a>`の中に`<button>`をネストすることもできませんし、その逆も然りです。
 
 ![インタラクティブな要素](../../../../assets/images/interactive-elements.png)
-*インタラクティブな要素 - 出典: [HTML Standard - Kinds of content](https://html.spec.whatwg.org/multipage/dom.html#kinds-of-content)*
+_インタラクティブな要素 - 出典: [HTML Standard - Kinds of content](https://html.spec.whatwg.org/multipage/dom.html#kinds-of-content)_
 
 もし仮に、次のように`<a>`の中に`<a>`をネストした場合、それぞれは兄弟関係のリンクとしてパースされます。
 
 ```html
 <a href="#hoge">
-    ここは親リンクのエリア
-    <a href="#fuga"> 私は子のリンク </a>
-    この中に#fugaへのリンクがある
+  ここは親リンクのエリア
+  <a href="#fuga"> 私は子のリンク </a>
+  この中に#fugaへのリンクがある
 </a>
 ```
 
 ![兄弟関係のa tagになる](../../../../assets/images/sibling-a-tags.png)
-*兄弟関係のa tagになる*
+_兄弟関係のa tagになる_
 
 このように、HTML パーサは期待通りのインタラクティブな要素の解釈をしてくれないため、私たちは Nested Links を実現するために、さまざまな Hack をしてきました。
 
@@ -76,9 +77,9 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 
 例えば、本ブログの記事一覧ページでも、Card コンポーネントを使用しています。
 
-| Card本体をホバー | Card内tagをホバー |
-| ---- | ---- |
-| ![Card本体をホバーした時、記事へのURLに変わる](../../../../assets/images/card-article-link.png)*Card本体をホバーした時、記事へのURLに変わる* | ![Card内のtagをホバーした時、tagのURLに変わる](../../../../assets/images/card-tag-link.png)*Card内のtagをホバーした時、tagのURLに変わる* |
+| Card本体をホバー                                                                                                                             | Card内tagをホバー                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Card本体をホバーした時、記事へのURLに変わる](../../../../assets/images/card-article-link.png)_Card本体をホバーした時、記事へのURLに変わる_ | ![Card内のtagをホバーした時、tagのURLに変わる](../../../../assets/images/card-tag-link.png)_Card内のtagをホバーした時、tagのURLに変わる_ |
 
 この Card コンポーネントは、`<a>`タグのネスティングを使用せず、CSS の Subgrid を使用して、クリッカブルなエリアを拡張しています。
 
@@ -88,13 +89,24 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 
 ```html
 <div class="card">
-  <a class="link" href="https://blog.sakupi01.com/dev/articles/2024-openui-advent-12">
-    <h2>🎄Open UI Advent Calendar: Day 12 / Customizable Select Element Ep.10</h2>
-    <p>Customizable Select Elementの関連仕様: `::picker`のデフォルト色から深掘る、system-color/ color-scheme/ prefers-color-schemeの関係</p>
+  <a
+    class="link"
+    href="https://blog.sakupi01.com/dev/articles/2024-openui-advent-12"
+  >
+    <h2>
+      🎄Open UI Advent Calendar: Day 12 / Customizable Select Element Ep.10
+    </h2>
+    <p>
+      Customizable Select Elementの関連仕様:
+      `::picker`のデフォルト色から深掘る、system-color/ color-scheme/
+      prefers-color-schemeの関係
+    </p>
   </a>
   <p class="tags">
     <a href="https://blog.sakupi01.com/dev/tag/openui">openui</a>
-    <a href="https://blog.sakupi01.com/dev/tag/advent%20calendar">advent calendar</a>
+    <a href="https://blog.sakupi01.com/dev/tag/advent%20calendar"
+      >advent calendar</a
+    >
   </p>
 </div>
 ```
@@ -156,7 +168,7 @@ Link Area Delegation（= リンク領域の委譲）Proposal は、コンテナ�
 - 冗長なアクセシブルネームになる: e.g.1 のようなマークアップをすると、リンクのアクセシブルネームが冗長になり、`<h2>`と`<p>`と`<button>`のテキストをすべて読み上げる可能性があります。これにより、支援技術を使うユーザーにとって理解しづらくなることがあります。
 
 ![リンクに対して必要以上の情報を読み上げてしまう](../../../../assets/images/toomuch-info-vo.png)
-*リンクに対して必要以上の情報を読み上げてしまう*
+_リンクに対して必要以上の情報を読み上げてしまう_
 
 - 特定の要素でサポートされない: e.g. 2 に示すような、`<a>`でテーブルの行`<tr>`をラップするマークアップは、[HTMLの仕様](https://html.spec.whatwg.org/multipage/tables.html#the-tr-element)で許可されていません。HTML パーサはこのような構造を検出した場合に、リンクを削除してしまいます。
 
@@ -218,8 +230,8 @@ JavaScript を使って、コンテナ要素がクリックをキャプチャし
 
 <script>
   function handleClick(event) {
-    if (!event.target.closest('a')) {
-      window.location.href = 'https://example.com';
+    if (!event.target.closest("a")) {
+      window.location.href = "https://example.com";
     }
   }
 </script>
@@ -231,7 +243,7 @@ JavaScript を使って、コンテナ要素がクリックをキャプチャし
 - UX の問題: mouosedonwn での活性化や、ネストされたリンクの考慮漏れにより、支援技術での操作保証が難しいです。
 - ブラウザデフォルトの動作との競合: [Context Menu](https://en.wikipedia.org/wiki/Context_menu)などと競合する可能性があります。
 
-***
+---
 
 Link Area Delegation は、こうしたワークアラウンドによる問題を解決するために、インタラクティブな要素のネスティングに関する新しいガイドラインや標準を設けることを目指しています。
 
@@ -248,7 +260,7 @@ HTML で表現する方法の一つとして、`linkarea`属性と`defaultlink`�
 ```html
 <div class="card" linkarea>
   <a href="/post?id=123" defaultlink>Post Title</a>
-  <img ...>
+  <img ... />
   <button>Join</button>
   <button>Share</button>
 </div>
@@ -261,9 +273,14 @@ HTML で表現する方法の一つとして、`linkarea`属性と`defaultlink`�
 ```html
 <section class="card" linkarea="card123-cta">
   <h2><a href="#topic-123" id="card123-title">Post Title</a></h2>
-  <img ... alt="">
+  <img ... alt="" />
   <p>...</p>
-  <a href="/post?id=123" id="card123-cta" aria-labelledby="card123-cta card123-title">Learn More</a>
+  <a
+    href="/post?id=123"
+    id="card123-cta"
+    aria-labelledby="card123-cta card123-title"
+    >Learn More</a
+  >
   <button>Join</button>
   <button>Share</button>
 </section>
@@ -279,7 +296,7 @@ HTML で表現する方法の一つとして、`linkarea`属性と`defaultlink`�
 <section class="card">
   <linkarea>
     <a href="/post?id=123" defaultlink>Post Title</a>
-    <img ...>
+    <img ... />
     <button>Join</button>
     <button>Share</button>
   </linkarea>
@@ -299,7 +316,9 @@ HTML で表現する方法の一つとして、`linkarea`属性と`defaultlink`�
       <td>...</td>
       <td><button>Edit</button></td>
     </linkarea>
-  <tr>
+  </tr>
+
+  <tr></tr>
 </table>
 ```
 
@@ -312,15 +331,19 @@ HTML ではなく CSS を使用する方法も考えられています。HTML �
 ```html
 <section class="card">
   <a href="/post?id=123">Post Title</a>
-  <img ...>
+  <img ... />
   <button>Join</button>
   <button>Share</button>
 </section>
 ```
 
 ```css
-.card { pointer-area: contain; }
-.card a:nth-child(1) { pointer-area: expand; }
+.card {
+  pointer-area: contain;
+}
+.card a:nth-child(1) {
+  pointer-area: expand;
+}
 ```
 
 この方法では、事前に与えられた HTML の構造に CSS を適用することでクリッカブルな領域が決定されます。つまり、動的に HTML 構造が変更された場合は対応が複雑になる可能性があります。
@@ -336,7 +359,7 @@ HTML ではなく CSS を使用する方法も考えられています。HTML �
 ```html
 <section class="card" commandfor="card123-title" command="click">
   <a href="/post?id=123" id="card123-title">Post Title</a>
-  <img ...>
+  <img ... />
   <button>Join</button>
   <button>Share</button>
 </section>

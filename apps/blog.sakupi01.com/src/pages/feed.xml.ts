@@ -12,7 +12,7 @@ export async function GET(context: APIContext) {
       description: post.data.excerpt,
       link: `/${post.slug}/`,
       content: await marked.parse(post.body),
-    })),
+    }))
   );
   return rss({
     title: TITLE,

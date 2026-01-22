@@ -3,13 +3,14 @@ title: "Safari 18.2 「view-transition-name: auto;」への警鐘"
 excerpt: "Safari 18.2でShipされた`view-transition-name: auto;`は、未だに議論の余地が残るため、仕様をよく理解した上での利用が必要な理由を解説します"
 date: 2025-02-17
 update: 2025-02-17
-beginColor: 'from-pink-500'
-middleColor: 'via-orange-400'
-endColor: 'to-violet-500'
-category: 'dev'
-tags: ['view transition', 'css', 'standards', 'webkit']
-status: 'published'
+beginColor: "from-pink-500"
+middleColor: "via-orange-400"
+endColor: "to-violet-500"
+category: "dev"
+tags: ["view transition", "css", "standards", "webkit"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -23,7 +24,7 @@ View Transition API は、DOM 要素変更間でのシームレスなアニメ�
 - [2.1. Tagging Individually Transitioning Subtrees: the view-transition-name property | CSS View Transitions Module Level 1](https://drafts.csswg.org/css-view-transitions/#view-transition-name-prop)
 
 ![::view-transitionツリー内で独立した要素としてキャプチャされ、遷移できる](../../../../assets/images/view-transition-name.png)
-*::view-transitionツリー内で独立した要素としてキャプチャされ、遷移できる*
+_::view-transitionツリー内で独立した要素としてキャプチャされ、遷移できる_
 
 本エントリでは、[Safari 18.2でShipされた`view-transition-name: auto;`](https://webkit.org/blog/16301/webkit-features-in-safari-18-2/#:~:text=WebKit%20for%20Safari%2018.2%20adds%20support%20for%20view%2Dtransition%2Dname%3A%20auto)と、それを私たちがどう捉えるべきかについて述べます。
 
@@ -33,7 +34,7 @@ View Transition API は、DOM 要素変更間でのシームレスなアニメ�
 これにより、視覚的には"要素単位での遷移"が可能となります。
 
 ![::view-transitionツリー内で独立した要素としてキャプチャされ、遷移できる](../../../../assets/images/view-transition-name.png)
-*::view-transitionツリー内で独立した要素としてキャプチャされ、遷移できる*
+_::view-transitionツリー内で独立した要素としてキャプチャされ、遷移できる_
 
 :::note{.memo}
 
@@ -49,7 +50,7 @@ DOM 的な遷移単位は、あくまでも`::view-transition`ツリーです。
 `view-transition-name`の使用にあたって注意したいのが、`view-transition-name`は DOM の[id](https://dom.spec.whatwg.org/#ref-for-dom-element-id%E2%91%A0)属性のように、View Transition 内で一意である必要があるという点です。これは、遷移前のキャプチャ(`::view-transition-old(<custom-ident>)`)と遷移後のキャプチャ(`::view-transition-new(<custom-ident>)`)で同一の`view-transition-name`を持つことで、遷移前後の要素を関連付けて遷移するためです。
 
 ![view-transition-name重複時のエラー](../../../../assets/images/duplicated-view-transition-name.png)
-*view-transition-name重複時のエラー*
+_view-transition-name重複時のエラー_
 
 そのため、`view-transition-name`を多くの要素に対して適用したい場合、次のように、`view-transition-name`を要素の数だけ重複なく指定する必要があります。
 
@@ -97,24 +98,32 @@ DOM 的な遷移単位は、あくまでも`::view-transition`ツリーです。
 
 ```html showLineNumbers {20}
 <ul>
- <li>Item 1</li>
- <li>Item 2</li>
- <li>Item 3</li>
- <li>Item 4</li>
- ...
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+  ...
 </ul>
 <style>
-/* これが */
-li:nth-child(1) { view-transition-name: item1; }
-li:nth-child(2) { view-transition-name: item2; }
-li:nth-child(3) { view-transition-name: item3; }
-li:nth-child(4) { view-transition-name: item4; }
-...
+  /* これが */
+  li:nth-child(1) {
+    view-transition-name: item1;
+  }
+  li:nth-child(2) {
+    view-transition-name: item2;
+  }
+  li:nth-child(3) {
+    view-transition-name: item3;
+  }
+  li:nth-child(4) {
+    view-transition-name: item4;
+  }
+  ...
 
 /* こうなる */
 li {
- view-transition-name: auto;
-}
+    view-transition-name: auto;
+  }
 </style>
 ```
 

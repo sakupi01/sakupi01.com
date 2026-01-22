@@ -11,15 +11,15 @@ interface Props {
 }
 ---
 
-<button
-  id="soundToggle"
-  class="sound-toggle"
-  type="button"
-  title="Toggle sound"
-  aria-label="Toggle sound"
->
-  <span class="sound-toggle-sr">Toggle sound</span>
-  <div class="megaphone-container">
+<div class="megaphone-container">
+  <button
+    id="soundToggle"
+    class="sound-toggle"
+    type="button"
+    title="Toggle sound"
+    aria-label="Toggle sound"
+  >
+    <span class="sound-toggle-sr">Toggle sound</span>
     <!-- メガホン本体 -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,35 +28,62 @@ interface Props {
       aria-hidden="true"
     >
       <!-- メガホン本体 -->
-      <path class="megaphone-body" d="M10,7L15,2L16,3V21L15,22L10,17H6C4.9,17 4,16.1 4,15V9C4,7.9 4.9,7 6,7H10Z" />
-      
+      <path
+        class="megaphone-body"
+        d="M10,7L15,2L16,3V21L15,22L10,17H6C4.9,17 4,16.1 4,15V9C4,7.9 4.9,7 6,7H10Z"
+      ></path>
+
       <!-- サウンド波 - 小 -->
-      <g class="w1azqaf0" style="opacity: 1; transition-delay: 150ms;"><path d="
+      <g class="w1azqaf0" style="opacity: 1; transition-delay: 150ms;"
+        ><path
+          d="
         M 20.0703 4.92999
         C 21.945 6.80527 22.9982 9.34835 22.9982 12
         C 22.9982 14.6516 21.945 17.1947 20.0703 19.07
-    " stroke-linecap="round" stroke-linejoin="round" class="pv1k4t7" style="transform: translateX(0px);"></path></g>
-      
+    "
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="pv1k4t7"
+          style="transform: translateX(0px);"></path></g
+      >
+
       <!-- サウンド波 - 中 -->
-      <path class="sound-wave sound-wave-2" d="M19,7.5v9" stroke-linecap="round" /><g class="w1azqaf0" style="opacity: 1; transition-delay: 0ms;"><path d="
+      <path class="sound-wave sound-wave-2" d="M19,7.5v9" stroke-linecap="round"
+      ></path><g class="w1azqaf0" style="opacity: 1; transition-delay: 0ms;"
+        ><path
+          d="
         M 17.54 8.46002
         C 18.4774 9.39766 19.004 10.6692 19.004 11.995
         C 19.004 13.3208 18.4774 14.5924 17.54 15.53
-    " stroke-linecap="round" stroke-linejoin="round" class="pv1k4t7" style="transform: translateX(0px);"></path></g>
-      
+    "
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="pv1k4t7"
+          style="transform: translateX(0px);"></path></g
+      >
+
       <!-- ミュート線 -->
-      <line x1="3" y1="21" x2="21" y2="3" class="mute-line" stroke-linecap="round" />
-      
+      <line
+        x1="3"
+        y1="21"
+        x2="21"
+        y2="3"
+        class="mute-line"
+        stroke-linecap="round"></line>
     </svg>
-    
+
     <!-- 波紋効果（SVGに変更） -->
-    <svg class="ripples" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <circle class="ripple ripple-1" cx="50" cy="50" r="45" />
-      <circle class="ripple ripple-2" cx="50" cy="50" r="45" />
-      <circle class="ripple ripple-3" cx="50" cy="50" r="45" />
+    <svg
+      class="ripples"
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle class="ripple ripple-1" cx="50" cy="50" r="45"></circle>
+      <circle class="ripple ripple-2" cx="50" cy="50" r="45"></circle>
+      <circle class="ripple ripple-3" cx="50" cy="50" r="45"></circle>
     </svg>
-  </div>
-</button>
+  </button>
+</div>
 
 <style>
   .sound-toggle {
@@ -67,13 +94,13 @@ interface Props {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     &:hover {
-    transform: scale(1.1);
-  }
+      transform: scale(1.1);
+    }
     &:active {
-    transform: scale(0.95);
+      transform: scale(0.95);
+    }
   }
-  }
-  
+
   .megaphone-container {
     position: relative;
     width: 1.1em;
@@ -89,42 +116,50 @@ interface Props {
     position: relative;
     z-index: 2;
   }
-  
+
   .megaphone-body {
     fill: currentColor;
     transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
     transform-origin: center;
   }
-  
+
   /* サウンドトグルがオンの時にメガホンが揺れるアニメーション */
   @keyframes shake {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-5deg);
+    }
+    75% {
+      transform: rotate(5deg);
+    }
   }
-  
+
   .sound-wave {
     stroke: var(--color-primary-medium);
     stroke-width: 1.5;
     opacity: 0;
     transform: scale(0);
     transform-origin: center left;
-    transition: opacity calc(600ms * 0.5) ease,
-                transform calc(600ms * 0.65) cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      opacity calc(600ms * 0.5) ease,
+      transform calc(600ms * 0.65) cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  
+
   .sound-wave-1 {
     transition-delay: 0ms;
   }
-  
+
   .sound-wave-2 {
     transition-delay: 100ms;
   }
-  
+
   .sound-wave-3 {
     transition-delay: 200ms;
   }
-  
+
   /* ミュート線 */
   .mute-line {
     stroke: var(--color-primary-medium);
@@ -132,28 +167,30 @@ interface Props {
     opacity: 0;
     transform: scale(0);
     transform-origin: center;
-    transition: opacity calc(600ms * 0.5) ease,
-                transform calc(600ms * 0.65) cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      opacity calc(600ms * 0.5) ease,
+      transform calc(600ms * 0.65) cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  
+
   /* 音符のスタイル */
   .music-note {
     stroke: var(--color-primary-medium);
     fill: var(--color-primary-medium);
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity calc(600ms * 0.7) ease,
-                transform calc(600ms * 0.7) cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      opacity calc(600ms * 0.7) ease,
+      transform calc(600ms * 0.7) cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  
+
   .music-note-1 {
     transition-delay: 150ms;
   }
-  
+
   .music-note-2 {
     transition-delay: 250ms;
   }
-  
+
   .ripples {
     position: absolute;
     top: 0;
@@ -163,7 +200,7 @@ interface Props {
     z-index: 1;
     pointer-events: none;
   }
-  
+
   .ripple {
     fill: none;
     stroke: var(--color-primary-medium);
@@ -172,7 +209,7 @@ interface Props {
     r: 20;
     transform-origin: center;
   }
-  
+
   @keyframes ripple {
     0% {
       opacity: 0.7;
@@ -190,26 +227,26 @@ interface Props {
     opacity: 1;
     transform: scale(1);
   }
-  
+
   .sound-toggle:not(.sound-toggle--toggled) .music-note {
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   /* クリック時のアニメーション */
   .sound-toggle.animate-click .megaphone {
     animation: shake 0.6s ease-in-out;
   }
-  
+
   /* 波紋アニメーションはクリックした時だけ再生 */
   .sound-toggle.animate-click .ripple-1 {
     animation: ripple 1.2s ease-out;
   }
-  
+
   .sound-toggle.animate-click .ripple-2 {
     animation: ripple 1.2s ease-out 0.2s;
   }
-  
+
   .sound-toggle.animate-click .ripple-3 {
     animation: ripple 1.2s ease-out 0.4s;
   }
@@ -219,7 +256,7 @@ interface Props {
     opacity: 1;
     transform: scale(1);
   }
-  
+
   .sound-toggle--toggled .megaphone-body {
     transform: scale(0.95);
   }
@@ -245,30 +282,35 @@ interface Props {
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const soundToggle = document.getElementById('soundToggle');
+  document.addEventListener("DOMContentLoaded", () => {
+    const soundToggle = document.getElementById("soundToggle");
 
     const isMobile = () => {
-        return window.matchMedia("(max-width: 768px)").matches;
+      return window.matchMedia("(max-width: 768px)").matches;
     };
     if (soundToggle) {
-        if (isMobile()) {
-            soundToggle.style.display = "none";
-        } else {
-            soundToggle.style.display = "block";
-        }
-    }
-    
-    
-    const setSoundState = (soundOn: boolean): void => {
-      localStorage.setItem('soundEnabled', soundOn ? 'true' : 'false');
-      
-      if (!soundOn) {
-        soundToggle?.classList.add('sound-toggle--toggled');
-        soundToggle?.setAttribute('aria-label', 'Sound is off. Click to turn on.');
+      if (isMobile()) {
+        soundToggle.style.display = "none";
       } else {
-        soundToggle?.classList.remove('sound-toggle--toggled');
-        soundToggle?.setAttribute('aria-label', 'Sound is on. Click to turn off.');
+        soundToggle.style.display = "block";
+      }
+    }
+
+    const setSoundState = (soundOn: boolean): void => {
+      localStorage.setItem("soundEnabled", soundOn ? "true" : "false");
+
+      if (!soundOn) {
+        soundToggle?.classList.add("sound-toggle--toggled");
+        soundToggle?.setAttribute(
+          "aria-label",
+          "Sound is off. Click to turn on."
+        );
+      } else {
+        soundToggle?.classList.remove("sound-toggle--toggled");
+        soundToggle?.setAttribute(
+          "aria-label",
+          "Sound is on. Click to turn off."
+        );
       }
     };
 
@@ -276,39 +318,49 @@ interface Props {
       const isMobile = () => {
         return window.matchMedia("(max-width: 768px)").matches;
       };
-      return isMobile() ? false : (localStorage.getItem('soundEnabled') === null ? true : localStorage.getItem('soundEnabled') === 'true');
+      return isMobile()
+        ? false
+        : localStorage.getItem("soundEnabled") === null
+          ? true
+          : localStorage.getItem("soundEnabled") === "true";
     };
 
     setSoundState(getSoundPreference());
 
     const soundOnAudio = new Audio("/sounds/sound-on.mp3");
     const soundOffAudio = new Audio("/sounds/sound-off.mp3");
-    
-    [soundOnAudio, soundOffAudio].forEach(audio => {
+
+    [soundOnAudio, soundOffAudio].forEach((audio) => {
       audio.volume = 0.4;
-      audio.preload = 'auto';
+      audio.preload = "auto";
     });
-    
+
     const playClickAnimation = () => {
-      soundToggle?.classList.add('animate-click');
-      
+      soundToggle?.classList.add("animate-click");
+
       setTimeout(() => {
-        soundToggle?.classList.remove('animate-click');
+        soundToggle?.classList.remove("animate-click");
       }, 1200);
     };
-    
-    soundToggle?.addEventListener('click', () => {
-      const currentState = !soundToggle.classList.contains('sound-toggle--toggled');
+
+    soundToggle?.addEventListener("click", () => {
+      const currentState = !soundToggle.classList.contains(
+        "sound-toggle--toggled"
+      );
       const newState = !currentState;
-      
+
       playClickAnimation();
-      
+
       if (newState) {
-        soundOnAudio.play().catch((e: Error) => console.warn('Failed to play sound: ', e));
+        soundOnAudio
+          .play()
+          .catch((e: Error) => console.warn("Failed to play sound: ", e));
       } else {
-        soundOffAudio.play().catch((e: Error) => console.warn('Failed to play sound: ', e));
+        soundOffAudio
+          .play()
+          .catch((e: Error) => console.warn("Failed to play sound: ", e));
       }
-      
+
       setSoundState(newState);
     });
   });

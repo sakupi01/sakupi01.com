@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 5 / Cascade for Cascading Style Sheets - B
 excerpt: "Cascade の登場と Importance の裏側"
 date: 2025-08-05
 update: 2025-08-05
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -45,7 +45,9 @@ Modularity が可能にすることは、「スタイルシートの統合によ
 @import url(http://www.style.org/punk);
 @import url(http://www.style.org/funk);
 
-H1 { color: red }     /* override imported sheets */
+H1 {
+  color: red;
+} /* override imported sheets */
 ```
 
 ただし、競合が発生した場合、`@import` されたスタイルシートの優先度は、`@import` 元のスタイルシートの優先度よりも低くなるというのも考慮されています。
@@ -75,8 +77,14 @@ User と Author という異なるオリジンから、同じ場所にスタイ�
 ただし、CHSS になかったものとして、`!important` キーワードが導入されました。
 
 ```css
-H1 { color: black ! important; background: white ! important }
-P  { font-size: 12pt ! important; font-style: italic }
+H1 {
+  color: black !important;
+  background: white !important;
+}
+P {
+  font-size: 12pt !important;
+  font-style: italic;
+}
 ```
 
 `!important` を用いると、その宣言の優先度を上げることができます。
@@ -90,7 +98,9 @@ FUN FACT: The `!legal` keyword
 [Cascading Style Sheets: a draft specification](https://www.w3.org/Style/CSS/draft1.html)
 
 ```css
-P  { font-size: 12pt ! legal "IATA regulations" }
+P {
+  font-size: 12pt ! legal "IATA regulations";
+}
 ```
 
 `!legal "some comment"` は、「このスタイルが法的な理由を持つ」ことを示すキーワードです。`!legal` は、「法的に有効なスタイル」を指定するためのものです。

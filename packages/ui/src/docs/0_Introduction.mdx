@@ -1,12 +1,14 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Introduction" />
 
 # sakupi01.com | COLOPHON
+
 {/* # sakupi01.com | Web Components Introduction */}
-{/* This is an accessible UI boilerplate and component library for websites & webapps.
+{/\* This is an accessible UI boilerplate and component library for websites & webapps.
 
 It comprises:
+
 - Global design system tokens - colours, typography, icons.
 - Fully functioning UI components and layouts, which can be optionally configured using Storybook's `controls` addon to demonstrate variations in behaviour & layout.
 - Useful utilities & helpers.
@@ -19,6 +21,7 @@ Just plain vanilla code. 😜
 ```
 
 ## Code authoring guidelines & accessibility
+
 - All UI components are authored with **semantic HTML5** markup.
 - Some components are **progressively enhanced** with JavaScript and `WAI-ARIA` as appropriate. <sup>1, 2</sup>
 - The HTML markup uses the `BEM` methodology to provide CSS namespacing.
@@ -27,23 +30,31 @@ Just plain vanilla code. 😜
 - [View source code on Github](https://github.com/basher/Web-UI-Boilerplate).
 
 > <sup>1</sup>
-> The JavaScript-enhanced components have been authored as [HTML Web Components](/docs/web-components-or-custom-elements-using-web-components--docs), also known as `custom elements`.
+> The JavaScript-enhanced components have been authored as [HTML Web
+> Components](/docs/web-components-or-custom-elements-using-web-components--docs),
+> also known as `custom elements`.
 
 > <sup>2</sup>
-> To test how these enhanced components behave with JavaScript disabled, comment out the call to `uiInit()` in `src/javascript/index.ts`.
+> To test how these enhanced components behave with JavaScript disabled, comment
+> out the call to `uiInit()` in `src/javascript/index.ts`.
 
 ### Accessibility testing
+
 Storybook comes with 2 default accessibility testing tools:
+
 - `Accessibility addon`. This is in the Storybook `addons` toolbar, and is built on the same [AxeCore API](https://www.deque.com/axe/) that Lighthouse uses.
 - `Vision simulator`. This is in Storybook's main toolbar at the top of each story page.
 
 ## CSS theme override
+
 ### 1. Using Parcel bundler in local `DEV` mode
+
 - Set the starting CSS theme that Storybook uses via a terminal prompt:
-    - `npm run start:theme --theme=[theme-name]`
+  - `npm run start:theme --theme=[theme-name]`
 - Valid UI theme names are located in `ui/scripts/theme-config.js`
 
 ### 2. In Storybook
+
 > When running Storybook locally, theme switching is only possible if CSS themes have been bundled via `npm run bundle-all-themes`. This happens automatically in the published Storybook.
 
 - Override the CSS theme by clicking the paintbrush icon in Storybook's main toolbar:
@@ -51,5 +62,6 @@ Storybook comes with 2 default accessibility testing tools:
 ![Storybook theme switcher](theme-switcher.png)
 
 ## Additional reading
+
 - [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/).
-- [Inclusive Components](https://inclusive-components.design/). */}
+- [Inclusive Components](https://inclusive-components.design/). \*/}

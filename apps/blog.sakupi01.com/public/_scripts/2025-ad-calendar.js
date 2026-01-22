@@ -42,7 +42,7 @@ class AdventCalendar2025 extends HTMLElement {
         // Extract day number from link
         const aMatch = a.link.match(/2025-css-advent-(\d+)/);
         const bMatch = b.link.match(/2025-css-advent-(\d+)/);
-        const aNum = aMatch ? Number.parseInt(aMatch[1]) : 0;
+        const aNum = aMatch ? Number.parseInt(aMatch[1], 10) : 0;
         const bNum = bMatch ? Number.parseInt(bMatch[1]) : 0;
         return aNum - bNum;
       });
@@ -50,7 +50,7 @@ class AdventCalendar2025 extends HTMLElement {
     for (const post of cssAdventPosts) {
       const match = post.link.match(/2025-css-advent-(\d+)/);
       if (match) {
-        const dayNumber = Number.parseInt(match[1]);
+        const dayNumber = Number.parseInt(match[1], 10);
         postMap.set(dayNumber, post);
       }
     }
@@ -645,7 +645,7 @@ class AdventCalendar2025 extends HTMLElement {
                   })
                   .join("")}
               </tr>
-            `,
+            `
               )
               .join("")}
           </tbody>

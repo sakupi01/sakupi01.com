@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 20 / Customizable Select Element Ep.18"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 「同期タイミング」でクローンを作成の方針で決定。`cloneNode()`の制限が浮き彫りになる"
 date: 2024-12-20
 update: 2024-12-20
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -21,7 +22,7 @@ status: 'published'
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`のクローン実装における、技術的背景をお話ししています。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 [Ep.17](https://blog.sakupi01.com/dev/articles/2024-openui-advent-19)では、Light DOM へのクローンが、「マイクロタスクを使用した、MutationObserver のコールバック内で実装する方向」で提案されていました。これにより、パフォーマンス面で優れた実装が可能になるというのが主な理由でした。
 
@@ -106,28 +107,28 @@ CEReactions を用いると、MutationObserver と違って、[同期的なク�
 
 ```html
 <body>
-    <div id="original" class="example" onclick="alert('Inline listener!')">
-        <p>Original Node</p>
-    </div>
+  <div id="original" class="example" onclick="alert('Inline listener!')">
+    <p>Original Node</p>
+  </div>
 
-    <script>
-        // イベントリスナを追加
-        const original = document.getElementById('original');
-        original.addEventListener('click', () => alert('EventListener!'));
+  <script>
+    // イベントリスナを追加
+    const original = document.getElementById("original");
+    original.addEventListener("click", () => alert("EventListener!"));
 
-        // プロパティとしてリスナを追加
-        clone.onclick = () => alert('Property listener!');
+    // プロパティとしてリスナを追加
+    clone.onclick = () => alert("Property listener!");
 
-        // ノードをクローン
-        const clone = original.cloneNode(true);
-        clone.id = 'clone';
-        document.body.appendChild(clone);
+    // ノードをクローン
+    const clone = original.cloneNode(true);
+    clone.id = "clone";
+    document.body.appendChild(clone);
 
-        // 結果:
-        // - インラインリスナは動作する（"Inline listener!" が表示される）
-        // - addEventListener で追加したリスナは動作しない
-        // - プロパティとして追加したリスナは動作しない
-    </script>
+    // 結果:
+    // - インラインリスナは動作する（"Inline listener!" が表示される）
+    // - addEventListener で追加したリスナは動作しない
+    // - プロパティとして追加したリスナは動作しない
+  </script>
 </body>
 ```
 
@@ -154,7 +155,7 @@ JSX を記述する機会が増えた昨今、属性とプロパティの使い�
 
 それだけでなく、例えば、JS を使って描画された`<canvas>`の内容はクローンされません。`<iframe>`の場合は、`src`の再読み込みが発生します。CSS Animations は、新しく構築された要素として再開されるため、アニメーションが最初から再生されます。
 
-***
+---
 
 `cloneNode()`というソリューションは、一見すると Node の複製という観点ではシンプルですが、Web Components や JavaScript による動的な DOM 操作を行う要素が絡む場合、その制限が浮き彫りになりました。
 

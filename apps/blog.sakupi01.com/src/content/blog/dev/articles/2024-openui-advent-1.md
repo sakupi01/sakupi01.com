@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 1 / Open UIについて"
 excerpt: "Open UIの概要と、その調査方法"
 date: 2024-12-01
 update: 2024-12-01
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -34,7 +35,7 @@ Open UI は、Web 全体の UI コンポーネントやコントロールをリ�
 筆者の解釈では、 Open UI の担当範囲は次のグリーンの部分にあたります。
 
 ![Open UIの影響イメージ](../../../../assets/images/effect-open-ui.png)
-*Open UIの影響イメージ*
+_Open UIの影響イメージ_
 
 ## Open UIがやること
 
@@ -75,7 +76,7 @@ e.g.）
 
 Open UI の場合、メーリングリストは CSSWG など、外部 Working Group との Meeting Invitation や Minutes の共有に使われているようです。
 
-***
+---
 
 W3C のメーリングリストでは、W3C の標準化活動に関する情報を受け取ることができます。
 メーリングリストの活用方法は、W3C が次のリンクで紹介しています。
@@ -98,11 +99,11 @@ e.g.）
 
 たとえば、`message-id`が`<CADhPm3v0ZqQdc_+nTxFsrAraPuxrXnkWRpfyJw+43BCPc85w-g@mail.gmail.com>`のメールを検索したい場合は、<https://www.w3.org/mid/CADhPm3v0ZqQdc_+nTxFsrAraPuxrXnkWRpfyJw+43BCPc85w-g@mail.gmail.com> となります。
 ![message-idはメールヘッダーから確認できる](../../../../assets/images/message-id.png)
-*message-idはメールヘッダーから確認できる*
+_message-idはメールヘッダーから確認できる_
 すると、そのメールが`public-open-ui@w3.org`と`www-style@w3.org`に送信されていることがわかります。同じ ID のメールでも、送信先が複数ある場合はそれぞれの場所で異なる前後関係となるため、議論を網羅的に追うためには、[Message-Id Redirection Service](https://www.w3.org/mid/)を活用すると良いでしょう。
 :::
 
-***
+---
 
 重複する部分があると思いますが、以前の登壇で OpenUI Community Group について話したものがあるので、そちらも参照してみてください。
 
@@ -112,7 +113,7 @@ e.g.）
 
 See you tomorrow!
 
-***
+---
 
 ## Appendix
 

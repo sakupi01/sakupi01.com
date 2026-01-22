@@ -1,6 +1,0 @@
-{
-  "extends": ["../../biome.json", "../../react-internal.json"],
-  "files": {
-    "ignore": ["./storybook-static"]
-  }
-}

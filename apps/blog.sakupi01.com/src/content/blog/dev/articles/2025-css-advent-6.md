@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 6 / Cascade for Cascading Style Sheets - U
 excerpt: "Cascade Sorting Order と UA Origin の解剖"
 date: 2025-08-06
 update: 2025-08-06
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -33,13 +33,12 @@ CSS Snapshot 2024（執筆時点で最新） によると、現在の主要な�
 Candidate Recommendation - The W3C Recommendation Track
 
 <details>
-
 <summary>CSS Cascading and Inheritance Level 4 は、 W3C の Recommendation Track の中でも「Candidate Recommendation Snapshot」のステータスにあるものです</summary>
 
 W3C の全ての Technical Report は、Recommendation Track に従って、以下のようなステータスがつけられています。
 
 ![Recommendation Track](../../../../assets/images/rt.png)
-*Recommendation Track*
+_Recommendation Track_
 
 **Candidate Recommendation（CR）** は、Recommendation Track において、技術要件を満たし広範なレビューを受けた文書のことです。広範なコミュニティに最終レビューを促し、実装経験を収集することを目的として公開されます。
 
@@ -66,7 +65,6 @@ W3C が、特許保護を確保しながら（CRS）、同時に仕様の継続�
 :::note{.message}
 
 <details>
-
 <summary>「Level」 という仕組み </summary>
 CSS の仕様は、基本的にカテゴリごとに 「Module」で分割されています。そして「Module」は、Recommendation Track(RT) で同一ステータスとして括るのが妥当な区切りで「Level」分けされる仕組みになっています。Editors Draft でない限り、各 Module の 各 Level に RT のステータスが紐づく仕組みです。
 
@@ -86,7 +84,7 @@ CSS の仕様は、基本的にカテゴリごとに 「Module」で分割され
 
 > 638 distinct property names from 92 technical reports and 92 editors' drafts.
 >
-> [Index of CSS properties](https://www.w3.org/Style/CSS/all-properties.en.html)
+> -- [Index of CSS properties](https://www.w3.org/Style/CSS/all-properties.en.html)
 
 後日詳細に解説しますが、 Actual Value の導出には、多くの競合解決・計算過程を経ることになります。
 
@@ -109,7 +107,7 @@ CSS Cascading and Inheritance Level 4 時点での Cascade Sorting Order を図�
 
 ## Origin and Importance
 
- [Origin and Importance](https://www.w3.org/TR/css-cascade-4/#cascade-origin) について詳しく見ていきます。
+[Origin and Importance](https://www.w3.org/TR/css-cascade-4/#cascade-origin) について詳しく見ていきます。
 
 ### Origin
 
@@ -151,25 +149,27 @@ UA StyleSheet は、各ブラウザがそれぞれ持っています。
 使用する[ページ](https://studio.sakupi01.com/)は、シンプルな HTML と CSS で構成されているものにします。ページは筆者の Chrome Dev 140 で画像のように表示されています。これは、UA StyleSheet + User Style + Author Style の組み合わせによるものです。
 
 ![UA Style + User Style + Author Style](../../../../assets/images/with-author.png)
-*UA Style + User Style + Author Style*
+_UA Style + User Style + Author Style_
 
 まず、できる限り Author Style を取り除いて、UA Style + User Style に近づけます。
 
 ```js
 // 以下を devtool で実行し、できる限り Author Style を削除する
-document.querySelectorAll('style, link[rel="stylesheet"]').forEach(e => e.remove());
-document.querySelectorAll('[style]').forEach(e => e.removeAttribute('style'));
+document
+  .querySelectorAll('style, link[rel="stylesheet"]')
+  .forEach((e) => e.remove());
+document.querySelectorAll("[style]").forEach((e) => e.removeAttribute("style"));
 ```
 
 すると、以下のような表示になります。ほぼ UA Style + User Style の組み合わせです。
 
 ![UA Style + User Style](../../../../assets/images/with-user.png)
-*UA Style + User Style*
+_UA Style + User Style_
 
 次に、個人的でブラウザで設定したフォントや色などの User Style をオフにします。
 
 ![UA Style](../../../../assets/images/with-ua.png)
-*UA Style*
+_UA Style_
 
 これが、UA StyleSheet のみ当たったページの見た目です。
 
@@ -184,7 +184,7 @@ document.querySelectorAll('[style]').forEach(e => e.removeAttribute('style'));
 こうしてようやく、（ほぼ）一切の CSS が当たっていない、素の HTML の見た目が得られました。
 
 ![Rendering Result](../../../../assets/images/with-nothing.png)
-*Rendering Result Style*
+_Rendering Result Style_
 
 ここでは特に完璧な HTML レンダリング結果のスタイルを得ることは目指していませんので、この程度でやめておきますが、UA StyleSheet が HTML のレンダリング結果をどれだけ整えてくれているのか、おわかりいただけたのではないでしょうか。
 

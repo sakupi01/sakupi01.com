@@ -2,22 +2,25 @@
 import { Image } from "astro:assets";
 import sakupiIcon from "../assets/icon.svg";
 ---
-<div class="header-icon">
-    <a href={import.meta.env.PUBLIC_HOME}> <Image src={sakupiIcon} width="50" height="36" alt="logo"> </a>
-</div>
 
-<style>
+<div class="header-icon">
+  <a href={import.meta.env.PUBLIC_HOME}>
+    <Image src={sakupiIcon} width="50" height="36" alt="logo" />
+  </a>
+
+  <style>
     .header-icon {
-        margin: 10px;
-        a {
-            color: var(--color-text);
-            border-bottom: none;
-            width: 4rem;
-            display: flex;
-            transition: filter .2s;
-            &:hover {
-                filter: brightness(1.5);
-            }
+      margin: 10px;
+      a {
+        color: var(--color-text);
+        border-bottom: none;
+        width: 4rem;
+        display: flex;
+        transition: filter 0.2s;
+        &:hover {
+          filter: brightness(1.5);
         }
-}
-</style>
+      }
+    }
+  </style>
+</div>

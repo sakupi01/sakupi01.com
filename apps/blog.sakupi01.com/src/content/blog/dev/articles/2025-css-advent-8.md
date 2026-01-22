@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 8 / Basics of Style Resolution"
 excerpt: "何重ものフィルタリングと計算処理を経て、適用されるスタイルが決定するまでの仕組み"
 date: 2025-08-08
 update: 2025-08-08
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -48,8 +48,8 @@ p > a {
 
 /* At-rule */
 @font-face {
-  font-family: 'MyFont'; /* Declaration = Name (Descriptor): Value; */
-  src: url('myfont.woff2') format('woff2');  /* Declaration = Name (Descriptor): Value; */
+  font-family: "MyFont"; /* Declaration = Name (Descriptor): Value; */
+  src: url("myfont.woff2") format("woff2"); /* Declaration = Name (Descriptor): Value; */
 }
 ```
 
@@ -62,6 +62,8 @@ p > a {
 この辺りは普段書くとき気にしないことが多いかと思いますが、仕様を読んでいると明確に記述が異なるので、知っておくと面白いかもしれません。
 今回は仕様に沿って説明していく上で、これらの用語を使っていくと思うので、あらかじめ確認しておきました。
 
+[W3C Process Document](https://www.w3.org/policies/process/#RecsCR)
+
 :::
 
 ```html
@@ -72,21 +74,21 @@ p > a {
 
 ```css
 /* UA Stylesheet */
-h2 { 
-  font-size: 1.5em; 
-  margin: 0.83em 0; 
+h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
   color: CanvasText;
 }
 
 /* Author Stylesheet */
-.card h2 { 
-  colr: blue;      /* typo */
-  font-size: 24px; 
+.card h2 {
+  colr: blue; /* typo */
+  font-size: 24px;
   margin-top: 16px;
 }
 
-h2 { 
-  color: red; 
+h2 {
+  color: red;
   font-weight: bold;
 }
 ```
@@ -105,20 +107,20 @@ h2 {
 /* 有効値が declared values として残る*/
 
 /* UA Stylesheet からの declared values */
-h2 { 
+h2 {
   font-size: 1.5em;
   margin: 0.83em 0;
   color: CanvasText;
 }
 
 /* Author Stylesheet からの declared values */
-.card h2 { 
+.card h2 {
   /* colr: blue;      invalid at parse-time として無視される（プロパティ名が不正） */
   font-size: 24px;
   margin-top: 16px;
 }
 
-h2 { 
+h2 {
   color: red;
   font-weight: bold;
 }
@@ -135,10 +137,10 @@ Filtering の結果、単一の要素に対して複数の宣言が適用され�
 /* 競合解決の末生き残るものが、ascaded values */
 
 /* font-size: 1.5em;    UA Stylesheet */
-font-size: 24px;     /* Author Stylesheet (.card h2) */
+font-size: 24px; /* Author Stylesheet (.card h2) */
 
 /* color: CanvasText;   UA Stylesheet */
-color: red;          /* Author Stylesheet (h2) */
+color: red; /* Author Stylesheet (h2) */
 ```
 
 Author/User/UA Stylesheet、その中でもインラインスタイルや `@import` でのスタイル読み込みなど、さまざまなソースからすべてのスタイルを集約し、最終的に唯一の宣言を採用する必要があります。Author StyleSheet で何も指定していなくとも、ほとんどのブラウザで UA StyleSheet が適用されていることを鑑みると、この過程は必須と言っても良いでしょう。
@@ -153,9 +155,9 @@ Cascading の結果として cascaded value が得られましたが、すべて
 
 ```css
 /* e.g, cascaded value が存在しないプロパティ */
-display: ?;     
-font-family: ?; 
-line-height: ?; 
+display: ?;
+font-family: ?;
+line-height: ?;
 ```
 
 しかし、レンダリングを行うためには、**すべての要素のすべてのプロパティが必ず値を持つ必要があります**。[Defaulting](https://www.w3.org/TR/css-cascade-4/#defaulting) は、cascaded value が存在しない場合に適切な値を決定する過程です。
@@ -164,14 +166,14 @@ line-height: ?;
 /* Defaulting の結果 */
 
 /* cascaded value のまま */
-font-size: 24px;     
-margin: 0.83em 0;    
-margin-top: 16px;    
-color: red;          
-font-weight: bold;   
+font-size: 24px;
+margin: 0.83em 0;
+margin-top: 16px;
+color: red;
+font-weight: bold;
 
-display: block;      /* UA Stylesheet で設定される（h2 の場合） */
-font-family: serif;  /* initial value */
+display: block; /* UA Stylesheet で設定される（h2 の場合） */
+font-family: serif; /* initial value */
 line-height: normal; /* initial value */
 ```
 
@@ -284,6 +286,7 @@ CSS には、明示的に defaulting の動作を制御する[keywords](https://
 ```
 
 これらのキーワードは、Cascading の過程で通常の値と同様に処理されるのですが、最終的な値の決定は Defaulting の段階で行われます。
+
 </details>
 :::
 
@@ -300,9 +303,15 @@ CSS の値は、以下の 6 つの段階を経て最終的な表示値に変換�
 
 ```css
 /* 複数の宣言値が存在する例 */
-p { color: blue; }  /* 宣言値 1 */
-.text { color: red; }  /* 宣言値 2 */
-#content p { color: green; }  /* 宣言値 3 */
+p {
+  color: blue;
+} /* 宣言値 1 */
+.text {
+  color: red;
+} /* 宣言値 2 */
+#content p {
+  color: green;
+} /* 宣言値 3 */
 ```
 
 #### 2. [Cascaded Value](https://www.w3.org/TR/css-cascade-4/#cascaded)
@@ -333,8 +342,10 @@ p { color: blue; }  /* 宣言値 1 */
 - `var()` などの **CSS Functions の置換**
 
 ```css
-.parent { font-size: 16px; }
-.child { 
+.parent {
+  font-size: 16px;
+}
+.child {
   font-size: 1.5em; /* specified: 1.5em → computed: 24px */
   width: 50%; /* specified: 50% → computed: 50%（親のサイズはまだ不明）*/
 }
@@ -346,9 +357,11 @@ p { color: blue; }  /* 宣言値 1 */
 `var()` 関数の置換はこの段階で行われます。置換後の値が無効な場合、IACVT となります：
 
 ```css
-:root { --not-a-color: 16px; }
-p { 
-  background-color: var(--not-a-color); 
+:root {
+  --not-a-color: 16px;
+}
+p {
+  background-color: var(--not-a-color);
   /* computed 段階で 16px に置換 → 色として無効 → IACVT */
   /* result: unset として扱われる */
 }
@@ -361,8 +374,10 @@ p {
 Layout を完了して実際に利用される値。
 
 ```css
-.parent { width: 800px; }
-.child { 
+.parent {
+  width: 800px;
+}
+.child {
   width: 50%; /* computed: 50% → used: 400px */
   height: auto; /* computed: auto → used: 実際の高さ（e.g. 200px）*/
 }

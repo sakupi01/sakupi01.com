@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 17 / Specificity Architecture is what CSS 
 excerpt: "「詳細度設計」としての「CSS アーキテクチャ」、その未来’"
 date: 2025-08-17
 update: 2025-08-17
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents

@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 10 / Interoperability in CSS, &c."
 excerpt: "CSS におけるブラウザの負債とエコシステム側の解決策"
 date: 2025-08-10
 update: 2025-08-10
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -86,7 +86,7 @@ UA Style に関しても、Web の黎明期から今日のモダンブラウザ�
 
 Reset CSS はブラウザ間の差分をなくすことを前提としつつ、`<strong>` や `<em>` など、**全ての** HTML 要素に対して UA Style をリセットするという、少々 Opinionated な思想を含んだものでした。
 
-> There’s another reason **I want** to reset a whole lot of styles on a whole lot of elements.  Not only do **I want** to strip off the padding and margins, but **I also want** all elements to have a consistent font size, weight, style, and family.  Yes, **I want** to remove the boldfacing from headings and strong elements; **I want** to un-italicize em and cite elements.
+> There’s another reason **I want** to reset a whole lot of styles on a whole lot of elements. Not only do **I want** to strip off the padding and margins, but **I also want** all elements to have a consistent font size, weight, style, and family. Yes, **I want** to remove the boldfacing from headings and strong elements; **I want** to un-italicize em and cite elements.
 >
 > **I want** all this because I don’t want to take style effects for granted.
 

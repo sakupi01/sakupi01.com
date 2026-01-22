@@ -1,5 +1,6 @@
 ---
 import "@repo/ui/sakupi01.com.css";
+import Head from "../components/common/Head.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
@@ -19,40 +20,7 @@ const {
 <!doctype html>
 <html lang="ja">
   <head>
-    <title>{pageTitle} | @sakupi01.com</title>
-    <meta charset="UTF-8" />
-    <meta name="supported-color-schemes" content="light dark">
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <meta name="author" content="saku" />
-    <meta name="keywords" content="web,ui,css,html,technology,programming,browser,saku" />
-
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${import.meta.env.PUBLIC_BLOG}cherry-blossom.png`} />
-    <meta property="og:url" content={`${import.meta.env.PUBLIC_BLOG}${url}`} />
-    <meta name="twitter:card" content="summary" />
-    
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <link rel="canonical" href={`${import.meta.env.PUBLIC_BLOG}${url}`} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    
-    <script is:inline>
-      const getInitialTheme = () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          return savedTheme;
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      };
-      
-      const theme = getInitialTheme();
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-    </script>
+    <Head title={pageTitle} description={description} />
 
     <script>
       import { setupThemeToggle } from "../functions/setUpThemeToggle";
@@ -60,32 +28,46 @@ const {
     </script>
 
     <script>
-      (async function() {
+      (async function () {
         // Anchor positioning Polyfill
         if (!("anchorName" in document.documentElement.style)) {
-          // @ts-ignore
+          // @ts-expect-error wip wip
           await import("https://unpkg.com/@oddbird/css-anchor-positioning");
         }
       })();
     </script>
-    
-    <script>	
-      // @ts-ignore
+
+    <script>
+      // @ts-expect-error wip
       if (window.CSS && CSS.registerProperty) {
         window.CSS.registerProperty({
-          name: '--gradPoint',
-          syntax: '<percentage>',
+          name: "--gradPoint",
+          syntax: "<percentage>",
           inherits: false,
-          initialValue: '40%',
+          initialValue: "40%",
         });
       }
 
-      (function() {
+      (function () {
         // Original color palette
-        const colorPalette = ['#fa744f', '#ffbcbc', '#4cd3c2', '#b7efcd', '#edffea', '#ffe75e', '#feb72b', '#e85f99', '#9399ff', '#dab8f3', '#ea7ad7', '#ce0f3d', '#fd2eb3', '#ffc6c7'];
-		    
+        const colorPalette = [
+          "#fa744f",
+          "#ffbcbc",
+          "#4cd3c2",
+          "#b7efcd",
+          "#edffea",
+          "#ffe75e",
+          "#feb72b",
+          "#e85f99",
+          "#9399ff",
+          "#dab8f3",
+          "#ea7ad7",
+          "#ce0f3d",
+          "#fd2eb3",
+          "#ffc6c7",
+        ];
         // Function to add opacity to a color
-        // @ts-ignore
+        // @ts-expect-error wip
         function addOpacity(color, opacity = 0.4) {
           // Convert hex to rgba
           const r = parseInt(color.slice(1, 3), 16);
@@ -95,12 +77,14 @@ const {
         }
 
         // Create a copy of the color palette to work with
-        let availableColors = [...colorPalette];
+        const availableColors = [...colorPalette];
 
         // Function to select and remove a random color from availableColors
         function selectRandomColor() {
-          if (availableColors.length === 0) return 'rgba(0, 0, 0, 0.4)';
-          const randomIndex = Math.floor(Math.random() * availableColors.length);
+          if (availableColors.length === 0) return "rgba(0, 0, 0, 0.4)";
+          const randomIndex = Math.floor(
+            Math.random() * availableColors.length
+          );
           const selectedColor = availableColors[randomIndex];
           // Remove the selected color from availableColors
           availableColors.splice(randomIndex, 1);
@@ -116,64 +100,26 @@ const {
         const color6 = selectRandomColor();
 
         // Set color values on the element
-        const slidesContainer = document.querySelector('.carousel-container');
+        const slidesContainer = document.querySelector(".carousel-container");
         if (slidesContainer) {
-          // @ts-ignore
-          slidesContainer.style.setProperty('--color1', color1);
-          // @ts-ignore
-          slidesContainer.style.setProperty('--color2', color2);
-          // @ts-ignore
-          slidesContainer.style.setProperty('--color3', color3);
-          // @ts-ignore
-          slidesContainer.style.setProperty('--color4', color4);
-          // @ts-ignore
-          slidesContainer.style.setProperty('--color5', color5);
-          // @ts-ignore
-          slidesContainer.style.setProperty('--color6', color6);
+          // @ts-expect-error wip
+          slidesContainer.style.setProperty("--color1", color1);
+          // @ts-expect-error wip
+          slidesContainer.style.setProperty("--color2", color2);
+          // @ts-expect-error wip
+          slidesContainer.style.setProperty("--color3", color3);
+          // @ts-expect-error wip
+          slidesContainer.style.setProperty("--color4", color4);
+          // @ts-expect-error wip
+          slidesContainer.style.setProperty("--color5", color5);
+          // @ts-expect-error wip
+          slidesContainer.style.setProperty("--color6", color6);
         }
       })();
     </script>
 
-    <script>
-      (async function() {
-      // @ts-ignore
-      if (CSS['paintWorklet'] === undefined)
-      // @ts-ignore
-      await import('https://unpkg.com/css-paint-polyfill@next/dist/css-paint-polyfill.js')
-      
-      // @ts-ignore
-      CSS.paintWorklet.addModule("/_scripts/curved-underline.js");
-    })();
-    console.log("HAAAAAAAAAAAI!🌸 - @sakupi01.com");
-    </script>
-    
-    <script
-      is:inline
-      type="text/partytown"
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-KC1QTQK44J">
-    </script>
-    
-    <script is:inline type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-KC1QTQK44J");
-    </script>
-
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
   </head>
-<!--
-               ((`\
-            ___ \\ '--._
-         .'`   `'    o  )
-        /    \   '. __.'
-       _|    /_  \ \_\_
-      {_\______\-'\__\_\  O HAI THERE !🌸
--->
   <body class="page">
     <Header />
     <main>

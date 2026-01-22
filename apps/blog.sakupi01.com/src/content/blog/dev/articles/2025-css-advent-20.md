@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 20 / CSS Scope with backgrounds"
 excerpt: "CSS Scope の背景と、CSS Scope の提案に至るまでの経緯から考察するメンタルモデル"
 date: 2025-08-20
 update: 2025-08-20
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -34,7 +34,9 @@ Cascade Layers で思いつきそうなこととして、**各コンポーネン
 
 ```css
 @layer whatever-component {
-  .title { color: blue; }
+  .title {
+    color: blue;
+  }
 }
 ```
 
@@ -71,7 +73,7 @@ Scope に関しては、DOM ツリーフラグメントに結び付いたスタ�
 
 ## Proximity
 
-約 15年前に Nicole Sullivan が OOCSS を提唱する中で「近接性」に強く関連する *"css wish"* を述べていました。
+約 15年前に Nicole Sullivan が OOCSS を提唱する中で「近接性」に強く関連する _"css wish"_ を述べていました。
 筆者の観測範囲では、これが Scope Proximity に接触する最も古いリソースです。
 
 - [Object Oriented CSS | KEY | Web Design and HTML | Internet](https://www.slideshare.net/slideshow/object-oriented-css/990405#62)
@@ -80,8 +82,12 @@ Cascade は Specificity が同じ場合は単に後に書かれたルールを�
 
 ```css
 /* theme に応じたリンクの色を設定*/
-.light-theme a { color: purple; }
-.dark-theme a { color: plum; }
+.light-theme a {
+  color: purple;
+}
+.dark-theme a {
+  color: plum;
+}
 ```
 
 そのため、例えば以下のような指定をしても、直感に反して `.light-theme` のリンクは `plum` になります。
@@ -95,7 +101,7 @@ Cascade は Specificity が同じ場合は単に後に書かれたルールを�
 </div>
 ```
 
-OOCSS に代表される、フラグメント単位の *"Modular なスタイル"* を実現するにおいては、「順序」よりも「どれだけ対象とする要素に近いか」という情報がの方が、自然かつ有効です。
+OOCSS に代表される、フラグメント単位の _"Modular なスタイル"_ を実現するにおいては、「順序」よりも「どれだけ対象とする要素に近いか」という情報がの方が、自然かつ有効です。
 
 しかし、CSS において「どれだけ近いか」という概念は Specificity など他での代替が存在せず、Cascade において「最も近い祖先」という基準も存在しないため、直感に応じたスタイリングはできませんでした。
 
@@ -105,10 +111,14 @@ OOCSS に代表される、フラグメント単位の *"Modular なスタイル
 
 ```css
 @scope (.light-theme) {
-  a { color: purple; }
+  a {
+    color: purple;
+  }
 }
 @scope (.dark-theme) {
-  a { color: plum; }
+  a {
+    color: plum;
+  }
 }
 ```
 
@@ -134,9 +144,12 @@ OOCSS に代表される、フラグメント単位の *"Modular なスタイル
 - サブコンポーネントをネストできる「Slot」または「**Donut Hole**」
 
 ```html
-<div class="component">        <!-- Component Block -->
-  <h2 class="component__title">...</h2>  <!-- Component Element -->
-  <div class="sub-component"> Button, Input, etc...</div> <!-- Donut Hole -->
+<div class="component">
+  <!-- Component Block -->
+  <h2 class="component__title">...</h2>
+  <!-- Component Element -->
+  <div class="sub-component">Button, Input, etc...</div>
+  <!-- Donut Hole -->
 </div>
 ```
 
@@ -146,13 +159,19 @@ BEM はこの所有権を命名規則で表現しようとしたものとも言�
 
 ```css
 /* コンポーネントツリー内のすべてのタイトル */
-.component .title { /* 範囲が広い */ }
+.component .title {
+  /* 範囲が広い */
+}
 
 /* コンポーネントの直接の子であるタイトルのみ */
-.component > .title { /* DOM 構造に依存しすぎている */ }
+.component > .title {
+  /* DOM 構造に依存しすぎている */
+}
 
 /* BEM: コンポーネントに属するタイトルというセマンティクスを持つ */
-.component__title { /* 命名規則で所有権を表現できていそう */ }
+.component__title {
+  /* 命名規則で所有権を表現できていそう */
+}
 ```
 
 Nicole Sullivan はこのコンポーネント内の所有権からくるスコープの分離を「ドーナツスコープ」と名付けました。
@@ -165,7 +184,9 @@ Nicole Sullivan はこのコンポーネント内の所有権からくるスコ�
 
 ```css
 @scope (.component) to (.sub-component) {
-    .title { color: blue; }
+  .title {
+    color: blue;
+  }
 }
 ```
 
@@ -214,11 +235,15 @@ Nicole Sullivan はこのコンポーネント内の所有権からくるスコ�
 
 ```css
 /* グローバルスタイル */
-aside#sidebar p { color: red; }  /* 高い詳細度 */
+aside#sidebar p {
+  color: red;
+} /* 高い詳細度 */
 
 /* スコープ内のスタイル */
 @scope (aside) {
-  p { color: green; }  /* 低い詳細度だが、近い */
+  p {
+    color: green;
+  } /* 低い詳細度だが、近い */
 }
 ```
 

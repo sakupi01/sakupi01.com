@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 9 / Customizable Select Element Ep.7"
 excerpt: "`<selectmenu>`のその後：`<selectlist>`から`<select>`に至るまで"
 date: 2024-12-09
 update: 2024-12-09
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -29,8 +30,8 @@ status: 'published'
 本格的に`<selectlist>`の運用が始まる中で、whatwg/html に、`<select>`の HTML/CSS に関する Issue と PR をまとめた Issue が開かれました。
 
 - [Customizable `<select>` element · Issue #9799 · whatwg/html](https://github.com/whatwg/html/issues/9799)
-![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](../../../../assets/images/select-wrapped-issue.png)
-*現在は`<select>`だが、その前の`<selectlist>`時代に開かれている*
+  ![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](../../../../assets/images/select-wrapped-issue.png)
+  _現在は`<select>`だが、その前の`<selectlist>`時代に開かれている_
 
 そして、この Issue を皮切りに、`<selectlist>`から`<select>`への移行が検討されていくことになります。
 
@@ -60,19 +61,21 @@ CSE の Explainer は、当初 MS 内で検討が始まりましたが、その�
 つまり、**Opt-inするための属性の有無によって`<select>`のパースのされ方が変わることになるので、パース中にOpt-inするための属性を動的に追加/削除された場合、正しい挙動を再現する実装が難しい**ということでした。
 
 ```js title="e.g. optionに任意の要素を正常に追加することができる"
-const combobox = document.createElement('select');
+const combobox = document.createElement("select");
 document.body.appendChild(combobox);
-combobox.addAttribute('newbehavior','true'); // Opt in!
-combobox.innerHTML = '<option><img src="cat.jpg">Cat</option><option><img src="dog.jpg">Dog</option>';
+combobox.addAttribute("newbehavior", "true"); // Opt in!
+combobox.innerHTML =
+  '<option><img src="cat.jpg">Cat</option><option><img src="dog.jpg">Dog</option>';
 // Here, we have a fancy, new <select> with images of cats and dogs
 // https://github.com/whatwg/html/issues/5791#issuecomment-671477100
 ```
 
 ```js title="e.g. タイミングの問題で、optionに任意の要素を追加することができない"
-const combobox = document.createElement('select');
+const combobox = document.createElement("select");
 document.body.appendChild(combobox);
-combobox.innerHTML = '<option><img src="cat.jpg">Cat</option><option><img src="dog.jpg">Dog</option>';
-combobox.addAttribute('newbehavior','true'); // Opt in, but a little late
+combobox.innerHTML =
+  '<option><img src="cat.jpg">Cat</option><option><img src="dog.jpg">Dog</option>';
+combobox.addAttribute("newbehavior", "true"); // Opt in, but a little late
 // Boo! No images here, because we opted in after innerHTML, and the parser removed the <img> tags.
 // https://github.com/whatwg/html/issues/5791#issuecomment-671477100
 ```
@@ -102,7 +105,7 @@ CSE は`<select>`を”完全に”カスタマイズ可能にすることを目
     <span>Felids</span>
   </button>
   <listbox>
-    <input type="search">
+    <input type="search" />
     <div tabindex="-1">
       <option value="Asian golden cat">Asian golden cat</option>
       <option value="Bay cat">Bay cat</option>
@@ -140,7 +143,7 @@ CSE は`<select>`を”完全に”カスタマイズ可能にすることを目
 
 [Allow <button> and <datalist> in `<select>` by chromium-wpt-export-bot · Pull Request #43640 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/43640)
 
-***
+---
 
 また良い長さになってしまったので終わってしまうんですが、Anne の提案以降に議論された`<select>`に至る過程が興味深いものだったので、また書くかもしれません。
 今度は、そんな Customizable な`<select>`の現状を見ていきたいと思います。

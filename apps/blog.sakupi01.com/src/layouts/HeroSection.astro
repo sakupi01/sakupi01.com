@@ -7,14 +7,23 @@ import {
 
 const { title, image, date, update, excerpt, tags } = Astro.props;
 ---
+
 <div class="hero-section">
-    <Title title={title}></Title>
-    {image && <img src={image} alt={title} />}
-    <div class="dates">
-      <p class="published"> Published on <time datetime={convertToValidTimeDateString(date)}>{formatRFC2822Date(date)}</time></p>
-      <p class="update"> Updated on <time datetime={convertToValidTimeDateString(update)}>{formatRFC2822Date(update)}</time></p>
-    </div>
-    <p class="excerpt">{excerpt}</p>
+  <Title title={title} />
+  {image && <img src={image} alt={title} />}
+  <div class="dates">
+    <p class="published">
+      Published on <time datetime={convertToValidTimeDateString(date)}
+        >{formatRFC2822Date(date)}</time
+      >
+    </p>
+    <p class="update">
+      Updated on <time datetime={convertToValidTimeDateString(update)}
+        >{formatRFC2822Date(update)}</time
+      >
+    </p>
+  </div>
+  <p class="excerpt">{excerpt}</p>
 </div>
 
 <style>
@@ -24,17 +33,17 @@ const { title, image, date, update, excerpt, tags } = Astro.props;
 
   .dates {
     display: grid;
-    gap : 1rem;
+    gap: 1rem;
     grid-template-columns: auto auto 1fr;
     grid-template-rows: 1fr;
 
     .published {
-    color: var(--color-text);
-    font-weight: 400;
+      color: var(--color-text);
+      font-weight: 400;
+    }
   }
-  }
-    .excerpt {
-      text-wrap: pretty;
-      margin-block-end: 0;
+  .excerpt {
+    text-wrap: pretty;
+    margin-block-end: 0;
   }
 </style>

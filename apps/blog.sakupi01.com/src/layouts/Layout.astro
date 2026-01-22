@@ -12,9 +12,9 @@ const { pageTitle, description, url } = Astro.props;
 ---
 
 <BaseLayout pageTitle={pageTitle} description={description} url={url}>
-	<Header />
-		<main>
-			<slot />
-		</main>
-		<Footer />
+  <Header />
+  <main>
+    <slot />
+  </main>
+  <Footer />
 </BaseLayout>

@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 24 / Global Design System Part2"
 excerpt: "Open UIが提唱するデザインシステム、Global Design Systemとその未来"
 date: 2024-12-24
 update: 2024-12-24
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -39,7 +40,9 @@ Brad が提唱する GDS は、HTML と組織レベルデザインシステム�
 > **I would also question whether this is the best forum for this.** To build a design system, global or otherwise, **you would need frontend developers and people deeply invested in UX, accessibility, documentation and frontend best-practices.** Do you need people with knowledge of browser internals and the web standardization process for such a task? Not so much.
 >
 > @Ollie Williams from #openui-design-system [comment](https://discord.com/channels/714891843556606052/1216793626290421814/1217601051767865546)
-> ***
+>
+> ---
+>
 > aww, even if this is a difficult task, **I hope that OpenUI can be a place where browser developers and frontend professionals can get together and work it out together (whether that's through a web components library, new HTML elements or [my hope/prediction] a combination)**
 >
 > @littledan from #openui-design-system [comment](https://discord.com/channels/714891843556606052/1216793626290421814/1217651717538320428)
@@ -62,7 +65,8 @@ Brad が提唱する GDS は、HTML と組織レベルデザインシステム�
 
 > RESOLVED: Create a Global Design System workstream in Open UI and do not start from zero with a component library(s) (TBD)
 > [IRC](https://github.com/openui/open-ui/issues/1017#issuecomment-2115955452)
-***
+
+---
 
 こうして、Brad 個人の提案から始まった GDS は、Open UI のプロジェクトとして確立されるに至ります。
 
@@ -77,7 +81,7 @@ Open UI で GDS が進められていくことにより、[Part1](https://blog.s
 Open UI はデザインシステムの基本的な構成要素（下図の Sub-Atomic, Atomic, Molecule にあたるレイヤー）をカバーするため、同様のレイヤーをカバーする GDS は、Open UI が既に行っている作業の延長として機能できます。
 
 ![Open UIとGDSの扱うレイヤーはマッチする](../../../../assets/images/what-oui-and-gds-focus.png)
-*Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design methodology for building design systems | by Rohan Kamath | Medium](https://blog.kamathrohan.com/atomic-design-methodology-for-building-design-systems-f912cf714f53)）*
+_Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design methodology for building design systems | by Rohan Kamath | Medium](https://blog.kamathrohan.com/atomic-design-methodology-for-building-design-systems-f912cf714f53)）_
 
 これにより、過去に Open UI で議論された[Card](https://github.com/openui/open-ui/issues/151)や[Skelton](https://github.com/openui/open-ui/issues/139)などのコンポーネントは、自然と GDS の対象とすることができます。
 
@@ -86,7 +90,7 @@ Open UI はデザインシステムの基本的な構成要素（下図の Sub-A
 > Serve as an incubator for potential future HTML elements, attributes and APIs.
 >
 > [README.md openui/design-system](https://github.com/openui/design-system)
->
+
 ### 標準化プロセスをスキップすることによる、高速な検討と提供のイテレーション
 
 Open UI は、提案が標準化され、UA に実装されることを最終目標としているため、提案の Ship までに多大なプロセスと時間を要します。
@@ -142,7 +146,7 @@ W3C Open UI CG で然るべき検討がなされた GDS コンポーネントラ
 > 6. Has decent adoption and web developer/designer community support (monetary funding is a positive but not required)
 >
 > [Foundation for the Global Design System component library · Issue #1066 · openui/open-ui](https://github.com/openui/open-ui/issues/1066)
-:::
+> :::
 
 これまで Open UI が取り組んできたのは、あくまで「Web UI における標準化団体への推奨事項作成」であったのに対し、GDS のコンポーネントライブラリは、GDS での検討に基づいたコンポーネントを実際に実装し、開発者が独自のデザインシステムを構築する際の参考として機能することを目的としています。
 
@@ -161,11 +165,11 @@ W3C Open UI CG で然るべき検討がなされた GDS コンポーネントラ
 > Testing solution: Will enable any component library determine adherence to the blueprint's defined by Open UI (similar to web platform tests). This will allow component libraries to be implemented in other languages but leverage the research and resolutions provided by Open UI in a tangible way.
 >
 > [Thoughts on a Global Design System](https://www.gwhitworth.com/)
-まだまだ動き始めたばかりのプロジェクトですが、[来年の第3四半期までには複数のWeb Componentsを提供することを目指している](https://www.w3.org/2024/11/21-openui-minutes.html)ようです。
+> まだまだ動き始めたばかりのプロジェクトですが、[来年の第3四半期までには複数のWeb Componentsを提供することを目指している](https://www.w3.org/2024/11/21-openui-minutes.html)ようです。
 
 広範な Web の進化へ寄与する可能性を秘める Global Design System の動きに、今後も注目していきたいと思います。
 
-***
+---
 
 それでは、また明日⛄
 

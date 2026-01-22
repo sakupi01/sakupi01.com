@@ -74,7 +74,7 @@ class CascadeAccordion extends HTMLElement {
             // Use setTimeout to avoid recursive calls
             setTimeout(
               () => this.setAttribute("show-scope-proximity", "false"),
-              0,
+              0
             );
           }
           break;
@@ -740,7 +740,7 @@ class CascadeAccordion extends HTMLElement {
 
   setupAccordion() {
     const accordions = this.shadowRoot.querySelectorAll(
-      'details[name="cascade-accordion"]',
+      'details[name="cascade-accordion"]'
     );
 
     for (const accordion of accordions) {
@@ -802,7 +802,7 @@ class CascadeAccordion extends HTMLElement {
         // Set attribute, which will trigger attributeChangedCallback
         this.setAttribute(
           "show-scope-proximity",
-          showScopeProximityCheckbox.checked,
+          showScopeProximityCheckbox.checked
         );
       });
     }

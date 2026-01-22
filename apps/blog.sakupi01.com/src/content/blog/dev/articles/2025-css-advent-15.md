@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 15 / CSS meets npm Ecosystem - the second 
 excerpt: "Declarative UI の登場による CSS エコシステムの変遷"
 date: 2025-08-15
 update: 2025-08-15
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -131,7 +131,7 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  
+
   &:hover {
     opacity: 0.8;
   }

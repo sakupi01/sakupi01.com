@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 22 / Intrinsic Web Design - Beyond Respons
 excerpt: "Web というメディアが本来持つ性質/値を最大限に活かす「Intrinsic Web Design」という考え方"
 date: 2025-08-22
 update: 2025-08-22
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -141,7 +141,7 @@ clearfix により、親要素が Float された子要素を含むように強�
 
 - **Flow**（Formatting Context）
 - **Flexbox**（Formatting Context）
-- **Grid**（Formatting Context）  
+- **Grid**（Formatting Context）
 - **Multi-column**（Formatting Context）
 
 これらは互いに入れ子にでき、Formatting Context は Normal Flow 内で独立して機能します。
@@ -166,14 +166,18 @@ Grid 以前、一次元配置しかできなかった時代において、グリ
   flex-wrap: wrap;
 }
 .card {
-  width: 33.333%;  /* 常に3列 */
+  width: 33.333%; /* 常に3列 */
 }
 /* Media Queryで命令的に調整 */
 @media (max-width: 768px) {
-  .card { width: 50%; }  /* 2列 */
+  .card {
+    width: 50%;
+  } /* 2列 */
 }
 @media (max-width: 480px) {
-  .card { width: 100%; }  /* 1列 */
+  .card {
+    width: 100%;
+  } /* 1列 */
 }
 ```
 

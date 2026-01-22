@@ -3,18 +3,19 @@ title: "Lost PixelとGithub Actionsを用いたVRTのユースケース"
 excerpt: "撮影したスナップショットをGithub上で管理し、PR上で差分検知を行うことで、意図せぬビジュアルのデグレを防いでくれるLost Pixelの具体的な運用方法についてです"
 date: 2024-04-21
 update: 2024-04-21
-beginColor: 'from-cyan-200'
-middleColor: 'via-emerald-300'
-endColor: 'to-amber-200'
-category: 'dev'
-tags: ['lost-pixel', 'vrt', 'testing', 'cicd']
-status: 'draft'
+beginColor: "from-cyan-200"
+middleColor: "via-emerald-300"
+endColor: "to-amber-200"
+category: "dev"
+tags: ["lost-pixel", "vrt", "testing", "cicd"]
+status: "draft"
 ---
+
 ## Table of Contents
 
 ## はじめに
 
-2 月に開催された[#vrt4選](https://twitter.com/hashtag/VRT4%E9%81%B8)という勉強会に参加した際、その中で紹介されていた Lost Pixel というツールに興味を持ちました。
+2 月に開催された[#vrt4選](https://x.com/hashtag/VRT4%E9%81%B8)という勉強会に参加した際、その中で紹介されていた Lost Pixel というツールに興味を持ちました。
 
 👇該当のスライド
 
@@ -22,7 +23,7 @@ status: 'draft'
 
 普段は専ら[Chromatic](https://www.chromatic.com/)ユーザなのですが、個人開発の際、無料枠の上限にヒットして痛い目にあった過去があるので、今回個人ブログでは Lost Pixel で VRT を行うことにしてみました💸
 
-[#vrt4選](https://twitter.com/hashtag/VRT4%E9%81%B8)では詳細な実装や VRT の一連の流れまで述べられていなかったかつ、Lost Pixel はまだあまり普及しておらず、発表者の方のスライド以外で使用例があまり見つからなかったため、今回は Lost Pixel を用いた具体的な VRT の運用方法をまとめてみました。
+[#vrt4選](https://x.com/hashtag/VRT4%E9%81%B8)では詳細な実装や VRT の一連の流れまで述べられていなかったかつ、Lost Pixel はまだあまり普及しておらず、発表者の方のスライド以外で使用例があまり見つからなかったため、今回は Lost Pixel を用いた具体的な VRT の運用方法をまとめてみました。
 
 ## 前提
 
@@ -103,12 +104,12 @@ export const config: CustomProjectConfig = {
       ? "http://localhost:3000"
       : "http://172.17.0.1:3000",
   },
-  waitBeforeScreenshot: 5000,// 🟢
+  waitBeforeScreenshot: 5000, // 🟢
   timeouts: {
     loadState: 50000, // 🟢
     networkRequests: 50000, // 🟢
   },
-  
+
   // OSS mode
   // 🟢モノリポの場合、Github Actionで実行するときのパスはプロジェクトのrootからのパスを設定する
   imagePathBaseline: process.env.LOCAL // 🟢baselineイメージの格納先。ここに格納されているスクリーンショットが比較基準
@@ -175,7 +176,7 @@ bun lost-pixel
 ```
 
 ![lost-pixel初回実行](../../../../assets/images/first-execution.png)
-*lost-pixel初回実行の出力*
+_lost-pixel初回実行の出力_
 
 #### 1. baselineをupdateする
 
@@ -207,7 +208,7 @@ bun lost-pixel:update
 
 すると、次のように baseline-images にベースライン画像が格納されていることが確認できます。
 ![ベースライン画像が生成される](../../../../assets/images/baseline-gen.png)
-*ベースライン画像が生成される*
+_ベースライン画像が生成される_
 
 しかし、baseline-images と current-images の比較がベースライン画像のアップデートよりも先に行われている可能性があるからか、またもや例外がスローされます。
 
@@ -266,7 +267,7 @@ Sending anonymized telemetry data.
 Github Actions を用いて CI として動かすための Workflow ファイルを作成していきます。
 
 [運用シナリオ](https://blog.sakupi01.com/dev/articles/lost-pixel-practice#運用シナリオ)で述べた次の流れを実現するために、次からの項目で`vis-reg-test.yml`と`update-lostpixel.yml`を作成します。
->
+
 > - featureブランチ`feat/lost-pixel`のPRチェック時にGithub ActionsでLost Pixel OSSモードを用いたVRTを行う
 > - 差分が検出された場合は`/update-vrt`とPRにコメントを入れることで、ベースライン画像の更新PR`lost-pixel-update/> [base-pr-name]`を元ブランチ`feat/lost-pixel`から新たに作成する
 > - `lost-pixel-update/[base-pr-name]`のベースライン画像の差分をImage Diffを用いて確認・レビューし、マージする
@@ -318,7 +319,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     strategy:
-        matrix: 
+        matrix:
           config:
             # 🟢 将来的にVRTしたいマイクロサービスが増えたらここに追加する
             - {
@@ -326,9 +327,9 @@ jobs:
                 name: "Lost Pixel for blog page",
                 command: "bun run start",
               }
-    
+
     # 🟢stepが利用するデフォルトのディレクトリを上記${{ matrix.config.package }}の値にする
-    defaults: 
+    defaults:
         run:
             working-directory: ${{ matrix.config.package }}
     env:
@@ -339,9 +340,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      
+
       # 🟢.envを作成し、ビルド時に必要な環境変数を登録する
-      - name: Create .env file 
+      - name: Create .env file
         run: |
             touch .env
             echo "ZENN_URL=${{ secrets.ZENN_URL }}" >> .env
@@ -359,19 +360,19 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
           restore-keys: ${{ runner.os }}-bun
-      
+
       - name: Build UI
         working-directory: ./packages/ui
-        run: bun run build 
+        run: bun run build
 
       # 🟢 ブログアプリのビルド
       - name: Build App
-        run: cd ../../ && bun run build 
+        run: cd ../../ && bun run build
 
       # 🟢 サーバの立ち上げ。コマンドは${{ matrix.config.command }}の値を利用
       - name: Start App
         run: cd . && ${{ matrix.config.command }} &
-       
+
        # 🟢 Lost Pixelを用いたVRT
       - name: Lost Pixel
         id: lostpixel
@@ -397,25 +398,29 @@ on:
 
 jobs:
   lost-pixel:
-  # 🟢 PRに`/update-vrt`という文字列から始まるコメントがcreate OR editされたらジョブがスタートする
+    # 🟢 PRに`/update-vrt`という文字列から始まるコメントがcreate OR editされたらジョブがスタートする
     if: contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/update-vrt')
     name: 📸 Lost Pixel Baseline Update By PR Comment
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-    
+
     # 🟢 GIthub ActionsにPRの作成のための権限を付与
     permissions:
       contents: write
       pull-requests: write
-    
+
     # 🟢 モノリポの各サービスで運用するための設定
     strategy:
       matrix:
-        config: 
-          - { package: "apps/blog.sakupi01.com", name: "Lost Pixel for blog page", command: "bun run start" }
-    
+        config:
+          - {
+              package: "apps/blog.sakupi01.com",
+              name: "Lost Pixel for blog page",
+              command: "bun run start",
+            }
+
     # 🟢 stepが利用するデフォルトのディレクトリを上記${{ matrix.config.package }}の値にする
     defaults:
       run:
@@ -436,12 +441,12 @@ jobs:
           ref: ${{ steps.comment-branch.outputs.head_ref }}
           fetch-depth: 0
 
-      # 🟢 .envファイルを作成し、ビルド時に必要な環境変数を設定する        
+      # 🟢 .envファイルを作成し、ビルド時に必要な環境変数を設定する
       - name: Create .env file
         run: |
-              touch .env
-              echo "ZENN_URL=${{ secrets.ZENN_URL }}" >> .env
-              echo "ZENN_BASE_URL=${{ secrets.ZENN_BASE_URL }}" >> .env
+          touch .env
+          echo "ZENN_URL=${{ secrets.ZENN_URL }}" >> .env
+          echo "ZENN_BASE_URL=${{ secrets.ZENN_BASE_URL }}" >> .env
 
       # 🟢 Gitの設定を行う
       - name: Setup Git User
@@ -485,7 +490,7 @@ jobs:
       - name: Give Permission to untracked files
         if: ${{ failure() && steps.lostpixel.conclusion == 'failure' }}
         run: sudo chown -R $USER:$USER .
-      
+
       # 🟢 既存のLost Pixel PRがあるかどうかを確認する
       - name: Check existing Lost Pixel PR
         id: check-pr
@@ -569,7 +574,7 @@ feat/lost-pixel ブランチにそのまま`update-vrt.yml`をコミットした
 
 `feat/lost-pixel`の PR を作成して`vis-reg-test.yml`で定義されているワークフローを回します。
 
-次の 6.**のステップで、ワークフローの実行結果によってとる行動を示します。
+次の 6.\*\*のステップで、ワークフローの実行結果によってとる行動を示します。
 
 ##### 6.1 Failのとき
 
@@ -577,7 +582,7 @@ feat/lost-pixel ブランチにそのまま`update-vrt.yml`をコミットした
 
 これにより、baseline の update をするためのブランチ lost-pixel-update/[base-pr-name]がコメントを入れた PR から生える形で作成されます。
 
-***
+---
 
 次に、タイトルが「Lost Pixel Update -[base-branch-name]」PR も作成されます。
 
@@ -587,13 +592,13 @@ PR の Changes 部分を確認することで、Github 上で視覚的に見た�
 
 👇微々たる変化。この場合、キャプチャタイミングや実行環境の差異が原因であると思われる。
 ![許容できる見た目の変化](../../../../assets/images/little-diff.gif)
-*フォントによるズレ(環境の差異として今回は許容)*
+_フォントによるズレ(環境の差異として今回は許容)_
 
 →[ステップ6.1.1へ](https://blog.sakupi01.com/dev/articles/lost-pixel-practice#611-許容可能な見た目の変化のとき)
 
 👇見た目の大きな変化。この場合、コードベースに何らかの問題があると思われる。
 ![許容できない見た目の変化](../../../../assets/images/large-diff.png)
-*zennの記事を表示する変更を加えた際、定義した環境変数が正しく読み込まれていなかったことによる不整合*
+_zennの記事を表示する変更を加えた際、定義した環境変数が正しく読み込まれていなかったことによる不整合_
 →[ステップ6.1.2へ](https://blog.sakupi01.com/dev/articles/lost-pixel-practice#612-許容不可能な見た目の変化のとき)
 
 <br />
@@ -622,7 +627,7 @@ PR の差分を確認した結果、許容可能な見た目の変化の時は�
 
 おめでとうございます！これで見た目が確認された変更をマージできます💯
 
-***
+---
 
 ### まとめ
 

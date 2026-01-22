@@ -3,10 +3,11 @@ title: "🎨 CSS Advent Calendar: Day 4 / The Initial Cascade"
 excerpt: "Cascade Layers 以前の Cascade"
 date: 2025-08-04
 update: 2025-08-04
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -125,7 +126,7 @@ Out of Cascade
 すでに環境に応じたスタイルの適用も考慮していた点でも、CHSS は先進的でした。
 
 ```css
-60% 
+60%
 AGE > 3d ? background.color = pale_yellow : background.color = white
 DISPLAY_HEIGHT > 30cm ? <http://NYT.com/style> : <http://LeMonde.fr/style>
 ```
@@ -163,8 +164,9 @@ speech.em.weight = 40db
 
 ```md
         User            Author
-Font   o-----x--------------o 64%
-Color  o-x------------------o 90%
+
+Font o-----x--------------o 64%
+Color o-x------------------o 90%
 Margin o-------------x------o 37%
 Volume o---------x----------o 50%
 ```

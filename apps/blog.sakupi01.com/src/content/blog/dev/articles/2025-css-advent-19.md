@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 19 / Cascade Layers in real world use"
 excerpt: "Cascade Layers に付随して議論されたトピックと、Cascade Layers の具体的なユースケース"
 date: 2025-08-19
 update: 2025-08-19
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -31,15 +31,19 @@ Cascade Layers でも、同じ発想で前のレイヤーの値にロールバ�
 
 ```css
 @layer default {
-  h3 { 
-        background-color: revert-layer; /* revert to UA style */
-        color: rebeccapurple;
-     }
+  h3 {
+    background-color: revert-layer; /* revert to UA style */
+    color: rebeccapurple;
+  }
 }
 
 @layer theme {
-  h3 { color: maroon; }
-  .no-theme { color: revert-layer; } /* revert to default layer rebeccapurple */
+  h3 {
+    color: maroon;
+  }
+  .no-theme {
+    color: revert-layer;
+  } /* revert to default layer rebeccapurple */
 }
 ```
 
@@ -58,8 +62,9 @@ Cascade Layers でも、同じ発想で前のレイヤーの値にロールバ�
 /* theme layer */
 @layer theme {
   --primary-bg: light-dark(
-    revert-layer(--primary-bg), /* 前レイヤーの値 (white) を取得 */
-    var(--primary-bg-dark)      /* ダークモード時は black */
+    revert-layer(--primary-bg),
+    /* 前レイヤーの値 (white) を取得 */ var(--primary-bg-dark)
+      /* ダークモード時は black */
   );
 }
 ```
@@ -76,8 +81,8 @@ Cascade Layers でも、同じ発想で前のレイヤーの値にロールバ�
 /* NG: 循環参照になってしまう例 */
 @layer theme {
   --primary-bg: light-dark(
-    var(--primary-bg),      /* 解決中の --primary-bg 自身を参照 → 循環参照 */
-    var(--primary-bg-dark)
+    var(--primary-bg),
+    /* 解決中の --primary-bg 自身を参照 → 循環参照 */ var(--primary-bg-dark)
   );
 }
 ```
@@ -134,7 +139,7 @@ input {
 }
 
 /* 特定条件のデフォルトには高い詳細度が必要になる */
-input[type=text]:invalid:not(:focus):not(:placeholder-shown) {
+input[type="text"]:invalid:not(:focus):not(:placeholder-shown) {
   /* Specificity: 0-4-1 → 非常に高い！ */
   border-color: red;
 }
@@ -142,7 +147,7 @@ input[type=text]:invalid:not(:focus):not(:placeholder-shown) {
 /* override が難しくなる */
 .form-input {
   /* Specificity: 0-1-0 */
-  border-color: blue;  /* !important を使うなど */
+  border-color: blue; /* !important を使うなど */
 }
 ```
 
@@ -152,12 +157,13 @@ UA はその性質上、Class や ID が利用できないため、デフォル�
 e.g. [Chromium UA Style](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/blink/renderer/core/html/resources/html.css) の Customizable Select などは詳細度が非常に高い
 
 ```css
-    select:-internal-list-box:not(:focus) option:checked:enabled:hover,
-    select:-internal-list-box:not(:focus) option:checked:enabled:active {
-        background-color: -internal-auto-base(
-            light-dark(#cecece, #545454),
-            color-mix(in lab, currentColor 10%, transparent));
-    }
+select:-internal-list-box:not(:focus) option:checked:enabled:hover,
+select:-internal-list-box:not(:focus) option:checked:enabled:active {
+  background-color: -internal-auto-base(
+    light-dark(#cecece, #545454),
+    color-mix(in lab, currentColor 10%, transparent)
+  );
+}
 ```
 
 ただし、UA StyleSheet は UA Origin であるため、`!important` な場合を除いて Author Origin のスタイルが常に優先されます。
@@ -169,7 +175,7 @@ e.g. Author Origin 内で詳細度の高いデフォルトスタイルでも、C
 
 ```css
 @layer defaults {
-  input[type=text]:invalid:not(:focus):not(:placeholder-shown) {
+  input[type="text"]:invalid:not(:focus):not(:placeholder-shown) {
     margin: 10px;
   }
 }
@@ -187,7 +193,7 @@ e.g. Author Origin 内で詳細度の高いデフォルトスタイルでも、C
 }
 
 /* ユーティリティクラス（汎用的だが優先したい）が効かない */
-.mt-0 {  
+.mt-0 {
   /* Specificity: 0-1-0 */
   margin-top: 0; /* !important を使うなど */
 }
@@ -199,7 +205,7 @@ e.g. 全体的なレイヤリングができていると、末端レイヤーの
 
 ```css
 @layer components {
-    /* 上記のように @layer defaults を定義していれば、シンプルなセレクタで OK */
+  /* 上記のように @layer defaults を定義していれば、シンプルなセレクタで OK */
   .form-input {
     margin: 20px;
   }
@@ -221,8 +227,9 @@ e.g. 全体的なレイヤリングができていると、末端レイヤーの
 
 ```css
 /* third-party.css */
-button .btn {  /* 詳細度 0-1-1 */
-    padding: 15px !important;  /* あるいは高い詳細度 */
+button .btn {
+  /* 詳細度 0-1-1 */
+  padding: 15px !important; /* あるいは高い詳細度 */
 }
 ```
 
@@ -262,9 +269,15 @@ Cascade Layers を使うと、既存のすべてのスタイルを `@layer legac
 これに関しては、legacy から `!important` の利用を手動なりトランスパイラなりで抽出し、別のレイヤーに配置するなどの少々トリッキーな対策が必要かもしれません。
 
 ```css
-@layer legacy-normal { /* normal legacy rules */ }
-@layer legacy-important { /* !important legacy rules */ }
-@layer modern { /* new rules... */ }
+@layer legacy-normal {
+  /* normal legacy rules */
+}
+@layer legacy-important {
+  /* !important legacy rules */
+}
+@layer modern {
+  /* new rules... */
+}
 ```
 
 ## Polyfilling Cascade Layers?
@@ -275,12 +288,18 @@ Cascade Layers に最も近いであろうポリフィルを実現する方法�
 Cascade Layers は Specificity の上、Style Attribute の下に定義されるため、`#ID` を使用して詳細度を高めることで、Cascade Layers に最も近い位置でポリフィルすることが可能であると言えます。
 
 例えば、以下のようにスタイルに `#ID` を利用し、HTML 側にも `#ID` を付与したコンテナを追加します。
- `#ID` は繰り返すことで詳細度が加算されるため、`#ID` の詳細度で擬似的に Cascade Layers を実現できます。
+`#ID` は繰り返すことで詳細度が加算されるため、`#ID` の詳細度で擬似的に Cascade Layers を実現できます。
 
 ```css
-#reset <selector> { /* reset layer */ } /* Specificity: 1-0-0 */
-#base#base <selector> { /* base layer */ } /* Specificity: 2-0-0 */
-#components#components#components <selector> { /* component layer */ } /* Specificity: 3-0-0 */
+#reset <selector > {
+  /* reset layer */
+} /* Specificity: 1-0-0 */
+#base#base <selector > {
+  /* base layer */
+} /* Specificity: 2-0-0 */
+#components#components#components <selector > {
+  /* component layer */
+} /* Specificity: 3-0-0 */
 ```
 
 ただ、この方法では、すべての要素を `#ID` 付きコンテナで包む必要があるため、HTML 側にも大幅に変更を加える必要があります。
@@ -289,9 +308,15 @@ Cascade Layers は Specificity の上、Style Attribute の下に定義される
 実際の HTML 要素に `#ID` が存在しなくても、`:is()` で詳細度だけを借りられる仕組みを利用したものです。
 
 ```css
-:is(#r, <selector>) { /* reset layer */ } /* Specificity: 1-0-0 */
-:is(#b#b, <selector>) { /* base layer */ } /* Specificity: 2-0-0 */
-:is(#c#c#c, <selector>) { /* component layer */ } /* Specificity: 3-0-0 */
+:is(#r, <selector >) {
+  /* reset layer */
+} /* Specificity: 1-0-0 */
+:is(#b#b, <selector >) {
+  /* base layer */
+} /* Specificity: 2-0-0 */
+:is(#c#c#c, <selector >) {
+  /* component layer */
+} /* Specificity: 3-0-0 */
 ```
 
 HTML を一切変更せずに、Cascade Layers の優先順位をエミュレートするには、`:is()` を利用しつつ、`#ID` を利用して詳細度を上げれば良いでしょう。
@@ -312,7 +337,7 @@ Cascade Layers が DOM ツリーフラグメントを跨いだスタイル優先
 - [[css-cascade][css-syntax] New `!revertable` flag to mark a declaration as "can be reverted when IACVT" · Issue #10443 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/10443)
 - Cascade Layers の提案にあたって検討された代替案
   - [[css-cascade] What are the proper "levels" for managing Cascade Layers? · Issue #4969 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/4969)
-  - [comment -  [css-cascade] Custom Cascade Layers (formerly "custom origins") · Issue #4470 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/4470#issuecomment-577300816)
+  - [comment - [css-cascade] Custom Cascade Layers (formerly "custom origins") · Issue #4470 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/4470#issuecomment-577300816)
 
 ---
 

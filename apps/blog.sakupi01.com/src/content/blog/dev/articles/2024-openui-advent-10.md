@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 10 / Customizable Select Element Ep.8"
 excerpt: "Customizable Select Elementの関連仕様: `appearance: base-select;` - 選択された`<option>`のデフォルトチェックマークのスタイルはどうやって決まったのか"
 date: 2024-12-10
 update: 2024-12-10
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -34,7 +35,7 @@ CSE の各パーツは、RFC が出された時点から大きく変化してい
 （2024/12/9 現在）
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 - `<button>`: 選択肢のポップオーバーを開閉するボタン要素
 - `::picker-icon`: ボタン要素右の矢印アイコン
@@ -49,7 +50,8 @@ CSE の各パーツは、RFC が出された時点から大きく変化してい
 `<select>`を CSE に Opt-in するには、CSS`appearance`プロパティを使用します。次のように、`<select>`と`::picker(select)`に`appearance: base-select;`を指定することで、`<select>`を CSE にアップグレードすることができます。
 
 ```css
-select, ::picker(select) {
+select,
+::picker(select) {
   appearance: base-select;
 }
 ```
@@ -65,7 +67,7 @@ select, ::picker(select) {
 上記の HTML と CSS で、CSE が Opt-in され、`<select>`が**CSEデフォルトのスタイル**になります。
 
 ![CSEデフォルトのスタイル](../../../../assets/images/default-cse.png)
-*CSEデフォルトのスタイル*
+_CSEデフォルトのスタイル_
 
 ここで気になるのが、「何を以てこのデフォルトのスタイルになったのか」です。
 
@@ -75,7 +77,7 @@ CSE デフォルトのスタイルでは、選択された`<option>`にチェッ
 
 - [selectlist: Should the "checked" option have a checkmark next to it? · Issue #863 · openui/open-ui](https://github.com/openui/open-ui/issues/863)
 
-***
+---
 
 まず、「チェックマークが必要か」に関してです。
 
@@ -88,14 +90,14 @@ CSE デフォルトのスタイルでは、選択された`<option>`にチェッ
 
 加えて、単一選択`<select>`の時点で、チェックマークを考慮しておくと、チェックマークの提供が必ず必要になってくる複数選択`<select>`の実装においても役立つという[理由](https://github.com/openui/open-ui/issues/863#issuecomment-2103160295)がありました。
 
-***
+---
 
 次に、「どういった実装にするべきか」に関して追っていきます。
 チェックマークをどのように UA スタイルシートに実装するかに関して、[Issue](https://github.com/openui/open-ui/issues/863)の時点では次のように実装されることが望ましいとされました。
 
 ```css
 option::marker {
-  content: '\2713' / '';
+  content: "\2713" / "";
 }
 option:not(:checked)::marker {
   visibility: hidden; /* visibility: hiddenにすることで幅を保てる */
@@ -122,7 +124,7 @@ option:not(:checked)::marker {
 > RESOLVED: support checkmark next to checked option, implemented via the content property on the ::marker pseudo element. The UA should set a Unicode character by default, which isn't read out by screen reader.
 > <https://github.com/openui/open-ui/issues/863#issuecomment-2127775634>
 
-***
+---
 
 上記の議論時点では`::marker`でしたが、一旦 Chromium には付け焼き刃的に`::before`で[実装され](https://chromium-review.googlesource.com/c/chromium/src/+/5578818)、RFC 公開時点ではそのまま`::before`で、2024/12 現在では`::checkmark`に変わり、次の UA スタイルシートが[実装](https://chromium-review.googlesource.com/c/chromium/src/+/6043233)されています。
 
@@ -131,7 +133,7 @@ option:not(:checked)::marker {
 
 ```css
 select option::checkmark {
-  content: '\2713' / '';
+  content: "\2713" / "";
 }
 select option:not(:checked)::checkmark {
   visibility: hidden;
@@ -145,13 +147,13 @@ select::picker-icon {
 ```
 
 ![chrome canaryで`::checkmark`のUAスタイル](../../../../assets/images/ua-style-checkmark.png)
-*chrome canaryで`::checkmark`のUAスタイル*
+_chrome canaryで`::checkmark`のUAスタイル_
 
 CSE のデフォルトスタイルに関しては、次の Issue で現在進行形で更新が重ねられており、Chromium ではこの Issue の変更に追従する形で実装が進められているようでした。
 
 - [[css-ui] UA stylesheet for appearance base `<select>` · Issue #10857 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/10857)
 
-***
+---
 
 Issue によると主に次の項目に着目できそうで、今回はその一部であるチェックマークに関して取り上げました。
 

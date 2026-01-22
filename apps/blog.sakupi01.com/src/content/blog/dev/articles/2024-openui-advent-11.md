@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 11 / Customizable Select Element Ep.9"
 excerpt: "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker-icon`のデフォルトスタイルはどうやって決まったのか"
 date: 2024-12-11
 update: 2024-12-11
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -24,7 +25,7 @@ Ep.9 では、`<option>::checkmark`が現状の見た目となった背景につ
 今回は、`::picker-icon`部分について取り上げます。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
 
@@ -49,17 +50,17 @@ li::marker {
   color: orange;
 }
 li::before {
-  content: '\1F384';
+  content: "\1F384";
   margin-right: 10px;
 }
 ```
 
 ![`::marker`を上書きする](../../../../assets/images/marker-null-list.png)
-*`::marker`を上書きする*
+_`::marker`を上書きする_
 
 しかし、もし`::marker`が存在せず、UA スタイルシートに`li::before`で Bullet が実装されていた場合はどうでしょうか。`<li>`の`::before`はもう UA によって使われているため、Bullet と「何か別の要素（🎄）」の二つを配置することは困難です。
 
-***
+---
 
 これに関して、デフォルトでは`::select-arrow`などの新しい擬似要素を提案するべきとの[指摘](https://github.com/w3c/csswg-drafts/issues/10857#issuecomment-2347867882)があり、TPAC 2024 の Open UI と CSSWG の Joint Session で話し合われる運びになりました。
 
@@ -101,13 +102,13 @@ select::after {
   - [CSS Pseudo-Elements Module Level 4](https://www.w3.org/TR/css-pseudo-4/#treelike)
 
 ![Tree-Abiding擬似要素](../../../../assets/images/tree-abiding.png)
-*Tree-Abiding擬似要素*
+_Tree-Abiding擬似要素_
 
 - `element-backed`な擬似要素: Tree Abiding の中でも、Box Tree 内のイチ要素となるもの e.g. `::part()`, `::picker`
   - [CSS Pseudo-Elements Module Level 4](https://drafts.csswg.org/css-pseudo-4/#element-backed)
 
 ![Element-Backed擬似要素](../../../../assets/images/element-backed.png)
-*Element-Backed擬似要素*
+_Element-Backed擬似要素_
 
 `::selected-arrow`は、元々`select::after`として定義＆実装されていたように、それ自体は Box Tree の中には存在しない`tree-abiding`な擬似要素なので、仕様書にも`tree-abiding`な擬似要素とカテゴライズされることになりました。
 
@@ -161,7 +162,7 @@ select::after {
 
 <br />
 
-***
+---
 
 今回はポップオーバーを開閉するボタン要素右の矢印アイコン、`::picker-icon`を取り上げました。
 

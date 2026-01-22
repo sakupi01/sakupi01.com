@@ -3,10 +3,11 @@ title: "From 7 Hours Behind"
 excerpt: "DISCLAIMER: Non-Tech. Pure life stuff here. Don't read if you expect tech."
 date: 2025-06-02
 update: 2025-07-05
-category: 'life'
-tags: ['life', 'css', 'diary', 'europe']
-status: 'published'
+category: "life"
+tags: ["life", "css", "diary", "europe"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## Welcome
@@ -36,7 +37,7 @@ Ah, meaning current pointer xD
 準備が微妙に終わってなかったので準備。日本のお土産をたくさん買った。話のきっかけづくりという意図もある。
 
 ![お土産（KitKat が味見されている）](../../../../assets/images/souvenir.jpg)
-*お土産（KitKat が味見されている）*
+_お土産（KitKat が味見されている）_
 
 あとは明日身支度で使うものを入れたらおしまいの状態にする。このパソコンも。
 
@@ -68,7 +69,7 @@ SIM は事前に Amazon で購入しておいた。忘れないようにパス�
 
 <img src="/images/IMG_0666.jpg" alt="名もなき料理" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*名もなき料理*
+_名もなき料理_
 
 広州空港に着陸。Transfer 手続きを済ませる。トランジットエリアのカフェに入る。ここで2つ、ハプニング発生。
 
@@ -99,7 +100,7 @@ Flight Layover
 
 <img src="/images/IMG_0684.jpg" alt="オムレツらしい料理" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*オムレツらしい料理*
+_オムレツらしい料理_
 
 マジで寝れないので、QP コーワゴールドαや各種薬を飲んで、今日の体調を危惧する。
 
@@ -126,7 +127,7 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 
 <img src="/images/IMG_0725.jpg" alt="色々教えてくれた気さくな運転手さん" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*色々教えてくれた気さくな運転手さん*
+_色々教えてくれた気さくな運転手さん_
 
 ホテルに着く。7:30AM くらい。まだ部屋の準備ができてないので、カフェで作業するかと思ったけど、まだ開いてないらしい。「私がコーヒー淹れてあげるからロビーでくつろいでいいわよ！なんのコーヒーにする？」と、Reception の人がめっちゃ気がきくこと言ってくれたので、カフェがあくまでロビーで少し仕事。11時間フライト後、さすがに眠すぎる頭痛すぎる、、、
 
@@ -137,14 +138,14 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <img src="/images/IMG_0737.jpg" alt="待ちに待ったベッド"/>
 </div>
 
-*優しいコーヒーと待ちに待ったベッド*
+_優しいコーヒーと待ちに待ったベッド_
 
 8:30 AM くらい、部屋の掃除が終わったから入っていいよと、優しい受付嬢から。部屋に入る、シャワー浴びる、short nap を2時間くらいする。めっちゃ晴れててもったい、かつお腹が空いたので起きてサイクリングを試みる。
 今夜は pre-con のイベントがあるので、1日自転車を借りることにした。18ユーロ、予想以上のお値段だったけど、ホテルで断りにくかったしまあいいや。
 
 <img src="/images/IMG_0742.jpg" alt="一日お世話になるチャリ" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*一日お世話になるチャリ*
+_一日お世話になるチャリ_
 
 街をサイクリングして、Dutch Pancakes を食べて、運河下りをする。アムステルダムめっちゃ運河の街。ベネチア...？そして建築が本当にヨーロピアンでみてるだけで楽しめる。薄っぺらいのが特徴の Dutch Pancakes もおいしかった。ビールでお馴染みハイネケンミュージアムが運河下の Meeting Point の目の前だったのでチラ見できた。
 
@@ -159,11 +160,11 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <img src="/images/IMG_0871.jpg" alt="アムステルダムの街並み"/>
 </div>
 
-*アムステルダムの街並み*
+_アムステルダムの街並み_
 
 <img src="/images/IMG_0804.jpg" alt="Duch Pancakes" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*Duch Pancakes*
+_Duch Pancakes_
 
 本当は Anne Frank House と Van Gogh Museum に行きたかったけど、どちらも事前予約が必要で売り切れてた、かつ時間がなかった。またくる理由ができたということで。
 
@@ -177,11 +178,11 @@ The Guy: "Oh, Okay... How long are you staying here?"<br/>
 <img src="/images/IMG_0912.jpg" alt="無限に並ぶハイネケン"/>
 </div>
 
-*pre-conference・無限に並ぶハイネケン*
+_pre-conference・無限に並ぶハイネケン_
 
 <img src="/images/IMG_0907.jpg" alt="20:30 くらい。信じられないくらい明るい" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*20:30 くらい。信じられないくらい明るい*
+_20:30 くらい。信じられないくらい明るい_
 
 そういえば今日は中国にいたところから始まり、アムスに到着し、全力で町中をチャリで駆け回り、カンファレンス前夜祭にいるんだった、、、流石に疲れた。
 
@@ -203,7 +204,7 @@ Amsterdam
 
 ![SUSHI T-shirt](../../../../assets/images/IMG_0998.jpg)
 
-*SUSHI T-shirt*
+_SUSHI T-shirt_
 
 ホテルの朝食めっちゃおいしかった。これがヨーロッパクオリティ・・・？？？ Sourdough Bread 日本にも普通に売ってて欲しいんだよなあ、、、
 
@@ -214,7 +215,7 @@ Amsterdam
 <img src="/images/IMG_0932.jpg" alt="Breakfast"/>
 </div>
 
-*Breakfast*
+_Breakfast_
 
 いよいよ待ちに待ったカンファレンスへ！！！
 
@@ -242,7 +243,7 @@ Amsterdam
 <img src="/images/91116440-079B-47EA-BA9D-93134B01152E.jpg" alt="Mia"/>
 </div>
 
-*（左から）Una, Sacha, Mia*
+_（左から）Una, Sacha, Mia_
 
 写真をちゃんと撮らなきゃ。話した内容忘れたくなくて、速攻仲良くなった人たちにアウトプットしに行ったり、メモに走るから写真撮ってもらうの忘れる。
 
@@ -252,7 +253,7 @@ Mia とのやりとり忘れたくなさすぎて、懇親会一旦抜けてパ�
 
 <img src="/images/IMG_1066.jpg" alt="Brecht がくれたステッカーとバッジ" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*Brecht がくれたステッカーとバッジ*
+_Brecht がくれたステッカーとバッジ_
 
 ### Schedule
 
@@ -271,7 +272,7 @@ Amsterdam
 
 ![タコさん T-shirt](../../../../assets/images/IMG_1067.jpg)
 
-*タコさん T-shirt*
+_タコさん T-shirt_
 
 今日はこんな人たちと話せた〜！
 
@@ -288,7 +289,7 @@ Amsterdam
 <img src="/images/D3F36BEE-09FC-4D39-87E6-E8C1899B4055.jpg" alt="Mia"/>
 </div>
 
-*（左から）Brad Frost, Brecht と Ian Frost, Bramus*
+_（左から）Brad Frost, Brecht と Ian Frost, Bramus_
 
 Tech 的にお腹が満たされた話は、しかるべきブログでまた。Tim とはめっちゃいい話できたなあ〜〜。Brecht ともめっちゃ仲良くなって、次の行き先のおすすめスポット教えてくれたりした。
 
@@ -297,7 +298,7 @@ Tech 的にお腹が満たされた話は、しかるべきブログでまた。
 
 ![The End of CSS Day](../../../../assets/images/IMG_1050.jpg)
 
-*The End of CSS Day*
+_The End of CSS Day_
 
 ### Schedule
 
@@ -326,7 +327,7 @@ Post Conference Day にいく予定だったけど、なんかスピーカーが
 <img src="/images/IMG_1096.jpg" alt="この後の悲劇を知らない頃に撮った Amsterdam Central"/>
 </div>
 
-*この後の悲劇を知らない頃に撮った Amsterdam Central*
+_この後の悲劇を知らない頃に撮った Amsterdam Central_
 
 ん？？？？？？？？？？？？？？？？？？
 
@@ -343,7 +344,7 @@ Post Conference Day にいく予定だったけど、なんかスピーカーが
 
 <img src="/images/IMG_1101.jpg" alt="あんたはこう乗り換えるんだよ！って教えてくれてる案内の人（ごめんなさい）" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*あんたはこう乗り換えるんだよ！って教えてくれてる案内の人（ごめんなさい）*
+_あんたはこう乗り換えるんだよ！って教えてくれてる案内の人（ごめんなさい）_
 
 とはいえ、なんとかブリュッセルにいく道のりは見えたので、電車ではちゃんとビールを楽しめました。こういう予想外の状況が海外にいるあるあるだよなあ〜。などとどうでもいい思考を巡らせながら、ブリュッセルに向かう。
 風力発電めっちゃいっぱいあるなあ、やっぱアムス風強いんだ。
@@ -356,7 +357,7 @@ Post Conference Day にいく予定だったけど、なんかスピーカーが
 <img src="/images/IMG_1144.jpg" alt="車窓ビール"/>
 </div>
 
-*車窓ビール*
+_車窓ビール_
 
 ほろ酔いで Brussels につく。21:30 くらい？めっちゃ明るい。アムスに比べてちょっと街の治安悪く感じた。臭う。
 
@@ -402,7 +403,7 @@ Brussels
 <img src="/images/IMG_1231.jpg" alt="ブリュッセルの街並み"/>
 </div>
 
-*全長 50cm くらいでだいぶ小さかったマネケンと、ワッフルと、ブリュッセルの街並み*
+_全長 50cm くらいでだいぶ小さかったマネケンと、ワッフルと、ブリュッセルの街並み_
 
 街にはショコラトリーが無限にあって、ゴディバやピエールマルコリーニの本店なんかもある。ゴディバではお姉さんおすすめらしいアマンドトリュフを買ってたべた。
 
@@ -414,7 +415,7 @@ Brussels
 
 <img src="/images/IMG_1283.jpg" alt="車窓ビール" style="margin: auto; width: 300px; object-fit: contain;"/>
 
-*車窓ビール*
+_車窓ビール_
 
 Paris Nord ！パリ！
 16:45, Paris Nord につく
@@ -426,11 +427,11 @@ Paris Nord ！パリ！
 
 <img src="/images/IMG_1291.jpg" alt="Paris Nord" style="margin: auto; width: 300px; object-fit: contain;" />
 
-*Paris Nord*
+_Paris Nord_
 
 <img src="/images/IMG_1364.jpg" alt="ルーブル美術館" style="margin: auto; width: 300px; object-fit: contain;" />
 
-*ルーブル美術館*
+_ルーブル美術館_
 
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -440,7 +441,7 @@ Paris Nord ！パリ！
 <img src="/images/IMG_1432.jpg" alt="キラキラしてきた"/>
 </div>
 
-*セーヌ川と晩酌とキラキラしてきたエッフェル塔*
+_セーヌ川と晩酌とキラキラしてきたエッフェル塔_
 
 ### Schedule
 
@@ -467,7 +468,7 @@ Paris
 <img src="/images/IMG_1499.jpg" alt="クロワッサン2"/>
 </div>
 
-*Croissants*
+_Croissants_
 
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -477,7 +478,7 @@ Paris
 <img src="/images/IMG_1743.jpg" alt="Montmartre"/>
 </div>
 
-*Pantheon, シャンゼリゼ通りと凱旋門, Montmartre*
+_Pantheon, シャンゼリゼ通りと凱旋門, Montmartre_
 
 Chartier というお手頃（？）価格でフレンチを楽しめるお店がホテルから近くて入ったんだけど、そこであった出来事がめっちゃ面白かった。まず、Chartier は結構有名なレストランラしく、入ろうとした 20:00 頃には 100 人くらいが列をなしていた。幸い、ひとりで並んでいたので、優先して通してもらい、15 分ほどで中に入れた。4人席にひとりで座らせてもらい、大変に申し訳ないなあ、、と思っていたら、横にカップルと向かいにまた別の男の人が連れられて、いかにも「ん？！」という感じになった。
 
@@ -487,7 +488,7 @@ Chartier というお手頃（？）価格でフレンチを楽しめるお店�
 
 <img src="/images/IMG_1727.jpg" alt="気まずかった Chartier" style="margin: auto; width: 300px; object-fit: contain;" />
 
-*気まずかった Chartier。初めてのでんでん虫*
+_気まずかった Chartier。初めてのでんでん虫_
 
 ### Schedule
 
@@ -521,7 +522,7 @@ Paris
 <img src="/images/IMG_2057.jpg" alt="エッフェル塔"/>
 </div>
 
-*友人と再会, オルセー美術館からのながめ, エッフェル塔*
+_友人と再会, オルセー美術館からのながめ, エッフェル塔_
 
 ### Schedule
 
@@ -556,7 +557,7 @@ Strasbourg に電車で移動。
 <img src="/images/IMG_2385.jpg" alt="Eva が発見した格安ポケカ"/>
 </div>
 
-*Strasbourg の街並み, Anne & Eva とランチ（Käsespätzle, Flammekueche）, Eva が発見した格安ポケカ*
+_Strasbourg の街並み, Anne & Eva とランチ（Käsespätzle, Flammekueche）, Eva が発見した格安ポケカ_
 
 ### Schedule
 
@@ -581,7 +582,7 @@ Strasbourg を離れて、 Colmar と Eguisheim へ。ここも Strasbourg と�
 <img src="/images/IMG_2581.jpg" alt="Crème brûlée"/>
 </div>
 
-*Colmar の街並み, Eguisheim の街並み, Crème brûlée*
+_Colmar の街並み, Eguisheim の街並み, Crème brûlée_
 
 この日からどうも体調が悪く、鼻と咳が出て、頭もぼーっとなってしんどかった。気温が30度を超えてて、熱中症っぽいのもあって、早めにスーパーで買い出しして、ホテルに帰った。
 
@@ -612,7 +613,7 @@ Bern に向かう。Anne のおばさんに会い、ここから2日泊めても
 <img src="/images/IMG_2646.jpg" alt="Alpacaaaaaaaaas!❤️"/>
 </div>
 
-*チャリティー, Anne のおばさんと夜ご飯, Alpacaaaaaaaaas!❤️*
+_チャリティー, Anne のおばさんと夜ご飯, Alpacaaaaaaaaas!❤️_
 
 今日も微妙に風邪。
 
@@ -635,7 +636,7 @@ Bern
 
 <img src="/images/IMG_9350.jpg" alt="Breakfast" style="margin: auto; width: 300px; object-fit: contain;" />
 
-*Breakfast*
+_Breakfast_
 
 <div style="  display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -645,7 +646,7 @@ Bern
 <img src="/images/IMG_2731.jpg" alt="Dinner"/>
 </div>
 
-*Bern の街並み*
+_Bern の街並み_
 
 この後、Aare 川で泳ぐ予定があったのだが、そこで悲劇が、、、。
 
@@ -665,7 +666,7 @@ Bern
 <img src="/images/IMG_2779.jpg" alt="Dinner"/>
 </div>
 
-*悲劇の Aare 川, Dinner*
+_悲劇の Aare 川, Dinner_
 
 ### Schedule
 
@@ -688,7 +689,7 @@ Geneva 行きの電車から見えた Lausanne がめっちゃ綺麗だった・
 
 <img src="/images/IMG_2818.jpg" alt="車窓 Lausanne" style="margin: auto; width: 300px; object-fit: contain;" />
 
-*車窓 Lausanne*
+_車窓 Lausanne_
 
 Geneva では CERN がメインイベント。
 CERN には、Geneva Central からトラムで行く。
@@ -707,14 +708,14 @@ Tim にほんとにすごいんだよ、Tim がいなかったら今の自分の
 <img src="/images/IMG_2876.jpg" alt="CERN"/>
 </div>
 
-*CERN*
+_CERN_
 
 そしてこの日は Anne との実質最終日。ホテルに帰って旅の wrap-up をしたり、いつも通りゆっくりご飯を食べてしゃべって、映画を見たりした。旅の最終日は忙しなくパッキングするのと、「次はどこで会う？」を話すのが、私たちの中でテッパンになっている。
 Eva と一緒に3人で北海道行きたいね〜みたいな話をしてたので、日本だね！ってなった。7時間の時差はあれど、定期的に会えるこんなにいい友達を持てて、本当に幸せだなあ。
 
 ![最後の晩餐](../../../../assets/images/last-food.jpg)
 
-*最後の晩餐*
+_最後の晩餐_
 
 ### Schedule
 
@@ -755,7 +756,7 @@ Flight Layover
 例のごとく、意味のわからないタイミングで機内食を出されたり、横のイギリス人がめっちゃお調子者で面白かったりしながら、無事に北京に到着。そして帰国！ただいまーーー！！
 
 ![帰国](../../../../assets/images/back-in-jp-mario.jpg)
-*やっと帰国*
+_やっと帰国_
 
 ### Schedule
 

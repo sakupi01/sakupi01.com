@@ -1,5 +1,5 @@
 type AssertIsNonNullable<Type> = (
-  value: Type,
+  value: Type
 ) => asserts value is NonNullable<Type>;
 
 const ERROR_MESSAGE_NULLABLE =
@@ -12,11 +12,11 @@ export const assertNonNullable: AssertIsNonNullable<unknown> = (value) => {
 };
 
 type AssertArrayIsNonNullable<Type> = (
-  array: Type[],
+  array: Type[]
 ) => asserts array is NonNullable<Type>[];
 
 export const assertArrayNonNullable: AssertArrayIsNonNullable<unknown> = (
-  array,
+  array
 ) => {
   if (array.some((value) => value === null || value === undefined)) {
     throw new Error(ERROR_MESSAGE_NULLABLE);

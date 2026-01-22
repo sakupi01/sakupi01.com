@@ -3,10 +3,11 @@ title: "🎨 CSS Advent Calendar: Day 2 / CSS “to save HTML”"
 excerpt: "CSS 以前のドキュメントスタイル手法の提案 - Prevent the Web from becoming a giant fax machine!!"
 date: 2025-08-02
 update: 2025-08-02
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -41,13 +42,13 @@ status: 'published'
 
 - [WWW-Talk Apr-Jun 1993: Request for Comments: STYLESHEETS](http://1997.webhistory.org/www.lists/www-talk.1993q2/0445.html)
 
-*"an easily parsable format"* として提案されたこの RFC では、例えば H1 タグのスタイルには以下のような記法を使うとされていました。
+_"an easily parsable format"_ として提案されたこの RFC では、例えば H1 タグのスタイルには以下のような記法を使うとされていました。
 
 `@H1 fo(fa=ti,si=32,we=bo)`
 
-何を意味しているのかまるで理解不能ですが、[`fo` は `font` の略](http://1997.webhistory.org/www.lists/www-talk.1993q2/0445.html#:~:text=font(family%2Cspacing%2Csize%2Cweight%2Cslant%2Cforeground%2Cbackground%2Cline%2Clongname)(fo))で、fa は family、si は size、we は weight、bo は bold を表しているとのことです。つまり、`@H1 fo(fa=ti,si=32,we=bo)` は、H1 タグのフォントファミリーを Times、サイズを 32、太字にするということになります。
+何を意味しているのかまるで理解不能ですが、[`fo` は `font` の略](<http://1997.webhistory.org/www.lists/www-talk.1993q2/0445.html#:~:text=font(family%2Cspacing%2Csize%2Cweight%2Cslant%2Cforeground%2Cbackground%2Cline%2Clongname)(fo)>)で、fa は family、si は size、we は weight、bo は bold を表しているとのことです。つまり、`@H1 fo(fa=ti,si=32,we=bo)` は、H1 タグのフォントファミリーを Times、サイズを 32、太字にするということになります。
 
-人間にとって *"an easily parsable format"* とはとてもいえなそうな文法ですが、ファイル圧縮がされておらず、接続速度が 14.4k 前後だった当時に誕生したことを鑑みると、理にかなったフォーマットだったのかもしれません。
+人間にとって _"an easily parsable format"_ とはとてもいえなそうな文法ですが、ファイル圧縮がされておらず、接続速度が 14.4k 前後だった当時に誕生したことを鑑みると、理にかなったフォーマットだったのかもしれません。
 
 よくみると、この記法には、フォントサイズに単位が指定されていません。それどころか、この RFC には単位に関する言及がまったくなく、数値は状況に応じて解釈されるようです。
 
@@ -64,7 +65,7 @@ status: 'published'
 スタイルシートを最初にサポートしたブラウザは Pei-Yuan Wei によってわずか 4日で開発された ViolaWWW です。
 
 ![スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの](../../../../assets/images/ViolaWWW.png)
-*スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの*
+_スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの_
 
 Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイルシートを考案します。このスタイルシートでは、セレクタ、
 それに応じた Rules、プロパティ が確認でき、現在の CSS の形に非常に近いものを感じます。
@@ -112,7 +113,7 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 また、Pei-Yuan Wei の提案は、今日でも使われている Link タグでの外部スタイルシート参照を提案しているのも、特筆すべき点です。
 
 ```html
-<LINK REL="STYLE" HREF="URL_to_a_stylesheet">
+<link rel="STYLE" href="URL_to_a_stylesheet" />
 ```
 
 今日の我々からするとどことなく自然、当時の人々にとっては非常に画期的な記法の StyleSheet の提案の4日後に、Steven Heaney がコメントを返します。
@@ -130,7 +131,7 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 
 - [Cascading HTML Style Sheets -- A Proposal](https://www.w3.org/People/howcome/p/cascade.html)
 
-CHSS には今日の CSS の主要概念である Cascade (Origin & Importance) の構想が初めて含まれます。この概念こそが CHSS を CHSS たらしめた唯一の特徴と言っても過言ではなく、CSS を *"Cascading"* Style Sheet として Web において生き残らせ、発展させた最大の要因でもあると思います。
+CHSS には今日の CSS の主要概念である Cascade (Origin & Importance) の構想が初めて含まれます。この概念こそが CHSS を CHSS たらしめた唯一の特徴と言っても過言ではなく、CSS を _"Cascading"_ Style Sheet として Web において生き残らせ、発展させた最大の要因でもあると思います。
 
 そんな超重要概念である 「Cascade」 は Håkon Wium Lie の閃きによって偶然生まれたものなのか、それとも必然だったのか。
 「Cascade」は 「Web」 を説明することができるほどの深いコンテキストが含められた、必然の産物だったのではないかと思います。

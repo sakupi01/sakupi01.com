@@ -5,18 +5,30 @@ import Layout from "../../layouts/Layout.astro";
 import { allTechPosts } from "../../utils/contents";
 ---
 
-<Layout pageTitle="Tech Articles Archive" description="Tech Articles Archive" url="/dev/">
+<Layout
+  pageTitle="Tech Articles Archive"
+  description="Tech Articles Archive"
+  url="/dev/"
+>
   <Title title="Tech Articles Archive ..." />
-	<ul class="posts">
-		{allTechPosts.map((post) => {
-      const url = post.data.tags.includes("zenn")
-        ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
-        : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
-      return <BlogPostCard url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
-    })}
-	</ul>
+  <ul class="posts">
+    {
+      allTechPosts.map((post) => {
+        const url = post.data.tags.includes("zenn")
+          ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
+          : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+        return (
+          <BlogPostCard
+            url={url}
+            title={post.data.title}
+            date={post.data.date}
+            excerpt={post.data.excerpt}
+          />
+        );
+      })
+    }
+  </ul>
 </Layout>
-
 
 <style>
   .posts {

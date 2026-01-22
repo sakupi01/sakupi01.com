@@ -1,16 +1,16 @@
 ---
-
 title: "🎄Open UI Advent Calendar: Day 4 / Customizable Select Element Ep.2"
 excerpt: "ブラウザ戦争の激化と、OSに依存したコントロールの問題の顕在化。打開する動きとして、WaSPによるWeb標準の台頭への動き、モダンブラウザの登場、より柔軟なスタイリングを可能にするCSS3の登場"
 date: 2024-12-04
 update: 2024-12-04
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -72,11 +72,11 @@ IE は 5.x になっても、Box Model を独自で実装していたため、CS
 標準ブラウザ: 最終的なwidth: 300pxが適用
 IE5.x: 最初のwidth: 400pxが維持される 
 */
-div.content { 
-  width: 400px;  /* 最初に幅を設定 */
-  voice-family: "\"}\"";  /* IE5.xが正しく解釈できないプロパティを挿入 */
-  voice-family: inherit;  /* 継承してパーサの状態をリセット */
-  width: 300px;  /* 標準ブラウザで利用される最終的な幅を定義 */
+div.content {
+  width: 400px; /* 最初に幅を設定 */
+  voice-family: '"}"'; /* IE5.xが正しく解釈できないプロパティを挿入 */
+  voice-family: inherit; /* 継承してパーサの状態をリセット */
+  width: 300px; /* 標準ブラウザで利用される最終的な幅を定義 */
 }
 ```
 

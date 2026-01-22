@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 3 / Customizable Select Element Ep.1"
 excerpt: "Form Controlの歴史と、ブラウザやOSに依存するForm Controlのスタイルについて"
 date: 2024-12-03
 update: 2024-12-03
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -44,7 +45,7 @@ Form Control とは、`<input>`、`<button>`、`<select>`、`<option>`、`<texta
 この当時の HTML は、非常にシンプルなマークアップ言語であり、リンクや画像、テキストのみを表示することができるものでした。
 
 ![WorldWideWeb](../../../../assets/images/www.png)
-*出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)*
+_出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)_
 
 その後、各ブラウザベンダーがブラウザに独自の HTML タグを実装し始めましたが、当時はまだ HTML に標準というものがなかったため、ブラウザ間で HTML タグの実装に差が生まれていきました。
 
@@ -54,7 +55,7 @@ Form Control とは、`<input>`、`<button>`、`<select>`、`<option>`、`<texta
 
 HTML 2.0 には、Form Control に関する仕様も盛り込まれており、具体的には次のような要素が追加されました。
 
-- [RFC 1866 - Hypertext Markup Language - 2.0  - Forms](https://datatracker.ietf.org/doc/html/rfc1866#section-8)
+- [RFC 1866 - Hypertext Markup Language - 2.0 - Forms](https://datatracker.ietf.org/doc/html/rfc1866#section-8)
 
 RFC 1866 に目を通すと、HTML2.0 の Form Control の仕様では、次のことが定義されているとわかります。
 
@@ -85,34 +86,48 @@ Web が普及して、ブラウザが CSS をサポートしてからも、当�
 ※ 次の HTML に対して、次の CSS を適用した場合、ブラウザや OS によって見た目が異なることがわかる
 
 ```html title="html"
-<input type="radio" name="radiogroup" id="radio-1">
+<input type="radio" name="radiogroup" id="radio-1" />
 <label for="radio-1">Radio button 1</label>
 ```
 
 ```css title="css"
-#el01 {width:100%} /* Width */
-#el02 { /* Text and background colour, blue on light gray */
-color:#00f;
-background-color:#ddd;
+#el01 {
+  width: 100%;
+} /* Width */
+#el02 {
+  /* Text and background colour, blue on light gray */
+  color: #00f;
+  background-color: #ddd;
 }
-#el03 {background:url(/i/icon-info.gif) no-repeat 100% 50%} /* Background image */
-#el04 {border-width:6px} /* Border width */
-#el05 {border:2px dotted #00f} /* Border width, style and colour */
-#el06 {border:none} /* No border */
-#el07 {padding:1em} /* Increase padding */
-#el08 { /* Change width and height */
-width:4em;
-height:4em;
+#el03 {
+  background: url(/i/icon-info.gif) no-repeat 100% 50%;
+} /* Background image */
+#el04 {
+  border-width: 6px;
+} /* Border width */
+#el05 {
+  border: 2px dotted #00f;
+} /* Border width, style and colour */
+#el06 {
+  border: none;
+} /* No border */
+#el07 {
+  padding: 1em;
+} /* Increase padding */
+#el08 {
+  /* Change width and height */
+  width: 4em;
+  height: 4em;
 }
 ```
 
 e.g. 同じブラウザでも OS 間で見た目が違う
 
-| FireFox2/ Windows XP | FireFox2 Mac OS X 10.4.8|
-| ---- | ---- |
+| FireFox2/ Windows XP                            | FireFox2 Mac OS X 10.4.8                        |
+| ----------------------------------------------- | ----------------------------------------------- |
 | ![ff-win](../../../../assets/images/ff-win.png) | ![ff-mac](../../../../assets/images/ff-mac.png) |
 
-*出典:<https://www.456bereastreet.com/lab/styling-form-controls-revisited/radio-button/>*
+_出典:<https://www.456bereastreet.com/lab/styling-form-controls-revisited/radio-button/>_
 
 だからと言って、ブラウザや OS 間で見た目を統一できるようにしようという動きが W3C 側にあったかというと、それに関しては消極的だったようです。見慣れた Form Control の外観を変えることに関しての懸念があり、Form Control のスタイリングに関しては、[CSS2.1の仕様](https://www.w3.org/TR/CSS21/conform.html#q3.0)においても次のように述べられています。
 
@@ -120,7 +135,7 @@ e.g. 同じブラウザでも OS 間で見た目が違う
 
 つまり、この時点までは、Form Control のスタイルは CSS から制御することができず、ブラウザや OS に依存していました。
 
-***
+---
 
 それでは、また明日⛄
 

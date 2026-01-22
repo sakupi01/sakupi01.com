@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+coverage
+**/generated
+**/remark-link-card
+**/storybook-static
+pnpm-lock.yaml
+.vscode
+.idea

@@ -3,9 +3,9 @@ title: "Case Study@web.dev - How Cybozu eliminated browser compatibility overhea
 excerpt: "Baseline の企業レベル導入事例"
 date: 2025-11-08
 update: 2025-11-08
-category: 'dev'
-tags: ['baseline', 'web', 'browser', 'web.dev']
-status: 'published'
+category: "dev"
+tags: ["baseline", "web", "browser", "web.dev"]
+status: "published"
 ---
 
 ## Table of Contents

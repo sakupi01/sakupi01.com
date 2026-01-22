@@ -1,18 +1,31 @@
 ---
 import BlogPostCard from "../../components/BlogPostCard.astro";
-import Layout from "../../layouts/Layout.astro";
 import Title from "../../components/Title.astro";
+import Layout from "../../layouts/Layout.astro";
 import { allLifePosts } from "../../utils/contents";
 ---
 
-<Layout pageTitle="Life Blog Archive" description="Life Blog Archive" url="/life/">
+<Layout
+  pageTitle="Life Blog Archive"
+  description="Life Blog Archive"
+  url="/life/"
+>
   <Title title="Life Blog Archive ..." />
-	<ul class="posts">
-		{allLifePosts.map((post) => {
-        const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`
-        return <BlogPostCard url={url} title={post.data.title} date={post.data.date} excerpt={post.data.excerpt} />
-    })}
-	</ul>
+  <ul class="posts">
+    {
+      allLifePosts.map((post) => {
+        const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+        return (
+          <BlogPostCard
+            url={url}
+            title={post.data.title}
+            date={post.data.date}
+            excerpt={post.data.excerpt}
+          />
+        );
+      })
+    }
+  </ul>
 </Layout>
 
 <style>

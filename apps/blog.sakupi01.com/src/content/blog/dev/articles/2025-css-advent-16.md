@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 16 / Hard Core Scoping of Standard"
 excerpt: "標準側での「スタイルのカプセル化」"
 date: 2025-08-16
 update: 2025-08-16
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -41,7 +41,7 @@ Conformance Error とは、仕様に従っていない状態を指します。HT
 :::
 
 ![use タグを用いて SVG をクローンした時に用いられる Shadow DOM](../../../../assets/images/svg-use.png)
-*use タグを用いて SVG をクローンした時に用いられる Shadow DOM*
+_use タグを用いて SVG をクローンした時に用いられる Shadow DOM_
 
 ---
 
@@ -63,7 +63,7 @@ Form Controls の議論では、しばしば「In-Page Controls」という用�
 :::
 
 ![Form Controls の In-Page 要素に使われる Shadow DOM](../../../../assets/images/input-shadow.png)
-*Form Controls の In-Page 要素に使われる Shadow DOM*
+_Form Controls の In-Page 要素に使われる Shadow DOM_
 
 このほか一部の Form Controls の In-Page 部分や、 `<details>`&`<summary>` などでも Shadow DOM が利用されています。
 
@@ -94,9 +94,9 @@ Shadow Tree 内で外部スタイルシートを読み込ませる方法とし�
 <my-element>
   <template shadowrootmode="open">
     <!-- スタイルシート 1 -->
-    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/theme.css" />
     <!-- スタイルシート 2 -->
-    <link rel="stylesheet" href="/component.css">
+    <link rel="stylesheet" href="/component.css" />
   </template>
 </my-element>
 
@@ -126,30 +126,30 @@ Shadow Tree 内で外部スタイルシートを読み込ませる方法とし�
 基本的な使い方としては、Shadow/Light 問わず DOM 間で共通したスタイルシートインスタンスである Constructable StyleSheet を、`new CSSStyleSheet()` で作成し、その中にスタイルを書き込み、`adoptedStyleSheets` プロパティに追加することで、DOM に適用します。
 
 ```js
-const css = new CSSStyleSheet()
+const css = new CSSStyleSheet();
 css.replaceSync(`
 p {
   color: #00f;
 }
-`)
+`);
 
 class AdoptedCss extends HTMLElement {
   constructor() {
-    super()
-    this.attachShadow({mode: 'open'})
-    this.shadowRoot.adoptedStyleSheets = [css]
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.adoptedStyleSheets = [css];
   }
 
   connectedCallback() {
-    this.render()
+    this.render();
   }
 
   render() {
-    this.shadowRoot.innerHTML = `<p>Adopted CSS</p>`
+    this.shadowRoot.innerHTML = `<p>Adopted CSS</p>`;
   }
 }
 
-customElements.define('adopted-css', AdoptedCss)
+customElements.define("adopted-css", AdoptedCss);
 ```
 
 ただし、新たな課題として、JS 側で定義した CSS のみからしか Constructable StyleSheet を作成するため、CSS のパースを JS/CSS どちら側でも行う必要があります。
@@ -167,7 +167,7 @@ customElements.define('adopted-css', AdoptedCss)
 📝 CSS Module Scripts の背景
 
 元はと言えば、ECMA 側で ES Modules ができたことを契機に、Domenic Denicola がそれを JS 以外でもできるようにしようと
- [Synthetic Modules](https://github.com/tc39/proposal-built-in-modules/pull/44) として提案したのが始まりでした。
+[Synthetic Modules](https://github.com/tc39/proposal-built-in-modules/pull/44) として提案したのが始まりでした。
 
 セキュリティ上の懸念から、インポートするリソース type を特定する必要が出て、結果として最初にきたのは Chrome, Node, Deno に実装された
 [Import Assertions](https://github.com/tc39/proposal-import-attributes?tab=readme-ov-file#history:~:text=of%20the%20proposal.-,2021%2D05%E2%80%932022%2D02,-%3A%20The%20proposal%2C%20with) でした。
@@ -193,15 +193,15 @@ CSS Module Scripts で Constructable StyleSheet としてスタイルシート�
 
 ```js
 /*non-Declarative CSS Moudule Scripts*/
-import themeSheet from './theme.css' with { type: 'css' };
-import componentSheet from './component.css' with { type: 'css' };
+import themeSheet from "./theme.css" with { type: "css" };
+import componentSheet from "./component.css" with { type: "css" };
 // Constructable StyleSheet を adoptedStyleSheets で同期的に適用する
 document.adoptedStyleSheets = [themeSheet, componentSheet];
 shadowRoot.adoptedStyleSheets = [themeSheet, componentSheet];
 ```
 
 ![Constructable Stylesheets の図](../../../../assets/images/constructable-stylesheets.png)
-*出典：[Constructable Stylesheets  |  Articles  |  web.dev](https://web.dev/articles/constructable-stylesheets)*
+_出典：[Constructable Stylesheets  |  Articles  |  web.dev](https://web.dev/articles/constructable-stylesheets)_
 
 CSS Module Scripts + Constructable StyleSheet + Adopted StyleSheets を組み合わせることで、特定のスタイルシートを同期的にコンポーネントに適用するだけでなく、Light DOM と Shadow DOM の両方でスタイルシートを共有することができます。
 Web Components の文脈においては、Light DOM のグローバルスタイルのみを Shadow DOM （Web Components）に適用したいといった需要があるため、CSS Module Scripts は Web Components の文脈で特に重要になってきます。
@@ -277,12 +277,12 @@ div {
 
 ```html
 <style id="sheet">
-    /* 以下のインポートは、単一のネットワークリクエストで済む */
-    @import "external.css#foo";
-    @import "external.css#bar";
+  /* 以下のインポートは、単一のネットワークリクエストで済む */
+  @import "external.css#foo";
+  @import "external.css#bar";
 </style>
 <template shadowrootmode="open">
-   <!-- foo.css 内の bar sheet だけを参照  -->
+  <!-- foo.css 内の bar sheet だけを参照  -->
   <link rel="stylesheet" href="#sheet" sheet="foo" />
   <!-- blah blah... -->
 </template>
@@ -306,7 +306,9 @@ Shadow DOM とは異なり、外部からのスタイルは引き続き影響を
   <!-- 親要素からのスタイルの影響は受ける -->
   <style scoped>
     /* このスタイルは親要素とその子孫にのみ適用される */
-    p { color: red; }
+    p {
+      color: red;
+    }
   </style>
   <p>このテキストは赤色</p>
 </div>
@@ -329,21 +331,24 @@ HTML で Removal となり、CSS で実現した背景に関しては、また�
 ```html
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="styelesheet" href="i-want-to-override.css">
-  <style>
-    iframe {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="styelesheet" href="i-want-to-override.css" />
+    <style>
+      iframe {
         width: 50%;
-    }
-   </style>
-</head>
-<body>
+      }
+    </style>
+  </head>
+  <body>
     <main>
-        <iframe src="https://i-cannot-be-overridden.com" style="border: none; width: 100%; height: 500px;"></iframe>
+      <iframe
+        src="https://i-cannot-be-overridden.com"
+        style="border: none; width: 100%; height: 500px;"
+      ></iframe>
     </main>
-</body>
+  </body>
 </html>
 ```
 

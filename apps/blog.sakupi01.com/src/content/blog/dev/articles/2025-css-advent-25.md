@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 25 / Epilogue"
 excerpt: "CSS Advent Calendar エピローグ"
 date: 2025-08-25
 update: 2025-08-25
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -46,7 +46,7 @@ CSS を取り巻くエコシステムの変化としては、モバイルの登�
 本連載では CSS にフォーカスしてきましたが、State of CSS/HTML や What's New in Web UI/CSS などを俯瞰すると、Web UI 全般におけるこの傾向は明らかです。
 
 例えば、HTML においても、`<dialog>`, `<details>`, `<summary>`, Customizable Select, Popover API, Command/Interest Invokers などの機能が登場し、より多くの UI パターンがネイティブにサポートされるようになっています。
-CSS では、Cascade Layers, `@scope`, Container Queries, `:has()`, `subgrid`, `@property`, `@when` & `@else`, `@if`, `@function`, `@mixin`  など、よりパワフルで柔軟なスタイリングを可能にする機能が登場しています。
+CSS では、Cascade Layers, `@scope`, Container Queries, `:has()`, `subgrid`, `@property`, `@when` & `@else`, `@if`, `@function`, `@mixin` など、よりパワフルで柔軟なスタイリングを可能にする機能が登場しています。
 
 こうした機能により、あらゆる状況での適切なレイアウトやサイズ、状態の管理、アクセシビリティ機能の担保、一貫したデフォルトの表示が、ブラウザに担われることが可能になってきています。
 これにより、今まで必要だった JavaScript を削減でき、堅牢で一貫した動作を保証し、パフォーマンスを向上させ、より多くの人がアクセス可能な UI を構築できるようになります。

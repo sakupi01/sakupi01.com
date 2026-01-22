@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 12 / Customizable Select Element Ep.10"
 excerpt: "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker()`のデフォルト色から深掘る、system-color/ color-scheme/ prefers-color-schemeの関係"
 date: 2024-12-12
 update: 2024-12-12
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -23,7 +24,7 @@ Customizable Select Element Ep.9 から、 `appearance: base-select;`で提供�
 [Ep.9](https://blog.sakupi01.com/dev/articles/2024-openui-advent-11)では、`<option>::checkmark`が現状の見た目となった背景について、[Ep.10](https://blog.sakupi01.com/dev/articles/2024-openui-advent-12)では、ポップオーバーを開閉するボタン要素右の矢印アイコン`::picker-icon`について深掘りました。 今回は、CSE がデフォルトで使用する「色」の関連技術について理解を深めていきます。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
 
@@ -36,7 +37,7 @@ CSE の主に`::picker()`部分のデフォルトカラーには`<system-color>`
 身近な例として、`<textarea>`要素の背景色である「Field」やその文字色である「FieldText」などがあり、多くのシステムカラーが定義されています。
 
 ![system-colorの例](../../../../assets/images/system-colors.png)
-*system-colorの例*
+_system-colorの例_
 
 - [CSS Color Module Level 4](https://drafts.csswg.org/css-color/#css-system-colors)
 
@@ -118,13 +119,10 @@ color-scheme: normal;
 > To **determine the used color scheme** of an element:
 >
 > 1. If the user’s preferred color scheme, as indicated by the prefers-color-scheme media feature, is present among the listed color schemes, and is supported by the user agent, that’s the element’s used color scheme.
->
 > 2. Otherwise, if the user has indicated an overriding preference for their chosen color scheme, and the only keyword is not present in color-scheme for the element, the user agent must override the color scheme with the user’s preferred color scheme. See § 2.3 Overriding the Color Scheme.
->
 > 3. Otherwise, if the user agent supports at least one of the listed color schemes, the used color scheme is the first supported color scheme in the list.
->
 > 4. Otherwise, the used color scheme is the browser default. (Same as normal.)
-> <https://drafts.csswg.org/css-color-adjust/#color-scheme-prop>
+>    <https://drafts.csswg.org/css-color-adjust/#color-scheme-prop>
 
 つまり、次の順番でどのような色が適用されるか決まります。
 
@@ -138,12 +136,10 @@ color-scheme: normal;
 2024 年の CSS 新機能として登場した、`light-dark()`関数は、`@media(prefers-color-scheme: <light | dark>)`を使用せずとも、`color-scheme`を要素に反映することができる CSS 関数です。
 
 ```css
-
 :root {
   color: light-dark(var(--light), var(--dark));
   background-color: light-dark(var(--light-bg), var(--dark-bg));
 }
-
 ```
 
 `color-scheme`のテーマに依存した色の変更は、ブラウザが UA スタイルシートに定義している`<system-color>`の利用でのみ可能でしたが、`light-dark()`関数の登場により、Author の定義した色が`color-scheme`プロパティのテーマに依存して変更可能になりました。
@@ -152,7 +148,7 @@ color-scheme: normal;
 
 `light-dark()`関数は、`color-scheme`がライトテーマか不明な場合は第一引数の`<color>`値を、ダークテーマの場合は第二引数の`<color>`値を適用します。
 
-***
+---
 
 上記で理解した、カラースキーマの適用順序を`light-dark()`関数で確認できるデモを作成しました。長いので Copepen リンクのみ記載します。
 
@@ -165,7 +161,7 @@ color-scheme: normal;
 </p>
 <script async src="https://public.codepenassets.com/embed/index.js"></script>
 
-***
+---
 
 このように、`<system-color>`キーワードを使用すると、ユーザのカラーテーマ設定や`color-scheme`の値を反映した色でレンダリングされ、UA スタイルシート外部の設定と調和を保てます。この目的のために、`<system-color>`は定義（あるいは、既存実装から共通化して仕様化）され、UA スタイルシートで利用されているのです。
 
@@ -174,7 +170,6 @@ color-scheme: normal;
 そういうわけで、CSE の`::picker()`の色には、`<system-color>`を使用することに決まりました。
 
 ```css
-
 ::picker(select) {
   /* Same properties as popover and dialog */
   color: CanvasText;
@@ -200,7 +195,7 @@ select {
 select:enabled:hover {
   background-color: color-mix(in lab, currentColor 10%, transparent);
 }
-select:enabled:active  {
+select:enabled:active {
   background-color: color-mix(in lab, currentColor 20%, transparent);
 }
 select:disabled {
@@ -220,7 +215,7 @@ select option:disabled {
 /* https://github.com/w3c/csswg-drafts/issues/10909#issuecomment-2491769385 */
 ```
 
-***
+---
 
 今回は、ボタン要素や選択肢ポップオーバーの「色」に関して取り上げました。
 

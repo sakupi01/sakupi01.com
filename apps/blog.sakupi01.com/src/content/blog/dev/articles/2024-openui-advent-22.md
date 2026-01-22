@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 22 / Customizable Select Element Ep.20"
 excerpt: "Customizable Select Elementのまとめ"
 date: 2024-12-22
 update: 2024-12-22
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -126,7 +127,7 @@ Ep.1 から Ep.19 にかけて、Customizable Select Element の提案に関連�
 
 CSE のを構成する仕様の策定は現在進行形で行われています。最後の機能が Intent to Ship になるのが待ち遠しいですね！
 
-***
+---
 
 それでは、また明日⛄
 

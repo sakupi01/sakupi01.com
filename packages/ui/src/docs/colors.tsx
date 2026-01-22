@@ -22,7 +22,7 @@ const baseColors = Object.keys(hueList).reduce(
       `oklch(var(--lightness) var(--chroma-2) var(--hue-${hueName}))`;
     return prev;
   },
-  {},
+  {}
 );
 
 const ColorPaletteComponent = () => {
@@ -43,7 +43,7 @@ const ColorPaletteComponent = () => {
             prev[level] = color[level] ?? "";
             return prev;
           },
-          {},
+          {}
         );
 
         return (

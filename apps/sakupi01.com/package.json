@@ -6,22 +6,21 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check:format": "pnpm biome format --changed --write .",
-    "check:lint": "pnpm biome lint --changed --write .",
+    "check:format": "prettier --write .",
+    "check:format:check": "prettier --check .",
+    "check:lint": "eslint . --ext .js,.ts,.astro",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "pnpm biome check --changed --write .",
+    "check:lint-format": "pnpm check:lint && pnpm check:format",
     "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
-    "check": "pnpm check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm check:markuplint"
+    "check": "pnpm check:typecheck & pnpm check:lint & pnpm check:format:check & pnpm check:markuplint"
   },
   "dependencies": {
-    "@astrojs/partytown": "^2.1.4",
     "@repo/ui": "workspace:*",
     "astro": "^5.2.5",
-    "jsdom": "^26.0.0",
-    "sharp": "catalog:"
+    "jsdom": "^26.0.0"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7"
   },
-  "packageManager": "pnpm@10.27.0"
+  "packageManager": "pnpm@10.28.0"
 }

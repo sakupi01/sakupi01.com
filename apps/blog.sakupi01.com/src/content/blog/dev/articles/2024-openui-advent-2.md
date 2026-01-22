@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 2 / Web UIの抱える課題とOpen UI�
 excerpt: "Web UIの抱える課題とOpen UIの発足背景について"
 date: 2024-12-02
 update: 2024-12-02
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -34,9 +35,9 @@ status: 'published'
 > CSS 2.1 does not define which properties apply to form controls and frames, or how CSS can be used to style them. User agents may apply CSS properties to these elements. Authors are recommended to treat such support as experimental. A future level of CSS may specify this further. - [UA Conformance](https://www.w3.org/TR/CSS21/conform.html#q3.0), CSS 2.1 Specification, W3C
 
 ![ブラウザ・OSの組み合わせで異なるForm Controlのスタイル](../../../../assets/images/different-styles-from-control.png)
-*Styling form controls - <https://www.456bereastreet.com/archive/200409/styling_form_controls/>*
+_Styling form controls - <https://www.456bereastreet.com/archive/200409/styling_form_controls/>_
 
-***
+---
 
 2004 年から 2008 年にかけての「Web2.0」の流行を経て、Form Control の黎明から 10 年以上経過した Web は、Interactivity が向上し、よりリッチな UI が求められるようになりました。
 これらのデザインを実装するために、Flash や Action Script、ActiveX などのツール/言語や、jQuery などのフレームワークが使用されるようになりました。
@@ -50,7 +51,7 @@ W3C による[HTML5](https://www.w3.org/TR/2011/WD-html5-20110405/)の仕様策�
 そのために、重たい JavaScript フレームワークに頼ったり、アクセシビリティを犠牲にしたりすることも往々にしてあります。
 それによって、ページの読み込み速度が低下したり、セキュリティの脆弱性が生じたり、アクセシブルでなくなることも珍しくありません。
 
-***
+---
 
 そこで、HTML をもう一度モダナイズし、現代のニーズに応える UI パターンを標準化する動きが立ち上がりました。それが Open UI の発足です。
 
@@ -68,7 +69,7 @@ Open UI は、HTML、CSS、JavaScript など、Web UI を取り巻く技術全�
   - HTML、CSS、JavaScript、Web API など、**Web UIを取り巻く技術全般に関わる標準化**
   - 特定のユーザインターフェースのみを標準化の対象とするだけでなく、**カスタムのUIを作成するために必要なアーキテクチャの標準化**
 
-***
+---
 
 それでは、また明日⛄
 

@@ -3,12 +3,20 @@ title: "The Outline Algorithm Utopia"
 excerpt: "本エントリでは、Document Outline Algorithm というユートピアと、その中で繰り広げられた HTML の歴史を振り返ります。また、Outline Algorithm の後継として実現が検討されている Heading Level Concept についての現状を記します。"
 date: 2025-04-16
 update: 2025-04-27
-beginColor: 'from-purple-300'
-middleColor: 'via-pink-200'
-endColor: 'to-orange-300'
-category: 'dev'
-tags: ['html', 'standards', 'web accessibility', 'a11y', 'outline algorithm', 'heading level']
-status: 'published'
+beginColor: "from-purple-300"
+middleColor: "via-pink-200"
+endColor: "to-orange-300"
+category: "dev"
+tags:
+  [
+    "html",
+    "standards",
+    "web accessibility",
+    "a11y",
+    "outline algorithm",
+    "heading level",
+  ]
+status: "published"
 ---
 
 ## Table of Contents
@@ -38,8 +46,8 @@ Brian Kardell の主張（[Headings and the Seinfeld Pitch](https://bkardell.com
 
 大きなフォントのテキストを見れば「見出し」と認識し、その後に続く通常サイズのテキストを「その見出しに属する本文」と理解してもらうことのみを達成できれば良かったわけです。
 極端な例だと、実際には見出しではない要素を、見た目上は見出しのように表示させることができれば、何の問題もありませんでした。
-  
-## Structure is *CRUCIAL* for the Modern Web
+
+## Structure is _CRUCIAL_ for the Modern Web
 
 「見た目から受け取る情報」から構築される「視覚的な Semantics」が、「構造的な Semantics」と必ずしも一致しないことは、HTML の黎明期では問題にはなりませんでした。しかし、現代の Web が DOM を中心とした ”構造的な Document Model” へと進化し、DOM を利用した展開が進むにつれて、そうはいかなくなります。
 
@@ -76,7 +84,7 @@ Outline Algorithm の登場で、「フラットな構造」を基本として�
 >
 > 4.4 Sections — HTML 5.1 Nightly <https://web.archive.org/web/20121214011658/http://www.w3.org/html/wg/drafts/html/master/sections.html#outlines>
 
-*「Subsequent headings of equal or higher rank start new (implied) sections, headings of lower rank start implied subsections that are part of the previous one. (同等以上のランクの見出しは、新しい（暗黙の）セクションを開始し、よりランクの低い見出しは、前のセクションの一部である暗黙のサブセクションを開始する) 」*
+_「Subsequent headings of equal or higher rank start new (implied) sections, headings of lower rank start implied subsections that are part of the previous one. (同等以上のランクの見出しは、新しい（暗黙の）セクションを開始し、よりランクの低い見出しは、前のセクションの一部である暗黙のサブセクションを開始する) 」_
 <br /> ー Document Outline Algorithm を含む Sectioning Contents により、 HTML5.1 では当初、見出し要素（h1-6, `<hgroup>`）の順序は重要ではない（意訳）と述べられていました。
 
 > Sections may contain headings of any rank, but authors are strongly encouraged to **either use only h1 elements**, or to use elements of the appropriate rank for the section's nesting level.
@@ -90,36 +98,35 @@ Outline Algorithm の登場で、「フラットな構造」を基本として�
 ```html
 <!-- as-is -->
 <body>
- <h4>Apples</h4>
- <p>Apples are fruit.</p>
- <section>
-  <h2>Taste</h2>
-  <p>They taste lovely.</p>
-  <h6>Sweet</h6>
-  <p>Red apples are sweeter than green ones.</p>
-  <h1>Color</h1>
-  <p>Apples come in various colors.</p>
- </section>
+  <h4>Apples</h4>
+  <p>Apples are fruit.</p>
+  <section>
+    <h2>Taste</h2>
+    <p>They taste lovely.</p>
+    <h6>Sweet</h6>
+    <p>Red apples are sweeter than green ones.</p>
+    <h1>Color</h1>
+    <p>Apples come in various colors.</p>
+  </section>
 </body>
 
 <!-- to-be -->
 <body>
- <h1>Apples</h1>
- <p>Apples are fruit.</p>
- <section>
-  <h2>Taste</h2>
-  <p>They taste lovely.</p>
+  <h1>Apples</h1>
+  <p>Apples are fruit.</p>
   <section>
-   <h3>Sweet</h3>
-   <p>Red apples are sweeter than green ones.</p>
+    <h2>Taste</h2>
+    <p>They taste lovely.</p>
+    <section>
+      <h3>Sweet</h3>
+      <p>Red apples are sweeter than green ones.</p>
+    </section>
   </section>
- </section>
- <section>
-  <h2>Color</h2>
-  <p>Apples come in various colors.</p>
- </section>
+  <section>
+    <h2>Color</h2>
+    <p>Apples come in various colors.</p>
+  </section>
 </body>
-
 ```
 
 これによって `<section>` 内では `<h1>` から始めても良く、「全部 `<h1>` でも OK じゃない？ ブラウザが全部自動でレベル付けしてくれるなら、むしろ Author が変にいじる必要ないのでは・・・？」といった都市伝説が広まりました。
@@ -149,7 +156,7 @@ Sectioning と Outline Algorithm が登場したことにより、我々は「�
 故に、以下のように Sectioning を駆使したマークアップをしても、Outline Algorithm 自体は実装されていないので、支援技術には伝わりません。
 
 ![Sectioning を用いたマークアップでも、アクセシビリティツリーには露出されない](../../../../assets/images/sectioning-a11ytree.png)
-*Sectioning を用いたマークアップでも、アクセシビリティツリーには露出されない*
+_Sectioning を用いたマークアップでも、アクセシビリティツリーには露出されない_
 
 この空論を前提としたマークアップが現実世界に俄かに広がってしまうことは、防がなければなりません。さもなければ、Sectioning Contents の作り出す「見た目（視覚的な構造）」と実際の「セマンティクス構造」の間に不一致が生じてしまう。<br />
 それゆえ、「セマンティクス構造」を見た目に合わせてもらう方向で解決しようと、W3C では、Sectioning Content Element と組み合わせて使う場合の見出し要素レベルの重要性の主張や、仕様から Document Outline Algorithm を前提とした記述を削除する議論が繰り返されました。
@@ -195,7 +202,7 @@ MDN には掲載されているので、Living Standard 時代でもそれなり
 
 `<h>` というアイディア自体は、実は [Tim Berners-Lee](https://x.com/timberners_lee) が Web を始めたばかりの 1991 年から存在したものでした。
 
-> I would in fact prefer, instead of `<H1>`, `<H2>` etc for  headings [those come from the AAP DTD] to have a nestable  `<SECTION>..</SECTION>` element, and a generic `<H>..</H>` which at any  level within the sections would produce the required level of  heading.
+> I would in fact prefer, instead of `<H1>`, `<H2>` etc for headings [those come from the AAP DTD] to have a nestable `<SECTION>..</SECTION>` element, and a generic `<H>..</H>` which at any level within the sections would produce the required level of heading.
 >
 > [www-talk from September to October 1991: Re: status. Re: X11 BROWSER for WWW](https://lists.w3.org/Archives/Public/www-talk/1991SepOct/0003.html)
 
@@ -246,7 +253,12 @@ function determineLevel(el) {
   // the function below are run on a document, as is the case.
   //
   // This is "sectioning content" and "sectioning roots"
-  while (el.parentNode && (el = el.parentNode.closest("article,aside,nav,section,blockquote,details,dialog,fieldset,figure,td"))) {
+  while (
+    el.parentNode &&
+    (el = el.parentNode.closest(
+      "article,aside,nav,section,blockquote,details,dialog,fieldset,figure,td"
+    ))
+  ) {
     level += 1;
   }
   return level;
@@ -318,8 +330,8 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
 <!-- hgroup は、見出し（h2など）がOutlineアルゴリズム内で独立したセクションを作成するのを防ぎ、代わりにサブ見出しとしてグループ化して表示する
  これにより複数の見出し要素を論理的に一つのまとまりとして扱える -->
 <hgroup>
- <h1>The reality dysfunction</h1>
- <h2>Space is not the only void</h2>
+  <h1>The reality dysfunction</h1>
+  <h2>Space is not the only void</h2>
 </hgroup>
 ```
 
@@ -346,7 +358,7 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
   - 子に `<h1>` があれば `<hgroup>` そのものを `<h1>` として扱い、それ以外はそれぞれの見出しレベルを保つ。
   - `<hgroup>` そのものを無視する。中の見出しと小見出しを含めてそのままにしてしまう。
   - 子から最上位の見出しを `aria-level="n"` で調整し、他の見出しに `role="generic"` を付ける。
-  
+
 特に最後の項目は、メインの見出しレベルのみに調整が及び、後方互換性のメリットがあるため、前向きに捉えられていました。
 
 ```html title={hgroup 内の小見出しを表現する方法}
@@ -361,10 +373,10 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
 
 <!-- to-be -->
 <hgroup>
-  <h2 role=heading aria-level=2>Primary text</h2>
-  <h3 role=generic>a subheading</h3>
+  <h2 role="heading" aria-level="2">Primary text</h2>
+  <h3 role="generic">a subheading</h3>
   <p>I'm not supposed to be here</p>
-  <h3 role=generic>Another section of content</h3>
+  <h3 role="generic">Another section of content</h3>
   <p>Clearly I don't validate my code</p>
 </hgroup>
 <!-- https://github.com/whatwg/html/issues/5002#issuecomment-542647846 -->
@@ -376,7 +388,7 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
 
 > The hgroup element represents a heading and related content. The element may be used to group an h1–h6 element with one or more p elements containing content representing a subheading, alternative title, or tagline.
 >
->[4.3.7 The hgroup element | HTML Standard](https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element)
+> [4.3.7 The hgroup element | HTML Standard](https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element)
 
 - [Obsolete `<hgroup>` by sideshowbarker · Pull Request #6462 · whatwg/html](https://github.com/whatwg/html/pull/6462)
 
@@ -445,7 +457,6 @@ Outline Algorithm が実装されなかった理由がどこかに明記され�
 > - By the time browsers got round to it, developers were using sections incorrectly, and adding the outline would have a negative impact on users.
 >
 > ー Jake Archibald
->
 
 ---
 
@@ -510,7 +521,7 @@ Outline Algorithm 廃止の過程で提案された Heading Level Concept は後
 ```html
 <div headinglevelstart="2">
   <h1>Hello</h1>
-  
+
   <div headinglevelstart>
     <h1>World</h1>
   </div>
@@ -522,14 +533,14 @@ Outline Algorithm 廃止の過程で提案された Heading Level Concept は後
 
 これが、Heading Level を継承する(**"additive model"**: ネストされた `headinglevelstart` を累積加算して値を決める) 提案の発端となります。
 
-Heading Level Concept を提案した [Anne の主張](https://github.com/whatwg/html/issues/5033#issuecomment-1733945754:~:text=If%20you%20add%20some%20kind%20of%20inheritance%20it%27s%20no%20longer%20really%20%22start%22%20semantics%20and%20we%20might%20also%20run%20into%20performance%20issues.%20I%20would%20suggest%20we%20start%20out%20really%20simple%20and%20if%20this%20is%20something%20we%20need%20to%20build%20upon%20we%20can%20consider%20it%20in%20a%20future%20iteration.)は、パフォーマンス問題への懸念から、"additive model" は避けた方が良いのではないか（そして "start"  という命名も適切ではない）という意見が出て、初期の実装では "additive model" は実装せず、将来的に考慮するという主張でした。
+Heading Level Concept を提案した [Anne の主張](https://github.com/whatwg/html/issues/5033#issuecomment-1733945754:~:text=If%20you%20add%20some%20kind%20of%20inheritance%20it%27s%20no%20longer%20really%20%22start%22%20semantics%20and%20we%20might%20also%20run%20into%20performance%20issues.%20I%20would%20suggest%20we%20start%20out%20really%20simple%20and%20if%20this%20is%20something%20we%20need%20to%20build%20upon%20we%20can%20consider%20it%20in%20a%20future%20iteration.)は、パフォーマンス問題への懸念から、"additive model" は避けた方が良いのではないか（そして "start" という命名も適切ではない）という意見が出て、初期の実装では "additive model" は実装せず、将来的に考慮するという主張でした。
 
 しかし、"additive model" で実装しないとなると、例えば以下のマークアップでは見出し構造が h3 > h2 となって崩壊し、「ブラウザが見出しの自動調整をする」という本来の目的が損なわれてしまいます。
 
 ```html
-<div headinglevelstart=3>
+<div headinglevelstart="3">
   <h1>Heading Level 3</h1>
-  <div headinglevelstart=2>
+  <div headinglevelstart="2">
     <h1>Heading Level 2 ?!</h1>
   </div>
 </div>
@@ -544,8 +555,9 @@ Heading Level Concept を提案した [Anne の主張](https://github.com/whatwg
 ### `headinglevelstart` -> `headingoffset` & `headingreset` with `:heading`&`:heading(N)`
 
 そんな中、[Keith Cirkel](https://github.com/keithamus) が "additive model" を取り入れた`headinglevelstart`の Prototype を Chromium に実装し、"additive model" を実装してもせずとも実装的には僅差（"additive model" で実装したからといって、大きくパフォーマンスを低下させることはない）と報告します。
+
 > From an implementation standpoint either model is trivial (we tree walk, and we either stop at, or accumulate, on each node with the attribute).
-<https://github.com/whatwg/html/issues/5033#issuecomment-2049295979>
+> <https://github.com/whatwg/html/issues/5033#issuecomment-2049295979>
 
 この Prototype を受けて、"additive model" の `headinglevelstart` が `headingoffset` と改名されて実装されます。
 
@@ -563,14 +575,15 @@ Heading Level Concept を提案した [Anne の主張](https://github.com/whatwg
 <main headingoffset="0">
   <h1>Settings</h1>
   <section headingoffset="1">
-    <h1>Account</h1> <!-- h2として解釈 -->
-    
+    <h1>Account</h1>
+    <!-- h2として解釈 -->
+
     <button onclick="openDialog()">Delete Account</button>
-    
+
     <dialog id="confirmDialog">
       <!-- h2になってしまう (0+1+1) -->
-        <h1>Confirmation</h1> 
-        <p>You cannot re-do this action. Do you want to proceed?</p>
+      <h1>Confirmation</h1>
+      <p>You cannot re-do this action. Do you want to proceed?</p>
     </dialog>
   </section>
 </main>
@@ -580,14 +593,15 @@ Heading Level Concept を提案した [Anne の主張](https://github.com/whatwg
 
 ```html
 <dialog id="confirmDialog" headingreset>
-  <h1>Confirmation</h1> <!-- `headingreset` があるため、h1として解釈される -->
+  <h1>Confirmation</h1>
+  <!-- `headingreset` があるため、h1として解釈される -->
   <p>You cannot re-do this action. Do you want to proceed?</p>
 </dialog>
 ```
 
 別コンテキストで表現したい UI 要素として、用途は Modal Dialog に限らず、例えばカルーセル内のスライドやタブパネルなど、UIの中で「独立したコンテキスト」を持たせたい場合に応用できそうです。
 
-***
+---
 
 現時点での、`headingoffset`や`headingreset`を含む、一連の Heading Level Concept に関する仕様とアルゴリズムは以下で確認できます。
 
@@ -603,7 +617,7 @@ Heading Level Concept により、見出しレベルが h1~6 に限られなく�
 - [[css-selectors-5] add `:heading`, `:heading(An+B)` pseudo classes by keithamus · Pull Request #11836 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/pull/11836)
 - [[selectors] Adding a `:heading()` selector for headingoffset? · Issue #10296 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/10296)
 
-***
+---
 
 以下に Demo を用意しました。`headingoffset`, `headingreset` attributes に関しては、Chrome Dev 136 以上のビルドで動作が確認できます。
 
@@ -632,4 +646,4 @@ Outline Algorithm 亡き今、Heading Level Concept による見出しの自動�
 - [Level Up Your Headings Game · Matthias Ott](https://matthiasott.com/notes/level-up-your-headings-game)
 - [Why the HTML Outlining Algorithm was removed from the spec? the truth will shock you! | Bruce Lawson's personal site](https://brucelawson.co.uk/2022/why-the-html-outlining-algorithm-was-removed-from-the-spec-the-truth-will-shock-you/)
 - [whatwg-headinglevelstart.pdf](https://github.com/whatwg/meta/files/12617290/whatwg-headinglevelstart.pdf)
-- [HTML2.0 の仕様では閉じタグが必須でない要素が存在した  e.g; `<!ELEMENT P     - O (%text)*>`](https://datatracker.ietf.org/doc/html/rfc1866)
+- [HTML2.0 の仕様では閉じタグが必須でない要素が存在した e.g; `<!ELEMENT P     - O (%text)*>`](https://datatracker.ietf.org/doc/html/rfc1866)

@@ -3,10 +3,11 @@ title: "2025 In Review"
 excerpt: "2025年の振り返り"
 date: 2025-12-31
 update: 2025-12-31
-category: 'life'
-tags: ['life', 'poem', 'year-in-review']
-status: 'published'
+category: "life"
+tags: ["life", "poem", "year-in-review"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -282,12 +283,14 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
  <figure>
 
- ![同期旅行 in 大阪](../../../../assets/images/doki-osaka2.png)
+![同期旅行 in 大阪](../../../../assets/images/doki-osaka2.png)
+
   <figcaption>同期旅行 in 大阪</figcaption>
 </figure>
  <figure>
 
- ![アムステルダムの街並み](../../../../assets/images/IMG_0772.jpg)
+![アムステルダムの街並み](../../../../assets/images/IMG_0772.jpg)
+
   <figcaption>アムステルダムの街並み</figcaption>
 </figure>
 
@@ -296,12 +299,14 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
  gap: 3px; place-items: center;">
    <figure>
 
-   ![セーヌ川](../../../../assets/images/IMG_1380.jpg)
+![セーヌ川](../../../../assets/images/IMG_1380.jpg)
+
   <figcaption>セーヌ川</figcaption>
 </figure>
 <figure>
 
 ![Aare 川](../../../../assets/images/IMG_2768.jpg)
+
   <figcaption>Aare 川</figcaption>
 </figure>
 </div>
@@ -309,6 +314,7 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 <figure>
 
 ![グランピング](../../../../assets/images/grandping2.png)
+
   <figcaption>グランピング</figcaption>
 </figure>
 
@@ -318,30 +324,35 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
  <figure>
 
- ![北海道小樽](../../../../assets/images/hokkaido.png)
+![北海道小樽](../../../../assets/images/hokkaido.png)
+
   <figcaption>北海道小樽</figcaption>
 </figure>
  <figure>
 
-  ![ジンギスかん](../../../../assets/images/hokkaido3.png)
+![ジンギスカン](../../../../assets/images/hokkaido3.png)
+
   <figcaption>ジンギスカン</figcaption>
 </figure>
  <figure>
 
- ![締めパフェ](../../../../assets/images/hokkaido4.png)
+![締めパフェ](../../../../assets/images/hokkaido4.png)
+
   <figcaption>締めパフェ</figcaption>
 </figure>
 
  <figure>
 
-  ![いくら雪崩](../../../../assets/images/hokkaido1.png)
+![いくら雪崩](../../../../assets/images/hokkaido1.png)
+
   <figcaption>いくら雪崩</figcaption>
 </figure>
 </div>
 
  <figure>
 
- ![Penida島, Bali](../../../../assets/images/penida2.png)
+![Penida島, Bali](../../../../assets/images/penida2.png)
+
   <figcaption>Penida 島, Bali</figcaption>
 </figure>
 
@@ -351,25 +362,29 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
 
  <figure>
 
- ![Penida 島のホテルがよかった](../../../../assets/images/penida1.png)
+![Penida 島のホテルがよかった](../../../../assets/images/penida1.png)
+
   <figcaption>Penida 島のホテルがよかった</figcaption>
 </figure>
  <figure>
 
-  ![Penida 島のホテルがよかった2](../../../../assets/images/penida3.png)
+![Penida 島のホテルがよかった2](../../../../assets/images/penida3.png)
+
   <figcaption>Penida 島のホテルがよかった2</figcaption>
 </figure>
 </div>
 
  <figure>
 
- ![神戸 to 大阪ドライブ](../../../../assets/images/canalun-and-jxck.png)
+![神戸 to 大阪ドライブ](../../../../assets/images/canalun-and-jxck.png)
+
   <figcaption>神戸 to 大阪ドライブ</figcaption>
 </figure>
 
  <figure>
 
- ![鹿児島のホテルがよかった](../../../../assets/images/kagoshima2.png)
+![鹿児島のホテルがよかった](../../../../assets/images/kagoshima2.png)
+
   <figcaption>鹿児島のホテルがよかった</figcaption>
 </figure>
 
@@ -378,13 +393,15 @@ Instagram を振り返れば良いと思ったのですが、今年は本当に�
  gap: 3px; place-items: center;">
  <figure>
 
- ![鹿児島](../../../../assets/images/kagoshima3.png)
+![鹿児島](../../../../assets/images/kagoshima3.png)
+
   <figcaption>鹿児島</figcaption>
 </figure>
 
  <figure>
 
- ![海辺の星空がめっちゃ綺麗だった](../../../../assets/images/kagoshima1.png)
+![海辺の星空がめっちゃ綺麗だった](../../../../assets/images/kagoshima1.png)
+
   <figcaption>海辺の星空がめっちゃ綺麗だった</figcaption>
 </figure>
 </div>

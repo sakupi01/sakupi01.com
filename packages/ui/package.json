@@ -2,7 +2,9 @@
   "name": "@repo/ui",
   "version": "0.0.0",
   "private": true,
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "src/index.ts",
   "exports": {
     ".": "./src/css/index.ts",
@@ -12,19 +14,19 @@
   },
   "type": "module",
   "scripts": {
-    "check:format": "pnpm biome format --changed --write .",
-    "check:lint": "pnpm biome lint --changed --write .",
+    "check:format": "prettier --write .",
+    "check:format:check": "prettier --check .",
+    "check:lint": "eslint . --ext .js,.ts,.tsx",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "pnpm biome check --changed --write .",
+    "check:lint-format": "pnpm check:lint && pnpm check:format",
     "check:style": "stylelint 'src/**/*.css'",
-    "check": "pnpm run check:typecheck & pnpm biome check --write . --no-errors-on-unmatched & pnpm run check:style",
+    "check": "pnpm run check:typecheck & pnpm check:lint & pnpm check:format:check & pnpm run check:style",
     "storybook": "storybook dev -p 6006 $VITE_STORYBOOK=true",
     "build:ui": "storybook build -o ./storybook-static && node transfer.js",
     "gen": "turbo gen react-component",
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-essentials": "8.3.0",
     "@storybook/addon-interactions": "8.3.0",

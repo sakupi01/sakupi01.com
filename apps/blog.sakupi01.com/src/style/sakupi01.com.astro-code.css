@@ -34,19 +34,15 @@ Styles for Astro Code Highlighter
   details .astro-code {
     background-color: var(--color-base-darkest) !important;
   }
-.astro-code {
-  color: var(--shiki-dark) !important;
-  text-decoration: light-dark(
-    var(--shiki-light-text-decoration),
-    
-  ) !important;
-
-  span {
+  .astro-code {
     color: var(--shiki-dark) !important;
-    text-decoration: light-dark(
-      var(--shiki-light-text-decoration),
-      
-    ) !important;
+    text-decoration: light-dark(var(--shiki-light-text-decoration)) !important;
+
+    span {
+      color: var(--shiki-dark) !important;
+      text-decoration: light-dark(
+        var(--shiki-light-text-decoration)
+      ) !important;
+    }
   }
-}
 }

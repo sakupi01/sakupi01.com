@@ -8,7 +8,7 @@ export function extractArticlesPath(inputPath: string): string | null {
   const normalizedPath = inputPath.trim().replace(/\\/g, "/");
 
   // Use a regex to match paths that contain /articles/ followed by valid path characters
-  const articlesPathRegex = /\/articles\/([a-zA-Z0-9_\-\.\/]+)/;
+  const articlesPathRegex = /\/articles\/([a-zA-Z0-9_\-./]+)/;
   const match = normalizedPath.match(articlesPathRegex);
 
   if (match?.[1]) {

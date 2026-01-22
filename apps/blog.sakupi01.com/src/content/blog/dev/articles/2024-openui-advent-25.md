@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 25 / Epilogue"
 excerpt: "OpenUI Advent Calendar エピローグ"
 date: 2024-12-25
 update: 2024-12-25
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -42,7 +43,7 @@ GDS というイチ個人のアイデアが、Open UI を巻き込み、Web Comp
 
 「Web を良くしたい」という同じ理想を持った人々が、それぞれの立場から、スキルを持ち寄って、主張し、議論し、それが集結して作られた Web が、「ブラウザ」となって私たちの手元に届く。こうしたシナジーの連鎖に、とてもワクワクさせられます。
 
-***
+---
 
 会期中では、書ききれなかったことの方が多いですが、このアドベントカレンダーを通じて、少しでも得られるものがあったのであれば幸いです。
 

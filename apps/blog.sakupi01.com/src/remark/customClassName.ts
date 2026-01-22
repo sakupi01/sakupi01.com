@@ -2,7 +2,6 @@ import { h } from "hastscript";
 import { visit } from "unist-util-visit";
 
 export const customClassName = () => {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   return (tree: any) => {
     visit(tree, (node) => {
       if (

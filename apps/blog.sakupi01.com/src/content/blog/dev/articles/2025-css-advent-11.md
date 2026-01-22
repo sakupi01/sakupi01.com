@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 11 / The Birth of Responsive Design"
 excerpt: "iPhone の登場と、Web デザインにおける適応性の黎明"
 date: 2025-08-11
 update: 2025-08-11
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -112,10 +112,8 @@ Author CSS を含まない HTML only のページを作成し、ウィンドウ�
 現に、CSS2.1 までは、クライアントサイドでのマルチデバイスのケアは `<link>` の media 属性での判別のみに留まっていました。
 
 ```html
-<link rel="stylesheet" type="text/css" href="core.css"
-  media="screen" />
-<link rel="stylesheet" type="text/css" href="print.css"
-  media="print" />
+<link rel="stylesheet" type="text/css" href="core.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="print.css" media="print" />
 ```
 
 レスポンシブデザインという用語が最初に登場したのは、2010 年に Ethan Marcotte が A List Apart に執筆した [Responsive Web Design](https://alistapart.com/article/responsive-web-design/) であると言われています。（なので、正確には「レスポンシブウェブデザイン」）

@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 0 / Prologue"
 excerpt: "OpenUI Advent Calendar プロローグ"
 date: 2024-11-30
 update: 2024-11-30
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## 🎄はじめに

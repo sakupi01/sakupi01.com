@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 14 / Thoughts on CSS Architecture"
 excerpt: "npm エコシステムと並行して、進化してきた CSS アーキテクチャ"
 date: 2025-08-14
 update: 2025-08-14
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -126,7 +126,7 @@ OOCSS は以下２つの基本原則から成り立っています。
 }
 ```
 
-`block__element--modifier` というシンプルな命名規則は、以下に示すメリットを明確に提供したため、広く受け入れられていたのではないでしょうか。  
+`block__element--modifier` というシンプルな命名規則は、以下に示すメリットを明確に提供したため、広く受け入れられていたのではないでしょうか。
 
 - **名前空間の明確化**: どのスタイルブロックに属するのか一目瞭然
 - **低い詳細度**: すべてクラスセレクタで済むため詳細度が一定
@@ -139,9 +139,7 @@ OOCSS は以下２つの基本原則から成り立っています。
     <p class="article-card__meta">2025年8月14日</p>
   </header>
   <div class="article-card__body">
-    <p class="article-card__excerpt">
-      大規模な CSS を管理するための方法論...
-    </p>
+    <p class="article-card__excerpt">大規模な CSS を管理するための方法論...</p>
   </div>
   <footer class="article-card__footer">
     <a href="#" class="article-card__link article-card__link--primary">
@@ -160,7 +158,7 @@ OOCSS は以下２つの基本原則から成り立っています。
 > but**authors are encouraged to use values that describe the nature of the content**,
 > **rather than values that describe the desired presentation of the content**.
 >
-> ー  [HTML Standard](https://html.spec.whatwg.org/multipage/dom.html#classes)
+> ー [HTML Standard](https://html.spec.whatwg.org/multipage/dom.html#classes)
 
 ### Semantic CSS?
 
@@ -217,7 +215,7 @@ SMACSS がもたらしたものとして重要なのが、CSS の役割を明確
 2014年に Harry Roberts が提案した [Inverted Triangle CSS (ITCSS)](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture) は、CSS を「逆三角形」の層として、詳細度のレイヤーを分けてカテゴライズする手法です。
 
 ![Inverted Triangle CSS](../../../../assets/images/itcss.png)
-*Inverted Triangle CSS*
+_Inverted Triangle CSS_
 
 ```css
 /* 1. Settings - font, colors, variables */
@@ -245,13 +243,13 @@ h1 { font-size: 2em; }
 ```css
 /* Organize layers to subfolders */
 
-@import 'settings';
-@import 'tools';
-@import 'generic';
-@import 'elements';
-@import 'objects';
-@import 'components';
-@import 'utilities';
+@import "settings";
+@import "tools";
+@import "generic";
+@import "elements";
+@import "objects";
+@import "components";
+@import "utilities";
 ```
 
 ITCSS で特徴的な点は、**CSS の詳細度を用いて、優先度が自動的に上から下へ増加していくように設計されている**ことでしょう。

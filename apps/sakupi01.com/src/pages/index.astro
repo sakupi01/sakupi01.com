@@ -1,7 +1,7 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Title from "../components/Title.astro";
 import SlidesFeed from "../components/SlidesFeed.astro";
+import Title from "../components/Title.astro";
+import Layout from "../layouts/Layout.astro";
 
 const links = {
   X: "https://x.com/sakupi01/",
@@ -9,80 +9,98 @@ const links = {
   GitHub: "https://github.com/sakupi01/",
   Codepen: "https://codepen.io/sakupi01/",
   Email:
-    "mailto:saku@email.sakupi01.com?subject=Hi There!&amp;body=Hi saku! I was looking at your blog and...",
+    "mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and...",
 };
 ---
 
 <Layout url="/">
-  <Title title="Hi I'm saku !" /> <p> and I'm ...</p>
+  <Title title="Hi I'm saku !" />
+  <p>and I'm ...</p>
   <section>
-    <h2>
-      On The Web
-    </h2>
+    <h2>On The Web</h2>
     <ul class="sns">
-      {Object.entries(links).map(([name, url]) => (
-        <li>
-          <a href={url} class="sns-link">{name}</a>
-        </li>
-      ))}
+      {
+        Object.entries(links).map(([name, url]) => (
+          <li>
+            <a href={url} class="sns-link">
+              {name}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
-<hr />
-<section>
-  <h2>
-    On The Blog
-  </h2>
-  <iframe style="width: 100%; height: 70vh;" src={`${import.meta.env.PUBLIC_BLOG}recents`} allowfullscreen allow="clipboard-write; encrypted-media; picture-in-picture" loading="lazy" sandbox="allow-scripts allow-same-origin allow-top-navigation-by-user-activation" />
-</section>
+  <hr />
+  <section>
+    <h2>On The Blog</h2>
+    <iframe
+      style="width: 100%; height: 70vh;"
+      src={`${import.meta.env.PUBLIC_BLOG}recents`}
+      allowfullscreen
+      allow="clipboard-write; encrypted-media; picture-in-picture"
+      loading="lazy"
+      sandbox="allow-same-origin allow-top-navigation-by-user-activation"
+    ></iframe>
+  </section>
 
-<hr />
-<section>
-  <h2>
-    At Conferences & Events
-  </h2>
-  <SlidesFeed />
-  <a href="https://sakupi01.github.io/slides/" class="link">
-    more...
-  </a>
-  <div class="upcoming-event">
-    <h3>Upcoming Event...</h3>
-    <p class="event-name">BuriKaigi 2026 @Toyama, Japan, Offline, 2026/01/09(Sat) - 2026/01/10(Sun)</p>
-    <a class="link" href="https://fortee.jp/burikaigi-2026" target="_blank">Find me!</a>
-  </div>
-</section>
-<hr />
+  <hr />
+  <section>
+    <h2>At Conferences & Events</h2>
+    <SlidesFeed />
+    <a href="https://sakupi01.github.io/slides/" class="link"> more... </a>
+    <div class="upcoming-event">
+      <h3>Upcoming Event...</h3>
+      <p class="event-name">
+        BuriKaigi 2026 @Toyama, Japan, Offline, 2026/01/09(Sat) -
+        2026/01/10(Sun)
+      </p>
+      <a class="link" href="https://fortee.jp/burikaigi-2026" target="_blank"
+        >Find me!</a
+      >
+    </div>
+  </section>
+  <hr />
 
-<div class="grid">
+  <div class="grid">
     <section class="podcast">
-      <h2>
-        On Podcasts
-      </h2>
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator" width="100%" height="400" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
-    </section>      
-    
+      <h2>On Podcasts</h2>
+      <iframe
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator"
+        height="400"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"></iframe>
+    </section>
+
     <section class="etc">
-      <h2>
-        etc, etc...
-      </h2>
+      <h2>etc, etc...</h2>
       <ul>
         <li>
-          <a href="https://blog.sakupi01.com/" class="sns-link">📝 What I'm Writing.</a>
+          <a href="https://blog.sakupi01.com/" class="sns-link"
+            >📝 What I'm Writing.</a
+          >
         </li>
         <li>
-          <a href="https://studio.sakupi01.com/" class="sns-link">🧚🏻‍♀️ What I'm Experimenting.</a>
+          <a href="https://studio.sakupi01.com/" class="sns-link"
+            >🧚🏻‍♀️ What I'm Experimenting.</a
+          >
         </li>
         <li>
-          <a href="https://sakupi01.notion.site/Reading-List-a48d2fcb352942759b470e5535426390" class="sns-link">📚 What I'm Reading.</a>
+          <a
+            href="https://sakupi01.notion.site/Reading-List-a48d2fcb352942759b470e5535426390"
+            class="sns-link">📚 What I'm Reading.</a
+          >
         </li>
         <li>
-          <a href="https://open.spotify.com/playlist/4L5YoZao0D90mf80iTsarN?si=62767b1dc7ac4880" class="sns-link">🎧 What I'm Listening.</a>
+          <a
+            href="https://open.spotify.com/playlist/4L5YoZao0D90mf80iTsarN?si=62767b1dc7ac4880"
+            class="sns-link">🎧 What I'm Listening.</a
+          >
         </li>
       </ul>
-    </div>
-</section>      
-
-</div>  
-  
+    </section>
+  </div>
 </Layout>
 
 <style>
@@ -91,7 +109,7 @@ const links = {
   }
 
   a {
-    color: var(--color-text)
+    color: var(--color-text);
     transition: color 0.2s;
   }
 
@@ -119,18 +137,18 @@ const links = {
     margin-bottom: 4rem;
     font-family: inherit;
   }
-  
+
   .upcoming-event h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     font-weight: 600;
     letter-spacing: 0.02em;
   }
-  
+
   .upcoming-event p {
     line-height: 1.5;
   }
-  
+
   .link {
     font-style: italic;
     display: inline-block;
@@ -139,7 +157,12 @@ const links = {
     display: grid;
     gap: 2rem;
     grid-template-columns: 1fr 1fr;
+  }
 
+  .podcast {
+    iframe {
+      width: 100%;
+    }
   }
   .etc {
     ul {
@@ -148,8 +171,8 @@ const links = {
       margin: 0;
     }
   }
-       /* モバイル対応 */
-    @media (max-width: 768px) {
+  /* モバイル対応 */
+  @media (max-width: 768px) {
     .grid {
       grid-template-columns: 1fr;
     }

@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 15 / Customizable Select Element Ep.13"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `<option>`の内部コンテンツ自体を`<selectedcontent>`に反映する仕様の検討"
 date: 2024-12-15
 update: 2024-12-15
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -21,7 +22,7 @@ status: 'published'
 [Ep.12](https://blog.sakupi01.com/dev/articles/2024-openui-advent-14)では、`part`属性を使用することの問題、解決策として`behavior`属性の提案、そして、要素を Clone してカスタマイズ可能にする`<selectedcontent>`の契機についてお話ししました。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
 
@@ -36,11 +37,11 @@ status: 'published'
 このユースケース調査により、完全なクローンを反映することのみならず、その一部のみを`<select>`に表示できるようにする必要があるという合意が取れました。
 
 ![国旗 + 国名](../../../../assets/images/flag-clone.png)
-*国旗 + 国名*
+_国旗 + 国名_
 ![アバター + 名前](../../../../assets/images/avatar-clone.png)
-*アバター + 名前*
+_アバター + 名前_
 ![名前のみ（optionにアバターはあるが、buttonには反映されない）](../../../../assets/images/only-name-clone.png)
-*名前のみ（optionにアバターはあるが、buttonには反映されない）*
+_名前のみ（optionにアバターはあるが、buttonには反映されない）_
 
 ### 選択された`<option>`のコンテンツを`<button>`に反映する方法の検討
 
@@ -51,13 +52,13 @@ status: 'published'
 > 3. Provide an attribute that enables referencing what content you want cloned
 > 4. Keep as it's currently defined which is to take the inner text of the option and insert that into the selected value part
 >
-> ***
+> ---
 >
 > 1. `<option>`のinnerHTMLをクローンして`<button>`へ実際に挿入し、表示したくない部分はCSSで隠す
 > 2. 選択された要素を暗黙的に`<button>`部分へスロットすることで実現する
 > 3. 属性によって、クローンしたいコンテンツを参照する
 > 4. `<option>`内のテキストを`<button>`に挿入する(現在の仕様のまま)
-> <https://github.com/openui/open-ui/issues/571#issuecomment-1298712385>
+>    <https://github.com/openui/open-ui/issues/571#issuecomment-1298712385>
 
 まず、2 の「選択された要素を暗黙的に`<button>`部分へスロットすることで実現する」方法を実現するには、ドロップダウンが開いている状態のとき、スロット元の選択された要素がドロップダウンの中に存在しつつ、button 部分へスロットもされなければなりません。しかし、「スロットしつつ、スロット元にも表示する」を実現する機能は、現状の`<slot>`ではサポートされていません。
 
@@ -86,7 +87,9 @@ status: 'published'
 また、`<option>`自体をコピーせずに、`<option>`の子要素コンテンツをクローンするという実装をした場合、スタイルが壊れる可能性もありました。例えば、次のような CSS を書いて、`<option>`内のコンテンツ（`.redOption`）にスタイルを当てていた場合、`<option>`のコンテンツのみをクローンする実装では、クローンされた先でスタイルが当たりません。
 
 ```css
-option .redOption { background-color: red }
+option .redOption {
+  background-color: red;
+}
 ```
 
 そのため、`<option>`自体をクローンする実装にするのかというと、`<button>`内に`<option>`が存在することになり、あまりにも不自然です。
@@ -96,7 +99,7 @@ option .redOption { background-color: red }
 現状は、次のような JavaScript を用意することで、実現したいことは達成されるので、わざわざ標準化せずとも、ページ開発者自身が必要に応じてスクリプトを用いて実装することが可能です。開発者自身でオプトイン可能なことをここで標準化すると、`<selectmenu>`自体の Ship が遅れてしまうというのが、Jarhar の主張でした。
 
 ```js
-selectmenu.addEventListener('change', () => {
+selectmenu.addEventListener("change", () => {
   selectedvalue.innerHTML = selectmenu.selectedOption.innerHTML;
   selectedvalue.className = selectmenu.selectedOption.className;
 });
@@ -110,13 +113,13 @@ selectmenu.addEventListener('change', () => {
 
 将来的には、実装される可能性のある[Content Mirroring](https://github.com/openui/open-ui/issues/616)を用いて、オプトインの形でこの機能を提供する可能性があることにも触れられて、この議論自体は一旦この結論でまとまりました。
 
-***
+---
 
 つまり、この時点では、選択された要素をクローンしてカスタマイズ可能にすることに関しては議論されたものの、何か新たに仕様策定されるといいうことはなく、`<selectmenu>`は引き続き、`slot`属性と`behavior`属性を使用してカスタマイズする方針のままでした。
 
 そんな中提起された、`slot`属性と`behavior`属性への疑念が、ことを前に動かします。
 
-***
+---
 
 それでは、また明日⛄
 

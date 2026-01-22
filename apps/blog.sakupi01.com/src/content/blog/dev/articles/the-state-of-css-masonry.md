@@ -3,9 +3,9 @@ title: "CSS Masonry のあゆみと現状"
 excerpt: "CSS Masonry（Grid-Lanes）の仕様策定の経緯と現状のまとめ"
 date: 2025-12-08
 update: 2025-12-21
-category: 'dev'
-tags: ['css', 'web', 'masonry', 'layout']
-status: 'published'
+category: "dev"
+tags: ["css", "web", "masonry", "layout"]
+status: "published"
 ---
 
 <link rel="preload" as="image" href="important.png" fetchpriority="high">
@@ -93,17 +93,19 @@ Layout API の文脈から外れて、 CSS Masonry の標準化作業が始ま�
 
 ```html
 <style>
-.masonry {
-  display: grid;
-  grid: masonry / repeat(3, 2ch);
-  /* ↑ same as below ↓ */
-  /* grid-template-rows: masonry; */
-  /* grid-template-columns: repeat(3, 2ch); */
-  border: 1px solid;
-  masonry-auto-flow: pack;
-}
+  .masonry {
+    display: grid;
+    grid: masonry / repeat(3, 2ch);
+    /* ↑ same as below ↓ */
+    /* grid-template-rows: masonry; */
+    /* grid-template-columns: repeat(3, 2ch); */
+    border: 1px solid;
+    masonry-auto-flow: pack;
+  }
 
-.item { background: rebeccapurple }
+  .item {
+    background: rebeccapurple;
+  }
 </style>
 <div class="masonry">
   <div class="item">1</div>
@@ -356,7 +358,7 @@ Poll の結果 `grid-lanes` が選ばれ、これで Flexbox でも Grid でも�
 > RESOLVED: masonry switch will be`display: grid-lanes`
 > <https://github.com/w3c/csswg-drafts/issues/12022#issuecomment-3525043825>
 
-ここは少し筆者の解釈が入りますが、grid-**lanes** という命名について説明しておきます。Masonry レイアウトは一方に等幅の [track](http://blog.sakupi01.com/dev/articles/the-state-of-css-masonry#grid-%E7%B5%B1%E5%90%88-%E3%81%8B-display-masonry-%E3%81%8B---just-use-grid-or-new-masonry-layout:~:text=%E5%8C%96\)%20%E3%81%95%E3%82%8C%E3%82%8B%E3%80%82-,Masonry%20Track,-%3A%20Grid%20Axis%20%E4%B8%8A%E3%81%AE) を持つという特徴がありました。つまり、通常の Grid が 2D のセル構造を持つのに対し、**Masonry は 単軸 Grid の「レーン」構造**とイメージすることができます。
+ここは少し筆者の解釈が入りますが、grid-**lanes** という命名について説明しておきます。Masonry レイアウトは一方に等幅の [track](<http://blog.sakupi01.com/dev/articles/the-state-of-css-masonry#grid-%E7%B5%B1%E5%90%88-%E3%81%8B-display-masonry-%E3%81%8B---just-use-grid-or-new-masonry-layout:~:text=%E5%8C%96)%20%E3%81%95%E3%82%8C%E3%82%8B%E3%80%82-,Masonry%20Track,-%3A%20Grid%20Axis%20%E4%B8%8A%E3%81%AE>) を持つという特徴がありました。つまり、通常の Grid が 2D のセル構造を持つのに対し、**Masonry は 単軸 Grid の「レーン」構造**とイメージすることができます。
 
 > A basic masonry layout with **consistent track sizes** and no spanning can look a lot like a flex layout, but the layout system we're designing here is really**a "one-axis grid" system**.
 > <https://github.com/w3c/csswg-drafts/issues/12022#issuecomment-3597670490>
@@ -365,7 +367,7 @@ Poll の結果 `grid-lanes` が選ばれ、これで Flexbox でも Grid でも�
 
 <img alt="道路の車線（レーン）に Masonry の track を見立てる" src="/images/lanes.png" style="width: 70%; display: grid; place-self: center;"/>
 
-*道路の車線（レーン）に Masonry の track を見立てる: picture source - [Brick by brick: Help us build CSS Masonry  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/masonry-update)*
+_道路の車線（レーン）に Masonry の track を見立てる: picture source - [Brick by brick: Help us build CSS Masonry  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/masonry-update)_
 
 この名称がどこまで適用されていくのかは不明ですが、 WG 内で 「Masonry」 と呼ばれていたものは今後「Grid-Lanes」として扱われるようになっていくのかもしれません。
 
@@ -400,10 +402,10 @@ Flexbox では、`flex-flow: row wrap` は「アイテムが横方向に並び�
 しかし Masonry では事情が異なります。Pinterest では、見た目「Shape」は「縦」に積み上がる「Column」ですが、アイテムの「Flow」は各カラムの一番短いところへ横向きの「Row」に次々と配置されていきます。
 
 ![Shape of Layout](../../../../assets/images/shape-of-layout.png)
-*Shape of Layout: source - [Masonry & item-flow](https://lists.w3.org/Archives/Public/www-archive/2025Oct/att-0013/CSSWG_2025_October_Masonry_Item_Flow.pdf)*
+_Shape of Layout: source - [Masonry & item-flow](https://lists.w3.org/Archives/Public/www-archive/2025Oct/att-0013/CSSWG_2025_October_Masonry_Item_Flow.pdf)_
 
 ![Flow of Layout](../../../../assets/images/flow-of-layout.png)
-*Flow of Layout: source - [Masonry & item-flow](https://lists.w3.org/Archives/Public/www-archive/2025Oct/att-0013/CSSWG_2025_October_Masonry_Item_Flow.pdf)*
+_Flow of Layout: source - [Masonry & item-flow](https://lists.w3.org/Archives/Public/www-archive/2025Oct/att-0013/CSSWG_2025_October_Masonry_Item_Flow.pdf)_
 
 **では、この waterfall レイアウトは `item-flow: row` なのか `item-flow: column` なのか？**「Shape」で考えれば Columns、「Flow」で考えれば Rowとなります。
 
@@ -413,8 +415,8 @@ Flexbox では、`flex-flow: row wrap` は「アイテムが横方向に並び�
 
 > 1. Whether we're re-using grid-auto-flow or adding a new masonry-specific set of properties for this.
 > 2. What the values map to.
-> 3. Naming the initial automatic value that flips depending on grid-template-*.
-> <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3528390437>
+> 3. Naming the initial automatic value that flips depending on grid-template-\*.
+>    <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3528390437>
 
 #### ✅ 3. 初期値の定義
 
@@ -610,7 +612,7 @@ Masonry だけだった議論が、Masonry を包含した概念を産んだこ�
   - **2025**
     - [Minding the gaps: A new way to draw separators in CSS - Microsoft Edge Blog](https://blogs.windows.com/msedgedev/2025/03/19/minding-the-gaps-a-new-way-to-draw-separators-in-css/)
     - [CSS WG Blog – CSS Grid: Level 1 & 2 updated, Level 3 (masonry layout) reworked](https://www.w3.org/blog/CSS/2025/03/28/css-grid-1-2-3-updated/)
-    - [Brick by brick: Help us build CSS Masonry  |  Blog  |  Chrome for Developers](https://developer.chrome.com/blog/masonry-update)
+    - [Brick by brick: Help us build CSS Masonry | Blog | Chrome for Developers](https://developer.chrome.com/blog/masonry-update)
     - [Item Flow, Part 1: A new unified concept for layout | WebKit](https://webkit.org/blog/16587/item-flow-part-1-a-new-unified-concept-for-layout/)
     - [Item Flow – Part 2: next steps for Masonry | WebKit](https://webkit.org/blog/17219/item-flow-part-2-next-steps-for-masonry/)
     - [CSS WG Blog – Masonry Spec Update and Open Issues](https://www.w3.org/blog/CSS/2025/09/18/masonry-update-issues/)

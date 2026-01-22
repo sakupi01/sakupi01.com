@@ -1,40 +1,31 @@
 import mdx from "@astrojs/mdx";
-import { defineConfig } from "astro/config";
-import remarkToc from "remark-toc";
 import remarkEmbedder from "@remark-embedder/core";
-import {
-  cache as remarkEmbedderCache,
-  cacheSave,
-} from "./src/remark/remark-embedder/cache";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
+import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
-// @ts-ignore
+import remarkBreaks from "remark-breaks";
+// @ts-expect-error wip
 import collapse from "remark-collapse";
 import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
-import { remarkLinkCard } from "./src/remark/remark-link-card";
+import remarkToc from "remark-toc";
 import { customClassName } from "./src/remark/customClassName";
+import {
+  cacheSave,
+  cache as remarkEmbedderCache,
+} from "./src/remark/remark-embedder/cache";
 import { handleHTML } from "./src/remark/remark-embedder/handleHTML";
 import { CodeSandboxTransformer } from "./src/remark/remark-embedder/transformer";
-
-import partytown from "@astrojs/partytown";
+import { remarkLinkCard } from "./src/remark/remark-link-card";
 
 const cache = remarkEmbedderCache(".cache/remark-embedder.json");
 
 export default defineConfig({
   site: "https://blog.sakupi01.com/",
-  integrations: [
-    mdx(),
-    cacheSave(cache),
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-      },
-    }),
-  ],
+  integrations: [mdx(), cacheSave(cache)],
   markdown: {
     shikiConfig: {
       themes: {
@@ -44,12 +35,12 @@ export default defineConfig({
     },
     remarkPlugins: [
       [
-        // @ts-ignore
+        // @ts-expect-error wip
         remarkEmbedder.default,
         {
           cache,
           transformers: [
-            // @ts-ignore
+            // @ts-expect-error wip
             oembedTransformer.default,
             CodeSandboxTransformer,
           ],
@@ -85,6 +76,7 @@ export default defineConfig({
       ],
     ],
     rehypePlugins: [
+      rehypeRaw,
       rehypeSlug,
       [rehypeStringify, { allowDangerousHtml: true }],
       [rehypeAutolinkHeadings, { behavior: "wrap" }],

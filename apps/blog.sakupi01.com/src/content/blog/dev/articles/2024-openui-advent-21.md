@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day21 / Customizable Select Element Ep.19"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 子Node変更検知タイミングの仕様決定（現時点で）"
 date: 2024-12-21
 update: 2024-12-21
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -21,7 +22,7 @@ status: 'published'
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`のクローン実装における、技術的背景をお話ししています。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 [Ep.19](https://blog.sakupi01.com/dev/articles/2024-openui-advent-21)では、CEReactions タイミングで Node 変更の検知をする問題から、同期的なタイミングで Node 変更の検知をする方針に切り替えることが主張された経緯と、`cloneNode()`の制限についてお話ししました。
 
@@ -118,9 +119,9 @@ Option2 で挙げた例を参考にすると、`<option>`の子 Node の変更�
 // 選択された<option>を取得
 const selectedOption = select.selectedOptions[0];
 // <selectedoption>を取得
-const selectedOptionMirror = select.querySelector('selectedoption');
+const selectedOptionMirror = select.querySelector("selectedoption");
 
-selectedOption.textContent = 'New text';
+selectedOption.textContent = "New text";
 
 // クローンが非同期で遅延されているため、trueにならないかもしれない
 console.log(selectedOption.textContent === selectedOptionMirror.textContent);
@@ -170,7 +171,7 @@ Open UI での議論の結果、最終的には Option1 が採用されること
 
 :::
 
-***
+---
 
 `cloneNode()`の制限の件など、未だに`<selectedcontent>`の仕様は策定中です。しかし、「選択された`<option>`の子 Node の`<selectedcontent>`へのクローンタイミング」に関しては、長い議論を経てようやく落ち着く結論となりました。
 

@@ -1,16 +1,16 @@
 ---
-
 title: "🎄Open UI Advent Calendar: Day 8 / Customizable Select Element Ep.6"
 excerpt: "`<selectmenu>`のその後：`<selectlist>`に至るまで"
 date: 2024-12-08
 update: 2024-12-08
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -33,7 +33,7 @@ status: 'published'
 `<selectmenu>`には、Popover API と CSS Anchor Positioning という新しい Web の機能が使用されるなど、技術的な挑戦が仕様に組み込まれており、当時は注目を集めました。
 （※ 一旦命名の変遷にのみ着目しているため、その間に起こった技術的な出来事は後回しにします）
 
-***
+---
 
 しかし、そんな`<selectmenu>`が改名の提案を受けたのは、その発表からわずか 1 ヶ月後の 6 月半ばのことでした。
 
@@ -53,7 +53,7 @@ status: 'published'
 > [Menu and Menubar Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/)
 
 ![Menu](../../../../assets/images/menu.png)
-*画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Navigation Menubar Example](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-navigation/)*
+_画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Navigation Menubar Example](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-navigation/)_
 
 :::note{.memo}
 📝 [APG (ARIA Authoring Practices Guide)](https://www.w3.org/WAI/ARIA/apg/)
@@ -71,11 +71,11 @@ status: 'published'
 > The combobox pattern supports several optional behaviors. The one that most shapes interaction is text input. **Some comboboxes allow users to type and edit text in the combobox and others do not. If a combobox does not support text input, it is referred to as select-only, meaning the only way users can set its value is by selecting a value in the popup.**
 > [Combobox Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
 
-| 入力フィールドのあるCombobox | 選択のみ可能なCombobox |
-| ---- | ---- |
+| 入力フィールドのあるCombobox                                                  | 選択のみ可能なCombobox                                                   |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | ![入力フィールドのあるCombobox](../../../../assets/images/input-combobox.png) | ![選択のみ可能なCombobox](../../../../assets/images/select-combobox.png) |
 
-*Comboboxの例 - 出典: APG | WAI | W3C [Editable Combobox With List Autocomplete Example](Chttps://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/), [Select-Only Combobox Example](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)*
+_Comboboxの例 - 出典: APG | WAI | W3C [Editable Combobox With List Autocomplete Example](Chttps://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/), [Select-Only Combobox Example](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)_
 
 APG を踏まえると、「`<selectmenu>`は Menu パターンではない」という初期主張には一定納得でき、Open UI のメンバーの多くもこの提案に興味を示すことになります。
 
@@ -87,7 +87,7 @@ Combobox の APG によると、Combobox は「Listbox と input を組み合わ
 
 `<selectbox>`の提案に関する指摘の最終的な結論としては、将来的に Menu パターンに利用されることも考えて、とりあえず`<selectmenu>`はやめておこうとなりました。
 
-***
+---
 
 具体的な命名に関しては、Telecon で話し合われた結果、次の 6 つが提案されました。
 
@@ -103,7 +103,7 @@ Combobox の APG によると、Combobox は「Listbox と input を組み合わ
 埒が開かないので、絵文字投票が行われ、その時点で多くの票が`<selectlist>`と`<selectbox>`に集まりました。
 
 ![絵文字投票](../../../../assets/images/emoji-election.png)
-*絵文字投票 - 参考: <https://github.com/openui/open-ui/issues/773#issuecomment-1649976535>*
+_絵文字投票 - 参考: <https://github.com/openui/open-ui/issues/773#issuecomment-1649976535>_
 
 その上でもう一度[Telecon](https://github.com/openui/open-ui/issues/773#issuecomment-1654169425)で話し合われ、その時点で Google DevRel の[Una Kravets](https://x.com/una)は次のように主張しました。
 

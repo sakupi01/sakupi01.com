@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 13 / CSS meets npm Ecosystem - the first s
 excerpt: "AltCSS とも言える SassとPostCSS の登場、エコシステムへの影響"
 date: 2025-08-13
 update: 2025-08-13
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -85,12 +85,13 @@ Node.js によって npm エコシステムが広まったことで、ビルド�
 Grunt や Gulp といった「タスクランナー」が登場し、「メタ CSS」 のコンパイルや auto-prefix、minify を含む一連の作業を「ビルドプロセス」として自動化することが可能になりました。
 
 ```js
-gulp.task('css', function() {
-  return gulp.src('scss/*.scss')
+gulp.task("css", function () {
+  return gulp
+    .src("scss/*.scss")
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(cssmin())
-    .pipe(gulp.dest('dist/css'));
+    .pipe(gulp.dest("dist/css"));
 });
 ```
 

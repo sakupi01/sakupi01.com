@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 23 / Declarative Web Design"
 excerpt: "Intrinsic Web Design/Every Layout/Utopia と Declarative Design. そして、Container Size Queries の実現"
 date: 2025-08-23
 update: 2025-08-23
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -31,7 +31,7 @@ Every Layout は、CSS 固有の性質を生かしながら、いかにして効
 Utopia は、Web Design における「上限から下限のスケーリング」を計算式として表現したものでした。
 
 ![Utopia Type Scaling](../../../../assets/images/utopia-type-scaling.png)
-*出典： [Designing with fluid type scales | Utopia](https://utopia.fyi/blog/designing-with-fluid-type-scales)*
+_出典： [Designing with fluid type scales | Utopia](https://utopia.fyi/blog/designing-with-fluid-type-scales)_
 
 そして、これら Intrinsic Web Design や Every Layout、Utopia のアプローチには、いくつかの共通点が存在することを、2022年に Jeremy Keith が示します。
 
@@ -47,7 +47,7 @@ font-size: clamp(1.2rem, 0.5rem + 0.666vw, 1.33rem);
 ```
 
 ![Viewport に合わせた Utopia のスケーリング](../../../../assets/images/utopia-type-scaling-2.png)
-*出典： [Designing with fluid type scales | Utopia](https://utopia.fyi/blog/designing-with-fluid-type-scales)*
+_出典： [Designing with fluid type scales | Utopia](https://utopia.fyi/blog/designing-with-fluid-type-scales)_
 
 Intrinsic Web Design にも一貫して同様の特徴がありました。
 例えば、カラムレイアウトを実現する際、Media Query を用いて、それぞれの画面幅の場合に要素の幅を指定するといったことは行いません。
@@ -160,7 +160,7 @@ Media Query/Container Query/`if()`/etc のような条件分岐、`calc()`/`sin(
 >
 > A qualified rule has a prelude consisting of a list of component values, **a list of declarations**, and a list of child rules.
 >
-[CSS Syntax Module Level 3](https://drafts.csswg.org/css-syntax/#qualified-rule)
+> [CSS Syntax Module Level 3](https://drafts.csswg.org/css-syntax/#qualified-rule)
 
 「宣言」のチャンクに対する条件であるため、条件分岐の結果が後続の何かの実行/活性に影響を与えることもなければ、最終的な値として採用されるかを制御することもできません。
 
@@ -170,16 +170,20 @@ Media Query/Container Query/`if()`/etc のような条件分岐、`calc()`/`sin(
 /* stylesheet.css */
 
 @media (width > 768px) {
-  .card { padding: 2rem; }
+  .card {
+    padding: 2rem;
+  }
 }
 
 @container (width > 500px) {
-  .card { padding: 3rem; }
+  .card {
+    padding: 3rem;
+  }
 }
 
 .card {
-    padding: if(style(--condition: true): 4rem; else: 1rem;);
-    padding: 5rem;
+  padding: if(style(--condition: true): 4rem; else: 1rem;);
+  padding: 5rem;
 }
 ```
 
@@ -196,7 +200,7 @@ Media Query/Container Query/`if()`/etc のような条件分岐、`calc()`/`sin(
 Intrinsic Web Design や Every Layout、Utopia のメンタルモデルには、次のような考え方が含まれています。
 
 > To design “adaptable pages” (Allsopp’s term), we must relinquish control to the algorithms (like text wrapping) browsers use to lay out web pages automatically.
-> But that’s not to say there’s no place for *influencing* layout.
+> But that’s not to say there’s no place for _influencing_ layout.
 >
 > **Think of yourself as the browser’s mentor, rather than its micro-manager.**
 >
@@ -208,7 +212,7 @@ Intrinsic Web Design や Every Layout、Utopia のメンタルモデルには、
 > In contrast, one of the principles of Utopia is to **be declarative and “describe what is to be done rather than command how to do it”**.
 > This approach declares a set of rules such that you could pick any viewport width and, using a formula, derive what the type size and spacing would be at that size.
 >
-> Jim Nielsen --  [Thoughts on Exerting Control With Media Queries - Jim Nielsen’s Blog](https://blog.jim-nielsen.com/2022/exerting-control-with-media-queries/)
+> Jim Nielsen -- [Thoughts on Exerting Control With Media Queries - Jim Nielsen’s Blog](https://blog.jim-nielsen.com/2022/exerting-control-with-media-queries/)
 
 > Intrinsic: belonging to **the essential nature or constitution of a thing**
 >
@@ -268,7 +272,7 @@ Box（コンテナ）と Content（コンテンツ）は、Flow によって実�
 CSS Containment の `contain: size layout style;` を使用すると、Flow によって生じる Size/Layout/Style における双方向の依存関係を断ち切ることが可能です。
 
 - **Size Containment**: 子要素のサイズ変更が親要素のサイズに影響しない
-- **Layout Containment**: 要素内部のレイアウト変更が外部に影響しない  
+- **Layout Containment**: 要素内部のレイアウト変更が外部に影響しない
 - **Style Containment**: カウンターなどのスタイル情報が要素の境界を越えない
 
 これにより、Box と Content の間の双方向の依存関係を断ち切り、これまで Container Queries で問題になっていたレイアウト時の循環を防ぐことが可能になると考えられました。

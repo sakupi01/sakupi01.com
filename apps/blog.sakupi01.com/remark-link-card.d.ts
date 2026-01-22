@@ -17,7 +17,7 @@ declare module "rlc" {
 }
 
 declare function rlc(
-  options?: rlc.Options,
+  options?: rlc.Options
 ): (tree: import("mdast").Root) => Promise<import("mdast").Root>;
 
 /**

@@ -3,9 +3,9 @@ title: "Google Developer Experts にジョインしました"
 excerpt: "Joined Google Developer Experts (GDE) program as a Web Technologies expert focusing on CSS & UI."
 date: 2025-11-15
 update: 2025-11-15
-category: 'dev'
-tags: ['gde', 'css', 'ui', 'web']
-status: 'published'
+category: "dev"
+tags: ["gde", "css", "ui", "web"]
+status: "published"
 ---
 
 ## Table of Contents

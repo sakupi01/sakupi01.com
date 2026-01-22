@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 9 / Standards and Ecosystem"
 excerpt: "CSS 標準から、CSS 標準外の変化への転換"
 date: 2025-08-09
 update: 2025-08-09
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents

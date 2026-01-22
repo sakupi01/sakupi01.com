@@ -3,10 +3,11 @@ title: "[Thoughts Are Appreciated!] Baseline という指標の活用可能性�
 excerpt: "Baseline という指標の活用可能性に関する考察"
 date: 2025-05-29
 update: 2025-05-29
-category: 'dev'
-tags: ['baseline', 'browser', 'interoperability', 'accessibility', 'standards']
-status: 'published'
+category: "dev"
+tags: ["baseline", "browser", "interoperability", "accessibility", "standards"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -50,7 +51,7 @@ web-features は、現時点では、browser-compat-data の更新を見なが�
 この「機能のまとまり」である web-features をソースとして Baseline は存在します。
 
 ![Web の新機能と Baseline の関係](../../../../assets/images/web-features.png)
-*Web の新機能と Baseline の関係*
+_Web の新機能と Baseline の関係_
 
 :::note{.memo}
 more about Baseline
@@ -68,7 +69,7 @@ Column: Accessibility Baseline ...? 🫢
 
 <summary>Baseline は Web の機能の互換性を示す指標ですが、アクセシビリティという観点は Baseline やそのもとデータとなる BCD で担保できていないのが現状です</summary>
 
-APG に依存しない、アクセシビリティに関する支援技術*ブラウザ間の相互互換性を担保するための指標が必要であるとして、ARIA には以下のようなプロポーザルが出されています。
+APG に依存しない、アクセシビリティに関する支援技術\*ブラウザ間の相互互換性を担保するための指標が必要であるとして、ARIA には以下のようなプロポーザルが出されています。
 
 - [Accessibility Compat Data Deep Dive Proposal · Issue #2538 · w3c/aria](https://github.com/w3c/aria/issues/2538)
 
@@ -103,13 +104,13 @@ Newly available の前の段階で、対象ブラウザの一部でのみ利用�
 
 Newly availableのステータスから2.5年（30ヶ月）以上が経過し、十分な実績と安定性が確認された機能。
 
-例えば、2025 年になって主要ブラウザの最新安定版でサポートが揃った Popover API には、以下のように Baseline2025 *Newly Available* の称号が与えられました。
+例えば、2025 年になって主要ブラウザの最新安定版でサポートが揃った Popover API には、以下のように Baseline2025 _Newly Available_ の称号が与えられました。
 
 ![Popover API baseline 2025 newly available](../../../../assets/images/popover-baseline.png)
 
 - [popover - HTML: HyperText Markup Language | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover)
 
-また、2022 年から主要ブラウザの最新安定版でサポートが開始された HTML Dialog Element に関しては、それから 2.5年以上が経過しているので、Baseline *Widely Available* です。
+また、2022 年から主要ブラウザの最新安定版でサポートが開始された HTML Dialog Element に関しては、それから 2.5年以上が経過しているので、Baseline _Widely Available_ です。
 
 ![HTML Dialog Element baseline widely available](../../../../assets/images/dialog.png)
 
@@ -129,7 +130,6 @@ web-features project を推進する WebDX CG としても、Baseline が世の�
 > When talking to developers we realized that until fairly recently many of you used Internet Explorer as a baseline for browser support. The site needed to work in IE11, therefore you would only use features supported in IE11. **With Internet Explorer going away, and browsers on ever-faster release cycles aligning to particular browser versions became much harder.**
 >
 > **Therefore Baseline was designed to be a line showing when features could be deemed ready to use, based on being available across all browsers.**
->
 >
 > You can use Baseline to:
 >
@@ -155,20 +155,20 @@ web-features project を推進する WebDX CG としても、Baseline が世の�
 例えば、次の表は、利用されているブラウザの割合を statcounter からのグローバルなデータと、このブログのアクセスデータで比較したもので、最右のカラムは 2 値の差分を示しています。
 
 | Browser | Global(statcounter) | sakupi01.com | delta (sakupi01.com - Global) |
-| ---- | ---- | ---- | ---- |
-| Chrome | 66.19% | 78.5% | **+12.31** |
-| Safari | 17.25% | 10.5% | **-6.75** |
-| Edge | 5.2% | 5.5% | +0.3 |
-| Firefox | 2.55% | 3.5% | +0.95 |
-| Opera | 2.23% | 0.5% | **-1.73** |
-| IE | 2.08% | **0%** | -2.08 |
-| Other | 4.5% | 1.5% | -3.0 |
+| ------- | ------------------- | ------------ | ----------------------------- |
+| Chrome  | 66.19%              | 78.5%        | **+12.31**                    |
+| Safari  | 17.25%              | 10.5%        | **-6.75**                     |
+| Edge    | 5.2%                | 5.5%         | +0.3                          |
+| Firefox | 2.55%               | 3.5%         | +0.95                         |
+| Opera   | 2.23%               | 0.5%         | **-1.73**                     |
+| IE      | 2.08%               | **0%**       | -2.08                         |
+| Other   | 4.5%                | 1.5%         | -3.0                          |
 
 このように、caniuse などが提供するグローバルな統計データと個々のプロダクトの統計には乖離があり、必ずしも実際のユーザー層を反映しているとは限りません。
 
 Baseline に関しても、あくまで「主要 4 ブラウザでのサポート状況」を示すものかつ、特定のプロダクトやサイトにおけるアクティブユーザー層の利用状況を必ずしも反映しているわけではありません。
 
-> We know this widely available line can never be accurate for everyone. However, when looking into the available data on adoption of browser versions we learned that for most features it takes no more than 30 months for them to be available to about 95% of users globally.  
+> We know this widely available line can never be accurate for everyone. However, when looking into the available data on adoption of browser versions we learned that for most features it takes no more than 30 months for them to be available to about 95% of users globally.
 >
 > ー [A definition update for Baseline  |  Blog  |  web.dev](https://web.dev/blog/baseline-definition-update)
 
@@ -192,28 +192,28 @@ Chrome の文脈だと、Chrome 108 が 2022/11 で Latest Stable になりま�
 
 もし Baseline Widely Available を基準にするのであれば、バージョン 108 以降を利用している Chrome ユーザを対象に動作保証できる可能性があることになります。
 
-| Chrome Version | sakupi01.com |
-| ---- | ---- |
-| (Dev build) Chrome 139 | N/A |
-| (Beta build) Chrome 138 | 2.8% |
-| **--- ↓  Can-Be Newly Available as of May 2025 ↓ ---** | |
-| (Latest Stable build) Chrome 137 | 9.5% |
-| Chrome 136 | 29.8% |
-| Chrome 135 | 40.0% |
-| Chrome 134 | 8.3% |
-| Chrome 133 | 0.9% |
-| Chrome 132 | 0.3% |
-| Chrome 131 | 0.3% |
-| Chrome 130 | 0.6% |
-| Chrome 126 | 0.3% |
-| Chrome 124 | 0.3% |
-| Chrome 120 | 0.3% |
-| Chrome 119 | 0.0% |
-| Chrome 117 | 2.5% |
-| Chrome 108 | 0.0% |
-| **--- ↑  Can-Be Widely Available as of May 2025 ↑ ---** | |
-| Chrome 79 | 1.2% |
-| Chrome 76 | 2.8% |
+| Chrome Version                                         | sakupi01.com |
+| ------------------------------------------------------ | ------------ |
+| (Dev build) Chrome 139                                 | N/A          |
+| (Beta build) Chrome 138                                | 2.8%         |
+| **--- ↓ Can-Be Newly Available as of May 2025 ↓ ---**  |              |
+| (Latest Stable build) Chrome 137                       | 9.5%         |
+| Chrome 136                                             | 29.8%        |
+| Chrome 135                                             | 40.0%        |
+| Chrome 134                                             | 8.3%         |
+| Chrome 133                                             | 0.9%         |
+| Chrome 132                                             | 0.3%         |
+| Chrome 131                                             | 0.3%         |
+| Chrome 130                                             | 0.6%         |
+| Chrome 126                                             | 0.3%         |
+| Chrome 124                                             | 0.3%         |
+| Chrome 120                                             | 0.3%         |
+| Chrome 119                                             | 0.0%         |
+| Chrome 117                                             | 2.5%         |
+| Chrome 108                                             | 0.0%         |
+| **--- ↑ Can-Be Widely Available as of May 2025 ↑ ---** |              |
+| Chrome 79                                              | 1.2%         |
+| Chrome 76                                              | 2.8%         |
 
 逆にいうと、それより前にリリースされたブラウザのバージョンを使い続けているユーザに対しては、**Baseline としてその機能の動作を保証していない**ことになります。もちろん、Chrome の文脈だと、Chrome 108 以前で実装されていれば、Chrome では動作しますが、Baseline は Chrome オンリーの指標ではないため、Baseline としてそれを明示的に保証しているわけではないということです。
 
@@ -221,7 +221,7 @@ Chrome の文脈だと、Chrome 108 が 2022/11 で Latest Stable になりま�
 
 何が言いたいかというと、**Baseline は Newly も Widely もどちらも「全ての主要ブラウザで揃ったタイミング」を基準とした指標であり、「揃ったタイミング」である Newly より前のブラウザバージョンに対しては何の関心も持っていない、保証できていない**ということです。
 
-Widely Available を基準にする場合、現時点から 30 ヶ月以前のブラウザバージョンに関しては、Baseline として機能が実装されてるかされてないか何の保証もできていない状態なので、その動作保証対象外のユーザの割合を知りたければ、機能の利用可能状況をブラウザ * バージョン毎に確認する必要があり、非常に骨の折れる作業になりかねません。
+Widely Available を基準にする場合、現時点から 30 ヶ月以前のブラウザバージョンに関しては、Baseline として機能が実装されてるかされてないか何の保証もできていない状態なので、その動作保証対象外のユーザの割合を知りたければ、機能の利用可能状況をブラウザ \* バージョン毎に確認する必要があり、非常に骨の折れる作業になりかねません。
 
 ---
 
@@ -240,7 +240,7 @@ Google Analytics Baseline Checker は、Google Analytics を利用している�
 Google Analytics Baseline Checker を利用してみたところ、sakupi01.com では以下のような結果が得られました。
 
 ![sakupi01.com 訪問者の Baseline Target Year ごとのサポート割合](../../../../assets/images/sakupi01-baseline.png)
-*sakupi01.com 訪問者の Baseline Target Year ごとのサポート割合*
+_sakupi01.com 訪問者の Baseline Target Year ごとのサポート割合_
 
 これぞまさに顧客が求めていたもの。
 

@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day7 / Customizable Select Element Ep.5"
 excerpt: "Open UIでCSEのResearchが行われる。同時期にMSで`<selectmenu>`Explainerの作成。Explainerに基づいて、`<selectmenu>`がIntent to Prototypeに"
 date: 2024-12-07
 update: 2024-12-07
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## 🎄はじめに
@@ -33,15 +34,15 @@ CSE は、現状の形になる前に命名の変遷を辿ってきました。
 まず、Open UI での Proposal の進み方を確認しておきます。
 Open UI では、Proposal の策定段階が 5 つの Stage に分けられており、次のように区分されます。
 
-| Stage | 目的 | 入る基準 | 出る基準 |
-|-------|------|----------|----------|
-| 0: Research | **調査内容を共有し、アイデアを統合できる状態にする** | Proposalが出され、Issueが開かれている | Champion(そのテーマの責任者)が決まり、歴史的経緯の研究調査とProposalが2人のOpen UI EditorまたはChairによってApproveされる |
-| 1: Editor's Draft | **Open UI内でコンポーネントのExplainerに合意し、確定させる** | Usecase、Structure、Property、Behaviorなどをカバーする初期Draftが作成されている | 仕様がOpen UI EditorまたはChairによってレビューおよびApproveされる |
-| 2: Community Draft | **ステークホルダー（WHATWG, ARIA, CSSWG, 他開発者など諸関係者）からのレビューを受け、フィードバックを取り入れる** | Open UIがEditor's Draftを外部グループや個人からの追加レビューのためにApproveしている | ARIA、I18n、プライバシー、WHATWG、CSSWG、ブラウザ実装者、他Web開発者、Library Authorなどのステークホルダーからの承認 |
-| 3: Recommendation | **Proposalを最終状態に導く** | Championがステークホルダーと合意を形成している | Web Platformに追加するかどうかの決定。Webコンポーネントが実装されたり、仕様が標準化団体に渡ったりする。[適合度テスト](https://wpt.fyi/results/?label=experimental&label=master&aligned)が行われ、Specが作成される。実装されるがまだExperimentalな状態。 |
-| 4: Finished | **コンポーネントが実装されたことを示す** | コンポーネントが安定した実装または仕様を持っている | N/A |
+| Stage              | 目的                                                                                                              | 入る基準                                                                             | 出る基準                                                                                                                                                                                                                                                |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0: Research        | **調査内容を共有し、アイデアを統合できる状態にする**                                                              | Proposalが出され、Issueが開かれている                                                | Champion(そのテーマの責任者)が決まり、歴史的経緯の研究調査とProposalが2人のOpen UI EditorまたはChairによってApproveされる                                                                                                                               |
+| 1: Editor's Draft  | **Open UI内でコンポーネントのExplainerに合意し、確定させる**                                                      | Usecase、Structure、Property、Behaviorなどをカバーする初期Draftが作成されている      | 仕様がOpen UI EditorまたはChairによってレビューおよびApproveされる                                                                                                                                                                                      |
+| 2: Community Draft | **ステークホルダー（WHATWG, ARIA, CSSWG, 他開発者など諸関係者）からのレビューを受け、フィードバックを取り入れる** | Open UIがEditor's Draftを外部グループや個人からの追加レビューのためにApproveしている | ARIA、I18n、プライバシー、WHATWG、CSSWG、ブラウザ実装者、他Web開発者、Library Authorなどのステークホルダーからの承認                                                                                                                                    |
+| 3: Recommendation  | **Proposalを最終状態に導く**                                                                                      | Championがステークホルダーと合意を形成している                                       | Web Platformに追加するかどうかの決定。Webコンポーネントが実装されたり、仕様が標準化団体に渡ったりする。[適合度テスト](https://wpt.fyi/results/?label=experimental&label=master&aligned)が行われ、Specが作成される。実装されるがまだExperimentalな状態。 |
+| 4: Finished        | **コンポーネントが実装されたことを示す**                                                                          | コンポーネントが安定した実装または仕様を持っている                                   | N/A                                                                                                                                                                                                                                                     |
 
-*参考: [Open UI Working Mode](https://open-ui.org/working-mode/)*
+_参考: [Open UI Working Mode](https://open-ui.org/working-mode/)_
 
 よって、CSE の PR では Stage 0: Research 段階のものが最も古く、それが以下に当たります。
 
@@ -77,7 +78,7 @@ CSE の Explainer は、[Dan Clark](https://github.com/dandclark)によって[MS
   - 命名はどうするのか。`<selectmenu>`はどうか？
   - 既存の`<select>`とほぼ同等の機能を持つ新要素に対する抵抗感を招く可能性がある
 
-***
+---
 
 これは最初 MS 内で議論された内容でしたが、WHATWG にも提案が持ち込まれ、より多くの関係者を交えた議論となります。
 
@@ -97,7 +98,7 @@ CSE の Explainer は、[Dan Clark](https://github.com/dandclark)によって[MS
 
 こうして、一旦は仕様が固まった`<selectmenu>`でしたが、どうして`<selectlist>`に改名され、最終的に`<select>`になったのか、次回以降で見ていきます。
 
-***
+---
 
 それでは、また明日⛄
 

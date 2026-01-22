@@ -70,7 +70,7 @@ html {
   a {
     text-decoration-line: none;
     word-wrap: break-word;
-    transition: all .15s linear;
+    transition: all 0.15s linear;
     padding: 0.05rem 0.1rem;
     border-bottom: 1px solid var(--link-border);
 
@@ -86,15 +86,15 @@ html {
   */
   @scope (main) to (.astro-code) {
     :is(
-        code,
-        nav,
-        summary,
-        .tag,
-        .dates,
-        .excerpt,
-        .published,
-        .blog-post-card
-      ) {
+      code,
+      nav,
+      summary,
+      .tag,
+      .dates,
+      .excerpt,
+      .published,
+      .blog-post-card
+    ) {
       font: normal 400 95% var(--base-font-family-cartograph);
       font-optical-sizing: auto;
     }
@@ -104,7 +104,7 @@ html {
     background-color: var(--astro-code-background);
     border-radius: 5px;
     color: var(--code-color);
-    padding: .1em .25em;
+    padding: 0.1em 0.25em;
   }
 
   /*
@@ -201,7 +201,7 @@ html {
   */
   .title {
     margin-block: var(--gutter-l) var(--gutter-xs);
-    letter-spacing: .03em;
+    letter-spacing: 0.03em;
     text-wrap: balance;
     font-optical-sizing: auto;
   }
@@ -211,7 +211,7 @@ html {
     align-items: center;
     justify-content: space-between;
     color: var(--header-text);
-    padding: .5rem;
+    padding: 0.5rem;
     font-family: var(--base-font-family-cartograph);
     font-style: italic;
     font-weight: 600;
@@ -225,7 +225,7 @@ html {
         border-bottom: none;
         width: 4rem;
         display: flex;
-        transition: filter .2s;
+        transition: filter 0.2s;
 
         &:hover {
           filter: brightness(1.5);

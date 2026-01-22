@@ -1,5 +1,5 @@
 type AssertIsNonNullable<Type> = (
-  value: Type,
+  value: Type
 ) => asserts value is NonNullable<Type>;
 
 const ERROR_MESSAGE_NULLABLE =

@@ -98,7 +98,7 @@ Article Markdown Style
     Shared
     ----------------------------------------------------------------------------
     */
-    font-size: .8rem;
+    font-size: 0.8rem;
     position: relative;
     margin: 1.5rem 0;
     background: light-dark(var(--color-gray-1), var(--color-gray-0));
@@ -201,7 +201,7 @@ Article Markdown Style
         font-weight: 700;
         color: #fff;
         background: var(--color-expression-medium);
-        padding: .88rem 1rem;
+        padding: 0.88rem 1rem;
         margin-right: 1rem;
         position: absolute;
         left: 0;
@@ -220,7 +220,7 @@ Article Markdown Style
     ----------------------------------------------------------------------------
     */
     &.info {
-      padding: 2.5rem .88rem .88rem;
+      padding: 2.5rem 0.88rem 0.88rem;
 
       &::before {
         content: "INFO";
@@ -228,7 +228,7 @@ Article Markdown Style
         font-weight: 700;
         color: #fff;
         background: var(--color-success-medium);
-        padding: .2rem;
+        padding: 0.2rem;
         margin-right: 1rem;
         position: absolute;
         left: 0;
@@ -390,16 +390,15 @@ Article Markdown Style
 
     + p + details {
       @media (prefers-reduced-motion: no-preference) {
-        /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
         interpolate-size: allow-keywords;
       }
 
       margin-top: 10px;
 
       summary {
-        --offset: .5em;
+        --offset: 0.5em;
 
-        padding: .3em 1em;
+        padding: 0.3em 1em;
         width: max-content;
         column-span: all;
         align-self: start;
@@ -445,9 +444,12 @@ Article Markdown Style
           oklch(89.64% 0.0447 83.9deg)
         );
         color: var(--color-base-dark);
-        padding: .8rem;
-        transition: content-visibility .8s allow-discrete, height .8s
-          allow-discrete, opacity .8s, block-size .8s;
+        padding: 0.8rem;
+        transition:
+          content-visibility 0.8s allow-discrete,
+          height 0.8s allow-discrete,
+          opacity 0.8s,
+          block-size 0.8s;
       }
 
       &[open] {

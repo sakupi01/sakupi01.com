@@ -12,8 +12,6 @@ Kilian Valkhof = https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-te
 html {
   accent-color: var(--color-primary-500);
   color-scheme: light dark;
-
-  /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
   interpolate-size: allow-keywords;
 
   /* Remove the automatic text size adjustment that is provided by iOS. */

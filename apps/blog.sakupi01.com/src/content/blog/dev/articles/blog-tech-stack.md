@@ -3,13 +3,14 @@ title: "Next.jsでSSGとmarkdownを使用したブログアプリを作成する
 excerpt: "Next.jsのApp RouterでSSGを用いてブログを作成した過程を狭く浅くまとめます。使用技術や技術選定の話が中心です。"
 date: 2024-02-28
 update: 2024-02-28
-beginColor: 'from-purple-300'
-middleColor: 'via-yellow-200'
-endColor: 'to-green-300'
-category: 'dev'
-tags: ['react', 'nextjs', 'turborepo', 'vercel']
-status: 'draft'
+beginColor: "from-purple-300"
+middleColor: "via-yellow-200"
+endColor: "to-green-300"
+category: "dev"
+tags: ["react", "nextjs", "turborepo", "vercel"]
+status: "draft"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -49,8 +50,11 @@ status: 'draft'
   - Storybook
 
 #### 解析ツール・CI/CD
+
 <!-- textlint-disable -->
+
 TypeScript, biome, markuplint(`/apps/blog.sakupi01.com`), markdownlint(`/articles`), cspell(`/articles`), textlint(`/articles`), Pa11y, Lighthouse
+
 <!-- textlint-enable -->
 
 ## 選定基準
@@ -126,9 +130,12 @@ Next.js の SSG アプリを Vercel でホスティングすると、構築済�
 markdown 自体の解析・DOM 構築、目次の生成には[remark](https://github.com/remarkjs/remark)、remark の諸プラグイン、[remark-rehype](https://github.com/remarkjs/remark-rehype)、rehype の諸プラグイン、rehype-stringify を使用して、markdown を HTML string で返却する関数を使用しています。
 <br/>
 <br/>
+
 <!-- textlint-disable -->
+
 少しまとめると、[remark](https://github.com/remarkjs/remark)で markdown→AST(mdast)に変換し、mdast のカスタマイズが可能な諸プラグインの処理を通し、[remark-rehype](https://github.com/remarkjs/remark-rehype)で AST(mdast)→AST(hast)に変換し、hast のカスタマイズが可能な諸プラグインの処理を通し、[rehype-stringify](https://www.npmjs.com/package/rehype-stringify)で HTML 形式のテキストを出力しています。
 string に変換された HTML は、最終的にはサニタイズしたのちに`dangerouslySetInnerHTML`を使用してブラウザ DOM としてレンダリングしています。
+
 <!-- textlint-enable -->
 
 ## 感想
@@ -142,6 +149,9 @@ CMS 使おうと思ってやっぱやめたってなった話とか、TailwindCS
 Vercel ってすごい。
 
 ## 余談
+
 <!-- textlint-disable -->
+
 テストがないとかリファクタできるとかまだまだ改善しなければいけない部分があるので、追々やっていきたいです🤸🏻
+
 <!-- textlint-enable -->

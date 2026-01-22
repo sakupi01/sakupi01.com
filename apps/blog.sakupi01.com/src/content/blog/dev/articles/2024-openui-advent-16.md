@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 16 / Customizable Select Element Ep.14"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」唯一の手段、`slot`属性と`behavior`属性が使用廃止へ"
 date: 2024-12-16
 update: 2024-12-16
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -22,7 +23,7 @@ status: 'published'
 今回は、そんな中で提起された、`slot`属性と`behavior`属性使用への疑念についてお話しします。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
 
@@ -51,7 +52,7 @@ Domenic は、`slot`属性と`::part()`は、**ユーザが作成したShadow DO
 
 したがって、より HTML の慣習に沿った方法、例えば子要素パターンを使用する方法に置き換えることができないかが問われました。
 
-***
+---
 
 これを受けて、Jarhar は、`slot`属性と`behavior`属性を使用しているもの全てを、新しい要素に置き換える提案をしました。
 
@@ -79,14 +80,16 @@ Domenic の主張：
 
 これら一連の議論を経て、Mason Freed を中心とする Open UI 側は、Domenic 側に倒れ、新しい要素を定義する方向で考えがまとまり、一旦 Issue を Close します。([comment](https://github.com/openui/open-ui/issues/702#issuecomment-1652199439))
 
-***
+---
 
 しかし、この Close された Issue には、Web Components を活用するという期待が裏切られたことや、CSS の長年の課題に対する解決策として Web Components の役割が果たされなかったことへの悲痛なコメントが続きます。
 
 e.g. [comment](https://github.com/openui/open-ui/issues/702#issuecomment-1654235474)
+
 > For what it's worth, I'm pretty sad about the conclusion that we're not going to use Web Components technologies to describe pieces of the web that are implemented in browsers. In my mind, this was one of the major goals of Web Components (and thinking that is not a new opinion for me). There was admittedly a very long history leading to Web Components (including HTML Components, XBL 1, RCC, and XBL 2), and I was involved more in some of the earlier parts and had gotten tired of it before the parts that actually succeeded in building the pieces that have become a part of the Web. But being able to describe builtin controls formally was, I think, the main reason I thought that work was important in the first place.
 
 e.g. [comment](https://github.com/openui/open-ui/issues/702#issuecomment-1656805455)
+
 > I presume that you've read this thread and you'll find that that is not desired by at least one editor of the HTML specification. We additionally heard some general push back to this notion during the F2F CSSWG held 1.5 weeks ago. Suffice it to say, it's a lot of paddling upstream for that vision to come to fruition.
 
 話は少し逸れるのですが、筆者は、WHATWG 側ですら、標準となって長い Web Components 機能の認知・利用拡大どころか、ユーザランドでの利用には極めて慎重な姿勢だということを、本 Issue で感じました。また、Open UI は、やはり「提案」という立ち位置で、その提案が受け入れられるかは、標準化団体の方針に大きく依存することも実感しました。
@@ -99,13 +102,13 @@ e.g. [comment](https://github.com/openui/open-ui/issues/702#issuecomment-1656805
 
 ```html title="slotとbehavior時代"
 <selectmenu>
-  <div slot=button>
+  <div slot="button">
     <span>split button</span>
-    <button behavior=button>
-      <span behavior=selected-value />
+    <button behavior="button">
+      <span behavior="selected-value" />
     </button>
   </div>
-  <div slot=listbox behavior=listbox popover=auto>
+  <div slot="listbox" behavior="listbox" popover="auto">
     <option>one</option>
     <option>two</option>
   </div>
@@ -115,7 +118,7 @@ e.g. [comment](https://github.com/openui/open-ui/issues/702#issuecomment-1656805
 ```html title="提案された手法（ボタンは下記3を採用）"
 <selectmenu>
   <span>split button</span>
-  <button type=selectmenu>
+  <button type="selectmenu">
     <selectedvalue />
   </button>
   <listbox>
@@ -145,7 +148,7 @@ e.g. [comment](https://github.com/openui/open-ui/issues/702#issuecomment-1656805
 
 次回は、その後の「選択された`<option>`の反映とカスタマイズ」についてお話しします。
 
-***
+---
 
 それでは、また明日⛄
 

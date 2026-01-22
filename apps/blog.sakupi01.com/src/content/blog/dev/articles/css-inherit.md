@@ -3,10 +3,11 @@ title: "Unlocking Parent Style Inheritance✨/ Nested で Dynamic で Adoptive �
 excerpt: "「親要素の任意プロパティ」にアクセスする手段として、`inherit()` の仕様が CSS Values and Units Module Level 5 で策定されています。これにより、Custom Properties を経由せず、親要素のプロパティを子要素から直接自己参照でき、長年望まれてきた非常に多くのユースケースが一挙に解決されることが期待されています。"
 date: 2025-05-28
 update: 2025-08-15
-category: 'dev'
-tags: ['css', 'Future Feature', 'Style Queries', 'standards']
-status: 'published'
+category: "dev"
+tags: ["css", "Future Feature", "Style Queries", "standards"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -71,19 +72,22 @@ Arbitrary Substitution Functions を解決するには少々特殊なプロセ�
 しかし、`var()` では自己参照ができないため、例えば、ネストの深さに応じたスタイリングをするには、以下のような心温まる手作業で Custom Properties を要素ごとに指定するに等しい手法が妥当でした。
 
 ```html
-<div class="nested-item" style="--depth: 1">Level 1
-  <div class="nested-item" style="--depth: 2">Level 2
-    <div class="nested-item" style="--depth: 3">Level 3
+<div class="nested-item" style="--depth: 1">
+  Level 1
+  <div class="nested-item" style="--depth: 2">
+    Level 2
+    <div class="nested-item" style="--depth: 3">
+      Level 3
       <div class="nested-item" style="--depth: 4">Level 4</div>
     </div>
   </div>
 </div>
 
 <style>
-.nested-item {
-  padding-left: calc(var(--depth, 0) * 1em);
-  background: hsl(calc(var(--depth, 0) * 60), 50%, 90%);
-}
+  .nested-item {
+    padding-left: calc(var(--depth, 0) * 1em);
+    background: hsl(calc(var(--depth, 0) * 60), 50%, 90%);
+  }
 </style>
 ```
 
@@ -138,12 +142,12 @@ Arbitrary Substitution Functions を解決するには少々特殊なプロセ�
 ```css
 /* inherit() だと循環参照が発生しない */
 .parent {
-  --depth: 1;  /* ① 先に計算される at computed-value time*/
+  --depth: 1; /* ① 先に計算される at computed-value time*/
 }
 
 .child {
   /*② 親の Computed Value（1）を参照 */
-  --depth: calc(inherit(--depth) + 1);  /* = 2*/
+  --depth: calc(inherit(--depth) + 1); /* = 2*/
 }
 ```
 
@@ -208,12 +212,12 @@ inherit(<(custom-)property-name>, <declaration-value>?)
 </div>
 
 <style>
-    * {
+  * {
     /* self reference to track depth */
     --depth: calc(inherit(--depth, 0) + 1);
-    }
+  }
 
-    .nested-item {
+  .nested-item {
     /* calc padding based on depth */
     padding-left: calc(var(--depth) * 1em);
 
@@ -222,7 +226,7 @@ inherit(<(custom-)property-name>, <declaration-value>?)
 
     /* display depth as a counter */
     counter-reset: depth var(--depth);
-    }
+  }
 </style>
 ```
 
@@ -269,7 +273,7 @@ inherit(<(custom-)property-name>, <declaration-value>?)
 ```
 
 ![親のborder-radius と親和した radius](../../../../assets/images/border-radius-inherit.png)
-*親のborder-radius と親和した radius*
+_親のborder-radius と親和した radius_
 
 - [[css-borders-4] New `border-radius` value for perfectly matching nested radii · Issue #7707 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/7707)
 
@@ -308,14 +312,14 @@ inherit(<(custom-)property-name>, <declaration-value>?)
 .emphasized {
   /* 1.2 times bigger than parent font-weight but clamped from 600 to 900 */
   font-weight: clamp(600, calc(inherit(font-weight) * 1.2), 900);
-  
+
   /* 1.125 times bigger than parent font-size */
   font-size: calc(inherit(font-size) * 1.125);
 }
 ```
 
 ![異なるfont-sizeのweightを一定にしたい](../../../../assets/images/font-weight-inherit.png)
-*異なる`font-size`のweightを一定にしたい*
+_異なる`font-size`のweightを一定にしたい_
 
 - [[css-fonts-4] Percentages in font-weight for relative weights · Issue #2690 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2690)
 - [[css-fonts] font-weight: bolder and lighter are counter-intuitive · Issue #2764 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2764)
@@ -336,13 +340,10 @@ e.g.2, 利用側のスタイルに応じた Card
     inherit(background-color) 95%,
     light-dark(white, black) 5%
   );
-  
+
   /* 親のborder-radiusと調和 */
-  border-radius: max(
-    calc(inherit(border-radius, 0px) * 0.8),
-    4px
-  );
-  
+  border-radius: max(calc(inherit(border-radius, 0px) * 0.8), 4px);
+
   /* 親のpadding基準で内部余白を設定 */
   padding: max(inherit(padding, 16px), 12px);
 }
@@ -354,9 +355,9 @@ e.g.2, 利用側のスタイルに応じた Tooltip
 .lib-tooltip {
   /* 親要素の背景色とコントラスト比を保ったカラーでツールチップを表示 */
   background: contrast-color(inherit(background-color));
-  
+
   color: contrast-color(contrast-color(inherit(background-color)));
-  
+
   /* 親のz-indexより上に表示 */
   z-index: calc(inherit(z-index, 0) + 1000);
 }
@@ -430,10 +431,10 @@ em {
 
 ```html
 <style>
-/* User has to write !inheritance and this has to be well documented...  */
-.parent-container {
-  background-color: #007acc !inheritable; /* ← */
-}
+  /* User has to write !inheritance and this has to be well documented...  */
+  .parent-container {
+    background-color: #007acc !inheritable; /* ← */
+  }
 </style>
 
 <div class="parent-container">
@@ -449,29 +450,30 @@ em {
 <!-- Level1 is the case of @container not style(--is-alternate: )  -->
 <!-- --depth: calc(var(--inherited, 0) + 1);  /* 0 + 1 = 1 */
 --inherit: var(--depth);                 /* --inherit = 1 */ -->
-<div class="element">Level 1
-    <!-- Level2 is the case of @container style(--is-alternate: )  -->
+<div class="element">
+  Level 1
+  <!-- Level2 is the case of @container style(--is-alternate: )  -->
   <div class="element">Level 2</div>
 </div>
 
 <style>
-    * {
+  * {
     @container not style(--is-alternate: ) {
-        --is-alternate: ;
-        --inherited--even: var(--inherit);
-        --inherited: var(--inherited--odd);
+      --is-alternate: ;
+      --inherited--even: var(--inherit);
+      --inherited: var(--inherited--odd);
     }
     @container style(--is-alternate: ) {
-        --is-alternate: initial;
-        --inherited--odd: var(--inherit);
-        --inherited: var(--inherited--even);
+      --is-alternate: initial;
+      --inherited--odd: var(--inherit);
+      --inherited: var(--inherited--even);
     }
-    }
+  }
 
-    .element {
+  .element {
     --depth: calc(var(--inherited, 0) + 1);
     --inherit: var(--depth);
-    }
+  }
 </style>
 ```
 

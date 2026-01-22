@@ -3,10 +3,20 @@ title: "Standardizing User Intent with Interest Invokers ! (... and it's complic
 excerpt: "本エントリでは、Interest Invokers の仕様策定において重要な「Show Interest」という概念と、 HIDs (Human Interface Devices) の「Show Interest」に係る議論の現状を解説します。"
 date: 2025-03-27
 update: 2025-03-27
-category: 'dev'
-tags: ['openui', 'interest invokers', 'invokers',  'web accessibility', 'standards', 'html', 'css']
-status: 'published'
+category: "dev"
+tags:
+  [
+    "openui",
+    "interest invokers",
+    "invokers",
+    "web accessibility",
+    "standards",
+    "html",
+    "css",
+  ]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -25,15 +35,15 @@ status: 'published'
 身近な例としては、Tooltip や 排他的な Popover などが挙げられます。
 
 ![GitHub の草に hover した際に出現する Tooltip](../../../../assets/images/kusa-tooltip.png)
-*GitHub の草に hover した際に出現する Tooltip*
+_GitHub の草に hover した際に出現する Tooltip_
 
-*"Interest"* を示した際にアクションが呼び出され、トリガーされる要素を Interest Target とし、これは id 属性を持つものとします。
-これに対して、Invoker 要素（トリガーする要素）から `interesttarget` 属性（IDREF）を用いて Interest Target を参照すると、Interest Target に対してアクションが *"Invoke"* されます。
+_"Interest"_ を示した際にアクションが呼び出され、トリガーされる要素を Interest Target とし、これは id 属性を持つものとします。
+これに対して、Invoker 要素（トリガーする要素）から `interesttarget` 属性（IDREF）を用いて Interest Target を参照すると、Interest Target に対してアクションが _"Invoke"_ されます。
 
 ```html
 <a interesttarget="my-hovercard" href="...">Hover to show the hovercard</a>
 
-<span popover=hint id="my-hovercard">This is the hovercard</span>
+<span popover="hint" id="my-hovercard">This is the hovercard</span>
 ```
 
 似たような機能を持つ API として、Chrome 135 Stable （今日（2025/03/26）リリース！）では、`command`/`commandfor` （Invoker Commands）のサポートが開始されています。
@@ -42,20 +52,20 @@ status: 'published'
 
 <baseline-status featureId="invoker-commands"></baseline-status>
 
-Invoker Commands は `click` イベントなどで *"Activate"* されることで発火するのに対し、Interest Invokers はあくまでも *"Show Interest"* した段階で Interest Target に対してアクションを発火するのが特徴です。
+Invoker Commands は `click` イベントなどで _"Activate"_ されることで発火するのに対し、Interest Invokers はあくまでも _"Show Interest"_ した段階で Interest Target に対してアクションを発火するのが特徴です。
 
-## What the f&*% is "Show Interest" ?
+## What the f&\*% is "Show Interest" ?
 
 Invoker Commands の [CommandEvent](https://html.spec.whatwg.org/multipage/interaction.html#the-commandevent-interface) は、DOM でいうところの [activation behavior](https://dom.spec.whatwg.org/#eventtarget-activation-behavior) で発火されます。
 
-しかし、[Interest Invokers の Explainer](https://open-ui.org/components/interest-invokers.explainer/) では、Interest Target は *"Show Interest"* や *"Lighter Touch Way"* で発火されるといった表現が用いられており、明確な発火のアルゴリズムが記載されていません。<br />
-これは、Interest Invokers の示す *"Show Interest"* が、ユーザの利用する入力デバイスによって異なることに起因します。
+しかし、[Interest Invokers の Explainer](https://open-ui.org/components/interest-invokers.explainer/) では、Interest Target は _"Show Interest"_ や _"Lighter Touch Way"_ で発火されるといった表現が用いられており、明確な発火のアルゴリズムが記載されていません。<br />
+これは、Interest Invokers の示す _"Show Interest"_ が、ユーザの利用する入力デバイスによって異なることに起因します。
 
 例えば、キーボードやモバイルデバイスでの操作には「hover」という概念がありません。<br />
 キーボードやモバイルデバイスは数ある入力デバイスのうちのひとつに過ぎず、マウス、キーボードはもちろんのこと、タッチスクリーンや音声コントロール、アイトラッキング、ペンタッチなど、世の中には私たちが想像し得ないほどの様々な入力デバイスが存在します。<br />
-それゆえ、 *"Show Interest"* する具体的な操作は、それぞれの入力デバイスに応じて多岐に渡ります。
+それゆえ、 _"Show Interest"_ する具体的な操作は、それぞれの入力デバイスに応じて多岐に渡ります。
 
-そこに、その多様な操作を抽象的に示す *"Show Interest"* という概念を意図的に導入します。これにより、これまでは **多様な入力デバイスに対して同等な *"Show Interest"* の挙動（e.g. hover）を実装することは極めて困難** だったのが、**多様な入力デバイスに応じた適切な *"Show/Lose Interest"* の仕組みを、ブラウザが肩代わりして標準化する** ことを見据えています。
+そこに、その多様な操作を抽象的に示す _"Show Interest"_ という概念を意図的に導入します。これにより、これまでは **多様な入力デバイスに対して同等な _"Show Interest"_ の挙動（e.g. hover）を実装することは極めて困難** だったのが、**多様な入力デバイスに応じた適切な _"Show/Lose Interest"_ の仕組みを、ブラウザが肩代わりして標準化する** ことを見据えています。
 
 > However, as mentioned above, “showing” and “losing” interest are intentional abstractions that do not refer to specific actions such as “hover” or “long press”. This is on purpose: the developer should not have to worry about handling all of the various input modalities specifically, in the same way that a `<button>` element can be activated in various ways such as tapping, clicking, or hitting Enter on the keyboard. The user agent provides this functionality “for free”: developers don’t need think about HIDs.
 >
@@ -63,11 +73,11 @@ Invoker Commands の [CommandEvent](https://html.spec.whatwg.org/multipage/inter
 
 ## Keyboard Matter
 
-こうした目論見が Interest Invokers にはあることから、多くのユーザが利用している Keyboard での *"Show Interest"* をどのように定義するかという議論は、Interest Invokers の仕様策定において重要になってきます。
+こうした目論見が Interest Invokers にはあることから、多くのユーザが利用している Keyboard での _"Show Interest"_ をどのように定義するかという議論は、Interest Invokers の仕様策定において重要になってきます。
 
 - [[Interest invokers] Keyboard inputs · Issue #1133 · openui/open-ui](https://github.com/openui/open-ui/issues/1133)
 
-当初は単純な「フォーカス時に *"Show Interest"* する」という案が検討されていましたが、ユーザーがページ内をタブで移動するだけで、次々と要素が表示され、ノイズになる可能性が否めません。<br />
+当初は単純な「フォーカス時に _"Show Interest"_ する」という案が検討されていましたが、ユーザーがページ内をタブで移動するだけで、次々と要素が表示され、ノイズになる可能性が否めません。<br />
 特に、Interest Target が Popover の場合は、Popover 内部に別の `interesttarget` となる要素がネストされている可能性がある場合を考慮すると、Popover の Auto Focus Managementにより、ユーザの意図に反して連続的に内部の Interest がトリガーされ、非常にノイジーになる可能性があります。<br />
 このように、UA による、 **ユーザにとって「不本意なフォーカス遷移」** が行われることは避けたいです。
 
@@ -116,7 +126,7 @@ Partial Activationは、「Interest Target は表示されるが、**内部要�
 この Partial Activation から Full Activation へ状態遷移は、Hotkey の押下や、[### Device Unification](#device-unification) で示す方法で可能です。
 
 ![Partial Activation から Full Activation への状態遷移のイメージ](../../../../assets/images/interest-states.png)
-*Partial Activation から Full Activation への状態遷移のイメージ*
+_Partial Activation から Full Activation への状態遷移のイメージ_
 
 ### Device Unification
 
@@ -175,7 +185,7 @@ Partial Activation が導入された背景に遡ると、Partial Activation と
 Partial Activatable な Modal Dialog 、つまり「ページ内の他の要素を操作できるようにする余地を残した Modal Dialog」は、Modal の定義そのものと相反することになります。
 
 ![Modal Dialog と Partial Activation の機能的な矛盾](../../../../assets/images/modal-vs-partial-activation.png)
-*Modal Dialog と Partial Activation の機能的な矛盾*
+_Modal Dialog と Partial Activation の機能的な矛盾_
 
 このため、現時点の仕様では、`<dialog popover />` を含む Popover は Light-Dismiss 可能なため、Partial Activation の対象としながらも、Modal Dialog は対象外とされています。
 
@@ -185,9 +195,9 @@ Partial Activatable な Modal Dialog 、つまり「ページ内の他の要素�
 
 遅延フォーカスやPartial Activation という新しい概念、それらを実現可能にするさまざまな仕様によって、多様な入力デバイス間で一貫した「Show Interest」体験を提供する技術の標準化が進められています。
 
-従来は  hover やフォーカスは然り、数ある PointerEvents や MouseEvents, TouchEvents の中から "適切かもしれない" イベントを自前でハンドリングして、Tooltip のような UI であれば、JS を使って一定時間経過後に要素を Invoke する、こうした手法が取られてきました。<br />
+従来は hover やフォーカスは然り、数ある PointerEvents や MouseEvents, TouchEvents の中から "適切かもしれない" イベントを自前でハンドリングして、Tooltip のような UI であれば、JS を使って一定時間経過後に要素を Invoke する、こうした手法が取られてきました。<br />
 Popover API や `command`/`commandfor` の登場により、こうした UI の「 Target が "Activate" された時に要素を Invoker する」という挙動は without JS で実装可能になります。<br />
-しかし、完全に "Activate" されていない状態の場合を *デバイス間で UX の遜色なく* 表現するイベントの選択や、UA による Auto Focus Management をケアしながらの実装、一定時間経過後の実現には依然として Declarative な方法がないことなどが、Tooltip のような UI を Web 標準で実装する際の主な課題となっていました。
+しかし、完全に "Activate" されていない状態の場合を _デバイス間で UX の遜色なく_ 表現するイベントの選択や、UA による Auto Focus Management をケアしながらの実装、一定時間経過後の実現には依然として Declarative な方法がないことなどが、Tooltip のような UI を Web 標準で実装する際の主な課題となっていました。
 
 Interest Invokers は、こうした Popover API や `command`/`commandfor` で足りていなかった機能を補填する、新しいプリミティブな機能だと言えます。
 

@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 7 / The Cascade for Cascading Style Sheets
 excerpt: "Origin の続きと、Cascade Sorting Order の全体像"
 date: 2025-08-07
 update: 2025-08-07
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -58,7 +58,7 @@ Origin and Importance の Origin のみの世界だと、Author が絶対的な�
 そして、Transition と Animation の Origin を含め、最終的に完成する Origin and Importance は以下のようになります。
 
 ![Origin and Importance](../../../../assets/images/origin-n-importance.png)
-*Origin and Importance*
+_Origin and Importance_
 
 ## The Whole Cascade Sorting Order
 
@@ -98,9 +98,9 @@ Shadow DOM の内か外かという Context 間での比較が生じた場合、
 
 ```css
 hoge-element {
-    background-color: pink;
-    border: 5px solid black;
-    padding: 8px;
+  background-color: pink;
+  border: 5px solid black;
+  padding: 8px;
 }
 ```
 

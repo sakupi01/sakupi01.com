@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 14 / Customizable Select Element Ep.12"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - `part`属性をCSEのUA実装で使用することの問題から、`part`属性を`behavior`属性にリネームへ。`<option>`のvalueのみならず、内部コンテンツ自体を`<selectedcontent>`に反映する仕様策定の示唆"
 date: 2024-12-14
 update: 2024-12-14
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -21,7 +22,7 @@ status: 'published'
 [Ep.11](https://blog.sakupi01.com/dev/articles/2024-openui-advent-13)では、`<selectedcontent>`とはどんな要素なのか、その契機となった Issue の紹介、`part`属性と`slot`属性についてお話ししました。
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ### `part`属性を使用することの問題
 
@@ -104,15 +105,15 @@ Issue の期待は、「選択された`<option>`のスタイルが、`<select>`
 ```
 
 ```js
-let s = document.querySelector('selectmenu');
-let sv = document.querySelector('[behavior=selected-value]');
-let possibleOptions = document.querySelectorAll('option');
+let s = document.querySelector("selectmenu");
+let sv = document.querySelector("[behavior=selected-value]");
+let possibleOptions = document.querySelectorAll("option");
 
-s.addEventListener('change', () => {
+s.addEventListener("change", () => {
   possibleOptions.forEach((option) => {
-    if(option.value == s.value) {
+    if (option.value == s.value) {
       sv.style.color = option.style.color;
-    } 
+    }
   });
 });
 ```
@@ -123,7 +124,7 @@ s.addEventListener('change', () => {
 
 すべてのコンテンツを複製して反映するのか、複製するとしたらデフォルトなのか、オプトインなのか、それとも複製せずに value だけを反映するのか、この Issue を皮切りに議論が展開されていくことになります。
 
-***
+---
 
 それでは、また明日⛄
 

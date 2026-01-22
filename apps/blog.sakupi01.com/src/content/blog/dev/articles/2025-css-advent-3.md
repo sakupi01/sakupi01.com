@@ -3,10 +3,11 @@ title: "🎨 CSS Advent Calendar: Day 3 / CSS is Optional. Protect the Content!"
 excerpt: "ヒントとしての CSS、あるいはコンテンツを守るための Web の設計思想"
 date: 2025-08-03
 update: 2025-08-03
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -15,7 +16,7 @@ status: 'published'
 🎨 この記事は CSS Advent Calendar の 3 日目の記事です。
 :::
 
-## CSS is *Hints*. CSS is *Suggestions*. CSS is *Optional*.
+## CSS is _Hints_. CSS is _Suggestions_. CSS is _Optional_.
 
 CHSS は、**「Cascade」** が導入されたものとして初の提案です。
 CHSS のプロポーザルを読んでいくと、あるニュアンスが繰り返し伝えられているように感じられます。
@@ -40,7 +41,7 @@ CHSS のプロポーザルを読んでいくと、あるニュアンスが繰り
 
 > an attempt has been made to support a simple subset of generally useful style **HINTS or SUGGESTIONS**.
 
-> **In no way should this proposal be considered an attempt to stipulate *required* behavior**. **The sole purpose of the included format is to suggest behavior** which will allow a browser to render a specific document in a form which more closely **resembles** the document as envisioned by it's creator.
+> **In no way should this proposal be considered an attempt to stipulate _required_ behavior**. **The sole purpose of the included format is to suggest behavior** which will allow a browser to render a specific document in a form which more closely **resembles** the document as envisioned by it's creator.
 
 > Styles are **suggestions or hints** about behavior, **not rules**.
 
@@ -84,7 +85,7 @@ Håkon Lie のプロポーザルでは以下のような記述があります。
 `<html>` 配下の要素を全消しして、`<hoge />` などという超適当なタグを挿入しても、なぜかご親切に `<head>` が入り、`<body>` が入り、`<hoge />` が `<hoge></hoge>` に変換されて、その中に文字列なんか入れていてもその文字列がちゃんと表示されます。
 
 ![HOGE というタグを使ってコンテンツを表示させている](../../../../assets/images/hoge.png)
-*HOGE というタグを使ってコンテンツを表示させている*
+_HOGE というタグを使ってコンテンツを表示させている_
 
 `<hoge>` という仕様上存在しないタグを使用しても、ブラウザがエラーを吐いてレンダーが止まるということはなく、ブラウザは黙ってパースできる部分をパースし、できる限りのコンテンツを表示してくれます。
 
@@ -121,7 +122,7 @@ CSS の Design Principles においては、以下のような記述がありま
 - [CSS Display Module Level 3](https://drafts.csswg.org/css-display/#the-display-properties)
 
 ![display initial は inline にフォールバックする](../../../../assets/images/display-initial.png)
-*display initial は inline にフォールバックする*
+_display initial は inline にフォールバックする_
 
 もし display の初期値が `display: block;` であれば、見切れたり、overflow したりするページが発生するでしょう。
 しかし、display の初期値は `display: inline;` であるため、見切れることなく、**すべてのコンテンツが表示されることが保証されます**。

@@ -3,9 +3,9 @@ title: "🎨 CSS Advent Calendar: Day 24 / The Future of Web UI is Declarative. 
 excerpt: "Design と Web Design の思想を橋渡しする Design System。Semantic Design と Declarative Design System の関係性"
 date: 2025-08-24
 update: 2025-08-24
-category: 'dev'
-tags: ['web', 'ui', 'css', 'html', 'standards', 'advent calendar']
-status: 'published'
+category: "dev"
+tags: ["web", "ui", "css", "html", "standards", "advent calendar"]
+status: "published"
 ---
 
 ## Table of Contents
@@ -160,12 +160,21 @@ Imperative な考え方のデザイントークンでは、出力の完璧さが
   --green-color-lightness: 80%;
 
   /* semantic tokens */
-  --semantic-primary-color: hsl(var(--pink-color-hue) var(--pink-color-saturation) var(--pink-color-lightness));
-  --semantic-secondary-color: hsl(var(--green-color-hue) var(--green-color-saturation) var(--green-color-lightness));
+  --semantic-primary-color: hsl(
+    var(--pink-color-hue) var(--pink-color-saturation)
+      var(--pink-color-lightness)
+  );
+  --semantic-secondary-color: hsl(
+    var(--green-color-hue) var(--green-color-saturation)
+      var(--green-color-lightness)
+  );
 }
 
 button {
-  --button-color: if(style(--state: primary): var(--semantic-primary-color); else: var(--semantic-secondary-color));
+  --button-color: if(
+    style(--state: primary): var(--semantic-primary-color) ;
+      else: var(--semantic-secondary-color)
+  );
   --state: primary; /* or secondary */
   background-color: var(--button-color);
 

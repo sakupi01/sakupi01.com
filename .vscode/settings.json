@@ -1,23 +1,33 @@
 {
-  "editor.defaultFormatter": "biomejs.biome",
-  "editor.formatOnSave": true,
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "quickfix.biome": "always",
-    "source.organizeImports.biome": "always"
-  },
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": ["clsx", "sakupi", "Zenn"],
-  "markuplint.enable": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "textlint.configPath": "./apps/blog.sakupi01.com/.textlintrc",
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
-  }
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[astro]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"cSpell.words": ["sakupi", "Zenn"],
+	"markuplint.enable": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"textlint.configPath": "./apps/blog.sakupi01.com/.textlintrc",
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	}
 }

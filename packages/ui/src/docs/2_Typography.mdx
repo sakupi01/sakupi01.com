@@ -1,4 +1,4 @@
-import { Meta, Typeset } from '@storybook/blocks';
+import { Meta, Typeset } from "@storybook/blocks";
 import tokens from "../css/tokens/tokens.json";
 
 <Meta title="Typography" />
@@ -9,10 +9,10 @@ export const typography = {
     code: `${tokens.tokens.font.family.operator}`,
   },
   weight: {
-    regular: '400',
-    bold: '700',
-    extrabold: '800',
-    black: '900',
+    regular: "400",
+    bold: "700",
+    extrabold: "800",
+    black: "900",
   },
   size: {
     code: `var(--font-size-body)`,
@@ -26,7 +26,8 @@ export const typography = {
   },
 };
 
-export const SampleText = '何は事実いよいよこのヒョウリめというもの conleftetur adipiscing のためを使いたべく。どうしても結果をごろ';
+export const SampleText =
+  "何は事実いよいよこのヒョウリめというもの conleftetur adipiscing のためを使いたべく。どうしても結果をごろ";
 export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace;';
 
 # sakupi01.com | Font Faces
@@ -48,7 +49,7 @@ export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace;';
   fontWeight={typography.weight.regular}
   sampleText={SampleText}
   fontFamily={typography.type.primary}
-  style={{color: "var(--color-gray-4)"}}
+  style={{ color: "var(--color-gray-4)" }}
 />
 
 <Typeset
@@ -64,7 +65,7 @@ export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace;';
   fontWeight={typography.weight.bold}
   sampleText={SampleText}
   fontFamily={typography.type.primary}
-  style={{color: "var(--color-gray-4)"}}
+  style={{ color: "var(--color-gray-4)" }}
 />
 
 <Typeset
@@ -80,7 +81,7 @@ export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace;';
   fontWeight={typography.weight.extrabold}
   sampleText={SampleText}
   fontFamily={typography.type.primary}
-  style={{color: "var(--color-gray-4)"}}
+  style={{ color: "var(--color-gray-4)" }}
 />
 
 <Typeset
@@ -96,7 +97,7 @@ export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace;';
   fontWeight={typography.weight.black}
   sampleText={SampleText}
   fontFamily={typography.type.primary}
-  style={{color: "var(--color-gray-4)"}}
+  style={{ color: "var(--color-gray-4)" }}
 />
 
 <hr />
@@ -106,21 +107,17 @@ export const SampleTextCode = 'font-family: "Operator Mono Lig", monospace;';
 **Lang:** EN&JP
 
 <Typeset
-  fontSizes={[
-    typography.size.code,
-  ]}
+  fontSizes={[typography.size.code]}
   fontWeight={typography.weight.regular}
   sampleText={SampleTextCode}
   fontFamily={typography.type.code}
-  style={{color: "var(--color-gray-4)"}}
+  style={{ color: "var(--color-gray-4)" }}
 />
 
 <Typeset
-  fontSizes={[
-    typography.size.code,
-  ]}
+  fontSizes={[typography.size.code]}
   fontWeight={typography.weight.regular}
   sampleText={SampleTextCode}
   fontFamily={typography.type.code}
-  style={{ fontStyle: 'italic', color: "var(--color-gray-4)" }}
+  style={{ fontStyle: "italic", color: "var(--color-gray-4)" }}
 />

@@ -31,7 +31,7 @@ const getOpenGraph = async (targetUrl: string) => {
   } catch (error: unknown) {
     const err = error as { result?: { requestUrl?: string; error?: string } };
     console.error(
-      `[remark-link-card] Error: Failed to get the Open Graph data of ${err.result?.requestUrl} due to ${err.result?.error}.`,
+      `[remark-link-card] Error: Failed to get the Open Graph data of ${err.result?.requestUrl} due to ${err.result?.error}.`
     );
     return undefined;
   }
@@ -39,14 +39,14 @@ const getOpenGraph = async (targetUrl: string) => {
 
 const downloadImage = async (
   url: string,
-  saveDirectory: string,
+  saveDirectory: string
 ): Promise<string | undefined> => {
   let targetUrl: URL;
   try {
     targetUrl = new URL(url);
   } catch (error) {
     console.error(
-      `[remark-link-card] Error: Failed to parse url "${url}"\n ${error}`,
+      `[remark-link-card] Error: Failed to parse url "${url}"\n ${error}`
     );
     return undefined;
   }
@@ -81,7 +81,7 @@ const downloadImage = async (
     await writeFile(saveFilePath, Buffer.from(buffer));
   } catch (error) {
     console.error(
-      `[remark-link-card] Error: Failed to download image from ${targetUrl.href}\n ${error}`,
+      `[remark-link-card] Error: Failed to download image from ${targetUrl.href}\n ${error}`
     );
     return undefined;
   }
@@ -91,7 +91,7 @@ const downloadImage = async (
 
 const fetchData = async (
   targetUrl: string,
-  options?: Options,
+  options?: Options
 ): Promise<LinkCardData> => {
   const ogResult = await getOpenGraph(targetUrl);
   const parsedUrl = new URL(targetUrl);
@@ -107,7 +107,7 @@ const fetchData = async (
   if (options?.cache) {
     const faviconFilename = await downloadImage(
       faviconUrl,
-      path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
+      path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
     );
     faviconSrc = faviconFilename
       ? path.join(defaultOutputDirectory, faviconFilename)
@@ -127,7 +127,7 @@ const fetchData = async (
     if (options?.cache) {
       const imageFilename = await downloadImage(
         ogImageUrl,
-        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
+        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
       );
       ogImageSrc = imageFilename
         ? path.join(defaultOutputDirectory, imageFilename)
@@ -145,7 +145,7 @@ const fetchData = async (
     displayUrl = decodeURI(displayUrl);
   } catch (error) {
     console.error(
-      `[remark-link-card] Error: Cannot decode url: "${targetUrl}"\n ${error}`,
+      `[remark-link-card] Error: Cannot decode url: "${targetUrl}"\n ${error}`
     );
   }
 
@@ -215,13 +215,12 @@ export const remarkLinkCard = (options?: Options) => {
       if (child.type === "text") {
         const textNode = child as Text;
         const urls = textNode.value.match(
-          /(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/g,
+          /(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/g
         );
         if (urls && urls.length === 1 && textNode.value.trim() === urls[0]) {
           transformers.push(async () => {
             const data = await fetchData(urls[0], options);
             const linkCardHtml = createLinkCard(data);
-            // biome-ignore lint/suspicious/noExplicitAny: replacing node type
             (tree.children as any).splice(index, 1, {
               type: "html",
               value: linkCardHtml,
@@ -237,7 +236,6 @@ export const remarkLinkCard = (options?: Options) => {
           transformers.push(async () => {
             const data = await fetchData(url, options);
             const linkCardHtml = createLinkCard(data);
-            // biome-ignore lint/suspicious/noExplicitAny: replacing node type
             (tree.children as any).splice(index, 1, {
               type: "html",
               value: linkCardHtml,

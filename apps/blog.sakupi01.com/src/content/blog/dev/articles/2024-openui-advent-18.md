@@ -3,13 +3,14 @@ title: "🎄Open UI Advent Calendar: Day 18 / Customizable Select Element Ep.16"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - Light DOMへのクローン追加実装に関して、CSSWGとの合意形成。UAによるLight DOMへのNodeクローンタイミングに関する懸念を深掘る"
 date: 2024-12-18
 update: 2024-12-18
-beginColor: 'from-red-500'
-middleColor: 'via-lime-500'
-endColor: 'to-green-700'
-category: 'dev'
-tags: ['openui', 'advent calendar']
-status: 'published'
+beginColor: "from-red-500"
+middleColor: "via-lime-500"
+endColor: "to-green-700"
+category: "dev"
+tags: ["openui", "advent calendar"]
+status: "published"
 ---
+
 ## Table of Contents
 
 ## はじめに
@@ -25,7 +26,7 @@ status: 'published'
 その初の試みとなる`<selectedoption>`は、もちろん実装上の課題も多く、その解決策を模索する議論が続いています。
 今回からは、その関連 Issue を中心に、`<selectedoption>`の実装に関する議論の現状を追っていきます。
 
-***
+---
 
 ※ `<selectedoption>`は、2024/12 現在、`<selectedcontent>`にリネームされています。
 混乱を避けるため、本エントリからは最新版の`<selectedcontent>`と表記します。
@@ -38,7 +39,7 @@ status: 'published'
 - [Rename `<selectedoption>` to `<selectedcontent>` by chromium-wpt-export-bot · Pull Request #49046 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/49046)
 
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
-*2024/12/9時点でのselectの各パーツの定義*
+_2024/12/9時点でのselectの各パーツの定義_
 
 ## `<selectedcontent>`の実装に関するIssueまとめ
 
@@ -74,16 +75,16 @@ Open UI での議論は、WHATWG の見解をもとに Light DOM 実装でいく
 
 ```html
 <select>
-  <button type=popover>
+  <button type="popover">
     <selectedoption></selectedoption>
   </button>
   <datalist>
     <option>
-      <img src="country1.jpg">
+      <img src="country1.jpg" />
       <span>Country 1</span>
     </option>
     <option>
-      <img src="country2.jpg">
+      <img src="country2.jpg" />
       <span>Country 2</span>
     </option>
   </datalist>
@@ -113,13 +114,13 @@ UA Shadow Root の中は、（`<input>`の内部`<div>`はスタイルできな�
 
 ```css
 selectedcontent::selectedcontent-content > span {
-  display:none;
+  display: none;
 }
 ```
 
 それだけでなく、Light DOM を動的に UA の Shadow Root に挿入するとなると、一度[廃止](https://groups.google.com/a/chromium.org/g/blink-dev/c/PNTt4oFXt8c/m/C1bS0ityBAAJ?hl=ja)された過去のある[Sanitizer APIの再実装](https://github.com/WICG/sanitizer-api/blob/main/explainer.md)が完了することも条件となります。
 
-***
+---
 
 これに関して、Open UI と CSSWG の Joint Session で懸念点の洗い出しが行われました。
 
@@ -139,9 +140,10 @@ Light DOM で実装する場合に、主に「クローンのタイミング」�
 マイクロタスクは、マイクロタスクを呼び出す関数が実行された後にコールスタックが空になった後にのみ実行される短い関数です。MutationObserver API や Promise の then() メソッドなどの引数に渡すコールバック関数がマイクロタスクとして扱われます。
 
 （参考）
+
 > A microtask is a short function which is executed after the function or program which created it exits and only if the JavaScript execution stack is empty, but before returning control to the event loop being used by the user agent to drive the script's execution environment.
 > <https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide>
-:::
+> :::
 
 ここで問題なのが、Layout Flash 時の再クローンでした。Layout Flash 時とは、スタイルや DOM の変更があった場合に、Layout Tree が**同期的に**再計算されるタイミングです。
 
@@ -155,7 +157,7 @@ Mozilla の[Emillio](https://github.com/emilio)は、Gecko は、独自の同期
 
 次回から、現状採用されている、Light DOM での実装の中でも肝となる、「どのタイミングでクローンするのか」の議論を具体的に見ていきます。
 
-***
+---
 
 それでは、また明日⛄
 
