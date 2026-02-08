@@ -160,7 +160,7 @@ Media Query/Container Query/`if()`/etc のような条件分岐、`calc()`/`sin(
 >
 > A qualified rule has a prelude consisting of a list of component values, **a list of declarations**, and a list of child rules.
 >
-> [CSS Syntax Module Level 3](https://drafts.csswg.org/css-syntax/#qualified-rule)
+> ー [CSS Syntax Module Level 3](https://drafts.csswg.org/css-syntax/#qualified-rule)
 
 「宣言」のチャンクに対する条件であるため、条件分岐の結果が後続の何かの実行/活性に影響を与えることもなければ、最終的な値として採用されるかを制御することもできません。
 

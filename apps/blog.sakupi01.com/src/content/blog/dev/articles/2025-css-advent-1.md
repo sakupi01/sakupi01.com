@@ -83,11 +83,11 @@ _line-mode browser_
 
 > Making the web work, for **everyone**.
 >
-> [Our mission](https://www.w3.org/mission/) | W3C
+> ー [Our mission](https://www.w3.org/mission/) | W3C
 
 > The Web for **All**. Web of trust. Web on **everything**.
 >
-> [Our design principles](https://www.w3.org/mission/#principles) | W3C
+> ー [Our design principles](https://www.w3.org/mission/#principles) | W3C
 
 line-mode browser の登場によって、「The Web for All.」の思想が、「開発者からユーザにとって」のみならず、「開発者から開発者にとって」も実現されていき、それが Web を取り巻くエコシステムを発展させる根源となっていきます。
 
@@ -109,7 +109,7 @@ line-mode browser の登場によって、「The Web for All.」の思想が、�
 >
 > Required argument is SRC="url".
 >
-> [WWW-Talk Jan-Mar 1993: proposed new tag: IMG](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html)
+> ー [WWW-Talk Jan-Mar 1993: proposed new tag: IMG](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html)
 
 今後の展開からすると、この提案は Mosaic によるやや恣意的で軽率なものであったようにも捉えられるものでした。
 しかし、結局のところ Web はオープンなものであり、理論上はあらゆる人からの貢献や提案が歓迎されます。Web は当初からこうして発展してきたことが顕著に現れている提案のひとつです。
@@ -141,19 +141,19 @@ www-talk mailing list
 >
 > Roy Smith
 >
-> [Roy Smith WWW-Talk Jul-Sep 1993: Re: Adobe's PDF](http://1997.webhistory.org/www.lists/www-talk.1993q3/0238.html)
+> ー [Roy Smith WWW-Talk Jul-Sep 1993: Re: Adobe's PDF](http://1997.webhistory.org/www.lists/www-talk.1993q3/0238.html)
 >
 > > only be loved by a computer scientist.
 > >
 > > Yup. Marc
 >
-> [Marc Andreessen WWW-Talk Jul-Sep 1993: Re: Adobe's PDF](http://1997.webhistory.org/www.lists/www-talk.1993q3/0239.html)
+> ー [Marc Andreessen WWW-Talk Jul-Sep 1993: Re: Adobe's PDF](http://1997.webhistory.org/www.lists/www-talk.1993q3/0239.html)
 
 > In fact, it has been a constant source of delight for me over the past year to get to continually tell hordes (literally) of people who want to – strap yourselves in, here it comes – control what their documents look like in ways that would be trivial in TeX, Microsoft Word, and every other common text processing environment: **“Sorry, you’re screwed.”**
 >
 > Ah well, live and learn. Or not.
 >
-> [Marc Andreessen WWW-Talk Jan-Mar 1994: Indented `<MENU>`s](http://1997.webhistory.org/www.lists/www-talk.1994q1/0648.html)
+> ー [Marc Andreessen WWW-Talk Jan-Mar 1994: Indented `<MENU>`s](http://1997.webhistory.org/www.lists/www-talk.1994q1/0648.html)
 
 ## The birth of Web Design?
 

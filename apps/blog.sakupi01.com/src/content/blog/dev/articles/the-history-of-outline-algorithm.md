@@ -40,7 +40,7 @@ Brian Kardell の主張（[Headings and the Seinfeld Pitch](https://bkardell.com
 
 > From these rules, it may be inferred that we do not need to mark the ends of stanzas or lines explicitly. From rule 2 it follows that we do not need to mark the end of the title---it is implied by the start of the first stanza. Similarly, from rules 3 and 1 it follows that we need not mark the end of the poem: since poems cannot occur within poems but must occur within anthologies, the end of a poem is implied by the start of the next poem, or by the end of the anthology.
 >
-> [Guidelines for Electronic Text Encoding and Interchange (TEI P3)](https://quod.lib.umich.edu/cgi/t/tei/tei-idx?type=HTML&rgn=DIV2&byte=83013)
+> ー [Guidelines for Electronic Text Encoding and Interchange (TEI P3)](https://quod.lib.umich.edu/cgi/t/tei/tei-idx?type=HTML&rgn=DIV2&byte=83013)
 
 閉じタグの省略を許容していたことは、当時のHTMLが文書を本質的に平面的な構造として捉えており、「”文書の構造” は見た目から読者が理解する ”視覚的な構造” にのみ依存していた」ことに由来するひとつの特徴と言えます。閉じタグ省略は、 [HTML 1.0](https://www.w3.org/MarkUp/draft-ietf-iiir-html-01.txt) や [RFC 1866（HTML 2.0仕様）](https://datatracker.ietf.org/doc/html/rfc1866)でも確認できます。
 
@@ -174,7 +174,7 @@ _Sectioning を用いたマークアップでも、アクセシビリティツ�
 
 > **⚠Warning!** There are currently no known native implementations of the outline algorithm in graphical browsers or assistive technology user agents, although the algorithm is implemented in other software such as conformance checkers and browser extensions. Therefore the outline algorithm cannot be relied upon to convey document structure to users. Authors should use heading rank (h1-h6) to convey document structure.
 >
-> [HTML 5.2: 4.3. Sections](http://w3c.github.io/html/sections.html#creating-an-outline)
+> ー [HTML 5.2: 4.3. Sections](http://w3c.github.io/html/sections.html#creating-an-outline)
 
 しかし、この間は HTML の標準が W3C の HTML5.x から WHATWG の Living Standard に変遷していった期間でもあり、Living Standard になる段階でこの注意書きが削除されてしまっていました。
 
@@ -204,7 +204,7 @@ MDN には掲載されているので、Living Standard 時代でもそれなり
 
 > I would in fact prefer, instead of `<H1>`, `<H2>` etc for headings [those come from the AAP DTD] to have a nestable `<SECTION>..</SECTION>` element, and a generic `<H>..</H>` which at any level within the sections would produce the required level of heading.
 >
-> [www-talk from September to October 1991: Re: status. Re: X11 BROWSER for WWW](https://lists.w3.org/Archives/Public/www-talk/1991SepOct/0003.html)
+> ー [www-talk from September to October 1991: Re: status. Re: X11 BROWSER for WWW](https://lists.w3.org/Archives/Public/www-talk/1991SepOct/0003.html)
 
 `<h>` は、既に実装済みの Sectioning Content Elements と組み合わせ、**Outline Algorithm によって**、**Section のコンテキストに応じた**見出しレベルを自動的に決定するために提案された要素です。
 
@@ -282,7 +282,7 @@ Heading Level Concept の特徴を仕様の [PR](https://github.com/whatwg/html/
 
 > Unfortunately, this was not a success (too many h1s got adjusted to be h2s) so we've removed this code and abandoned this particular plan for dealing with heading levels in HTML: <https://bugzilla.mozilla.org/show_bug.cgi?id=1590366>.
 >
-> [Intent to prototype: heading levels](https://groups.google.com/g/mozilla.dev.platform/c/SdnMKYwWxzU/m/U-v_b8c2BwAJ?pli=1)
+> ー [Intent to prototype: heading levels](https://groups.google.com/g/mozilla.dev.platform/c/SdnMKYwWxzU/m/U-v_b8c2BwAJ?pli=1)
 
 [#83 (comment)](https://github.com/whatwg/html/issues/83#issuecomment-531520522)
 [#3499 (comment)](https://github.com/whatwg/html/pull/3499#issuecomment-544876110)
@@ -388,7 +388,7 @@ WHATWG Living Standard では 2025年現在に至るまで、その根を強く�
 
 > The hgroup element represents a heading and related content. The element may be used to group an h1–h6 element with one or more p elements containing content representing a subheading, alternative title, or tagline.
 >
-> [4.3.7 The hgroup element | HTML Standard](https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element)
+> ー [4.3.7 The hgroup element | HTML Standard](https://html.spec.whatwg.org/multipage/sections.html#the-hgroup-element)
 
 - [Obsolete `<hgroup>` by sideshowbarker · Pull Request #6462 · whatwg/html](https://github.com/whatwg/html/pull/6462)
 

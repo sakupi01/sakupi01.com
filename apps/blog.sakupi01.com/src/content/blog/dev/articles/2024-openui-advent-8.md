@@ -50,7 +50,7 @@ status: "published"
 確かに、[APG](https://www.w3.org/WAI/ARIA/apg/)にも Menu パターンは次のように定義されており、何らかのアクションを伴う要素のリストを提供するものであることが一般的であるとわかります。
 
 > A menu is a widget that offers a list of choices to the user, **such as a set of actions or functions**. Menu widgets behave like native operating system menus, such as the menus that pull down from the menubars commonly found at the top of many desktop application windows.
-> [Menu and Menubar Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/)
+> ー [Menu and Menubar Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/)
 
 ![Menu](../../../../assets/images/menu.png)
 _画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Navigation Menubar Example](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-navigation/)_
@@ -69,7 +69,7 @@ _画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Na
 > ...
 >
 > The combobox pattern supports several optional behaviors. The one that most shapes interaction is text input. **Some comboboxes allow users to type and edit text in the combobox and others do not. If a combobox does not support text input, it is referred to as select-only, meaning the only way users can set its value is by selecting a value in the popup.**
-> [Combobox Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
+> ー [Combobox Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
 
 | 入力フィールドのあるCombobox                                                  | 選択のみ可能なCombobox                                                   |
 | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------ |

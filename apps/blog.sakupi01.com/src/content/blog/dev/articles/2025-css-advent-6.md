@@ -56,7 +56,7 @@ Candidate Recommendation は以下の2つのカテゴリに分類されます。
 
 W3C が、特許保護を確保しながら（CRS）、同時に仕様の継続的な改善（CRD）を両立させている CR の仕組みです。
 
-[W3C Process Document](https://www.w3.org/policies/process/#RecsCR)
+ー [W3C Process Document](https://www.w3.org/policies/process/#RecsCR)
 
 </details>
 

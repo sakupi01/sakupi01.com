@@ -15,6 +15,12 @@ status: "published"
 
 ## はじめに
 
+:::note{.message}
+Customizable Select Element の仕様策定の詳細な記録は、アドベントカレンダーを参照ください。
+
+ー [🎄Open UI Advent Calendar: Day 25 / Customizable Select Element, Open UI](https://adventar.org/calendars/10293)
+:::
+
 `<select>`のスタイルや機能拡張を行うために、これまでに多くの関連機能が提案され、仕様策定され、実装されてきました。
 その中でも特に、Customizable Select Element を実現する上で欠かせなかった、HTML Parser の緩和に関するバグが、後方互換性の心配が非常に低くなる程度に修正され、Ship の[Intent](https://groups.google.com/a/chromium.org/g/blink-dev/c/kN5LTzuTLVs/m/6HqTsmk3EQAJ)が発表されました。
 
@@ -151,4 +157,4 @@ _Experimental Web Platform features enabled_
 
 - [owner: jarhar@chromium.org · Gerrit Code Review](https://chromium-review.googlesource.com/q/owner:jarhar@chromium.org)
 
-Web の開発体験を大きく変えるたくさんの機能の実現にも貢献してきた、Customizable Select Element。長年実現が待ち望まれていた新しい機能のリリースなだけ、とてもワクワクさせられます🎉
+Web の開発体験を大きく変えるたくさんの機能の実現にも貢献してきた、Customizable Select Element。長年実現が待ち望まれていた新しい機能のリリースなだけ、とてもワクワクさせられます。

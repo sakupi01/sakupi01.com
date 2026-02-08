@@ -92,7 +92,7 @@ _view-transition-name重複時のエラー_
 >
 > `id`属性が存在する場合は`id`属性を参照し、`id`属性が存在しない場合は、Elementの識別子を生成する
 >
-> [6. Determining view-transition-name automatically | CSS View Transitions Module Level 2](https://www.w3.org/TR/css-view-transitions-2/#auto-vt-name)
+> ー [6. Determining view-transition-name automatically | CSS View Transitions Module Level 2](https://www.w3.org/TR/css-view-transitions-2/#auto-vt-name)
 
 `view-transition-name: auto;`を使うと、これまで要素ごとに`view-transition-name`を指定していたものが、HTML の id 属性を参照するか、フォールバックして UA によって自動で生成されることになります。
 
@@ -168,7 +168,7 @@ View Transition API は比較的新しい機能で、まだ十分に機能を理
 
 > WebKit for Safari 18.2 adds support for view-transition-name: auto. This means you won’t have to individually name potentially hundreds of different content items **if you are applying transitions to the content on a single page.**
 >
-> [WebKit Features in Safari 18.2 | WebKit](https://webkit.org/blog/16301/webkit-features-in-safari-18-2/)
+> ー [WebKit Features in Safari 18.2 | WebKit](https://webkit.org/blog/16301/webkit-features-in-safari-18-2/)
 
 ## Appendix
 

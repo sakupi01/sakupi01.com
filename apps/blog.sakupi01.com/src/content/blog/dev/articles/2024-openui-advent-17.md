@@ -150,7 +150,7 @@ Jarjar のコメントが非常によくまとまっているので、この節�
 Shadow Root がアタッチされている Host が Light tree と呼ばれることから、Light tree を構成する Node は一般的に Light DOM と呼ばれます。
 
 > - The node tree of a shadow root’s host is sometimes referred to as the **light tree**.
->   [DOM - Shadow Tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree)
+>   ー [DOM - Shadow Tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree)
 
 :::
 
@@ -159,7 +159,7 @@ Shadow Root がアタッチされている Host が Light tree と呼ばれる�
 
 Conformance Error とは、仕様に従っていない状態を指します。HTML や CSS などの仕様には、どのように要素や属性を使用すべきかが定義されていますが、これに従わない場合、Conformance Error となります。例えば、次のようなサイトでチェックすることができます。
 
-[The W3C Markup Validation Service](https://validator.w3.org/)
+ー [The W3C Markup Validation Service](https://validator.w3.org/)
 
 :::
 

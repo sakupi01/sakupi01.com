@@ -62,7 +62,7 @@ p > a {
 この辺りは普段書くとき気にしないことが多いかと思いますが、仕様を読んでいると明確に記述が異なるので、知っておくと面白いかもしれません。
 今回は仕様に沿って説明していく上で、これらの用語を使っていくと思うので、あらかじめ確認しておきました。
 
-[W3C Process Document](https://www.w3.org/policies/process/#RecsCR)
+ー [W3C Process Document](https://www.w3.org/policies/process/#RecsCR)
 
 :::
 

@@ -66,7 +66,7 @@ Figma の表現を引用すると、Design System の役割は「一貫した製
 
 > At its core, a design system is **a set of building blocks and standards** that help **keep the look and feel of products and experiences consistent**.
 >
-> [What Is a Design System | Design Systems 101 | Figma Blog](https://www.figma.com/blog/design-systems-101-what-is-a-design-system/)
+> ー [What Is a Design System | Design Systems 101 | Figma Blog](https://www.figma.com/blog/design-systems-101-what-is-a-design-system/)
 
 また、Jeremy Keith の言葉を借りると、Design System は「Outer Circle」であり、パターンとその連携を伝えるためのさまざまな要素を包含することができるものです。
 
@@ -92,7 +92,7 @@ DTCG(Design Token Community Group) の定義を引用すると、デザイント
 > Design tokens are **a methodology for expressing design decisions in a platform-agnostic way** so that they can be shared across different disciplines, tools, and technologies.
 > They help establish **a common vocabulary across organisations**.
 >
-> [Design Tokens Format Module](https://second-editors-draft.tr.designtokens.org/format/#introduction)
+> ー [Design Tokens Format Module](https://second-editors-draft.tr.designtokens.org/format/#introduction)
 
 Salesforce Lightning Design System の創設者であり、DTCG の Chair でもある Jina Anne の説明も、デザイントークンを理解する上で参考になります。
 

@@ -47,7 +47,7 @@ CHSS のプロポーザルを読んでいくと、あるニュアンスが繰り
 
 > Rather, this is really a set of **HINTS or SUGGESTIONS** to the renderer which **might be used** to display particular HTML objects in the fashion the author of a document originally intended.
 >
-> [font-family] is not meant as a font name, per se. Rather it is a **suggestion** of a particular style of character representation.
+> ー [font-family] is not meant as a font name, per se. Rather it is a **suggestion** of a particular style of character representation.
 
 Hints, Hints, Hints...
 
@@ -66,7 +66,7 @@ Håkon Lie のプロポーザルでは以下のような記述があります。
 
 > Indeed, if conflicts arise **the user should have the last word, but one should also allow the author to attach style hints.**
 >
-> [This] point has especially been a source of much **frustration** among professions that are used to be in control of paper-based publishing. This proposal tries to **soften the tension between the author and the reader** by:
+> ー [This] point has especially been a source of much **frustration** among professions that are used to be in control of paper-based publishing. This proposal tries to **soften the tension between the author and the reader** by:
 >
 > **a)** giving **readers** a richer visual (or auditory and tactile) environment while **they retain control** if necessary, and
 >
@@ -97,7 +97,7 @@ line-mode browser で世界初の Web ページとして公開された [World W
 
 > WWW parsers[Browsers or Rendering Engines] **should ignore tags** which they do not understand, and **ignore attributes** which they do not understand of tags which they do understand.
 >
-> [HyperText Mark-up Language](https://info.cern.ch/hypertext/WWW/MarkUp/MarkUp.html)
+> ー [HyperText Mark-up Language](https://info.cern.ch/hypertext/WWW/MarkUp/MarkUp.html)
 
 仕様になく、実装もされていないようなタグや属性に遭遇しても、ブラウザは処理を停止せず、理解できる部分を可能な限り表示し続けます。新しい要素や属性を古いブラウザで利用しても、サイトが壊れることはありません。
 
@@ -113,7 +113,7 @@ CSS の Design Principles においては、以下のような記述がありま
 >
 > Design CSS properties or CSS layout systems (which are typically values of the display property), to **preserve the content as viewable, accessible and usable by default.**
 >
-> [Web Platform Design Principles](https://www.w3.org/TR/design-principles/#css-content-should-be-visible)
+> ー [Web Platform Design Principles](https://www.w3.org/TR/design-principles/#css-content-should-be-visible)
 
 ゆえに CSS は、「Web 上のあらゆるコンテンツが隠れないように表示」されるようなデフォルト値に設定されています。
 
@@ -139,7 +139,7 @@ HTML パーサが理解できないものは無視し、CSS が適用できな�
 
 > The Web for **All**. Web of **trust**. Web on **everything**.
 >
-> [Our design principles](https://www.w3.org/mission/#principles) | W3C
+> ー [Our design principles](https://www.w3.org/mission/#principles) | W3C
 
 ---
 

@@ -64,7 +64,7 @@ User と Author という異なるオリジンから、同じ場所にスタイ�
 
 > both readers and authors can influence the presentation through style sheets. To do so, they use the same style sheet language thus reflecting the philosophy of the web: everyone can become a publisher.
 >
-> [Cascading Style Sheets, level 1](https://www.w3.org/TR/WD-css1-951117.html#cascade)
+> ー [Cascading Style Sheets, level 1](https://www.w3.org/TR/WD-css1-951117.html#cascade)
 
 そうした時に、User/Author 間で競合が起きた場合はどうするかを考える必要があります。
 
@@ -95,7 +95,7 @@ FUN FACT: The `!legal` keyword
 
 最初の CSS1 の Editors Draft では、`!important` と合わせて `!legal` というキーワードが提案されていました。
 
-[Cascading Style Sheets: a draft specification](https://www.w3.org/Style/CSS/draft1.html)
+ー [Cascading Style Sheets: a draft specification](https://www.w3.org/Style/CSS/draft1.html)
 
 ```css
 P {
@@ -133,7 +133,7 @@ CHSS では、これをパーセンテージで「どの程度影響力がある
 > ... **for balance**, an "!important" declaration (the keywords "!" and "important" follow the declaration) takes precedence over a normal declaration. Both author and user style sheets may contain "!important" declarations, and **user "!important" rules override author "!important" rules**.
 
 > Note. This is **a semantic change** since CSS1. In CSS1, **author "!important" rules took precedence over user "!important" rules.**
-> [Assigning property values, Cascading, and Inheritance](https://www.w3.org/TR/1998/PR-CSS2-19980324/cascade.html#important-rules)
+> ー [Assigning property values, Cascading, and Inheritance](https://www.w3.org/TR/1998/PR-CSS2-19980324/cascade.html#important-rules)
 
 この記事を読んでいる人であればご存知だと思いますが、これが現在の Cascade の形です。
 

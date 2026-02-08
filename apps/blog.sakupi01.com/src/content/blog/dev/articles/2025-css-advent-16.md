@@ -37,7 +37,7 @@ Web 標準で「カプセル化」を実現する手段として真っ先に上�
 
 Conformance Error とは、仕様に従っていない状態を指します。HTML や CSS などの仕様には、どのように要素や属性を使用すべきかが定義されていますが、これに従わない場合、Conformance Error となります。例えば、次のようなサイトでチェックすることができます。
 
-[The W3C Markup Validation Service](https://validator.w3.org/)
+ー [The W3C Markup Validation Service](https://validator.w3.org/)
 :::
 
 ![use タグを用いて SVG をクローンした時に用いられる Shadow DOM](../../../../assets/images/svg-use.png)

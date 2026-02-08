@@ -33,7 +33,7 @@ Open UI は、Web プラットフォームの UI における Interoperability �
 >
 > 今日、コンポーネントフレームワークやDesign Systemは、デザイナーが外観と動作を完全に制御できるように、一般的なWeb UIコントロールを再発明しています。私たちは、ビルトインUIコントロールを再発明する必要がなくなることを期待しており、**Design Systemが、Open UIの仕様とテストスイートから利益を得ることを期待しています**。
 >
-> [Home | Open UI](https://open-ui.org/)
+> ー [Home | Open UI](https://open-ui.org/)
 
 Brad が提唱する GDS は、HTML と組織レベルデザインシステムとの間に介在する「高度に抽象化された Design System」であり、Open UI の取り組みとして検討される価値が十分にありました。しかし、提案初期は、**GDSを実現する人物像とOpen UIに属する現メンバーの特徴のミスマッチの可能性が指摘**されていました。
 
@@ -64,7 +64,7 @@ Brad が提唱する GDS は、HTML と組織レベルデザインシステム�
 - [comment](https://github.com/openui/open-ui/issues/1017#issuecomment-2109117089)
 
 > RESOLVED: Create a Global Design System workstream in Open UI and do not start from zero with a component library(s) (TBD)
-> [IRC](https://github.com/openui/open-ui/issues/1017#issuecomment-2115955452)
+> ー [IRC](https://github.com/openui/open-ui/issues/1017#issuecomment-2115955452)
 
 ---
 
@@ -89,7 +89,7 @@ _Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design 
 
 > Serve as an incubator for potential future HTML elements, attributes and APIs.
 >
-> [README.md openui/design-system](https://github.com/openui/design-system)
+> ー [README.md openui/design-system](https://github.com/openui/design-system)
 
 ### 標準化プロセスをスキップすることによる、高速な検討と提供のイテレーション
 
@@ -127,7 +127,7 @@ GDS の構成要素として、コンポーネントライブラリが挙げら�
 > - Default events
 > - Variations
 >
-> [Thoughts on a Global Design System](https://www.gwhitworth.com/posts/2024/my-thoughts-on-global-design-system/)
+> ー [Thoughts on a Global Design System](https://www.gwhitworth.com/posts/2024/my-thoughts-on-global-design-system/)
 
 **[Open UI Component Certified Checklist](https://docs.google.com/document/d/1eTSxCWd3yRMxTCAs3a74NzQ6C9gikYQLZeVdCMODwOg/edit?tab=t.0#heading=h.jjvcvbvmo8v1)は、GDSコンポーネントライブラリの具体的な品質を図る指標として作成**されました。GDS の各コンポーネントは、このチェックリストに基づいた監査が行われて出荷されます。
 
@@ -145,7 +145,7 @@ W3C Open UI CG で然るべき検討がなされた GDS コンポーネントラ
 > 5. **Adopts Open UI primitives** as they become available for increased adoption and feedback
 > 6. Has decent adoption and web developer/designer community support (monetary funding is a positive but not required)
 >
-> [Foundation for the Global Design System component library · Issue #1066 · openui/open-ui](https://github.com/openui/open-ui/issues/1066)
+> ー [Foundation for the Global Design System component library · Issue #1066 · openui/open-ui](https://github.com/openui/open-ui/issues/1066)
 > :::
 
 これまで Open UI が取り組んできたのは、あくまで「Web UI における標準化団体への推奨事項作成」であったのに対し、GDS のコンポーネントライブラリは、GDS での検討に基づいたコンポーネントを実際に実装し、開発者が独自のデザインシステムを構築する際の参考として機能することを目的としています。
@@ -164,7 +164,7 @@ W3C Open UI CG で然るべき検討がなされた GDS コンポーネントラ
 
 > Testing solution: Will enable any component library determine adherence to the blueprint's defined by Open UI (similar to web platform tests). This will allow component libraries to be implemented in other languages but leverage the research and resolutions provided by Open UI in a tangible way.
 >
-> [Thoughts on a Global Design System](https://www.gwhitworth.com/)
+> ー [Thoughts on a Global Design System](https://www.gwhitworth.com/)
 > まだまだ動き始めたばかりのプロジェクトですが、[来年の第3四半期までには複数のWeb Componentsを提供することを目指している](https://www.w3.org/2024/11/21-openui-minutes.html)ようです。
 
 広範な Web の進化へ寄与する可能性を秘める Global Design System の動きに、今後も注目していきたいと思います。

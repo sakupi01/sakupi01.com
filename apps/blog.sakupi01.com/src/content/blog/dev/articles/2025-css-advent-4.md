@@ -27,7 +27,7 @@ status: "published"
 
 > "It was like: 'Darn, we need something quick, otherwise they're going to destroy the HTML language."
 >
-> [Interview with Håkon Wium Lie. The inventor of CSS explains how it…](https://medium.com/net-magazine/interview-with-h%C3%A5kon-wium-lie-f3328aeca8ed)
+> ー [Interview with Håkon Wium Lie. The inventor of CSS explains how it…](https://medium.com/net-magazine/interview-with-h%C3%A5kon-wium-lie-f3328aeca8ed)
 
 この切迫感から、彼がわずか 1〜2週間で書き上げたのが、CHSS の提案です。
 
@@ -158,7 +158,7 @@ speech.em.weight = 40db
 
 > It was inspired by an idea from the MIT Media Lab: TVs in the future would not have controls for brightness and color, but for sex and violence, or left-wing and right-wing, perhaps.
 >
-> [Dev.Opera — CSS: It was twenty years ago today — an interview with Håkon Wium Lie](https://web.archive.org/web/20240105013339/https://dev.opera.com/articles/css-twenty-years-hakon/)
+> ー [Dev.Opera — CSS: It was twenty years ago today — an interview with Håkon Wium Lie](https://web.archive.org/web/20240105013339/https://dev.opera.com/articles/css-twenty-years-hakon/)
 
 この概念を視覚化した図まで提案に含められており、「Influence」がスライダーのように調整するものとしてイメージされていたことが伺えます。
 
@@ -173,7 +173,7 @@ Volume o---------x----------o 50%
 
 > Here, x represents the handles of slide bars. The output of this interaction is the percentage values that are attached to the statements in the user's style sheet.
 >
-> [Cascading HTML Style Sheets -- A Proposal](https://www.w3.org/People/howcome/p/cascade.html)
+> ー [Cascading HTML Style Sheets -- A Proposal](https://www.w3.org/People/howcome/p/cascade.html)
 
 ## Why this is never happened?
 
@@ -183,7 +183,7 @@ Volume o---------x----------o 50%
 >
 > 2つのデザインを平均化して中間的なスタイルを作り出すという考えは、私には全く間違っているように思える。私の青地に黄色のスタイルが他の人の黄色地に青のスタイルと組み合わされたらどうなる？緑地に緑となるのか？奇抜なタイトルの上に Helvetica の段落が載ったページを誰が見たいと思うんだ？
 >
-> [WWW-Talk Oct-Dec 1994: Re: Cascading HTML style sheets -- a proposal](https://web.archive.org/web/20230925111836/https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1994q4/0158.html)
+> ー [WWW-Talk Oct-Dec 1994: Re: Cascading HTML style sheets -- a proposal](https://web.archive.org/web/20230925111836/https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1994q4/0158.html)
 
 この批判を受け、Influence は複雑すぎて採用の障壁になると Håkon 自身も認識し、最終的に CSS では削除されることになりました。
 

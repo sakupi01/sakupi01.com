@@ -17,34 +17,34 @@ const { url, title, date, excerpt } = Astro.props;
     <h2 class="title">{title}</h2>
   </a>
   <p class="excerpt">{excerpt}</p>
-  <a href={url}>Read more...</a>
+  <div>
+    <a href={url}>Read more...</a>
+  </div>
 </li>
 
 <style>
   .blog-post-card {
     list-style: none;
-  }
-
-  .title-container {
-    color: var(--color-text);
-    border-bottom: none;
-    outline: none;
-    .title {
-      letter-spacing: 0.03rem;
-      text-wrap: balance;
-      font-style: normal;
-      font-size: 1.3rem;
-      margin-block: var(--gutter-xs);
-    }
-
-    .published {
-      margin-block: var(--gutter-m) 0;
+    display: grid;
+    grid-template-rows: auto;
+    .title-container {
       color: var(--color-text);
-      font-weight: 400;
+      border-bottom: none;
+      outline: none;
+      .title {
+        letter-spacing: 0.03rem;
+        text-wrap: pretty;
+        font-size: 1.3rem;
+        margin-block: var(--gutter-xs);
+      }
+
+      .published {
+        margin-block: 0;
+      }
     }
-  }
-  .excerpt {
-    text-wrap: pretty;
-    margin-block-end: 0;
+    .excerpt {
+      text-wrap: pretty;
+      margin-block: 0;
+    }
   }
 </style>

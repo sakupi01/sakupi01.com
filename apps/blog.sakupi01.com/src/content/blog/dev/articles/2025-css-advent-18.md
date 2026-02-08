@@ -123,7 +123,7 @@ Cascade Layers 自体を Cascade のどこに配置し、Cascade の中で `!imp
 
 > jensimmons: Talking with other folks the word layer is good. Invokes photoshop for some authors and way it's used in graphic design. Layer speaks for itself, it's a good word to have in there.
 >
-> [comment](https://github.com/w3c/csswg-drafts/issues/4981#issuecomment-628105429)
+> ー [comment](https://github.com/w3c/csswg-drafts/issues/4981#issuecomment-628105429)
 
 z-index のレイヤーや、Top Layer との混同の懸念もありましたが、最終的には「Cascade Layers」という名前が選ばれました。
 :::
@@ -140,7 +140,7 @@ Author Origin の位置に配置できると、エンジンに既に実装され
 
 > emilio: Shadow DOM introduces a stack of origins; introducing this naively makes it a matrix, which is harder.
 >
-> [comment](https://github.com/w3c/csswg-drafts/issues/4470#issuecomment-577300816)
+> ー [comment](https://github.com/w3c/csswg-drafts/issues/4470#issuecomment-577300816)
 
 Shadow DOM は各コンポーネントが独自の Context を持つ階層構造を作ります（e.g. Light DOM → Shadow DOM 1 → Shadow DOM 2 のようにスコープ）。
 もし Cascade Layers を Author Origin の位置に実装すると、「Layer × Context」のすべての組み合わせで Origin ができ、優先順位を決める必要が生じます。
@@ -197,7 +197,7 @@ Cascade Layers における `!important` の扱いについても、いくつか
 >
 > fantasai: If a library is using it for not important things that's bad on the library
 >
-> [comment](https://github.com/w3c/csswg-drafts/issues/4971#issuecomment-628115258)
+> ー [comment](https://github.com/w3c/csswg-drafts/issues/4971#issuecomment-628115258)
 
 以上の理由から、`!important` の挙動は最終的に Reverse になりました。
 これは、Origins と同じように、`!important` レイヤーでは順序を逆転させる、つまり `!important` でない場合に一番優先度の低いレイヤーが、`!important` レイヤーでは最も優先度が高くなる（その逆も然り）ことを意味します。

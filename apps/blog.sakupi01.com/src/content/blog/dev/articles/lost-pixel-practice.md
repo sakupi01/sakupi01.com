@@ -269,7 +269,7 @@ Github Actions を用いて CI として動かすための Workflow ファイル
 [運用シナリオ](https://blog.sakupi01.com/dev/articles/lost-pixel-practice#運用シナリオ)で述べた次の流れを実現するために、次からの項目で`vis-reg-test.yml`と`update-lostpixel.yml`を作成します。
 
 > - featureブランチ`feat/lost-pixel`のPRチェック時にGithub ActionsでLost Pixel OSSモードを用いたVRTを行う
-> - 差分が検出された場合は`/update-vrt`とPRにコメントを入れることで、ベースライン画像の更新PR`lost-pixel-update/> [base-pr-name]`を元ブランチ`feat/lost-pixel`から新たに作成する
+> - 差分が検出された場合は`/update-vrt`とPRにコメントを入れることで、ベースライン画像の更新PR`lost-pixel-update/> ー [base-pr-name]`を元ブランチ`feat/lost-pixel`から新たに作成する
 > - `lost-pixel-update/[base-pr-name]`のベースライン画像の差分をImage Diffを用いて確認・レビューし、マージする
 > - 元ブランチ`feat/lost-pixel`上でVRTが再度走り、チェックがpassする
 

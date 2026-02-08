@@ -64,7 +64,7 @@ Arbitrary Substitution Functions を解決するには少々特殊なプロセ�
 
 > When a substitution context is guarded, it means that, for the duration of the guard, **an attempt to guard a matching substitution context again will mark all substitution contexts involved in the cycle as cyclic substitution contexts**.
 >
-> [Self-Referencing Custom Properties], is a cyclic substitution context, since it matches the substitution context from the first substitution, causing the substitution to just produce the [guaranteed-invalid value](https://drafts.csswg.org/css-variables-2/#guaranteed-invalid). This percolates back up the nested invocations, eventually resulting in `--one` becoming [invalid at computed-value time](https://drafts.csswg.org/css-values-5/#invalid-at-computed-value-time).
+> ー [Self-Referencing Custom Properties], is a cyclic substitution context, since it matches the substitution context from the first substitution, causing the substitution to just produce the [guaranteed-invalid value](https://drafts.csswg.org/css-variables-2/#guaranteed-invalid). This percolates back up the nested invocations, eventually resulting in `--one` becoming [invalid at computed-value time](https://drafts.csswg.org/css-values-5/#invalid-at-computed-value-time).
 > ー [CSS Values and Units Module Level 5](https://drafts.csswg.org/css-values-5/#cyclic-substitution-contexts)
 
 もし、自己参照することができれば、親の値を基準とした計算（ネストの深さを追跡したり、親の値を継承した count 処理したり）ができ、その値をスタイルに用いることできるはずです。

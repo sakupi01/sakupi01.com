@@ -30,7 +30,7 @@ status: "published"
 
 > **The web would have become a giant fax machine** where pictures of text would be passed along.
 >
-> [Dev.Opera — CSS: It was twenty years ago today — an interview with Håkon Wium Lie](https://web.archive.org/web/20240105013339/https://dev.opera.com/articles/css-twenty-years-hakon/)
+> ー [Dev.Opera — CSS: It was twenty years ago today — an interview with Håkon Wium Lie](https://web.archive.org/web/20240105013339/https://dev.opera.com/articles/css-twenty-years-hakon/)
 
 そのうち Håkon Wium Lie が提案したものが、CSS（Cascading Style Sheets）の前身となる、**CHSS**（Cascading HTML Style Sheets）でした。
 
@@ -108,7 +108,7 @@ Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイル�
 >
 > Having this inheritance behaviour also helps to keep the description short, as lots of information can be derived by the context in the tree structure.
 >
-> [WWW-Talk Oct-Dec 1993: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0265.html)
+> ー [WWW-Talk Oct-Dec 1993: Stylesheet Language](https://www.w3.org/Style/History/www.eit.com/www.lists/www-talk.1993q4/0265.html)
 
 また、Pei-Yuan Wei の提案は、今日でも使われている Link タグでの外部スタイルシート参照を提案しているのも、特筆すべき点です。
 

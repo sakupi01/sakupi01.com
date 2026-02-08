@@ -69,7 +69,7 @@ Invoker Commands の [CommandEvent](https://html.spec.whatwg.org/multipage/inter
 
 > However, as mentioned above, “showing” and “losing” interest are intentional abstractions that do not refer to specific actions such as “hover” or “long press”. This is on purpose: the developer should not have to worry about handling all of the various input modalities specifically, in the same way that a `<button>` element can be activated in various ways such as tapping, clicking, or hitting Enter on the keyboard. The user agent provides this functionality “for free”: developers don’t need think about HIDs.
 >
-> [Interest Invokers (Explainer) | Open UI](https://open-ui.org/components/interest-invokers.explainer/#hids-and-interest)
+> ー [Interest Invokers (Explainer) | Open UI](https://open-ui.org/components/interest-invokers.explainer/#hids-and-interest)
 
 ## Keyboard Matter
 

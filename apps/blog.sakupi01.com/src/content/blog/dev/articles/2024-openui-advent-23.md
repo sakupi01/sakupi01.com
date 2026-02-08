@@ -42,7 +42,7 @@ Global Design System は、2024 年初めに、Brad Frost によって提唱さ�
 
 （Podcast のタイトルにある「Frostapalooza」は、Brad の 40 歳の誕生日企画として開催される音楽イベントのことでした...）
 
-[FROSTAPALOOZA - A CONCERT/PARTY/HAPPENING ON AUGUST 17th, 2024](https://frostapalooza.bradfrost.com/)
+ー [FROSTAPALOOZA - A CONCERT/PARTY/HAPPENING ON AUGUST 17th, 2024](https://frostapalooza.bradfrost.com/)
 :::
 その後日記として Chris は次の記事を投稿します。
 
@@ -100,7 +100,7 @@ _HTMLレイヤー（標準）と各デザインシステムの間をGDSが埋め
 GDS が標準の一部でないことは、GDS の概要にも明記されています。
 
 > A W3C Standard - The OpenUI Design System is an incubation for possible future enhancements to the web platform but they are not standardized components.
-> [openui/design-system](https://github.com/openui/design-system)
+> ー [openui/design-system](https://github.com/openui/design-system)
 
 ### 特定の見た目と技術に依存しない、スタンドアロンなデザインシステムとなる
 
@@ -150,7 +150,7 @@ GDS のコンポーネントライブラリは、次の 6 つの原則に則っ�
 > 5. 言語、記述方法などの多様性に対応するために**国際化されている**
 > 6. **ComposableかつExtensible**であるため、開発者は特別なハックをすることなく変更または拡張できる
 >
-> [A Global Design System | Brad Frost](https://bradfrost.com/blog/post/a-global-design-system/)
+> ー [A Global Design System | Brad Frost](https://bradfrost.com/blog/post/a-global-design-system/)
 
 これらを達成するための技術的手段として、Web Components を用いることが提案されており、次のような使用方法が想定されています。
 

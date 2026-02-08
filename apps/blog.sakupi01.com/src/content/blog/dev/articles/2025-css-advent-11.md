@@ -20,7 +20,7 @@ status: "published"
 
 - Steve Jobs Announces the iPhone for the First Time - YouTube
 
-<https://www.youtube.com/shorts/QnbPRmzK2IA>
+<iframe width="300" height="500" src="https://www.youtube.com/embed/QnbPRmzK2IA?feature=oemb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Steve Jobs Announces the iPhone for the First Time"></iframe>
 
 デスクトップ PC とはかけ離れた操作/画面/機能特性を持つデバイスの登場に、 Web は適応を迫られるようになりました。
 
@@ -104,7 +104,7 @@ Author CSS を含まない HTML only のページを作成し、ウィンドウ�
 > Emphasis mine, as I think that’s a subtle yet powerful distinction:
 > rather than creating immutable, unchanging spaces that define a particular experience, they suggest inhabitant and structure can—and should—**mutually influence each other**.
 >
-> [Interactive architecture](https://archive.org/details/interactivearchi0000foxm) : Fox, Michael, 1967 August 22- : Internet Archive
+> ー [Interactive architecture](https://archive.org/details/interactivearchi0000foxm) : Fox, Michael, 1967 August 22- : Internet Archive
 
 しかし、当時はまだ CSS のポテンシャルを引き出せていない実装が多かったり、CSS 自体も、複雑なデザインをレスポンシブに再現するための機能が不足していました。
 よって、この考え方はすぐには広まりませんでした。

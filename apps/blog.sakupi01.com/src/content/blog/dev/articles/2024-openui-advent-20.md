@@ -43,7 +43,7 @@ _2024/12/9時点でのselectの各パーツの定義_
 > I also wonder if using CEReactions like this is just an internal optimization to run clones less often and is functionally the same as just synchronously cloning every time, in which case we could make the spec a lot simpler and keep it in the DOM spec. Maybe doing anything with MutationObservers is also just an optimization, and we could just add steps to the insertion/removal/attributechange steps in the HTML spec to do the cloning when appropriate...?
 >
 > このようにCEReactionsを使用することが、クローン実行回数を減らして内部最適化する手段で、同期的に毎回クローンするのと機能的に同じであれば、はるかに簡単に仕様を作成でき、DOM仕様として扱うことができる。MutationObserversを使用することも最適化なのですが、適切なときにクローンを行うため、CEReactionsのinsertion/removal/attributechangeステップをMutationObserversのHTML仕様に追加するだけで済むかもしれません...?
-> [comment](https://github.com/whatwg/html/issues/10520#issuecomment-2341730370)
+> ー [comment](https://github.com/whatwg/html/issues/10520#issuecomment-2341730370)
 
 つまり、Author スクリプトから DOM API を利用したミューテーションが行われるたびに、CEReactions タイミングで、1 回だけクローンを作成する方法があると述べています。
 具体的には、MutationObserver でマイクロタスクをキューに入れる代わりに、[CEReactionsスタック](https://triple-underscore.github.io/HTML-custom-ja.html#custom-element-reactions-stack)にキューが存在するかどうかを確認し、存在する場合はその CEReactions がコールスタックから pop される際に、変更を「通知」する特別な MutationObserver を作成することができると述べています。もし、CEReactions スタックにキューが存在しない場合は、そのまま同期的にクローンを作成します。
@@ -77,7 +77,7 @@ WHATNOT は、WHATWG の Issue をトリアージする、隔週の Telecon で�
 >
 > これらの反応の正確な順序は、スタックとキューのシステムを通じて管理される。この管理方法の背後にある意図は、 少なくとも単一のカスタム要素内では、反応がそれを引き起こした操作の順序通りに実行されることを保証することである。 （ただし、カスタム要素の反応が他の要素に対する変更を行う可能性があるため、複数の要素にまたがるグローバルな順序を保証することはできない）
 >
-> [HTML Standard - Custom Element Reactions](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element-reactions)
+> ー [HTML Standard - Custom Element Reactions](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-element-reactions)
 
 CEReactions を用いると、MutationObserver と違って、[同期的なクローンができるとされていました](http://localhost:3000/dev/articles/2024-openui-advent-23#同期的なmutationobserver-cereactions-mutationobserverの提案)。
 しかし今回、上記のような CEReactions の懸念が浮き彫りになり、よりシンプルで予測可能な動作を実現できる「同期的な」クローンを作成する実装方針となります。
@@ -103,7 +103,7 @@ CEReactions を用いると、MutationObserver と違って、[同期的なク�
 
 > Cloning a node copies all of its attributes and their values, including intrinsic (inline) listeners. It does not copy event listeners added using `addEventListener()` or those assigned to element properties (e.g., node.onclick = someFunction). Additionally, for a `<canvas>` element, the painted image is not copied.
 >
-> [Node: cloneNode() method - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode)
+> ー [Node: cloneNode() method - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode)
 
 ```html
 <body>

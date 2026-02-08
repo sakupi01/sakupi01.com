@@ -153,7 +153,7 @@ Open UI での議論の結果、最終的には Option1 が採用されること
 
 > RESOLVED: dont observe mutations in option elements. only clone into selectedoption during parsing and when a new option becomes selected
 >
-> [The full IRC log of that discussion](https://github.com/openui/open-ui/issues/825#issuecomment-2436124668)
+> ー [The full IRC log of that discussion](https://github.com/openui/open-ui/issues/825#issuecomment-2436124668)
 
 つまり、現状の`<selectedcontent>`は次のような暫定仕様になっていると言えます。
 
