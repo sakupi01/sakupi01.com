@@ -102,7 +102,7 @@ Cascade Layers でも、同じ発想で前のレイヤーの値にロールバ�
 ここまでで、Cascade Layers に関連した機能を紹介してきました。
 ここからは、Cascade Layers の一般的なユースケースをいくつか紹介していきます。
 
-Day18 で挙げた [詳細度バトル問題](/2025-css-advent-18#the-difficulties) の解決策として、具体的に Cascade Layers がどのように作用するかといった内容も含みます。
+Day18 で挙げた [詳細度バトル問題](/https://blog.sakupi01.com/dev/articles/2025-css-advent-18#the-difficulties) の解決策として、具体的に Cascade Layers がどのように作用するかといった内容も含みます。
 
 ### Style Concerns Layering - official way for ITCSS
 
@@ -221,7 +221,7 @@ e.g. 全体的なレイヤリングができていると、末端レイヤーの
 
 ### Integration with CSS Libraries and Frameworks
 
-[Day18](/2025-css-advent-18#the-difficulties) でも示したよう、サードパーティのスタイルと共存する際、CSS Modules や CSS in JS を用いても詳細度が競合する可能性がありましたが、Cascade Layers を用いると、より明示的にサードパーティのスタイルとの優先順位を管理できるようになります。
+[Day18](https://blog.sakupi01.com/dev/articles/2025-css-advent-18#the-difficulties) でも示したよう、サードパーティのスタイルと共存する際、CSS Modules や CSS in JS を用いても詳細度が競合する可能性がありましたが、Cascade Layers を用いると、より明示的にサードパーティのスタイルとの優先順位を管理できるようになります。
 
 - e.g. サードパーティの詳細度事情に踏み込まずに、上書き/除外設定が可能になる
 

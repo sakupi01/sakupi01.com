@@ -44,7 +44,7 @@ SPA の隆盛と「アプリケーションとしての Web」が拡大してい
 
 Shadow DOM など標準側での手法も存在はしはしますが、import や [adopt](https://web.dev/articles/constructable-stylesheets) しない限り、内部のスタイルは外部グローバルスタイルを参照できません。
 ShadowDOM-WebComponents を使うと Cascade から eject されたような感覚になるのは、Shadow DOM の強力なカプセル化の特性によるものです。
-[Day16](2025-css-advent-16) で触れたよう、スタイル共有手法など、Web Components 周りは現在進行形でなされている議論が多く、
+[Day16](https://blog.sakupi01.com/dev/articles/2025-css-advent-16) で触れたよう、スタイル共有手法など、Web Components 周りは現在進行形でなされている議論が多く、
 これまでに Shadow DOM によるカプセル化が現場に普及した実感はあまりありませんでした。
 
 ITCSS に代表される「レイヤリング」に関しても、`@import` の順序はもとより、ユニバーサルセレクタに指定するのか、要素レベルに指定するのか、「Class/Attribute セレクタ」を使って優先度をどう管理するのかなど、詳細度を意識した設計が根底にありました。
