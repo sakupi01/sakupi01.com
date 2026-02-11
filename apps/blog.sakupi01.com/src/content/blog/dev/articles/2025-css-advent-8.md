@@ -147,7 +147,7 @@ Author/User/UA Stylesheet、その中でもインラインスタイルや `@impo
 
 Cascading の過程で、単一の宣言を採用するアルゴリズムが、 Cascading Sorting Order です。こうして宣言を単一に絞ることで、後続の [Value Processing](#value-processing) において値を単一に絞って計算していくことができます。Cascading の結果、単一に絞られた値は、**[cascaded value](#2-cascaded-value)** となります。
 
-Cascade に関しては、このアドベントカレンダーでも多分に触れてきました。詳細は、[Day3](2025-css-advent-3)~[Day5](2025-css-advent-5) を参照して下さい。
+Cascade に関しては、このアドベントカレンダーでも多分に触れてきました。詳細は、[Day3](https://blog.sakupi01.com/dev/articles/2025-css-advent-3)~[Day5](https://blog.sakupi01.com/dev/articles/2025-css-advent-5) を参照して下さい。
 
 ### Defaulting
 

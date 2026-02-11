@@ -45,7 +45,7 @@ Cascade Sorting Order の Origin のみをとると、User Agent < User < Author
 
 Origin and Importance の Origin のみの世界だと、Author が絶対的な優先度を持っていることになります。
 
-しかし、[Day 5](2025-css-advent-5) でも説明した通り、CSS 2.1 から Cascade に Importance が導入されました。
+しかし、[Day 5](https://blog.sakupi01.com/dev/articles/2025-css-advent-5) でも説明した通り、CSS 2.1 から Cascade に Importance が導入されました。
 
 `!important` の役割は、Author が最優先だった Cascade に、User や UA が自身のスタイルを「守る」仕組みを提供することで、**バランスをとる**ことでした。
 
@@ -70,7 +70,7 @@ _Origin and Importance_
 
 ### Origin and Importance
 
-Cascade Sorting Orderの先頭に位置し、最も優先して判断されます。Origin and Importance に関しては、[Day6](2025-css-advent-6) から [Day7](2025-css-advent-7) で説明してたものです。
+Cascade Sorting Orderの先頭に位置し、最も優先して判断されます。Origin and Importance に関しては、[Day6](https://blog.sakupi01.com/dev/articles/2025-css-advent-6) から [Day7](https://blog.sakupi01.com/dev/articles/2025-css-advent-7) で説明してたものです。
 
 ### Context
 

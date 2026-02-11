@@ -318,3 +318,7 @@ Web における UI を構築するあらゆる手段が、より分かりやす
 - [CSS Scope & Encapsulation](https://css.oddbird.net/scope/)
 - [Early design review of light-DOM CSS Scope proposal · Issue #593 · w3ctag/design-reviews](https://github.com/w3ctag/design-reviews/issues/593)
 - [CSS Scoping Solutions Brainstorming - Google Docs](https://docs.google.com/document/d/1hhjmuQE6BTTnAyKP3spDr8sU6lpXArh8LDfihZh78hw/edit?tab=t.0#heading=h.ux941gvq45mf)
+
+---
+
+<advent-calendar-2025 />
