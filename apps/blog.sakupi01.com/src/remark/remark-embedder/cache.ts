@@ -11,7 +11,7 @@ export const cache = (cachePath: string): Cache => {
   const cache: Record<string, string> = (() => {
     try {
       return JSON.parse(fs.readFileSync(cachePath, "utf-8"));
-    } catch (e) {
+    } catch {
       // If the file doesn't exist or has invalid JSON, return empty object
       return {};
     }
