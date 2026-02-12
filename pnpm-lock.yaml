@@ -119,7 +119,7 @@ importers:
         version: 1.2.0
       marked:
         specifier: ^15.0.7
-        version: 15.0.7
+        version: 15.0.12
       open-graph-scraper:
         specifier: ^6.11.0
         version: 6.11.0
@@ -3532,8 +3532,8 @@ packages:
     peerDependencies:
       react: '>= 0.14.0'
 
-  marked@15.0.7:
-    resolution: {integrity: sha512-dgLIeKGLx5FwziAnsk4ONoGwHwGPJzselimvlVskE9XLN4Orv9u2VA3GWw/lYUqjfA0rUT/6fqKwfZJapP9BEg==}
+  marked@15.0.12:
+    resolution: {integrity: sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -9304,7 +9304,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  marked@15.0.7: {}
+  marked@15.0.12: {}
 
   markuplint@4.11.5(typescript@5.4.5):
     dependencies:
