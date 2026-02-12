@@ -21,17 +21,29 @@ export default [
     ],
   },
 
-  // Base recommended configuration for all files
-  eslint.configs.recommended,
-
-  // TypeScript configuration
-  ...tseslint.configs.recommended,
-
-  // Astro configuration
-  ...eslintPluginAstro.configs.recommended,
-
-  // Global settings for all files
+  // Base recommended configuration (scoped to JS/TS/Astro, not CSS)
   {
+    ...eslint.configs.recommended,
+    files: ["**/*.{js,mjs,cjs,ts,tsx,astro}"],
+  },
+
+  // TypeScript configuration (scoped to JS/TS/Astro, not CSS)
+  ...tseslint.configs.recommended.map((config) =>
+    config.files
+      ? config
+      : { ...config, files: ["**/*.{js,mjs,cjs,ts,tsx,astro}"] }
+  ),
+
+  // Astro configuration (scoped to JS/TS/Astro, not CSS)
+  ...eslintPluginAstro.configs.recommended.map((config) =>
+    config.files
+      ? config
+      : { ...config, files: ["**/*.{js,mjs,cjs,ts,tsx,astro}"] }
+  ),
+
+  // Global settings for JS/TS/Astro files
+  {
+    files: ["**/*.{js,mjs,cjs,ts,tsx,astro}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -109,16 +121,20 @@ export default [
     },
   },
   {
-    files: ["./**/*.css", "src/**/*.astro"],
+    files: ["**/*.css"],
     plugins: {
       css,
     },
     language: "css/css",
+    languageOptions: {
+      // for relatively new syntax features, be more lenient
+      tolerant: true,
+    },
     rules: {
       "css/no-duplicate-imports": "error",
       // Lint CSS files to ensure they are using
       // only Baseline Widely available features:
-      "css/require-baseline": [
+      "css/use-baseline": [
         "warn",
         {
           available: "widely",
@@ -134,7 +150,7 @@ export default [
   // but eslint-plugin-prettier cannot parse .astro inline <script>/<style>.
   // Also target virtual files extracted by eslint-plugin-astro's processor.
   {
-    files: ["**/*.astro", "**/*.astro/*.js", "**/*.astro/*.ts"],
+    files: ["**/*.astro", "**/*.astro/*.js", "**/*.astro/*.ts", "**/*.css"],
     rules: {
       "prettier/prettier": "off",
     },
