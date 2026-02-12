@@ -9,7 +9,7 @@
     "check": "pnpm check:typecheck && pnpm check:lint && pnpm check:format && pnpm check:markuplint",
     "check:format": "prettier --check .",
     "check:lint": "eslint .",
-    "check:typecheck": "tsc --noEmit",
+    "check:typecheck": "astro sync && tsc --noEmit",
     "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
     "fix:format": "prettier --write .",
     "fix:lint": "eslint --fix ."
