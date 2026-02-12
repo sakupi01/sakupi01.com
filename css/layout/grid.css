@@ -45,9 +45,9 @@
 .grid {
   /* Automatic grid layout (e.g. for galleries, card listings, etc) */
   grid-template-columns: repeat(
-      var(--grid-auto-layout),
-      minmax(min(var(--grid-item-min-width), 100%), var(--grid-item-max-width))
-    );
+    var(--grid-auto-layout),
+    minmax(min(var(--grid-item-min-width), 100%), var(--grid-item-max-width))
+  );
 }
 
 /* Centered grid. */

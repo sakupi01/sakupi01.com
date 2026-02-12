@@ -8,16 +8,16 @@ Typography settings.
 
 html {
   --base-font-family: var(--font-family-inter), var(--font-san-serif-fallback);
-  --base-font-family-title: var(--font-family-alegreya),
-    var(--font-fallback-alegreya), serif;
-  --base-font-family-operator: var(--font-family-operator),
-    var(--font-san-serif-fallback);
-  --base-font-family-cartograph: var(--font-family-cartograph),
-    var(--font-san-serif-fallback);
-  --base-font-family-cascadia: var(--font-family-cascadia),
-    var(--font-san-serif-fallback);
-  --base-font-family-alegreya: var(--font-family-alegreya),
-    var(--font-fallback-alegreya), serif;
+  --base-font-family-title:
+    var(--font-family-alegreya), var(--font-fallback-alegreya), serif;
+  --base-font-family-operator:
+    var(--font-family-operator), var(--font-san-serif-fallback);
+  --base-font-family-cartograph:
+    var(--font-family-cartograph), var(--font-san-serif-fallback);
+  --base-font-family-cascadia:
+    var(--font-family-cascadia), var(--font-san-serif-fallback);
+  --base-font-family-alegreya:
+    var(--font-family-alegreya), var(--font-fallback-alegreya), serif;
   --base-font-size: 100%;
   --base-font-size-2k: 110%; /* 2K screens */
   --base-font-size-4k: 200%; /* 4K screens */

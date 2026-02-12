@@ -231,8 +231,8 @@
   --space-l-xl: clamp(2rem, 1.125rem + 2.9167vw, 3.75rem);
 
   /* One-up pairs */
-  --lh-2xs-xs: .3lh;
-  --lh-xs-s: .5lh;
+  --lh-2xs-xs: 0.3lh;
+  --lh-xs-s: 0.5lh;
   --lh-s-m: 1lh;
   --lh-m-l: 1.2lh;
   --lh-l-xl: 1.5lh;
