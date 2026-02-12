@@ -221,6 +221,7 @@ export const remarkLinkCard = (options?: Options) => {
           transformers.push(async () => {
             const data = await fetchData(urls[0], options);
             const linkCardHtml = createLinkCard(data);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (tree.children as any).splice(index, 1, {
               type: "html",
               value: linkCardHtml,
@@ -236,6 +237,7 @@ export const remarkLinkCard = (options?: Options) => {
           transformers.push(async () => {
             const data = await fetchData(url, options);
             const linkCardHtml = createLinkCard(data);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (tree.children as any).splice(index, 1, {
               type: "html",
               value: linkCardHtml,

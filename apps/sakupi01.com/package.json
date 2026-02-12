@@ -6,13 +6,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check:format": "prettier --write .",
-    "check:format:check": "prettier --check .",
-    "check:lint": "eslint . --ext .js,.ts,.astro",
+    "check": "pnpm check:typecheck && pnpm check:lint && pnpm check:format && pnpm check:markuplint",
+    "check:format": "prettier --check .",
+    "check:lint": "eslint .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "pnpm check:lint && pnpm check:format",
     "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
-    "check": "pnpm check:typecheck & pnpm check:lint & pnpm check:format:check & pnpm check:markuplint"
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix ."
   },
   "dependencies": {
     "@repo/ui": "workspace:*",

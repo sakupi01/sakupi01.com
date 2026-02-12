@@ -28,7 +28,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
 
   <ul class="tags">
     {
-      tags.map((tag: any) => (
+      tags.map((tag: string) => (
         <li>
           <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
         </li>

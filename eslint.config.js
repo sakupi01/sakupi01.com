@@ -2,6 +2,7 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import eslintPluginAstro from "eslint-plugin-astro";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
+import css from "@eslint/css";
 
 export default [
   // Ignore patterns
@@ -46,6 +47,27 @@ export default [
         window: "readonly",
         document: "readonly",
         navigator: "readonly",
+        HTMLElement: "readonly",
+        Element: "readonly",
+        Node: "readonly",
+        customElements: "readonly",
+        fetch: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
+        localStorage: "readonly",
+        sessionStorage: "readonly",
+        Audio: "readonly",
+        URL: "readonly",
+        URLSearchParams: "readonly",
+        Event: "readonly",
+        CustomEvent: "readonly",
+        MutationObserver: "readonly",
+        IntersectionObserver: "readonly",
+        ResizeObserver: "readonly",
+        requestAnimationFrame: "readonly",
+        cancelAnimationFrame: "readonly",
         // ES2022 globals are included by default with ecmaVersion: 'latest'
       },
     },
@@ -86,7 +108,35 @@ export default [
       },
     },
   },
-
+  {
+    files: ["./**/*.css", "src/**/*.astro"],
+    plugins: {
+      css,
+    },
+    language: "css/css",
+    rules: {
+      "css/no-duplicate-imports": "error",
+      // Lint CSS files to ensure they are using
+      // only Baseline Widely available features:
+      "css/require-baseline": [
+        "warn",
+        {
+          available: "widely",
+        },
+      ],
+    },
+  },
   // Prettier configuration (must be last to override other configs)
   eslintPluginPrettier,
+
+  // Disable prettier/prettier for .astro files (must be AFTER eslintPluginPrettier).
+  // prettier-plugin-astro handles formatting via `prettier --write .` directly,
+  // but eslint-plugin-prettier cannot parse .astro inline <script>/<style>.
+  // Also target virtual files extracted by eslint-plugin-astro's processor.
+  {
+    files: ["**/*.astro", "**/*.astro/*.js", "**/*.astro/*.ts"],
+    rules: {
+      "prettier/prettier": "off",
+    },
+  },
 ];

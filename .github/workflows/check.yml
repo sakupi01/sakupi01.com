@@ -46,4 +46,4 @@ jobs:
         run: pnpm install -g turbo
 
       - name: 💅🏻 Type Check, Lint and format
-        run: pnpm run check:all
+        run: pnpm run check

@@ -7,15 +7,15 @@
     "build:cached": "astro build -- --force",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "pnpm check:typecheck && pnpm check:lint && pnpm check:format && pnpm check:markuplint",
     "check:textlint": "textlint \"**/*.md\"",
     "check:textlint:fix": "textlint \"**/*.md\" --fix",
-    "check:format": "prettier --write .",
-    "check:format:check": "prettier --check .",
-    "check:lint": "eslint . --ext .js,.ts,.astro",
+    "check:format": "prettier --check .",
+    "check:lint": "eslint .",
     "check:typecheck": "tsc --noEmit",
-    "check:lint-format": "pnpm check:lint && pnpm check:format",
     "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
-    "check": "pnpm check:typecheck & pnpm check:lint & pnpm check:format:check & pnpm check:markuplint"
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix ."
   },
   "dependencies": {
     "@astrojs/mdx": "^4.1.0",
@@ -49,6 +49,7 @@
     "@proofdict/textlint-rule-proofdict": "^3.1.2",
     "@types/he": "^1.2.3",
     "@types/mdast": "^4.0.4",
-    "@types/sanitize-filename": "^1.6.3"
+    "@types/sanitize-filename": "^1.6.3",
+    "mdast-util-directive": "^3.1.0"
   }
 }

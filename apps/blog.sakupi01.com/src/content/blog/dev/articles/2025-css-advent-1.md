@@ -18,7 +18,7 @@ status: "published"
 
 ## The Web was not stylable
 
-1989年に CERN で Tim Berners-Lee が World Wide Web というコンセプトを提唱し、1990年に彼自身のコンピュータである NeXT で動作する最初の Web ブラウザ、 WorldWideWeb（later, Nexus） を開発しました。
+1989年に CERN で研究していた Tim Berners-Lee が 「Web」 というコンセプトを提案し、1990年に彼自身のコンピュータである NeXT で動作する最初の Web ブラウザ、 WorldWideWeb（later, Nexus） を開発しました。
 
 ![Tim Berners-Lee: WorldWideWeb, the first Web client](../../../../assets/images/www.png)
 _出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)_
