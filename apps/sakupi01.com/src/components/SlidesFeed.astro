@@ -139,11 +139,13 @@ function formatRFC2822Date(dateStr: string): string {
                 )}
                 <figcaption>
                   <div class="slide-meta">
-                    <h3>{slide.title}</h3>
-                    {slide.description && <p>{slide.description}</p>}
-                    <span class="slide-date">
-                      {formatRFC2822Date(slide.pubDate)}
-                    </span>
+                    <div>
+                      <h3>{slide.title}</h3>
+                      {slide.description && <p>{slide.description}</p>}
+                      <p class="slide-date">
+                        {formatRFC2822Date(slide.pubDate)}
+                      </p>
+                    </div>
                     {slide.tags.length > 0 && (
                       <div class="slide-tags">
                         {slide.tags.map((tag) => (
@@ -329,6 +331,7 @@ function formatRFC2822Date(dateStr: string): string {
       padding: 2rem;
       display: flex;
       justify-content: center;
+      height: 100%;
       cursor: pointer;
       transition:
         --gradPoint 0.5s,
@@ -337,7 +340,6 @@ function formatRFC2822Date(dateStr: string): string {
         scale 0.3s;
       color: var(--base-color-dark);
       border-radius: 12px;
-      height: 100%;
       opacity: 0.6;
       scale: 0.95;
       interactivity: inert;
@@ -345,6 +347,18 @@ function formatRFC2822Date(dateStr: string): string {
       figure {
         margin: 0;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        figcaption {
+          flex-grow: 1;
+          .slide-meta {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+        }
       }
 
       h3 {
@@ -435,6 +449,5 @@ function formatRFC2822Date(dateStr: string): string {
     color: inherit;
     opacity: 0.8;
     margin: 0.5rem 0;
-    display: block;
   }
 </style>
