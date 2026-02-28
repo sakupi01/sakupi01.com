@@ -185,7 +185,7 @@
                 @supports (animation-name: foo) {
 
                     /* true case: ident() is supported */
-                    @supports not (animation-name: ident()) and (animation-name: ident(myident)) and (animation-name: ident("myident")) and (animation-name: ident(3 "myident")) and (animation-name: ident(-- myident)) and not (animation-name: ident(rgb(1, 2, 3))) and not (animation-name: ident(5px)) {
+                    @supports (not (animation-name: ident())) and (animation-name: ident(myident)) and (animation-name: ident("myident")) and (animation-name: ident(3 "myident")) and (animation-name: ident(-- myident)) and (not (animation-name: ident(rgb(1, 2, 3)))) and (not (animation-name: ident(5px))) {
                         .checker-fundamentals {
                             background: rgba(205 255 205 / 0.8);
                         }
@@ -197,7 +197,7 @@
                     }
 
                     /* false case */
-                    @supports not (not (animation-name: ident()) and (animation-name: ident(myident)) and (animation-name: ident("myident")) and (animation-name: ident(3 "myident")) and (animation-name: ident(-- myident)) and not (animation-name: ident(rgb(1, 2, 3))) and not (animation-name: ident(5px))) {
+                    @supports not ((not (animation-name: ident())) and (animation-name: ident(myident)) and (animation-name: ident("myident")) and (animation-name: ident(3 "myident")) and (animation-name: ident(-- myident)) and (not (animation-name: ident(rgb(1, 2, 3)))) and (not (animation-name: ident(5px)))) {
                         .checker-fundamentals {
                             background: rgba(255 205 205 / 0.8);
                         }
