@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS ident() function | studio.sakupi01.com</title>
+</head>
+
+<style>
+    @layer checker {
+        .checker {
+            padding: 1em;
+            margin: 1em 0;
+            border: 1px solid #ccc;
+            color: black;
+            text-align: center;
+            left: 1em;
+            right: 1em;
+
+            p {
+                margin: 0;
+            }
+
+            .judge {
+                font-weight: bold;
+            }
+
+            a {
+                color: blue;
+            }
+
+            /* CHOICE 1: IACVT color (which @support doesn't work.) */
+            /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+        }
+    }
+</style>
+
+<body>
+    <h1>CSS ident()</h1>
+    <ul>
+        <li>Summary: </li>
+        <li>
+            <ul>
+                <li>Intents: </li>
+                <li>
+                    <ul>
+                        <li> <a
+                                href="https://groups.google.com/a/chromium.org/g/blink-dev/c/pAqsAGZIIjw/m/oHt9GSH7AQAJ">Prototype:
+                                The ident() function</a>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>ChromeStatus: </li>
+                <li>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://chromestatus.com/feature/6230159413477376?gate=5120363822055424">https://chromestatus.com/feature/6230159413477376?gate=5120363822055424</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>Spec:</li>
+                <li>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://drafts.csswg.org/css-values-5/#ident">https://drafts.csswg.org/css-values-5/#ident</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>Explainer:</li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="#"> - </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>Initial Proposal:</li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/w3c/csswg-drafts/issues/9141"> [css-values] A way to
+                                dynamically
+                                construct custom-ident and dashed-ident values #9141</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>TAG Design Review:</li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="#">-</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>Standard Positions:</li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="#">-</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>Implementations:</li>
+                <li>
+                    <ul>
+                        <li>
+                            <a href="https://bugs.webkit.org/show_bug.cgi?id=284895">WebKit</a>
+                        </li>
+                        <li>
+                            <a href="https://issues.chromium.org/issues/384930424">Chromium</a>
+                        </li>
+                        <li>
+                            <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1942078"> Gecko</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>=== This is a demo for <code>ident()</code> ===</h2>
+
+    <section>
+        <h3>=== Fundamentals ===</h3>
+
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-values/ident-function-parsing.html?label=master&label=experimental&aligned&q=ident-function-parsing.html">Parsing
+                            Behavior</a>
+                    </li>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-values/ident-function-computed.html?label=master&label=experimental&aligned&q=ident">Computed
+                            Value</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <style>
+            /* 
+        ////////////////////
+        check parsing behavior
+        ////////////////////
+        */
+            @layer checker {
+
+                /* 0: check base property */
+                @supports (animation-name: foo) {
+
+                    /* true case: ident() is supported */
+                    @supports not (animation-name: ident()) and (animation-name: ident(myident)) and (animation-name: ident("myident")) and (animation-name: ident(3 "myident")) and (animation-name: ident(-- myident)) and not (animation-name: ident(rgb(1, 2, 3))) and not (animation-name: ident(5px)) {
+                        .checker-fundamentals {
+                            background: rgba(205 255 205 / 0.8);
+                        }
+
+                        .checker-fundamentals .error,
+                        .checker-fundamentals .note {
+                            display: none;
+                        }
+                    }
+
+                    /* false case */
+                    @supports not (not (animation-name: ident()) and (animation-name: ident(myident)) and (animation-name: ident("myident")) and (animation-name: ident(3 "myident")) and (animation-name: ident(-- myident)) and not (animation-name: ident(rgb(1, 2, 3))) and not (animation-name: ident(5px))) {
+                        .checker-fundamentals {
+                            background: rgba(255 205 205 / 0.8);
+                        }
+
+                        .checker-fundamentals .success {
+                            display: none;
+                        }
+                    }
+                }
+
+                /* base property is not supported */
+                @supports not (animation-name: foo) {
+                    .checker-fundamentals .note {
+                        display: block;
+                    }
+                }
+            }
+        </style>
+
+        <div class="checker checker-fundamentals">
+            <p class="error judge">❌ Your browser doesn't support this feature.</p>
+            <p class="success judge">✅ Your browser supports this feature!</p>
+            <p>This is a demo for <a href="https://drafts.csswg.org/css-values-5/#ident"
+                    target="_top">https://drafts.csswg.org/css-values-5/#ident</a>
+            </p>
+            <p class="note">Try it in Chrome Canary with <br />
+                <code>--enable-experimental-web-platform-features</code>.
+            </p>
+            <small><time datetime="2026-03-01">This DEMO is last updated on: 2026-03-01</time></small>
+        </div>
+
+    </section>
+
+    <section>
+        <h3>=== Anchor Names Support ===</h3>
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-anchor-position/anchor-ident-function.html?label=master&label=experimental&aligned&q=css-anchor-position%2Fanchor-ident-function.html">Parsing
+                            Behavior</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <style>
+            /* 
+        ////////////////////
+        check parsing behavior
+        ////////////////////
+        */
+            @layer checker {
+
+                /* CHOICE 2: when @support is available */
+                /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+                /* put the feature name */
+                /* true case */
+                @supports (anchor-name: ident()) {
+                    .checker-anchor-names {
+                        background: rgba(205 255 205 / 0.8);
+
+                        .error {
+                            display: none;
+                        }
+
+                        .note {
+                            display: none;
+                        }
+                    }
+                }
+
+                /* false case */
+                @supports not (anchor-name: ident(myident)) {
+                    .checker-anchor-names {
+                        background: rgba(255 205 205 / 0.8);
+
+                        .success {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        </style>
+
+        <div class="checker checker-anchor-names">
+            <p class="error judge">❌ Your browser doesn't support this feature.</p>
+            <p class="success judge">✅ Your browser supports this feature!</p>
+            <p>This is a demo for <a href="https://drafts.csswg.org/css-values-5/#ident"
+                    target="_top">https://drafts.csswg.org/css-values-5/#ident</a>
+            </p>
+            <p class="note">Try it in Chrome Canary with <br />
+                <code>--enable-experimental-web-platform-features</code>.
+            </p>
+            <small><time datetime="2026-03-01">This DEMO is last updated on: 2026-03-01</time></small>
+        </div>
+
+        <div id="cb">
+            <div data-number="1">
+                <button class="anchor-element">Target: </button>
+                <div class="positioned-element">
+                    👀 I'm watching at ...
+                </div>
+            </div>
+
+            <div data-number="2">
+                <button class="anchor-element">Target: </button>
+                <div class="positioned-element">
+                    👀 I'm watching at ...
+                </div>
+            </div>
+
+            <div data-number="3">
+                <button class="anchor-element">Target: </button>
+                <div class="positioned-element" contenteditable>
+                    👀 I'm watching at ...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>=== Timeline Names Support ===</h3>
+
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/scroll-animations/css/timeline-names-ident-function.html?label=master&label=experimental&aligned&q=scroll-animations%2Fcss%2Ftimeline-names-ident-function.html">Parsing
+                            Behavior</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>=== Container&Container Names Support ===</h3>
+
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-conditional/container-queries/container-ident-function.html?label=master&label=experimental&aligned&q=css%2Fcss-conditional%2Fcontainer-queries%2Fcontainer-ident-function.html">Parsing
+                            Behavior</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>=== @position-try/position-try Support ===</h3>
+
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-anchor-position/position-try-ident-function.html?label=master&label=experimental&aligned&q=ss%2Fcss-anchor-position%2Fposition-try-ident-function.html">Parsing
+                            Behavior</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>=== ident within @property Support ===</h3>
+
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-properties-values-api/registered-property-ident-function.html?label=master&label=experimental&aligned&q=%2Fcss%2Fcss-properties-values-api%2Fregistered-property-ident-function.html">Parsing
+                            Behavior</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>=== ident within var() Support ===</h3>
+
+        <ul>
+            <li>Tests:</li>
+            <li>
+                <ul>
+                    <li><a
+                            href="https://wpt.fyi/results/css/css-variables/var-ident-function.html?label=master&label=experimental&aligned&q=css%2Fcss-variables%2Fvar-ident-function.html">Parsing
+                            Behavior</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</body>
+
+</html>
