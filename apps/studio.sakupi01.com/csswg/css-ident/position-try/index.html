@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Position-try | CSS ident() | studio.sakupi01.com</title>
+  <style>
+    li:not(.index li) {
+      color: red;
+
+      &::before {
+        content: "FAIL: ";
+      }
+    }
+
+    li:not(.index li).pass {
+      color: green;
+
+      &::before {
+        content: "PASS: ";
+      }
+    }
+
+    /* Parse-time checks via @supports */
+    @supports (position-try-fallbacks: --foo) {
+      #test-supports-base {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (position-try-fallbacks: ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-position-try-fallbacks {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (position-try: most-width ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-position-try-shorthand {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    /* Demo styles */
+    #position-try-demo { position: relative; min-height: 120px; anchor-scope: all; }
+    #pt-anchor { anchor-name: --pt-anchor; }
+    @position-try --myident42 { top: anchor(bottom); left: anchor(left); }
+    #pt-box {
+      position: absolute;
+      position-anchor: --pt-anchor;
+      position-try: most-width ident("--myident" calc(42 * sign(1em - 1px)));
+      position-area: bottom left;
+      background: #fff3cf;
+      padding: 4px 8px;
+    }
+
+    #probe { position: absolute; visibility: hidden; }
+  </style>
+</head>
+
+<body>
+  <p><a href="../">&larr; Back to index</a></p>
+
+  <h1>@position-try / position-try</h1>
+  <p>Spec: <a href="https://drafts.csswg.org/css-anchor-position-1/">css-anchor-position-1</a></p>
+  <ul class="index">
+    <li><a href="https://wpt.fyi/results/css/css-anchor-position/position-try-ident-function.html">position-try-ident-function.html</a></li>
+  </ul>
+
+  <div id="probe" aria-hidden="true"></div>
+
+  <h2>Parse checks (@supports)</h2>
+  <ul>
+    <li id="test-supports-base">supports position-try-fallbacks: --foo</li>
+    <li id="test-supports-position-try-fallbacks">supports position-try-fallbacks: ident(...)</li>
+    <li id="test-supports-position-try-shorthand">supports position-try: most-width ident(...)</li>
+  </ul>
+
+  <h2>Computed value checks (JS)</h2>
+  <ul>
+    <li id="test-computed-position-try-fallbacks">computed position-try-fallbacks</li>
+    <li id="test-computed-position-try-shorthand">computed position-try shorthand</li>
+  </ul>
+
+  <h2>Demo</h2>
+  <div id="position-try-demo">
+    <span id="pt-anchor">anchor</span>
+    <div id="pt-box">position-try demo</div>
+  </div>
+
+  <script>
+    const probe = document.getElementById("probe");
+
+    function testComputed(id, property, value, expected) {
+      probe.style.removeProperty(property);
+      probe.style.setProperty(property, value);
+      const got = getComputedStyle(probe).getPropertyValue(property).trim();
+      const el = document.getElementById(id);
+      if (got === expected) {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    const actualIdent = 'ident("--myident" calc(42 * sign(1em - 1px)))';
+    const expectedIdent = "--myident42";
+
+    testComputed("test-computed-position-try-fallbacks", "position-try-fallbacks", actualIdent, expectedIdent);
+    testComputed("test-computed-position-try-shorthand", "position-try", `most-width ${actualIdent}`, `most-width ${expectedIdent}`);
+  </script>
+</body>
+
+</html>

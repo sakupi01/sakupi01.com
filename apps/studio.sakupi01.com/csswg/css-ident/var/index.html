@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>var() with ident() | CSS ident() | studio.sakupi01.com</title>
+  <style>
+    li:not(.index li) {
+      color: red;
+
+      &::before {
+        content: "FAIL: ";
+      }
+    }
+
+    li:not(.index li).pass {
+      color: green;
+
+      &::before {
+        content: "PASS: ";
+      }
+    }
+
+    /* Parse-time checks via @supports */
+    @supports (--foo: var(ident("--bar"))) {
+      #test-supports-var-ident {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    /* Demo styles */
+    #var-target {
+      --myprop3: PASS;
+      --var-with-ident-fn: FAIL1;
+      --var-with-ident-fn: var(ident("--myprop" calc(3 * sign(1em - 1px))), FAIL2);
+    }
+
+    #probe {
+      position: absolute;
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="../">&larr; Back to index</a></p>
+
+  <h1><code>ident()</code> within <code>var()</code></h1>
+  <p>Spec: <a href="https://drafts.csswg.org/css-variables-2/">css-variables-2</a></p>
+  <ul class="index">
+    <li><a href="https://wpt.fyi/results/css/css-variables/var-ident-function.html">var-ident-function.html</a></li>
+  </ul>
+
+  <div id="probe" aria-hidden="true"></div>
+
+  <h2>Parse checks (@supports)</h2>
+  <ul>
+    <li id="test-supports-var-ident">supports --foo: var(ident("--bar"))</li>
+  </ul>
+
+  <h2>Computed value checks (JS)</h2>
+  <ul>
+    <li id="test-computed-var-ident">var(ident(...)) resolves referenced custom property</li>
+    <li id="test-computed-unparsed">ident() remains unresolved in unregistered custom property</li>
+    <li id="test-computed-invalid-lookup">invalid custom property lookup via ident() yields empty</li>
+    <li id="test-computed-invalid-fallback">invalid lookup fallback works</li>
+  </ul>
+
+  <h2>Demo</h2>
+  <div id="var-target">
+    computed <code>--var-with-ident-fn</code>: <output id="var-out"></output>
+  </div>
+
+  <script>
+    const probe = document.getElementById("probe");
+
+    // Test 1: var(ident(...)) resolves referenced custom property
+    {
+      const t = document.getElementById("var-target");
+      const got = getComputedStyle(t).getPropertyValue("--var-with-ident-fn").trim();
+      document.getElementById("var-out").value = got || "(empty)";
+      const el = document.getElementById("test-computed-var-ident");
+      if (got === "PASS") {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    // Test 2: ident() remains unresolved in unregistered custom property
+    {
+      const t = document.createElement("div");
+      t.style.setProperty("--unparsed", 'ident("x")');
+      document.body.appendChild(t);
+      const got = getComputedStyle(t).getPropertyValue("--unparsed").trim();
+      t.remove();
+      const el = document.getElementById("test-computed-unparsed");
+      if (got === 'ident("x")') {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    // Test 3: invalid custom property lookup via ident() yields empty
+    {
+      const t = document.createElement("div");
+      t.style.setProperty("--nodash", 'var(ident("nodash"))');
+      document.body.appendChild(t);
+      const got = getComputedStyle(t).getPropertyValue("--nodash").trim();
+      t.remove();
+      const el = document.getElementById("test-computed-invalid-lookup");
+      if (got === "") {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    // Test 4: invalid lookup fallback works
+    {
+      const t = document.createElement("div");
+      t.style.setProperty("--nodash-fallback", 'var(ident("nodash"), PASS)');
+      document.body.appendChild(t);
+      const got = getComputedStyle(t).getPropertyValue("--nodash-fallback").trim();
+      t.remove();
+      const el = document.getElementById("test-computed-invalid-fallback");
+      if (got === "PASS") {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+  </script>
+</body>
+
+</html>

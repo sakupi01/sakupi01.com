@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anchor Positioning | CSS ident() | studio.sakupi01.com</title>
+  <style>
+    li:not(.index li) {
+      color: red;
+
+      &::before {
+        content: "FAIL: ";
+      }
+    }
+
+    li:not(.index li).pass {
+      color: green;
+
+      &::before {
+        content: "PASS: ";
+      }
+    }
+
+    /* Parse-time checks via @supports */
+    @supports (anchor-name: foo) {
+      #test-supports-base {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (anchor-name: ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-anchor-name {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (position-anchor: ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-position-anchor {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (anchor-scope: ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-anchor-scope {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    /* Demo styles */
+    #anchor-demo { position: relative; min-height: 170px; anchor-scope: all; }
+    .anchor-row { position: relative; min-height: 36px; margin-bottom: 10px; }
+    .tip { position: absolute; position-area: center right; background: #fff3d4; padding: 4px 8px; white-space: nowrap; }
+    .anchor-row[data-n="1"] .anchor-btn { anchor-name: ident("--tooltip-" 1); }
+    .anchor-row[data-n="2"] .anchor-btn { anchor-name: ident("--tooltip-" 2); }
+    .anchor-row[data-n="3"] .anchor-btn { anchor-name: ident("--tooltip-" 3); }
+    .anchor-row[data-n="1"] .tip { position-anchor: ident("--tooltip-" 1); }
+    .anchor-row[data-n="2"] .tip { position-anchor: ident("--tooltip-" 2); }
+    .anchor-row[data-n="3"] .tip { position-anchor: ident("--tooltip-" 3); }
+
+    #probe { position: absolute; visibility: hidden; }
+  </style>
+</head>
+
+<body>
+  <p><a href="../">&larr; Back to index</a></p>
+
+  <h1>Anchor Positioning</h1>
+  <p>Spec: <a href="https://drafts.csswg.org/css-anchor-position-1/">css-anchor-position-1</a></p>
+  <ul class="index">
+    <li><a href="https://wpt.fyi/results/css/css-anchor-position/anchor-ident-function.html">anchor-ident-function.html</a></li>
+  </ul>
+
+  <div id="probe" aria-hidden="true"></div>
+
+  <h2>Parse checks (@supports)</h2>
+  <ul>
+    <li id="test-supports-base">supports anchor-name: foo</li>
+    <li id="test-supports-anchor-name">supports anchor-name: ident(...)</li>
+    <li id="test-supports-position-anchor">supports position-anchor: ident(...)</li>
+    <li id="test-supports-anchor-scope">supports anchor-scope: ident(...)</li>
+  </ul>
+
+  <h2>Computed value checks (JS)</h2>
+  <ul>
+    <li id="test-computed-anchor-name">computed anchor-name</li>
+    <li id="test-computed-position-anchor">computed position-anchor</li>
+    <li id="test-computed-anchor-scope">computed anchor-scope</li>
+  </ul>
+
+  <h2>Demo</h2>
+  <div id="anchor-demo">
+    <div class="anchor-row" data-n="1"><button class="anchor-btn">Anchor 1</button><div class="tip">tip 1</div></div>
+    <div class="anchor-row" data-n="2"><button class="anchor-btn">Anchor 2</button><div class="tip">tip 2</div></div>
+    <div class="anchor-row" data-n="3"><button class="anchor-btn">Anchor 3</button><div class="tip">tip 3</div></div>
+  </div>
+
+  <script>
+    const probe = document.getElementById("probe");
+
+    function testComputed(id, property, value, expected) {
+      probe.style.removeProperty(property);
+      probe.style.setProperty(property, value);
+      const got = getComputedStyle(probe).getPropertyValue(property).trim();
+      const el = document.getElementById(id);
+      if (got === expected) {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    const actualIdent = 'ident("--myident" calc(42 * sign(1em - 1px)))';
+    const expectedIdent = "--myident42";
+
+    testComputed("test-computed-anchor-name", "anchor-name", actualIdent, expectedIdent);
+    testComputed("test-computed-position-anchor", "position-anchor", actualIdent, expectedIdent);
+    testComputed("test-computed-anchor-scope", "anchor-scope", actualIdent, expectedIdent);
+  </script>
+</body>
+
+</html>

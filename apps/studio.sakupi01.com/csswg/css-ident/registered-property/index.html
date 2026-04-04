@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registered Property | CSS ident() | studio.sakupi01.com</title>
+  <style>
+    li:not(.index li) {
+      color: red;
+
+      &::before {
+        content: "FAIL: ";
+      }
+    }
+
+    li:not(.index li).pass {
+      color: green;
+
+      &::before {
+        content: "PASS: ";
+      }
+    }
+
+    /* Demo styles */
+    @property --ident-demo {
+      syntax: "<custom-ident>";
+      inherits: true;
+      initial-value: none;
+    }
+    #registered-target {
+      --ident-demo: ident("--myident" calc(42 * sign(1em - 1px)));
+    }
+
+    #probe { position: absolute; visibility: hidden; }
+  </style>
+</head>
+
+<body>
+  <p><a href="../">&larr; Back to index</a></p>
+
+  <h1>Registered Custom Property (<code>@property</code>)</h1>
+  <p>Spec: <a href="https://drafts.css-houdini.org/css-properties-values-api-1/">css-properties-values-api-1</a></p>
+  <ul class="index">
+    <li><a href="https://wpt.fyi/results/css/css-properties-values-api/registered-property-ident-function.html">registered-property-ident-function.html</a></li>
+  </ul>
+
+  <div id="probe" aria-hidden="true"></div>
+
+  <h2>Computed value checks (JS)</h2>
+  <ul>
+    <li id="test-computed-registered">registered custom property resolves ident()</li>
+  </ul>
+
+  <h2>Demo</h2>
+  <div id="registered-target">
+    computed <code>--ident-demo</code>: <output id="registered-out"></output>
+  </div>
+
+  <script>
+    const probe = document.getElementById("probe");
+    const expectedIdent = "--myident42";
+
+    function testComputed(id, property, value, expected) {
+      probe.style.removeProperty(property);
+      probe.style.setProperty(property, value);
+      const got = getComputedStyle(probe).getPropertyValue(property).trim();
+      const el = document.getElementById(id);
+      if (got === expected) {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    // Test registered property
+    const target = document.getElementById("registered-target");
+    const got = getComputedStyle(target).getPropertyValue("--ident-demo").trim();
+    document.getElementById("registered-out").value = got || "(empty)";
+    const el = document.getElementById("test-computed-registered");
+    if (got === expectedIdent) {
+      el.classList.add("pass");
+    } else {
+      el.textContent += ` (got="${got}")`;
+    }
+  </script>
+</body>
+
+</html>

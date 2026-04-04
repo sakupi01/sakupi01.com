@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline Names | CSS ident() | studio.sakupi01.com</title>
+  <style>
+    li:not(.index li) {
+      color: red;
+
+      &::before {
+        content: "FAIL: ";
+      }
+    }
+
+    li:not(.index li).pass {
+      color: green;
+
+      &::before {
+        content: "PASS: ";
+      }
+    }
+
+    /* Parse-time checks via @supports */
+    @supports (scroll-timeline-name: foo) {
+      #test-supports-base {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (scroll-timeline-name: ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-scroll-timeline-name {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    @supports (animation-timeline: ident("--myident" calc(42 * sign(1em - 1px)))) {
+      #test-supports-animation-timeline {
+        color: green;
+
+        &::before {
+          content: "PASS: ";
+        }
+      }
+    }
+
+    /* Demo styles */
+    #timeline-scroller {
+      height: 130px;
+      overflow: auto;
+      scroll-timeline-name: ident("--timeline-" 1);
+      scroll-timeline-axis: block;
+    }
+    #timeline-progress {
+      height: 14px;
+      background: #6ba7ff;
+      transform-origin: left center;
+      animation: timeline-grow linear both;
+      animation-timeline: ident("--timeline-" 1);
+      animation-range: 0% 100%;
+      animation-duration: 1s;
+      transform: scaleX(0.1);
+    }
+    @keyframes timeline-grow { from { transform: scaleX(0.1); } to { transform: scaleX(1); } }
+    .spacer { height: 320px; background: #eef2ff; }
+
+    #probe { position: absolute; visibility: hidden; }
+  </style>
+</head>
+
+<body>
+  <p><a href="../">&larr; Back to index</a></p>
+
+  <h1>Timeline Names (Scroll Animations)</h1>
+  <p>Spec: <a href="https://drafts.csswg.org/scroll-animations-1/">scroll-animations-1</a></p>
+  <ul class="index">
+    <li><a href="https://wpt.fyi/results/scroll-animations/css/timeline-names-ident-function.html">timeline-names-ident-function.html</a></li>
+  </ul>
+
+  <div id="probe" aria-hidden="true"></div>
+
+  <h2>Parse checks (@supports)</h2>
+  <ul>
+    <li id="test-supports-base">supports scroll-timeline-name: foo</li>
+    <li id="test-supports-scroll-timeline-name">supports scroll-timeline-name: ident(...)</li>
+    <li id="test-supports-animation-timeline">supports animation-timeline: ident(...)</li>
+  </ul>
+
+  <h2>Computed value checks (JS)</h2>
+  <ul>
+    <li id="test-computed-scroll-timeline-name">computed scroll-timeline-name</li>
+    <li id="test-computed-animation-timeline">computed animation-timeline</li>
+  </ul>
+
+  <h2>Demo</h2>
+  <div>
+    <div id="timeline-progress"></div>
+    <div id="timeline-scroller">Scroll this area<div class="spacer"></div></div>
+  </div>
+
+  <script>
+    const probe = document.getElementById("probe");
+
+    function testComputed(id, property, value, expected) {
+      probe.style.removeProperty(property);
+      probe.style.setProperty(property, value);
+      const got = getComputedStyle(probe).getPropertyValue(property).trim();
+      const el = document.getElementById(id);
+      if (got === expected) {
+        el.classList.add("pass");
+      } else {
+        el.textContent += ` (got="${got}")`;
+      }
+    }
+
+    const actualIdent = 'ident("--myident" calc(42 * sign(1em - 1px)))';
+    const expectedIdent = "--myident42";
+
+    testComputed("test-computed-scroll-timeline-name", "scroll-timeline-name", actualIdent, expectedIdent);
+    testComputed("test-computed-animation-timeline", "animation-timeline", actualIdent, expectedIdent);
+  </script>
+</body>
+
+</html>
