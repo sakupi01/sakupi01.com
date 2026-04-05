@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="text-scale" content="scale" />
+    <title>meta name="text-scale" | studio.sakupi01.com</title>
+    <style>
+        body {
+            max-width: 600px;
+        }
+
+        /*
+        ////////////////////
+        checker layer is always copy/pasted in every demo.
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                width: 100%;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+            }
+
+            /* CHOICE 1: IACVT color (which @supports doesn't work.) */
+            .checker-dialog {
+                background: rgba(205 230 255 / 0.8);
+
+                .judge {
+                    display: none;
+                }
+            }
+        }
+
+        @layer demo {
+            .demo-box {
+                padding: 1em;
+                border: 2px solid #333;
+                margin: 1em 0;
+            }
+
+            pre {
+                background: #f5f5f5;
+                padding: 0.5em 1em;
+                overflow-x: auto;
+            }
+
+            .content-values {
+                margin: 0;
+                padding-left: 1.5em;
+
+                li {
+                    margin: 0.3em 0;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>meta name="text-scale" demo</h1>
+    <p><a href="../">Back to overview</a></p>
+
+    <p>
+        <code>&lt;meta name="text-scale" content="scale"&gt;</code> makes the browser's initial font size respond to
+        the OS text scale setting. This page has <code>content="scale"</code> enabled.
+    </p>
+
+    <section>
+        <h2>Usage</h2>
+        <pre><code>&lt;meta name="text-scale" content="scale"&gt;</code></pre>
+        <p>This is equivalent to:</p>
+        <pre><code>:root {
+  font-size: calc(100% * env(preferred-text-scale, 1));
+}</code></pre>
+    </section>
+
+    <section>
+        <h2>Possible values</h2>
+        <ul class="content-values">
+            <li><code>scale</code>: Respond to the OS text scale setting (this page)</li>
+            <li><code>legacy</code>: Ignore the OS text scale setting (default behavior)</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Demo</h2>
+        <p>This entire page responds to your OS text scale setting because <code>content="scale"</code> is set.</p>
+
+        <div class="demo-box">
+            <p>All text on this page, including this box, will scale with your OS setting.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.</p>
+        </div>
+
+        <p>Compare this page with the <a href="../env/">env() demo</a> which uses <code>content="legacy"</code>.</p>
+    </section>
+
+    <section>
+        <h2>Testing</h2>
+        <p>On macOS, launch Chrome Canary with:</p>
+        <pre><code>/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
+  --blink-settings=accessibilityFontScaleFactor=2.0 \
+  --enable-experimental-web-platform-features</code></pre>
+    </section>
+
+    <div class="checker-dialog">
+        <p>This is a demo for <a href="https://drafts.csswg.org/css-fonts-5/#text-scale-meta" target="_top">&lt;meta
+                name="text-scale"&gt;</a>
+        </p>
+        <p class="note">Try it in Chrome 139+.</p>
+        <small><time datetime="2025-04-05">This DEMO is last updated on: 2025-04-05</time></small>
+    </div>
+</body>
+
+</html>

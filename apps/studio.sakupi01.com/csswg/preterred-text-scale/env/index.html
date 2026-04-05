@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="text-scale" content="legacy" />
+    <title>env(preferred-text-scale) | studio.sakupi01.com</title>
+    <style>
+        body {
+            max-width: 600px;
+        }
+
+        /*
+        ////////////////////
+        checker layer is always copy/pasted in every demo.
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                width: 100%;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+            }
+
+            /* CHOICE 1: IACVT color (which @supports doesn't work.) */
+            /* env(preferred-text-scale) cannot be detected via @supports because: */
+            /* - env() function is already supported in browsers */
+            /* - unknown env variables fall back to the fallback value, so parsing always succeeds */
+            .checker-dialog {
+                background: rgba(205 230 255 / 0.8);
+
+                .judge {
+                    display: none;
+                }
+            }
+        }
+
+        @layer demo {
+            .demo-box {
+                padding: 1em;
+                border: 2px solid #333;
+                margin: 1em 0;
+            }
+
+            .scaled {
+                font-size: calc(16px * env(preferred-text-scale, 1));
+            }
+
+            .not-scaled {
+                font-size: 16px;
+            }
+
+            .demo-value {
+                font-family: monospace;
+                background: #eee;
+                padding: 0.2em 0.5em;
+            }
+
+            pre {
+                background: #f5f5f5;
+                padding: 0.5em 1em;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>env(preferred-text-scale) demo</h1>
+    <p><a href="../">Back to overview</a></p>
+
+    <p>
+        <code>env(preferred-text-scale)</code> exposes the OS-level font scale setting as a CSS environment variable.
+        Use it to apply text scaling to specific elements.
+    </p>
+
+    <section>
+        <h2>Usage</h2>
+        <pre><code>.scaled {
+  font-size: calc(16px * env(preferred-text-scale, 1));
+}</code></pre>
+    </section>
+
+    <section>
+        <h2>Demo</h2>
+        <p>Change your OS text scale setting to see the difference between scaled and non-scaled text.</p>
+
+        <div class="demo-box scaled">
+            <p><strong>Scaled text</strong></p>
+            <p>This text uses <code>font-size: calc(16px * env(preferred-text-scale, 1))</code></p>
+        </div>
+
+        <div class="demo-box not-scaled">
+            <p><strong>Non-scaled text</strong></p>
+            <p>This text uses <code>font-size: 16px</code> (no scaling)</p>
+        </div>
+
+        <p>Current preferred-text-scale value: <span class="demo-value" id="scale-value">1</span></p>
+        <script>
+            // Note: env(preferred-text-scale) is not accessible via JS directly.
+            const scaleValue = document.getElementById('scale-value');
+            scaleValue.textContent = 'N/A (env() values not accessible via JS)';
+        </script>
+    </section>
+
+    <section>
+        <h2>Testing</h2>
+        <p>On macOS, launch Chrome Canary with:</p>
+        <pre><code>/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
+  --blink-settings=accessibilityFontScaleFactor=2.0 \
+  --enable-experimental-web-platform-features</code></pre>
+    </section>
+
+    <div class="checker-dialog">
+        <p>This is a demo for <a href="https://drafts.csswg.org/css-env-1/#text-zoom"
+                target="_top">env(preferred-text-scale)</a>
+        </p>
+        <p class="note">Try it in Chrome 138+.</p>
+        <small><time datetime="2025-04-05">This DEMO is last updated on: 2025-04-05</time></small>
+    </div>
+</body>
+
+</html>

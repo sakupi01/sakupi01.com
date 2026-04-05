@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="text-scale" content="legacy" />
+    <title>Preferred Text Scale/OS-level font scale w/ env() and meta | studio.sakupi01.com</title>
+    <style>
+        body {
+            max-width: 600px;
+        }
+
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                width: 100%;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+            }
+
+            /* CHOICE 1: IACVT color (which @supports doesn't work.) */
+            /* env(preferred-text-scale) cannot be detected via @supports because: */
+            /* - env() function is already supported in browsers */
+            /* - unknown env variables fall back to the fallback value, so parsing always succeeds */
+            .checker-dialog {
+                background: rgba(205 230 255 / 0.8);
+
+                .judge {
+                    display: none;
+                }
+            }
+        }
+
+        @layer demo {
+            .demo-box {
+                padding: 1em;
+                border: 2px solid #333;
+                margin: 1em 0;
+                font-size: calc(16px * env(preferred-text-scale, 1));
+            }
+
+            .demo-value {
+                font-family: monospace;
+                background: #eee;
+                padding: 0.2em 0.5em;
+            }
+
+            .demo-meta {
+                pre {
+                    background: #f5f5f5;
+                    padding: 0.5em 1em;
+                    overflow-x: auto;
+                }
+
+                .content-values {
+                    margin: 0;
+                    padding-left: 1.5em;
+
+                    li {
+                        margin: 0.3em 0;
+                    }
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Preferred Text Scale/OS-level font scale w/ env() and meta</h1>
+    <p>
+        Summary: Features to reflect OS text size settings (e.g., Android/iOS accessibility settings) in web content.
+        Previously, browsers other than Safari ignored OS settings to avoid layout breakage.
+    </p>
+    <ul>
+        <li><code>env(preferred-text-scale)</code>: Exposes OS scale value as a CSS environment variable. Use for
+            partial application.</li>
+        <li><code>&lt;meta name="text-scale" content="scale"&gt;</code>: Applies OS settings to the entire page
+            (opt-in).
+            Implicitly equivalent to <code>:root { font-size: calc(100% * env(preferred-text-scale, 1)); }</code>.</li>
+        <li><code>content="legacy"</code>: Maintains legacy behavior (ignores OS settings). Current default (2026/04/05)
+            Default.</li>
+    </ul>
+    <ul>
+        <li>Specs:
+            <ul>
+                <li><a href="https://drafts.csswg.org/css-fonts-5/#text-scale-meta">CSS Fonts Module Level 5 -
+                        text-scale meta</a></li>
+                <li><a href="https://drafts.csswg.org/css-env-1/#text-zoom">CSS Environment Variables Module Level 1 -
+                        text-zoom</a></li>
+            </ul>
+        </li>
+        <li>Explainers & Early Drafts:
+            <ul>
+                <li><a href="https://davidsgrogan.github.io/env-explainer.html">Explainer: env(preferred-text-scale)</a>
+                </li>
+                <li><a href="https://github.com/w3c/csswg-drafts/blob/main/css-env-1/explainers/meta-text-scale.md">Explainer:
+                        meta tag for text scaling behavior</a></li>
+            </ul>
+        </li>
+        <li>Chrome Platform Status:
+            <ul>
+                <li><a href="https://chromestatus.com/feature/5328467685801984">CSS env variable for OS-level font
+                        scale</a></li>
+                <li><a href="https://chromestatus.com/feature/5112244702674944">meta name="text-scale"</a></li>
+            </ul>
+        </li>
+        <li>WPT:
+            <ul>
+                <li>N/A</li>
+            </ul>
+        </li>
+        <li>Intents:
+            <ul>
+                <li>Ship:
+                    <ul>
+                        <li><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/0yp2ygJK5HE/">Intent to
+                                Ship: meta name="text-scale"</a></li>
+                        <li><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/bZuQAcwcEig/">Intent to
+                                Ship: CSS env variable for OS-level font scale</a></li>
+                    </ul>
+                </li>
+                <li>Prototype:
+                    <ul>
+                        <li><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/2F5g2dqy9_Q/">Intent to
+                                Prototype: meta name="text-scale"</a></li>
+                        <li><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/OmEsGUUenqY">Intent to
+                                Prototype: CSS env variable for OS-level font scale</a></li>
+                    </ul>
+                </li>
+                <li>Experiment:
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+                <li>Ready for Developer Testing:
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+                <li>Unship:
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+                <li>Remove:
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+                <li>PSA:
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Standard Positions:
+            <ul>
+                <li>WebKit
+                    <ul>
+                        <li><a href="https://github.com/WebKit/standards-positions/issues/587">Text-Scale
+                                <code>&lt;meta&gt;</code> element · Issue #587 · WebKit/standards-positions</a></li>
+                    </ul>
+                </li>
+                <li>Mozilla
+                    <ul>
+                        <li><a href="https://github.com/mozilla/standards-positions/issues/1326">Text-Scale
+                                <code>&lt;meta&gt;</code> element · Issue #1326 · mozilla/standards-positions</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Implementations:
+            <ul>
+                <li>Safari
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+                <li>Firefox
+                    <ul>
+                        <li>N/A</li>
+                    </ul>
+                </li>
+                <li>Chrome
+                    <ul>
+                        <li><a href="https://chromestatus.com/feature/5328467685801984">env(preferred-text-scale) -
+                                Shipping in M138</a></li>
+                        <li><a href="https://chromestatus.com/feature/5112244702674944">meta name="text-scale" -
+                                Shipping in M139</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>TAG Review:
+            <ul>
+                <li><a href="https://github.com/w3ctag/design-reviews/issues/1101">env(preferred-text-scale) · Issue
+                        #1101 · w3ctag/design-reviews</a></li>
+                <li><a href="https://github.com/w3ctag/gn-reviews/issues/1172">&lt;meta name="text-scale"
+                        content="scale" /&gt; · Issue #1172 · w3ctag/gn-reviews</a></li>
+            </ul>
+        </li>
+        <li>
+            Other Resources (Issues):
+            <ul>
+                <li><a href="https://github.com/w3c/csswg-drafts/issues/10674">[css-env][css-values] UAs inconsistent in
+                        how OS font settings affect the default font-size `medium` · Issue #10674</a></li>
+                <li><a href="https://github.com/w3c/csswg-drafts/issues/12380">[css-env][css-fonts-5] New &lt;meta
+                        text-scale&gt; tag to make UA initial font size respond to OS text scale setting · Issue
+                        #12380</a></li>
+                <li><a href="https://www.joshtumath.uk/posts/2026-01-27-try-text-scaling-support-in-chrome-canary/">Try
+                        text scaling support in Chrome Canary - Josh Tumath</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <section>
+        <h2>Demos</h2>
+        <ul>
+            <li><a href="./env/">env(preferred-text-scale)</a> - Apply text scaling to specific elements</li>
+            <li><a href="./meta/">meta name="text-scale"</a> - Apply text scaling to the entire page</li>
+            <li>On macOS, launch Chrome Canary with: <code>/Applications/Google\ Chrome\
+                Canary.app/Contents/MacOS/Google\
+                Chrome\ Canary \
+                --blink-settings=accessibilityFontScaleFactor=2.0 \
+                --enable-experimental-web-platform-features</code></li>
+        </ul>
+
+        <table>
+            <caption>Comparison of env(preferred-text-scale) and meta name="text-scale"</caption>
+            <thead>
+                <tr>
+                    <th>env</th>
+                    <th>meta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="../../assets/env-font-scaling.png"
+                            alt="env(preferred-text-scale) is properly applied, and text is scaled" width="500" /></td>
+                    <td><img src="../../assets/meta-font-scaling.png"
+                            alt="meta name='text-scale' is properly applied, and text is scaled" width="500" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div class="checker-dialog">
+        <p>This is a demo for <a href="https://drafts.csswg.org/css-env-1/#text-zoom"
+                target="_top">env(preferred-text-scale)</a> and <a
+                href="https://drafts.csswg.org/css-fonts-5/#text-scale-meta" target="_top">&lt;meta
+                name="text-scale"&gt;</a>
+        </p>
+        <p class="note">Try it in Chrome 138+ (env) / Chrome 139+ (meta).</p>
+        <small><time datetime="2025-04-05">This DEMO is last updated on:
+                2025-04-05</time></small>
+    </div>
+</body>
+
+</html>
