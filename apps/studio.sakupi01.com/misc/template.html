@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xx | studio.sakupi01.com</title>
+    <style>
+        body {
+            max-width: 600px;
+        }
+
+        /* 
+        ////////////////////
+        checker layer is always copy/pasted in every demo. 
+        ////////////////////
+        */
+        @layer checker {
+            .checker-dialog {
+                padding: 1em;
+                margin: 1em 0;
+                border: 1px solid #ccc;
+                color: black;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+
+                p {
+                    margin: 0;
+                }
+
+                .judge {
+                    font-weight: bold;
+                }
+
+                a {
+                    color: blue;
+                }
+
+                /* CHOICE 1: IACVT color (which @support doesn't work.) */
+                /* background: rgba(205 230 255 / 0.8);
+                .judge {
+                    display: none;
+                } */
+            }
+
+            /* CHOICE 2: when @support is available */
+            /* watch out!: @supports can check only at-parse time features. This means that e.g; Custom Properties are not properly detected bc CP is evaluated in Computed time. */
+            /* put the feature name */
+            /* true case */
+            @supports (--some-property: if(style(x): x)) {
+                .checker-dialog {
+                    background: rgba(205 255 205 / 0.8);
+
+                    .error {
+                        display: none;
+                    }
+
+                    .note {
+                        display: none;
+                    }
+                }
+            }
+
+            /* false case */
+            @supports not (--some-property: if(style(x): x)) {
+                .checker-dialog {
+                    background: rgba(255 205 205 / 0.8);
+
+                    .success {
+                        display: none;
+                    }
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1><code>xx</code> demo</h1>
+    <p>
+        Summary:
+    </p>
+    <ul>
+        <li>Specs:
+            <ul>
+                <li><a href="#">xx</a></li>
+            </ul>
+        </li>
+        <li>Explainers & Early Drafts:
+            <ul>
+                <li><a href="#">xx</a></li>
+            </ul>
+        </li>
+        <li>Chrome Platform Status:
+            <ul>
+                <li><a href="#">xx</a></li>
+            </ul>
+        </li>
+        <li>WPT:
+            <ul>
+                <li><a href="#">xx</a></li>
+            </ul>
+        </li>
+        <li>Intents:
+            <ul>
+                <li>Ship:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Prototype:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Experiment:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Ready for Developer Testing:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Unship:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Remove:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>PSA:
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Standard Positions:
+            <ul>
+                <li>WebKit
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Mozilla
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Implementations:
+            <ul>
+                <li>Safari
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Firefox
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+                <li>Chrome
+                    <ul>
+                        <li><a href="#">xx</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>TAG Review:
+            <ul>
+                <li><a href="#">xx</a></li>
+            </ul>
+        </li>
+        <li>
+            Other Resources:
+            <ul>
+                <li><a href="#">xx</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <section>
+        <h2>xx</h2>
+    </section>
+
+    <div class="checker-dialog">
+        <p class="error judge">❌ Your browser doesn't support `display: grid-lanes;` feature.</p>
+        <p class="success judge">✅ Your browser supports `display: grid-lanes;` feature!</p>
+        <p>This is a demo for <a href="https://www.w3.org/TR/css-grid-3/"
+                target="_top">https://www.w3.org/TR/css-grid-3/</a>
+        </p>
+        <p class="note">Try it in Chrome Canary with <br />
+            <code>--enable-experimental-web-platform-features</code>.
+        </p>
+        <small><time datetime="2025-12-06">This DEMO is last updated on: 2025-12-06</time></small>
+    </div>
+</body>
+
+</html>
