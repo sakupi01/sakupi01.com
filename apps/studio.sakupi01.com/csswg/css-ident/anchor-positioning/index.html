@@ -64,17 +64,54 @@
     }
 
     /* Demo styles */
-    #anchor-demo { position: relative; min-height: 170px; anchor-scope: all; }
-    .anchor-row { position: relative; min-height: 36px; margin-bottom: 10px; }
-    .tip { position: absolute; position-area: center right; background: #fff3d4; padding: 4px 8px; white-space: nowrap; }
-    .anchor-row[data-n="1"] .anchor-btn { anchor-name: ident("--tooltip-" 1); }
-    .anchor-row[data-n="2"] .anchor-btn { anchor-name: ident("--tooltip-" 2); }
-    .anchor-row[data-n="3"] .anchor-btn { anchor-name: ident("--tooltip-" 3); }
-    .anchor-row[data-n="1"] .tip { position-anchor: ident("--tooltip-" 1); }
-    .anchor-row[data-n="2"] .tip { position-anchor: ident("--tooltip-" 2); }
-    .anchor-row[data-n="3"] .tip { position-anchor: ident("--tooltip-" 3); }
+    #anchor-demo {
+      position: relative;
+      min-height: 170px;
+      anchor-scope: all;
+    }
 
-    #probe { position: absolute; visibility: hidden; }
+    .anchor-row {
+      position: relative;
+      min-height: 36px;
+      margin-bottom: 10px;
+    }
+
+    .tip {
+      position: absolute;
+      position-area: center right;
+      background: #fff3d4;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+
+    .anchor-row[data-n="1"] .anchor-btn {
+      anchor-name: ident("--tooltip-" 1);
+    }
+
+    .anchor-row[data-n="2"] .anchor-btn {
+      anchor-name: ident("--tooltip-" 2);
+    }
+
+    .anchor-row[data-n="3"] .anchor-btn {
+      anchor-name: ident("--tooltip-" 3);
+    }
+
+    .anchor-row[data-n="1"] .tip {
+      position-anchor: ident("--tooltip-" 1);
+    }
+
+    .anchor-row[data-n="2"] .tip {
+      position-anchor: ident("--tooltip-" 2);
+    }
+
+    .anchor-row[data-n="3"] .tip {
+      position-anchor: ident("--tooltip-" 3);
+    }
+
+    #probe {
+      position: absolute;
+      visibility: hidden;
+    }
   </style>
 </head>
 
@@ -84,7 +121,9 @@
   <h1>Anchor Positioning</h1>
   <p>Spec: <a href="https://drafts.csswg.org/css-anchor-position-1/">css-anchor-position-1</a></p>
   <ul class="index">
-    <li><a href="https://wpt.fyi/results/css/css-anchor-position/anchor-ident-function.html">anchor-ident-function.html</a></li>
+    <li><a
+        href="https://wpt.fyi/results/css/css-anchor-position/anchor-ident-function.html">anchor-ident-function.html</a>
+    </li>
   </ul>
 
   <div id="probe" aria-hidden="true"></div>
@@ -106,9 +145,15 @@
 
   <h2>Demo</h2>
   <div id="anchor-demo">
-    <div class="anchor-row" data-n="1"><button class="anchor-btn">Anchor 1</button><div class="tip">tip 1</div></div>
-    <div class="anchor-row" data-n="2"><button class="anchor-btn">Anchor 2</button><div class="tip">tip 2</div></div>
-    <div class="anchor-row" data-n="3"><button class="anchor-btn">Anchor 3</button><div class="tip">tip 3</div></div>
+    <div class="anchor-row" data-n="1"><button class="anchor-btn">Anchor 1</button>
+      <div class="tip">tip 1</div>
+    </div>
+    <div class="anchor-row" data-n="2"><button class="anchor-btn">Anchor 2</button>
+      <div class="tip">tip 2</div>
+    </div>
+    <div class="anchor-row" data-n="3"><button class="anchor-btn">Anchor 3</button>
+      <div class="tip">tip 3</div>
+    </div>
   </div>
 
   <script>
