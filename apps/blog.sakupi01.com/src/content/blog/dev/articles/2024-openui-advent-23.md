@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 23 / Global Design System Part1"
 excerpt: "デザインシステムの開発を加速させる、堅牢で柔軟なGlobal Design Systemの提唱"
 date: 2024-12-23
 update: 2024-12-23
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"

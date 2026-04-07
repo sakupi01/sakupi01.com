@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 22 / Customizable Select Element Ep.20"
 excerpt: "Customizable Select Elementのまとめ"
 date: 2024-12-22
 update: 2024-12-22
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"

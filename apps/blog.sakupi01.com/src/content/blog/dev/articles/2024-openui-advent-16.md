@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 16 / Customizable Select Element Ep.14"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」唯一の手段、`slot`属性と`behavior`属性が使用廃止へ"
 date: 2024-12-16
 update: 2024-12-16
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"

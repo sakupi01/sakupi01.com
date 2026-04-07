@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 25 / Epilogue"
 excerpt: "OpenUI Advent Calendar エピローグ"
 date: 2024-12-25
 update: 2024-12-25
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"

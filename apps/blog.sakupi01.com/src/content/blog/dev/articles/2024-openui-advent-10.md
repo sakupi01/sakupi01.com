@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 10 / Customizable Select Element Ep.8"
 excerpt: "Customizable Select Elementの関連仕様: `appearance: base-select;` - 選択された`<option>`のデフォルトチェックマークのスタイルはどうやって決まったのか"
 date: 2024-12-10
 update: 2024-12-10
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"

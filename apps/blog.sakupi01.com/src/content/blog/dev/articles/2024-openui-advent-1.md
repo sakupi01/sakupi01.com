@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 1 / Open UIについて"
 excerpt: "Open UIの概要と、その調査方法"
 date: 2024-12-01
 update: 2024-12-01
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"

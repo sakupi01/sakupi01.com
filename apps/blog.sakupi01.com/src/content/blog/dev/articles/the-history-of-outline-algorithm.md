@@ -3,9 +3,6 @@ title: "The Outline Algorithm Utopia"
 excerpt: "本エントリでは、Document Outline Algorithm というユートピアと、その中で繰り広げられた HTML の歴史を振り返ります。また、Outline Algorithm の後継として実現が検討されている Heading Level Concept についての現状を記します。"
 date: 2025-04-16
 update: 2025-04-27
-beginColor: "from-purple-300"
-middleColor: "via-pink-200"
-endColor: "to-orange-300"
 category: "dev"
 tags:
   [

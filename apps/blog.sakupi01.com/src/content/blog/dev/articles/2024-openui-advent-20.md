@@ -3,9 +3,6 @@ title: "🎄Open UI Advent Calendar: Day 20 / Customizable Select Element Ep.18"
 excerpt: "Customizable Select Elementの関連仕様: `<selectedcontent>` - 「同期タイミング」でクローンを作成の方針で決定。`cloneNode()`の制限が浮き彫りになる"
 date: 2024-12-20
 update: 2024-12-20
-beginColor: "from-red-500"
-middleColor: "via-lime-500"
-endColor: "to-green-700"
 category: "dev"
 tags: ["openui", "advent calendar"]
 status: "published"
