@@ -1,0 +1,15 @@
+---
+import "@sakupi01/style/sakupi01.com.css";
+import MinimalDocument from "@sakupi01/layout/components/MinimalDocument.astro";
+import GoneWrong from "@sakupi01/layout/components/GoneWrong.astro";
+import { site } from "../data/site";
+---
+
+<MinimalDocument
+  site={site}
+  pageTitle="Not Found"
+  description="This page could not be found."
+  type="website"
+>
+  <GoneWrong status={404} />
+</MinimalDocument>

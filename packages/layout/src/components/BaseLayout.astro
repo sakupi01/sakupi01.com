@@ -1,6 +1,6 @@
 ---
 import type { SiteConfig } from "../types/site";
-import Head from "./Head.astro";
+import MinimalDocument from "./MinimalDocument.astro";
 
 export interface Props {
   site: SiteConfig;
@@ -17,13 +17,15 @@ const {
 } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <Head site={site} title={pageTitle} description={description} type={type}>
-      <slot name="head-scripts" slot="scripts" />
-    </Head>
-
+<MinimalDocument
+  site={site}
+  pageTitle={pageTitle}
+  description={description}
+  type={type}
+  bodyClass="page"
+>
+  <slot name="head-scripts" slot="head-scripts" />
+  <Fragment slot="head-append">
     <!-- Polyfills -->
     <script type="module">
       if (!("anchorName" in document.documentElement.style)) {
@@ -39,9 +41,6 @@ const {
       console.log("O HAI THERE !🌸 - @blog.sakupi01.com");
     </script>
     <slot name="head-extra" />
-    <meta name="generator" content={Astro.generator} />
-  </head>
-  <body class="page">
-    <slot />
-  </body>
-</html>
+  </Fragment>
+  <slot />
+</MinimalDocument>

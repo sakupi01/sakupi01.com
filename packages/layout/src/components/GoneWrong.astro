@@ -1,0 +1,37 @@
+---
+import iconCry from "../assets/icon_cry.png";
+
+interface Props {
+  status?: number;
+}
+
+const { status = 404 } = Astro.props;
+
+if (import.meta.env.DEV) {
+  console.log(`Oh, the status is: ${status}`);
+}
+---
+
+<div class="gone-wrong">
+  <img
+    src={iconCry.src}
+    width={150}
+    height={150}
+    alt="Not Found"
+    decoding="async"
+  />
+</div>
+
+<script define:vars={{ status }}>
+  console.log(`Oh, the status is: ${status}`);
+</script>
+
+<style>
+  .gone-wrong {
+    box-sizing: border-box;
+    display: grid;
+    place-content: center;
+    width: 100%;
+    min-block-size: 100vh;
+  }
+</style>
