@@ -1,8 +1,8 @@
 ---
-import "@repo/ui/sakupi01.com.css";
-import Head from "../components/common/Head.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
+import "@sakupi01/style/sakupi01.com.css";
+import Layout from "@sakupi01/layout/components/Layout.astro";
+import Navigation from "@sakupi01/layout/components/Navigation.astro";
+import { site } from "../data/site";
 
 interface Props {
   pageTitle?: string;
@@ -16,26 +16,9 @@ const {
 } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <Head title={pageTitle} description={description} />
-
-    <script>
-      import { setupThemeToggle } from "../functions/setUpThemeToggle";
-      setupThemeToggle();
-    </script>
-
-    <script>
-      (async function () {
-        // Anchor positioning Polyfill
-        if (!("anchorName" in document.documentElement.style)) {
-          // @ts-expect-error wip wip
-          await import("https://unpkg.com/@oddbird/css-anchor-positioning");
-        }
-      })();
-    </script>
-
+<Layout site={site} pageTitle={pageTitle} description={description}>
+  <Navigation slot="navigation" />
+  <Fragment slot="head-extra">
     <script>
       // @ts-expect-error wip
       if (window.CSS && CSS.registerProperty) {
@@ -116,14 +99,6 @@ const {
         }
       })();
     </script>
-
-    <meta name="generator" content={Astro.generator} />
-  </head>
-  <body class="page">
-    <Header />
-    <main>
-      <slot />
-    </main>
-    <Footer />
-  </body>
-</html>
+  </Fragment>
+  <slot />
+</Layout>

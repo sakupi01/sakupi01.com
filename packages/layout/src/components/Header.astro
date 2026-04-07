@@ -1,16 +1,21 @@
 ---
 import Logo from "./Logo.astro";
-import Navigation from "./Navigation.astro";
 import SoundIcon from "./SoundIcon.astro";
 import ThemeIcon from "./ThemeIcon.astro";
+
+interface Props {
+  logoHref?: string;
+}
+
+const { logoHref = "/" } = Astro.props;
 ---
 
 <header>
   <div class="left">
-    <Logo />
+    <Logo href={logoHref} />
   </div>
   <div class="right">
-    <Navigation />
+    <slot name="navigation" />
     <ThemeIcon />
     <SoundIcon />
   </div>

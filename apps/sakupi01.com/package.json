@@ -15,7 +15,8 @@
     "fix:lint": "eslint --fix ."
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
+    "@sakupi01/layout": "workspace:*",
+    "@sakupi01/style": "workspace:*",
     "astro": "^5.2.5",
     "jsdom": "^26.0.0",
     "sharp": "catalog:"

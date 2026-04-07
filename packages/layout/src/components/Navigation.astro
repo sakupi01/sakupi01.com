@@ -1,34 +1,34 @@
 ---
+export interface Props {
+  homeHref?: string;
+  homeLabel?: string;
+}
 
+const { homeHref = "/", homeLabel = "<home />" } = Astro.props;
+const blogBase = import.meta.env.PUBLIC_BLOG || "";
 ---
 
 <nav>
-  <a href="/" class="nav-item">{"<home />"}</a>
+  <a href={homeHref} class="nav-item soundable">{homeLabel}</a>
   <button
     popovertarget="blogs"
     class="popovertarget soundable"
     data-id="--blogs-button"
   >
-    {"blogs"}
+    {"<blogs />"}
   </button>
   <ul id="blogs" popover data-id="--blogs-button">
     <li>
-      <a href={`${import.meta.env.PUBLIC_BLOG}dev/`} class="soundable"
-        >{"dev"}</a
-      >
+      <a href={`${blogBase}dev/`} class="soundable">{"dev"}</a>
     </li>
     <li>
-      <a href={`${import.meta.env.PUBLIC_BLOG}life/`} class="soundable"
-        >{"life"}</a
-      >
+      <a href={`${blogBase}life/`} class="soundable">{"life"}</a>
     </li>
     <li>
-      <a href={`${import.meta.env.PUBLIC_BLOG}tags/`} class="soundable"
-        >{"tags"}</a
-      >
+      <a href={`${blogBase}tags/`} class="soundable">{"tags"}</a>
     </li>
     <li>
-      <a href={`${import.meta.env.PUBLIC_BLOG}`} class="soundable">{"all"}</a>
+      <a href={blogBase || "/"} class="soundable">{"all"}</a>
     </li>
   </ul>
   <a
@@ -42,7 +42,7 @@
     class="nav-item soundable">{"studio"}</a
   >
   <a
-    href={import.meta.env.PUBLIC_BLOG + "feed.xml"}
+    href={`${blogBase}feed.xml`}
     target="_blank"
     class="nav-item soundable">{"rss"}</a
   >

@@ -1,10 +1,16 @@
 ---
 import { Image } from "astro:assets";
 import sakupiIcon from "../assets/icon.svg";
+
+interface Props {
+  href?: string;
+}
+
+const { href = "/" } = Astro.props;
 ---
 
 <div class="header-icon">
-  <a href={import.meta.env.PUBLIC_HOME}>
+  <a href={href}>
     <Image src={sakupiIcon} width="50" height="36" alt="logo" />
   </a>
 

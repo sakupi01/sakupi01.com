@@ -1,7 +1,8 @@
 ---
-import { site } from "../../data/site";
+import type { SiteConfig } from "../types/site";
 
 export interface Props {
+  site: SiteConfig;
   title?: string;
   description?: string;
   ogImage?: string;
@@ -9,6 +10,7 @@ export interface Props {
 }
 
 const {
+  site,
   title = site.title,
   description = site.description,
   ogImage = `${site.url}${site.ogImage}`,
@@ -55,13 +57,8 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
   rel="stylesheet"
 />
 
-<!-- External Scripts -->
-<script is:inline src="/_scripts/2025-ad-calendar.js"></script>
-<script is:inline src="/_scripts/cascade-accordion.js"></script>
-<script
-  is:inline
-  src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js"
-  type="module"></script>
+<!-- External Scripts Slot -->
+<slot name="scripts" />
 
 <!-- Theme Script -->
 <script is:inline>
@@ -77,14 +74,6 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
 
   const theme = getInitialTheme();
   document.documentElement.classList.toggle("dark", theme === "dark");
-</script>
-
-<!-- Polyfills -->
-<script type="module">
-  if (!("anchorName" in document.documentElement.style)) {
-    import("https://unpkg.com/@oddbird/css-anchor-positioning");
-  }
-  console.log("O HAI THERE !🌸 - @blog.sakupi01.com");
 </script>
 
 <!-- Analytics -->

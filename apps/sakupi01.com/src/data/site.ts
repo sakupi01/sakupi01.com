@@ -1,4 +1,6 @@
-export const site = {
+import type { SiteConfig } from "@sakupi01/layout";
+
+export const site: SiteConfig = {
   title: "@sakupi01.com",
   description:
     "The personal website of saku. A Front-end developer, Design Technologist, and an enthusiast of all things about Web & UI",

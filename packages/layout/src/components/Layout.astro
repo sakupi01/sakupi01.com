@@ -1,0 +1,35 @@
+---
+import type { SiteConfig } from "../types/site";
+import BaseLayout from "./BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+
+export interface Props {
+  site: SiteConfig;
+  pageTitle?: string;
+  description?: string;
+  url?: string;
+  logoHref?: string;
+  type?: "website" | "article";
+}
+
+const {
+  site,
+  pageTitle,
+  description,
+  logoHref = "/",
+  type = "website",
+} = Astro.props;
+---
+
+<BaseLayout site={site} pageTitle={pageTitle} description={description} type={type}>
+  <slot name="head-scripts" slot="head-scripts" />
+  <slot name="head-extra" slot="head-extra" />
+  <Header logoHref={logoHref}>
+    <slot name="navigation" slot="navigation" />
+  </Header>
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

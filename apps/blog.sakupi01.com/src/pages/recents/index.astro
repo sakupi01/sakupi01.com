@@ -1,13 +1,16 @@
 ---
+import "@sakupi01/style/sakupi01.com.css";
 import BlogPostCardForIFrame from "../../components/BlogPostCardForIFrame.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "@sakupi01/layout/components/BaseLayout.astro";
+import { site } from "../../data/site";
 import { allPosts } from "../../utils/contents";
 ---
 
 <BaseLayout
+  site={site}
   pageTitle="Recent Blogs Archive"
   description="Recent Blogs Archive"
-  url="/recents"
+  type="article"
 >
   <main>
     <ul class="posts">

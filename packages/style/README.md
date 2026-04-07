@@ -1,4 +1,4 @@
-# @repo/ui
+# @sakupi01/style
 
 To install dependencies:
 

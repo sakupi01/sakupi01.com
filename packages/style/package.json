@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@sakupi01/style",
   "version": "0.0.0",
   "private": true,
   "sideEffects": [
@@ -27,7 +27,7 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@sakupi01/typescript-config": "workspace:*",
     "@storybook/addon-essentials": "8.3.0",
     "@storybook/addon-interactions": "8.3.0",
     "@storybook/addon-links": "8.3.0",

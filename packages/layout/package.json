@@ -1,0 +1,15 @@
+{
+  "name": "@sakupi01/layout",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components/*": "./src/components/*",
+    "./types/*": "./src/types/*"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  }
+}
