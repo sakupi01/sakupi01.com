@@ -1,0 +1,61 @@
+---
+/**
+ * giscus コメントコンポーネント
+ * GitHub Discussions を使用したコメント機能
+ */
+
+const GISCUS_CONFIG = {
+  repo: "sakupi01/sakupi01.com",
+  repoId: "R_kgDOLQYppQ",
+  category: "Announcements",
+  categoryId: "DIC_kwDOLQYppc4Cl344",
+  mapping: "pathname",
+  strict: "1",
+  reactionsEnabled: "1",
+  emitMetadata: "0",
+  inputPosition: "top",
+  theme: "transparent_dark",
+  lang: "en",
+  loading: "lazy",
+};
+---
+
+<section class="giscus-container" aria-label="コメント">
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+</section>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo={GISCUS_CONFIG.repo}
+  data-repo-id={GISCUS_CONFIG.repoId}
+  data-category={GISCUS_CONFIG.category}
+  data-category-id={GISCUS_CONFIG.categoryId}
+  data-mapping={GISCUS_CONFIG.mapping}
+  data-strict={GISCUS_CONFIG.strict}
+  data-reactions-enabled={GISCUS_CONFIG.reactionsEnabled}
+  data-emit-metadata={GISCUS_CONFIG.emitMetadata}
+  data-input-position={GISCUS_CONFIG.inputPosition}
+  data-theme={GISCUS_CONFIG.theme}
+  data-lang={GISCUS_CONFIG.lang}
+  data-loading={GISCUS_CONFIG.loading}
+  crossorigin="anonymous"
+  async></script>
+
+<style>
+  .giscus-container {
+    margin-block: 3rem;
+    padding-block-start: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-block-end: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .giscus {
+    min-height: 200px;
+  }
+</style>

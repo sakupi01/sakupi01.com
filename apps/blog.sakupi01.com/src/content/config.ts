@@ -11,6 +11,7 @@ const blog = defineCollection({
     category: z.enum(["dev", "life"]),
     status: z.enum(["draft", "published"]),
     relatedPosts: z.array(reference("blog")).optional(),
+    blueskyPostUrl: z.string().url().optional(),
   }),
 });
 

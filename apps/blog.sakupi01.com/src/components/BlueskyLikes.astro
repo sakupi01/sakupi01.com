@@ -1,0 +1,261 @@
+---
+/**
+ * Bluesky likes 表示コンポーネント
+ *
+ * 指定された Bluesky ポストの likes 数といいねしたユーザーのアバターを表示
+ * クライアントサイド JavaScript で Bluesky API を呼び出し
+ */
+
+interface Props {
+  /** Bluesky ポストの URL (例: https://bsky.app/profile/user.bsky.social/post/xxx) */
+  postUrl?: string;
+}
+
+const { postUrl } = Astro.props;
+---
+
+{
+  postUrl && (
+    <section
+      class="bluesky-likes"
+      aria-label="Bluesky リアクション"
+      data-post-url={postUrl}
+    >
+      <h2>Reactions</h2>
+      <div class="likes-content">
+        <p class="likes-count">
+          <span class="count" aria-live="polite">
+            ...
+          </span>{" "}
+          likes on Bluesky
+        </p>
+        <ul class="likers" aria-label="いいねしたユーザー" />
+        <p class="cta">
+          <a href={postUrl} target="_blank" rel="noopener noreferrer">
+            この投稿に いいね してここに表示 →
+          </a>
+        </p>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  interface BlueskyPost {
+    likeCount: number;
+    uri: string;
+  }
+
+  interface BlueskyLiker {
+    actor: {
+      handle: string;
+      displayName?: string;
+      avatar?: string;
+    };
+  }
+
+  const BSKY_API_BASE = "https://public.api.bsky.app/xrpc";
+  const MAX_AVATARS = 30;
+
+  /**
+   * Bluesky ポスト URL から DID と ポスト ID を抽出
+   */
+  function parseBlueskyUrl(
+    url: string
+  ): { handle: string; postId: string } | null {
+    const match = url.match(/bsky\.app\/profile\/([^/]+)\/post\/([^/?]+)/);
+    if (!match) return null;
+    return { handle: match[1], postId: match[2] };
+  }
+
+  /**
+   * ハンドルから DID を解決
+   */
+  async function resolveDid(handle: string): Promise<string> {
+    const res = await fetch(
+      `${BSKY_API_BASE}/com.atproto.identity.resolveHandle?handle=${encodeURIComponent(handle)}`
+    );
+    if (!res.ok) throw new Error("Failed to resolve handle");
+    const data = await res.json();
+    return data.did;
+  }
+
+  /**
+   * ポストデータを取得
+   */
+  async function getPost(did: string, postId: string): Promise<BlueskyPost> {
+    const uri = `at://${did}/app.bsky.feed.post/${postId}`;
+    const res = await fetch(
+      `${BSKY_API_BASE}/app.bsky.feed.getPosts?uris=${encodeURIComponent(uri)}`
+    );
+    if (!res.ok) throw new Error("Failed to get post");
+    const data = await res.json();
+    return data.posts[0];
+  }
+
+  /**
+   * いいねしたユーザー一覧を取得
+   */
+  async function getLikers(
+    uri: string,
+    limit = MAX_AVATARS
+  ): Promise<BlueskyLiker[]> {
+    const res = await fetch(
+      `${BSKY_API_BASE}/app.bsky.feed.getLikes?uri=${encodeURIComponent(uri)}&limit=${limit}`
+    );
+    if (!res.ok) throw new Error("Failed to get likes");
+    const data = await res.json();
+    return data.likes || [];
+  }
+
+  /**
+   * コンポーネントを初期化
+   */
+  async function initBlueskyLikes(container: HTMLElement) {
+    const postUrl = container.dataset.postUrl;
+    if (!postUrl) return;
+
+    const countEl = container.querySelector(".count");
+    const likersEl = container.querySelector(".likers");
+
+    if (!countEl || !likersEl) return;
+
+    try {
+      const parsed = parseBlueskyUrl(postUrl);
+      if (!parsed) throw new Error("Invalid Bluesky URL");
+
+      const did = await resolveDid(parsed.handle);
+      const post = await getPost(did, parsed.postId);
+
+      // likes 数を更新
+      countEl.textContent = post.likeCount.toLocaleString();
+
+      // いいねしたユーザーのアバターを取得
+      const likers = await getLikers(post.uri);
+
+      likersEl.innerHTML = likers
+        .filter((liker) => liker.actor.avatar)
+        .map((liker) => {
+          const avatar = liker.actor.avatar?.replace(
+            "/img/avatar/",
+            "/img/avatar_thumbnail/"
+          );
+          const name = liker.actor.displayName || liker.actor.handle;
+          return `
+            <li>
+              <a href="https://bsky.app/profile/${liker.actor.handle}"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 title="${name}">
+                <img src="${avatar}"
+                     alt="${name}"
+                     loading="lazy"
+                     width="40"
+                     height="40" />
+              </a>
+            </li>
+          `;
+        })
+        .join("");
+
+      // 残りのユーザー数を表示
+      const remaining = post.likeCount - likers.length;
+      if (remaining > 0) {
+        likersEl.innerHTML += `<li class="remaining">+${remaining}</li>`;
+      }
+    } catch (error) {
+      console.error("Failed to load Bluesky likes:", error);
+      countEl.textContent = "—";
+    }
+  }
+
+  // すべての Bluesky likes コンポーネントを初期化
+  document
+    .querySelectorAll<HTMLElement>(".bluesky-likes")
+    .forEach(initBlueskyLikes);
+</script>
+
+<style>
+  .bluesky-likes {
+    margin-block: 2rem;
+    padding: 1.5rem;
+    background: var(--color-bg-muted, #f9fafb);
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-block-end: 1rem;
+    color: var(--color-text);
+  }
+
+  .likes-count {
+    font-size: 1.1rem;
+    margin-block-end: 1rem;
+    color: var(--color-text);
+  }
+
+  .likes-count .count {
+    font-weight: 700;
+    color: var(--color-primary, #0085ff);
+  }
+
+  .likers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+    padding: 0;
+    margin-block-end: 1rem;
+  }
+
+  .likers li {
+    margin: 0;
+  }
+
+  .likers li a {
+    display: block;
+    border-bottom: none;
+  }
+
+  .likers img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-bg, #fff);
+    transition: transform 0.2s ease;
+  }
+
+  .likers img:hover {
+    transform: scale(1.1);
+    z-index: 1;
+  }
+
+  .likers .remaining {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary, #0085ff);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .cta {
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #6b7280);
+  }
+
+  .cta a {
+    color: var(--color-primary, #0085ff);
+  }
+
+  .cta a:hover {
+    text-decoration: underline;
+  }
+</style>
