@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>scroll-target-group :target-current broken by container-type on target ancestor</title>
+  <style>
+    .content {
+      container-type: inline-size;
+
+      /* Misc */
+      border: 3px dashed rebeccapurple;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    /* -----------------------------------------------------------------
+ *  Misc Layout
+ * ----------------------------------------------------------------- */
+    body {
+      font: 1rem/1.6 system-ui, sans-serif;
+      display: grid;
+      grid-template-columns: 12rem 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      max-inline-size: 50rem;
+      margin-inline: auto;
+    }
+
+    header,
+    footer {
+      grid-column: 1 / -1;
+      padding: 1rem;
+    }
+
+    /* -----------------------------------------------------------------
+ *  TOC sidebar with scroll-target-group
+ * ----------------------------------------------------------------- */
+    .toc {
+      position: sticky;
+      top: 1rem;
+      align-self: start;
+    }
+
+    .toc ol {
+      scroll-target-group: auto;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .toc a {
+      display: block;
+      padding: 0.25em 0.5em;
+      text-decoration: none;
+      color: gray;
+      border-inline-start: 3px solid transparent;
+      font-size: 0.9rem;
+
+      &:target-current {
+        color: red;
+        font-weight: bold;
+      }
+    }
+
+    /* -----------------------------------------------------------------
+ *  Content sections (targets)
+ * ----------------------------------------------------------------- */
+    section {
+      min-block-size: 80vh;
+      border-block-start: 1px solid gray;
+    }
+
+    /* -----------------------------------------------------------------
+ *  Container query example in scroll-targetted section
+ * ----------------------------------------------------------------- */
+    .card {
+      background: ivory;
+      padding: 1rem;
+      margin-block: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    @container (inline-size >=30rem) {
+      .card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1><code>scroll-target-group :target-current</code> broken by <code>container-type</code> on target ancestor</h1>
+    <dl>
+      <dt>Summary</dt>
+      <dd><code>:target-current</code> does not update on scroll when target elements
+        are descendants of an element with <code>container-type: inline-size</code>.</dd>
+      <dt>Spec</dt>
+      <dd><a href="https://drafts.csswg.org/css-overflow-5/#scroll-target-group">[OVERFLOW-5] §3.1.2</a>,
+        <a href="https://drafts.csswg.org/css-overflow-5/#active-scroll-markers-calculation">§3.1.8</a>
+      </dd>
+      <dt>Test</dt>
+      <dd><a
+          href="https://wpt.fyi/results/css/css-overflow/scroll-markers?label=master&product=chrome&q=scroll-target-group"><code>css/css-overflow/scroll-markers/</code></a>,
+        or see the footer section.</dd>
+      <dt>Env</dt>
+      <dd>Version 147.0.7727.56 (Official Build) (arm64)</dd>
+      <dt>Repro</dt>
+      <dd>Scroll down. The sidebar highlight should follow. It does not.<br>
+        Comment out <code>container-type: inline-size</code> on <code>.content</code>
+        and reload to see correct behavior.</dd>
+    </dl>
+  </header>
+
+
+  <nav class="toc" aria-label="Table of Contents">
+    <ol>
+      <li><a href="#s1">Section 1</a></li>
+      <li><a href="#s2">Section 2</a></li>
+      <li><a href="#s3">Section 3</a></li>
+      <li><a href="#s4">Section 4</a></li>
+      <li><a href="#s5">Section 5</a></li>
+    </ol>
+  </nav>
+
+  <div class="content">
+    Here's the <code>.content</code> wrapper with <code>container-type: inline-size</code>.
+    <section id="s1">
+      <h2>Section 1</h2>
+      <p>This section's <code>id="s1"</code> is the target of the first TOC link.
+        The <code>.content</code> wrapper has <code>container-type: inline-size</code>,
+        which is needed for the <code>@container</code> query below.</p>
+      <div class="card">
+        <div>This card uses a container query to switch to a 2-column layout
+          when the container is wide enough.</div>
+        <div>This demonstrates a real-world use case for
+          <code>container-type: inline-size</code> that conflicts with
+          <code>scroll-target-group</code>.
+        </div>
+      </div>
+    </section>
+
+    <section id="s2">
+      <h2>Section 2</h2>
+      <p>Scrolling here should make "Section 2" active in the sidebar TOC.</p>
+    </section>
+
+    <section id="s3">
+      <h2>Section 3</h2>
+      <p>Scrolling here should make "Section 3" active in the sidebar TOC.</p>
+    </section>
+
+    <section id="s4">
+      <h2>Section 4</h2>
+      <p>Scrolling here should make "Section 4" active in the sidebar TOC.</p>
+    </section>
+
+    <section id="s5">
+      <h2>Section 5</h2>
+      <p>Scrolling here should make "Section 5" active in the sidebar TOC.</p>
+    </section>
+  </div>
+
+  <footer>
+    <h2>Analysis</h2>
+
+    <h3>1. What the spec says</h3>
+    <p><a href="https://drafts.csswg.org/css-overflow-5/#active-scroll-markers-calculation">[OVERFLOW-5] §3.1.8</a>
+      defines the active scroll marker algorithm. Step 1:</p>
+    <blockquote>Let scroller be the nearest common ancestor scroll container
+      of all of the scroll marker elements in group.</blockquote>
+    <p>The algorithm tracks the scroll position of scroller to determine which
+      target is in view. <em>Nothing in the algorithm references containment or
+        container-type in the spec.</em></p>
+
+    <h3>2. What container-type does (and does not do)</h3>
+    <p><a href="https://drafts.csswg.org/css-conditional-5/#container-type">[CONDITIONAL-5] §3.1</a>:</p>
+    <blockquote><code>container-type: inline-size</code> — Applies style containment and
+      inline-size containment to the principal box, and establishes an independent
+      formatting context.</blockquote>
+    <p>Crucially, <code>container-type</code> does <em>not</em> create a scroll container.
+      Per <a href="https://drafts.csswg.org/css-overflow-3/#scroll-containers">[OVERFLOW-3] §2</a>,
+      a scroll container is created only when <code>overflow</code> computes to
+      <code>scroll</code>, <code>auto</code>, or <code>hidden</code>.
+    <p>An element with <code>container-type: inline-size</code> and no <code>overflow</code>
+      override defaults to <code>overflow: visible</code> — it is <strong>not</strong> a scroll container.</p>
+
+    <h3>3. Why this is a bug</h3>
+    <p><code>container-type</code> creates containment and an independent formatting context,
+      but per the specs above, does <strong>not</strong> make the element a scroll container
+      and does <strong>not</strong> alter the scroll container chain.
+      The active marker algorithm (<a href="https://drafts.csswg.org/css-overflow-5/#active-marker">[OVERFLOW-5]
+        §3.1.8</a>)
+      finds the scroller via "nearest common ancestor <strong>scroll container</strong>"
+      — containment boundaries should be transparent to this lookup.
+      The implementation appears to incorrectly treat the independent formatting context
+      as a boundary that prevents scroll position tracking of descendant target elements.</p>
+
+    <h3>4. Existing WPT coverage for <code>scroll-target-group</code>: <a
+        href="https://wpt.fyi/results/css/css-overflow/scroll-markers?label=master&product=chrome&q=scroll-target-group"><code>css/css-overflow/scroll-markers/</code></a>
+    </h3>
+
+
+    <table>
+      <caption>WPT <code>scroll-target-group-*</code> test matrix</caption>
+      <thead>
+        <tr>
+          <th>Test</th>
+
+          <th>Scenario</th>
+          <th>container-type test?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+
+          <td>Basic: first link is <code>:target-current</code> at scrollTop=0</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>002</td>
+
+          <td>Tracking: last link is <code>:target-current</code> at scrollTop=max</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>003</td>
+
+          <td>Coexistence with <code>::scroll-marker</code> pseudo-elements</td>
+          <td>No</td>
+        </tr>
+        <tr style="background:#fff3cd">
+          <td><strong>004</strong></td>
+
+          <td><code>html { container: my-container / size }</code> — size container on root</td>
+          <td><strong>Yup, but on <code>html</code> (root), not intermediate ancestor</strong></td>
+        </tr>
+        <tr>
+          <td>005</td>
+
+          <td>Invalidation: nested wrapper class removal</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>006</td>
+
+          <td>Invalidation: link/target DOM removal &amp; re-insertion</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>007</td>
+
+          <td>Invalidation: dynamic class addition enables STG</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>008</td>
+
+          <td>Invalidation: dynamic class removal disables STG</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>009</td>
+
+          <td>Invalidation: dynamic <code>href</code> change to different scroller</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>010</td>
+
+          <td>Invalidation: dynamic <code>href</code> addition</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>011</td>
+
+          <td>Invalidation: dynamic <code>href</code> removal</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>012</td>
+
+          <td>Viewport scroller + <code>position: fixed</code> wrapper</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>013</td>
+          <td>Invalidation timing via click + JS assert</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>inline-crash</td>
+          <td>Inline parent of target does not crash</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>inline-targets</td>
+
+          <td>Inline scroll target elements</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <p><strong>004</strong> tests <code>container: my-container / size</code> on the
+      <strong>root (<code>html</code>)</strong> element and passes. However, no test covers
+      <code>container-type: inline-size</code> on an <strong>intermediate ancestor</strong>
+      of the scroll target elements. <strong>This repro demonstrates that the latter case fails.</strong>
+    </p>
+
+    <h3>5. Real-world impact</h3>
+    <p>This bug makes it impossible to combine:</p>
+    <ul>
+      <li><code>scroll-target-group</code> for a scrollspy TOC sidebar <strong style="color: red;">WITH</strong></li>
+      <li><code>container-type: inline-size</code> for responsive article content
+        (e.g. <code>article { container: article / inline-size }</code> with
+        children using <code>cqi</code> units)</li>
+    </ul>
+    <p>This is a common pattern in blog and documentation layouts.</p>
+  </footer>
+</body>
+
+</html>
