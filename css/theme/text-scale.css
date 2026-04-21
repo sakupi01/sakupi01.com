@@ -1,0 +1,35 @@
+/*
+----------------------------------------------------------------------------
+OS-level text scale integration (staged rollout).
+
+Integrates OS font-size preferences (from iOS/Android accessibility settings)
+via env(preferred-text-scale). Opt-in per page via:
+  <meta name="text-scale" content="scale" />
+
+Why opt-in: applying OS text scale to sites not designed for it causes
+layout breakage. WCAG 2.2 SC 1.4.4 and 1.4.10 require supporting up to
+200% text without horizontal scroll, which most sites don't handle today.
+See: https://www.joshtumath.uk/posts/2026-01-27-try-text-scaling-support-in-chrome-canary/
+
+The actual font-size calculation lives in tokens.css — this file only
+swaps the multiplier so that every step, rhythm, and rem-based token
+picks up the OS scale automatically.
+
+Specs:
+- CSS Environment Variables: https://drafts.csswg.org/css-env-1/
+- Meta text-scale explainer: https://github.com/w3c/csswg-drafts/blob/main/css-env-1/explainers/meta-text-scale.md
+- CSS Fonts 5:               https://drafts.csswg.org/css-fonts-5/#text-scale-meta
+
+Caveat: `content="scale"` may change — track https://github.com/w3c/csswg-drafts/issues/13557
+
+Note: text-size-adjust: none should be set elsewhere (e.g. reset) to prevent
+mobile browsers' automatic text inflation from interfering.
+----------------------------------------------------------------------------
+*/
+html:has(meta[name="text-scale"]) {
+  /* Overrides the default 1 set in tokens.css.
+      iOS/Safari typically provides values between 0.8 and 2.0.
+      This multiplier flows through --p-text-base and therefore every
+      --p-step-* and rem-based value in the system. */
+  --p-text-scale: env(preferred-text-scale, 1);
+}

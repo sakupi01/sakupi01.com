@@ -1,0 +1,3 @@
+:where(html) {
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+}

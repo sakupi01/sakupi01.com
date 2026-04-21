@@ -1,0 +1,10 @@
+.c-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--c-nav-gap, var(--s-space-gap-sm));
+}
+
+.c-nav a[aria-current="page"] {
+  border-block-end: var(--s-border-width-base) solid currentcolor;
+  font-weight: var(--s-font-weight-bold);
+}

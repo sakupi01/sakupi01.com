@@ -1,0 +1,8 @@
+.c-modal {
+  background: var(--c-modal-bg, var(--s-color-surface));
+  border: var(--s-border-width-thin) solid
+    var(--c-modal-border, var(--s-color-border));
+  border-radius: var(--s-border-radius-lg);
+  color: var(--c-modal-color, var(--s-color-on-surface));
+  padding: var(--s-space-layout-md);
+}

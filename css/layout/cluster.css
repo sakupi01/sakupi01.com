@@ -1,0 +1,52 @@
+/*
+----------------------------------------------------------------------------
+Cluster.
+
+A flex container that wraps items with consistent spacing.
+Use for tag lists, button groups, or any collection of items
+that should wrap naturally.
+
+See https://every-layout.dev/layouts/cluster/.
+----------------------------------------------------------------------------
+*/
+.cluster {
+  --cluster-gap: var(--s-space-gap-md);
+  --cluster-justify: flex-start;
+  --cluster-align: center;
+
+  align-items: var(--cluster-align);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-gap);
+  justify-content: var(--cluster-justify);
+}
+
+/* Gap variants */
+.cluster--gap-xs {
+  --cluster-gap: var(--s-space-gap-xs);
+}
+
+.cluster--gap-sm {
+  --cluster-gap: var(--s-space-gap-sm);
+}
+
+.cluster--gap-lg {
+  --cluster-gap: var(--s-space-gap-lg);
+}
+
+.cluster--gap-xl {
+  --cluster-gap: var(--s-space-gap-xl);
+}
+
+/* Justify variants */
+.cluster--center {
+  --cluster-justify: center;
+}
+
+.cluster--end {
+  --cluster-justify: flex-end;
+}
+
+.cluster--space-between {
+  --cluster-justify: space-between;
+}

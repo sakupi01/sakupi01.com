@@ -1,0 +1,10 @@
+.frame {
+  aspect-ratio: var(--ratio, 16 / 9);
+  overflow: hidden;
+}
+
+.frame > * {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+}

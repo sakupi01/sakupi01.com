@@ -1,0 +1,6 @@
+.icon-text {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: var(--space, 0.5rem);
+}

@@ -1,0 +1,41 @@
+/*
+----------------------------------------------------------------------------
+Box.
+
+A simple container with padding. Use for cards, panels, or any content
+that needs consistent internal spacing.
+
+See https://every-layout.dev/layouts/box/.
+----------------------------------------------------------------------------
+*/
+.box {
+  --box-padding: var(--s-space-gap-md);
+  --box-border-width: 0;
+  --box-border-color: transparent;
+
+  border: var(--box-border-width) solid var(--box-border-color);
+  padding: var(--box-padding);
+}
+
+/* Padding variants */
+.box--padding-xs {
+  --box-padding: var(--s-space-gap-xs);
+}
+
+.box--padding-sm {
+  --box-padding: var(--s-space-gap-sm);
+}
+
+.box--padding-lg {
+  --box-padding: var(--s-space-gap-lg);
+}
+
+.box--padding-xl {
+  --box-padding: var(--s-space-gap-xl);
+}
+
+/* Border variant */
+.box--bordered {
+  --box-border-width: var(--s-border-width-base);
+  --box-border-color: var(--s-color-border-default);
+}

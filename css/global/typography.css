@@ -1,11 +1,14 @@
 /*
 ----------------------------------------------------------------------------
-Element styles.
+Typography element styles.
 ----------------------------------------------------------------------------
 */
 
+/* -------------------------------------------------------------------------
+   Root font size
+   Zoom on high-density screens so additional real estate can be utilised.
+   ------------------------------------------------------------------------- */
 html {
-  /* Zoom root font size on high density screens (e.g. 2K, 4K), but not to the extent that the additional real estate can't be utilised. */
   @media (width >= 160em) {
     font-size: var(--base-font-size-2k);
   }
@@ -14,100 +17,143 @@ html {
     font-size: var(--base-font-size-4k);
   }
 
-  font-size: var(--base-font-size);
+  /* stylelint-disable-next-line custom/token-scope */
+  font-size: calc(var(--p-text-base) * var(--p-text-scale));
 }
 
+/* -------------------------------------------------------------------------
+     Body defaults
+     ------------------------------------------------------------------------- */
 body {
-  font-family: var(--base-font-family);
-  font-optical-sizing: auto;
-  font-size: var(--font-size-body);
-  -webkit-font-smoothing: antialiased; /* https://www.joshwcomeau.com/css/custom-css-reset/#four-improve-text-rendering-5 */
-  line-height: var(--base-line-height);
+  color: var(--s-color-text-primary);
+  font-family: var(--s-font-family-base);
+  font-optical-sizing: auto; /* Optimize font rendering for variable fonts. */
+  font-size: var(--s-font-size-base);
+
+  /* Improve text rendering on Webkit/Blink.
+           See: https://www.joshwcomeau.com/css/custom-css-reset/#four-improve-text-rendering-5 */
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-synthesis: none; /* Prevent browser from synthesizing bold/italic styles. */
+  line-height: var(--s-line-height-base);
+  text-autospace: normal;
 }
 
-article {
+/* -------------------------------------------------------------------------
+   Margin-trimmed containers
+   Apply to any padded container that wraps prose content.
+   margin-trim: block eliminates the block-start margin of the first child
+   and the block-end margin of the last child.
+ 
+   @supports not block provides :first-child/:last-child as a fallback for
+   browsers without margin-trim support. Note: this only trims direct children,
+   not grandchildren, so deeply nested leading/trailing margins may still show.
+
+   See: https://webkit.org/blog/16854/margin-trim/
+   ------------------------------------------------------------------------- */
+:where(article, section, aside) {
   font-feature-settings: "pnum", "lnum", "liga";
+  margin-trim: block;
 }
 
-:where(h1, h2, h3, h4, h5, h6, [class*="h--"]) {
-  font-family: var(--base-font-family-title);
-  font-optical-sizing: auto;
+@supports not (margin-trim: block) {
+  :where(article, section, aside) {
+    > :first-child {
+      margin-block-start: 0;
+    }
+
+    > :last-child {
+      margin-block-end: 0;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------
+     Headings
+     margin-block-end uses lh, so each heading level's trailing space is
+     proportional to its own line height — larger headings breathe more,
+     smaller headings stay tight, without any per-level overrides.
+     ------------------------------------------------------------------------- */
+
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--s-font-family-serif);
   font-feature-settings: "palt", "lnum", "liga";
+  text-wrap: pretty;
 }
 
-.h--xl {
-  font-size: var(--font-size-xl);
-  line-height: var(--line-height-xl);
-  margin-block-end: var(--gutter-xl);
+:where(h1) {
+  font-size: var(--s-font-size-h1);
+  line-height: var(--s-line-height-h1);
 }
 
-:where(h1, .h--1) {
-  font-size: var(--font-size-h1);
-  line-height: var(--line-height-h1);
-  margin-block-end: var(--gutter-l);
+:where(h2) {
+  font-size: var(--s-font-size-h2);
+  line-height: var(--s-line-height-h2);
 }
 
-:where(h2, .h--2) {
-  font-size: var(--font-size-h2);
-  line-height: var(--line-height-h2);
-  margin-block-end: var(--gutter-m);
+:where(h3) {
+  font-size: var(--s-font-size-h3);
+  line-height: var(--s-line-height-h3);
 }
 
-:where(h3, .h--3) {
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
-  margin-block-end: var(--gutter-m);
+:where(h4) {
+  font-size: var(--s-font-size-h4);
+  line-height: var(--s-line-height-h4);
 }
 
-:where(h4, .h--4) {
-  font-size: var(--font-size-h4);
-  line-height: var(--line-height-h4);
-  margin-block-end: var(--gutter-s);
+:where(h5) {
+  font-size: var(--s-font-size-h5);
 }
 
-:where(h5, .h--5) {
-  font-size: var(--font-size-h5);
-  margin-block-end: var(--gutter-xs);
+:where(h6) {
+  font-size: var(--s-font-size-base);
 }
 
-:where(h6, .h--6) {
-  font-size: var(--font-size-body);
-  margin-block-end: var(--gutter-xs);
+/* -------------------------------------------------------------------------
+     Prose margins
+     1lh matches one line of text at the current element's font and line-height,
+     producing vertical rhythm where blank space ≡ a line of text.
+     The em fallback ensures a reasonable result in browsers without lh support
+     (shipped in all major browsers in 2023, ~94% coverage as of 2025).
+     
+    Spacing strategy — lh vs rlh:
+      lh  = line height of the CURRENT element.
+            Used for prose margins so spacing scales with the local text size.
+            A heading's margin-block-end is therefore relative to that heading's
+            own line height, not the body's — no per-level manual tuning needed.
+      rlh = line height of the ROOT element.
+            Used where consistent document-level rhythm matters more than
+            local scaling (e.g. layout gaps, section padding).
+
+    Reference: https://webkit.org/blog/16831/line-height-units/
+     ------------------------------------------------------------------------- */
+
+:where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul:not(li > ul),
+  ol:not(li > ol),
+  figure,
+  blockquote
+):not([class]) {
+  /* 1rem is basically preferred line height for most fonts, but I use 0.75em to avoid too much vertical space. */
+  margin-block: 0.75em; /* fallback */
+  margin-block: var(--s-space-gutter-xs);
 }
 
-/*
-----------------------------------------------------------------------------
-Margins on other prose elements.
-----------------------------------------------------------------------------
-*/
-:where(p, :is(ul, ol):not([class])) {
-  margin-block-end: var(--gutter-xs);
-}
+/* -------------------------------------------------------------------------
+     Miscellaneous
+     ------------------------------------------------------------------------- */
 
-:where(p:not(.hero-section p, aside p)) {
-  margin-block-start: var(--gutter-m);
-}
-
-/*
-----------------------------------------------------------------------------
-Validation styles.
-----------------------------------------------------------------------------
-*/
-.error {
-  color: var(--color-error-medium);
-}
-
-.success {
-  color: var(--color-success-medium);
-}
-
-/*
-----------------------------------------------------------------------------
-Miscellaneous styles.
-----------------------------------------------------------------------------
-*/
+/* Optimal line length for readability (45–75 characters). */
 :where(:is(p, li):not([class]), dd, small) {
-  max-inline-size: var(--type-max-line-length);
+  margin-inline: auto;
+  max-inline-size: var(--base-article-max-width);
 }
 
 :is(button, input, select, textarea, datalist, datalist > option) {
@@ -125,10 +171,14 @@ address {
 }
 
 small {
-  font-size: var(--font-size-s);
+  font-size: var(--s-font-size-xs);
 }
 
-code {
-  font-family: var(--base-font-family-cartograph);
-  font-optical-sizing: auto;
+code,
+pre {
+  font-family: var(--s-font-family-mono);
+}
+
+pre {
+  font-size: calc(100% / pow(1.3, 1));
 }

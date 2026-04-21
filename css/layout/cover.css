@@ -1,0 +1,11 @@
+.cover {
+  display: grid;
+  gap: var(--space, 1rem);
+  grid-template-rows: auto 1fr auto;
+  min-block-size: 100svb;
+  padding: var(--space, 1rem);
+}
+
+.cover > .centered {
+  align-self: center;
+}

@@ -6,29 +6,25 @@ See https://every-layout.dev/layouts/stack/.
 ----------------------------------------------------------------------------
 */
 .stack {
-  --stack-gutter: var(--gutter-m);
+  --stack-gutter: var(--s-space-gutter-md);
 
-  > * + * {
-    margin-block-start: var(--stack-gutter, 1em);
-  }
-
-  > * {
-    margin-block-end: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gutter);
 }
 
 .stack--gutter-xs {
-  --stack-gutter: var(--gutter-xs);
+  --stack-gutter: var(--s-space-gutter-xs);
 }
 
-.stack--gutter-s {
-  --stack-gutter: var(--gutter-s);
+.stack--gutter-sm {
+  --stack-gutter: var(--s-space-gutter-sm);
 }
 
-.stack--gutter-l {
-  --stack-gutter: var(--gutter-l);
+.stack--gutter-lg {
+  --stack-gutter: var(--s-space-gutter-lg);
 }
 
 .stack--gutter-xl {
-  --stack-gutter: var(--gutter-xl);
+  --stack-gutter: var(--s-space-gutter-xl);
 }
