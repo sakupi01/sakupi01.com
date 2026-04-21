@@ -12,7 +12,7 @@ if (import.meta.env.DEV) {
 }
 ---
 
-<div class="gone-wrong">
+<div class="center">
   <img
     src={iconCry.src}
     width={150}
@@ -25,13 +25,3 @@ if (import.meta.env.DEV) {
 <script define:vars={{ status }}>
   console.log(`Oh, the status is: ${status}`);
 </script>
-
-<style>
-  .gone-wrong {
-    box-sizing: border-box;
-    display: grid;
-    place-content: center;
-    width: 100%;
-    min-block-size: 100vh;
-  }
-</style>

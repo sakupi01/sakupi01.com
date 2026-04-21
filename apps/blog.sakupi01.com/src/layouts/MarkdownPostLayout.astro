@@ -1,11 +1,13 @@
 ---
 import "@sakupi01/style/sakupi01.com.markdown.css";
-import "../style/sakupi01.com.astro-code.css";
 import type { InferEntrySchema } from "astro:content";
 import HeroSection from "./HeroSection.astro";
 import Layout from "./Layout.astro";
-import BlueskyLikes from "../components/BlueskyLikes.astro";
 import Giscus from "../components/Giscus.astro";
+import { Image } from "astro:assets";
+import xIcon from "../assets/icons/x.svg";
+import blueskyIcon from "../assets/icons/bluesky.svg";
+import githubIcon from "../assets/icons/github.svg";
 
 interface Props {
   frontmatter: InferEntrySchema<"blog">;
@@ -13,101 +15,102 @@ interface Props {
 }
 
 const { frontmatter, slug } = Astro.props;
-const { title, excerpt, date, update, tags, blueskyPostUrl } = frontmatter;
+const { title, excerpt, date, update, tags } = frontmatter;
 ---
 
 <Layout pageTitle={title} description={excerpt} url={slug}>
-  <article>
-    <HeroSection
-      title={title}
-      date={date}
-      update={update}
-      excerpt={excerpt}
-      tags={tags}
-    />
-    <slot />
-  </article>
+  <div class="article-with-toc">
+    <aside class="article-toc">
+      <slot name="toc" />
+    </aside>
+    <article>
+      <HeroSection
+        title={title}
+        date={date}
+        update={update}
+        excerpt={excerpt}
+        tags={tags}
+      />
+      <slot />
+    </article>
+  </div>
 
-  <ul class="tags">
-    {
-      tags.map((tag: string) => (
-        <li>
-          <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="article-meta">
+    <ul class="tags grid grid--centered">
+      {
+        tags.map((tag: string) => (
+          <li>
+            <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
 
-  <ul>
-    <li>
-      <a
-        href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=https://blog.sakupi01.com/${slug}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-icon"
-      >
-        <img src="/x.svg" alt="x icon" />
-      </a>
-    </li>
-    <li>
-      <a
-        href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0Ahttps://blog.sakupi01.com/${slug}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-icon"
-      >
-        <img src="/bluesky.svg" alt="bluesky icon" />
-      </a>
-    </li>
-    <li>
-      <a
-        href={`https://github.com/sakupi01/sakupi01.com/tree/main/apps/blog.sakupi01.com/src/content/blog/${slug}.md`}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-icon"
-      >
-        <img src="/github.svg" alt="github icon" />
-      </a>
-    </li>
-  </ul>
-
-  <BlueskyLikes postUrl={blueskyPostUrl} />
-  <hr />
-  <Giscus pathname={slug} />
+    <ul class="grid grid--centered">
+      <li>
+        <a
+          href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=https://blog.sakupi01.com/${slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-icon"
+        >
+          <Image src={xIcon} alt="x icon" class="icon icon--medium" />
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0Ahttps://blog.sakupi01.com/${slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-icon"
+        >
+          <Image
+            src={blueskyIcon}
+            alt="bluesky icon"
+            class="icon icon--medium"
+          />
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://github.com/sakupi01/sakupi01.com/tree/main/apps/blog.sakupi01.com/src/content/blog/${slug}.md`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-icon"
+        >
+          <Image src={githubIcon} alt="github icon" class="icon icon--medium" />
+        </a>
+      </li>
+    </ul>
+    <hr />
+    <Giscus pathname={slug} />
+  </div>
 </Layout>
 
 <style>
-  a {
-    color: #00539f;
-  }
-
   ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    margin-block: 20px;
+    --grid-item-max-width: max-content;
+    --grid-item-min-width: 4em;
+    --grid-gap: var(--s-space-gap-xs);
+
+    margin-block-start: var(--s-space-gap-md);
+    place-items: center;
 
     li {
-      list-style: none;
-
       a {
-        color: var(--color-text);
-        border-bottom: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        display: inline-block;
-        transition: transform 0.3s ease;
+        border-block-end: none;
 
-        &:hover {
-          transform: rotate(-10deg);
+        @media (hover: hover) {
+          &:hover {
+            transform: rotate(-10deg);
+          }
         }
       }
     }
   }
-  .tags li a {
-    color: var(--color-violet-2);
+
+  .tags {
+    /* stylelint-disable-next-line custom/token-scope */
+    color: var(--p-color-lavender-500);
   }
 </style>

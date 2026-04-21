@@ -11,7 +11,7 @@ import { allTechPosts } from "../../utils/contents";
   url="/dev/"
 >
   <Title title="Tech Articles Archive ..." />
-  <ul class="posts">
+  <ul class="stack">
     {
       allTechPosts.map((post) => {
         const url = post.data.tags.includes("zenn")
@@ -31,9 +31,7 @@ import { allTechPosts } from "../../utils/contents";
 </Layout>
 
 <style>
-  .posts {
-    display: grid;
-    gap: 3rem;
-    padding: 1rem 0;
+  .stack {
+    --stack-gutter: var(--s-space-gutter-xl);
   }
 </style>

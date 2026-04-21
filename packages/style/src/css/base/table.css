@@ -1,0 +1,11 @@
+/*
+----------------------------------------------------------------------------
+Table settings.
+----------------------------------------------------------------------------
+*/
+:where(html) {
+  --table-border-outer: var(--s-color-border-strong);
+  --table-border-cell: var(--s-color-border-subtle);
+  --table-header-background: var(--s-color-warning-bg);
+  --table-stripe: color-mix(in oklab, var(--s-color-warning-bg) 60%, white);
+}

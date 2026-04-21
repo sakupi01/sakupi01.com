@@ -1,142 +1,243 @@
 ---
-export interface Props {
-  homeHref?: string;
-  homeLabel?: string;
+import { randomUUID } from "node:crypto";
+import HamburgerIcon from "./HamburgerIcon.astro";
+
+const popoverId = `blogs-popover-${randomUUID()}`;
+const homeHref = import.meta.env.PUBLIC_HOME ?? "/";
+const blogBase = import.meta.env.PUBLIC_BLOG ?? "";
+
+function stripTrailingSlash(p: string): string {
+  if (p === "/" || p === "") return "/";
+  return p.replace(/\/+$/, "") || "/";
 }
 
-const { homeHref = "/", homeLabel = "<home />" } = Astro.props;
-const blogBase = import.meta.env.PUBLIC_BLOG || "";
+const pathname = Astro.url.pathname;
+const homeUrl = new URL(homeHref, Astro.url.href);
+const homePath = stripTrailingSlash(homeUrl.pathname);
+
+function blogOriginFromEnv(): string | null {
+  if (!blogBase) return null;
+  try {
+    return new URL(blogBase, Astro.url.href).origin;
+  } catch {
+    return null;
+  }
+}
+
+const blogOrigin = blogOriginFromEnv();
+
+const isOnBlogSite =
+  blogOrigin !== null &&
+  Astro.url.origin === blogOrigin &&
+  blogOrigin !== homeUrl.origin;
+
+const pathMatchesHome = stripTrailingSlash(pathname) === homePath;
+
+const isHome =
+  pathMatchesHome &&
+  (Astro.url.origin === homeUrl.origin ||
+    (homePath === "/" && blogOrigin !== null && !isOnBlogSite));
+
+function isUnderBlogSection(p: string): boolean {
+  const n = stripTrailingSlash(p);
+  return (
+    n === "/dev" ||
+    n.startsWith("/dev/") ||
+    n === "/life" ||
+    n.startsWith("/life/") ||
+    n === "/tags" ||
+    n.startsWith("/tags/")
+  );
+}
+
+const isBlogsNav =
+  isUnderBlogSection(pathname) ||
+  (stripTrailingSlash(pathname) === "/" && isOnBlogSite);
 ---
 
-<nav>
-  <a href={homeHref} class="nav-item soundable">{homeLabel}</a>
-  <button
-    popovertarget="blogs"
-    class="popovertarget soundable"
-    data-id="--blogs-button"
-  >
-    {"<blogs />"}
-  </button>
-  <ul id="blogs" popover data-id="--blogs-button">
-    <li>
-      <a href={`${blogBase}dev/`} class="soundable">{"dev"}</a>
-    </li>
-    <li>
-      <a href={`${blogBase}life/`} class="soundable">{"life"}</a>
-    </li>
-    <li>
-      <a href={`${blogBase}tags/`} class="soundable">{"tags"}</a>
-    </li>
-    <li>
-      <a href={blogBase || "/"} class="soundable">{"all"}</a>
-    </li>
-  </ul>
-  <a
-    href={import.meta.env.PUBLIC_SLIDES}
-    target="_blank"
-    class="nav-item soundable">{"talks"}</a
-  >
-  <a
-    href={import.meta.env.PUBLIC_STUDIO}
-    target="_blank"
-    class="nav-item soundable">{"studio"}</a
-  >
-  <a
-    href={`${blogBase}feed.xml`}
-    target="_blank"
-    class="nav-item soundable">{"rss"}</a
-  >
-</nav>
+<div>
+  <nav id="nav">
+    <a
+      href={homeHref}
+      class:list={["nav-item", "soundable", { "nav-item--here": isHome }]}
+      aria-current={isHome ? "page" : undefined}
+    >
+      home
+    </a>
+    <button
+      popovertarget={popoverId}
+      class:list={[
+        "popovertarget",
+        "soundable",
+        { "nav-item--here": isBlogsNav },
+      ]}
+      aria-current={isBlogsNav ? "page" : undefined}
+      type="button"
+    >
+      blogs
+    </button>
+    <ul id={popoverId} popover>
+      <li>
+        <a href={`${blogBase}dev/`} class="soundable">{"dev"}</a>
+      </li>
+      <li>
+        <a href={`${blogBase}life/`} class="soundable">{"life"}</a>
+      </li>
+      <li>
+        <a href={`${blogBase}tags/`} class="soundable">{"tags"}</a>
+      </li>
+      <li>
+        <a href={blogBase || "/"} class="soundable">{"all"}</a>
+      </li>
+    </ul>
+    <a
+      href={import.meta.env.PUBLIC_SLIDES}
+      target="_blank"
+      class="nav-item soundable">{"talks"}</a
+    >
+    <a
+      href={import.meta.env.PUBLIC_STUDIO}
+      target="_blank"
+      class="nav-item soundable">{"studio"}</a
+    >
+    <a href={`${blogBase}feed.xml`} target="_blank" class="nav-item soundable"
+      >{"rss"}</a
+    >
+  </nav>
+  <a href="#footer" hidden><HamburgerIcon /></a>
+</div>
 
 <style>
-  nav {
-    display: flex;
-    gap: 1rem;
+  div {
+    font-family: var(--s-font-family-mono);
+    font-style: italic;
 
-    :is(a, button) {
-      color: inherit;
-    }
-
-    @media (max-width: 768px) {
-      gap: 0.5rem;
-    }
-
-    .soundable {
-      align-content: center;
-    }
-
-    .nav-item {
-      border-bottom: none;
-      &:hover {
-        transform: translateY(-3px);
+    nav {
+      @supports (position-area: bottom center) {
+        [popover] {
+          position-anchor: var(--anchor-name, --nav-anchor);
+          position-area: bottom center;
+          position-try: normal flip-block;
+        }
       }
-    }
-  }
 
-  .popovertarget {
-    /* anchor positioning polyfill doesn't support nesting syntax */
-    anchor-name: --blogs-button;
-    transition: all 0.15s linear;
-    &:hover:not(:has(:popover-open)) {
-      transform: translateY(-3px);
-    }
-  }
-
-  [popover] {
-    position: absolute;
-    opacity: 0;
-    translate: 0 -50px;
-    background: var(--color-base-lightest);
-    color: #333;
-    padding: 1rem;
-    border: 0.5px solid #ddd;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    min-width: 150px;
-    transition:
-      translate 0.3s allow-discrete,
-      opacity 0.3s,
-      display 0.3s allow-discrete;
-    margin-bottom: 10px;
-    --center: anchor(--blogs-button 50%);
-    position-anchor: --blogs-button;
-    left: var(--center);
-    top: anchor(--blogs-button bottom);
-
-    li {
-      list-style: none;
-    }
-
-    &:popover-open {
-      opacity: 1;
-      translate: 0 0;
       display: grid;
-      gap: 1rem;
-      grid-auto-rows: min-content;
+      gap: var(--s-space-gap-xs);
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 2em), max-content)
+      );
+      justify-content: end;
 
-      a:hover {
-        &::before {
-          content: "<";
-          color: var(--header-text);
-        }
-        &::after {
-          content: " />";
-          color: var(--header-text);
+      > * {
+        white-space: nowrap;
+      }
+
+      .nav-item--here {
+        --nav-bracket-open: "<";
+        --nav-bracket-close: " />";
+      }
+
+      .nav-item.nav-item--here::before,
+      .popovertarget.nav-item--here::before {
+        color: var(--s-color-primary);
+        content: var(--nav-bracket-open);
+      }
+
+      .nav-item.nav-item--here::after,
+      .popovertarget.nav-item--here::after {
+        color: var(--s-color-primary);
+        content: var(--nav-bracket-close);
+      }
+
+      @media (hover: hover) {
+        a:hover {
+          transform: translateY(-3px);
+          transition: all 0.15s linear;
         }
       }
 
-      @starting-style {
+      .popovertarget {
+        /* anchor positioning polyfill doesn't support nesting syntax */
+        anchor-name: var(--anchor-name, --nav-anchor);
+        line-height: inherit;
+        transition: all 0.15s linear;
+
+        @media (hover: hover) {
+          &:hover:not(:has(:popover-open)) {
+            transform: translateY(-3px);
+          }
+        }
+      }
+
+      [popover] {
+        --center: anchor(var(--anchor-name, --nav-anchor) 50%);
+
+        background-color: var(--s-color-surface-base);
+        border: var(--s-border-width-thin) solid var(--s-color-border-default);
+        border-radius: var(--s-border-radius-sm);
+        box-shadow: var(--s-shadow-sm);
+        inline-size: max-content;
+        inset-block-start: anchor(var(--anchor-name, --nav-anchor) bottom);
+        inset-inline-start: var(--center);
         opacity: 0;
+        padding: var(--s-space-layout-sm) var(--s-space-layout-xs);
+        position: absolute;
+        position-anchor: var(--anchor-name, --nav-anchor);
+        transition:
+          translate 0.3s allow-discrete,
+          opacity 0.3s,
+          display 0.3s allow-discrete;
         translate: 0 -50px;
+
+        li {
+          list-style: none;
+          padding-inline: var(--s-space-layout-lg);
+          text-align: start;
+        }
+      }
+
+      [popover]:popover-open {
+        display: grid;
+        gap: var(--s-space-layout-sm);
+        grid-auto-rows: min-content;
+        opacity: 1;
+        translate: 0 0;
+
+        @starting-style {
+          opacity: 0;
+          translate: 0 -50px;
+        }
+      }
+
+      @media (hover: hover) {
+        [popover]:popover-open a:hover::before {
+          color: var(--s-color-primary);
+          content: "<";
+        }
+
+        [popover]:popover-open a:hover::after {
+          color: var(--s-color-primary);
+          content: " />";
+        }
       }
     }
   }
 
-  @supports (position-area: bottom center) {
-    [popover] {
-      position-anchor: attr(data-id type(<custom-ident>), none);
-      position-area: bottom center;
-      position-try: normal flip-block;
+  /* Respects text-scale */
+  @container (width <= 34.375em) {
+    div {
+      nav {
+        display: none;
+      }
+
+      a[href="#footer"] {
+        border-block-end: none;
+        display: grid;
+        justify-self: end;
+        padding: 0;
+        place-items: center;
+      }
     }
   }
 </style>

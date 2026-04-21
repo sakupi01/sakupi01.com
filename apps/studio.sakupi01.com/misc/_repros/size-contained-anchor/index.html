@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>::before cannot anchor to its originating element via explicit anchor-name</title>
+  <style>
+    body {
+      display: grid;
+      font: 1rem/1.6 system-ui, sans-serif;
+      gap: 2rem;
+      padding: 2rem;
+      max-inline-size: 50rem;
+      margin-inline: auto;
+    }
+
+    header,
+    footer {
+      padding: 1rem;
+    }
+
+    .case {
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    /* -----------------------------------------------------------------
+     *  Case 1: anchor-name on the originating element (.container),
+     *  the ::before pseudo on the same element references it explicitly.
+     *  The ::before's containing block IS the anchor element itself.
+     *  Expected: "1" at bottom-right of the green box.
+     *  Observed (Chrome): "1" at top-left — position-area is ignored.
+     * ----------------------------------------------------------------- */
+    .case-1 .container {
+      anchor-name: --anchor-1;
+      background: #cfc;
+      block-size: 150px;
+      inline-size: 300px;
+      position: relative;
+    }
+
+    .case-1 .container::before {
+      background: red;
+      color: white;
+      content: "1";
+      padding: 4px 8px;
+      position: absolute;
+      position-anchor: --anchor-1;
+      position-area: bottom right;
+    }
+
+    /* -----------------------------------------------------------------
+     *  Case 2: anchor-name on a sibling element inside the same
+     *  containing block as the ::before. The ::before's containing
+     *  block is a strict ancestor of the anchor.
+     *  Expected: "2" at bottom-right of the green box.
+     *  Observed (Chrome): works as expected.
+     * ----------------------------------------------------------------- */
+    .case-2 .outer {
+      position: relative;
+    }
+
+    .case-2 .target {
+      anchor-name: --anchor-2;
+      background: #cfc;
+      block-size: 150px;
+      inline-size: 300px;
+    }
+
+    .case-2 .outer::before {
+      background: red;
+      color: white;
+      content: "2";
+      padding: 4px 8px;
+      position: absolute;
+      position-anchor: --anchor-2;
+      position-area: bottom right;
+    }
+
+    /* -----------------------------------------------------------------
+     *  Case 3: Same topology as Case 1, but the ::before uses implicit
+     *  anchor resolution (position-anchor: auto, the default), which
+     *  per spec resolves to the originating element.
+     *  Expected: "3" at bottom-right of the green box.
+     *  Observed (Chrome): works as expected — implicit lookup succeeds
+     *  where explicit anchor-name resolution fails.
+     * ----------------------------------------------------------------- */
+    .case-3 .container {
+      background: #cfc;
+      block-size: 150px;
+      inline-size: 300px;
+      position: relative;
+    }
+
+    .case-3 .container::before {
+      background: red;
+      color: white;
+      content: "3";
+      padding: 4px 8px;
+      position: absolute;
+      /* position-anchor: auto (implicit) — resolves to originating element */
+      position-area: bottom right;
+    }
+
+    footer table {
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    footer th,
+    footer td {
+      border: 1px solid #ccc;
+      padding: 0.25rem 0.5rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    blockquote {
+      border-inline-start: 3px solid #ccc;
+      margin-inline-start: 0;
+      padding-inline-start: 1rem;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1><code>::before</code> cannot anchor to its originating element via explicit <code>anchor-name</code></h1>
+    <dl>
+      <dt>Summary</dt>
+      <dd>When a <code>::before</code> pseudo-element is absolutely positioned and references
+        its originating element via an explicit <code>position-anchor: --name</code>, Chrome
+        fails to resolve the anchor: <code>position-area</code> is ignored and the
+        pseudo falls back to the static/top-left position of its containing block.
+        The same configuration with <code>position-anchor: auto</code> (the default,
+        which per spec resolves to the originating element) works correctly.</dd>
+      <dt>Spec</dt>
+      <dd><a href="https://drafts.csswg.org/css-anchor-position-1/#acceptable-anchor-element">[ANCHOR-POSITION-1]
+          §3.1 Acceptable Anchor Element</a>,
+        <a href="https://drafts.csswg.org/css-anchor-position-1/#implicit">§3.2 Implicit Anchor Element</a>,
+        <a href="https://drafts.csswg.org/css-anchor-position-1/#target">§3 Finding an Anchor</a>
+      </dd>
+      <dt>Test</dt>
+      <dd><a
+          href="https://wpt.fyi/results/css/css-anchor-position?q=pseudo"><code>css/css-anchor-position/</code></a>
+        — see the matrix in the footer.</dd>
+      <dt>Env</dt>
+      <dd>Chrome 147.x (arm64, macOS)</dd>
+      <dt>Repro</dt>
+      <dd>Case 1 is broken. Case 2 and Case 3 work. Compare the three boxes below.</dd>
+    </dl>
+  </header>
+
+  <section class="case case-1">
+    <h2>Case 1 — explicit <code>anchor-name</code> on originating element (broken)</h2>
+    <p>Topology: <code>.container { anchor-name; position: relative }</code>,
+      <code>.container::before { position-anchor: --anchor-1 }</code>.
+      The anchor element <em>is</em> the containing block of the positioned pseudo.</p>
+    <div class="container"></div>
+  </section>
+
+  <section class="case case-2">
+    <h2>Case 2 — explicit <code>anchor-name</code> on a descendant of the containing block (works)</h2>
+    <p>Topology: <code>.outer { position: relative }</code>,
+      <code>.target { anchor-name }</code> child,
+      <code>.outer::before { position-anchor: --anchor-2 }</code>.
+      The anchor element is a strict descendant of the containing block.</p>
+    <div class="outer">
+      <div class="target"></div>
+    </div>
+  </section>
+
+  <section class="case case-3">
+    <h2>Case 3 — implicit anchor (<code>position-anchor: auto</code>) on originating element (works)</h2>
+    <p>Topology identical to Case 1, but the pseudo does <em>not</em> specify
+      <code>position-anchor</code>. Per spec, the implicit anchor is the originating
+      element. This path succeeds — so the originating element <strong>is</strong>
+      reachable as an anchor; only the explicit name lookup fails.</p>
+    <div class="container"></div>
+  </section>
+
+  <footer>
+    <h2>Analysis</h2>
+
+    <h3>1. What the spec says</h3>
+    <p><a href="https://drafts.csswg.org/css-anchor-position-1/#implicit">[ANCHOR-POSITION-1] §3.2</a>:</p>
+    <blockquote>The implicit anchor element of a pseudo-element is its originating element,
+      unless otherwise specified.</blockquote>
+    <p>And <a href="https://drafts.csswg.org/css-anchor-position-1/#acceptable-anchor-element">§3.1</a>
+      defines the algorithm for resolving an explicit <code>anchor-name</code>. An element
+      <var>possible anchor</var> is an acceptable anchor element for an absolutely positioned
+      element <var>positioned el</var> if all of:</p>
+    <ol>
+      <li><var>possible anchor</var> is either an element or a fully styleable tree-abiding
+        pseudo-element.</li>
+      <li><var>possible anchor</var> is in scope for <var>positioned el</var>, per the
+        effects of <code>anchor-scope</code>.</li>
+      <li><var>possible anchor</var> is laid out strictly before <var>positioned el</var>,
+        which holds when one of:
+        <ul>
+          <li>they share the same original containing block and the anchor is either
+            non-absolutely-positioned or comes earlier in flat tree order, or</li>
+          <li><strong>the element generating <var>possible anchor</var>'s containing block
+              is itself an acceptable anchor element</strong> for <var>positioned el</var>
+            (recursive).</li>
+        </ul>
+      </li>
+      <li>Skipped-contents consistency (c-v).</li>
+    </ol>
+
+    <h3>2. Why Case 1 should resolve per spec</h3>
+    <p>For <code>.container::before</code> (the positioned element), the containing block
+      is <code>.container</code> itself (since <code>.container</code> is
+      <code>position: relative</code>). The candidate anchor is also
+      <code>.container</code>. They do <em>not</em> share a containing block, so the
+      recursive branch of rule 3 applies:</p>
+    <ul>
+      <li><code>.container</code>'s containing block is its parent (the
+        <code>&lt;section&gt;</code>).</li>
+      <li>That parent is an acceptable anchor element for <code>.container::before</code>
+        (same containing block as <code>.container</code>, laid out earlier in flat tree
+        order), so the recursion terminates successfully.</li>
+    </ul>
+    <p>Therefore <code>.container</code> <em>is</em> an acceptable anchor for its own
+      <code>::before</code>. Nothing in the spec excludes the case where the anchor equals
+      the containing block of the positioned element.</p>
+
+    <h3>3. What Chrome actually does</h3>
+    <p>Three observations from the cases above pin down the failure:</p>
+    <ul>
+      <li><strong>Case 3 works</strong> → the originating element is reachable as an anchor
+        at layout time; there is no fundamental containing-block-is-anchor problem.</li>
+      <li><strong>Case 2 works</strong> → explicit <code>anchor-name</code> resolution
+        works when the anchor is a strict descendant of the containing block.</li>
+      <li><strong>Case 1 fails</strong> → only the combination "explicit
+        <code>anchor-name</code>" + "anchor equals containing block" fails.</li>
+    </ul>
+    <p>The symptom — <code>position-area</code> silently ignored, pseudo rendered at the
+      top-left of its containing block — matches the behavior of a positioned element whose
+      <code>position-anchor</code> lookup returned "no acceptable anchor", in which case
+      anchor-dependent properties are treated as their initial values.</p>
+    <p>The likely implementation-level cause: the anchor-name lookup walks the flat tree
+      starting from the positioned element, searching for an element with the matching
+      name that is also an acceptable anchor. The check "is this anchor strictly laid out
+      before the positioned element" is likely implemented as "the anchor must be an
+      element that finishes layout before the positioned element begins layout". When the
+      anchor <em>is</em> the containing block, its box layout is still in progress at the
+      moment the descendant absolutely-positioned box is laid out, so the check returns
+      false. The implicit-anchor path in Case 3 bypasses the name-based search and takes
+      a different code path that knows the originating element is already laid out enough
+      to supply geometry.</p>
+
+    <h3>4. Ruling out size containment</h3>
+    <p>The directory name for this repro originally hinted at size containment
+      (<code>contain: size</code> / <code>container-type: size</code>) as the suspected
+      cause. After instrumenting the cases, size containment is <strong>not</strong>
+      involved: no case uses <code>contain</code>, <code>container-type</code>, or any
+      containment-triggering property. The triggering condition is strictly topological
+      (anchor = containing block) combined with the explicit-name resolution path.</p>
+
+    <h3>5. Existing WPT coverage for pseudo-element anchoring</h3>
+
+    <table>
+      <caption>WPT <code>css/css-anchor-position/</code> pseudo-element tests</caption>
+      <thead>
+        <tr>
+          <th>Test</th>
+          <th>Scenario</th>
+          <th>Covers Case 1 topology?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>anchor-function-pseudo-element-basic</code></td>
+          <td>Basic <code>anchor()</code> from a pseudo-element</td>
+          <td>No — uses implicit anchor</td>
+        </tr>
+        <tr>
+          <td><code>anchor-function-pseudo-element-implicit-anchor</code></td>
+          <td>Pseudo uses the implicit (originating-element) anchor</td>
+          <td>No — implicit path, same as Case 3</td>
+        </tr>
+        <tr>
+          <td><code>anchor-function-chain-pseudo-elements</code></td>
+          <td>Chained anchor relationships across pseudos</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><code>anchor-name-001</code> … <code>008</code></td>
+          <td>Basic <code>anchor-name</code> resolution</td>
+          <td>No — anchor is always a descendant, not the CB</td>
+        </tr>
+        <tr>
+          <td><code>anchor-fixed-pos-descendant</code></td>
+          <td>Fixed-positioned descendant uses ancestor anchor</td>
+          <td>No — fixed, not absolute; ICB as CB</td>
+        </tr>
+        <tr style="background:#fff3cd">
+          <td><strong>(gap)</strong></td>
+          <td><strong>Absolutely positioned <code>::before</code> with explicit
+              <code>position-anchor: --name</code> where <code>--name</code> is on the
+              originating element (which is also the containing block)</strong></td>
+          <td><strong>Not covered — this repro exercises exactly that gap</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The implicit-anchor case (Case 3) is covered by
+      <code>anchor-function-pseudo-element-implicit-anchor</code>. The explicit-anchor
+      case where the named anchor happens to be the containing block is not in WPT, and
+      that is the configuration this repro breaks on.</p>
+
+    <h3>6. Real-world impact</h3>
+    <p>This combination is common in decorative patterns:</p>
+    <ul>
+      <li>A card component with <code>anchor-name</code> declared on the card root for use
+        by external tooltips, combined with a <code>::before</code> badge on the same card
+        positioned via <code>position-area</code>.</li>
+      <li>Authors who name their anchor explicitly (for documentation/readability) expect
+        it to behave identically to the implicit default. The silent divergence is a
+        footgun: removing the redundant-looking <code>position-anchor: --name</code> line
+        "fixes" the layout with no diagnostic.</li>
+    </ul>
+    <p>Workaround: omit <code>position-anchor</code> on pseudo-elements whose anchor is
+      their originating element, relying on the implicit default. Or move the
+      <code>anchor-name</code> onto a dedicated child element (Case 2 topology).</p>
+  </footer>
+</body>
+
+</html>

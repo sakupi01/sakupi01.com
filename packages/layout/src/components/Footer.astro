@@ -1,13 +1,229 @@
 ---
 const date = new Date();
+
+const NAV_SECTIONS = [
+  {
+    heading: "Writings",
+    links: [
+      { label: "Dev", href: "https://blog.sakupi01.com/dev/" },
+      { label: "Life", href: "https://blog.sakupi01.com/life/" },
+      { label: "Tags", href: "https://blog.sakupi01.com/tags/" },
+      { label: "Archive", href: "https://blog.sakupi01.com/" },
+    ],
+  },
+  {
+    heading: "Navigate",
+    links: [
+      { label: "Home", href: "https://sakupi01.com/" },
+      { label: "Blog", href: "https://blog.sakupi01.com/" },
+      { label: "Talks", href: "https://sakupi01.github.io/slides/" },
+      { label: "Studio", href: "https://studio.sakupi01.com/" },
+      { label: "Feed", href: "https://blog.sakupi01.com/feed.xml" },
+      { label: "Colophon", href: "https://sakupi01.github.io/sakupi01.com/" },
+    ],
+  },
+  {
+    heading: "Social",
+    links: [
+      { label: "GitHub", href: "https://github.com/sakupi01" },
+      { label: "Twitter / X", href: "https://x.com/sakupi01" },
+      { label: "Bluesky", href: "https://bsky.app/profile/sakupi01.com" },
+      { label: "Codepen", href: "https://codepen.io/sakupi01" },
+      {
+        label: "Email",
+        href: "mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and...",
+      },
+    ],
+  },
+  {
+    heading: "Meta",
+    links: [
+      { label: "Sitemap", href: "https://blog.sakupi01.com/sitemap.xml" },
+      { label: "Privacy", href: "https://sakupi01.com/privacy/" },
+      {
+        label: "Report broken page",
+        href: "https://github.com/sakupi01/sakupi01.com/issues/new?template=bug_report.md&title=%5BBug%5D+Broken+page",
+        icon: "bug",
+      },
+    ],
+  },
+];
 ---
 
-<footer>
+<footer id="footer">
+  <nav aria-label="Footer">
+    {
+      NAV_SECTIONS.map((section) => (
+        <section>
+          <h3>{section.heading}</h3>
+          <ul role="list">
+            {section.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  {...(link.href.startsWith("http")
+                    ? { rel: "noopener noreferrer", target: "_blank" }
+                    : {})}
+                >
+                  {link.icon === "bug" && (
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path d="M4.355.522a.5.5 0 0 1 .623.333l.291.956A4.979 4.979 0 0 1 8 1c1.007 0 1.946.298 2.731.811l.29-.956a.5.5 0 1 1 .957.29l-.41 1.352A4.985 4.985 0 0 1 13 6h.5a.5.5 0 0 0 .5-.5V5a.5.5 0 0 1 1 0v.5A1.5 1.5 0 0 1 13.5 7H13v1h1.5a.5.5 0 0 1 0 1H13v1h.5a1.5 1.5 0 0 1 1.5 1.5v.5a.5.5 0 1 1-1 0v-.5a.5.5 0 0 0-.5-.5H13a5 5 0 0 1-10 0H2.5a.5.5 0 0 0-.5.5v.5a.5.5 0 1 1-1 0V11A1.5 1.5 0 0 1 2.5 9.5H3V8.5H1.5a.5.5 0 0 1 0-1H3V7h-.5A1.5 1.5 0 0 1 1 5.5V5a.5.5 0 0 1 1 0v.5a.5.5 0 0 0 .5.5H3a4.985 4.985 0 0 1 1.432-3.503L4.022.855a.5.5 0 0 1 .333-.333zM5.5 7.5v1h5v-1h-5zm0 2v1h5v-1h-5z" />
+                    </svg>
+                  )}
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </nav>
+
   <address>
-    © {date.getFullYear()} Built with 🌸❤️ by saku | <a
-      aria-label="Email"
+    <span>© {date.getFullYear()} Built with 🌸❤️ by saku</span>
+    <span class="divider" aria-hidden="true">|</span>
+    <a
+      aria-label="Email saku"
       href="mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and..."
-      ><span data-astro-cid-sz7xmlte="">Get in touch</span></a
+      >Get in touch</a
     >
   </address>
 </footer>
+
+<style>
+  footer {
+    --anchor-name: --footer-anchor;
+
+    border-block-start: var(--s-border-width-base) solid
+      var(--s-color-border-default);
+    container: footer / inline-size;
+    font-family: var(--s-font-family-base);
+    font-size: var(--s-font-size-xs);
+    line-height: var(--s-line-height-base);
+    margin-block-start: var(--s-space-gutter-lg);
+  }
+
+  nav {
+    @supports (display: grid-lanes) {
+      column-gap: var(--s-space-layout-xl);
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fill, minmax(max-content, 24ch));
+      justify-content: center;
+    }
+
+    /* Respects text-scale */
+    @container (width <= 34em) {
+      @supports (display: grid-lanes) {
+        column-gap: var(--s-space-layout-md);
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      columns: 2;
+      padding-inline: calc(
+        2 * var(--s-space-layout-sm) + var(--s-space-layout-xs)
+      );
+    }
+
+    border-block-end: var(--s-border-width-base) solid
+      var(--s-color-border-default);
+    column-gap: var(--s-space-layout-xl);
+    columns: 24ch;
+    margin: 0;
+    padding-block-end: var(--s-space-gutter-lg);
+    padding-block-start: var(--s-space-gutter-sm);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+      Section
+      ───────────────────────────────────────────────────────────── */
+  nav section {
+    @supports not (margin-trim: block) {
+      :where(article, section, aside) {
+        > :first-child {
+          margin-block-start: 0;
+        }
+
+        > :last-child {
+          margin-block-end: 0;
+        }
+      }
+    }
+
+    break-inside: avoid;
+    margin-trim: block;
+    padding-block-start: var(--s-space-gutter-md);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+      Heading
+      ───────────────────────────────────────────────────────────── */
+  h3 {
+    color: var(--s-color-text-primary);
+    font-size: var(--s-font-size-xs);
+    font-weight: var(--s-font-weight-semibold);
+    line-height: var(--s-line-height-h6);
+    margin: 0;
+    margin-block-end: var(--s-space-gutter-2xs);
+    text-transform: uppercase;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+      List
+      ───────────────────────────────────────────────────────────── */
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: block;
+    margin-block-end: var(--s-space-gutter-2xs);
+    pointer-events: auto;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+      Links
+      ───────────────────────────────────────────────────────────── */
+  a {
+    color: var(--s-color-text-secondary);
+
+    svg {
+      block-size: var(--s-icon-size-xs);
+      inline-size: var(--s-icon-size-xs);
+      vertical-align: middle;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--s-color-text-primary);
+      }
+    }
+
+    /* "Report broken page" */
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:has(svg) {
+      color: var(--s-color-text-tertiary);
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--s-color-text-secondary);
+        }
+      }
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+      Address / copyright bar
+      ───────────────────────────────────────────────────────────── */
+  address {
+    font-family: var(--s-font-family-serif);
+    padding: var(--s-space-layout-lg);
+    text-align: center;
+  }
+</style>

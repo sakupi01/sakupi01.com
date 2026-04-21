@@ -7,10 +7,11 @@
   ],
   "main": "src/index.ts",
   "exports": {
-    ".": "./src/css/index.ts",
+    ".": "./src/css/index.css",
     "./index.css": "./src/css/index.css",
-    "./sakupi01.com.css": "./src/css/sakupi01.com.css",
-    "./sakupi01.com.markdown.css": "./src/css/sakupi01.com.markdown.css"
+    "./layer.css": "./src/css/layer.css",
+    "./sakupi01.com.css": "./src/sakupi01.com/index.css",
+    "./sakupi01.com.markdown.css": "./src/sakupi01.com/markdown.css"
   },
   "type": "module",
   "scripts": {
@@ -43,12 +44,17 @@
     "@types/node": "20.17.17",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "prettier": "^3.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "storybook": "8.3.0",
     "stylelint": "16.14.1",
-    "typescript": "5.4.5",
-    "stylelint-config-standard": "37.0.0"
+    "stylelint-config-recommended": "^18.0.0",
+    "stylelint-config-standard": "37.0.0",
+    "stylelint-order": "^8.1.1",
+    "stylelint-plugin-logical-css": "^2.1.0",
+    "stylelint-prettier": "^5.0.3",
+    "typescript": "5.4.5"
   },
   "dependencies": {
     "blocks": "link:@storybook/addon-docs/blocks"

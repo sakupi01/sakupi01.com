@@ -41,7 +41,9 @@ Form Control とは、`<input>`、`<button>`、`<select>`、`<option>`、`<texta
 1990 年代初頭に Tim Berners-Lee が WWW（WorldWideWeb）という最初の Web ブラウザをリリースした後、複数のブラウザが登場しました。
 この当時の HTML は、非常にシンプルなマークアップ言語であり、リンクや画像、テキストのみを表示することができるものでした。
 
+:::figure[WorldWideWeb (出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif))]
 ![WorldWideWeb](../../../../assets/images/www.png)
+:::
 _出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)_
 
 その後、各ブラウザベンダーがブラウザに独自の HTML タグを実装し始めましたが、当時はまだ HTML に標準というものがなかったため、ブラウザ間で HTML タグの実装に差が生まれていきました。

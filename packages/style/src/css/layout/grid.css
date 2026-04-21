@@ -1,6 +1,6 @@
 [class*="grid"] {
   --grid-auto-layout: auto-fit;
-  --grid-gap: var(--gutter-m);
+  --grid-gap: var(--s-space-gap-md);
   --grid-item-min-width: 12.5rem;
   --grid-item-max-width: 1fr;
 
@@ -24,21 +24,16 @@
   --grid-asymmetric-col2: 33.33%;
   --grid-container-width: 25rem; /* --grid-item-min-width * 2 */
 
-  /* Container queries. */
   @container (inline-size >= 25rem) {
     grid-template-columns:
       minmax(var(--grid-item-min-width), var(--grid-asymmetric-col1))
       minmax(var(--grid-item-min-width), var(--grid-asymmetric-col2));
   }
 
-  /* Fallback. Uses old media query notation. */
-  @supports not (container-type: inline-size) {
-    /* stylelint-disable-next-line media-feature-range-notation */
-    @media (min-width: 48.0625em) {
-      grid-template-columns:
-        minmax(var(--grid-item-min-width), var(--grid-asymmetric-col1))
-        minmax(var(--grid-item-min-width), var(--grid-asymmetric-col2));
-    }
+  @media (width >= 48.0625em) {
+    grid-template-columns:
+      minmax(var(--grid-item-min-width), var(--grid-asymmetric-col1))
+      minmax(var(--grid-item-min-width), var(--grid-asymmetric-col2));
   }
 }
 
@@ -52,7 +47,7 @@
 
 /* Centered grid. */
 .grid--centered {
-  justify-content: center;
+  place-content: center;
 }
 
 /* 0 gap between grid items. */
@@ -62,19 +57,19 @@
 
 /* Gap variants. */
 .grid--gap-xs {
-  --grid-gap: var(--gutter-xs);
+  --grid-gap: var(--s-space-gap-xs);
 }
 
-.grid--gap-s {
-  --grid-gap: var(--gutter-s);
+.grid--gap-sm {
+  --grid-gap: var(--s-space-gap-sm);
 }
 
-.grid--gap-l {
-  --grid-gap: var(--gutter-l);
+.grid--gap-lg {
+  --grid-gap: var(--s-space-gap-lg);
 }
 
 .grid--gap-xl {
-  --grid-gap: var(--gutter-xl);
+  --grid-gap: var(--s-space-gap-xl);
 }
 
 /* Enable 2-col on small screens (even without a media query)... though eventually the column 'min-width' will enforce stacking when space is too limited, to avoid overflows. */

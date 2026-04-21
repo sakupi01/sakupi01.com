@@ -178,7 +178,7 @@ class AdventCalendar2025 extends HTMLElement {
           padding: var(--ac2025-spacing-md) var(--ac2025-spacing-sm);
           text-align: center;
           font-weight: 600;
-          color: var(--color-text);
+          color: var(--s-color-text-primary);
           font-size: var(--ac2025-font-size-sm);
           border: none;
           height: var(--ac2025-header-height);
@@ -302,7 +302,7 @@ class AdventCalendar2025 extends HTMLElement {
         }
 
         .ac2025__day-status--unwritten {
-          color: var(--color-text);
+          color: var(--s-color-text-primary);
           opacity: 0.4;
         }
 
@@ -318,7 +318,7 @@ class AdventCalendar2025 extends HTMLElement {
 
         .ac2025__day-title {
           font-size: var(--ac2025-font-size-md);
-          color: var(--color-text);
+          color: var(--s-color-text-primary);
           margin-bottom: var(--ac2025-spacing-xs);
           line-height: 1.2;
           display: -webkit-box;
@@ -331,7 +331,7 @@ class AdventCalendar2025 extends HTMLElement {
 
         .ac2025__day-description {
           font-size: var(--ac2025-font-size-xs);
-          color: var(--color-text);
+          color: var(--s-color-text-primary);
           opacity: 0.7;
           line-height: 1.3;
           margin: 0;

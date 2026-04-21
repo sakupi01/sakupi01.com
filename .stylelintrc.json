@@ -1,0 +1,234 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-prettier/recommended",
+    "stylelint-plugin-logical-css/configs/recommended",
+    "stylelint-plugin-defensive-css/configs/recommended"
+  ],
+  "plugins": [
+    "stylelint-order",
+    "stylelint-plugin-logical-css",
+    "stylelint-prettier",
+    "./stylelint-plugins/token-scope.js",
+    "stylelint-plugin-defensive-css",
+    "stylelint-no-browser-hacks"
+  ],
+  "rules": {
+    "plugin/no-browser-hacks": [true],
+    "defensive-css/require-pure-selectors": null,
+    "defensive-css/require-system-font-fallback": null,
+    "defensive-css/require-prefers-reduced-motion": null,
+    "defensive-css/require-named-grid-lines": null,
+    "declaration-no-important": true,
+    "max-nesting-depth": [3, { "ignoreAtRules": ["media"] }],
+    "no-invalid-position-at-import-rule": null,
+    "order/order": [
+      "custom-properties",
+      "dollar-variables",
+      "declarations",
+      "rules"
+    ],
+    "order/properties-alphabetical-order": [true, { "severity": "warning" }],
+    "prettier/prettier": [
+      true,
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "selector-max-id": 0,
+    "comment-empty-line-before": [
+      "always",
+      {
+        "ignore": ["after-comment", "stylelint-commands"],
+        "except": ["first-nested"]
+      }
+    ],
+    "import-notation": "string",
+    "hue-degree-notation": "number",
+    "selector-class-pattern": null,
+    "value-keyword-case": null,
+    "custom-property-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "selector-not-notation": null,
+    "function-disallowed-list": ["rgba", "hsla", "rgb", "hsl"],
+    "unit-allowed-list": [
+      "rem",
+      "em",
+      "deg",
+      "s",
+      "cqi",
+      "cqb",
+      "svb",
+      "lvi",
+      "lvb",
+      "svi",
+      "dvb",
+      "dvi",
+      "vmin",
+      "vmax",
+      "lh",
+      "rlh",
+      "ch",
+      "px",
+      "ms",
+      "fr",
+      "%",
+      "deg",
+      "pt"
+    ],
+    "color-function-notation": "modern",
+    "color-no-hex": true,
+    "selector-pseudo-element-no-unknown": [
+      true,
+      { "ignorePseudoElements": ["/^scroll-button/"] }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      { "ignoreTypes": ["left", "right", "baseline-status"] }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "/^target-current/",
+          "/^baseline-status/",
+          "global"
+        ]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "scroll-marker-group",
+          "interactivity",
+          "scroll-target-group",
+          "text-fit",
+          "border-shape"
+        ]
+      }
+    ],
+    "declaration-property-value-no-unknown": [
+      true,
+      {
+        "ignoreProperties": {
+          "margin-trim": [
+            "block",
+            "block-start",
+            "block-end",
+            "inline",
+            "inline-start",
+            "inline-end"
+          ],
+          "container": ["/scroll-state/"],
+          "display": ["grid-lanes"],
+          "container-type": ["scroll-state"],
+          "background-clip": ["/border-area/"],
+          "/.+/": ["/^attr\\(/"]
+        }
+      }
+    ],
+    "custom/token-scope": [
+      true,
+      {
+        "allowedPrefix": "^--s-",
+        "rules": [
+          { "propPattern": "^font-size$", "tokenPattern": "^--s-font-size-" },
+          {
+            "propPattern": "^line-height$",
+            "tokenPattern": "^--s-line-height-"
+          },
+          {
+            "propPattern": "^font-weight$",
+            "tokenPattern": "^--s-font-weight-"
+          },
+          {
+            "propPattern": "^font-family$",
+            "tokenPattern": "^--s-font-family-"
+          },
+
+          {
+            "propPattern": "^margin-block(-start|-end)?$",
+            "tokenPattern": "^--s-space-(gutter|gap)-"
+          },
+
+          {
+            "propPattern": "^padding(-\\w+)?$",
+            "tokenPattern": "^--s-space-layout-"
+          },
+
+          {
+            "propPattern": "^margin-inline(-start|-end)?$",
+            "tokenPattern": "^--s-space-layout-"
+          },
+
+          {
+            "propPattern": "^(gap|row-gap|column-gap)$",
+            "tokenPattern": "^--s-space-(layout-|gap-)"
+          },
+
+          {
+            "propPattern": "^(margin|padding)$",
+            "tokenPattern": "^--s-space-"
+          },
+
+          {
+            "propPattern": "border(-\\w+)?-width$",
+            "tokenPattern": "^--s-(border-width|divider-width)-"
+          },
+          {
+            "propPattern": "border(-\\w+)?-radius$",
+            "tokenPattern": "^--s-border-radius-"
+          },
+
+          {
+            "propPattern": "^(color|background|background-color|border(-\\w+)?-color|outline-color|fill|stroke|caret-color|text-decoration-color)$",
+            "tokenPattern": "^--s-color-"
+          },
+
+          {
+            "propPattern": "^(width|height|min-width|min-height|max-width|max-height|inline-size|block-size)$",
+            "tokenPattern": "^--s-(icon-size|container-)"
+          },
+
+          {
+            "propPattern": "^(transition-duration|animation-duration)$",
+            "tokenPattern": "^--s-duration-"
+          },
+          {
+            "propPattern": "^(transition-timing-function|animation-timing-function)$",
+            "tokenPattern": "^--s-ease-"
+          },
+
+          { "propPattern": "^z-index$", "tokenPattern": "^--s-z-index-" },
+          { "propPattern": "^box-shadow$", "tokenPattern": "^--s-shadow-" }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.astro"],
+      "customSyntax": "postcss-html"
+    },
+    {
+      "files": ["**/semantic.css", "**/primitives.css", "**/text-scale.css"],
+      "rules": {
+        "custom/token-scope": null
+      }
+    },
+    {
+      "files": ["**/semantic.css"],
+      "rules": {
+        "custom/token-scope": [true, { "allowedPrefix": "^--(s|p)-" }]
+      }
+    }
+  ],
+  "ignoreFiles": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/storybook-static/**",
+    "**/.astro/**",
+    "**/HamburgerIcon.astro"
+  ]
+}

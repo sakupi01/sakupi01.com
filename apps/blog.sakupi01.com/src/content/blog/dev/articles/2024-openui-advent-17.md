@@ -18,7 +18,9 @@ status: "published"
 
 [Ep.14](https://blog.sakupi01.com/dev/articles/2024-openui-advent-16)では、`<selectlist>`の`slot`属性と`behavior`属性の使用が廃止された経緯をお話ししました。`slot`属性と`behavior`属性は「選択された`<option>`を`<button>`にスロットしてカスタマイズできるようにする」ための手段だったのですが、この手段が廃止されたことにより、これからどう話が進むのかをみていきます。
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
@@ -179,18 +181,20 @@ Firefox は CSS でコンテンツを**ミラーリング**する方法を実装
 
 3 のような、単なる画像としてのミラーリングではなく、選択された`<option>`の子 Node が`<selectedoption>`の**Flat treeまたはLayout treeにも現れるようにミラーリング**する方法を見つけることができるかもしれません。
 
-:::note{.memo}
+::::note{.memo}
 📝 Flat tree, Layout tree, etc
 
 - [Node tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#node-and-node-tree): DOM ツリーの基本的な構造で、Node クラスから構成されるツリー。
 - [Shadow tree](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#shadow-tree): Shadow Root がルートのツリー。host を通じて、必ず別の Node tree と接続されている。
 - Light tree: Shadow Root の host となるツリー
 - [**Flat tree**](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree): Shadow tree を含む、複合的なツリーをフラット化して、単一の Node Tree にしたもの。
+  :::figure[Tree Flattening]
   ![Tree Flattening](../../../../assets/images/tree-flattening.png)
+  :::
   _Tree Flattening - 出典: chromium.googlesource.com /[DOM](https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/blink/renderer/core/dom/README.md#flat-tree)_
 - **Layout tree**: LayoutObject を Node として構成される Node tree。Viewport 内での Node の正確な位置やサイズなどが計算された、Paint の input となるツリー。つまり、ブラウザレンダリングフェーズの中でも、Layout フェーズ時に構築される。
 
-:::
+::::
 
 類似のアイデアが提案されていますが、同じものを意図するかは不明です: [`<mirror>` element, like `<slot>`, but not limited to ShadowDOM, elements from anywhere can be assigned to it · Issue #6507 · whatwg/html](https://github.com/whatwg/html/issues/6507)
 
@@ -231,7 +235,9 @@ Light DOM に別の要素の Light DOM をクローンすると、`<selectedopti
 次の図では、選択された`<option>`の子 Node が、`<selectedoption>`の**Light DOM**にクローンされる様子を示しています。
 Light DOM に直接挿入されるため、クローンされた要素は、Author Style Sheet の適用が可能となります。
 
+:::figure[UAによってLight DOMにクローンされたNodeが直接挿入される様子]
 ![UAによってLight DOMにクローンされたNodeが直接挿入される様子](../../../../assets/images/insert-to-light-dom.png)
+:::
 _UAによってLight DOMにクローンされたNodeが直接挿入される様子_
 
 こうした、要素が自身の Light DOM を変更するという挙動は、他の長年の HTML 機能に対するリクエストを解決するためにも必要かもしれないと Domenic は述べます。

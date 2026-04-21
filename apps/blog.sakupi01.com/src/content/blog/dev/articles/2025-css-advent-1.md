@@ -20,7 +20,9 @@ status: "published"
 
 1989年に CERN で研究していた Tim Berners-Lee が 「Web」 というコンセプトを提案し、1990年に彼自身のコンピュータである NeXT で動作する最初の Web ブラウザ、 WorldWideWeb（later, Nexus） を開発しました。
 
+:::figure[Tim Berners-Lee: WorldWideWeb, the first Web client (出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif))]
 ![Tim Berners-Lee: WorldWideWeb, the first Web client](../../../../assets/images/www.png)
+:::
 _出典：[Tim Berners-Lee: WorldWideWeb, the first Web client](https://www.w3.org/History/1994/WWW/Journals/CACM/screensnap2_24c.gif)_
 
 :::note{.memo}
@@ -74,7 +76,9 @@ HTML は、当時最も国際的に認められていたテキストマークア
 
 :::
 
+:::figure[line-mode browser]
 ![line-mode browser](../../../../assets/images/line-mode.png)
+:::
 _line-mode browser_
 
 とはいえ、line-mode browser はグラフィックないしは複雑なスタイルを持たないブラウザでした。当時のスペックのコンピュータやあらゆる OS で上で動作させ、Web ブラウザを広く使ってもらうことを目標として作られた、高互換のシンプルな CLI ベースのブラウザのため、当然のことでしょう。
@@ -161,7 +165,9 @@ www-talk mailing list
 
 Mosaic が **`<IMG>`** を実装したことにより、これまでテキストベースだった Web に初めてグラフィックが導入されることになりました。
 
+:::figure[IMG Tag の実装された Mosaic]
 ![IMG Tag の実装された Mosaic](../../../../assets/images/mozaic.png)
+:::
 _IMG Tag の実装された Mosaic_
 
 任意のツールで装飾したドキュメントを、画像として正確 Web に表示できるようになったという展開は、Web で装飾することを渇望していた当時の人々にとって非常に心踊る出来事だったに違いありません。

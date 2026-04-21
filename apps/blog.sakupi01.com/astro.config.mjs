@@ -1,4 +1,5 @@
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 import remarkEmbedder from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import { defineConfig } from "astro/config";
@@ -7,12 +8,12 @@ import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkBreaks from "remark-breaks";
-// @ts-expect-error wip
 import collapse from "remark-collapse";
 import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import remarkToc from "remark-toc";
 import { customClassName } from "./src/remark/customClassName";
+import { rehypeSidenoteAnchors } from "./src/rehype/rehype-sidenote-anchors";
 import {
   cacheSave,
   cache as remarkEmbedderCache,
@@ -20,12 +21,13 @@ import {
 import { handleHTML } from "./src/remark/remark-embedder/handleHTML";
 import { CodeSandboxTransformer } from "./src/remark/remark-embedder/transformer";
 import { remarkLinkCard } from "./src/remark/remark-link-card";
+import { remarkFigureCaption } from "./src/remark/remark-figure-caption";
 
 const cache = remarkEmbedderCache(".cache/remark-embedder.json");
 
 export default defineConfig({
   site: "https://blog.sakupi01.com/",
-  integrations: [mdx(), cacheSave(cache)],
+  integrations: [mdx(), sitemap(), cacheSave(cache)],
   markdown: {
     shikiConfig: {
       themes: {
@@ -57,6 +59,7 @@ export default defineConfig({
       remarkGfm,
       remarkBreaks,
       remarkDirective,
+      remarkFigureCaption,
       customClassName,
       [
         remarkToc,
@@ -78,8 +81,12 @@ export default defineConfig({
     rehypePlugins: [
       rehypeRaw,
       rehypeSlug,
+      rehypeSidenoteAnchors,
       [rehypeStringify, { allowDangerousHtml: true }],
       [rehypeAutolinkHeadings, { behavior: "wrap" }],
     ],
+    remarkRehype: {
+      footnoteBackContent: () => [],
+    },
   },
 });

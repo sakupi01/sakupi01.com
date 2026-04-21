@@ -1,105 +1,99 @@
 ---
 import SlidesFeed from "../components/SlidesFeed.astro";
 import Title from "@sakupi01/layout/components/Title.astro";
+import SocialLinks from "@sakupi01/layout/components/SocialLinks.astro";
 import Layout from "../layouts/Layout.astro";
-
-const links = {
-  X: "https://x.com/sakupi01/",
-  Bluesky: "https://bsky.app/profile/sakupi01.com/",
-  GitHub: "https://github.com/sakupi01/",
-  Codepen: "https://codepen.io/sakupi01/",
-  Email:
-    "mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and...",
-};
 ---
 
 <Layout url="/">
-  <Title title="Hi I'm saku !" />
-  <p>and I'm ...</p>
-  <section>
-    <h2>On The Web</h2>
-    <ul class="sns">
-      {
-        Object.entries(links).map(([name, url]) => (
+  <div class="stack stack--gutter-xl">
+    <div class="stack">
+      <Title title="Hi I'm saku !" />
+      <p>and I'm ...</p>
+    </div>
+
+    <section class="stack">
+      <h2>On The Web</h2>
+      <SocialLinks />
+    </section>
+
+    <hr />
+
+    <section class="stack">
+      <h2>On The Blog</h2>
+      <iframe
+        class="blog-embed"
+        src={`${import.meta.env.PUBLIC_BLOG}recents`}
+        allowfullscreen
+        allow="clipboard-write; encrypted-media; picture-in-picture"
+        loading="lazy"
+        sandbox="allow-same-origin allow-top-navigation-by-user-activation"
+      ></iframe>
+      <a href="https://blog.sakupi01.com/" class="link-more"> Other posts → </a>
+    </section>
+
+    <hr />
+
+    <section class="stack">
+      <h2>At Conferences & Events</h2>
+      <SlidesFeed />
+      <a href="https://sakupi01.github.io/slides/" class="link-more"
+        >More on talks →
+      </a>
+
+      <div class="box stack stack--gutter-sm">
+        <h3>Upcoming Event...</h3>
+        <p>
+          Google I/O @San Francisco, USA, Offline, 2026/05/19(Tue) -
+          2026/05/20(Wed)
+        </p>
+        <a class="link-more" href="https://io.google/2026/" target="_blank">
+          Find me! →
+        </a>
+      </div>
+    </section>
+
+    <hr />
+
+    <div class="switcher">
+      <section class="stack">
+        <h2>On Podcasts</h2>
+        <iframe
+          class="spotify-embed"
+          src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator"
+          height="400"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"></iframe>
+      </section>
+
+      <section class="stack">
+        <h2>etc, etc...</h2>
+        <ul class="link-list">
           <li>
-            <a href={url} class="sns-link">
-              {name}
+            <a href="https://blog.sakupi01.com/">📝 What I'm Writing.</a>
+          </li>
+          <li>
+            <a href="https://studio.sakupi01.com/">🧚🏻‍♀️ What I'm Experimenting.</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://sakupi01.notion.site/Reading-List-a48d2fcb352942759b470e5535426390"
+            >
+              📚 What I'm Reading.
             </a>
           </li>
-        ))
-      }
-    </ul>
-  </section>
-  <hr />
-  <section>
-    <h2>On The Blog</h2>
-    <iframe
-      style="width: 100%; height: 70vh;"
-      src={`${import.meta.env.PUBLIC_BLOG}recents`}
-      allowfullscreen
-      allow="clipboard-write; encrypted-media; picture-in-picture"
-      loading="lazy"
-      sandbox="allow-same-origin allow-top-navigation-by-user-activation"
-    ></iframe>
-  </section>
-
-  <hr />
-  <section>
-    <h2>At Conferences & Events</h2>
-    <SlidesFeed />
-    <a href="https://sakupi01.github.io/slides/" class="link"> more... </a>
-    <div class="upcoming-event">
-      <h3>Upcoming Event...</h3>
-      <p class="event-name">
-        BuriKaigi 2026 @Toyama, Japan, Offline, 2026/01/09(Sat) -
-        2026/01/10(Sun)
-      </p>
-      <a class="link" href="https://fortee.jp/burikaigi-2026" target="_blank"
-        >Find me!</a
-      >
+          <li>
+            <a
+              href="https://open.spotify.com/playlist/4L5YoZao0D90mf80iTsarN?si=62767b1dc7ac4880"
+            >
+              🎧 What I'm Listening.
+            </a>
+          </li>
+        </ul>
+      </section>
     </div>
-  </section>
-  <hr />
-
-  <div class="grid">
-    <section class="podcast">
-      <h2>On Podcasts</h2>
-      <iframe
-        style="border-radius:12px"
-        src="https://open.spotify.com/embed/playlist/319B0cGovsoQP55KmEDHsB?utm_source=generator"
-        height="400"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"></iframe>
-    </section>
-
-    <section class="etc">
-      <h2>etc, etc...</h2>
-      <ul>
-        <li>
-          <a href="https://blog.sakupi01.com/" class="sns-link"
-            >📝 What I'm Writing.</a
-          >
-        </li>
-        <li>
-          <a href="https://studio.sakupi01.com/" class="sns-link"
-            >🧚🏻‍♀️ What I'm Experimenting.</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://sakupi01.notion.site/Reading-List-a48d2fcb352942759b470e5535426390"
-            class="sns-link">📚 What I'm Reading.</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://open.spotify.com/playlist/4L5YoZao0D90mf80iTsarN?si=62767b1dc7ac4880"
-            class="sns-link">🎧 What I'm Listening.</a
-          >
-        </li>
-      </ul>
-    </section>
   </div>
 </Layout>
 
@@ -108,73 +102,32 @@ const links = {
     content-visibility: auto;
   }
 
-  a {
-    color: var(--color-text);
-    transition: color 0.2s;
+  .blog-embed {
+    block-size: 70svb;
+    inline-size: 100%;
   }
 
-  section {
-    width: 100%;
-  }
-  * {
-    font-family: var(--base-font-family-alegreya);
-  }
-  h2 {
-    margin-block-start: var(--gutter-l);
+  .spotify-embed {
+    border-radius: var(--s-border-radius-xl);
+    inline-size: 100%;
   }
 
-  .sns {
-    width: 100%;
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .upcoming-event {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    font-family: inherit;
-  }
-
-  .upcoming-event h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .upcoming-event p {
-    line-height: 1.5;
-  }
-
-  .link {
-    font-style: italic;
+  .link-more {
     display: inline-block;
-  }
-  .grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 1fr 1fr;
+    font-style: italic;
+    inline-size: fit-content;
+    margin-block-start: var(--s-space-gutter-sm);
   }
 
-  .podcast {
-    iframe {
-      width: 100%;
-    }
+  .link-list li {
+    display: block;
+    margin-block-end: var(--s-space-gutter-2xs);
   }
-  .etc {
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  }
-  /* モバイル対応 */
-  @media (max-width: 768px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
+
+  .switcher {
+    --threshold: calc(
+      var(--base-site-max-width) / 2 - var(--s-space-gutter-lg)
+    );
+    --space: var(--s-space-gutter-lg);
   }
 </style>

@@ -2,25 +2,35 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   margin-inline: auto;
-  max-inline-size: var(--site-max-width);
-  min-block-size: 100vh; /* 100dvb might have performance implications */
+  max-inline-size: var(--base-site-max-width);
+
+  /*
+ * <body> is at least as tall as the visible viewport
+ * but can grow with content. `svb` (not `vb`/`lvb`/`dvb`) keeps the floor
+ * stable — `lvb` overflows on mobile Safari when the address bar is up,
+ * and `dvb` makes the page breathe mid-scroll.
+ *
+ * `svb` is chosen because a floor value needs to be stable:
+ *   - `vb` / `lvb` resolve to the large viewport, so on mobile Safari the
+ *     floor overflows the visible area while the address bar is up (this is what I don't expect).
+ *     See: https://www.w3.org/TR/css-values-4/#viewport-relative-units
+ *   - `dvb` shifts as UA chrome expands and retracts, making the page
+ *     breathe mid-scroll; the spec also flags this as potentially
+ *     "costly in terms of performance". Fine for edge-hugging UI though.
+ *     See: https://www.w3.org/TR/css-values-4/#dynamic-viewport-percentage-units
+ *     (`height: 100dvb` on an app shell), wrong for a baseline height.
+ *   - `svb` locks to the viewport with chrome shown, so content fits and
+ *     nothing shifts.
+ *
+ * https://css-tricks.com/fun-viewport-units/,
+ * https://www.bram.us/2021/07/08/the-large-small-and-dynamic-viewports/
+ */
+  min-block-size: 100svb;
+  padding-inline: var(--s-space-layout-sm);
 
   /* Main is a grid item, so this affects overflow behaviour on components like tables. */
   main {
-    overflow-x: hidden;
-    width: 100%;
-    max-width: var(--main-max-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
-
-    article {
-      /* Set explicit max-width for article content. */
-      width: 100%;
-      max-width: var(--article-max-width);
-      margin: 1rem auto 3rem;
-
-      /* margin-trim: block; */
-    }
+    overflow-inline: clip;
   }
 }
 

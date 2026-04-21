@@ -1,0 +1,103 @@
+---
+import Title from "@sakupi01/layout/components/Title.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout url="/privacy/">
+  <div class="stack stack--gutter-xl">
+    <Title title="Privacy Policy" />
+
+    <section class="stack stack--gutter-lg">
+      <div class="content-block">
+        <h2>このサイトについて</h2>
+        <p>
+          このサイトは saku
+          の個人サイトです。書いている内容はすべて個人の見解で、どこかの組織を代表するものではありません。
+        </p>
+        <p>
+          サイトのソースコードは <a
+            href="https://github.com/sakupi01/sakupi01.com">GitHub</a
+          > で公開しています。コンテンツに誤字や間違いを見つけたら、PR で教えてもらえると嬉しいです。
+        </p>
+      </div>
+
+      <div class="content-block">
+        <h2>アクセス解析</h2>
+        <p>
+          サイトの改善のために Google Analytics
+          を使っています。訪問者の環境やアクセス状況を統計的に把握するためで、個人を特定する目的では使用していません。
+        </p>
+      </div>
+    </section>
+
+    <div class="content-block">
+      <h2>外部サービスの利用</h2>
+      <p>
+        ブログ記事やページ内では、YouTube、CodePen、CodeSandbox、Bluesky、Spotify
+        などのコンテンツを埋め込むことがあります。これらは各サービスのプライバシーポリシーに従って動作します。
+      </p>
+      <p>
+        コメント機能には Giscus（GitHub
+        Discussions）を使用しており、コメント投稿には GitHub
+        アカウントが必要です。
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>免責事項</h2>
+      <p>
+        記事の内容については正確性を心がけていますが、情報の利用によって生じた結果について責任は負いかねます。また、外部リンク先の内容についても責任を負いません。
+      </p>
+    </div>
+
+    <hr />
+
+    <div class="content-block" lang="en">
+      <h2>About This Site</h2>
+      <p>
+        This is saku's personal website. All opinions expressed here are my own
+        and do not represent any organization.
+      </p>
+      <p>
+        The source code is available on <a
+          href="https://github.com/sakupi01/sakupi01.com">GitHub</a
+        >. If you find typos or errors, PRs are welcome.
+      </p>
+    </div>
+
+    <div class="content-block" lang="en">
+      <h2>Analytics</h2>
+      <p>
+        I use Google Analytics to improve the site. It collects statistical data
+        about visitor environments and access patterns, not for identifying
+        individuals.
+      </p>
+    </div>
+
+    <div class="content-block" lang="en">
+      <h2>Third-Party Services</h2>
+      <p>
+        Blog posts may include embedded content from YouTube, CodePen,
+        CodeSandbox, Bluesky, Spotify, etc. These services operate under their
+        own privacy policies.
+      </p>
+      <p>
+        Comments are powered by Giscus (GitHub Discussions) and require a GitHub
+        account to post.
+      </p>
+    </div>
+
+    <div class="content-block" lang="en">
+      <h2>Disclaimer</h2>
+      <p>
+        While I strive for accuracy, I cannot be held responsible for any
+        consequences arising from the use of information on this site, or for
+        the content of external links.
+      </p>
+    </div>
+
+    <footer class="policy-footer">
+      <p>Last updated: 2026-04-13</p>
+    </footer>
+  </div>
+</Layout>

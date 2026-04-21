@@ -214,7 +214,9 @@ SMACSS がもたらしたものとして重要なのが、CSS の役割を明確
 
 2014年に Harry Roberts が提案した [Inverted Triangle CSS (ITCSS)](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture) は、CSS を「逆三角形」の層として、詳細度のレイヤーを分けてカテゴライズする手法です。
 
+:::figure[Inverted Triangle CSS]
 ![Inverted Triangle CSS](../../../../assets/images/itcss.png)
+:::
 _Inverted Triangle CSS_
 
 ```css

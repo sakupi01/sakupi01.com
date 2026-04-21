@@ -1,0 +1,48 @@
+/*
+----------------------------------------------------------------------------
+Reel.
+
+A horizontal scrolling container with optional scroll-snap.
+Use for carousels, galleries, or horizontally scrollable lists.
+
+See https://every-layout.dev/layouts/reel/.
+----------------------------------------------------------------------------
+*/
+.reel {
+  --reel-gap: var(--s-space-gap-md);
+  --reel-item-width: auto;
+  --reel-snap-type: x mandatory;
+
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--reel-gap);
+  overflow-inline: auto;
+  scroll-snap-type: var(--reel-snap-type);
+}
+
+.reel > * {
+  flex: 0 0 var(--reel-item-width);
+  scroll-snap-align: start;
+}
+
+/* Gap variants */
+.reel--gap-xs {
+  --reel-gap: var(--s-space-gap-xs);
+}
+
+.reel--gap-sm {
+  --reel-gap: var(--s-space-gap-sm);
+}
+
+.reel--gap-lg {
+  --reel-gap: var(--s-space-gap-lg);
+}
+
+.reel--gap-xl {
+  --reel-gap: var(--s-space-gap-xl);
+}
+
+/* Disable snap behavior */
+.reel--no-snap {
+  --reel-snap-type: none;
+}

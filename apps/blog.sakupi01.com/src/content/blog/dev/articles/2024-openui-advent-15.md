@@ -18,7 +18,9 @@ status: "published"
 
 [Ep.12](https://blog.sakupi01.com/dev/articles/2024-openui-advent-14)では、`part`属性を使用することの問題、解決策として`behavior`属性の提案、そして、要素を Clone してカスタマイズ可能にする`<selectedcontent>`の契機についてお話ししました。
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
@@ -33,11 +35,17 @@ _2024/12/9時点でのselectの各パーツの定義_
 「アバター + 名前」や「国旗 + 国名」のように「リッチなコンテンツの**完全な**クローン」となる場合もあれば、「名前のみ」のように「リッチなコンテンツの**一部の**クローン」となる場合も考えられます。
 このユースケース調査により、完全なクローンを反映することのみならず、その一部のみを`<select>`に表示できるようにする必要があるという合意が取れました。
 
+:::figure[国旗 + 国名 (国旗 + 国名)]
 ![国旗 + 国名](../../../../assets/images/flag-clone.png)
+:::
 _国旗 + 国名_
+:::figure[アバター + 名前 (アバター + 名前)]
 ![アバター + 名前](../../../../assets/images/avatar-clone.png)
+:::
 _アバター + 名前_
+:::figure[名前のみ（optionにアバターはあるが、buttonには反映されない）]
 ![名前のみ（optionにアバターはあるが、buttonには反映されない）](../../../../assets/images/only-name-clone.png)
+:::
 _名前のみ（optionにアバターはあるが、buttonには反映されない）_
 
 ### 選択された`<option>`のコンテンツを`<button>`に反映する方法の検討

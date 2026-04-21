@@ -1,0 +1,644 @@
+/*
+----------------------------------------------------------------------------
+Site Specific Styles
+----------------------------------------------------------------------------
+*/
+
+/*
+----------------------------------------------------------------------------
+Article + TOC + Aside Layout
+----------------------------------------------------------------------------
+*/
+
+/* Default: TOC hidden, no grid */
+.article-toc {
+  display: none;
+}
+
+/* calc(var(--base-site-max-width) + 2 * var(--s-space-layout-sm)) = 61rem */
+@media (width >= 61rem) {
+  .page:has(.article-with-toc) {
+    /*
+     * 3-column layout: toc : content : aside = 1 : 3 : 1
+     * content is capped at --base-site-max-width; excess flows to outer gutters.
+     * (Inner tracks total 5/3 × site-max, since content is 3fr of 5fr.)
+     */
+    --inner-max-inline-size: calc(var(--base-site-max-width) * 5 / 3);
+    --aside-max-inline-size: calc(var(--base-site-max-width) / 3);
+    --outer-gutter: max(
+      var(--s-space-gutter-sm),
+      calc((100% - var(--inner-max-inline-size)) / 2)
+    );
+
+    display: grid;
+    grid-template-columns:
+      [full-start] var(--outer-gutter)
+      [toc-start] minmax(0, 1fr)
+      [toc-end content-start] minmax(0, 3fr)
+      [content-end aside-start] minmax(0, 1fr)
+      [aside-end] var(--outer-gutter)
+      [full-end];
+    max-inline-size: none;
+    padding-inline: 0;
+
+    /* Header / footer stay in content column */
+    :is(header, footer) {
+      grid-column: content-start / content-end;
+    }
+
+    /* Main: span full width, subgrid inherits all column lines */
+    main {
+      display: grid;
+      grid-column: full-start / full-end;
+      grid-template-columns: subgrid;
+
+      /* Article wrapper: spans toc + content + aside. subgrid for grid inheritance */
+      .article-with-toc {
+        display: grid;
+        gap: var(--s-space-layout-md);
+        grid-column: toc-start / aside-end;
+        grid-template-columns: subgrid;
+
+        .article-toc {
+          display: block;
+          grid-column: toc-start / toc-end;
+          grid-row: 1;
+          padding-block-start: var(--s-space-layout-3xl);
+        }
+
+        article {
+          grid-column: content-start / content-end;
+          grid-row: 1;
+        }
+      }
+
+      /* Other main children sit in content column only */
+      > :not(.article-with-toc) {
+        grid-column: content-start / content-end;
+      }
+    }
+  }
+
+  [id="table-of-contents"] ~ details:first-of-type {
+    display: none;
+  }
+}
+
+/*
+----------------------------------------------------------------------------
+Article Container
+----------------------------------------------------------------------------
+*/
+article {
+  container: article / inline-size;
+
+  /*
+    ----------------------------------------------------------------------------
+    List Styles
+    ----------------------------------------------------------------------------
+    */
+
+  ul {
+    list-style-type: "";
+    padding-inline-start: 1.75em;
+
+    li {
+      position: relative;
+    }
+
+    li::before {
+      background-image: var(--image-bullet-list);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      block-size: 0.8em;
+      content: "";
+      inline-size: 0.8em;
+      inset-block-start: 0.25em;
+      inset-inline-start: -1.5em;
+      position: absolute;
+    }
+
+    li:nth-child(3n)::before {
+      background-image: var(--image-bullet-list-2);
+      background-repeat: no-repeat;
+    }
+
+    li:nth-child(3n - 1)::before {
+      background-image: var(--image-bullet-list-3);
+      background-repeat: no-repeat;
+    }
+  }
+
+  /*
+      ----------------------------------------------------------------------------
+      Baseline Status
+      ----------------------------------------------------------------------------
+      */
+  p:has(baseline-status) {
+    background: light-dark(transparent, var(--color-base-lightest));
+    border: var(--s-border-width-base) solid
+      light-dark(var(--color-primary-medium), var(--color-primary-medium));
+    border-radius: var(--s-border-radius-md);
+    color: var(--color-base-darkest);
+    padding: var(--s-space-layout-sm) 2rem 0.5rem;
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    Aside Message Styles
+    ----------------------------------------------------------------------------
+  */
+  aside {
+    --padding-inline: 3.5em;
+    --aside-label-color: currentColor;
+    --aside-label-bg: transparent;
+
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    border-radius: var(--s-border-radius-lg);
+    container: aside / inline-size;
+    font-size: 0.85em;
+    inline-size: 95cqi;
+    margin: var(--s-space-gutter-md) auto;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    padding: 1em var(--padding-inline);
+    position: relative;
+
+    p:first-child {
+      font-weight: 900;
+      margin: 0;
+    }
+
+    :last-child {
+      margin-block-end: 0;
+    }
+
+    &::before,
+    &::after {
+      align-items: center;
+      background-color: var(--aside-label-bg);
+      box-sizing: border-box;
+      color: var(--aside-label-color);
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      position: absolute;
+    }
+
+    /* Memo */
+    &.memo {
+      --aside-label-color: color-mix(
+        in oklab,
+        var(--s-color-memo-text) 80%,
+        white
+      );
+
+      background-color: color-mix(in oklab, var(--s-color-memo-bg) 80%, white);
+
+      &::before,
+      &::after {
+        font-size: clamp(4em, 5svb, 6em);
+        inset-block: 0;
+      }
+
+      &::before {
+        content: "{";
+        inset-inline-start: 0;
+        padding-inline-start: 0.2em;
+      }
+
+      &::after {
+        content: "}";
+        inset-inline-end: 0;
+        padding-inline-end: 0.2em;
+      }
+    }
+
+    /* Message */
+    &.message {
+      --aside-label-color: var(--s-color-message-text);
+
+      background-color: color-mix(
+        in oklab,
+        var(--s-color-message-bg) 70%,
+        white
+      );
+
+      &::before {
+        block-size: 100%;
+        content: "FYI";
+        font-style: italic;
+        font-weight: 900;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        padding-block: 0.88em;
+        padding-inline: 1em;
+      }
+    }
+
+    /* Info */
+    &.info {
+      --aside-label-color: var(--s-color-surface-base);
+      --aside-label-bg: color-mix(in oklab, var(--s-color-info) 80%, white);
+
+      background-color: color-mix(in oklab, var(--s-color-info-bg) 80%, white);
+      padding-block-start: 2.5em;
+
+      &::before {
+        content: "INFO";
+        font-style: italic;
+        font-weight: 900;
+        inline-size: 100%;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        padding: 0.2em;
+      }
+    }
+  }
+
+  /*
+      ----------------------------------------------------------------------------
+      Markdown Heading Styles
+      ----------------------------------------------------------------------------
+      */
+
+  h2 {
+    &::before {
+      /* stylelint-disable-next-line custom/token-scope */
+      color: var(--p-color-red-500);
+    }
+  }
+
+  h3 {
+    &::before {
+      /* stylelint-disable-next-line custom/token-scope */
+      color: var(--p-color-lavender-500);
+    }
+  }
+
+  :is(h2, h3) {
+    &::before {
+      content: "¶";
+      font-size: 2em;
+      opacity: 0.2;
+      position: absolute;
+      transform: translateY(-0.2em) translateX(-0.2em);
+    }
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    Link Card
+    ----------------------------------------------------------------------------
+  */
+  .rlc-container {
+    --rlc-border-radius: 0.25rem;
+    --rlc-transition: border-color 200ms ease-in-out;
+
+    background-color: var(--s-color-surface-raised);
+    border: var(--s-border-width-thin) solid var(--s-color-border-subtle);
+    border-radius: var(--rlc-border-radius);
+    color: var(--s-color-text-primary);
+    display: flex;
+    inline-size: 95cqi;
+    margin: var(--s-space-gutter-md) auto;
+    transition: var(--rlc-transition);
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--s-color-border-strong);
+      }
+    }
+
+    .rlc-info {
+      display: flex;
+      flex: 4 1 100px;
+      flex-direction: column;
+      gap: var(--s-space-gap-3xs);
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 0.7rem var(--s-space-layout-sm);
+    }
+
+    .rlc-title,
+    .rlc-url {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rlc-title {
+      font-size: var(--s-font-size-sm);
+      font-weight: var(--s-font-weight-medium);
+    }
+
+    .rlc-description,
+    .rlc-url {
+      color: var(--s-color-text-secondary);
+      font-size: var(--s-font-size-xs);
+    }
+
+    .rlc-description {
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-height: var(--s-line-height-base);
+      overflow: hidden;
+    }
+
+    .rlc-url-container {
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--s-space-layout-3xs);
+    }
+
+    .rlc-favicon {
+      block-size: var(--s-icon-size-inline-sm);
+      flex-shrink: 0;
+      inline-size: var(--s-icon-size-inline-sm);
+    }
+
+    .rlc-image-container {
+      border-radius: 0 var(--rlc-border-radius) var(--rlc-border-radius) 0;
+      flex: 0 0 8rem;
+      overflow: hidden;
+    }
+
+    .rlc-image {
+      block-size: 100%;
+      display: block;
+      inline-size: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /*
+      ----------------------------------------------------------------------------
+      Table of Contents
+      ----------------------------------------------------------------------------
+      */
+  /* stylelint-disable-next-line selector-max-id */
+  #table-of-contents {
+    display: none;
+  }
+
+  details {
+    inline-size: 95cqi;
+    margin-inline: auto;
+
+    summary {
+      --offset: 0.5em;
+
+      align-self: start;
+      background: var(--s-color-primary);
+      clip-path: polygon(
+        var(--offset) 0,
+        100% 0,
+        calc(100% - var(--offset)) 100%,
+        0 100%
+      );
+      column-span: all;
+      font-weight: var(--s-font-weight-bold);
+      margin: 0;
+      margin-inline-start: calc(-1 * var(--offset));
+      padding: 0.3em 1em;
+    }
+
+    &::details-content {
+      background-color: var(--s-color-surface-raised);
+      block-size: 0;
+      color: var(--s-color-text-primary);
+      opacity: 0;
+      overflow-block: clip;
+      padding: var(--s-space-layout-sm);
+      transition:
+        content-visibility 0.8s allow-discrete,
+        height 0.8s allow-discrete,
+        opacity 0.8s,
+        block-size 0.8s;
+    }
+
+    &[open] {
+      &::details-content {
+        block-size: auto;
+        opacity: 1;
+      }
+    }
+  }
+
+  /*
+  ----------------------------------------------------------------------------
+  Styles for Astro Code Highlighter
+  ----------------------------------------------------------------------------
+  */
+
+  pre {
+    border: var(--s-border-width-thin) solid var(--s-color-border-subtle);
+    border-radius: var(--s-border-radius-md);
+    inline-size: 95cqi;
+    margin: 0 auto var(--s-space-gutter-md) auto;
+    padding: var(--s-space-layout-sm);
+  }
+
+  /*
+      ----------------------------------------------------------------------------
+      Figure
+      See: https://www.w3.org/Style/Examples/007/figures
+      ----------------------------------------------------------------------------
+  */
+  figure {
+    color-scheme: light only;
+    container: figure / inline-size;
+    display: table;
+    inline-size: 95cqi;
+    margin: 1em auto;
+
+    &:has(figcaption) {
+      background: white;
+      border: var(--s-border-width-thin) solid var(--s-color-border-subtle);
+      box-shadow: var(--s-shadow-md);
+      counter-increment: figure;
+      padding: 1cqb 1cqi;
+      text-align: center;
+    }
+
+    /* Annoying Markdown artifacts */
+    /* stylelint-disable-next-line no-descending-specificity */
+    > p,
+    figcaption > p:only-child {
+      display: contents;
+    }
+
+    > img,
+    > video,
+    > table,
+    > p > img,
+    > p > video {
+      color-scheme: light only;
+      inline-size: 100cqi;
+      max-block-size: 50lvb;
+      object-fit: contain;
+    }
+
+    figcaption {
+      background-color: var(--s-color-surface-overlay);
+      color: var(--s-color-text-primary);
+      font: 500 80% var(--s-font-family-base);
+      margin: -1cqb -1cqi 1cqb;
+      padding: 0.5cqb 0.5cqi;
+      text-align: start;
+
+      &::before {
+        content: "Figure " counter(figure) ": ";
+        font-weight: var(--s-font-weight-bold);
+      }
+    }
+
+    /* Multiple images */
+    &:has(> :nth-last-child(3), img:nth-of-type(2)) {
+      align-items: start;
+
+      /* Display all side by side */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      > :not(figcaption),
+      > p > img {
+        flex: 1;
+        inline-size: calc(50cqi - 0.25rem);
+        min-inline-size: 0;
+        object-fit: contain;
+      }
+
+      > figcaption {
+        box-sizing: content-box;
+        flex-basis: 100%;
+      }
+    }
+  }
+}
+
+/*
+----------------------------------------------------------------------------
+Sidenotes  —  CSS Anchor Positioning
+
+On wide viewports, .footnotes is pulled out of article flow and placed
+in the aside column with position: absolute + left: 100%.
+Each <li> aligns vertically with its footnote reference using anchor().
+Overlap is prevented with max(anchor(top), anchor(--sidenote bottom) + gap).
+
+Fallback: Bottom-of-article footnotes.
+See:
+https://meyerweb.com/eric/thoughts/2023/09/12/nuclear-anchored-sidenotes/
+https://edwardtufte.github.io/tufte-css/#sidenotes
+----------------------------------------------------------------------------
+*/
+
+@supports (anchor-name: --a) {
+  @media (width >= 61rem) {
+    article {
+      anchor-name: --article;
+    }
+
+    article > .footnotes {
+      block-size: 0;
+      border: 0;
+      margin: 0;
+      overflow: visible;
+      padding: 0;
+
+      h2 {
+        display: none;
+      }
+
+      ol {
+        list-style-type: "";
+      }
+
+      .data-footnote-backref {
+        border-block-end: none;
+        /* stylelint-disable-next-line custom/token-scope */
+        color: var(--p-color-red-500);
+
+        &::before {
+          /* stylelint-disable-next-line custom/token-scope */
+          background-color: var(--p-color-red-500);
+          block-size: var(--s-icon-size-inline-md);
+          content: "";
+          display: inline-block;
+          inline-size: var(--s-icon-size-inline-md);
+          mask-image: var(--image-heart-pointing-left);
+          mask-position: center;
+          mask-repeat: no-repeat;
+          mask-size: contain;
+          transition: transform var(--s-duration-base);
+          vertical-align: middle;
+        }
+      }
+
+      li {
+        anchor-name: --sidenote;
+        border: var(--s-border-width-base) solid var(--s-color-memo-bg);
+        color: var(--s-color-memo-text);
+        font-size: var(--s-font-size-xs);
+        inset-block-start: max(
+          anchor(top),
+          calc(anchor(--sidenote bottom, 0%) + var(--s-space-gutter-sm))
+        );
+        inset-inline-start: calc(anchor(--article right));
+        max-inline-size: calc(
+          var(--aside-max-inline-size) - var(--s-space-gutter-md)
+        );
+        padding: var(--s-space-layout-xs) var(--s-space-layout-xs);
+        position: absolute;
+        transition: border-color var(--s-transition-base);
+
+        @media (hover: hover) {
+          &:hover {
+            /* stylelint-disable-next-line custom/token-scope */
+            border-color: var(--p-color-red-500);
+          }
+
+          &:hover .data-footnote-backref::before {
+            transform: rotate(-15deg) translateX(-2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+----------------------------------------------------------------------------
+Chip on the top-left of the sidenote box (progressive enhancement).
+See: https://una.im/border-shape
+----------------------------------------------------------------------------
+*/
+@supports (border-shape: circle()) {
+  article .footnotes li {
+    --chip-size: var(--s-space-gutter-2xs);
+    --radius: var(--s-border-radius-lg);
+
+    border-shape: shape(
+      from calc(var(--chip-size) + var(--radius)) 0,
+      hline to calc(100% - var(--radius)),
+      curve to 100% var(--radius) with 100% 0,
+      vline to calc(100% - var(--radius)),
+      curve to calc(100% - var(--radius)) 100% with 100% 100%,
+      hline to calc(var(--chip-size) + var(--radius)),
+      curve to var(--chip-size) calc(100% - var(--radius)) with var(--chip-size)
+        100%,
+      vline to calc(50% + var(--chip-size)),
+      line to 0 50%,
+      line to var(--chip-size) calc(50% - var(--chip-size)),
+      vline to var(--radius),
+      curve to calc(var(--chip-size) + var(--radius)) 0 with var(--chip-size) 0,
+      close
+    );
+    padding-inline-start: calc(var(--s-space-gutter-xs) + var(--chip-size));
+  }
+}

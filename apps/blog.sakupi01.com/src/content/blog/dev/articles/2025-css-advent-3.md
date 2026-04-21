@@ -84,7 +84,9 @@ Håkon Lie のプロポーザルでは以下のような記述があります。
 
 `<html>` 配下の要素を全消しして、`<hoge />` などという超適当なタグを挿入しても、なぜかご親切に `<head>` が入り、`<body>` が入り、`<hoge />` が `<hoge></hoge>` に変換されて、その中に文字列なんか入れていてもその文字列がちゃんと表示されます。
 
+:::figure[HOGE というタグを使ってコンテンツを表示させている]
 ![HOGE というタグを使ってコンテンツを表示させている](../../../../assets/images/hoge.png)
+:::
 _HOGE というタグを使ってコンテンツを表示させている_
 
 `<hoge>` という仕様上存在しないタグを使用しても、ブラウザがエラーを吐いてレンダーが止まるということはなく、ブラウザは黙ってパースできる部分をパースし、できる限りのコンテンツを表示してくれます。
@@ -121,7 +123,9 @@ CSS の Design Principles においては、以下のような記述がありま
 
 - [CSS Display Module Level 3](https://drafts.csswg.org/css-display/#the-display-properties)
 
+:::figure[display initial は inline にフォールバックする]
 ![display initial は inline にフォールバックする](../../../../assets/images/display-initial.png)
+:::
 _display initial は inline にフォールバックする_
 
 もし display の初期値が `display: block;` であれば、見切れたり、overflow したりするページが発生するでしょう。

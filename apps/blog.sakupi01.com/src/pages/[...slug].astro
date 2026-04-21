@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import MarkdownPostLayout from "../layouts/MarkdownPostLayout.astro";
+import TableOfContents from "../components/TableOfContents.astro";
 import { allHouseBlogPosts } from "../utils/contents";
 
 export async function getStaticPaths() {
@@ -13,9 +14,10 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
 <MarkdownPostLayout frontmatter={post.data} slug={post.slug}>
+  <TableOfContents slot="toc" headings={headings} />
   <Content />
 </MarkdownPostLayout>

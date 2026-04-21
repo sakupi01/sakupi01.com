@@ -1,0 +1,76 @@
+---
+// GoToTop.astro
+import TopIcon from "./TopIcon.astro";
+---
+
+<button id="go-to-top" aria-label="ページ上部へ戻る" title="ページ上部へ戻る">
+  <TopIcon />
+</button>
+
+<style>
+  [id="go-to-top"] {
+    animation: btn-reveal var(--s-ease-linear) both;
+    animation-range: 70svb 170svb;
+    animation-timeline: scroll(root block);
+    aspect-ratio: 1 / 2;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    inline-size: var(--s-icon-size-lg);
+    inset-block-end: var(--s-space-gutter-lg);
+    inset-inline-end: var(--s-space-gutter-lg);
+
+    /*
+     * Scroll-driven animation
+     */
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+    position: fixed;
+    translate: 0 8px;
+    z-index: var(--z-index-top);
+  }
+
+  @keyframes btn-reveal {
+    from {
+      opacity: 0;
+      translate: 0 10px;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  [id="go-to-top"] :global(.top-icon) {
+    block-size: 100%;
+    inline-size: 100%;
+    stroke: currentColor;
+    transition: translate var(--s-duration-base) cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @media (hover: hover) {
+    [id="go-to-top"]:hover :global(.top-icon) {
+      translate: 0 -10px;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById("go-to-top");
+  if (!btn) throw new Error("[GoToTop] button element not found");
+
+  // scroll-driven animation は pointer-events を制御できないため JS で補完
+  function syncPointerEvents(): void {
+    btn!.style.pointerEvents =
+      window.scrollY >= window.innerHeight * 0.1 ? "auto" : "none";
+  }
+
+  window.addEventListener("scroll", syncPointerEvents, { passive: true });
+  syncPointerEvents();
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

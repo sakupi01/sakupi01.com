@@ -13,14 +13,13 @@ export const customClassName = () => {
       ) {
         const directive = node as Directives;
         if (directive.name === "note") {
-          // biome-ignore lint/suspicious/noAssignInExpressions: <As described https://github.com/remarkjs/remark-directive?tab=readme-ov-file#use>
           const data = directive.data || (directive.data = {});
           const tagName = directive.type === "textDirective" ? "span" : "aside";
 
           data.hName = tagName;
           data.hProperties = h(tagName, directive.attributes || {}).properties;
         } else {
-          // biome-ignore lint/suspicious/noAssignInExpressions: <As described https://github.com/remarkjs/remark-directive?tab=readme-ov-file#use>
+          if (directive.name === "figure") return;
           const data = directive.data || (directive.data = {});
           const tagName = "details";
           data.hName = tagName;

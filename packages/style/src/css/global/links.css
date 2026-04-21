@@ -1,0 +1,11 @@
+:where(a) {
+  color: inherit;
+
+  /* Adjusts the start and end endpoints of line decorations
+  The UA chooses an inset amount that ensures that if two identical underlined elements appear side-by-side they do not appear to have a single underline. 
+  See: https://drafts.csswg.org/css-text-decor-4/#text-decoration-inset-property */
+  /* stylelint-disable-next-line property-no-unknown */
+  text-decoration-inset: auto;
+  text-decoration-line: none;
+  word-wrap: break-word;
+}

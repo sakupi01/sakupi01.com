@@ -21,7 +21,9 @@ status: "published"
 Ep.9 では、`<option>::checkmark`が現状の見た目となった背景について深掘りました。
 今回は、`::picker-icon`部分について取り上げます。
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様
@@ -52,7 +54,9 @@ li::before {
 }
 ```
 
+:::figure[`::marker`を上書きする]
 ![`::marker`を上書きする](../../../../assets/images/marker-null-list.png)
+:::
 _`::marker`を上書きする_
 
 しかし、もし`::marker`が存在せず、UA スタイルシートに`li::before`で Bullet が実装されていた場合はどうでしょうか。`<li>`の`::before`はもう UA によって使われているため、Bullet と「何か別の要素（🎄）」の二つを配置することは困難です。
@@ -98,13 +102,17 @@ select::after {
 - `tree-abiding`な擬似要素: Tree に Abide（従う・倣らう）要素。それ自体は要素として Box Tree の中には存在しない。レンダーするコンテンツは、`content`プロパティ内に指定する e.g. `::before`, `::after`, `::select-arrow`（`::picker-icon`）
   - [CSS Pseudo-Elements Module Level 4](https://www.w3.org/TR/css-pseudo-4/#treelike)
 
+:::figure[Tree-Abiding擬似要素]
 ![Tree-Abiding擬似要素](../../../../assets/images/tree-abiding.png)
+:::
 _Tree-Abiding擬似要素_
 
 - `element-backed`な擬似要素: Tree Abiding の中でも、Box Tree 内のイチ要素となるもの e.g. `::part()`, `::picker`
   - [CSS Pseudo-Elements Module Level 4](https://drafts.csswg.org/css-pseudo-4/#element-backed)
 
+:::figure[Element-Backed擬似要素]
 ![Element-Backed擬似要素](../../../../assets/images/element-backed.png)
+:::
 _Element-Backed擬似要素_
 
 `::selected-arrow`は、元々`select::after`として定義＆実装されていたように、それ自体は Box Tree の中には存在しない`tree-abiding`な擬似要素なので、仕様書にも`tree-abiding`な擬似要素とカテゴライズされることになりました。

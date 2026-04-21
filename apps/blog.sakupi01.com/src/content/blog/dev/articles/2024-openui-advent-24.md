@@ -77,7 +77,9 @@ Open UI で GDS が進められていくことにより、[Part1](https://blog.s
 
 Open UI はデザインシステムの基本的な構成要素（下図の Sub-Atomic, Atomic, Molecule にあたるレイヤー）をカバーするため、同様のレイヤーをカバーする GDS は、Open UI が既に行っている作業の延長として機能できます。
 
+:::figure[Open UIとGDSの扱うレイヤーはマッチする (Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design methodology for building design systems | by Rohan Kamath | Medium](https://blog.kamathrohan.com/atomic-design-methodology-for-building-design-systems-f912cf714f53)）)]
 ![Open UIとGDSの扱うレイヤーはマッチする](../../../../assets/images/what-oui-and-gds-focus.png)
+:::
 _Open UIとGDSの扱うレイヤーはマッチする （出典: [Atomic Design methodology for building design systems | by Rohan Kamath | Medium](https://blog.kamathrohan.com/atomic-design-methodology-for-building-design-systems-f912cf714f53)）_
 
 これにより、過去に Open UI で議論された[Card](https://github.com/openui/open-ui/issues/151)や[Skelton](https://github.com/openui/open-ui/issues/139)などのコンポーネントは、自然と GDS の対象とすることができます。
@@ -143,7 +145,8 @@ W3C Open UI CG で然るべき検討がなされた GDS コンポーネントラ
 > 6. Has decent adoption and web developer/designer community support (monetary funding is a positive but not required)
 >
 > ー [Foundation for the Global Design System component library · Issue #1066 · openui/open-ui](https://github.com/openui/open-ui/issues/1066)
-> :::
+
+:::
 
 これまで Open UI が取り組んできたのは、あくまで「Web UI における標準化団体への推奨事項作成」であったのに対し、GDS のコンポーネントライブラリは、GDS での検討に基づいたコンポーネントを実際に実装し、開発者が独自のデザインシステムを構築する際の参考として機能することを目的としています。
 

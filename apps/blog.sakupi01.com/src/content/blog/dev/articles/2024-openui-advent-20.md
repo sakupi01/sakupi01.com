@@ -18,7 +18,9 @@ status: "published"
 
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`のクローン実装における、技術的背景をお話ししています。
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 [Ep.17](https://blog.sakupi01.com/dev/articles/2024-openui-advent-19)では、Light DOM へのクローンが、「マイクロタスクを使用した、MutationObserver のコールバック内で実装する方向」で提案されていました。これにより、パフォーマンス面で優れた実装が可能になるというのが主な理由でした。

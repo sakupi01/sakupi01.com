@@ -3,7 +3,7 @@
 
   margin-inline: auto;
   max-inline-size: var(--wrapper-max-width);
-  padding-inline: var(--gap-m);
+  padding-inline: var(--s-space-layout-md);
 }
 
 .wrapper--s {
@@ -15,7 +15,7 @@
 }
 
 .wrapper--fullbleed {
-  --wrapper-max-width: 100vw; /* 100dvi might have performance implications */
+  --wrapper-max-width: 100lvi;
 
   padding-inline: 0;
 }

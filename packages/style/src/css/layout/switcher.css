@@ -1,0 +1,8 @@
+.switcher {
+  display: grid;
+  gap: var(--space, 1rem);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--threshold, 30rem), 100%), 1fr)
+  );
+}

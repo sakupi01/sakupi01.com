@@ -20,3 +20,23 @@ const { logoHref = "/" } = Astro.props;
     <SoundIcon />
   </div>
 </header>
+
+<style>
+  header {
+    --anchor-name: --header-anchor;
+
+    container: header / inline-size;
+
+    .left {
+      grid-column: 1;
+    }
+
+    .right {
+      align-items: center;
+      display: grid;
+      gap: var(--s-space-gap-xs);
+      grid-column: 3;
+      grid-template-columns: 1fr repeat(2, auto);
+    }
+  }
+</style>

@@ -27,7 +27,9 @@ status: "published"
 本格的に`<selectlist>`の運用が始まる中で、whatwg/html に、`<select>`の HTML/CSS に関する Issue と PR をまとめた Issue が開かれました。
 
 - [Customizable `<select>` element · Issue #9799 · whatwg/html](https://github.com/whatwg/html/issues/9799)
+  :::figure[現在は`<select>`だが、その前の`<selectlist>`時代に開かれている]
   ![現在は`<select>`だが、その前の`<selectlist>`時代に開かれている](../../../../assets/images/select-wrapped-issue.png)
+  :::
   _現在は`<select>`だが、その前の`<selectlist>`時代に開かれている_
 
 そして、この Issue を皮切りに、`<selectlist>`から`<select>`への移行が検討されていくことになります。

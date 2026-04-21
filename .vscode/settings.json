@@ -29,5 +29,7 @@
 	"textlint.configPath": "./apps/blog.sakupi01.com/.textlintrc",
 	"[html]": {
 		"editor.defaultFormatter": "vscode.html-language-features"
-	}
+	},
+	"stylelint.validate": ["css", "postcss", "astro"],
+	"stylelint.packageManager": "pnpm"
 }

@@ -80,6 +80,8 @@ export default [
         ResizeObserver: "readonly",
         requestAnimationFrame: "readonly",
         cancelAnimationFrame: "readonly",
+        CSSImportRule: "readonly",
+        CSSGroupingRule: "readonly",
         // ES2022 globals are included by default with ecmaVersion: 'latest'
       },
     },

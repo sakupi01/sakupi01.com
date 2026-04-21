@@ -11,7 +11,7 @@ import { allLifePosts } from "../../utils/contents";
   url="/life/"
 >
   <Title title="Life Blog Archive ..." />
-  <ul class="posts">
+  <ul class="stack">
     {
       allLifePosts.map((post) => {
         const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
@@ -29,9 +29,7 @@ import { allLifePosts } from "../../utils/contents";
 </Layout>
 
 <style>
-  .posts {
-    display: grid;
-    gap: 3rem;
-    padding: 1rem 0;
+  .stack {
+    --stack-gutter: var(--s-space-gutter-xl);
   }
 </style>

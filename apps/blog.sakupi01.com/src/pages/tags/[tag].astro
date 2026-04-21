@@ -1,4 +1,5 @@
 ---
+import Title from "@sakupi01/layout/components/Title.astro";
 import BlogPostCard from "../../components/BlogPostCard.astro";
 import Layout from "../../layouts/Layout.astro";
 import { allPosts } from "../../utils/contents";
@@ -25,12 +26,8 @@ const { posts } = Astro.props;
   description={`Posts tagged with #${tag}`}
   url={`/tags/${encodeURIComponent(tag)}/`}
 >
-  <p class="description">
-    Posts tagged with <em
-      ><a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a></em
-    > ...
-  </p>
-  <ul class="posts">
+  <Title title={`Posts tagged with #${tag} ...`} />
+  <ul class="stack">
     {
       posts.map((post) => {
         const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
@@ -48,16 +45,7 @@ const { posts } = Astro.props;
 </Layout>
 
 <style>
-  .description {
-    font-size: 1.25em;
-    margin-bottom: 1em;
-    font-family: var(--base-font-family-alegreya);
-    font-weight: 600;
-    font-optical-sizing: auto;
-  }
-  .posts {
-    display: grid;
-    gap: 3rem;
-    padding: 1rem 0;
+  .stack {
+    --stack-gutter: var(--s-space-gutter-xl);
   }
 </style>

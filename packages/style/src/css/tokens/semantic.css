@@ -1,0 +1,420 @@
+/*
+----------------------------------------------------------------------------
+Semantic tokens: --s- prefix
+
+These tokens reference primitives (--p-) and provide meaningful,
+context-aware names for common design patterns. Use semantic tokens
+in components and layouts instead of primitives directly.
+
+- Naming Tokens: https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676
+----------------------------------------------------------------------------
+*/
+
+:where(html) {
+  /* -------------------------------------------------------------------------
+      Colors: Surfaces & Backgrounds
+      ------------------------------------------------------------------------- */
+
+  /* Base background of the page */
+  --s-color-surface-base: light-dark(
+    var(--p-color-neutral-100),
+    var(--p-color-neutral-900)
+  );
+
+  /* Elevated surface for cards, panels, etc. */
+  --s-color-surface-raised: light-dark(
+    var(--p-color-neutral-200),
+    var(--p-color-neutral-700)
+  );
+
+  /* Overlay surface for modals, drawers, etc. */
+  --s-color-surface-overlay: light-dark(
+    var(--p-color-neutral-200),
+    var(--p-color-neutral-900)
+  );
+
+  /* Default surface for clickable elements */
+  --s-color-surface-interactive: light-dark(
+    var(--p-color-neutral-300),
+    var(--p-color-neutral-700)
+  );
+
+  /* Hovered interactive surface */
+  --s-color-surface-interactive-hover: light-dark(
+    var(--p-color-neutral-400),
+    var(--p-color-neutral-600)
+  );
+
+  /* -------------------------------------------------------------------------
+      Colors: Text
+      ------------------------------------------------------------------------- */
+
+  /* Headings and body text */
+  --s-color-text-primary: light-dark(
+    var(--p-color-neutral-800),
+    var(--p-color-neutral-100)
+  );
+
+  /* Supporting text and labels */
+  --s-color-text-secondary: light-dark(
+    var(--p-color-neutral-600),
+    var(--p-color-neutral-300)
+  );
+
+  /* Placeholders, hints, and tertiary information */
+  --s-color-text-tertiary: light-dark(
+    var(--p-color-neutral-500),
+    var(--p-color-neutral-400)
+  );
+
+  /* Disabled state */
+  --s-color-text-disabled: light-dark(
+    var(--p-color-neutral-400),
+    var(--p-color-neutral-500)
+  );
+
+  /* Text on colored/dark backgrounds */
+  --s-color-text-inverse: light-dark(
+    var(--p-color-neutral-200),
+    var(--p-color-neutral-800)
+  );
+
+  /* -------------------------------------------------------------------------
+      Colors: Interactive Elements
+      ------------------------------------------------------------------------- */
+
+  /* CTAs and primary actions */
+  --s-color-primary: var(--p-color-flamingo-500);
+  --s-color-primary-hover: var(--p-color-flamingo-600);
+  --s-color-primary-active: var(--p-color-flamingo-700);
+  --s-color-primary-subtle: light-dark(
+    var(--p-color-flamingo-200),
+    var(--p-color-flamingo-800)
+  );
+
+  /* Links */
+  --s-color-link: light-dark(
+    var(--p-color-flamingo-600),
+    var(--p-color-flamingo-300)
+  );
+  --s-color-link-hover: light-dark(
+    var(--p-color-flamingo-700),
+    var(--p-color-flamingo-200)
+  );
+  --s-color-link-visited: light-dark(
+    var(--p-color-lavender-600),
+    var(--p-color-lavender-300)
+  );
+
+  /* Focus ring — high contrast for accessibility */
+  --s-color-focus: var(--p-color-flamingo-500);
+
+  /* -------------------------------------------------------------------------
+      Colors: Feedback & Status
+      ------------------------------------------------------------------------- */
+
+  /* Message (green) */
+  --s-color-message: var(--p-color-green-500);
+  --s-color-message-bg: light-dark(
+    var(--p-color-green-200),
+    var(--p-color-green-800)
+  );
+  --s-color-message-text: light-dark(
+    var(--p-color-green-700),
+    var(--p-color-green-200)
+  );
+
+  /* Warning (mustard) */
+  --s-color-warning: var(--p-color-mustard-500);
+  --s-color-warning-bg: light-dark(
+    var(--p-color-mustard-200),
+    var(--p-color-mustard-800)
+  );
+  --s-color-warning-text: light-dark(
+    var(--p-color-mustard-700),
+    var(--p-color-mustard-200)
+  );
+
+  /* Memo (fuchsia) */
+  --s-color-memo: var(--p-color-fuchsia-500);
+  --s-color-memo-bg: light-dark(
+    var(--p-color-fuchsia-200),
+    var(--p-color-fuchsia-800)
+  );
+  --s-color-memo-text: light-dark(
+    var(--p-color-fuchsia-700),
+    var(--p-color-fuchsia-200)
+  );
+
+  /* Info (turquoise) */
+  --s-color-info: var(--p-color-azure-500);
+  --s-color-info-bg: light-dark(
+    var(--p-color-azure-200),
+    var(--p-color-azure-800)
+  );
+  --s-color-info-text: light-dark(
+    var(--p-color-azure-700),
+    var(--p-color-azure-200)
+  );
+
+  /* -------------------------------------------------------------------------
+      Colors: Borders
+      ------------------------------------------------------------------------- */
+
+  /* Dividers and low-emphasis borders */
+  --s-color-border-subtle: light-dark(
+    var(--p-color-neutral-300),
+    var(--p-color-neutral-700)
+  );
+
+  /* Standard borders for inputs, cards, etc. */
+  --s-color-border-default: light-dark(
+    var(--p-color-neutral-400),
+    var(--p-color-neutral-600)
+  );
+
+  /* Strong borders and separators */
+  --s-color-border-strong: light-dark(
+    var(--p-color-neutral-600),
+    var(--p-color-neutral-500)
+  );
+
+  /* Focus outline */
+  --s-color-border-focus: var(--s-color-focus);
+
+  /* -------------------------------------------------------------------------
+      Typography: Font Families
+      ------------------------------------------------------------------------- */
+
+  --s-font-family-base: var(--p-font-sans);
+  --s-font-family-serif: var(--p-font-serif);
+  --s-font-family-mono: var(--p-font-mono);
+
+  /* -------------------------------------------------------------------------
+     Typography: font sizes
+     Use on `font-size`. Scales with user text preference and OS text-scale.
+     ------------------------------------------------------------------------- */
+
+  --s-font-size-xs: var(--p-step--1);
+  --s-font-size-sm: var(--p-step-0);
+  --s-font-size-base: var(--p-step-0);
+  --s-font-size-lg: var(--p-step-1);
+  --s-font-size-xl: var(--p-step-2);
+  --s-font-size-2xl: var(--p-step-3);
+  --s-font-size-3xl: var(--p-step-4);
+  --s-font-size-4xl: var(--p-step-5);
+  --s-font-size-5xl: var(--p-step-6);
+
+  /* Heading-specific aliases */
+  --s-font-size-h1: var(--p-step-5);
+  --s-font-size-h2: var(--p-step-3);
+  --s-font-size-h3: var(--p-step-2-5);
+  --s-font-size-h4: var(--p-step-2);
+  --s-font-size-h5: var(--p-step-1);
+  --s-font-size-h6: var(--p-step-0);
+
+  /* -------------------------------------------------------------------------
+     Typography: weights — reference renamed primitives
+     ------------------------------------------------------------------------- */
+
+  --s-font-weight-normal: var(--p-text-weight-regular);
+  --s-font-weight-medium: var(--p-text-weight-medium);
+  --s-font-weight-semibold: var(--p-text-weight-semibold);
+  --s-font-weight-bold: var(--p-text-weight-bold);
+
+  /* -------------------------------------------------------------------------
+     Typography: line heights — reference renamed primitives
+     ------------------------------------------------------------------------- */
+
+  --s-line-height-tight: var(--p-text-leading-tight);
+  --s-line-height-base: var(--p-text-leading-normal);
+  --s-line-height-relaxed: var(--p-text-leading-relaxed);
+  --s-line-height-h6: var(--p-text-leading-normal);
+  --s-line-height-h5: var(--p-text-leading-tight);
+  --s-line-height-h4: var(--p-text-leading-tight);
+  --s-line-height-h3: var(--p-text-leading-tight);
+  --s-line-height-h2: var(--p-text-leading-tight);
+  --s-line-height-h1: var(--p-text-leading-tight);
+
+  /* -------------------------------------------------------------------------
+     Spacing: Gutter (inside prose, lh-based)
+     
+     Use on `margin-block` in prose blocks (paragraphs, headings, lists).
+     `lh` ties each element's gutter to its own line-height, so headings
+     get proportionally larger gutters without manual tuning.
+     https://webkit.org/blog/16831/line-height-units/
+     ------------------------------------------------------------------------- */
+
+  --s-space-gutter-3xs: var(--p-rhythm-3xs);
+  --s-space-gutter-2xs: var(--p-rhythm-2xs);
+  --s-space-gutter-xs: var(--p-rhythm-xs);
+  --s-space-gutter-sm: var(--p-rhythm-s);
+  --s-space-gutter-md: var(--p-rhythm-m);
+  --s-space-gutter-lg: var(--p-rhythm-l);
+  --s-space-gutter-xl: var(--p-rhythm-xl);
+
+  /* -------------------------------------------------------------------------
+     Spacing: Gap (between sections, rlh-based)
+     
+     Use on `gap` between text-oriented blocks (card list, article sections).
+     `rlh` anchors to root line-height — consistent across type scales on
+     the same page, and scales with user text preference via root font-size.
+     ------------------------------------------------------------------------- */
+
+  --s-space-gap-3xs: 0.25rlh;
+  --s-space-gap-2xs: 0.5rlh;
+  --s-space-gap-xs: 0.75rlh;
+  --s-space-gap-sm: 1rlh;
+  --s-space-gap-md: 1.5rlh;
+  --s-space-gap-lg: 2rlh;
+  --s-space-gap-xl: 3rlh;
+
+  /* -------------------------------------------------------------------------
+     Spacing: Layout (structural, px-based, does NOT scale with text)
+     
+     Use on `padding`, structural `margin-inline`, and grid/flex gaps in
+     NON-text contexts (button internals, card padding, dashboard grids).
+     px-clamp ensures layout doesn't inflate when users enlarge text —
+     required for WCAG 1.4.10 Reflow at 200% text scale.
+     https://www.joshtumath.uk/posts/2026-01-27-try-text-scaling-support-in-chrome-canary/
+     ------------------------------------------------------------------------- */
+
+  --s-space-layout-3xs: var(--p-space-3xs);
+  --s-space-layout-2xs: var(--p-space-2xs);
+  --s-space-layout-xs: var(--p-space-xs);
+  --s-space-layout-sm: var(--p-space-s);
+  --s-space-layout-md: var(--p-space-m);
+  --s-space-layout-lg: var(--p-space-l);
+  --s-space-layout-xl: var(--p-space-xl);
+  --s-space-layout-2xl: var(--p-space-2xl);
+  --s-space-layout-3xl: var(--p-space-3xl);
+
+  /* Layout pairs — asymmetric / interpolating structural spacing */
+  --s-space-layout-pair-xs: var(--p-space-3xs-2xs);
+  --s-space-layout-pair-sm: var(--p-space-2xs-xs);
+  --s-space-layout-pair-md: var(--p-space-xs-s);
+  --s-space-layout-pair-lg: var(--p-space-s-m);
+  --s-space-layout-pair-xl: var(--p-space-m-l);
+  --s-space-layout-pair-2xl: var(--p-space-l-xl);
+  --s-space-layout-pair-3xl: var(--p-space-xl-2xl);
+  --s-space-layout-pair-4xl: var(--p-space-2xl-3xl);
+
+  /* -------------------------------------------------------------------------
+     Borders
+     
+     - border-width: rem-based — content borders (button/input/card edges)
+       scale with text so they stay visible as users scale up (a11y).
+     - divider-width: px-based — decorative separators stay hairline.
+     ------------------------------------------------------------------------- */
+
+  --s-border-width-thin: var(--p-border-1);
+  --s-border-width-base: var(--p-border-2);
+  --s-border-width-thick: var(--p-border-4);
+  --s-divider-width-thin: var(--p-divider-1);
+  --s-divider-width-base: var(--p-divider-2);
+
+  /* Border radius — px-based so corner shapes stay visually consistent
+     regardless of text scale (avoids "inflated button" feel on zoom). */
+  --s-border-radius-sm: var(--p-radius-xs);
+  --s-border-radius-md: var(--p-radius-s);
+  --s-border-radius-lg: var(--p-radius-m);
+  --s-border-radius-xl: var(--p-radius-l);
+  --s-border-radius-full: var(--p-radius-full);
+
+  /* -------------------------------------------------------------------------
+     Icons
+     - inline: em-based, for icons flowing with text (bullets in headings etc.)
+     - size:   rem-based, for standalone icons (toolbar buttons, avatars)
+     ------------------------------------------------------------------------- */
+
+  --s-icon-size-inline-xs: var(--p-icon-inline-xs);
+  --s-icon-size-inline-sm: var(--p-icon-inline-s);
+  --s-icon-size-inline-md: var(--p-icon-inline-m);
+  --s-icon-size-xs: var(--p-icon-xs);
+  --s-icon-size-sm: var(--p-icon-s);
+  --s-icon-size-md: var(--p-icon-m);
+  --s-icon-size-lg: var(--p-icon-l);
+  --s-icon-size-xl: var(--p-icon-xl);
+
+  /* -------------------------------------------------------------------------
+      Animations: Durations
+      ------------------------------------------------------------------------- */
+
+  --s-duration-instant: var(--p-duration-instant);
+  --s-duration-fast: var(--p-duration-fast);
+  --s-duration-base: var(--p-duration-moderate);
+  --s-duration-slow: var(--p-duration-slow);
+
+  /* -------------------------------------------------------------------------
+      Animations: Easing Functions
+      ------------------------------------------------------------------------- */
+
+  --s-ease-linear: var(--p-ease-linear);
+  --s-ease-in: var(--p-ease-in);
+  --s-ease-out: var(--p-ease-out);
+  --s-ease-in-out: var(--p-ease-in-out);
+
+  /* Composite animation values for common use cases */
+  --s-transition-fast: var(--p-duration-fast) var(--p-ease-out);
+  --s-transition-base: var(--p-duration-moderate) var(--p-ease-in-out);
+  --s-transition-slow: var(--p-duration-slow) var(--p-ease-in-out);
+
+  /* -------------------------------------------------------------------------
+      Effects: Shadows
+      ------------------------------------------------------------------------- */
+
+  --s-shadow-sm: var(--p-shadow-sm);
+  --s-shadow-md: var(--p-shadow-sm);
+  --s-shadow-lg: var(--p-shadow-md);
+  --s-shadow-xl: var(--p-shadow-lg);
+  --s-shadow-2xl: var(--p-shadow-xl);
+
+  /* -------------------------------------------------------------------------
+      Effects: Focus Styles
+      Transparent outline ensures high contrast mode compatibility.
+      Reference: https://css-tricks.com/the-focus-visible-trick/
+      ------------------------------------------------------------------------- */
+
+  --s-focus-ring-width: var(--p-border-4);
+  --s-focus-ring-color: var(--s-color-focus);
+  --s-focus-ring-offset: 2px;
+  --s-focus-shadow: 0 0 0 var(--s-focus-ring-width) var(--s-focus-ring-color);
+  --s-focus-outline: var(--s-focus-ring-width) solid transparent;
+
+  /* -------------------------------------------------------------------------
+      Effects: Interactive States
+      ------------------------------------------------------------------------- */
+
+  --s-hover-opacity: 0.8;
+  --s-active-scale: 0.975;
+
+  /* -------------------------------------------------------------------------
+      Layout: Z-Index Scale
+      ------------------------------------------------------------------------- */
+
+  --s-z-index-below: var(--p-z-below);
+  --s-z-index-base: var(--p-z-base);
+  --s-z-index-dropdown: var(--p-z-dropdown);
+  --s-z-index-sticky: var(--p-z-sticky);
+  --s-z-index-overlay: var(--p-z-overlay);
+  --s-z-index-modal: var(--p-z-modal);
+  --s-z-index-popover: var(--p-z-popover);
+  --s-z-index-tooltip: var(--p-z-tooltip);
+
+  /* -------------------------------------------------------------------------
+      Layout: Container Widths
+      Max widths for content containers based on readability research.
+      ------------------------------------------------------------------------- */
+
+  --s-container-xs: 20rem; /*  ~320px */
+  --s-container-sm: 24rem; /*  ~384px */
+  --s-container-md: 28rem; /*  ~448px */
+  --s-container-lg: 32rem; /*  ~512px */
+  --s-container-xl: 36rem; /*  ~576px */
+  --s-container-2xl: 42rem; /*  ~672px */
+  --s-container-3xl: 48rem; /*  ~768px */
+  --s-container-4xl: 56rem; /*  ~896px */
+  --s-container-5xl: 64rem; /* ~1024px */
+  --s-container-6xl: 72rem; /* ~1152px */
+  --s-container-7xl: 80rem; /* ~1280px */
+}

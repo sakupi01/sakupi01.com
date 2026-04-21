@@ -1,0 +1,32 @@
+---
+const links = {
+  X: "https://x.com/sakupi01/",
+  Bluesky: "https://bsky.app/profile/sakupi01.com/",
+  GitHub: "https://github.com/sakupi01/",
+  Codepen: "https://codepen.io/sakupi01/",
+  Email:
+    "mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and...",
+};
+---
+
+<ul class="sns">
+  {
+    Object.entries(links).map(([name, url]) => (
+      <li>
+        <a href={url} class="sns-link">
+          {name}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .sns {
+    display: grid;
+    font-family: var(--s-font-family-serif);
+    gap: var(--s-space-gap-xs);
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+  }
+</style>

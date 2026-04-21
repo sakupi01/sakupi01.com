@@ -272,7 +272,9 @@ inherit(<(custom-)property-name>, <declaration-value>?)
 }
 ```
 
+:::figure[親のborder-radius と親和した radius]
 ![親のborder-radius と親和した radius](../../../../assets/images/border-radius-inherit.png)
+:::
 _親のborder-radius と親和した radius_
 
 - [[css-borders-4] New `border-radius` value for perfectly matching nested radii · Issue #7707 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/7707)
@@ -318,7 +320,9 @@ _親のborder-radius と親和した radius_
 }
 ```
 
+:::figure[異なるfont-sizeのweightを一定にしたい]
 ![異なるfont-sizeのweightを一定にしたい](../../../../assets/images/font-weight-inherit.png)
+:::
 _異なる`font-size`のweightを一定にしたい_
 
 - [[css-fonts-4] Percentages in font-weight for relative weights · Issue #2690 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2690)

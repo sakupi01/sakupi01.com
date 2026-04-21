@@ -7,7 +7,7 @@ import { allPosts } from "../utils/contents";
 
 <Layout pageTitle="Archive" description="Blog Archive" url="/">
   <Title title="Archive | blog.sakupi01.com" />
-  <ul class="posts">
+  <ul class="stack">
     {
       allPosts.map((post) => {
         const url = post.data.tags.includes("zenn")
@@ -27,9 +27,7 @@ import { allPosts } from "../utils/contents";
 </Layout>
 
 <style>
-  .posts {
-    display: grid;
-    gap: 3rem;
-    padding: 1rem 0;
+  .stack {
+    --stack-gutter: var(--s-space-gutter-xl);
   }
 </style>

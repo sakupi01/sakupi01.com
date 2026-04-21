@@ -28,22 +28,24 @@ const { title, image, date, update, excerpt } = Astro.props;
 
 <style>
   .hero-section {
-    margin-bottom: 2rem;
+    margin-block-end: var(--s-space-gutter-lg);
   }
 
   .dates {
     display: grid;
-    gap: 1rem;
+    gap: var(--s-space-gap-sm);
     grid-template-columns: auto auto 1fr;
     grid-template-rows: 1fr;
+    margin-block-end: var(--s-space-gutter-sm);
 
     .published {
-      color: var(--color-text);
-      font-weight: 400;
+      color: var(--s-color-text-primary);
+      font-weight: var(--s-font-weight-normal);
     }
   }
+
   .excerpt {
+    margin-block: 0 var(--s-space-gutter-sm);
     text-wrap: pretty;
-    margin-block-end: 0;
   }
 </style>

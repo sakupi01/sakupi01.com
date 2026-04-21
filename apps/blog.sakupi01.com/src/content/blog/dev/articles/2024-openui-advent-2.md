@@ -31,7 +31,9 @@ status: "published"
 
 > CSS 2.1 does not define which properties apply to form controls and frames, or how CSS can be used to style them. User agents may apply CSS properties to these elements. Authors are recommended to treat such support as experimental. A future level of CSS may specify this further. - [UA Conformance](https://www.w3.org/TR/CSS21/conform.html#q3.0), CSS 2.1 Specification, W3C
 
+:::figure[ブラウザ・OSの組み合わせで異なるForm Controlのスタイル ([Styling form controls](https://www.456bereastreet.com/archive/200409/styling_form_controls/))]
 ![ブラウザ・OSの組み合わせで異なるForm Controlのスタイル](../../../../assets/images/different-styles-from-control.png)
+:::
 _Styling form controls - <https://www.456bereastreet.com/archive/200409/styling_form_controls/>_
 
 ---

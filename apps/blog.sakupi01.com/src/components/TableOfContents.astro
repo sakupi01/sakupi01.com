@@ -1,0 +1,172 @@
+---
+interface Props {
+  headings: Array<{ depth: number; slug: string; text: string }>;
+}
+
+const { headings } = Astro.props;
+const tocHeadings = headings.filter(
+  (h) =>
+    h.depth >= 2 &&
+    h.depth <= 3 &&
+    h.slug !== "table-of-contents" &&
+    h.slug !== "footnote-label"
+);
+---
+
+{
+  tocHeadings.length > 0 && (
+    <nav class="toc-sidebar" aria-label="Table of Contents">
+      <ol class="toc-sidebar__list">
+        {tocHeadings.map((heading) => (
+          <li
+            class={`toc-sidebar__item toc-sidebar__item--depth-${heading.depth}`}
+          >
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<script>
+  /**
+   * IntersectionObserver-based scrollspy.
+   *
+   * Serves as:
+   * - Polyfill for browsers without scroll-target-group / :target-current
+   *
+   * Sets aria-current="true" on the active TOC link (WCAG 1.3.1).
+   * CSS uses [aria-current] for visual highlight.
+   */
+  function initScrollspy() {
+    const links = document.querySelectorAll<HTMLAnchorElement>(
+      ".toc-sidebar__list a[href^='#']"
+    );
+    if (links.length === 0) return;
+
+    const ids = Array.from(links).map((a) =>
+      decodeURIComponent(a.hash.slice(1))
+    );
+
+    function update() {
+      // Find the last heading whose top is above (or at) the activation line.
+      // This gives us the "current section" as the user scrolls down.
+      let activeId: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 100) {
+          activeId = id;
+        }
+      }
+
+      for (const link of links) {
+        const linkId = decodeURIComponent(link.hash.slice(1));
+        if (linkId === activeId) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      }
+    }
+
+    // Debounced scroll listener — simpler and more reliable than
+    // IntersectionObserver for scrollspy (heading elements are tiny).
+    let ticking = false;
+    document.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            update();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    // Initial update
+    update();
+  }
+
+  initScrollspy();
+</script>
+
+<style>
+  .toc-sidebar {
+    inset-block-start: var(--s-space-gutter-xl);
+    margin-block: var(--s-space-gutter-sm);
+    max-block-size: calc(100lvb - var(--s-space-gutter-xl) * 2);
+    position: sticky;
+  }
+
+  .toc-sidebar__list {
+    scroll-target-group: auto;
+  }
+
+  .toc-sidebar__item a {
+    color: var(--s-color-text-secondary);
+    display: block;
+    font-size: var(--s-font-size-xs);
+    line-height: var(--s-line-height-relaxed);
+    padding-inline-start: var(--s-space-gutter-xs);
+    position: relative;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-sidebar__item--depth-3 a {
+    padding-inline-start: var(--s-space-gutter-md);
+  }
+
+  @media (hover: hover) {
+    .toc-sidebar__item a:hover {
+      color: var(--s-color-text-primary);
+    }
+  }
+
+  /* Active state: aria-current (IntersectionObserver) OR :target-current (native) */
+  .toc-sidebar__item a[aria-current] {
+    color: var(--s-color-primary);
+    font-weight: var(--s-font-weight-semibold);
+  }
+
+  .toc-sidebar__item a[aria-current]::before {
+    animation: toc-marker-in 0.35s ease-out both;
+    background-color: var(--s-color-primary);
+    block-size: 1em;
+    content: "";
+    display: block;
+    inline-size: 1em;
+    inset-block-start: 50%;
+    inset-inline-start: 0;
+    mask: var(--image-petal) no-repeat center / contain;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes toc-marker-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.3) rotate(-45deg);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+  }
+
+  /* NOTE: Because target-current doesn't work in cross-browsers, 
+  and admitting this for non-supported browsers force users to unexpected user experiences, 
+  I'm not using it for now. */
+  /* @supports selector(:target-current) {
+    .toc-sidebar__item a:target-current {
+      color: var(--s-color-primary);
+      border-inline-start-color: var(--s-color-primary);
+      font-weight: 600;
+    }
+  } */
+</style>

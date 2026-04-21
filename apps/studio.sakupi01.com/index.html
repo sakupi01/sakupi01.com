@@ -19,9 +19,12 @@
   <meta property="og:url" content="https://studio.sakupi01.com" />
   <meta name="twitter:card" content="summary" />
   <title>Studio | studio.sakupi01.com | studio.sakupi01.com</title>
-  <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/sakupi01.com.css">
-  <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/sakupi01.com.markdown.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/examples/sakupi01.com/index.css">
+  <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/examples/sakupi01.com/markdown.css"> -->
   <style>
+    @import url(../../packages/style/src/css/examples/sakupi01.com/index.css);
+    @import url(../../packages/style/src/css/examples/sakupi01.com/markdown.css);
+
     :where(html) {
       color-scheme: only light;
     }
@@ -44,10 +47,10 @@
   <main>
     <h1 class=title>Studio | studio.sakupi01.com</h1>
     <article>
-      <section class=showcases>
-        <h2 id=showcases class=heading><a href=#showcases>Showcases per venue</a></h2>
+      <section class=stack>
+        <h2 id=showcases><a href=#showcases>Showcases per venue</a></h2>
         <section>
-          <h3 id=css class=heading><a href=#html>CSSWG</a></h3>
+          <h3 id=css><a href=#html>CSSWG</a></h3>
           <ul>
             <li><a href="csswg/preterred-text-scale">Preferred Text Scale (env and meta)</a></li>
             <li><a href="csswg/overscroll-gestures">Overscroll Gestures</a></li>
@@ -64,7 +67,7 @@
         </section>
 
         <section>
-          <h3 id=html class=heading><a href=#html>WHATWG</a></h3>
+          <h3 id=html><a href=#html>WHATWG</a></h3>
           <ul>
             <!-- <li><a href="whatwg/declarative-overscroll-gestures">Declarative Overscroll Gestures</a></li> -->
             <li><a href="whatwg/interest-invokers">Interest Invokers</a></li>
@@ -80,7 +83,7 @@
         </section>
 
         <section>
-          <h3 id=misc class=heading><a href=#html>Misc</a></h3>
+          <h3 id=misc><a href=#html>Misc</a></h3>
           <ul>
             <li><a href="misc/font-optimization">Font Optimization</a></li>
             <li><a href="misc/_repros/">Bug Reproductions</a></li>
@@ -88,7 +91,7 @@
         </section>
 
         <section class=info>
-          <h2 id=info class=heading><a href=#info>! This Subdomain is for Testing Purposes !</a></h2>
+          <h2 id=info><a href=#info>! This Subdomain is for Testing Purposes !</a></h2>
           <p><code>studio.sakupi01.com/*</code> is a testing domain for various demos.
           <ul>
             <li>No dependency. Only the minimum necessary Web Standard APIs are used.
@@ -99,7 +102,7 @@
             <li>Directory structure is organized by venue/feature style.
           </ul>
           <section class=experimental-features>
-            <h2 id=feats class=heading><a href=#feats>Current Experimental Features</a></h2>
+            <h2 id=feats><a href=#feats>Current Experimental Features</a></h2>
             <ul>
               <li><a href="https://developer.chrome.com/origintrials/#/trials/active">Chrome Origin Trials</a></li>
               <li><a href="https://source.chromium.org/search?q=file:features.json5&ss=chromium">Chrome Experimental
@@ -118,12 +121,6 @@
           </section>
     </article>
   </main>
-
-  <footer>
-    <address>© 2025 Built with 🌸❤️ by saku | <a aria-label="Email"
-        href="mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and..."><span>Get
-          in touch</span></a></address>
-  </footer>
 </body>
 
 </html>

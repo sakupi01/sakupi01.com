@@ -49,7 +49,9 @@ status: "published"
 > A menu is a widget that offers a list of choices to the user, **such as a set of actions or functions**. Menu widgets behave like native operating system menus, such as the menus that pull down from the menubars commonly found at the top of many desktop application windows.
 > ー [Menu and Menubar Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/)
 
+:::figure[Menu (画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Navigation Menubar Example](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-navigation/))]
 ![Menu](../../../../assets/images/menu.png)
+:::
 _画面遷移のアクションを伴うMenuの例 - 出典: APG | WAI | W3C [Navigation Menubar Example](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-navigation/)_
 
 :::note{.memo}
@@ -99,8 +101,10 @@ Combobox の APG によると、Combobox は「Listbox と input を組み合わ
 
 埒が開かないので、絵文字投票が行われ、その時点で多くの票が`<selectlist>`と`<selectbox>`に集まりました。
 
+:::figure[絵文字投票 (絵文字投票 - [参考](https://github.com/openui/open-ui/issues/773#issuecomment-1649976535))]
+
 ![絵文字投票](../../../../assets/images/emoji-election.png)
-_絵文字投票 - 参考: <https://github.com/openui/open-ui/issues/773#issuecomment-1649976535>_
+:::
 
 その上でもう一度[Telecon](https://github.com/openui/open-ui/issues/773#issuecomment-1654169425)で話し合われ、その時点で Google DevRel の[Una Kravets](https://x.com/una)は次のように主張しました。
 

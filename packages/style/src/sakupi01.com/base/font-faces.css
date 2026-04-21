@@ -1,0 +1,121 @@
+/* CLS fallback: Alegreya -> Times New Roman */
+@font-face {
+  ascent-override: 100%;
+  descent-override: 25%;
+  font-family: "Fallback for Alegreya";
+  line-gap-override: 12%;
+  size-adjust: 98%;
+  src: local("Times New Roman"), local("TimesNewRomanPSMT");
+}
+
+/* CLS fallback: Cascadia -> Consolas / Courier New */
+@font-face {
+  ascent-override: 98%;
+  descent-override: 0%;
+  font-family: "Fallback for Cascadia";
+  line-gap-override: 0%;
+  size-adjust: 102%;
+  src:
+    local("Consolas"), local("Courier New"), local("CourierNewPSMT"),
+    local("Arial");
+}
+
+/* CartographCF: weights remapped to design tokens (200/400/600) */
+@font-face {
+  font-display: swap;
+  font-family: cartograph;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "kern" 1;
+  font-style: normal;
+  font-weight: 600;
+  size-adjust: 100%;
+  src: url("/fonts/CartographCF/CartographCF-ExtraBold.otf") format("opentype");
+  unicode-range:
+    U+0000-024F, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF,
+    U+2200-22FF, U+2300-23FF, U+2500-257F, U+2580-259F;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: cartograph;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "kern" 1;
+  font-style: italic;
+  font-weight: 600;
+  size-adjust: 100%;
+  src: url("/fonts/CartographCF/CartographCF-ExtraBoldItalic.otf")
+    format("opentype");
+  unicode-range:
+    U+0000-024F, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF,
+    U+2200-22FF, U+2300-23FF, U+2500-257F, U+2580-259F;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: cartograph;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "kern" 1;
+  font-style: normal;
+  font-weight: 400;
+  size-adjust: 100%;
+  src: url("/fonts/CartographCF/CartographCF-DemiBold.otf") format("opentype");
+  unicode-range:
+    U+0000-024F, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF,
+    U+2200-22FF, U+2300-23FF, U+2500-257F, U+2580-259F;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: cartograph;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "kern" 1;
+  font-style: italic;
+  font-weight: 400;
+  size-adjust: 100%;
+  src: url("/fonts/CartographCF/CartographCF-DemiBoldItalic.otf")
+    format("opentype");
+  unicode-range:
+    U+0000-024F, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF,
+    U+2200-22FF, U+2300-23FF, U+2500-257F, U+2580-259F;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: cartograph;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "kern" 1;
+  font-style: normal;
+  font-weight: 200;
+  size-adjust: 100%;
+  src: url("/fonts/CartographCF/CartographCF-Regular.otf") format("opentype");
+  unicode-range:
+    U+0000-024F, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF,
+    U+2200-22FF, U+2300-23FF, U+2500-257F, U+2580-259F;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: cartograph;
+  font-feature-settings:
+    "calt" 1,
+    "liga" 1,
+    "kern" 1;
+  font-style: italic;
+  font-weight: 200;
+  size-adjust: 100%;
+  src: url("/fonts/CartographCF/CartographCF-RegularItalic.otf")
+    format("opentype");
+  unicode-range:
+    U+0000-024F, U+2000-206F, U+20A0-20CF, U+2100-214F, U+2190-21FF,
+    U+2200-22FF, U+2300-23FF, U+2500-257F, U+2580-259F;
+}

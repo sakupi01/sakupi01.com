@@ -1,0 +1,7 @@
+/* -------------------------------------------------------------------------
+    Scrollbar Settings
+     ------------------------------------------------------------------------- */
+:where(html) {
+  --color-scrollbar-thumb: var(--s-color-text-tertiary);
+  --color-scrollbar-track: var(--s-color-surface-base);
+}

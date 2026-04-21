@@ -19,7 +19,9 @@ status: "published"
 [Ep.13](https://blog.sakupi01.com/dev/articles/2024-openui-advent-15)では、選択された`<option>`をクローンして`<button>`に反映する提案が仕様策定中止になり、`<selectmenu>`は引き続き、`slot`属性と`behavior`属性を使用してカスタマイズする方針となったことについてお話ししました。
 今回は、そんな中で提起された、`slot`属性と`behavior`属性使用への疑念についてお話しします。
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 ## Customizable Select Elementの関連仕様

@@ -1,17 +1,21 @@
 .icon {
   aspect-ratio: 1;
-  block-size: 1em; /* Scale icon to match font-size of parent element */
   fill: currentcolor;
+  inline-size: 1em; /* Scale icon to match font-size of parent element */
 }
 
 .icon--small {
-  block-size: var(--icon-size-s);
+  inline-size: var(--s-icon-size-sm);
 }
 
 .icon--medium {
-  block-size: var(--icon-size-m);
+  inline-size: var(--s-icon-size-md);
 }
 
 .icon--large {
-  block-size: var(--icon-size-l);
+  inline-size: var(--s-icon-size-lg);
+}
+
+.icon--xlarge {
+  inline-size: var(--s-icon-size-xl);
 }

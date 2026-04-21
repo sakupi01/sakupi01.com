@@ -1,0 +1,5 @@
+.with-sidebar {
+  display: grid;
+  gap: var(--s-space-gap-md);
+  grid-template-columns: var(--sidebar-width, 20rem) 1fr;
+}

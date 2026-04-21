@@ -64,7 +64,9 @@ _"an easily parsable format"_ として提案されたこの RFC では、例え
 
 スタイルシートを最初にサポートしたブラウザは Pei-Yuan Wei によってわずか 4日で開発された ViolaWWW です。
 
+:::figure[スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの]
 ![スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの](../../../../assets/images/ViolaWWW.png)
+:::
 _スタイルシートを最初にサポートしたブラウザ ViolaWWW が表現できたもの_
 
 Pei Wei は Robert Raisch の RFC とは別で、同年に独自のスタイルシートを考案します。このスタイルシートでは、セレクタ、

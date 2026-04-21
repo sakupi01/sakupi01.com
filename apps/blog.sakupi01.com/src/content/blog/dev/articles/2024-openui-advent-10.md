@@ -31,7 +31,9 @@ status: "published"
 CSE の各パーツは、RFC が出された時点から大きく変化しています。
 （2024/12/9 現在）
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 - `<button>`: 選択肢のポップオーバーを開閉するボタン要素
@@ -63,7 +65,9 @@ select,
 
 上記の HTML と CSS で、CSE が Opt-in され、`<select>`が**CSEデフォルトのスタイル**になります。
 
+:::figure[CSEデフォルトのスタイル]
 ![CSEデフォルトのスタイル](../../../../assets/images/default-cse.png)
+:::
 _CSEデフォルトのスタイル_
 
 ここで気になるのが、「何を以てこのデフォルトのスタイルになったのか」です。
@@ -143,7 +147,9 @@ select::picker-icon {
 }
 ```
 
+:::figure[chrome canaryで`::checkmark`のUAスタイル]
 ![chrome canaryで`::checkmark`のUAスタイル](../../../../assets/images/ua-style-checkmark.png)
+:::
 _chrome canaryで`::checkmark`のUAスタイル_
 
 CSE のデフォルトスタイルに関しては、次の Issue で現在進行形で更新が重ねられており、Chromium ではこの Issue の変更に追従する形で実装が進められているようでした。

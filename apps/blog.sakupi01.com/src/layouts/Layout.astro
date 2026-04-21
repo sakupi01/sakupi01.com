@@ -1,4 +1,5 @@
 ---
+import "@sakupi01/style";
 import "@sakupi01/style/sakupi01.com.css";
 import Layout from "@sakupi01/layout/components/Layout.astro";
 import Navigation from "@sakupi01/layout/components/Navigation.astro";
@@ -20,11 +21,7 @@ const { pageTitle, description } = Astro.props;
   logoHref={import.meta.env.PUBLIC_HOME}
   type="article"
 >
-  <Navigation
-    slot="navigation"
-    homeHref={import.meta.env.PUBLIC_HOME}
-    homeLabel="home"
-  />
+  <Navigation slot="navigation" />
   <Fragment slot="head-scripts">
     <!-- External Scripts -->
     <script is:inline src="/_scripts/2025-ad-calendar.js"></script>

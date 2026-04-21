@@ -61,7 +61,9 @@ whateverA-component が常に whateverB-component をオーバーライドする
 
 以上を踏まえると、Cascade Layers と Scope の関係は以下の図のように表現できるでしょう。
 
+:::figure[Cascade Layers と Scope の関係]
 ![Cascade Layers と Scope の関係](../../../../assets/images/layer-n-scope.png)
+:::
 
 ---
 
@@ -135,7 +137,9 @@ OOCSS に代表される、フラグメント単位の _"Modular なスタイル
 
 前節の「Proximity」は主に「どのスコープルートに近いか」という問題を扱いましたが、実際のコンポーネントでは「コンポーネントの内部要素」と「ネストされた子コンポーネント」を区別する必要がしばしばあります。
 
+:::figure[ネストされた子コンポーネントを持つコンポーネント]
 ![ネストされた子コンポーネントを持つコンポーネント](../../../../assets/images/donut-scope.png)
+:::
 
 コンポーネントを BEM 風に表現すると、以下のような要素で構成が考えられます。
 

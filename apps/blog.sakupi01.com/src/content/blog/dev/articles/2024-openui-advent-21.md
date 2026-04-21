@@ -18,7 +18,9 @@ status: "published"
 
 [Customizable Select Element Ep.16](https://blog.sakupi01.com/dev/articles/2024-openui-advent-18)からは、`<selectedcontent>`のクローン実装における、技術的背景をお話ししています。
 
+:::figure[2024/12/9時点でのselectの各パーツの定義]
 ![2024/12/9時点でのselectの各パーツの定義](../../../../assets/images/select-anatomy.png)
+:::
 _2024/12/9時点でのselectの各パーツの定義_
 
 [Ep.19](https://blog.sakupi01.com/dev/articles/2024-openui-advent-21)では、CEReactions タイミングで Node 変更の検知をする問題から、同期的なタイミングで Node 変更の検知をする方針に切り替えることが主張された経緯と、`cloneNode()`の制限についてお話ししました。
