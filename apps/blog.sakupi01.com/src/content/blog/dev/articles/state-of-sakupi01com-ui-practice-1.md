@@ -173,7 +173,7 @@ Site-specific styles (markdown)
 @import "./site/markdown.css" layer(site) screen;
 ```
 
-さらに、基盤スタイルはスライドページ（[`sakupi01.github.io/slides`](https://sakupi01.github.io/slides/ja/2026_01_09_burikaigi_the_state_of_web_ui/)）でも活用できています。 `sakupi01.github.io/slides` は全く別のリポジトリかつドメインで、`sakupi01.com` 視点では完全にサードパーティの類です。
+さらに、基盤スタイルはスライドページ（[`sakupi01.github.io/slides`](https://sakupi01.github.io/slides/ja/)）でも活用できています。 `sakupi01.github.io/slides` は全く別のリポジトリかつドメインで、`sakupi01.com` 視点では完全にサードパーティの類です。
 しかし、基盤スタイルで用意された上書き用のレイヤーを活かし、スライドページ独自のスタイルで安全に上書きできます。
 
 ```css
