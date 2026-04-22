@@ -337,10 +337,22 @@ Config settings.
 
 ### `:where()` `:is()` のプラクティス
 
-`:is(A, B, C)` は引数のうち最も高い詳細度を取り、`:where(A, B, C)` は常に 0 になります。
-この特性から、特に `:where()` は詳細度を低く保ちたい Reset 系 CSS で大変都合よく活躍してくれます。昨今の Reset 系 CSS 界隈ではこのプラクティスが割とスタンダードになってきている実感もあります。
+`:where()` や `:is()` には selectors-4 で新しく加わった "[forgiving selector list](https://drafts.csswg.org/selectors-4/#forgiving-selector)" と呼ばれる特性があります。
+中に未対応の selector が混じっても、対応している selector は生き残って全体としてはパースが成功する、というものです。
+普通の selector list では未実装の要素などを書くと selector list 全体が無効になってしまいます。
+これを `:is()` や `:where()` でラップするだけで、 Progressive enhancement させたい比較的新しい要素を含んでいるセレクタを構成可能になることは、あまり知られていないのではないでしょうか。
 
-後から自由に上書きされることを前提にしたルールは `:where()` でラップしています。単純なクラス 1 つでも確実に勝てるように、詳細度を 0 に潰しておく意図です。
+```css
+:is(a.current, :target-current) {
+  /* :target-current がサポートされていないブラウザでも他のセレクタはスタイルされる */
+}
+```
+
+`:where()` `:is()` の差分として、 `:is(A, B, C)` は引数のうち最も高い詳細度を取り、`:where(A, B, C)` は常に 0 になります。
+
+この特性から、特に `:where()` は詳細度を低く保ちたい Reset 系 CSS で大変都合よく活躍してくれます。昨今の Reset 系 CSS 界隈ではこのプラクティスが割とスタンダードになってきている実感があります。
+
+本サイトでも後から自由に上書きされることを前提にしたルールは `:where()` でラップしています。単純なクラス 1 つでも確実に勝てるように、詳細度を 0 に潰しておく意図です。
 
 ```css
 :where(*, *::after, *::before) {
@@ -348,15 +360,6 @@ Config settings.
 }
 :where([type="submit"], label, summary) {
   cursor: pointer;
-}
-```
-
-加えて、両者には selectors-4 で新しく加わった "[forgiving selector list](https://drafts.csswg.org/selectors-4/#forgiving-selector)" と呼ばれる特性があります。
-中に未対応の selector が混じっても、対応している selector は生き残って全体としてはパースが成功する、というものです。
-普通の selector list では未実装の要素などを書くと selector list 全体が無効になってしまいます。しかし `:is()` や `:where()` でラップするだけで、 Progressive enhancement させたい比較的新しい要素を含んでいるセレクタを構成可能になることは、あまり知られていないのではないでしょうか。
-
-```css
-:is(a.current, :target-current) {
 }
 ```
 
