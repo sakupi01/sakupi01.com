@@ -3,9 +3,15 @@ import type { ContainerDirective } from "mdast-util-directive";
 import type { Plugin, Transformer } from "unified";
 import { visit } from "unist-util-visit";
 
+type HProperties = Record<
+  string,
+  string | number | boolean | (string | number)[] | null | undefined
+>;
+
 interface DirectiveData {
   directiveLabel?: boolean;
   hName?: string;
+  hProperties?: HProperties;
 }
 
 export const remarkFigureCaption: Plugin<[], Root> = () => {
@@ -28,6 +34,11 @@ export const remarkFigureCaption: Plugin<[], Root> = () => {
 
       node.data ??= {};
       (node.data as DirectiveData).hName = "figure";
+      if (node.attributes) {
+        (node.data as DirectiveData).hProperties = {
+          ...node.attributes,
+        };
+      }
 
       if (labelChildren.length > 0) {
         const figcaption: Paragraph = {
