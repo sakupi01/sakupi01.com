@@ -1,0 +1,208 @@
+/*
+----------------------------------------------------------------------------
+Site Specific Styles
+----------------------------------------------------------------------------
+*/
+
+* {
+  ::selection {
+    background-color: var(--s-color-text-primary);
+    color: var(--s-color-surface-base);
+  }
+}
+
+body {
+  /*
+    ----------------------------------------------------------------------------
+    Horizontal Rule
+    ----------------------------------------------------------------------------
+    */
+  hr {
+    background-image: var(--image-hr);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    block-size: 12px;
+    border: 0;
+    inline-size: 20cqi;
+    margin: 7cqb auto;
+    max-inline-size: var(--s-container-xs);
+    opacity: 0.5;
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    Links
+    ----------------------------------------------------------------------------
+    */
+  a:not(:where(h1, h2, h3, h4, h5, h6, .logo, nav, .carousel) a) {
+    border-block-end: var(--s-border-width-thin) solid
+      color-mix(in oklab, currentColor, white 50%);
+    padding: 0.02em 0.1rem;
+    transition: all var(--s-duration-fast) linear;
+
+    @media (hover: hover) {
+      &:hover {
+        border-block-end: var(--s-border-width-thin) solid var(--s-color-link);
+      }
+    }
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    Blockquote
+    ----------------------------------------------------------------------------
+    */
+  blockquote {
+    background-color: var(--s-color-primary-subtle);
+    background-image: var(--icon-close-quote);
+    background-position: top right var(--s-space-layout-xs);
+    background-repeat: no-repeat;
+    background-size: auto min(6em, 80%);
+    border-inline-start: var(--s-border-width-base) solid var(--s-color-primary);
+    container: blockquote / inline-size;
+    font: italic bold var(--s-font-size-base) / var(--s-line-height-base)
+      var(--s-font-family-serif);
+    inline-size: 95cqi;
+    letter-spacing: 0.05em;
+    margin: var(--s-space-gutter-md) auto;
+    overflow-wrap: anywhere;
+    padding: var(--s-space-layout-sm) var(--s-space-layout-md)
+      var(--s-space-layout-sm) var(--s-space-layout-xs);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    Shared Heading Styles
+    ----------------------------------------------------------------------------
+    */
+  :where(h1, h2, h3, h4, h5, h6):has(a) {
+    @media (hover: hover) {
+      &:hover::after {
+        color: var(--s-color-link);
+        content: " #";
+      }
+    }
+  }
+
+  :where(summary, .tag, .dates, .excerpt, .blog-post-card) {
+    font: normal 400 100% var(--s-font-family-serif);
+  }
+
+  .title {
+    padding-block: var(--s-space-layout-3xl);
+    text-fit: grow consistent;
+    text-wrap: pretty;
+  }
+
+  /*
+    ----------------------------------------------------------------------------
+    Table
+    - Use border-collapse to share cell borders (avoids misaligned lines when only adding borders to rows)
+    - The first column aligns to start, others to end (row header th or first td often serves as label column)
+    - thead / tfoot rows use stronger block-axis borders for clear banding
+    - vertical-align: thead header cells are bottom-aligned, table body cells are baseline-aligned
+    - table-layout: fixed means column widths are set by the first row (prevents long headers from distorting columns)
+    See: https://piccalil.li/blog/styling-tables-the-modern-css-way/
+    ----------------------------------------------------------------------------
+    */
+  table {
+    border: var(--s-border-width-base) solid var(--table-border-outer);
+    border-collapse: collapse;
+    color: var(--s-color-text-primary);
+    font-size: 0.85em;
+    inline-size: 95cqi;
+    margin-inline: auto;
+    table-layout: fixed;
+
+    &:has(caption) {
+      /* Accessibility: caption is the first child of table. Visually, it can be placed at the bottom, but the AT order remains the same */
+      caption-side: bottom;
+      margin-block-start: var(--s-space-gutter-2xs);
+      text-align: start;
+    }
+
+    th,
+    td {
+      border: var(--s-border-width-thin) solid var(--table-border-cell);
+      overflow-wrap: anywhere;
+      padding: 0.35rem var(--s-space-layout-xs);
+      vertical-align: baseline;
+    }
+
+    th,
+    caption {
+      text-align: start;
+    }
+
+    thead th {
+      background-color: var(--table-header-background);
+      font-weight: var(--s-font-weight-semibold);
+      vertical-align: bottom;
+    }
+
+    tbody th {
+      background-color: var(--table-header-background);
+      font-weight: var(--s-font-weight-semibold);
+    }
+
+    tfoot th {
+      background-color: var(--table-header-background);
+      font-weight: var(--s-font-weight-semibold);
+    }
+
+    thead th:not(:first-child),
+    td:not(:first-child) {
+      text-align: end;
+    }
+
+    thead {
+      background-color: var(--table-header-background);
+      border-block-end: var(--s-border-width-base) solid
+        var(--table-border-outer);
+    }
+
+    tfoot {
+      background-color: var(--table-header-background);
+      border-block-start: var(--s-border-width-base) solid
+        var(--table-border-outer);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: var(--table-stripe);
+    }
+
+    tbody tr:nth-child(even) th {
+      background-color: var(--table-stripe);
+    }
+  }
+}
+
+/*
+    ----------------------------------------------------------------------------
+    Inline Code
+    ----------------------------------------------------------------------------
+*/
+code {
+  /* stylelint-disable-next-line custom/token-scope */
+  --code-color: var(--p-color-lavender-500);
+
+  color: var(--code-color);
+  padding: 0.1em 0.25em;
+}
+
+/*
+    ----------------------------------------------------------------------------
+    Header
+    ----------------------------------------------------------------------------
+*/
+header {
+  display: grid;
+  grid-template-columns: auto var(--s-space-gap-xl) 1fr;
+  grid-template-rows: 1fr;
+  margin-block: var(--s-space-gutter-sm);
+}
