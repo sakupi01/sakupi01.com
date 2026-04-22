@@ -1,17 +1,24 @@
-// transfer src/css dir to storybook-static dir
+// transfer src/css and src/sakupi01.com dirs to storybook-static dir
 import fs from "node:fs";
 import path from "node:path";
 
-const srcDir = path.join(import.meta.dirname, "src/css");
-const destDir = path.join(import.meta.dirname, "storybook-static/css");
+const transfers = [
+  { src: "src/css", dest: "storybook-static/css" },
+  { src: "src/sakupi01.com", dest: "storybook-static/sakupi01.com" },
+];
 
-if (!fs.existsSync(destDir)) {
-  fs.mkdirSync(destDir, { recursive: true });
+for (const { src, dest } of transfers) {
+  const srcDir = path.join(import.meta.dirname, src);
+  const destDir = path.join(import.meta.dirname, dest);
+
+  if (!fs.existsSync(destDir)) {
+    fs.mkdirSync(destDir, { recursive: true });
+  }
+
+  fs.cpSync(srcDir, destDir, { recursive: true });
+
+  console.log(`Transferred ${src} dir to ${dest}`);
 }
-
-fs.cpSync(srcDir, destDir, { recursive: true });
-
-console.log("Transferred src/css dir to storybook-static dir");
 
 // Create vercel-ignore-build-step.sh in storybook-static
 const vercelIgnoreScript = `#!/bin/bash
