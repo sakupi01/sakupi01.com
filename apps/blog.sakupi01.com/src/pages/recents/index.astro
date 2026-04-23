@@ -16,7 +16,7 @@ import { allPosts } from "../../utils/contents";
   <main>
     <ul class="stack">
       {
-        allPosts.slice(1, 5).map((post) => {
+        allPosts.slice(0, 4).map((post) => {
           const url = post.data.tags.includes("zenn")
             ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
             : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
