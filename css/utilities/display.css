@@ -29,5 +29,5 @@ The CSS utility class behaves the same as the HTML attrribute.
 */
 :is(.u-hidden, [hidden]) {
   /* stylelint-disable-next-line declaration-no-important */
-  display: none !important;
+  display: none;
 }
