@@ -227,6 +227,9 @@ const isBlogsNav =
   /* Respects text-scale */
   @container (width <= 34.375em) {
     div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+
       nav {
         display: none;
       }
@@ -234,7 +237,7 @@ const isBlogsNav =
       a[href="#footer"] {
         border-block-end: none;
         display: grid;
-        justify-self: end;
+        grid-column: -1;
         padding: 0;
         place-items: center;
       }
