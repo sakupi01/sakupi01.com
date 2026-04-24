@@ -538,6 +538,33 @@ https://edwardtufte.github.io/tufte-css/#sidenotes
 ----------------------------------------------------------------------------
 */
 
+article > .footnotes .data-footnote-backref {
+  border-block-end: none;
+  /* stylelint-disable-next-line custom/token-scope */
+  color: var(--p-color-red-500);
+
+  &::before {
+    /* stylelint-disable-next-line custom/token-scope */
+    background-color: var(--p-color-red-500);
+    block-size: var(--s-icon-size-inline-md);
+    content: "";
+    display: inline-block;
+    inline-size: var(--s-icon-size-inline-md);
+    mask-image: var(--image-heart-pointing-left);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    transition: transform var(--s-duration-base);
+    vertical-align: middle;
+  }
+
+  @media (hover: hover) {
+    &:hover::before {
+      transform: rotate(-15deg) translateX(-2px);
+    }
+  }
+}
+
 @supports (anchor-name: --a) {
   @media (width >= 61rem) {
     article {
@@ -557,27 +584,6 @@ https://edwardtufte.github.io/tufte-css/#sidenotes
 
       ol {
         list-style-type: "";
-      }
-
-      .data-footnote-backref {
-        border-block-end: none;
-        /* stylelint-disable-next-line custom/token-scope */
-        color: var(--p-color-red-500);
-
-        &::before {
-          /* stylelint-disable-next-line custom/token-scope */
-          background-color: var(--p-color-red-500);
-          block-size: var(--s-icon-size-inline-md);
-          content: "";
-          display: inline-block;
-          inline-size: var(--s-icon-size-inline-md);
-          mask-image: var(--image-heart-pointing-left);
-          mask-position: center;
-          mask-repeat: no-repeat;
-          mask-size: contain;
-          transition: transform var(--s-duration-base);
-          vertical-align: middle;
-        }
       }
 
       li {
@@ -601,10 +607,6 @@ https://edwardtufte.github.io/tufte-css/#sidenotes
           &:hover {
             /* stylelint-disable-next-line custom/token-scope */
             border-color: var(--p-color-red-500);
-          }
-
-          &:hover .data-footnote-backref::before {
-            transform: rotate(-15deg) translateX(-2px);
           }
         }
       }
