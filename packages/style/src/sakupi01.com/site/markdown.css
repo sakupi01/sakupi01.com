@@ -100,31 +100,31 @@ article {
 
   ul {
     list-style-type: "";
-    padding-inline-start: 1.75em;
+    padding-inline-start: var(--s-space-gutter-md);
 
-    li {
+    > li {
       position: relative;
     }
 
-    li::before {
+    > li::before {
       background-image: var(--image-bullet-list);
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
-      block-size: 0.8em;
+      block-size: 0.6em;
       content: "";
-      inline-size: 0.8em;
-      inset-block-start: 0.25em;
-      inset-inline-start: -1.5em;
+      inline-size: 0.6em;
+      inset-block-start: 0.6em;
+      inset-inline-start: -1em;
       position: absolute;
     }
 
-    li:nth-child(3n)::before {
+    > li:nth-child(3n)::before {
       background-image: var(--image-bullet-list-2);
       background-repeat: no-repeat;
     }
 
-    li:nth-child(3n - 1)::before {
+    > li:nth-child(3n - 1)::before {
       background-image: var(--image-bullet-list-3);
       background-repeat: no-repeat;
     }
