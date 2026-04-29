@@ -9,16 +9,20 @@ Typography element styles.
    Zoom on high-density screens so additional real estate can be utilised.
    ------------------------------------------------------------------------- */
 html {
+  --p-hd-factor: var(--base-font-size);
+
   @media (width >= 160em) {
-    font-size: var(--base-font-size-2k);
+    --p-hd-factor: var(--base-font-size-2k);
   }
 
   @media (width >= 240em) {
-    font-size: var(--base-font-size-4k);
+    --p-hd-factor: var(--base-font-size-4k);
   }
 
   /* stylelint-disable-next-line custom/token-scope */
-  font-size: calc(var(--p-text-base) * var(--p-text-scale));
+  font-size: calc(
+    var(--p-text-base) * var(--p-text-scale) * var(--p-hd-factor)
+  );
 }
 
 /* -------------------------------------------------------------------------

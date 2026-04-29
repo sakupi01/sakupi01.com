@@ -25,10 +25,10 @@ Config settings.
   --base-media-aspect-ratio: 16 / 9;
   --base-image-path: "../images/interface";
 
-  /* Fonts */
-  --base-font-size: 100%;
-  --base-font-size-2k: 110%; /* 2K screens */
-  --base-font-size-4k: 150%; /* 4K screens */
+  /* Fonts — unitless factors composed multiplicatively in typography.css */
+  --base-font-size: 1;
+  --base-font-size-2k: 1.1; /* 2K screens */
+  --base-font-size-4k: 1.5; /* 4K screens */
 
   /* ----------------------------------------------------------------------------
    Max line-length (aka measure) to improve readability of editorial content

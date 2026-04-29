@@ -386,6 +386,7 @@ article {
   }
 
   details {
+    container: details / inline-size;
     inline-size: 95cqi;
     margin-inline: auto;
 
