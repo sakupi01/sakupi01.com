@@ -7,7 +7,7 @@ const { headings } = Astro.props;
 const tocHeadings = headings.filter(
   (h) =>
     h.depth >= 2 &&
-    h.depth <= 3 &&
+    h.depth <= 4 &&
     h.slug !== "table-of-contents" &&
     h.slug !== "footnote-label"
 );
@@ -119,6 +119,10 @@ const tocHeadings = headings.filter(
 
   .toc-sidebar__item--depth-3 a {
     padding-inline-start: var(--s-space-gutter-md);
+  }
+
+  .toc-sidebar__item--depth-4 a {
+    padding-inline-start: var(--s-space-gutter-lg);
   }
 
   @media (hover: hover) {

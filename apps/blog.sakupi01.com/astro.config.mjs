@@ -67,7 +67,7 @@ export default defineConfig({
           heading: "Table of Contents",
           ordered: false,
           tight: true,
-          maxDepth: 3,
+          maxDepth: 4,
         },
       ],
       [
