@@ -625,6 +625,7 @@ See: https://una.im/border-shape
   article .footnotes li {
     --chip-size: var(--s-space-gutter-2xs);
     --radius: var(--s-border-radius-lg);
+    --chip-y: calc(var(--radius) + var(--chip-size) * 2);
 
     border-shape: shape(
       from calc(var(--chip-size) + var(--radius)) 0,
@@ -635,9 +636,9 @@ See: https://una.im/border-shape
       hline to calc(var(--chip-size) + var(--radius)),
       curve to var(--chip-size) calc(100% - var(--radius)) with var(--chip-size)
         100%,
-      vline to calc(50% + var(--chip-size)),
-      line to 0 50%,
-      line to var(--chip-size) calc(50% - var(--chip-size)),
+      vline to calc(var(--chip-y) + var(--chip-size)),
+      line to 0 var(--chip-y),
+      line to var(--chip-size) calc(var(--chip-y) - var(--chip-size)),
       vline to var(--radius),
       curve to calc(var(--chip-size) + var(--radius)) 0 with var(--chip-size) 0,
       close
