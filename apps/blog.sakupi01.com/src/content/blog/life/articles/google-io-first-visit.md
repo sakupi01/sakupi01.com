@@ -1,10 +1,10 @@
 ---
-title: "Google I/O (1st edition!)"
+title: "Google I/O 2026 (1st edition!)"
 excerpt: "DISCLAIMER: Partially-Tech & Partially-Non-tech! It means this involves so many dialy kind of stuff. Please don't read if you expect complete tech things. Thanks!"
-date: 2026-06-02
-update: 2026-07-05
+date: 2026-05-23
+update: 2026-05-23
 category: "life"
-tags: ["life", "css", "diary", "europe"]
+tags: ["life", "google io", "diary", "San Francisco"]
 status: "published"
 ---
 
@@ -60,20 +60,19 @@ ESTA の印刷なども念の為しておきたかったので時間に余裕を
 そのあとは Google, Apple のビジターセンターに行きました。Google 本社ついに〜！信号機まで「Google」で、本当に一つの「街」ですね。
 
 :::figure[Google と Apple のビジターセンター]
-![alt text](../../../../assets/images/google-visitor-center.png)
+![](../../../../assets/images/google-visitor-center.png)
 
-![alt text](../../../../assets/images/apple-visitor-center.png)
+![](../../../../assets/images/apple-visitor-center.png)
 :::
 
-:::figure[Google HQ のドロイドくん・Google 信号機など]
-![alt text](../../../../assets/images/droid.png)
-![alt text](../../../../assets/images/google-head-quater.png)
-![alt text](../../../../assets/images/google-traffic-sign.png)
+:::figure[Google HQ のドロイドくん・Google 信号機・あの GBike!]
+![](../../../../assets/images/droid.png)
+![](../../../../assets/images/google-head-quater.png)
+![](../../../../assets/images/google-traffic-sign.png)
+![](../../../../assets/images/gbike.png)
 :::
 
 The Internship という映画で見たことがあった Gbike（リアル）を見れたときは、結構テンション上がりました。Google HQ を初めて見た時は「こんなオフィスでかかったら、移動大変で出社したくなくなってしまう、、」が率直な感想だったんですが、まあよく考えなくとも大学もこんなんですね笑
-
-![alt text](../../../../assets/images/gbike.png)
 
 Google も Apple もビジターセンター以外には入れる感じではありませんでした。
 
