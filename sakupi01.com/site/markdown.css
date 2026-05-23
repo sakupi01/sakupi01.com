@@ -446,6 +446,37 @@ article {
 
   /*
       ----------------------------------------------------------------------------
+      Embedded Media (YouTube, X/Twitter, etc. via @remark-embedder)
+      ----------------------------------------------------------------------------
+  */
+  .remark-embed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: var(--s-space-gutter-md) auto;
+    max-inline-size: 100%;
+
+    > iframe,
+    > blockquote,
+    > .twitter-tweet {
+      margin-inline: auto;
+      max-inline-size: 100%;
+    }
+  }
+
+  .remark-embed--youtube > iframe {
+    aspect-ratio: 16 / 9;
+    block-size: auto;
+    inline-size: min(100%, 800px);
+  }
+
+  .remark-embed--x > .twitter-tweet,
+  .remark-embed--x > blockquote {
+    inline-size: 100%;
+  }
+
+  /*
+      ----------------------------------------------------------------------------
       Figure
       See: https://www.w3.org/Style/Examples/007/figures
       ----------------------------------------------------------------------------
@@ -500,26 +531,55 @@ article {
 
     /* Multiple images */
     &:has(> :nth-last-child(3), img:nth-of-type(2)) {
-      align-items: start;
-
-      /* Display all side by side */
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
       gap: 0.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      > figcaption {
+        grid-column: 1 / -1;
+      }
 
       > :not(figcaption),
       > p > img {
-        flex: 1;
-        inline-size: calc(50cqi - 0.25rem);
+        inline-size: 100%;
         min-inline-size: 0;
         object-fit: contain;
       }
 
-      > figcaption {
-        box-sizing: content-box;
-        flex-basis: 100%;
+      > p > br {
+        display: none;
       }
     }
+  }
+}
+
+/*
+----------------------------------------------------------------------------
+Image Lightbox Dialog
+----------------------------------------------------------------------------
+*/
+.image-lightbox {
+  background: transparent;
+  border: 0;
+  color-scheme: light only;
+  max-block-size: 100dvb;
+  max-inline-size: 100dvi;
+  overflow: visible;
+  padding: 0;
+
+  &::backdrop {
+    backdrop-filter: blur(4px);
+    background: rgb(0 0 0 / 0.8);
+  }
+
+  > img {
+    block-size: auto;
+    cursor: zoom-out;
+    display: block;
+    inline-size: auto;
+    max-block-size: 90dvb;
+    max-inline-size: 90dvi;
+    object-fit: contain;
   }
 }
 
