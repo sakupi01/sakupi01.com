@@ -1,6 +1,6 @@
 ---
 title: "Google I/O 2026 (1st edition!)"
-excerpt: "DISCLAIMER: Partially-Tech & Partially-Non-tech! It means this involves so many dialy kind of stuff. Please don't read if you expect complete tech things. Thanks!"
+excerpt: "DISCLAIMER: Semi-tech & mostly everyday kind of stuff! It means skip this content if you're expecting 100% tech content. Thanks!"
 date: 2026-05-23
 update: 2026-05-23
 category: "life"
