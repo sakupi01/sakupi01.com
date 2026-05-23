@@ -228,13 +228,10 @@ Modern Web Guidance 含め、Agentic Web Development tools としては以下が
 
 そのあとはテントを回りながら Chrome Session を聴いていました。Chrome テントではまた Paul Irish がいて、立ち話をしていました。特に AI Agent への対応とモバイルデバイスへの対応の関連については、かなり建設的な議論ができて印象的でした。
 
-:::figure[晴れであることを前提にした設備たち・AI Sandbox]
+:::figure[晴れであることを前提にした設備たち・AI Sandbox・Chrome/Android/AIテント]
 ![](../../../../assets/images/lunch-space.png)
 ![](../../../../assets/images/antigravity-coffee-co.png)
 ![](../../../../assets/images/ai-sandbox.png)
-:::
-
-:::figure[Chrome/Android/AIテント]
 ![](../../../../assets/images/chrome-tent.png)
 ![](../../../../assets/images/android-tent.png)
 ![](../../../../assets/images/ai-tent.png)
