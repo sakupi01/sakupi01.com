@@ -42,8 +42,17 @@ export default defineConfig({
         {
           cache,
           transformers: [
-            // @ts-expect-error wip
-            oembedTransformer.default,
+            [
+              // @ts-expect-error wip
+              oembedTransformer.default,
+              ({ provider }) => {
+                const name = provider?.provider_name?.toLowerCase() ?? "";
+                if (name === "twitter" || name === "x") {
+                  return { params: { maxwidth: 600, align: "center" } };
+                }
+                return { params: { maxwidth: 800 } };
+              },
+            ],
             CodeSandboxTransformer,
           ],
           handleHTML,

@@ -87,6 +87,53 @@ const { title, excerpt, date, update, tags } = frontmatter;
   </div>
 </Layout>
 
+<script>
+  const article = document.querySelector("article");
+  if (article) {
+    const images = Array.from(article.querySelectorAll("img")).filter(
+      (img) => !img.closest("a")
+    );
+
+    if (images.length > 0) {
+      const dialog = document.createElement("dialog");
+      dialog.className = "image-lightbox";
+      dialog.setAttribute("aria-label", "Enlarged image");
+      dialog.setAttribute("closedby", "any");
+
+      const dialogImg = document.createElement("img");
+      dialogImg.alt = "";
+      dialog.appendChild(dialogImg);
+      document.body.appendChild(dialog);
+
+      // Fallback light-dismiss for browsers without `closedby="any"`
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      for (const img of images) {
+        img.tabIndex = 0;
+        img.setAttribute("role", "button");
+        img.style.cursor = "zoom-in";
+
+        const open = () => {
+          dialogImg.src = img.currentSrc || img.src;
+          if (img.srcset) dialogImg.srcset = img.srcset;
+          dialogImg.alt = img.alt;
+          dialog.showModal();
+        };
+
+        img.addEventListener("click", open);
+        img.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            open();
+          }
+        });
+      }
+    }
+  }
+</script>
+
 <style>
   ul {
     --grid-item-max-width: max-content;
