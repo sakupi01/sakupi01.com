@@ -41,7 +41,7 @@
     "autoprefixer": "10.4.20",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-astro": "1.5.0",
+    "eslint-plugin-astro": "1.7.0",
     "eslint-plugin-prettier": "5.5.5",
     "postcss": "8.5.15",
     "postcss-html": "1.8.0",
@@ -55,10 +55,10 @@
     "stylelint-plugin-defensive-css": "^2.9.1",
     "stylelint-plugin-logical-css": "2.1.0",
     "stylelint-prettier": "5.0.3",
-    "turbo": "2.4.4",
+    "turbo": "2.9.16",
     "typescript": "5.4.5",
     "typescript-eslint": "8.53.1",
-    "vite": "6.4.2"
+    "vite": "6.4.3"
   },
   "engines": {
     "node": "22.x"
@@ -78,6 +78,39 @@
     "packageManager": {
       "name": "pnpm",
       "onFail": "error"
+    }
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": ">=4.0.4",
+      "basic-ftp": ">=5.2.0",
+      "lodash": ">=4.17.23",
+      "undici": ">=7.18.2",
+      "ws": ">=8.20.1",
+      "yaml": ">=2.8.3",
+      "postcss": ">=8.5.10",
+      "fast-uri": ">=3.1.1",
+      "handlebars": ">=4.7.9",
+      "validator": ">=13.15.20",
+      "mdast-util-to-hast": ">=13.2.1",
+      "tmp": ">=0.2.4",
+      "@babel/runtime": ">=7.26.10",
+      "@babel/helpers": ">=7.26.10",
+      "@babel/runtime-corejs3": ">=7.26.10",
+      "storybook": "8.6.18",
+      "glob@11": "11.1.0",
+      "minimatch@3": "3.1.5",
+      "minimatch@9": "9.0.9",
+      "minimatch@10": "10.2.5",
+      "brace-expansion@1": "1.1.15",
+      "brace-expansion@2": "2.1.1",
+      "uuid@11": "11.1.1",
+      "picomatch@2": "2.3.2",
+      "picomatch@4": "4.0.4",
+      "ajv@6": "6.15.0",
+      "ajv@8": "8.20.0",
+      "js-yaml@3": "3.14.2",
+      "diff@4": "4.0.4"
     }
   }
 }
