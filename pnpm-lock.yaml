@@ -65,7 +65,7 @@ importers:
         version: 1.5.0(eslint@9.39.2(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: 5.5.5
-        version: 5.5.5(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.4.2)))(eslint@9.39.2(jiti@2.4.2))(prettier@3.8.0)
+        version: 5.5.5(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.4.2)))(eslint@9.39.2(jiti@2.4.2))(prettier@3.8.3)
       postcss:
         specifier: 8.5.15
         version: 8.5.15
@@ -73,8 +73,8 @@ importers:
         specifier: 1.8.0
         version: 1.8.0
       prettier:
-        specifier: 3.8.0
-        version: 3.8.0
+        specifier: 3.8.3
+        version: 3.8.3
       prettier-plugin-astro:
         specifier: 0.14.1
         version: 0.14.1
@@ -101,7 +101,7 @@ importers:
         version: 2.1.0(stylelint@16.14.1(typescript@5.4.5))
       stylelint-prettier:
         specifier: 5.0.3
-        version: 5.0.3(prettier@3.8.0)(stylelint@16.14.1(typescript@5.4.5))
+        version: 5.0.3(prettier@3.8.3)(stylelint@16.14.1(typescript@5.4.5))
       turbo:
         specifier: 2.4.4
         version: 2.4.4
@@ -4207,13 +4207,13 @@ packages:
     resolution: {integrity: sha512-RiBETaaP9veVstE4vUwSIcdATj6dKmXljouXc/DDNwBSPTp8FRkLGDSGFClKsAFeeg+13SB0Z1JZvbD76bigJw==}
     engines: {node: ^14.15.0 || >=16.0.0}
 
-  prettier@3.8.0:
-    resolution: {integrity: sha512-yEPsovQfpxYfgWNhCfECjG5AQaO+K3dp6XERmOepyPDVqcJm+bjyCVO3pmU+nAPe0N5dDvekfGezt/EIiRe1TA==}
+  prettier@3.8.1:
+    resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
     engines: {node: '>=14'}
     hasBin: true
 
-  prettier@3.8.1:
-    resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
+  prettier@3.8.3:
+    resolution: {integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -8170,10 +8170,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-prettier@5.5.5(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.4.2)))(eslint@9.39.2(jiti@2.4.2))(prettier@3.8.0):
+  eslint-plugin-prettier@5.5.5(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.4.2)))(eslint@9.39.2(jiti@2.4.2))(prettier@3.8.3):
     dependencies:
       eslint: 9.39.2(jiti@2.4.2)
-      prettier: 3.8.0
+      prettier: 3.8.3
       prettier-linter-helpers: 1.0.1
       synckit: 0.11.12
     optionalDependencies:
@@ -10345,12 +10345,12 @@ snapshots:
   prettier-plugin-astro@0.14.1:
     dependencies:
       '@astrojs/compiler': 2.10.4
-      prettier: 3.8.0
+      prettier: 3.8.3
       sass-formatter: 0.7.9
 
-  prettier@3.8.0: {}
-
   prettier@3.8.1: {}
+
+  prettier@3.8.3: {}
 
   pretty-format@27.5.1:
     dependencies:
@@ -11177,15 +11177,15 @@ snapshots:
     dependencies:
       stylelint: 16.14.1(typescript@5.4.5)
 
-  stylelint-prettier@5.0.3(prettier@3.8.0)(stylelint@16.14.1(typescript@5.4.5)):
-    dependencies:
-      prettier: 3.8.0
-      prettier-linter-helpers: 1.0.1
-      stylelint: 16.14.1(typescript@5.4.5)
-
   stylelint-prettier@5.0.3(prettier@3.8.1)(stylelint@16.14.1(typescript@5.4.5)):
     dependencies:
       prettier: 3.8.1
+      prettier-linter-helpers: 1.0.1
+      stylelint: 16.14.1(typescript@5.4.5)
+
+  stylelint-prettier@5.0.3(prettier@3.8.3)(stylelint@16.14.1(typescript@5.4.5)):
+    dependencies:
+      prettier: 3.8.3
       prettier-linter-helpers: 1.0.1
       stylelint: 16.14.1(typescript@5.4.5)
 
