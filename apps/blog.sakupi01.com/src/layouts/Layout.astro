@@ -30,6 +30,33 @@ const { pageTitle, description } = Astro.props;
       is:inline
       src="https://cdn.jsdelivr.net/npm/baseline-status@latest/baseline-status.min.js"
       type="module"></script>
+    <!-- Locale-aware dates (progressive enhancement). The server renders
+         dates in English to match the site's English UI; for non-English
+         readers we reformat <time> to their own locale. Re-runs on every
+         navigation because cross-document view transitions keep full loads. -->
+    <script is:inline>
+      (() => {
+        const lang = navigator.language || "en";
+        if (lang.toLowerCase().startsWith("en")) return;
+        const fmt = new Intl.DateTimeFormat(lang, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          timeZone: "UTC",
+        });
+        const localize = () => {
+          for (const el of document.querySelectorAll("time[datetime]")) {
+            const d = new Date(el.getAttribute("datetime"));
+            if (!Number.isNaN(d.getTime())) el.textContent = fmt.format(d);
+          }
+        };
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", localize);
+        } else {
+          localize();
+        }
+      })();
+    </script>
   </Fragment>
   <slot />
 </Layout>
