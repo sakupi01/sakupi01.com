@@ -11,8 +11,8 @@ import { allPosts } from "../utils/contents";
     {
       allPosts.map((post) => {
         const url = post.data.tags.includes("zenn")
-          ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.slug}`
-          : `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+          ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.id}`
+          : `${import.meta.env.PUBLIC_BLOG}${post.id}`;
         return (
           <BlogPostCard
             url={url}

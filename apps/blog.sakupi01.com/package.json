@@ -18,14 +18,14 @@
     "fix:lint": "eslint --fix ."
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/mdx": "^6.0.2",
     "@astrojs/rss": "^4.0.18",
     "@remark-embedder/core": "^3.0.3",
     "@remark-embedder/transformer-oembed": "^5.0.0",
     "@sakupi01/layout": "workspace:*",
     "@sakupi01/style": "workspace:*",
     "add": "^2.0.6",
-    "astro": "^5.18.2",
+    "astro": "^6.4.4",
     "hastscript": "^9.0.0",
     "he": "^1.2.0",
     "marked": "^15.0.7",

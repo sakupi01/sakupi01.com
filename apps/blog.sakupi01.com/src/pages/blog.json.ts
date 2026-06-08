@@ -7,8 +7,8 @@ export async function GET() {
       title: post.data.title,
       pubDate: post.data.update,
       description: post.data.excerpt,
-      link: `https://blog.sakupi01.com/${post.slug}/`,
-      content: await marked.parse(post.body),
+      link: `https://blog.sakupi01.com/${post.id}/`,
+      content: await marked.parse(post.body ?? ""),
       tags: post.data.tags,
     }))
   );
