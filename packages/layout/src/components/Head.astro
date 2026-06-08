@@ -61,6 +61,29 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
 <!-- External Scripts Slot -->
 <slot name="scripts" />
 
+<!-- Speculation Rules: prefetch same-origin documents on likely-navigation
+     signals (hover/pointerdown) to cut perceived latency. Deliberately
+     prefetch (not prerender): prerender would execute the target page's
+     gtag snippet and risk inflated analytics. -->
+<script type="speculationrules" is:inline>
+  {
+    "prefetch": [
+      {
+        "source": "document",
+        "where": {
+          "and": [
+            { "href_matches": "/*" },
+            { "not": { "href_matches": "/feed.xml" } },
+            { "not": { "selector_matches": "[rel~=nofollow]" } },
+            { "not": { "selector_matches": "[target=_blank]" } }
+          ]
+        },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>
+
 <!-- Theme Script -->
 <script is:inline>
   const getInitialTheme = () => {

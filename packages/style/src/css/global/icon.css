@@ -19,3 +19,22 @@
 .icon--xlarge {
   inline-size: var(--s-icon-size-xl);
 }
+
+/*
+Small interactive controls (icon buttons, compact nav links) need a
+comfortable hit area on touch, so on coarse pointers we expand them to
+--s-icon-size-xl (3rem / 48px, above the 44px touch-target minimum);
+precise pointers keep the compact layout. The content is centered and laid
+out in a single row (grid-auto-flow: column) so multi-part labels — e.g. a
+link decorated with `<` / `/>` pseudo-elements — stay inline instead of
+stacking. Apply to the element that owns the control's layout box.
+*/
+@media (pointer: coarse) {
+  .touch-target {
+    display: grid;
+    grid-auto-flow: column;
+    min-block-size: var(--s-icon-size-xl);
+    min-inline-size: var(--s-icon-size-xl);
+    place-items: center;
+  }
+}
