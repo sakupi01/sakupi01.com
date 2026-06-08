@@ -7,7 +7,7 @@ import { allHouseBlogPosts } from "../utils/contents";
 export async function getStaticPaths() {
   return allHouseBlogPosts.map((post) => {
     return {
-      params: { slug: post.slug },
+      params: { slug: post.id },
       props: { post },
     };
   });
@@ -17,7 +17,7 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
-<MarkdownPostLayout frontmatter={post.data} slug={post.slug}>
+<MarkdownPostLayout frontmatter={post.data} slug={post.id}>
   <TableOfContents slot="toc" headings={headings} />
   <Content />
 </MarkdownPostLayout>

@@ -14,7 +14,7 @@ import { allLifePosts } from "../../utils/contents";
   <ul class="stack">
     {
       allLifePosts.map((post) => {
-        const url = `${import.meta.env.PUBLIC_BLOG}${post.slug}`;
+        const url = `${import.meta.env.PUBLIC_BLOG}${post.id}`;
         return (
           <BlogPostCard
             url={url}

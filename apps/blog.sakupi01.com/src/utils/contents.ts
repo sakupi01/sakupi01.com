@@ -13,7 +13,7 @@ export const zennArticles = async () => {
   const zennData = await fetchZennData();
   return zennData.articles.map((entry) => {
     return {
-      slug: entry.path,
+      id: entry.path,
       data: {
         title: entry.title,
         date: new Date(entry.published_at),
@@ -31,11 +31,11 @@ export const allHouseBlogPosts = (await getCollection("blog")).filter(
 );
 
 const allHouseTechBlogPosts = (await getCollection("blog")).filter(
-  (entry) => entry.slug.startsWith("dev") && entry.data.status === "published"
+  (entry) => entry.id.startsWith("dev") && entry.data.status === "published"
 );
 
 const allHouseLifeBlogPosts = (await getCollection("blog")).filter(
-  (entry) => entry.slug.startsWith("life") && entry.data.status === "published"
+  (entry) => entry.id.startsWith("life") && entry.data.status === "published"
 );
 
 export const allTechPosts = await Promise.all([
