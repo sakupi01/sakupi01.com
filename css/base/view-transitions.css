@@ -1,0 +1,17 @@
+/*
+----------------------------------------------------------------------------
+Cross-document View Transitions.
+
+Native MPA view transitions: every same-origin navigation cross-fades
+instead of hard-cutting, which removes the "white flash" between pages.
+This is intentionally NOT Astro's <ClientRouter /> (SPA routing): the
+existing inline scripts (theme toggle, sound toggle, nav) rely on a fresh
+per-document execution model, which full-page navigation preserves.
+
+Disabled when the visitor prefers reduced motion.
+See: https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition
+----------------------------------------------------------------------------
+*/
+@view-transition {
+  navigation: auto;
+}
