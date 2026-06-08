@@ -59,7 +59,12 @@ const isBlogsNav =
   <nav id="nav">
     <a
       href={homeHref}
-      class:list={["nav-item", "soundable", { "nav-item--here": isHome }]}
+      class:list={[
+        "nav-item",
+        "touch-target",
+        "soundable",
+        { "nav-item--here": isHome },
+      ]}
       aria-current={isHome ? "page" : undefined}
     >
       home
@@ -68,6 +73,7 @@ const isBlogsNav =
       popovertarget={popoverId}
       class:list={[
         "popovertarget",
+        "touch-target",
         "soundable",
         { "nav-item--here": isBlogsNav },
       ]}
@@ -93,15 +99,17 @@ const isBlogsNav =
     <a
       href={import.meta.env.PUBLIC_SLIDES}
       target="_blank"
-      class="nav-item soundable">{"talks"}</a
+      class="nav-item touch-target soundable">{"talks"}</a
     >
     <a
       href={import.meta.env.PUBLIC_STUDIO}
       target="_blank"
-      class="nav-item soundable">{"studio"}</a
+      class="nav-item touch-target soundable">{"studio"}</a
     >
-    <a href={`${blogBase}feed.xml`} target="_blank" class="nav-item soundable"
-      >{"rss"}</a
+    <a
+      href={`${blogBase}feed.xml`}
+      target="_blank"
+      class="nav-item touch-target soundable">{"rss"}</a
     >
   </nav>
   <a href="#footer" hidden><HamburgerIcon /></a>
@@ -184,11 +192,17 @@ const isBlogsNav =
         padding: var(--s-space-layout-sm) var(--s-space-layout-xs);
         position: absolute;
         position-anchor: var(--anchor-name, --nav-anchor);
+        /* Origin-based reveal: the menu is anchored to the trigger's bottom
+           edge, so a top-center origin makes it unfold downward out of the
+           button itself rather than sliding in from a fixed global offset. */
+        transform-origin: top center;
         transition:
           translate 0.3s allow-discrete,
+          scale 0.3s allow-discrete,
           opacity 0.3s,
           display 0.3s allow-discrete;
-        translate: 0 -50px;
+        scale: 0.95;
+        translate: 0 -8px;
 
         li {
           list-style: none;
@@ -202,11 +216,13 @@ const isBlogsNav =
         gap: var(--s-space-layout-sm);
         grid-auto-rows: min-content;
         opacity: 1;
+        scale: 1;
         translate: 0 0;
 
         @starting-style {
           opacity: 0;
-          translate: 0 -50px;
+          scale: 0.95;
+          translate: 0 -8px;
         }
       }
 

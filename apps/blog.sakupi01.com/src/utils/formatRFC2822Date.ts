@@ -5,6 +5,9 @@ export function formatRFC2822Date(dateStr: string): string {
     year: "numeric",
     month: "long",
     day: "numeric",
+    // Date-only strings parse as UTC midnight; format in UTC so the rendered
+    // day never shifts with the build machine's timezone.
+    timeZone: "UTC",
   }).format(date);
 }
 

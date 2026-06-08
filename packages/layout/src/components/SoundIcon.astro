@@ -1,4 +1,4 @@
-<div class="megaphone-container">
+<div class="megaphone-container touch-target">
   <button
     id="soundToggle"
     class="sound-toggle"
@@ -54,9 +54,7 @@
 <style>
   .megaphone-container {
     --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --wave-transition:
-      opacity 300ms ease,
-      transform 390ms var(--bounce);
+    --wave-transition: opacity 300ms ease, transform 390ms var(--bounce);
 
     block-size: var(--s-icon-size-sm);
     inline-size: var(--s-icon-size-sm);
@@ -72,6 +70,15 @@
     cursor: pointer;
     position: relative;
     transition: transform 0.3s var(--bounce);
+
+    /* Container provides the touch hit area (.touch-target); keep the icon at
+       its visual size so it stays centered instead of stretching to fill. */
+    @media (pointer: coarse) {
+      & .megaphone {
+        block-size: var(--s-icon-size-sm);
+        inline-size: var(--s-icon-size-sm);
+      }
+    }
 
     @media (hover: hover) {
       &:hover {
@@ -248,7 +255,9 @@
       playClickAnimation();
 
       const audio = willBeOn ? soundOnAudio : soundOffAudio;
-      audio.play().catch((e: Error) => console.warn("Failed to play sound: ", e));
+      audio
+        .play()
+        .catch((e: Error) => console.warn("Failed to play sound: ", e));
 
       setSoundState(willBeOn);
     });
