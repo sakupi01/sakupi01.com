@@ -205,4 +205,8 @@ hr {
     /* stylelint-disable-next-line declaration-no-important */
     transition-duration: 0.01ms !important;
   }
+
+  @view-transition {
+    navigation: none;
+  }
 }
