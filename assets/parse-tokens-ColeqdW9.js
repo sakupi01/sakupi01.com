@@ -809,7 +809,7 @@ in components and layouts instead of primitives directly.
   --s-font-size-5xl: var(--p-step-6);
 
   /* Heading-specific aliases */
-  --s-font-size-h1: var(--p-step-5);
+  --s-font-size-h1: var(--p-step-6);
   --s-font-size-h2: var(--p-step-3);
   --s-font-size-h3: var(--p-step-2-5);
   --s-font-size-h4: var(--p-step-2);
