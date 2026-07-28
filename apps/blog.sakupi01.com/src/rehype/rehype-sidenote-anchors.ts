@@ -10,6 +10,9 @@
  *
  *   <li id="user-content-fn-1">
  *     → adds style="position-anchor: --fnref-1"
+ *
+ *   If the reference is inside a <details>, the corresponding <li> also gets
+ *   data-in-details-li so CSS can treat skipped-contents anchors specially.
  */
 import { visit } from "unist-util-visit";
 
@@ -24,10 +27,40 @@ function appendStyle(existing: string, declaration: string): string {
   return [existing, declaration].filter(Boolean).join("; ").concat(";");
 }
 
+/** Footnote keys whose reference sits inside a <details>. */
+function collectKeysInDetails(tree: Parameters<typeof visit>[0]): Set<string> {
+  const keys = new Set<string>();
+
+  visit(tree, "element", (node: { tagName: string }) => {
+    if (node.tagName !== "details") return;
+
+    visit(
+      node as Parameters<typeof visit>[0],
+      "element",
+      (child: { tagName: string; properties: Record<string, unknown> }) => {
+        const id = child.properties?.id as string | undefined;
+        if (
+          child.tagName !== "a" ||
+          !id?.startsWith(FNREF_PREFIX) ||
+          child.properties?.dataFootnoteRef == null
+        ) {
+          return;
+        }
+        keys.add(toCssIdent(id.slice(FNREF_PREFIX.length)));
+      }
+    );
+  });
+
+  return keys;
+}
+
 export function rehypeSidenoteAnchors() {
   return (tree: unknown) => {
+    const root = tree as Parameters<typeof visit>[0];
+    const keysInDetails = collectKeysInDetails(root);
+
     visit(
-      tree as Parameters<typeof visit>[0],
+      root,
       "element",
       (node: { tagName: string; properties: Record<string, unknown> }) => {
         const id = node.properties?.id as string | undefined;
@@ -53,6 +86,9 @@ export function rehypeSidenoteAnchors() {
             existing,
             `position-anchor: --fnref-${key}`
           );
+          if (keysInDetails.has(key)) {
+            node.properties.dataInDetailsLi = "";
+          }
         }
       }
     );

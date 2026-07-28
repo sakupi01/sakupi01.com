@@ -597,6 +597,10 @@ in the aside column with position: absolute + left: 100%.
 Each <li> aligns vertically with its footnote reference using anchor().
 Overlap is prevented with max(anchor(top), anchor(--sidenote bottom) + gap).
 
+A reference inside a closed <details> is not an acceptable anchor element, so
+sidenotes marked data-in-details-li stay hidden until some details is open.
+See https://drafts.csswg.org/css-anchor-position-1/#acceptable-anchor-element
+
 Fallback: Bottom-of-article footnotes.
 See:
 https://meyerweb.com/eric/thoughts/2023/09/12/nuclear-anchored-sidenotes/
@@ -676,6 +680,20 @@ article > .footnotes .data-footnote-backref {
           }
         }
       }
+    }
+
+    /*
+      Closed <details> refs are not acceptable anchors, so these lis fall to the
+      static position at the article end. Keep them out of the --sidenote chain
+      (display: none) until some disclosure is open; otherwise later sidenotes
+      park after them via anchor(--sidenote bottom).
+    */
+    .footnotes li[data-in-details-li] {
+      display: none;
+    }
+
+    article:has(details[open]) > .footnotes li[data-in-details-li] {
+      display: list-item;
     }
   }
 }
