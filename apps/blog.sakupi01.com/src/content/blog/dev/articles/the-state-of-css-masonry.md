@@ -2,7 +2,7 @@
 title: "CSS Masonry のあゆみと現状"
 excerpt: "CSS Masonry（Grid-Lanes）の仕様策定の経緯と現状のまとめ"
 date: 2025-12-08
-update: 2025-12-21
+update: 2026-09-27
 category: "dev"
 tags: ["css", "web", "masonry", "layout"]
 status: "published"
@@ -317,6 +317,17 @@ Item Flow という概念は、結果として WG でも採用され、これに
 
 ただし、 Item Flow の構文はについてはまだ決着がついておらず、それは[後述](#rows-vs-columns-flex-flow--grid-auto-flow-and-masonry-layout)します。
 
+:::note{.update}
+UPDATE 2026.09.27
+
+2026 年 1 月の F2F で、Item Flow による統一は放棄されました。
+
+> RESOLVED: Abandon grand item-flow theory in favor of smaller targeted unification attempts
+> <https://github.com/w3c/csswg-drafts/issues/11480#issuecomment-3820776942>
+
+議事録では、fantasai が難しさを 2 点に整理しています。汎用的すぎない名前が見つからなかったこと、そして段階的に出荷すると互換性の問題が出ることです。共通プロパティにすると、たとえば Grid-Lanes の tolerance を出荷する前に、Flexbox での挙動まで決めておく必要が出てきます。今後は、gap のように共通化できる部分だけを個別に揃えていく方針です。
+:::
+
 #### ✅ Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係
 
 Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係をどう整理するかが議論され、これはすでに結論が出ています。
@@ -328,6 +339,15 @@ Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係をどう整
 
 つまり、Flex/Grid 既存のプロパティは互いにエイリアスとして機能する訳ではなく、Masonry 専用のプロパティセット（`masonry-flow` など）を新たに導入することもなくなりました。
 
+:::note{.update}
+UPDATE 2026.09.27
+
+Item Flow 自体が放棄されたため、この Issue は「moot（前提がなくなった）」として 2026 年 2 月に close されています。
+
+- <https://github.com/w3c/csswg-drafts/issues/12804#issuecomment-3873915478>
+
+:::
+
 ### ✅ `css-grid-3` に含め、`grid-*` 構文を利用する
 
 Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを新規に作成することはなくなり、Masonry の Syntax には `grid-*` 記法を利用することで合意が取られました。
@@ -337,6 +357,16 @@ Item Flow の採用と同時に、 Masonry 専用のレイアウトモデルを�
 
 > RESOLVED: Re-use grid templating and placement properties for masonry layout
 > <https://github.com/w3c/csswg-drafts/issues/11243#issuecomment-2627998471>
+
+:::note{.update}
+UPDATE 2026.09.27
+
+Grid-Lanes を独立したモジュールに切り出すかも検討されましたが、2026 年 1 月に CSS Grid Layout Module Level 3 の中に残すことが決まりました。
+
+> RESOLVED: Integrate the diff spec with grid
+> <https://github.com/w3c/csswg-drafts/issues/13115#issuecomment-3820644949>
+
+:::
 
 #### ✅ Masonry Container を定義する `grid-template-[rows | columns]`
 
@@ -362,7 +392,7 @@ Poll の結果 `grid-lanes` が選ばれ、これで Flexbox でも Grid でも�
 - Poll Response:
   - <https://docs.google.com/forms/d/e/1FAIpQLSdAqh74IyRa_YM81XPj0rjJCDuC4rO-k8krT7TBlEUu2c4QOA/viewanalytics>
 
-> RESOLVED: masonry switch will be`display: grid-lanes`
+> RESOLVED: masonry switch will be display: grid-lanes
 > <https://github.com/w3c/csswg-drafts/issues/12022#issuecomment-3525043825>
 
 ここは少し筆者の解釈が入りますが、grid-**lanes** という命名について説明しておきます。Masonry レイアウトは一方に等幅の [track](<http://blog.sakupi01.com/dev/articles/the-state-of-css-masonry#grid-%E7%B5%B1%E5%90%88-%E3%81%8B-display-masonry-%E3%81%8B---just-use-grid-or-new-masonry-layout:~:text=%E5%8C%96)%20%E3%81%95%E3%82%8C%E3%82%8B%E3%80%82-,Masonry%20Track,-%3A%20Grid%20Axis%20%E4%B8%8A%E3%81%AE>) を持つという特徴がありました。つまり、通常の Grid が 2D のセル構造を持つのに対し、**Masonry は 単軸 Grid の「レーン」構造**とイメージすることができます。
@@ -456,6 +486,18 @@ direction 決めの議論には、現時点で２つの立場があり、ざっ�
 
 - <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3643948079>
 
+:::note{.update}
+UPDATE 2026.09.27
+
+Item Flow が放棄されたため、この論点は「`item-flow` の `row` / `column` をどう解釈するか」ではなくなりました。現在は「Grid-Lanes の向きを、どのプロパティでどう書くか」という Grid-Lanes 固有の問題です。
+
+2026 年 1 月の F2F では開発者向けの動画と Poll が提案されましたが、構文の Resolution は出ていません。2026 年 9 月時点でも Issue は open のままで、Editor's Draft ではプロパティ名が `TBD` になっています。
+
+- <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3820574231>
+- <https://drafts.csswg.org/css-grid-3/#grid-lanes-orientation>
+
+:::
+
 ### Reversing: `column/row-reverse` vs `wrap-reverse`
 
 Masonry には「Grid Axis」（Track が定義されている軸）と「Stacking Axis」（Item が積み上がる軸）があります。
@@ -468,6 +510,20 @@ Flexbox では `flex-direction: row-reverse` と `flex-wrap: wrap-reverse` と�
 `row-reverse` / `column-reverse` は Grid 軸を反転させるのか、それとも Stacking 軸を反転させるのか。`wrap-reverse` はどちらなのか。
 
 Flexbox や Grid では直感的に理解できた 「reverse」の挙動が、Masonry の **「Shape と Flow の不一致」** という特性により、定義が難しくなっていることがわかります。
+
+:::note{.update}
+UPDATE 2026.09.27
+
+2026 年 8 月に、配置を反転しても Track（Line）の並び順と、明示的に配置した Item の位置は変わらないことが決まりました。
+
+> RESOLVED: reversing placement does not affect line track ordering or explicit placement
+> <https://github.com/w3c/csswg-drafts/issues/12971#issuecomment-5193128279>
+
+あわせて、反転した配置でも揃え位置を正しく指定できるように、`flex-start` / `flex-end` の別名として `flow-start` / `flow-end` を導入することも決まっています。
+
+- <https://github.com/w3c/csswg-drafts/issues/14052#issuecomment-5193187791>
+
+:::
 
 ### Property Names
 
@@ -484,6 +540,23 @@ Flexbox や Grid では直感的に理解できた 「reverse」の挙動が、M
   - <https://github.com/w3c/csswg-drafts/issues/12803>
 
 やはり、これも Rows vs Columns の決着によって動く類の議論であり、 `item-flow` というプロパティ名自体も大いに変わる可能性があります。
+
+:::note{.update}
+UPDATE 2026.09.27
+
+Item Flow の放棄に伴い、`item-` / `flow-` の Prefix の議論はなくなりました。個別のプロパティは、Grid-Lanes 用に名前が付け直されています。
+
+たとえば Item Slack は `item-tolerance`、`flow-tolerance` と改名されたのち、2026 年 8 月に `fit-tolerance` への改名が決まりました（2026 年 9 月 2 日版の Editor's Draft には、まだ `flow-tolerance` として載っています）。
+
+> RESOLVED: Rename to 'fit-tolerance'.
+> <https://github.com/w3c/csswg-drafts/issues/10884#issuecomment-5192599929>
+
+また、`grid-lanes` という Shorthand を作る方針も決まりました。構文はまだ決まっていません。
+
+> RESOLVED: Pursue a grid-lanes shorthand syntax.
+> <https://github.com/w3c/csswg-drafts/issues/12023#issuecomment-5192928952>
+
+:::
 
 :::note{.memo}
 Note📝: Grid-Lanes のパフォーマンス
@@ -510,6 +583,23 @@ Grid-Lanes の処理性能について気になったので問い合わせ、個
 
 Chromium では `grid-lanes` がすでに実装されており、Canary で `#enable-experimental-web-platform-features` フラグを有効化して試せます。（2025年12月07日現在）
 また、 Safari の Stable でも近日中に `grid-lanes` が有効化される予定です。
+
+:::note{.update}
+UPDATE 2026.09.27
+
+Safari 26.4（2026 年 3 月 24 日リリース）で、Grid-Lanes が Stable に出荷されました。
+
+- [WebKit Features for Safari 26.4 | WebKit](https://webkit.org/blog/17862/webkit-features-for-safari-26-4/)
+
+Chromium と Gecko では実装が進行中です。実装の過程で、Gecko 側からは「`grid` と `grid-lanes` をまたぐ Subgrid は複雑さに見合うユースケースがあるのか」という問題提起も出ています。
+
+- <https://github.com/w3c/csswg-drafts/issues/14390>
+
+`inline-grid-lanes` も、2026 年 1 月に一度削除が決まったあと、同じ月のうちに追加へ戻っています。9 月には、この決定をもう一度議論し直すよう Agenda+ が付けられました。
+
+- <https://github.com/w3c/csswg-drafts/issues/10961>
+
+:::
 
 各エンジンの実装状況については、以下の bug から確認できます。
 
@@ -548,6 +638,26 @@ CSS における論理的な読み順を定義する仕様です。Masonry の�
 
 :::
 
+:::note{.update}
+UPDATE 2026.09.27
+
+Reading Flow に、Grid-Lanes 用の値が加わることになりました。Lane（Track）ごとに読む値は、Reading Flow の仕様に追加されます。一方、Lane を横切って漫画のように読む値は、アルゴリズムがまだ実験段階です。そのため、Grid Level 3 の Informative な Appendix として起草し、フィードバックを集めることになりました。
+
+> RESOLVED: put a per lane reading flow value into the reading flow spec
+> RESOLVED: Draft this proposal as an experimental, informative appendix of Grid L3 and collect feedback.
+> <https://github.com/w3c/csswg-drafts/issues/5675#issuecomment-5195085874>
+
+値の名前はまだ決まっておらず、`grid-lanes-axis` / `grid-lanes-cross-axis` などの案が出ています。
+
+- <https://github.com/w3c/csswg-drafts/issues/14290>
+
+Gap Decorations でも、Grid-Lanes での Rule の描き方を定める Issue が進んでいます。
+
+- <https://github.com/w3c/csswg-drafts/issues/14489>
+- <https://github.com/w3c/csswg-drafts/issues/14507>
+
+:::
+
 ## おわりに
 
 Grid-Lanes の議論を振り返ると、機能が互いに影響し合いながら進化していくの過程を垣間見ることができます。
@@ -559,6 +669,15 @@ Flexbox が最初のモダンレイアウトアルゴリズムとして多くの
 Masonry だけだった議論が、Masonry を包含した概念を産んだことで、まだ Web で見なかったレイアウトが生まれてくる可能性があってもおかしくないのです。
 
 まだ名前が決まったわけではありませんが、Item Flow がブラウザに実装された暁には、あのとき「Pinterest のようなレイアウトを CSS でやりたい！」と声を上げた人と、その声を WG に届けた Rachel のことを思い出してしまう気がします。
+
+:::note{.update}
+UPDATE 2026.09.27
+
+前述のとおり、Item Flow は 2026 年 1 月に放棄されました。ただ議事録では、Item Flow の検討で作ったレイアウト間の関係表が、どこに改善の余地があるかを明確にしたと評価されています。そこで見つかったアイデアは、今後個別に検討が続けられます。
+
+- <https://github.com/w3c/csswg-drafts/issues/11480#issuecomment-3820776942>
+
+:::
 
 ## Appendix
 
