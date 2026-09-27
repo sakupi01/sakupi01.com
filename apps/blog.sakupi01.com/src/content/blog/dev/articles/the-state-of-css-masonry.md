@@ -2,8 +2,6 @@
 title: "CSS Masonry のあゆみと現状"
 excerpt: "CSS Masonry（Grid-Lanes）の仕様策定の経緯と現状のまとめ"
 date: 2025-12-08
-update: 2026-09-27
-category: "dev"
 tags: ["css", "web", "masonry", "layout"]
 status: "published"
 ---
@@ -320,12 +318,15 @@ Item Flow という概念は、結果として WG でも採用され、これに
 :::note{.update}
 UPDATE 2026.09.27
 
-2026 年 1 月の F2F で、Item Flow による統一は放棄されました。
+2026 年 1 月の F2F で、Item Flow で進むことは一旦なくなる方針となりました」。
 
 > RESOLVED: Abandon grand item-flow theory in favor of smaller targeted unification attempts
 > <https://github.com/w3c/csswg-drafts/issues/11480#issuecomment-3820776942>
 
-議事録では、fantasai が難しさを 2 点に整理しています。汎用的すぎない名前が見つからなかったこと、そして段階的に出荷すると互換性の問題が出ることです。共通プロパティにすると、たとえば Grid-Lanes の tolerance を出荷する前に、Flexbox での挙動まで決めておく必要が出てきます。今後は、gap のように共通化できる部分だけを個別に揃えていく方針です。
+汎用的すぎない名前が見つからなかったこと、そして段階的に出荷することによる互換性の問題が主な理由です。
+まず、全てのレイアウトに当てはまる命名の抽象度を保つ必要がありました。一方、個々のレイアウトでの振る舞いを明確にする必要もあり、そういった命名が難しかった、つまり抽象化の落とし所がなかったことが理由としてあります（「alignment」 のように水平垂直どちらを意味するのか不明確になる可能性がある）。
+さらに、共通プロパティにすると、たとえば Grid-Lanes の前に Flexbox での挙動まで考慮する必要があり、段階的に Ship する互換性の懸念があります。gap のように全部決まった上で共通化できる部分だけを後から抽出して個別に揃えていったケースとは異なりました。
+Item Flow は筆者としては導入されるものと思っていましたが、統一するには Masonry レイアウトが特殊すぎたという認識です。
 :::
 
 #### ✅ Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係
@@ -342,7 +343,7 @@ Item Flow と既存の `flex-flow` や `grid-auto-flow` との関係をどう整
 :::note{.update}
 UPDATE 2026.09.27
 
-Item Flow 自体が放棄されたため、この Issue は「moot（前提がなくなった）」として 2026 年 2 月に close されています。
+Item Flow 自体が放棄されたため、この Issue も 2026 年 2 月に close されています。
 
 - <https://github.com/w3c/csswg-drafts/issues/12804#issuecomment-3873915478>
 
@@ -489,9 +490,9 @@ direction 決めの議論には、現時点で２つの立場があり、ざっ�
 :::note{.update}
 UPDATE 2026.09.27
 
-Item Flow が放棄されたため、この論点は「`item-flow` の `row` / `column` をどう解釈するか」ではなくなりました。現在は「Grid-Lanes の向きを、どのプロパティでどう書くか」という Grid-Lanes 固有の問題です。
+Item Flow が放棄されたため、この論点は「`item-flow` の `row` / `column` をどう解釈するか」ではなくなりました。現在は「Grid-Lanes の向きを、どのプロパティでどう書くか」という Grid-Lanes 固有の問題に転換しています。
 
-2026 年 1 月の F2F では開発者向けの動画と Poll が提案されましたが、構文の Resolution は出ていません。2026 年 9 月時点でも Issue は open のままで、Editor's Draft ではプロパティ名が `TBD` になっています。
+2026 年 9 月時点でも Issue は open のままで、Editor's Draft ではプロパティ名が `TBD` となっています。
 
 - <https://github.com/w3c/csswg-drafts/issues/12803#issuecomment-3820574231>
 - <https://drafts.csswg.org/css-grid-3/#grid-lanes-orientation>
@@ -514,12 +515,15 @@ Flexbox や Grid では直感的に理解できた 「reverse」の挙動が、M
 :::note{.update}
 UPDATE 2026.09.27
 
-2026 年 8 月に、配置を反転しても Track（Line）の並び順と、明示的に配置した Item の位置は変わらないことが決まりました。
+2026 年 8 月に、`reverse` で反転させるのは auto-placement で「Item を置く順番」だけにして、Line の順番や明示的に配置した Item の位置（座標系）は反転させない、という決定がされました。座標系は、これまでどおり `writing-mode` / `direction` だけで決まります。
+
+Flexbox では、`row-reverse` を付けると `flex-start` が指す側まで入れ替わるため、値の意味を知るには `writing-mode` と `flex-direction` の両方を見る必要がありました。Grid Lanes では、この反省から reverse の影響を「Item を置く順番」にとどめています。
 
 > RESOLVED: reversing placement does not affect line track ordering or explicit placement
 > <https://github.com/w3c/csswg-drafts/issues/12971#issuecomment-5193128279>
 
-あわせて、反転した配置でも揃え位置を正しく指定できるように、`flex-start` / `flex-end` の別名として `flow-start` / `flow-end` を導入することも決まっています。
+一方で、`align-self: end` のように Item を寄せる位置を指定する Box Alignment では、reverse 後の向きを基準にしたい場面もあります。たとえば fill-reverse で下から積み上げたとき、end がコンテナの下端を指すのか、積み上げていく先の上端を指すのか、という状況です。
+そこで、`start` / `end` は `writing-mode` 基準のまま、Flexbox・Grid・Grid Lanes のどれでも使える flow のキーワードとして `flow-start` / `flow-end` を導入することになりました。既存の `flex-start` / `flex-end` はこれと同じ値として扱われ、正式な表記は `flow-*` になります。
 
 - <https://github.com/w3c/csswg-drafts/issues/14052#issuecomment-5193187791>
 
@@ -546,7 +550,7 @@ UPDATE 2026.09.27
 
 Item Flow の放棄に伴い、`item-` / `flow-` の Prefix の議論はなくなりました。個別のプロパティは、Grid-Lanes 用に名前が付け直されています。
 
-たとえば Item Slack は `item-tolerance`、`flow-tolerance` と改名されたのち、2026 年 8 月に `fit-tolerance` への改名が決まりました（2026 年 9 月 2 日版の Editor's Draft には、まだ `flow-tolerance` として載っています）。
+たとえば Item Slack は `item-tolerance`、`flow-tolerance` と改名されたのち、2026 年 8 月に `fit-tolerance` への改名が決まりました。（`item-*` 体系に合わせた命名は、Item Flow の撤回と同時になくなり、`flow-*` は `display: flow` と紛らわしく、何を許容するのかも伝わらなかったため）
 
 > RESOLVED: Rename to 'fit-tolerance'.
 > <https://github.com/w3c/csswg-drafts/issues/10884#issuecomment-5192599929>
@@ -587,15 +591,15 @@ Chromium では `grid-lanes` がすでに実装されており、Canary で `#en
 :::note{.update}
 UPDATE 2026.09.27
 
-Safari 26.4（2026 年 3 月 24 日リリース）で、Grid-Lanes が Stable に出荷されました。
+Safari 26.4（2026 年 3 月 24 日リリース）で、Grid-Lanes が Stable に Ship されました。
 
 - [WebKit Features for Safari 26.4 | WebKit](https://webkit.org/blog/17862/webkit-features-for-safari-26-4/)
 
-Chromium と Gecko では実装が進行中です。実装の過程で、Gecko 側からは「`grid` と `grid-lanes` をまたぐ Subgrid は複雑さに見合うユースケースがあるのか」という問題提起も出ています。
+Chromium と Gecko では実装が進行中です。実装の過程で、Gecko 側からは「`grid` と `grid-lanes` をまたぐ Subgrid は複雑さに見合うユースケースがあるのか」という問題提起も出ており、今後も議論は続きそうです。
 
 - <https://github.com/w3c/csswg-drafts/issues/14390>
 
-`inline-grid-lanes` も、2026 年 1 月に一度削除が決まったあと、同じ月のうちに追加へ戻っています。9 月には、この決定をもう一度議論し直すよう Agenda+ が付けられました。
+今は `inline grid` のように書くことができますが、これまでに倣って `inline-grid-lanes` も追加される予定です。
 
 - <https://github.com/w3c/csswg-drafts/issues/10961>
 
@@ -641,7 +645,7 @@ CSS における論理的な読み順を定義する仕様です。Masonry の�
 :::note{.update}
 UPDATE 2026.09.27
 
-Reading Flow に、Grid-Lanes 用の値が加わることになりました。Lane（Track）ごとに読む値は、Reading Flow の仕様に追加されます。一方、Lane を横切って漫画のように読む値は、アルゴリズムがまだ実験段階です。そのため、Grid Level 3 の Informative な Appendix として起草し、フィードバックを集めることになりました。
+Reading Flow に、Grid-Lanes 用の値が加わることになりました。Lane（Track）ごとに読む値は、Reading Flow の仕様に追加されます。一方、Lane を横切って漫画のように読む値は、アルゴリズムがまだ実験段階です。複雑なアルゴリズムになるため、フィードバックを集めることになっています。
 
 > RESOLVED: put a per lane reading flow value into the reading flow spec
 > RESOLVED: Draft this proposal as an experimental, informative appendix of Grid L3 and collect feedback.
@@ -673,7 +677,7 @@ Masonry だけだった議論が、Masonry を包含した概念を産んだこ�
 :::note{.update}
 UPDATE 2026.09.27
 
-前述のとおり、Item Flow は 2026 年 1 月に放棄されました。ただ議事録では、Item Flow の検討で作ったレイアウト間の関係表が、どこに改善の余地があるかを明確にしたと評価されています。そこで見つかったアイデアは、今後個別に検討が続けられます。
+前述のとおり、Item Flow は 2026 年 1 月に放棄されました。ただ、Item Flow の検討で Flexbox・Grid・Grid Lanes の概念を突き合わせて整理したこと自体が、どこに改善の余地があるかを明確にしたと評価されるものでしょう。
 
 - <https://github.com/w3c/csswg-drafts/issues/11480#issuecomment-3820776942>
 
