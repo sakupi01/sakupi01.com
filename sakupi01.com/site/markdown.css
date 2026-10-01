@@ -260,6 +260,23 @@ article {
         padding: 0.2em;
       }
     }
+
+    /* Update */
+    &.update {
+      --aside-label-color: var(--s-color-surface-base);
+      --aside-label-bg: var(--s-color-text-tertiary);
+
+      border: 1px solid var(--s-color-border-default);
+      padding-block-start: 2.5em;
+
+      &::before {
+        content: "update";
+        font-style: italic;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        padding: 0.2em 0.8em;
+      }
+    }
   }
 
   /*
