@@ -12,7 +12,6 @@ const PublicationSchema = z.object({
   name: z.string(),
   display_name: z.string(),
   avatar_small_url: z.string(),
-  pro: z.boolean(),
   avatar_registered: z.boolean(),
 });
 

@@ -318,7 +318,7 @@ Item Flow という概念は、結果として WG でも採用され、これに
 :::note{.update}
 UPDATE 2026.09.27
 
-2026 年 1 月の F2F で、Item Flow で進むことは一旦なくなる方針となりました」。
+2026 年 1 月の F2F で、Item Flow で進むことは一旦なくなる方針となりました。
 
 > RESOLVED: Abandon grand item-flow theory in favor of smaller targeted unification attempts
 > <https://github.com/w3c/csswg-drafts/issues/11480#issuecomment-3820776942>
