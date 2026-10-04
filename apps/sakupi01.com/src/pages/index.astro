@@ -108,6 +108,13 @@ import Layout from "../layouts/Layout.astro";
     inline-size: 100%;
   }
 
+  @supports (frame-sizing: content-height) {
+    .blog-embed {
+      block-size: auto;
+      frame-sizing: content-height;
+    }
+  }
+
   .spotify-embed {
     border-radius: var(--s-border-radius-xl);
     inline-size: 100%;

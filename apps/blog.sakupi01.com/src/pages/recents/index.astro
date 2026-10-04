@@ -5,6 +5,9 @@ import BlogPostCard from "../../components/BlogPostCard.astro";
 import BaseLayout from "@sakupi01/layout/components/BaseLayout.astro";
 import { site } from "../../data/site";
 import { allPosts } from "../../utils/contents";
+
+// Opt in to responsive iframe sizing (frame-sizing) for the sakupi01.com embed.
+const homeOrigin = new URL(import.meta.env.PUBLIC_HOME).origin;
 ---
 
 <BaseLayout
@@ -13,6 +16,17 @@ import { allPosts } from "../../utils/contents";
   description="Recent Blogs Archive"
   type="article"
 >
+  <meta
+    slot="head-extra"
+    name="responsive-embedded-sizing"
+    content={`allow-origins=${homeOrigin}`}
+  />
+  <script is:inline slot="head-extra">
+    // Web fonts can change the content height after the initial sizing.
+    if ("requestResize" in window) {
+      document.fonts.ready.then(() => window.requestResize());
+    }
+  </script>
   <main>
     <ul class="stack">
       {
