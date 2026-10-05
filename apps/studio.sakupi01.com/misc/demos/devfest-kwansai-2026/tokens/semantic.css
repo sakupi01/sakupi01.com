@@ -75,6 +75,9 @@ primitives.css の値に役割の名前を付ける。layout と component は�
   --s-border-width-base: var(--p-size-2);
   --s-border-width-thick: var(--p-size-3);
   --s-border-radius-md: var(--p-size-10);
+
+  /* corner-shape: squircle は同じ半径でも角が浅く見えるので、round より大きめの半径と組にする */
+  --s-border-radius-lg: var(--p-size-16);
   --s-border-radius-full: 999px;
   --s-border: var(--s-border-width-base) solid var(--s-color-border-strong);
 

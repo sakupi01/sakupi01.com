@@ -160,3 +160,25 @@ Layout: タイムテーブル (timetable/index.html)。
     vertical-align: middle;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Corner Shape (1 章)
+   角の形を半径とは別に指定する。未対応のブラウザは上の丸い角のまま
+   ------------------------------------------------------------------------- */
+
+@supports (corner-shape: squircle) {
+  .timetable-page .timetable {
+    thead th,
+    td {
+      border-radius: var(--s-border-radius-lg);
+      /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
+      corner-shape: squircle;
+    }
+
+    /* 休憩はチケットの切り込みのような角にする */
+    td.break {
+      /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
+      corner-shape: scoop;
+    }
+  }
+}

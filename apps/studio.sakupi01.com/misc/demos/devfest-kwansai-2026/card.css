@@ -127,7 +127,19 @@ session-card:not(:defined) {
   font-weight: var(--s-font-weight-bold);
   line-height: var(--s-line-height-tight);
   margin: 0;
+
+  /* 注目枠のタイトルだけ、各行を枠の幅いっぱいまで拡大する (1 章の Fit-to-Width text)。最大 2 倍 */
+  text-fit: if(style(--slot: featured): grow per-line-all 200%; else: none);
   text-wrap: balance;
+}
+
+/* Corner Shape (1 章): 未対応のブラウザは :host の丸い角のまま */
+@supports (corner-shape: squircle) {
+  :host {
+    border-radius: var(--s-border-radius-lg);
+    /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
+    corner-shape: squircle;
+  }
 }
 
 /* :host を付けて、document 側で読み込んだときにページ内のほかの button に当たらないようにする */

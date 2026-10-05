@@ -12,8 +12,10 @@ Layout: セッションボード (board/index.html)。
 
   /* WebKit の Museum デモ (https://webkit.org/demos/grid3/museum/) の列定義を参考にした */
   .board {
+    /* Gap Decorations (1 章): 列の間に区切り線を引く。線の分だけ gap を広げる */
+    column-rule: var(--s-border-width-base) dashed var(--s-color-border-strong);
     display: grid-lanes;
-    gap: var(--s-space-gap-md);
+    gap: var(--s-space-gap-lg);
     grid-template-columns: repeat(auto-fill, minmax(min(18ch, 100%), 1fr));
     padding: var(--s-space-layout-lg);
 
