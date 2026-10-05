@@ -19,6 +19,9 @@ function apply() {
   }
   fromLabel.value = toLabel(Number(from.value));
   toOutput.value = toLabel(Number(to.value));
+  // 読み上げで「630」ではなく「10:30」と伝える
+  from.setAttribute("aria-valuetext", fromLabel.value);
+  to.setAttribute("aria-valuetext", toOutput.value);
 
   for (const card of cards) {
     const start = Number(card.dataset.start);

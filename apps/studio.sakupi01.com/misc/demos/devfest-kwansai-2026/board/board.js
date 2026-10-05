@@ -107,9 +107,11 @@ board.addEventListener("drop", (e) => {
   const dragged = draggedCard;
   const target = cardAt(e);
 
-  // カード以外 (ボードの余白) に落としたら末尾へ
+  // カード以外 (ボードの余白) に落としたら末尾へ。注目枠は先頭に置いたままにする (見た目も常に先頭のため)
   if (!target) {
-    commit(() => board.append(dragged));
+    if (dragged.dataset.slot !== "featured") {
+      commit(() => place(dragged, null));
+    }
     return;
   }
 
