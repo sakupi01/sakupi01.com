@@ -44,9 +44,14 @@ function place(card, reference) {
 
 // キーボードでの並べ替え: 前後で見えているカードと入れ替え、押したボタンにフォーカスを残す
 function move(card, direction) {
-  // 注目枠は常に先頭に表示されるので、入れ替えの相手にしない (入れ替えても見た目が変わらないため)
+  // 注目枠は常に先頭に表示されるので、入れ替えの相手にしない (入れ替えても見た目が変わらないため)。
+  // トラック別の表示ではカードが自分のトラックの列に固定されるので、同じトラックのカードとだけ入れ替える
+  const byTrack = board.dataset.view === "track";
   const visible = [...board.querySelectorAll("session-card")].filter(
-    (c) => c.checkVisibility() && c.dataset.slot !== "featured"
+    (c) =>
+      c.checkVisibility() &&
+      c.dataset.slot !== "featured" &&
+      (!byTrack || c.dataset.track === card.dataset.track)
   );
   const neighbor =
     visible[visible.indexOf(card) + (direction === "before" ? -1 : 1)];
