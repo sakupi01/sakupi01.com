@@ -10,6 +10,12 @@ Layout: セッションボード (board/index.html)。
     padding: var(--s-space-layout-lg);
   }
 
+  .board-summary {
+    color: var(--s-color-text-secondary);
+    font-size: var(--s-font-size-sm);
+    margin: 0;
+  }
+
   /* WebKit の Museum デモ (https://webkit.org/demos/grid3/museum/) の列定義を参考にした */
   .board {
     /* Gap Decorations (1 章): 列の間に区切り線を引く。線の分だけ gap を広げる */

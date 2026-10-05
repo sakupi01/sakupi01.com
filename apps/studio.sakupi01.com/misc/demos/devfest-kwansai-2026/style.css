@@ -42,6 +42,7 @@ Page layouts (body のクラスで範囲を限定する)
 @import "layout.css" layer(layout.index);
 @import "timetable/layout.css" layer(layout.timetable);
 @import "board/layout.css" layer(layout.board);
+@import "share/layout.css" layer(layout.share);
 
 /*
 ----------------------------------------------------------------------------
@@ -50,6 +51,7 @@ Components
 */
 @import "common.css" layer(components.common);
 @import "card.css" layer(components.card);
+@import "navigation.css" layer(components.navigation);
 
 /*
 ----------------------------------------------------------------------------

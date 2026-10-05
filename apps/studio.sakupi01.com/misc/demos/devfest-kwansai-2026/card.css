@@ -103,7 +103,9 @@ session-card:not(:defined) {
     --card-bg var(--s-duration-slow) var(--s-ease-out),
     --lift var(--s-duration-fast) var(--s-ease-out);
   translate: calc(var(--lift) * -1) calc(var(--lift) * -1);
-  view-transition-name: match-element;
+
+  /* id をそのまま名前にする。タイムテーブルの同じ id のセルと対応し、ページをまたいでも形が引き継がれる */
+  view-transition-name: attr(id type(<custom-ident>));
 }
 
 @media (hover: hover) {

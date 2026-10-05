@@ -1,0 +1,122 @@
+/*
+----------------------------------------------------------------------------
+Navigation: ページ間の遷移 (2 章の Platform driven SPA)。
+
+JS を使わず、ページをまたぐ View Transitions と Navigation Matching (@location / @navigation /
+:link-to()) だけで、SPA のような画面遷移にする。
+----------------------------------------------------------------------------
+*/
+
+/*
+stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知らないため、次の規則をファイル単位で外す。
+構文は CSS Navigation Level 1 の草案どおり。
+*/
+
+/* stylelint-disable at-rule-no-unknown, at-rule-descriptor-no-unknown, at-rule-prelude-no-invalid, selector-pseudo-class-no-unknown, selector-type-no-unknown, function-no-unknown, declaration-property-value-no-unknown */
+
+/* 同一 origin のページ遷移を View Transition にする */
+@view-transition {
+  navigation: auto;
+}
+
+/* -------------------------------------------------------------------------
+   Locations: URL に名前を付ける
+   ナビゲーションを持つページは全部 1 階層下 (timetable/、board/、share/) にあるので、
+   document からの相対パスで書く。公開版 (studio の深い階層) でも同じ書き方で一致する。
+   Chrome 157 Canary では base-url: stylesheet がこのファイルではなく document を基準に解決され、
+   一致しなかった (2026-10-06 実測)
+   ------------------------------------------------------------------------- */
+
+@location --timetable {
+  base-url: document;
+  pattern: url-pattern("../timetable/");
+}
+
+@location --board {
+  base-url: document;
+  pattern: url-pattern("../board/");
+}
+
+@location --share {
+  base-url: document;
+  pattern: url-pattern("../share/");
+}
+
+/* -------------------------------------------------------------------------
+   共通ナビゲーション
+   中身は partials/site-nav.html を Declarative Fragments で取り込む。
+   いまのページへのリンクは :link-to() で選ぶので、partial に aria-current を書かなくてよい
+   ------------------------------------------------------------------------- */
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-space-gap-sm);
+  padding: var(--s-space-layout-lg) var(--s-space-layout-lg) 0;
+
+  a {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    color: inherit;
+    font-weight: var(--s-font-weight-bold);
+    padding: var(--s-space-layout-badge);
+    text-decoration: none;
+  }
+}
+
+.timetable-page .site-nav a:link-to(--timetable),
+.board-page .site-nav a:link-to(--board),
+.share-page .site-nav a:link-to(--share) {
+  background: var(--s-color-text-primary);
+  color: var(--s-color-surface-base);
+}
+
+/* -------------------------------------------------------------------------
+   Transitions
+   セッションはタイムテーブルのセルとボードのカードで同じ id を持つので、
+   同じ view-transition-name になり、セルがカードへ形を変えながら移動する
+   ------------------------------------------------------------------------- */
+
+.timetable-page td.session {
+  view-transition-name: attr(id type(<custom-ident>));
+}
+
+.page-title {
+  view-transition-name: page-title;
+}
+
+@keyframes slide-out-to-start {
+  to {
+    opacity: 0;
+    translate: -40px 0;
+  }
+}
+
+@keyframes slide-in-from-end {
+  from {
+    opacity: 0;
+    translate: 40px 0;
+  }
+}
+
+/* 遷移の向きで見出しの動きを変える。(to:) は旧ページ、(from:) は新ページで評価される */
+@navigation (to: --board) {
+  ::view-transition-old(page-title) {
+    animation: slide-out-to-start var(--s-duration-slow) var(--s-ease-out) both;
+  }
+}
+
+@navigation (from: --timetable) {
+  ::view-transition-new(page-title) {
+    animation: slide-in-from-end var(--s-duration-slow) var(--s-ease-out) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}

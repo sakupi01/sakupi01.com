@@ -11,9 +11,30 @@
     <link rel="stylesheet" href="../style.css" />
     <script src="../embed.js" defer></script>
     <script type="module" src="timezone.js"></script>
+    <!-- ナビゲーションのリンクにカーソルを合わせたら遷移先を先に描画しておく (2 章の Speculation Rules) -->
+    <script type="speculationrules">
+      {
+        "prerender": [
+          {
+            "source": "document",
+            "where": { "selector_matches": ".site-nav a" },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body class="timetable-page">
+    <!-- 共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
+         未対応のブラウザでは <?start>〜<?end> の間に書いたリンクがそのまま残る -->
+    <nav class="site-nav" aria-label="デモのページ">
+      <?start name="site-nav"><a href="../timetable/">タイムテーブル</a>
+      <a href="../board/">セッションボード</a>
+      <a href="../share/">共有画像</a
+      ><?end>
+    </nav>
+    <template for="site-nav" src="../partials/site-nav.html"></template>
     <main>
       <p class="event-date">
         開催日:
@@ -68,7 +89,7 @@
                 >10:40</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-01">
               <p class="title">村上学長挨拶</p>
               <ul class="speakers">
                 <li>
@@ -86,7 +107,7 @@
                 >10:45</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-02">
               <p class="title">Findy スポンサーセッション</p>
             </td>
           </tr>
@@ -96,7 +117,7 @@
                 >10:55</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-03">
               <p class="title">Fashion runway</p>
             </td>
           </tr>
@@ -106,7 +127,7 @@
                 >11:05</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-04">
               <p class="title">Opening</p>
               <ul class="speakers">
                 <li>
@@ -124,7 +145,7 @@
                 >11:25</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-05">
               <p class="title">Keynote</p>
               <ul class="speakers">
                 <li>
@@ -161,7 +182,7 @@
                 >13:05</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-06">
               <p class="title" lang="en">I didn't need this attention</p>
               <ul class="speakers">
                 <li>
@@ -172,7 +193,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="b" rowspan="2">
+            <td class="session" data-track="b" rowspan="2" id="session-07">
               <p class="title">
                 パネルディスカッション 〜面接で人は見抜けるのか？Google
                 採用改革の舞台裏〜
@@ -201,7 +222,7 @@
                 >13:30</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-08">
               <p class="title">
                 人とAIはともに育つことができるか？ —
                 認知発達ロボティクスから考える共感・共生・責任 —
@@ -230,7 +251,7 @@
                 >14:00</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-09">
               <p class="title">ゲーム界のレジェンドが語る AI との向き合い方</p>
               <ul class="speakers">
                 <li>
@@ -242,7 +263,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="b" rowspan="2">
+            <td class="session" data-track="b" rowspan="2" id="session-10">
               <p class="title">生成AIを「なんとなく改善」するのをやめる</p>
               <ul class="speakers">
                 <li>
@@ -251,7 +272,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="c" rowspan="2">
+            <td class="session" data-track="c" rowspan="2" id="session-11">
               <p class="title" lang="en">
                 Web UI 2026 Updates &amp; What's Coming!
               </p>
@@ -265,7 +286,12 @@
                 </li>
               </ul>
             </td>
-            <td class="session hands-on" data-track="d" rowspan="3">
+            <td
+              class="session hands-on"
+              data-track="d"
+              rowspan="3"
+              id="session-12"
+            >
               <p class="title">
                 【ハンズオン】Antigravity &amp;
                 Geminiと作るAI手相×MBTI占いアプリ開発体験！
@@ -287,7 +313,7 @@
                 >14:15</time
               >
             </th>
-            <td class="session" data-track="a" rowspan="2">
+            <td class="session" data-track="a" rowspan="2" id="session-13">
               <p class="title">
                 未踏統括 PM が語る、AI 時代におけるものづくりの本質
               </p>
@@ -305,7 +331,7 @@
                 >14:40</time
               >
             </th>
-            <td class="session" data-track="b">
+            <td class="session" data-track="b" id="session-14">
               <p class="title">TBA</p>
               <ul class="speakers">
                 <li>
@@ -314,7 +340,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="c">
+            <td class="session" data-track="c" id="session-15">
               <p class="title">
                 Flutterは3Dゲームを作れるのか？ Flutter Scene × AI で挑戦
               </p>
@@ -343,7 +369,7 @@
                 >15:30</time
               >
             </th>
-            <td class="session" data-track="a" rowspan="2">
+            <td class="session" data-track="a" rowspan="2" id="session-16">
               <p class="title">AIロボットと人間の進化</p>
               <p class="format">オンライン</p>
               <ul class="speakers">
@@ -355,7 +381,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="b">
+            <td class="session" data-track="b" id="session-17">
               <p class="title">
                 AIでコードは書けるのに、つくりたいものがつくれないあなたへ
               </p>
@@ -366,7 +392,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="c">
+            <td class="session" data-track="c" id="session-18">
               <p class="title">
                 Beyond "Out-of-the-Box"：24時間駆動する自律的好奇心エージェント
               </p>
@@ -381,7 +407,12 @@
                 </li>
               </ul>
             </td>
-            <td class="session hands-on" data-track="d" rowspan="2">
+            <td
+              class="session hands-on"
+              data-track="d"
+              rowspan="2"
+              id="session-19"
+            >
               <p class="title">AntigravityでAIエージェントを作ってみよう</p>
               <ul class="speakers">
                 <li>
@@ -399,7 +430,7 @@
                 >16:00</time
               >
             </th>
-            <td class="session" data-track="b">
+            <td class="session" data-track="b" id="session-20">
               <p class="title">
                 AIが賢くなるほど、UIは不親切であるべき—Cognitive Surrenderを防ぐ
                 UXデザイン
@@ -411,7 +442,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="c">
+            <td class="session" data-track="c" id="session-21">
               <p class="title">
                 思考を手放さないための共創論 —
                 AIエージェント時代におけるエンジニアのメタ認知と境界線
@@ -440,7 +471,7 @@
                 >16:50</time
               >
             </th>
-            <td class="session" data-track="a" rowspan="2">
+            <td class="session" data-track="a" rowspan="2" id="session-22">
               <p class="title">
                 デジタルネイチャーと人間の再定義——AI時代の「共創」を問い直す
               </p>
@@ -454,7 +485,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="b">
+            <td class="session" data-track="b" id="session-23">
               <p class="title">
                 知性が外部化される AI 時代の活躍論 〜 元 Googler
                 たちが語る、変わらない本質 〜
@@ -479,7 +510,7 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="c" lang="en">
+            <td class="session" data-track="c" lang="en" id="session-24">
               <p class="title">
                 Give Your AI Agents a Sandbox: Running Untrusted Agent Code
                 Safely on Kubernetes
@@ -494,7 +525,12 @@
                 </li>
               </ul>
             </td>
-            <td class="session hands-on" data-track="d" rowspan="3">
+            <td
+              class="session hands-on"
+              data-track="d"
+              rowspan="3"
+              id="session-25"
+            >
               <p class="title">
                 ファッション×AIワークショップ〜Fashion Futures Lab AI
                 と共創する未来のファッション〜
@@ -510,10 +546,10 @@
                 >17:20</time
               >
             </th>
-            <td class="session" data-track="b">
+            <td class="session" data-track="b" id="session-26">
               <p class="title">TBA</p>
             </td>
-            <td class="session" data-track="c">
+            <td class="session" data-track="c" id="session-27">
               <p class="title">
                 オントロジーって結局なにもの？ —
                 AIエージェントに"意味"を渡す知識設計の話
@@ -540,7 +576,7 @@
                 >18:05</time
               >
             </th>
-            <td class="session" data-track="a">
+            <td class="session" data-track="a" id="session-28">
               <p class="title">
                 コードはエージェントに任せて、『プロダクトエンジニアリング』はチームで磨き続ける
               </p>
@@ -554,10 +590,10 @@
                 </li>
               </ul>
             </td>
-            <td class="session" data-track="b">
+            <td class="session" data-track="b" id="session-29">
               <p class="title">LT大会</p>
             </td>
-            <td class="session" data-track="c">
+            <td class="session" data-track="c" id="session-30">
               <p class="title">
                 古い指輪から広がった、Javaコミュニティとのつながり
               </p>

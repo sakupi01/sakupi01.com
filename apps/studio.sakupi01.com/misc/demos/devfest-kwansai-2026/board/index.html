@@ -68,14 +68,37 @@
         }
       }
     </style>
+    <!-- ナビゲーションのリンクにカーソルを合わせたら遷移先を先に描画しておく (2 章の Speculation Rules) -->
+    <script type="speculationrules">
+      {
+        "prerender": [
+          {
+            "source": "document",
+            "where": { "selector_matches": ".site-nav a" },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body class="board-page">
+    <!-- 共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
+         未対応のブラウザでは <?start>〜<?end> の間に書いたリンクがそのまま残る -->
+    <nav class="site-nav" aria-label="デモのページ">
+      <?start name="site-nav"><a href="../timetable/">タイムテーブル</a>
+      <a href="../board/">セッションボード</a>
+      <a href="../share/">共有画像</a
+      ><?end>
+    </nav>
+    <template for="site-nav" src="../partials/site-nav.html"></template>
     <header>
       <h1 class="page-title">セッションボード</h1>
       <p>
         カードはドラッグで並べ替えられます。青い注目枠に重ねると、そのセッションが注目枠に入ります。
       </p>
+      <!-- 集計は文書の最後に届く <template for> が差し替える (2 章の Out-of-Order Streaming) -->
+      <p class="board-summary"><?start name="board-summary">集計中…<?end></p>
     </header>
 
     <main class="board">
@@ -667,6 +690,11 @@
         </p>
       </session-card>
     </main>
+
+    <!-- stream-split: serve.py に ?slow を付けて開くと、ここから後ろを遅れて送る -->
+    <template for="board-summary">
+      30 セッション・4 トラック (受付と懇親会を除く)
+    </template>
 
     <div class="checker-dialog">
       <p class="error judge">

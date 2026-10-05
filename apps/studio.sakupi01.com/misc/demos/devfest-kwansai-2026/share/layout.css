@@ -1,0 +1,204 @@
+/*
+----------------------------------------------------------------------------
+Layout: 共有画像 (share/index.html)。
+canvas の中のカードも、canvas の外に出た縮退時のカードも、同じ規則で見せる。
+----------------------------------------------------------------------------
+*/
+
+.share-page {
+  header,
+  main {
+    padding: var(--s-space-layout-lg);
+  }
+
+  main {
+    display: grid;
+    gap: var(--s-space-gap-lg);
+    justify-items: start;
+  }
+
+  canvas {
+    aspect-ratio: 600 / 360;
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    inline-size: 100%;
+    max-inline-size: 600px;
+  }
+
+  .share-card {
+    background: var(--s-color-track-c-soft);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    display: grid;
+    font-size: var(--s-font-size-base);
+    gap: var(--s-space-gap-md);
+    inline-size: 520px;
+    max-inline-size: 100%;
+    padding: var(--s-space-layout-lg);
+
+    &[data-track="a"] {
+      background: var(--s-color-track-a-soft);
+    }
+
+    &[data-track="b"] {
+      background: var(--s-color-track-b-soft);
+    }
+
+    &[data-track="d"] {
+      background: var(--s-color-track-d-soft);
+    }
+
+    .title {
+      font-size: var(--s-font-size-2xl);
+    }
+
+    .meta {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--s-font-size-sm);
+      font-weight: var(--s-font-weight-bold);
+      gap: var(--s-space-gap-sm);
+      margin: 0;
+    }
+  }
+
+  .share-card-brand {
+    color: var(--s-color-text-secondary);
+    font-size: var(--s-font-size-2xs);
+    font-weight: var(--s-font-weight-bold);
+    margin: 0;
+  }
+
+  .share-track {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    padding: var(--s-space-layout-badge);
+  }
+
+  .share-comment {
+    display: grid;
+    font-size: var(--s-font-size-xs);
+    font-weight: var(--s-font-weight-bold);
+    gap: var(--s-space-gap-2xs);
+
+    input {
+      background: var(--s-color-surface-base);
+      border: var(--s-border);
+      border-radius: var(--s-border-radius-md);
+      color: inherit;
+      font: inherit;
+      font-weight: var(--s-font-weight-medium);
+      padding: var(--s-space-layout-control);
+    }
+  }
+
+  .share-rating {
+    align-items: center;
+    border: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-space-gap-2xs);
+    margin: 0;
+    padding: 0;
+
+    legend {
+      float: inline-start;
+      font-size: var(--s-font-size-xs);
+      font-weight: var(--s-font-weight-bold);
+      margin-inline-end: var(--s-space-layout-sm);
+      padding: 0;
+    }
+
+    /* radio 自体は見せず、label の星で表す。フォーカスは label に出す */
+    input {
+      block-size: 1px;
+      inline-size: 1px;
+      opacity: 0;
+      position: absolute;
+    }
+
+    label {
+      color: var(--s-color-surface-muted);
+      cursor: pointer;
+      font-size: var(--s-font-size-2xl);
+      line-height: 1;
+      text-shadow: 0 0 0 var(--s-color-border-strong);
+
+      /* 選んだ星より前の星はすべて塗る */
+      &:has(~ input:checked) {
+        color: var(--s-color-border-strong);
+      }
+    }
+
+    input:checked + label {
+      color: var(--s-color-border-strong);
+    }
+
+    input:focus-visible + label {
+      outline: var(--s-border-width-thick) solid var(--s-color-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  .visually-hidden {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .share-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-space-gap-md);
+    margin: 0;
+
+    button {
+      background: var(--s-color-primary);
+      border: var(--s-border);
+      border-radius: var(--s-border-radius-full);
+      color: contrast-color(var(--s-color-primary));
+      cursor: pointer;
+      font-size: var(--s-font-size-sm);
+      font-weight: var(--s-font-weight-bold);
+      padding: var(--s-space-layout-control);
+
+      &:disabled {
+        background: var(--s-color-surface-muted);
+        color: var(--s-color-text-secondary);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .share-status {
+    font-size: var(--s-font-size-xs);
+  }
+
+  .share-notes {
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    font-size: var(--s-font-size-sm);
+    max-inline-size: 600px;
+    padding: var(--s-space-layout-panel);
+
+    h2 {
+      font-size: var(--s-font-size-md);
+      font-weight: var(--s-font-weight-bold);
+      margin: 0;
+    }
+
+    ul {
+      display: grid;
+      gap: var(--s-space-gap-xs);
+      margin: var(--s-space-gap-sm) 0 0;
+      padding-inline-start: 1.2em;
+    }
+  }
+}
