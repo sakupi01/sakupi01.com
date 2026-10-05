@@ -1,4 +1,4 @@
-/* global location, CanvasRenderingContext2D, HTMLCanvasElement */
+/* global location, CanvasRenderingContext2D, HTMLCanvasElement -- リポジトリの eslint.config.js の globals に無いブラウザの API */
 // 共有画像: カードとフォームを canvas の中に置いたまま描画し、PNG で保存する。
 // JS は値を textContent で入れ、入力のたびに再描画を頼むだけ。見た目は layout.css が決める
 
@@ -68,7 +68,8 @@ if (supported) {
       link.href = url;
       link.download = FILE_NAME;
       link.click();
-      URL.revokeObjectURL(url);
+      // ダウンロードが始まる前に無効にしないよう、次のタスクで解放する
+      setTimeout(() => URL.revokeObjectURL(url), 0);
       status.textContent = `保存しました (${blob.size} bytes)`;
     }, "image/png");
   });

@@ -29,6 +29,18 @@ function feature(card) {
   });
 }
 
+// キーボードでの並べ替え: 前後で見えているカードと入れ替え、押したボタンにフォーカスを戻す
+function move(card, direction) {
+  const visible = [...board.querySelectorAll("session-card")].filter((c) =>
+    c.checkVisibility()
+  );
+  const neighbor =
+    visible[visible.indexOf(card) + (direction === "before" ? -1 : 1)];
+  if (!neighbor) return;
+  commit(() => neighbor[direction](card));
+  card.shadowRoot.querySelector(`[data-move="${direction}"]`).focus();
+}
+
 function clearDropTarget() {
   board.querySelector(".drop-target")?.classList.remove("drop-target");
 }
@@ -97,3 +109,6 @@ board.addEventListener("drop", (e) => {
 });
 
 board.addEventListener("feature-request", (e) => feature(e.target));
+board.addEventListener("move-request", (e) =>
+  move(e.target, e.detail.direction)
+);

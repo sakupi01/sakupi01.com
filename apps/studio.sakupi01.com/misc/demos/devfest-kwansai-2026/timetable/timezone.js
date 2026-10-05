@@ -1,4 +1,4 @@
-/* global Temporal, Option */
+/* global Temporal, Option -- リポジトリの eslint.config.js の globals に無いブラウザの API */
 
 // タイムテーブルの時刻を、選んだタイムゾーンに Temporal で変換する。
 // Temporal 未対応のブラウザでは何もしない。HTML に書いた会場時刻がそのまま表として読める

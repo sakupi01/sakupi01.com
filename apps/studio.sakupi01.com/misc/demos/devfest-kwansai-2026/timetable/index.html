@@ -26,15 +26,25 @@
   </head>
 
   <body class="timetable-page">
-    <!-- 共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
-         未対応のブラウザでは <?start>〜<?end> の間に書いたリンクがそのまま残る -->
+    <!--
+      共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
+      - <template for src> に対応: 取り込んだ partial のリンク (.partial) を見せ、同じ内容の .fallback は CSS で隠す
+      - <template for> だけに対応 (Chrome 154 など): src は使われず、template に書いた .fallback が入る
+      - どちらも未対応: <?start>〜<?end> の間に書いた .fallback がそのまま残る
+    -->
     <nav class="site-nav" aria-label="デモのページ">
-      <?start name="site-nav"><a href="../timetable/">タイムテーブル</a>
-      <a href="../board/">セッションボード</a>
-      <a href="../share/">共有画像</a
+      <?start name="site-nav"><a class="fallback" href="../timetable/"
+        >タイムテーブル</a
+      >
+      <a class="fallback" href="../board/">セッションボード</a>
+      <a class="fallback" href="../share/">共有画像</a
       ><?end>
     </nav>
-    <template for="site-nav" src="../partials/site-nav.html"></template>
+    <template for="site-nav" src="../partials/site-nav.html">
+      <a class="fallback" href="../timetable/">タイムテーブル</a>
+      <a class="fallback" href="../board/">セッションボード</a>
+      <a class="fallback" href="../share/">共有画像</a>
+    </template>
     <main>
       <p class="event-date">
         開催日:

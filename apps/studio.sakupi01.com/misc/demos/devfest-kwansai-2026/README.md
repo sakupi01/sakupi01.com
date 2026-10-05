@@ -12,7 +12,10 @@ python3 serve.py
 `http://127.0.0.1:3720/` で開く。標準ライブラリだけで動き、ネットワークは使わない (フォントも `fonts/` から配信する)。
 
 - `/board/?slow`: 文書の後半 (集計の `<template for>`) を 1.5 秒遅れて送る。Out-of-Order Streaming を目で見せるときに使う
-- `?off=canvas,webmcp`: 不安定な機能を切る kill switch。`canvas` は共有画像の HTML-in-Canvas、`webmcp` はツールの登録を止める
+- `?off=canvas,webmcp`: 不安定な機能を切る kill switch。`canvas` は共有画像の HTML-in-Canvas、`webmcp` はツールの登録を止める。開いたページにだけ効き、リンク先やまとめページの iframe には引き継がれないので、`/share/?off=canvas`、`/board/?off=webmcp` のように直接開く
+- 共通ナビは、`<template for src>` に対応していれば partial のリンク、`<template for>` だけに対応 (Chrome 154 など) なら template に書いた予備のリンク、どちらも未対応なら `<?start>` と `<?end>` の間に書いた予備のリンクを見せる
+- board の集計は、HTML に書いた「30 セッション」を、文書の最後に届く `<template for>` が詳しい内容に差し替える。`<template for>` 未対応のブラウザでは「30 セッション」のまま
+- カードはドラッグのほか、「注目枠へ」「前へ」「後ろへ」ボタンでキーボードだけでも操作できる
 
 ## ページ
 
@@ -73,7 +76,7 @@ python3 serve.py
 | `serve.py`                                                                   | ローカル配信 (`?slow` の遅延送信つき)                                                                           |
 | `fonts/`                                                                     | M PLUS Rounded 1c (SIL OFL 1.1、`fonts/OFL.txt`)                                                                |
 
-layer の順番は `base, global, layout, components, checker`。後ろほど優先される。
+layer の順番は `base, global, layout, components, checker, overrides`。後ろほど優先される。`overrides.css` は各 demo 共通の判定表示 (checker) の配置をこの demo 向けに上書きする。
 
 linter (stylelint) がまだ知らない新しい構文 (`if()`、`@location`、`::picker(select)`、`corner-shape` など) は、構文が仕様どおりであれば使い、該当行かファイルの先頭で理由を書いて lint を外している。
 

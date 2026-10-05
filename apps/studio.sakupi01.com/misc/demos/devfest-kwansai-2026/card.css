@@ -193,17 +193,28 @@ session-card:not(:defined) {
   }
 }
 
+/* 操作のボタン。ドラッグの代わりにキーボードでも注目枠への移動と並べ替えができる */
+:host .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-space-gap-2xs);
+}
+
 /* :host を付けて、document 側で読み込んだときにページ内のほかの button に当たらないようにする */
 :host button {
   background: var(--s-color-surface-base);
   border: var(--s-border);
   border-radius: var(--s-border-radius-full);
+  color: var(--s-color-text-primary);
   cursor: pointer;
-  display: if(style(--slot: featured): none; else: inline-block);
   font-size: var(--s-font-size-3xs);
   font-weight: var(--s-font-weight-bold);
-  justify-self: start;
   padding: var(--s-space-layout-badge);
+}
+
+/* 注目枠のカードには「注目枠へ」は要らない */
+:host button.feature {
+  display: if(style(--slot: featured): none; else: inline-block);
 }
 
 /* 共有画像へのリンク (4 章)。注目枠のときだけ見せる */

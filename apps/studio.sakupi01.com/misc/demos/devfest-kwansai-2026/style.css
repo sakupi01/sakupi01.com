@@ -17,7 +17,7 @@ Cascade Layers.
 各ページの @layer checker {} はこの宣言に合流する。
 ----------------------------------------------------------------------------
 */
-@layer base, global, layout, components, checker;
+@layer base, global, layout, components, checker, overrides;
 
 /*
 ----------------------------------------------------------------------------
@@ -55,14 +55,7 @@ Components
 
 /*
 ----------------------------------------------------------------------------
-Unlayered overrides.
-
-checker layer の判定表示は position: fixed で画面下に重なる。
-iframe に埋め込むと iframe の高さ = 文書の高さになり最後のカードに重なるため、この demo では文書の流れに置く。
-layer に属さない宣言は全 layer より優先される。
+Overrides (checker より後ろの layer なので、checker の判定表示の配置を上書きできる)
 ----------------------------------------------------------------------------
 */
-.checker-dialog {
-  margin: 16px;
-  position: static;
-}
+@import "overrides.css" layer(overrides);

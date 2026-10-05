@@ -85,22 +85,34 @@
   </head>
 
   <body class="board-page">
-    <!-- 共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
-         未対応のブラウザでは <?start>〜<?end> の間に書いたリンクがそのまま残る -->
+    <!--
+      共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
+      - <template for src> に対応: 取り込んだ partial のリンク (.partial) を見せ、同じ内容の .fallback は CSS で隠す
+      - <template for> だけに対応 (Chrome 154 など): src は使われず、template に書いた .fallback が入る
+      - どちらも未対応: <?start>〜<?end> の間に書いた .fallback がそのまま残る
+    -->
     <nav class="site-nav" aria-label="デモのページ">
-      <?start name="site-nav"><a href="../timetable/">タイムテーブル</a>
-      <a href="../board/">セッションボード</a>
-      <a href="../share/">共有画像</a
+      <?start name="site-nav"><a class="fallback" href="../timetable/"
+        >タイムテーブル</a
+      >
+      <a class="fallback" href="../board/">セッションボード</a>
+      <a class="fallback" href="../share/">共有画像</a
       ><?end>
     </nav>
-    <template for="site-nav" src="../partials/site-nav.html"></template>
+    <template for="site-nav" src="../partials/site-nav.html">
+      <a class="fallback" href="../timetable/">タイムテーブル</a>
+      <a class="fallback" href="../board/">セッションボード</a>
+      <a class="fallback" href="../share/">共有画像</a>
+    </template>
     <header>
       <h1 class="page-title">セッションボード</h1>
       <p>
-        カードはドラッグで並べ替えられます。青い注目枠に重ねると、そのセッションが注目枠に入ります。
+        カードはドラッグか「前へ」「後ろへ」ボタンで並べ替えられます。青い注目枠に重ねるか「注目枠へ」を押すと、そのセッションが注目枠に入ります。
       </p>
       <!-- 集計は文書の最後に届く <template for> が差し替える (2 章の Out-of-Order Streaming) -->
-      <p class="board-summary"><?start name="board-summary">集計中…<?end></p>
+      <p class="board-summary">
+        <?start name="board-summary">30 セッション<?end>
+      </p>
 
       <!--
         絞り込み (3 章)。
@@ -165,7 +177,12 @@
         - トラック別: 各カードを自分のトラックの列に固定する (card.css の if())
         - focusgroup="toolbar": Tab で 1 回入れば、ボタンの間は矢印キーで移れる
       -->
-      <div class="board-view" focusgroup="toolbar" aria-label="表示">
+      <div
+        class="board-view"
+        role="toolbar"
+        focusgroup="toolbar"
+        aria-label="表示"
+      >
         <button type="button" data-view="auto" aria-pressed="true">
           すべて
         </button>

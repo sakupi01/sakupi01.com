@@ -1,4 +1,4 @@
-/* global CSS, location */
+/* global CSS, location -- リポジトリの eslint.config.js の globals に無いブラウザの API */
 
 // まとめページ:埋め込んだ iframe の高さを中身に合わせる。
 // - Responsive iframe 対応: CSS の frame-sizing が高さを決めるので、ここは表示だけ
@@ -28,6 +28,6 @@ if (!nativeSizing) {
     const frame = frames.find((frame) => frame.contentWindow === e.source);
     if (!frame || typeof e.data.height !== "number") return;
     // box-sizing: border-box なので枠線の分を足す
-    frame.style.blockSize = `calc(${Math.ceil(e.data.height)}px + 2 * var(--s-border-width))`;
+    frame.style.blockSize = `calc(${Math.ceil(e.data.height)}px + 2 * var(--s-border-width-base))`;
   });
 }

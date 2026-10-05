@@ -12,7 +12,7 @@ stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知�
 構文は CSS Navigation Level 1 の草案どおり。
 */
 
-/* stylelint-disable at-rule-no-unknown, at-rule-descriptor-no-unknown, at-rule-prelude-no-invalid, selector-pseudo-class-no-unknown, selector-type-no-unknown, function-no-unknown, declaration-property-value-no-unknown */
+/* stylelint-disable at-rule-no-unknown, selector-pseudo-class-no-unknown, selector-type-no-unknown */
 
 /* 同一 origin のページ遷移を View Transition にする */
 @view-transition {
@@ -62,6 +62,11 @@ stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知�
     font-weight: var(--s-font-weight-bold);
     padding: var(--s-space-layout-badge);
     text-decoration: none;
+  }
+
+  /* partial が届いたら、同じ内容の予備のリンクは隠す */
+  &:has(.partial) .fallback {
+    display: none;
   }
 }
 

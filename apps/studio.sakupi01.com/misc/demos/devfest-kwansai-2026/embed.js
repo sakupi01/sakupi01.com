@@ -1,4 +1,4 @@
-/* global location */
+/* global location -- リポジトリの eslint.config.js の globals に無いブラウザの API */
 
 // iframe に埋め込まれたときだけ、文書の高さの変化を埋め込み先へ伝える。
 // - Responsive iframe 対応 (Chrome 154+): window.requestResize() で再計測を頼むだけ。高さは iframe の frame-sizing が決める

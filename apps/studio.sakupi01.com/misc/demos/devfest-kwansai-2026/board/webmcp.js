@@ -1,4 +1,4 @@
-/* global location */
+/* global location -- リポジトリの eslint.config.js の globals に無いブラウザの API */
 
 // WebMCP (5 章): ボードの操作を AI エージェント向けのツールとして公開する。
 // 人が使う画面と同じ処理 (feature-request イベント) を呼ぶので、エージェント専用の UI は作らない。
@@ -32,6 +32,11 @@ if ("modelContext" in document && !off.includes("webmcp")) {
     },
     annotations: { readOnlyHint: true },
     execute: async ({ query = "", track } = {}) => {
+      // エージェントは schema と違う型を渡すことがあるので、ここでも確かめる
+      if (typeof query !== "string") return { error: "query must be a string" };
+      if (track !== undefined && !["A", "B", "C", "D"].includes(track)) {
+        return { error: "track must be one of A, B, C, D" };
+      }
       const needle = query.toLowerCase();
       const sessions = cards()
         .map(describe)
