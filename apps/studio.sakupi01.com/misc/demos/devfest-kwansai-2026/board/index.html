@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>セッションボード | DevFest Kwansai 2026</title>
+    <!-- Responsive iframe: 埋め込み先の iframe がこの文書の高さに合わせて伸縮することを許可する -->
+    <meta name="responsive-embedded-sizing" content="allow-origins=*" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../embed.js" defer></script>
+    <script type="module" src="session-card.js"></script>
+    <script type="module" src="board.js"></script>
+    <style>
+      /*
+        ////////////////////
+        checker layer is always copy/pasted in every demo.
+        ////////////////////
+        */
+      @layer checker {
+        .checker-dialog {
+          padding: 1em;
+          margin: 1em 0;
+          border: 1px solid #ccc;
+          color: black;
+          text-align: center;
+          position: fixed;
+          bottom: 0;
+          left: 1em;
+          right: 1em;
+
+          p {
+            margin: 0;
+          }
+
+          .judge {
+            font-weight: bold;
+          }
+
+          a {
+            color: blue;
+          }
+        }
+
+        @supports (display: grid-lanes) {
+          .checker-dialog {
+            background: rgba(205 255 205 / 0.8);
+
+            .error {
+              display: none;
+            }
+
+            .note {
+              display: none;
+            }
+          }
+        }
+
+        @supports not (display: grid-lanes) {
+          .checker-dialog {
+            background: rgba(255 205 205 / 0.8);
+
+            .success {
+              display: none;
+            }
+          }
+        }
+      }
+    </style>
+  </head>
+
+  <body class="board-page">
+    <header>
+      <h1 class="page-title">セッションボード</h1>
+      <p>
+        カードはドラッグで並べ替えられます。青い注目枠に重ねると、そのセッションが注目枠に入ります。
+      </p>
+    </header>
+
+    <main class="board">
+      <session-card id="session-01" draggable="true" data-track="a">
+        <h2 slot="title">村上学長挨拶</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">村上 憲郎</span>
+            <span class="affiliation">国際工科専門職大学 (IPUT) 学長</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="10:30">10:30</time>〜<time datetime="10:40"
+              >10:40</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-02" draggable="true" data-track="a">
+        <h2 slot="title">Findy スポンサーセッション</h2>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="10:40">10:40</time>〜<time datetime="10:45"
+              >10:45</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-03" draggable="true" data-track="a">
+        <h2 slot="title">Fashion runway</h2>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="10:45">10:45</time>〜<time datetime="10:55"
+              >10:55</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-04" draggable="true" data-track="a">
+        <h2 slot="title">Opening</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">Sherry Xu</span>
+            <span class="affiliation"
+              >Developer Ecosystem Regional Lead Japan</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="10:55">10:55</time>〜<time datetime="11:05"
+              >11:05</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-05" draggable="true" data-track="a">
+        <h2 slot="title">Keynote</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">全 炳河</span>
+            <span class="affiliation"
+              >Google DeepMind
+              プリンシパルサイエンティスト・東京拠点リード</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="11:05">11:05</time>〜<time datetime="11:25"
+              >11:25</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-06" draggable="true" data-track="a">
+        <h2 slot="title" lang="en">I didn't need this attention</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">Llion Jones</span>
+            <span class="affiliation" lang="en"
+              >Co-Founder &amp; CTO, Sakana AI</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="12:25">12:25</time>〜<time datetime="13:05"
+              >13:05</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-07" draggable="true" data-track="b">
+        <h2 slot="title">
+          パネルディスカッション 〜面接で人は見抜けるのか？Google
+          採用改革の舞台裏〜
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">及川 卓也</span>
+            <span class="affiliation">Tably株式会社 代表取締役</span>
+          </li>
+          <li>
+            <span class="name">小川 たかこ</span>
+            <span class="affiliation">パナリット株式会社</span>
+          </li>
+          <li>
+            <span class="name">石原 直樹</span>
+            <span class="affiliation"
+              >GDG Greater Kwansai (広域関西圏) オーガナイザー</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="12:25">12:25</time>〜<time datetime="13:30"
+              >13:30</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-08" draggable="true" data-track="a">
+        <h2 slot="title">
+          人とAIはともに育つことができるか？ —
+          認知発達ロボティクスから考える共感・共生・責任 —
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">浅田 稔</span>
+            <span class="affiliation">大阪国際工科専門職大学 副学長・教授</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="13:05">13:05</time>〜<time datetime="13:30"
+              >13:30</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-09" draggable="true" data-track="a">
+        <h2 slot="title">ゲーム界のレジェンドが語る AI との向き合い方</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">今村 孝矢</span>
+            <span class="affiliation"
+              >大阪国際工科専門職大学
+              教授／ゲームクリエイター／イラストレーター／漫画家</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="13:50">13:50</time>〜<time datetime="14:00"
+              >14:00</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-10" draggable="true" data-track="b">
+        <h2 slot="title">生成AIを「なんとなく改善」するのをやめる</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">太田 満久</span>
+            <span class="affiliation">ユビー株式会社 Ubie Lab 所長</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="13:50">13:50</time>〜<time datetime="14:15"
+              >14:15</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card
+        id="session-11"
+        draggable="true"
+        data-track="c"
+        data-slot="featured"
+      >
+        <h2 slot="title" lang="en">Web UI 2026 Updates &amp; What's Coming!</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">saku</span>
+            <span class="affiliation"
+              >サイボウズ デザインテクノロジスト／Google Developers Expert
+              (Web)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="13:50">13:50</time>〜<time datetime="14:15"
+              >14:15</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-12" draggable="true" data-track="d">
+        <h2 slot="title">
+          【ハンズオン】Antigravity &amp;
+          Geminiと作るAI手相×MBTI占いアプリ開発体験！
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">福島 ゆかり</span>
+            <span class="affiliation"
+              >株式会社電通デジタル AI部門マネージャー 兼 Google Developer
+              Expert (Cloud AI/ML, Data Analytics)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track D</span>
+          <span
+            ><time datetime="13:50">13:50</time>〜<time datetime="14:40"
+              >14:40</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-13" draggable="true" data-track="a">
+        <h2 slot="title">
+          未踏統括 PM が語る、AI 時代におけるものづくりの本質
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">竹内 郁雄</span>
+            <span class="affiliation">東京大学名誉教授</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="14:00">14:00</time>〜<time datetime="14:40"
+              >14:40</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-14" draggable="true" data-track="b">
+        <h2 slot="title">TBA</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">inductor</span>
+            <span class="affiliation">Google Developers Expert (AI)</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="14:15">14:15</time>〜<time datetime="14:40"
+              >14:40</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-15" draggable="true" data-track="c">
+        <h2 slot="title">
+          Flutterは3Dゲームを作れるのか？ Flutter Scene × AI で挑戦
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">Goldner Lucas</span>
+            <span class="affiliation"
+              >株式会社YOUTRUST プロダクト開発部／Google Developers Expert
+              (Flutter)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="14:15">14:15</time>〜<time datetime="14:40"
+              >14:40</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-16" draggable="true" data-track="a">
+        <h2 slot="title">AIロボットと人間の進化</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">石黒 浩</span>
+            <span class="affiliation"
+              >大阪大学大学院基礎工学研究科 教授 (栄誉教授)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="15:00">15:00</time>〜<time datetime="16:00"
+              >16:00</time
+            ></span
+          >
+          <span>オンライン</span>
+        </p>
+      </session-card>
+      <session-card id="session-17" draggable="true" data-track="b">
+        <h2 slot="title">
+          AIでコードは書けるのに、つくりたいものがつくれないあなたへ
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">蜂須賀 大貴</span>
+            <span class="affiliation">Newbee株式会社 代表取締役</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="15:00">15:00</time>〜<time datetime="15:30"
+              >15:30</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-18" draggable="true" data-track="c">
+        <h2 slot="title">
+          Beyond "Out-of-the-Box"：24時間駆動する自律的好奇心エージェント
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name" lang="en">Minori MATSUDA</span>
+            <span class="affiliation" lang="en"
+              >Senior Director &amp; Executive Specialist (AI &amp; ML Lead) @
+              Enterprise／LLM Researcher, The University of Tokyo／Google
+              Developer Expert (AI/ML)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="15:00">15:00</time>〜<time datetime="15:30"
+              >15:30</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-19" draggable="true" data-track="d">
+        <h2 slot="title">AntigravityでAIエージェントを作ってみよう</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">Haren Bhandari</span>
+            <span class="affiliation" lang="en"
+              >Developer Relations Engineer, Google Cloud Japan</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track D</span>
+          <span
+            ><time datetime="15:00">15:00</time>〜<time datetime="16:00"
+              >16:00</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-20" draggable="true" data-track="b">
+        <h2 slot="title">
+          AIが賢くなるほど、UIは不親切であるべき—Cognitive Surrenderを防ぐ
+          UXデザイン
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">安藤 幸央</span>
+            <span class="affiliation">株式会社エクサ UXデザイナー</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="15:30">15:30</time>〜<time datetime="16:00"
+              >16:00</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-21" draggable="true" data-track="c">
+        <h2 slot="title">
+          思考を手放さないための共創論 —
+          AIエージェント時代におけるエンジニアのメタ認知と境界線
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">足立 昌彦 (adamrocker)</span>
+            <span class="affiliation"
+              >株式会社GENKEI CEO／Google Developer Expert (AI/ML)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="15:30">15:30</time>〜<time datetime="16:00"
+              >16:00</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-22" draggable="true" data-track="a">
+        <h2 slot="title">
+          デジタルネイチャーと人間の再定義——AI時代の「共創」を問い直す
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">落合 陽一</span>
+            <span class="affiliation"
+              >メディアアーティスト、筑波大学デジタルネイチャー開発研究センター長・教授、東京大学客員教授</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="16:20">16:20</time>〜<time datetime="17:20"
+              >17:20</time
+            ></span
+          >
+          <span>オンライン</span>
+        </p>
+      </session-card>
+      <session-card id="session-23" draggable="true" data-track="b">
+        <h2 slot="title">
+          知性が外部化される AI 時代の活躍論 〜 元 Googler
+          たちが語る、変わらない本質 〜
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">湯川 洋平</span>
+            <span class="affiliation">Cicero Aware 代表</span>
+          </li>
+          <li>
+            <span class="name">川中 真耶</span>
+            <span class="affiliation"
+              >一般社団法人ソフトウェアエンジニアリング協会
+              代表理事／株式会社ナレッジワーク CTO</span
+            >
+          </li>
+          <li>
+            <span class="name">石原 直樹</span>
+            <span class="affiliation"
+              >GDG Greater Kwansai (広域関西圏) オーガナイザー</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="16:20">16:20</time>〜<time datetime="16:50"
+              >16:50</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-24" draggable="true" data-track="c" lang="en">
+        <h2 slot="title">
+          Give Your AI Agents a Sandbox: Running Untrusted Agent Code Safely on
+          Kubernetes
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">Aditya Joshi</span>
+            <span class="affiliation">Senior Software Engineer, Walmart</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="16:20">16:20</time>-<time datetime="16:50"
+              >16:50</time
+            ></span
+          >
+          <span>English</span>
+        </p>
+      </session-card>
+      <session-card id="session-25" draggable="true" data-track="d">
+        <h2 slot="title">
+          ファッション×AIワークショップ〜Fashion Futures Lab AI
+          と共創する未来のファッション〜
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li><span class="name">藤井先生</span></li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track D</span>
+          <span
+            ><time datetime="16:20">16:20</time>〜<time datetime="17:40"
+              >17:40</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-26" draggable="true" data-track="b">
+        <h2 slot="title">TBA</h2>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="16:50">16:50</time>〜<time datetime="17:20"
+              >17:20</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-27" draggable="true" data-track="c">
+        <h2 slot="title">
+          オントロジーって結局なにもの？ —
+          AIエージェントに"意味"を渡す知識設計の話
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">村上 智之</span>
+            <span class="affiliation">データラーニングギルド代表</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="16:50">16:50</time>〜<time datetime="17:20"
+              >17:20</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-28" draggable="true" data-track="a">
+        <h2 slot="title">
+          コードはエージェントに任せて、『プロダクトエンジニアリング』はチームで磨き続ける
+        </h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">naga (Yukinaga Oishi)</span>
+            <span class="affiliation"
+              >GDG Tokyo Organizer／株式会社MIXI「家族アルバム
+              みてね」エンジニア</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track A</span>
+          <span
+            ><time datetime="17:40">17:40</time>〜<time datetime="18:05"
+              >18:05</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-29" draggable="true" data-track="b">
+        <h2 slot="title">LT大会</h2>
+        <p slot="meta" class="meta">
+          <span>Track B</span>
+          <span
+            ><time datetime="17:40">17:40</time>〜<time datetime="18:05"
+              >18:05</time
+            ></span
+          >
+        </p>
+      </session-card>
+      <session-card id="session-30" draggable="true" data-track="c">
+        <h2 slot="title">古い指輪から広がった、Javaコミュニティとのつながり</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <span class="name">山崎 大介</span>
+            <span class="affiliation">筑波大学 情報学群 情報科学類</span>
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="17:40">17:40</time>〜<time datetime="18:05"
+              >18:05</time
+            ></span
+          >
+        </p>
+      </session-card>
+    </main>
+
+    <div class="checker-dialog">
+      <p class="error judge">
+        ❌ Your browser doesn't support `display: grid-lanes;` feature.
+      </p>
+      <p class="success judge">
+        ✅ Your browser supports `display: grid-lanes;` feature!
+      </p>
+      <p>
+        This demo also needs CSS <code>if()</code>, typed
+        <code>attr()</code> and <code>contrast-color()</code>.
+      </p>
+      <p class="note">
+        Try it in Chrome Canary with <br />
+        <code>--enable-experimental-web-platform-features</code>.
+      </p>
+      <small
+        ><time datetime="2026-10-05"
+          >This DEMO is last updated on: 2026-10-05</time
+        ></small
+      >
+    </div>
+  </body>
+</html>

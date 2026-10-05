@@ -1,0 +1,89 @@
+/*
+----------------------------------------------------------------------------
+Semantic tokens (--s- prefix).
+
+primitives.css の値に役割の名前を付ける。layout と component はこちらだけを参照する。
+名前は packages/style/src/css/tokens/semantic.css と、リポジトリの stylelint (custom/token-scope)
+が property ごとに許す接頭辞に合わせている。
+----------------------------------------------------------------------------
+*/
+
+:where(html) {
+  /* -------------------------------------------------------------------------
+     Colors
+     ------------------------------------------------------------------------- */
+  --s-color-text-primary: var(--p-color-ink-900);
+  --s-color-text-secondary: var(--p-color-ink-700);
+  --s-color-primary: var(--p-color-google-blue);
+  --s-color-surface-base: var(--p-color-white);
+  --s-color-surface-page: var(--p-color-gray-50);
+  --s-color-surface-muted: var(--p-color-gray-200);
+  --s-color-border-strong: var(--p-color-ink-900);
+
+  /* トラックの色。strong は見出し、soft はセッションの枠 */
+  --s-color-track-a-strong: var(--p-color-sky-400);
+  --s-color-track-a-soft: var(--p-color-sky-100);
+  --s-color-track-b-strong: var(--p-color-green-400);
+  --s-color-track-b-soft: var(--p-color-green-100);
+  --s-color-track-c-strong: var(--p-color-yellow-400);
+  --s-color-track-c-soft: var(--p-color-yellow-100);
+  --s-color-track-d-strong: var(--p-color-pink-400);
+  --s-color-track-d-soft: var(--p-color-pink-100);
+
+  /* -------------------------------------------------------------------------
+     Typography
+     ------------------------------------------------------------------------- */
+  --s-font-family-base: var(--p-font-rounded);
+  --s-font-family-mono: var(--p-font-mono);
+  --s-font-weight-medium: 500;
+  --s-font-weight-bold: 800;
+  --s-font-size-5xs: 0.6rem;
+  --s-font-size-4xs: 0.65rem;
+  --s-font-size-3xs: 0.7rem;
+  --s-font-size-2xs: 0.75rem;
+  --s-font-size-xs: 0.8rem;
+  --s-font-size-sm: 0.85rem;
+  --s-font-size-md: 0.95rem;
+  --s-font-size-base: 1rem;
+  --s-font-size-lg: 1.1rem;
+  --s-font-size-xl: 1.4rem;
+  --s-font-size-2xl: 1.5rem;
+  --s-line-height-tight: 1.3;
+  --s-line-height-base: 1.35;
+
+  /* -------------------------------------------------------------------------
+     Space
+     gap は要素の間、layout は要素の内側の余白
+     ------------------------------------------------------------------------- */
+  --s-space-gap-2xs: var(--p-size-4);
+  --s-space-gap-xs: var(--p-size-6);
+  --s-space-gap-sm: var(--p-size-8);
+  --s-space-gap-md: var(--p-size-12);
+  --s-space-gap-lg: var(--p-size-16);
+  --s-space-gap-xl: var(--p-size-32);
+  --s-space-layout-3xs: var(--p-size-2);
+  --s-space-layout-sm: var(--p-size-8);
+  --s-space-layout-lg: var(--p-size-16);
+  --s-space-layout-box: var(--p-size-8) var(--p-size-10);
+  --s-space-layout-panel: var(--p-size-10) var(--p-size-14);
+  --s-space-layout-badge: var(--p-size-2) var(--p-size-10);
+  --s-space-layout-control: var(--p-size-4) var(--p-size-8);
+
+  /* -------------------------------------------------------------------------
+     Borders: 公式タイムテーブルの太い黒枠と角丸
+     ------------------------------------------------------------------------- */
+  --s-border-width-base: var(--p-size-2);
+  --s-border-width-thick: var(--p-size-3);
+  --s-border-radius-md: var(--p-size-10);
+  --s-border-radius-full: 999px;
+  --s-border: var(--s-border-width-base) solid var(--s-color-border-strong);
+
+  /* -------------------------------------------------------------------------
+     Motion
+     ------------------------------------------------------------------------- */
+  --s-duration-fast: 0.2s;
+  --s-duration-slow: 0.4s;
+  --s-ease-out: ease;
+
+  color-scheme: light;
+}

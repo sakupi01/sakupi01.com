@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevFest Kwansai 2026 | タイムテーブルとセッションボード</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="showcase.js"></script>
+  </head>
+
+  <body class="showcase-page">
+    <main>
+      <header>
+        <h1 class="page-title">DevFest Kwansai 2026</h1>
+        <p>
+          タイムテーブルとセッションボードを iframe で埋め込んでいます。<span
+            class="frame-status"
+            id="sizing-mode"
+            >iframe の高さ: 判定中</span
+          >
+        </p>
+      </header>
+
+      <figure class="embed-frame">
+        <figcaption>
+          <h2>タイムテーブル</h2>
+          <span class="frame-status" data-height-for="timetable-frame">-</span>
+        </figcaption>
+        <iframe
+          class="embed"
+          id="timetable-frame"
+          src="timetable/"
+          title="タイムテーブル"
+        ></iframe>
+      </figure>
+
+      <figure class="embed-frame">
+        <figcaption>
+          <h2>セッションボード</h2>
+          <span class="frame-status" data-height-for="board-frame">-</span>
+        </figcaption>
+        <iframe
+          class="embed"
+          id="board-frame"
+          src="board/"
+          title="セッションボード"
+        ></iframe>
+      </figure>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+/*
+----------------------------------------------------------------------------
+Card: <session-card> のスタイル。
+
+同じファイルを 2 か所で読み込む。
+- document: style.css が layer(components.card) で読み込む。light DOM の中身と、定義前の見た目
+- shadow DOM: board/session-card.js が読み込む。:host から始まる規則がカード本体の見た目
+
+document では :host に一致する要素がなく、shadow DOM では light DOM の規則が効かないので、互いに干渉しない。
+----------------------------------------------------------------------------
+*/
+
+/*
+stylelint はまだ if() を解釈できず、その中の値を誤って報告するため、次の規則をファイル単位で外す。
+- declaration-property-value-no-unknown、unit-allowed-list: if() の値を解析できない
+- custom-property-no-missing-var-function: style(--slot: featured) の --slot は var() で包まない構文
+- selector-type-no-unknown: session-card は custom element の名前
+*/
+
+/* stylelint-disable declaration-property-value-no-unknown, unit-allowed-list, custom-property-no-missing-var-function, selector-type-no-unknown */
+
+/* -------------------------------------------------------------------------
+   Document side (light DOM)
+   ------------------------------------------------------------------------- */
+
+session-card {
+  .speakers {
+    text-align: start;
+  }
+
+  /* 所属は注目枠のときだけ見せる。host の --slot は slot を通って light DOM の子にも継承される */
+  .affiliation {
+    color: inherit;
+    display: if(style(--slot: featured): block; else: none);
+    opacity: 0.85;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--s-font-size-3xs);
+    gap: 0 1ch;
+    margin: 0;
+  }
+}
+
+/* custom element の定義前 (JS 無効時を含む) も読める状態にしておく */
+session-card:not(:defined) {
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  display: block;
+  padding: var(--s-space-layout-box);
+}
+
+/* -------------------------------------------------------------------------
+   Shadow DOM side
+   注目枠の判定は :host の if() で完結させる。JS は data-slot を付け替えるだけ
+   ------------------------------------------------------------------------- */
+
+:host {
+  --track: attr(data-track type(<custom-ident>), none);
+
+  /* 注目枠に来たカードだけ data-slot="featured" を持つ */
+  --slot: attr(data-slot type(<custom-ident>), normal);
+  --track-color: if(
+    style(--track: a): var(--s-color-track-a-soft) ;
+      style(--track: b): var(--s-color-track-b-soft) ;
+      style(--track: c): var(--s-color-track-c-soft) ;
+      style(--track: d): var(--s-color-track-d-soft) ;
+      else: var(--s-color-surface-base)
+  );
+
+  /* --card-bg と --lift は tokens/primitives.css の @property で型を登録してあるので transition で補間される */
+  --card-bg: if(
+    style(--slot: featured): var(--s-color-primary) ; else: var(--track-color)
+  );
+  --lift: if(style(--slot: featured): 6px; else: 0px);
+  --shadow-color: var(--s-color-border-strong);
+
+  align-content: start;
+  background: var(--card-bg);
+  border: if(
+      style(--slot: featured): var(--s-border-width-thick) ;
+        else: var(--s-border-width-base)
+    )
+    solid var(--s-color-border-strong);
+  border-radius: var(--s-border-radius-md);
+  box-shadow: var(--lift) var(--lift) 0 var(--shadow-color);
+  color: contrast-color(var(--card-bg));
+  cursor: grab;
+  display: grid;
+  font-size: if(
+    style(--slot: featured): var(--s-font-size-xl) ;
+      else: var(--s-font-size-base)
+  );
+  gap: 0.4lh;
+  grid-column: if(style(--slot: featured): span 2; else: auto);
+  min-block-size: if(style(--slot: featured): 14rem; else: auto);
+  order: if(style(--slot: featured): -1; else: 0);
+  padding: var(--s-space-layout-box);
+  transition:
+    --card-bg var(--s-duration-slow) var(--s-ease-out),
+    --lift var(--s-duration-fast) var(--s-ease-out);
+  translate: calc(var(--lift) * -1) calc(var(--lift) * -1);
+  view-transition-name: match-element;
+}
+
+@media (hover: hover) {
+  :host(:hover) {
+    --lift: if(style(--slot: featured): 8px; else: 3px);
+  }
+}
+
+:host(.dragging) {
+  cursor: grabbing;
+  opacity: 0.4;
+}
+
+:host(.drop-target) {
+  outline: var(--s-border-width-thick) dashed var(--s-color-primary);
+  outline-offset: 4px;
+}
+
+::slotted(h2) {
+  font-size: 0.95em;
+  font-weight: var(--s-font-weight-bold);
+  line-height: var(--s-line-height-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* :host を付けて、document 側で読み込んだときにページ内のほかの button に当たらないようにする */
+:host button {
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-full);
+  cursor: pointer;
+  display: if(style(--slot: featured): none; else: inline-block);
+  font-size: var(--s-font-size-3xs);
+  font-weight: var(--s-font-weight-bold);
+  justify-self: start;
+  padding: var(--s-space-layout-badge);
+}

@@ -1,0 +1,37 @@
+/*
+----------------------------------------------------------------------------
+Layout: まとめページ (index.html)。
+タイムテーブルとセッションボードを Responsive iframe で縦に並べる。
+----------------------------------------------------------------------------
+*/
+
+.showcase-page {
+  background: var(--s-color-surface-page);
+
+  main {
+    display: grid;
+    gap: var(--s-space-gap-xl);
+    margin-inline: auto;
+    max-inline-size: 1200px;
+    padding: var(--s-space-layout-lg);
+  }
+
+  .embed-frame {
+    display: grid;
+    gap: var(--s-space-gap-sm);
+    margin: 0;
+
+    figcaption {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-space-gap-2xs) var(--s-space-gap-md);
+    }
+
+    h2 {
+      font-size: var(--s-font-size-lg);
+      font-weight: var(--s-font-weight-bold);
+      margin: 0;
+    }
+  }
+}

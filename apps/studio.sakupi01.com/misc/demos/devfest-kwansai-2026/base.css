@@ -1,0 +1,60 @@
+/*
+----------------------------------------------------------------------------
+Base: reset と要素の既定スタイル。
+----------------------------------------------------------------------------
+*/
+
+/* 会場のネットワークに頼らないよう、フォントは自前で配信する (SIL OFL 1.1、fonts/OFL.txt) */
+@font-face {
+  font-display: swap;
+  font-family: "M PLUS Rounded 1c";
+  font-weight: 500;
+  src: url("fonts/MPLUSRounded1c-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "M PLUS Rounded 1c";
+  font-weight: 800;
+  src: url("fonts/MPLUSRounded1c-ExtraBold.woff2") format("woff2");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--s-color-surface-base);
+  color: var(--s-color-text-primary);
+  font-family: var(--s-font-family-base);
+  font-weight: var(--s-font-weight-medium);
+  line-height: var(--s-line-height-base);
+  margin: 0;
+}
+
+time {
+  font-variant-numeric: tabular-nums;
+}
+
+select,
+button {
+  color: inherit;
+  font: inherit;
+}
+
+/* 公式サイトの見出し「// タイムテーブル」の書式 */
+.page-title {
+  font-size: var(--s-font-size-2xl);
+  font-weight: var(--s-font-weight-bold);
+  margin: 0;
+
+  &::before {
+    color: var(--s-color-primary);
+    content: "//";
+    font-style: italic;
+    letter-spacing: -0.1em;
+    margin-inline-end: 0.4em;
+  }
+}

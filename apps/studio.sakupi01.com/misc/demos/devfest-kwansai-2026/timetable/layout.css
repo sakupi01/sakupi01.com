@@ -1,0 +1,162 @@
+/*
+----------------------------------------------------------------------------
+Layout: タイムテーブル (timetable/index.html)。
+表は <table> のまま、display を変えずに公式タイムテーブルの見た目にする。
+----------------------------------------------------------------------------
+*/
+
+.timetable-page {
+  main {
+    display: grid;
+    gap: var(--s-space-gap-md);
+
+    /* 表は狭い画面で横にスクロールさせ、ページ自体は横にはみ出させない */
+    overflow-inline: auto;
+    padding: var(--s-space-layout-lg);
+  }
+
+  .event-date {
+    margin: 0;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Timezone switcher (Temporal)
+   ------------------------------------------------------------------------- */
+
+.timetable-page .timezone-switcher {
+  align-items: center;
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-space-gap-sm) var(--s-space-gap-lg);
+  padding: var(--s-space-layout-panel);
+
+  &[hidden] {
+    display: none;
+  }
+
+  label {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: var(--s-font-weight-bold);
+    gap: var(--s-space-gap-sm);
+  }
+
+  select {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    padding: var(--s-space-layout-control);
+  }
+
+  p {
+    font-size: var(--s-font-size-sm);
+    margin: 0;
+  }
+
+  output {
+    font-family: var(--s-font-family-mono);
+    font-size: var(--s-font-size-xs);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Timetable
+   ------------------------------------------------------------------------- */
+
+.timetable-page .timetable {
+  border-collapse: separate;
+  border-spacing: var(--s-space-gap-xs);
+  inline-size: 100%;
+  min-inline-size: 720px;
+  table-layout: fixed;
+
+  caption {
+    padding-block-end: var(--s-space-layout-sm);
+    text-align: start;
+  }
+
+  /* 行見出し (時刻)。thead th より詳細度が低いので先に書く */
+  tbody th {
+    color: var(--s-color-text-secondary);
+    font-size: var(--s-font-size-4xs);
+    font-weight: var(--s-font-weight-medium);
+    padding: var(--s-space-layout-3xs) 0;
+    text-align: start;
+    vertical-align: top;
+
+    /* 開始時刻を大きく、「〜終了時刻」を小さく出す */
+    time:first-of-type {
+      color: var(--s-color-text-primary);
+      display: block;
+      font-size: var(--s-font-size-md);
+      font-weight: var(--s-font-weight-bold);
+    }
+  }
+
+  thead th {
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    font-size: var(--s-font-size-lg);
+    font-weight: var(--s-font-weight-bold);
+    padding: var(--s-space-layout-sm);
+  }
+
+  thead th:first-child {
+    border-color: transparent;
+    color: var(--s-color-text-secondary);
+    font-size: var(--s-font-size-3xs);
+    inline-size: 4.5rem;
+  }
+
+  th[data-track="a"] {
+    background: var(--s-color-track-a-strong);
+  }
+
+  th[data-track="b"] {
+    background: var(--s-color-track-b-strong);
+  }
+
+  th[data-track="c"] {
+    background: var(--s-color-track-c-strong);
+  }
+
+  th[data-track="d"] {
+    background: var(--s-color-track-d-strong);
+  }
+
+  td {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    padding: var(--s-space-layout-box);
+    vertical-align: top;
+  }
+
+  td[data-track="a"] {
+    background: var(--s-color-track-a-soft);
+  }
+
+  td[data-track="b"] {
+    background: var(--s-color-track-b-soft);
+  }
+
+  td[data-track="c"] {
+    background: var(--s-color-track-c-soft);
+  }
+
+  td[data-track="d"] {
+    background: var(--s-color-track-d-soft);
+  }
+
+  td.break {
+    background: var(--s-color-surface-muted);
+    font-weight: var(--s-font-weight-bold);
+    text-align: center;
+    vertical-align: middle;
+  }
+}

@@ -1,0 +1,32 @@
+/*
+----------------------------------------------------------------------------
+Layout: セッションボード (board/index.html)。
+カード本体の見た目は card.css が持ち、ここはボードの並べ方だけを決める。
+----------------------------------------------------------------------------
+*/
+
+.board-page {
+  header {
+    padding: var(--s-space-layout-lg);
+  }
+
+  /* WebKit の Museum デモ (https://webkit.org/demos/grid3/museum/) の列定義を参考にした */
+  .board {
+    display: grid-lanes;
+    gap: var(--s-space-gap-md);
+    grid-template-columns: repeat(auto-fill, minmax(min(18ch, 100%), 1fr));
+    padding: var(--s-space-layout-lg);
+
+    /* 注目枠は order で先頭に出すため、読み上げ順も order に合わせる */
+    /* stylelint-disable-next-line property-no-unknown -- reading-flow は stylelint の辞書にまだない */
+    reading-flow: grid-order;
+  }
+
+  @supports not (display: grid-lanes) {
+    .board {
+      align-items: start;
+      display: grid;
+      grid-auto-flow: dense;
+    }
+  }
+}
