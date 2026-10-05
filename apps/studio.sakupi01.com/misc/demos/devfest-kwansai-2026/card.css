@@ -28,11 +28,51 @@ session-card {
     text-align: start;
   }
 
-  /* 所属は注目枠のときだけ見せる。host の --slot は slot を通って light DOM の子にも継承される */
-  .affiliation {
+  /* 登壇者名は interest invoker のボタン (3 章)。カーソルやフォーカスで所属を出す */
+  .name {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: help;
+    font-family: inherit;
+    line-height: inherit;
+    padding: 0;
+    text-align: start;
+    text-decoration: underline dotted;
+    text-underline-offset: 0.2em;
+  }
+
+  /*
+  所属は popover="hint" の要素。
+  注目枠では本文として見せたいので、閉じているときは UA の popover の配置 (fixed で中央) を打ち消す。
+  host の --slot は slot を通って light DOM の子にも継承される
+  */
+  .affiliation:not(:popover-open) {
+    background: none;
+    block-size: auto;
+    border: 0;
     color: inherit;
     display: if(style(--slot: featured): block; else: none);
+    inline-size: auto;
+    inset: auto;
+    margin: 0;
     opacity: 0.85;
+    overflow: visible;
+    padding: 0;
+    position: static;
+  }
+
+  /* 開いたときは、名前のボタン (暗黙の anchor) の下に出す */
+  .affiliation:popover-open {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    color: var(--s-color-text-primary);
+    font-size: var(--s-font-size-3xs);
+    margin: var(--s-space-gap-2xs) 0 0;
+    max-inline-size: 30ch;
+    padding: var(--s-space-layout-control);
+    position-area: block-end span-inline-end;
   }
 
   .meta {
@@ -78,6 +118,12 @@ session-card:not(:defined) {
   --lift: if(style(--slot: featured): 6px; else: 0px);
   --shadow-color: var(--s-color-border-strong);
 
+  /* トラック別の表示で入る列。--view は board から継承される (board/layout.css) */
+  --track-column: if(
+    style(--track: a): 1; style(--track: b): 2; style(--track: c): 3;
+      style(--track: d): 4; else: auto
+  );
+
   align-content: start;
   background: var(--card-bg);
   border: if(
@@ -95,7 +141,10 @@ session-card:not(:defined) {
       else: var(--s-font-size-base)
   );
   gap: 0.4lh;
-  grid-column: if(style(--slot: featured): span 2; else: auto);
+  grid-column: if(
+    style(--view: track): var(--track-column) ; style(--slot: featured): span 2;
+      else: auto
+  );
   min-block-size: if(style(--slot: featured): 14rem; else: auto);
   order: if(style(--slot: featured): -1; else: 0);
   padding: var(--s-space-layout-box);
