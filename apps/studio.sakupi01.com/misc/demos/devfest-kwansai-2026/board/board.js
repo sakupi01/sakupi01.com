@@ -8,7 +8,8 @@ let draggedCard = null;
 // Grid Lanes は並び順で各列の高さが変わるので、並べ替えるたびにボード全体の高さも変わる
 function commit(update) {
   const resize = () => {
-    if ("requestResize" in window) window.requestResize();
+    if (window.parent !== window && "requestResize" in window)
+      window.requestResize();
   };
   if (!document.startViewTransition) {
     update();

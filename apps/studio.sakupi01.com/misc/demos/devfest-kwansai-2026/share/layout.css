@@ -18,7 +18,7 @@ canvas の中のカードも、canvas の外に出た縮退時のカードも、
   }
 
   canvas {
-    aspect-ratio: 600 / 360;
+    aspect-ratio: 600 / 280;
     background: var(--s-color-surface-base);
     border: var(--s-border);
     border-radius: var(--s-border-radius-md);

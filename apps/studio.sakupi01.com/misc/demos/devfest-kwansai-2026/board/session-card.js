@@ -21,11 +21,30 @@ class SessionCard extends HTMLElement {
       <slot name="speakers"></slot>
       <slot name="meta"></slot>
       <button type="button" lang="ja">注目枠へ</button>
+      <a class="share" lang="ja">共有画像を作る</a>
     `;
     // ドラッグできない環境やキーボード操作向けの経路
     shadow.querySelector("button").addEventListener("click", () => {
       this.dispatchEvent(new CustomEvent("feature-request", { bubbles: true }));
     });
+  }
+
+  connectedCallback() {
+    // 注目枠のときだけ見える共有画像へのリンク (4 章)。セッション情報をクエリで渡す
+    const text = (selector) =>
+      this.querySelector(selector)?.textContent.replace(/\s+/g, " ").trim() ??
+      "";
+    const url = new URL("../share/", import.meta.url);
+    url.searchParams.set("title", text('[slot="title"]'));
+    url.searchParams.set("speaker", text(".name"));
+    url.searchParams.set(
+      "time",
+      [...this.querySelectorAll(".meta time")]
+        .map((t) => t.textContent)
+        .join("〜")
+    );
+    url.searchParams.set("track", this.dataset.track ?? "");
+    this.shadowRoot.querySelector("a.share").href = url.href;
   }
 }
 

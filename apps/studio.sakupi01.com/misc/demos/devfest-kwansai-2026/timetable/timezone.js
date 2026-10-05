@@ -72,7 +72,8 @@ if ("Temporal" in globalThis) {
   select.addEventListener("change", () => {
     render(select.value);
     // 日付ラベルの増減で高さが変わるので、埋め込み先の iframe に再計測を頼む
-    if ("requestResize" in window) window.requestResize();
+    if (window.parent !== window && "requestResize" in window)
+      window.requestResize();
   });
   render(select.value);
   renderCountdown();

@@ -205,3 +205,18 @@ session-card:not(:defined) {
   justify-self: start;
   padding: var(--s-space-layout-badge);
 }
+
+/* 共有画像へのリンク (4 章)。注目枠のときだけ見せる */
+:host a.share {
+  align-self: end;
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-full);
+  color: var(--s-color-text-primary);
+  display: if(style(--slot: featured): inline-block; else: none);
+  font-size: var(--s-font-size-3xs);
+  font-weight: var(--s-font-weight-bold);
+  justify-self: start;
+  padding: var(--s-space-layout-badge);
+  text-decoration: none;
+}
