@@ -46,17 +46,23 @@ layer の順番は `base, global, layout, components, checker`。後ろほど優
 
 ## spike の結果
 
-Chrome Canary と Safari TP で各機能が動くかを確かめた結果。
+2026-10-05 に確かめた結果。
 
-| 機能                            | Chrome Canary | Safari TP | 判定と代替 |
-| ------------------------------- | ------------- | --------- | ---------- |
-| Navigation Matching             |               |           |            |
-| ページをまたぐ View Transitions |               |           |            |
-| Declarative Fragments           |               |           |            |
-| HTML-in-Canvas                  |               |           |            |
-| text-fit                        |               |           |            |
-| Gap Decorations                 |               |           |            |
-| rangegroup                      |               |           |            |
-| focusgroup                      |               |           |            |
-| WebMCP                          |               |           |            |
-| Incremental Font Transfer       |               |           |            |
+- Canary: Chrome 157 に `--enable-experimental-web-platform-features` を付けて、Playwright で判定と操作をした
+- Stable: Chrome 154 (flag なし)
+- Safari: Technology Preview は未インストールのため未確認。Safari 26.4 も未確認
+
+| 機能                            | Canary 157 | Stable 154 | 判定と使い方                                                                                                                                                 |
+| ------------------------------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Navigation Matching             | 動く       | 動かない   | 採用。`@location` と `@navigation (to: …)` が遷移の最中に効き、`a:link-to()` も一致する。`:navigation-source` も解釈される (仕様草案の `:nav-source` は不可) |
+| ページをまたぐ View Transitions | 動く       | 動く       | 採用。`pageswap` と `pagereveal` の両方で transition が発生した                                                                                              |
+| Declarative Fragments           | 動く       | 未確認     | 採用。`<template for src>` が断片を取り込む。外部の断片の script を既定で無効化する処理は未実装なので、断片に script を入れない                              |
+| Out-of-Order Streaming          | 動く       | 未確認     | 採用。既存デモの自己チェックが全項目通る                                                                                                                     |
+| HTML-in-Canvas                  | 動く       | 動かない   | 採用。新しい形の API (`<canvas content="drawable">`、子に `drawable`、`onpaint`、`drawElementImage()`)。PNG 書き出しと canvas 内 input へのフォーカスも動く  |
+| text-fit                        | 動く       | 動く       | 採用。`text-fit: grow per-line-all`                                                                                                                          |
+| Gap Decorations                 | 動く       | 動く       | 採用。grid に `row-rule` / `column-rule`。board に付ける                                                                                                     |
+| Grid Lanes                      | 動く       | 動かない   | 採用。Canary でも本番表示できる                                                                                                                              |
+| focusgroup                      | 動く       | 未確認     | 採用。`focusgroup="toolbar"` で矢印キーの移動を確認した。`focusgroup` プロパティは無いので、判定は属性の有無ではなく挙動で見る                               |
+| WebMCP                          | 動く       | 動かない   | 採用。API は `document.modelContext.registerTool()` (`navigator.modelContext` ではない)                                                                      |
+| rangegroup                      | 動かない   | 動かない   | 不採用。未知の要素 (`HTMLUnknownElement`) として扱われる。range を 2 本並べ、`<rangegroup>` はスライドで紹介する                                             |
+| Incremental Font Transfer       | 動かない   | 動かない   | 不採用。`font-tech(incremental)` が false。スライドで紹介する                                                                                                |
