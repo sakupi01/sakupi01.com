@@ -33,7 +33,11 @@ stylelint が未対応の構文のため、次の規則をファイル単位で�
     grid-template-columns: repeat(auto-fill, minmax(min(18ch, 100%), 1fr));
     padding: var(--s-space-layout-lg);
 
-    /* 注目枠は order で先頭に出すため、読み上げ順も order に合わせる */
+    /*
+    注目枠は order で先頭に出すため、読み上げ順も order に合わせたい。
+    ただし Chrome 157 Canary の Grid Lanes では reading-flow が効かなかった (2026-10-06 実測) ので、
+    board.js が注目枠のカードを DOM の先頭にも移して順番を揃えている。grid の代替表示では reading-flow が効く
+    */
     /* stylelint-disable-next-line property-no-unknown -- reading-flow は stylelint の辞書にまだない */
     reading-flow: grid-order;
   }

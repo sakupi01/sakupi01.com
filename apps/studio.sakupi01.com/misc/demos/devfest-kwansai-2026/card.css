@@ -52,6 +52,9 @@ session-card {
     block-size: auto;
     border: 0;
     color: inherit;
+
+    /* if() 未対応のブラウザでは interest invokers も無いので、所属を本文として見せる */
+    display: block;
     display: if(style(--slot: featured): block; else: none);
     inline-size: auto;
     inset: auto;
@@ -212,8 +215,13 @@ session-card:not(:defined) {
   padding: var(--s-space-layout-badge);
 }
 
-/* 注目枠のカードには「注目枠へ」は要らない */
-:host button.feature {
+/*
+注目枠のカードには「注目枠へ」は要らない。並べ替えも、注目枠は常に先頭なので見た目が変わらず要らない。
+if() 未対応のブラウザでは前の宣言 (表示) が残る
+*/
+:host button.feature,
+:host button.move {
+  display: inline-block;
   display: if(style(--slot: featured): none; else: inline-block);
 }
 
@@ -224,6 +232,9 @@ session-card:not(:defined) {
   border: var(--s-border);
   border-radius: var(--s-border-radius-full);
   color: var(--s-color-text-primary);
+
+  /* if() 未対応のブラウザでは注目枠を判定できないので、全カードで隠す */
+  display: none;
   display: if(style(--slot: featured): inline-block; else: none);
   font-size: var(--s-font-size-3xs);
   font-weight: var(--s-font-weight-bold);

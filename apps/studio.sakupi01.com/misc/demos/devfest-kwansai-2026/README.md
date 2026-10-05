@@ -52,6 +52,8 @@ python3 serve.py
 - WebMCP の `executeTool()` は、第 2 引数に JSON 文字列ではなくオブジェクトを取る
 - `window.requestResize()` は iframe に埋め込まれていない文書で呼ぶと `NotAllowedError` になるので、埋め込まれているときだけ呼ぶ
 - focusgroup の `toolbar` は、矢印キーを値の変更に使う select や range とは同居させない (矢印キーが部品の操作に取られる)。ボタンだけの表示切り替えに付けている
+- Grid Lanes では `reading-flow: grid-order` が効かず、`order: -1` で先頭に出した注目枠の Tab 順が DOM 順のままだった。注目枠にしたカードは DOM の先頭にも移している
+- キーボードでの並べ替えは `Element.moveBefore()` で行う。`before()` / `after()` は要素を一度外すので、押したボタンからフォーカスが外れる
 
 ## ファイル構成
 
@@ -88,20 +90,20 @@ linter (stylelint) がまだ知らない新しい構文 (`if()`、`@location`、
 - Stable: Chrome 154 (flag なし)
 - Safari: Technology Preview は未インストールのため未確認。Safari 26.4 も未確認
 
-| 機能                            | Canary 157 | Stable 154 | 判定と使い方                                                                                                                                                          |
-| ------------------------------- | ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Navigation Matching             | 動く       | 動かない   | 採用。`@location` と `@navigation (to: …)` が遷移の最中に効き、`a:link-to()` も一致する。`:navigation-source` も解釈される (仕様草案の `:nav-source` は不可)          |
-| ページをまたぐ View Transitions | 動く       | 動く       | 採用。`pageswap` と `pagereveal` の両方で transition が発生した                                                                                                       |
-| Declarative Fragments           | 動く       | 未確認     | 採用。`<template for src>` が断片を取り込む。外部の断片の script を既定で無効化する処理は未実装なので、断片に script を入れない                                       |
-| Out-of-Order Streaming          | 動く       | 未確認     | 採用。既存デモの自己チェックが全項目通る                                                                                                                              |
-| HTML-in-Canvas                  | 動く       | 動かない   | 採用。新しい形の API (`<canvas content="drawable">`、子に `drawable`、`onpaint`、`drawElementImage()`)。PNG 書き出しと canvas 内 input へのフォーカスも動く           |
-| text-fit                        | 動く       | 動く       | 採用。`text-fit: grow per-line-all`                                                                                                                                   |
-| Gap Decorations                 | 動く       | 動く       | 採用。grid に `row-rule` / `column-rule`。board に付ける                                                                                                              |
-| Grid Lanes                      | 動く       | 動かない   | 採用。Canary でも本番表示できる                                                                                                                                       |
-| focusgroup                      | 動く       | 動く       | 採用。`focusgroup="toolbar"` で矢印キーの移動を確認した。`focusgroup` プロパティは無いので、判定は属性の有無ではなく挙動で見る                                        |
-| WebMCP                          | 動く       | 動かない   | 採用。API は `document.modelContext.registerTool()` (`navigator.modelContext` ではない)                                                                               |
-| rangegroup                      | 動かない   | 動かない   | 不採用。Intent to Prototype は出ているが、Blink の runtime feature にまだ定義がない。range を 2 本並べ、Brecht De Ruyte の Web Components 版 POC をスライドで紹介する |
-| Incremental Font Transfer       | 一部       | 動かない   | 不採用 (直前に再確認)。下の注を参照                                                                                                                                   |
+| 機能                            | Canary 157 | Stable 154 | 判定と使い方                                                                                                                                                                                                         |
+| ------------------------------- | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Navigation Matching             | 動く       | 動かない   | 採用。`@location` と `@navigation (to: …)` が遷移の最中に効き、`a:link-to()` も一致する。`:navigation-source` も解釈される (仕様草案の `:nav-source` は不可)                                                         |
+| ページをまたぐ View Transitions | 動く       | 動く       | 採用。`pageswap` と `pagereveal` の両方で transition が発生した                                                                                                                                                      |
+| Declarative Fragments           | 動く       | 動かない   | 採用。Chrome 154 は `<template for>` を処理するが `src` は使わず、template の中身を入れる。`<template for src>` が断片を取り込む。外部の断片の script を既定で無効化する処理は未実装なので、断片に script を入れない |
+| Out-of-Order Streaming          | 動く       | 動く       | 採用。既存デモの自己チェックが全項目通る                                                                                                                                                                             |
+| HTML-in-Canvas                  | 動く       | 動かない   | 採用。新しい形の API (`<canvas content="drawable">`、子に `drawable`、`onpaint`、`drawElementImage()`)。PNG 書き出しと canvas 内 input へのフォーカスも動く                                                          |
+| text-fit                        | 動く       | 動く       | 採用。`text-fit: grow per-line-all`                                                                                                                                                                                  |
+| Gap Decorations                 | 動く       | 動く       | 採用。grid に `row-rule` / `column-rule`。board に付ける                                                                                                                                                             |
+| Grid Lanes                      | 動く       | 動かない   | 採用。Canary でも本番表示できる                                                                                                                                                                                      |
+| focusgroup                      | 動く       | 動く       | 採用。`focusgroup="toolbar"` で矢印キーの移動を確認した。`focusgroup` プロパティは無いので、判定は属性の有無ではなく挙動で見る                                                                                       |
+| WebMCP                          | 動く       | 動かない   | 採用。API は `document.modelContext.registerTool()` (`navigator.modelContext` ではない)                                                                                                                              |
+| rangegroup                      | 動かない   | 動かない   | 不採用。Intent to Prototype は出ているが、Blink の runtime feature にまだ定義がない。range を 2 本並べ、Brecht De Ruyte の Web Components 版 POC をスライドで紹介する                                                |
+| Incremental Font Transfer       | 一部       | 動かない   | 不採用 (直前に再確認)。下の注を参照                                                                                                                                                                                  |
 
 ### Incremental Font Transfer の詳細 (2026-10-05)
 

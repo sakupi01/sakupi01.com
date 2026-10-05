@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
     <!-- OS の文字サイズ設定に合わせて rem を拡大縮小する (1 章) -->
     <meta name="text-scale" content="scale" />
     <title>セッションボード | DevFest Kwansai 2026</title>
@@ -193,6 +194,34 @@
     </header>
 
     <main class="board">
+      <session-card
+        id="session-11"
+        data-start="830"
+        draggable="true"
+        data-track="c"
+        data-slot="featured"
+      >
+        <h2 slot="title" lang="en">Web UI 2026 Updates &amp; What's Coming!</h2>
+        <ul slot="speakers" class="speakers">
+          <li>
+            <button type="button" class="name" interestfor="aff-11-1">
+              saku
+            </button>
+            <span class="affiliation" id="aff-11-1" popover="hint"
+              >サイボウズ デザインテクノロジスト／Google Developers Expert
+              (Web)</span
+            >
+          </li>
+        </ul>
+        <p slot="meta" class="meta">
+          <span>Track C</span>
+          <span
+            ><time datetime="13:50">13:50</time>〜<time datetime="14:15"
+              >14:15</time
+            ></span
+          >
+        </p>
+      </session-card>
       <session-card
         id="session-01"
         data-start="630"
@@ -450,34 +479,6 @@
         </ul>
         <p slot="meta" class="meta">
           <span>Track B</span>
-          <span
-            ><time datetime="13:50">13:50</time>〜<time datetime="14:15"
-              >14:15</time
-            ></span
-          >
-        </p>
-      </session-card>
-      <session-card
-        id="session-11"
-        data-start="830"
-        draggable="true"
-        data-track="c"
-        data-slot="featured"
-      >
-        <h2 slot="title" lang="en">Web UI 2026 Updates &amp; What's Coming!</h2>
-        <ul slot="speakers" class="speakers">
-          <li>
-            <button type="button" class="name" interestfor="aff-11-1">
-              saku
-            </button>
-            <span class="affiliation" id="aff-11-1" popover="hint"
-              >サイボウズ デザインテクノロジスト／Google Developers Expert
-              (Web)</span
-            >
-          </li>
-        </ul>
-        <p slot="meta" class="meta">
-          <span>Track C</span>
           <span
             ><time datetime="13:50">13:50</time>〜<time datetime="14:15"
               >14:15</time
