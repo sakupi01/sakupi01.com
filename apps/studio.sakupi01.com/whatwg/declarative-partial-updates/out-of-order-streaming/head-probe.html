@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <p id="out"></p>
+    <script>
+        const log = {};
+        const target = document.createElement("div");
+        document.body.append(target);
+        function tryCall(name, fn) {
+            try {
+                fn();
+                log[name] = target.innerHTML;
+            } catch (error) {
+                log[name] = String(error);
+            }
+        }
+        tryCall("append", () => target.appendHTML("<p>appended</p>"));
+        tryCall("prepend", () => target.prependHTML("<p>prepended</p>"));
+        const sibling = document.createElement("p");
+        sibling.id = "sib";
+        sibling.textContent = "sib";
+        document.body.append(sibling);
+        try {
+            sibling.beforeHTML("<p>before</p>");
+            log.before = sibling.previousElementSibling.textContent;
+        } catch (error) {
+            log.before = String(error);
+        }
+        const scripts = document.createElement("div");
+        document.body.append(scripts);
+        try {
+            scripts.setHTMLUnsafe("<p id='ran-target'>no</p><script>document.getElementById('ran-target').textContent='yes'<\/script>", { runScripts: true });
+            log.runScripts = scripts.innerHTML + " | " + (document.getElementById("ran-target") || {}).textContent;
+        } catch (error) {
+            log.runScripts = String(error);
+        }
+        document.getElementById("out").textContent = JSON.stringify(log);
+    </script>
+</body>
+
+</html>

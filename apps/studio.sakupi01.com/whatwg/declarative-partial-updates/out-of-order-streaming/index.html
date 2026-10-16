@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../open-in-codepen.js" defer data-codepen-exclude></script>
+    <?start name="document-title">
+    <title>Out-of-order streaming | studio.sakupi01.com</title>
+    <?end>
+    <style>
+        ul.checks li.pass {
+            color: green;
+        }
+
+        ul.checks li.fail {
+            color: red;
+        }
+
+        ul.checks li.pass::before {
+            content: "PASS: ";
+        }
+
+        ul.checks li.fail::before {
+            content: "FAIL: ";
+        }
+
+        section {
+            margin: 1.5em 0;
+        }
+
+        #pi-probe {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a href="../">Declarative Partial Updates</a></p>
+    <h1>Out-of-order HTML streaming</h1>
+    <p>Summary: <code>&lt;template for&gt;</code> replaces a processing-instruction marker that appeared earlier in
+        the document. <code>&lt;?marker&gt;</code> is an insertion point. <code>&lt;?start&gt;</code> …
+        <code>&lt;?end&gt;</code> is a range, so a loading placeholder can show until the template is parsed.
+        Processing instructions are what make this work in <code>&lt;head&gt;</code>, <code>&lt;title&gt;</code>, and
+        <code>&lt;table&gt;</code>. The title is patched by wrapping the <code>&lt;title&gt;</code> element.
+        <code>&lt;?…&gt;</code> inside the title text stays text, because the title is RCDATA.</p>
+    <p>Explainer: <a
+            href="https://github.com/WICG/declarative-partial-updates/blob/main/patching-explainer.md">patching-explainer.md</a>
+    </p>
+    <p>Docs: <a href="https://developer.chrome.com/docs/web-platform/declarative-partial-updates">Declarative partial
+            updates | Chrome for Developers</a></p>
+    <p>Shipped in Chrome 150. Static examples below are applied by the parser. The last section streams a new
+        template with <code>streamAppendHTMLUnsafe</code>, which needs
+        <code>chrome://flags/#enable-experimental-web-platform-features</code> until the insertion methods ship.</p>
+
+    <p>=== This is a demo of out-of-order HTML streaming. ===</p>
+    <ul class="checks">
+        <li id="check-pi">processing instructions</li>
+        <li id="check-marker"><code>&lt;?marker&gt;</code> replacement</li>
+        <li id="check-range"><code>&lt;?start&gt;</code> / <code>&lt;?end&gt;</code> replacement</li>
+        <li id="check-repeat">repeated patches</li>
+        <li id="check-interleave">interleaved patches</li>
+        <li id="check-table">patch inside <code>&lt;table&gt;</code></li>
+        <li id="check-title"><code>&lt;title&gt;</code> patch</li>
+    </ul>
+    <div id="pi-probe"><?marker name="unused-probe"></div>
+
+    <section>
+        <h2><code>&lt;?marker&gt;</code></h2>
+        <div id="marker-host"><?marker name="static-marker"></div>
+        <template for="static-marker"><span id="static-marker-landed">Inserted at the marker.</span></template>
+    </section>
+
+    <section>
+        <h2><code>&lt;?start&gt;</code> / <code>&lt;?end&gt;</code></h2>
+        <div id="range-host"><?start name="static-range">Loading range…<?end></div>
+        <template for="static-range"><span id="static-range-landed">Range placeholder replaced.</span></template>
+    </section>
+
+    <section>
+        <h2>Repeated patches</h2>
+        <p>Each template leaves a new marker, so the next template appends instead of overwriting.</p>
+        <ul id="repeat-host">
+            <?start name="static-results">
+            <li>Loading results…</li>
+            <?end>
+        </ul>
+        <template for="static-results">
+            <li id="result-one">Result one</li>
+            <?marker name="static-results">
+        </template>
+        <template for="static-results">
+            <li id="result-two">Result two</li>
+        </template>
+    </section>
+
+    <section>
+        <h2>Interleaved patches</h2>
+        <div id="carousel-host"><?start name="carousel">Loading carousel…<?end></div>
+        <div id="results-host"><?start name="results">Loading results…<?end></div>
+        <template for="results">
+            <p id="result-a">Result A</p>
+            <?marker name="results">
+        </template>
+        <template for="carousel">
+            <p id="carousel-item">Carousel item, streamed between the two result patches.</p>
+        </template>
+        <template for="results">
+            <p id="result-b">Result B</p>
+        </template>
+    </section>
+
+    <section>
+        <h2>Inside a table</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Kept row</td>
+                </tr>
+                <?marker name="table-rows">
+            </tbody>
+        </table>
+        <template for="table-rows">
+            <tr id="patched-row">
+                <td>Patched row</td>
+            </tr>
+        </template>
+    </section>
+
+    <section>
+        <h2>Document title</h2>
+        <p>Tab title after parse: <code id="title-now"></code></p>
+    </section>
+
+    <section>
+        <h2>Stream another patch</h2>
+        <p><code>setHTML</code> and <code>innerHTML</code> parse into a fragment, so a
+            <code>&lt;template for&gt;</code> inserted that way cannot patch this list. Streaming into the document
+            can.</p>
+        <ul id="live-list">
+            <?start name="live-list">
+            <li>Waiting for a streamed template…</li>
+            <?end>
+        </ul>
+        <button type="button" id="append-live">streamAppendHTMLUnsafe another item</button>
+        <p id="live-status"></p>
+    </section>
+
+    <template for="document-title"><title>Patched title | Out-of-order streaming</title></template>
+
+    <script>
+        function mark(id, ok, detail) {
+            const el = document.getElementById(id);
+            el.classList.add(ok ? "pass" : "fail");
+            if (detail) el.textContent += ` (${detail})`;
+        }
+
+        const probe = document.getElementById("pi-probe");
+        const hasPi = [...probe.childNodes].some((node) => node.nodeType === Node.PROCESSING_INSTRUCTION_NODE);
+        mark("check-pi", hasPi, hasPi ? "" : "parsed as a comment or text");
+
+        mark("check-marker", document.getElementById("marker-host").contains(document.getElementById("static-marker-landed")));
+        mark("check-range", document.getElementById("range-host").textContent.includes("Range placeholder replaced") && !document.getElementById("range-host").textContent.includes("Loading range"));
+        mark("check-repeat", document.getElementById("repeat-host").contains(document.getElementById("result-one")) && document.getElementById("repeat-host").contains(document.getElementById("result-two")) && !document.getElementById("repeat-host").textContent.includes("Loading results"));
+        mark("check-interleave", document.getElementById("carousel-host").contains(document.getElementById("carousel-item")) && document.getElementById("results-host").contains(document.getElementById("result-a")) && document.getElementById("results-host").contains(document.getElementById("result-b")));
+        mark("check-table", document.getElementById("patched-row") !== null && document.getElementById("patched-row").closest("table") !== null);
+
+        const titleNow = document.getElementById("title-now");
+        titleNow.textContent = document.title;
+        mark("check-title", document.title === "Patched title | Out-of-order streaming", document.title);
+
+        let liveCount = 0;
+        document.getElementById("append-live").addEventListener("click", async () => {
+            const status = document.getElementById("live-status");
+            const list = document.getElementById("live-list");
+            if (typeof list.streamAppendHTMLUnsafe !== "function") {
+                status.textContent = "streamAppendHTMLUnsafe is not available on this element.";
+                return;
+            }
+            liveCount += 1;
+            try {
+                const writer = list.streamAppendHTMLUnsafe().getWriter();
+                await writer.write(`<template for="live-list"><li>Streamed item ${liveCount}</li><?marker name="live-list"></template>`);
+                await writer.close();
+                status.textContent = `Wrote streamed item ${liveCount}.`;
+            } catch (error) {
+                status.textContent = String(error);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./open-in-codepen.js" defer data-codepen-exclude></script>
+    <title>Declarative Partial Updates | studio.sakupi01.com</title>
+    <style>
+        ul.checks li.pass {
+            color: green;
+        }
+
+        ul.checks li.fail {
+            color: red;
+        }
+
+        ul.checks li.pass::before {
+            content: "PASS: ";
+        }
+
+        ul.checks li.fail::before {
+            content: "FAIL: ";
+        }
+
+        #pi-probe {
+            display: none;
+        }
+
+        article,
+        aside,
+        footer {
+            margin: 1em 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Declarative Partial Updates</h1>
+    <p>Summary: HTML primitives for updating part of a document without a full navigation. The same-document
+        navigation work is split across several proposals. This directory is a playground for the pieces that can be
+        exercised now.</p>
+    <p>Docs: <a href="https://developer.chrome.com/docs/web-platform/declarative-partial-updates">Declarative partial
+            updates | Chrome for Developers</a></p>
+    <p>Repo: <a href="https://github.com/WICG/declarative-partial-updates">WICG/declarative-partial-updates</a></p>
+    <p>Out-of-order streaming shipped in Chrome 150. The insertion/streaming methods and declarative fragments need
+        <code>chrome://flags/#enable-experimental-web-platform-features</code>. Insertion methods are planned for
+        Chrome 155. Declarative fragments are an <a
+            href="https://groups.google.com/a/chromium.org/g/blink-dev/c/rjBSVWAGoHo/m/FhEGrTIkAwAJ">Intent to
+            Prototype</a>.
+    </p>
+
+    <h2>Demos</h2>
+    <ul class="index">
+        <li><a href="./out-of-order-streaming/">Out-of-order HTML streaming</a> —
+            <code>&lt;template for&gt;</code> with <code>&lt;?start&gt;</code>, <code>&lt;?end&gt;</code>, and
+            <code>&lt;?marker&gt;</code>
+        </li>
+        <li><a href="./renewed-html-insertion-and-streaming-methods/">Renewed HTML insertion and streaming
+                methods</a> — <code>setHTML</code> / <code>appendHTML</code> / <code>beforeHTML</code> and the
+            <code>stream*HTML</code> counterparts
+        </li>
+        <li><a href="./declarative-fragments/">Declarative fragments</a> —
+            <code>&lt;template src&gt;</code>, <code>buffer</code>, and <code>sanitize</code>
+        </li>
+    </ul>
+    <p>Explainers without a demo here yet: <a
+            href="https://github.com/WICG/declarative-partial-updates/blob/main/route-matching-explainer.md">route
+            matching</a>, <a
+            href="https://github.com/WICG/declarative-partial-updates/blob/main/preserve-explainer.md">preserve</a>, <a
+            href="https://github.com/WICG/declarative-partial-updates/blob/main/snap-to-activate-explainer.md">snap to
+            activate</a>.</p>
+
+    <h2>Used together</h2>
+    <p>=== This is a demo of parser patches, streamed <code>&lt;template for&gt;</code> updates, and a declarative
+        fragment include in one document. ===</p>
+    <ul class="checks">
+        <li id="check-pi">processing instructions parse as <code>ProcessingInstruction</code></li>
+        <li id="check-parser">a later <code>&lt;template for&gt;</code> patches an earlier marker</li>
+        <li id="check-stream"><code>streamAppendHTMLUnsafe</code> patches an existing marker</li>
+        <li id="check-fragment"><code>&lt;template for src&gt;</code> includes a fragment</li>
+    </ul>
+
+    <div id="pi-probe">
+        <?marker name="unused-probe"></div>
+
+    <p id="parsed-status"><?start name="parsed-status">Parser patch has not run.<?end></p>
+
+    <article>
+        <?start name="article">
+        <p>Loading article…</p>
+        <?end>
+    </article>
+
+    <aside>
+        <?start name="aside">
+        <p>Loading aside…</p>
+        <?end>
+    </aside>
+
+    <footer>
+        <?start name="footer">
+        <p>Loading footer from <code>template src</code>…</p>
+        <?end>
+    </footer>
+    <template for="footer" src="./declarative-fragments/partials/footer.html"></template>
+
+    <p id="stream-status"></p>
+
+    <template for="parsed-status"><strong id="parsed-status-result">Parser patch applied.</strong> This template is
+        later in the document than its marker.</template>
+
+    <script>
+        const checks = {
+            pi: document.getElementById("check-pi"),
+            parser: document.getElementById("check-parser"),
+            stream: document.getElementById("check-stream"),
+            fragment: document.getElementById("check-fragment"),
+        };
+
+        function mark(el, ok, detail) {
+            el.classList.add(ok ? "pass" : "fail");
+            if (detail) el.textContent += ` (${detail})`;
+        }
+
+        const probe = document.getElementById("pi-probe");
+        const hasPi = [...probe.childNodes].some((node) => node.nodeType === Node.PROCESSING_INSTRUCTION_NODE);
+        mark(checks.pi, hasPi, hasPi ? "" : "parsed as a comment or text");
+
+        mark(checks.parser, document.getElementById("parsed-status-result") !== null);
+
+        const status = document.getElementById("stream-status");
+        if (typeof document.body.streamAppendHTMLUnsafe !== "function") {
+            mark(checks.stream, false, "streamAppendHTMLUnsafe is missing");
+            status.textContent = "streamAppendHTMLUnsafe is not available. The article and aside stay on their loading text. Enable chrome://flags/#enable-experimental-web-platform-features.";
+        } else {
+            status.textContent = "Streaming templates into the article and the aside…";
+            const writer = document.body.streamAppendHTMLUnsafe().getWriter();
+            const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+            (async () => {
+                try {
+                    await wait(600);
+                    await writer.write(`<template for="article"><p id="article-streamed">First paragraph, streamed into the article marker.</p><?marker name="article"></template>`);
+                    await wait(700);
+                    await writer.write(`<template for="aside"><p id="aside-streamed">Aside streamed between the two article chunks.</p></template>`);
+                    await wait(700);
+                    await writer.write(`<template for="article"><p id="article-streamed-2">Second paragraph, streamed after the aside.</p></template>`);
+                    await writer.close();
+                    const article = document.querySelector("article");
+                    const streamed = document.getElementById("article-streamed");
+                    const streamed2 = document.getElementById("article-streamed-2");
+                    const aside = document.getElementById("aside-streamed");
+                    const ok = article.contains(streamed) && article.contains(streamed2) && document.querySelector("aside").contains(aside);
+                    mark(checks.stream, ok);
+                    status.textContent = ok
+                        ? "Streamed templates patched the article and the aside."
+                        : "streamAppendHTMLUnsafe ran, but the templates did not patch the markers.";
+                } catch (error) {
+                    mark(checks.stream, false, String(error));
+                    status.textContent = String(error);
+                }
+            })();
+        }
+
+        const footerStarted = performance.now();
+        (function watchFooter() {
+            const included = document.getElementById("footer-included");
+            if (included) {
+                mark(checks.fragment, true);
+                return;
+            }
+            if (performance.now() - footerStarted < 3000) {
+                requestAnimationFrame(watchFooter);
+                return;
+            }
+            const footer = document.querySelector("footer");
+            const stillLoading = footer.textContent.includes("Loading footer");
+            mark(checks.fragment, false, stillLoading
+                ? "src did not fetch"
+                : "empty template for cleared the footer; src was not applied");
+        })();
+    </script>
+</body>
+
+</html>

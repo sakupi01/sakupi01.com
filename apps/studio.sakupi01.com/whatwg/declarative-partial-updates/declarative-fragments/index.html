@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../open-in-codepen.js" defer data-codepen-exclude></script>
+    <title>Declarative fragments | studio.sakupi01.com</title>
+    <style>
+        ul.checks li.pass {
+            color: green;
+        }
+
+        ul.checks li.fail {
+            color: red;
+        }
+
+        ul.checks li.pass::before {
+            content: "PASS: ";
+        }
+
+        ul.checks li.fail::before {
+            content: "FAIL: ";
+        }
+
+        section {
+            margin: 1.5em 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a href="../">Declarative Partial Updates</a></p>
+    <h1>Declarative fragments</h1>
+    <p>Summary: An active <code>&lt;template&gt;</code> has <code>for</code>, <code>src</code>, or both.
+        <code>for="name"</code> patches a processing-instruction marker. An empty <code>for</code> inserts in place,
+        then the template is removed. <code>src</code> fetches a fragment. <code>buffer</code> inserts it in one
+        shot instead of streaming. External includes are sanitized unless <code>sanitize="unsafe"</code>. Inline
+        templates are unsafe unless <code>sanitize</code> is set.
+    </p>
+    <p>Explainer: <a
+            href="https://github.com/WICG/declarative-partial-updates/blob/main/fragment-include-explainer.md">fragment-include-explainer.md</a>
+    </p>
+    <p>Intent: <a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/rjBSVWAGoHo/m/FhEGrTIkAwAJ">Intent to
+            Prototype: Declarative fragments</a></p>
+    <p>Chrome Platform Status: <a href="https://chromestatus.com/feature/5188900898340864">Declarative fragments</a>
+    </p>
+    <p>Proposal: <a href="https://github.com/whatwg/html/issues/2791">Client side include · whatwg/html#2791</a></p>
+    <p>Tracking bug: <a href="https://issues.chromium.org/issues/535664974">535664974</a></p>
+    <p>Behind <code>chrome://flags/#enable-experimental-web-platform-features</code>. A targeted inline
+        <code>&lt;template for="name"&gt;</code> is the shipped out-of-order streaming behavior and can pass here
+        even when <code>src</code>, <code>buffer</code>, and <code>sanitize</code> do not. Without the fragments
+        prototype, <code>&lt;template for="name" src&gt;</code> is an empty patch: it clears the marker and does not
+        fetch.
+    </p>
+
+    <p>=== This is a demo of declarative fragments. ===</p>
+    <ul class="checks">
+        <li id="check-inplace-inline">in-place <code>&lt;template for&gt;</code></li>
+        <li id="check-inplace-buffer">in-place <code>&lt;template for buffer&gt;</code></li>
+        <li id="check-targeted-inline">targeted inline <code>&lt;template for="name"&gt;</code></li>
+        <li id="check-targeted-src">targeted <code>&lt;template for src&gt;</code></li>
+        <li id="check-inplace-src">in-place <code>&lt;template src for&gt;</code></li>
+        <li id="check-buffered-src">buffered <code>&lt;template src buffer&gt;</code></li>
+        <li id="check-sanitize">external include is sanitized by default</li>
+        <li id="check-unsafe"><code>sanitize="unsafe"</code> runs the fragment script</li>
+        <li id="check-inline-sanitize">inline <code>sanitize</code> strips the script</li>
+        <li id="check-rows"><code>src</code> patch inside <code>&lt;table&gt;</code></li>
+    </ul>
+
+    <section>
+        <h2>In-place inline</h2>
+        <div id="inplace-inline-host">
+            <template id="inplace-inline" for>
+                <p id="inplace-inline-result">Inline in-place template rendered.</p>
+            </template>
+        </div>
+    </section>
+
+    <section>
+        <h2>In-place buffered</h2>
+        <div id="inplace-buffer-host">
+            <template id="inplace-buffer" for buffer>
+                <p id="inplace-buffer-result">Buffered in-place template rendered.</p>
+            </template>
+        </div>
+    </section>
+
+    <section>
+        <h2>Targeted inline</h2>
+        <div id="targeted-inline-host">
+            <?start name="targeted-inline">Loading targeted inline…<?end></div>
+        <template id="targeted-inline" for="targeted-inline">
+            <p id="targeted-inline-result">Targeted inline template rendered.</p>
+        </template>
+    </section>
+
+    <section>
+        <h2>Targeted fetch</h2>
+        <div id="targeted-src-host"><?start name="targeted-src">Loading targeted fetch…<?end></div>
+        <template id="targeted-src" for="targeted-src" src="./partials/targeted.html"></template>
+    </section>
+
+    <section>
+        <h2>In-place fetch</h2>
+        <div id="inplace-src-host">
+            <template id="inplace-src" src="./partials/in-place.html" for></template>
+        </div>
+    </section>
+
+    <section>
+        <h2>Buffered fetch</h2>
+        <div id="buffered-src-host"><?start name="buffered-src">Loading buffered fetch…<?end></div>
+        <template id="buffered-src" for="buffered-src" src="./partials/buffered.html" buffer></template>
+    </section>
+
+    <section>
+        <h2>Sanitize</h2>
+        <p>The same fragment contains a script. The default external include strips it.
+            <code>sanitize="unsafe"</code> lets it run. The inline template opts into <code>sanitize</code>.</p>
+        <div id="src-safe"><?start name="src-safe">Loading sanitized include…<?end></div>
+        <template id="src-safe-template" for="src-safe" src="./partials/scripted.html"></template>
+
+        <div id="src-unsafe"><?start name="src-unsafe">Loading unsanitized include…<?end></div>
+        <template id="src-unsafe-template" for="src-unsafe" src="./partials/scripted-unsafe.html" sanitize="unsafe"></template>
+
+        <div id="inline-safe"><?start name="inline-safe">Loading inline sanitize…<?end></div>
+        <template id="inline-safe-template" for="inline-safe" sanitize>
+            <p id="inline-safe-result">sanitized inline, script did not run</p>
+            <script>
+                document.documentElement.dataset.inlineSanitizeScript = "ran";
+                var node = document.getElementById("inline-safe-result");
+                if (node) node.textContent = "inline script ran";
+            </script>
+        </template>
+    </section>
+
+    <section>
+        <h2>Table rows from <code>src</code></h2>
+        <table>
+            <tbody id="rows-host">
+                <?start name="rows-patch">
+                <tr>
+                    <td>Loading rows…</td>
+                    <td></td>
+                </tr>
+                <?end>
+            </tbody>
+        </table>
+        <template id="rows-template" for="rows-patch" src="./partials/rows.html"></template>
+    </section>
+
+    <script>
+        function mark(id, ok, detail) {
+            const el = document.getElementById(id);
+            el.classList.add(ok ? "pass" : "fail");
+            if (detail) el.textContent += ` (${detail})`;
+        }
+
+        function templateConsumed(id) {
+            const template = document.getElementById(id);
+            return !template || !template.isConnected;
+        }
+
+        function markApplied(checkId, templateId, hostId, resultId) {
+            const host = document.getElementById(hostId);
+            const result = document.getElementById(resultId);
+            const ok = templateConsumed(templateId) && host.contains(result);
+            const detail = templateConsumed(templateId) ? "expected node was not inserted" : "template is still in the document";
+            mark(checkId, ok, ok ? "" : detail);
+        }
+
+        markApplied("check-inplace-inline", "inplace-inline", "inplace-inline-host", "inplace-inline-result");
+        markApplied("check-inplace-buffer", "inplace-buffer", "inplace-buffer-host", "inplace-buffer-result");
+        markApplied("check-targeted-inline", "targeted-inline", "targeted-inline-host", "targeted-inline-result");
+
+        function fetchDetail(checkId) {
+            const hosts = {
+                "check-targeted-src": "targeted-src-host",
+                "check-inplace-src": "inplace-src-host",
+                "check-buffered-src": "buffered-src-host",
+                "check-rows": "rows-host",
+            };
+            const host = document.getElementById(hosts[checkId]);
+            if (host.querySelector("template")) return "template is still in the document";
+            if (host.textContent.trim() === "") return "marker cleared; src was not applied";
+            if (host.textContent.includes("Loading")) return "still showing the placeholder";
+            return "fragment did not match";
+        }
+
+        function scriptDetail(host, status, ran) {
+            if (host.querySelector("template")) return "template is still in the document";
+            if (!status && host.textContent.includes("Loading")) return "fetch did not replace the placeholder";
+            if (!status && host.textContent.trim() === "") return "marker cleared; src was not applied";
+            if (ran) return "script ran";
+            if (host.querySelector("script")) return "script element remains";
+            return status ? status.textContent : "no status";
+        }
+
+        const started = performance.now();
+        (function watch() {
+            const pending = [
+                ["check-targeted-src", () => templateConsumed("targeted-src") && document.getElementById("targeted-src-host").contains(document.getElementById("targeted-src-result"))],
+                ["check-inplace-src", () => templateConsumed("inplace-src") && document.getElementById("inplace-src-host").contains(document.getElementById("inplace-src-result"))],
+                ["check-buffered-src", () => templateConsumed("buffered-src") && document.getElementById("buffered-src-host").contains(document.getElementById("buffered-src-result"))],
+                ["check-rows", () => templateConsumed("rows-template") && document.getElementById("rows-host").textContent.includes("Alpha")],
+            ];
+            const ready = pending.every(([, pred]) => pred());
+            const safeHost = document.getElementById("src-safe");
+            const unsafeHost = document.getElementById("src-unsafe");
+            const inlineStatus = document.getElementById("inline-safe-result");
+            const safeStatus = document.getElementById("safe-script-status");
+            const unsafeStatus = document.getElementById("unsafe-script-status");
+            const safeDone = safeStatus !== null || !safeHost.textContent.includes("Loading sanitized");
+            const unsafeDone = unsafeStatus !== null || !unsafeHost.textContent.includes("Loading unsanitized");
+            const inlineDone = inlineStatus !== null && !document.getElementById("inline-safe").textContent.includes("Loading inline");
+            const fetchesSettled = ready && safeDone && unsafeDone;
+            if (!fetchesSettled && performance.now() - started < 3000) {
+                requestAnimationFrame(watch);
+                return;
+            }
+            for (const [id, pred] of pending) {
+                const item = document.getElementById(id);
+                if (item.classList.contains("pass") || item.classList.contains("fail")) continue;
+                const ok = pred();
+                mark(id, ok, ok ? "" : fetchDetail(id));
+            }
+            if (!document.getElementById("check-sanitize").classList.contains("pass") && !document.getElementById("check-sanitize").classList.contains("fail")) {
+                const ran = document.documentElement.dataset.safeIncludeScript === "ran" || safeStatus?.textContent === "script ran";
+                const stripped = safeStatus?.textContent === "script did not run" && !safeHost.querySelector("script") && !ran;
+                mark("check-sanitize", stripped, scriptDetail(safeHost, safeStatus, ran));
+            }
+            if (!document.getElementById("check-unsafe").classList.contains("pass") && !document.getElementById("check-unsafe").classList.contains("fail")) {
+                const ran = document.documentElement.dataset.unsafeIncludeScript === "ran" || unsafeStatus?.textContent === "script ran";
+                mark("check-unsafe", ran, scriptDetail(unsafeHost, unsafeStatus, ran));
+            }
+            if (!document.getElementById("check-inline-sanitize").classList.contains("pass") && !document.getElementById("check-inline-sanitize").classList.contains("fail") && (inlineDone || templateConsumed("inline-safe-template") || performance.now() - started >= 3000)) {
+                const inlineHost = document.getElementById("inline-safe");
+                const inlineText = inlineHost.textContent;
+                const ran = document.documentElement.dataset.inlineSanitizeScript === "ran" || inlineText.includes("inline script ran");
+                const stripped = templateConsumed("inline-safe-template") && inlineText.includes("sanitized inline, script did not run") && !inlineHost.querySelector("script") && !ran;
+                let detail = "";
+                if (!stripped) {
+                    if (!templateConsumed("inline-safe-template")) detail = "template is still in the document";
+                    else if (ran || inlineHost.querySelector("script")) detail = "script ran";
+                    else if (inlineText.includes("Loading")) detail = "still showing the placeholder";
+                    else detail = inlineText.trim().replace(/\s+/g, " ").slice(0, 80);
+                }
+                mark("check-inline-sanitize", stripped, detail);
+            }
+        })();
+    </script>
+</body>
+
+</html>

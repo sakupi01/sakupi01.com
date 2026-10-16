@@ -1,0 +1,6 @@
+<p id="unsafe-script-status">script did not run</p>
+<script>
+    document.documentElement.dataset.unsafeIncludeScript = "ran";
+    var status = document.getElementById("unsafe-script-status");
+    if (status) status.textContent = "script ran";
+</script>

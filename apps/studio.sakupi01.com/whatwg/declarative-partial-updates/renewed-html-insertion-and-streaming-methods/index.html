@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../open-in-codepen.js" defer data-codepen-exclude></script>
+    <title>Renewed HTML insertion and streaming methods | studio.sakupi01.com</title>
+    <style>
+        ul.checks li.pass {
+            color: green;
+        }
+
+        ul.checks li.fail {
+            color: red;
+        }
+
+        ul.checks li.pass::before {
+            content: "PASS: ";
+        }
+
+        ul.checks li.fail::before {
+            content: "FAIL: ";
+        }
+
+        section {
+            margin: 1.5em 0;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background: #f5f5f5;
+            padding: 0.5em;
+        }
+
+        .target,
+        #replace-host {
+            border: 1px solid #ccc;
+            padding: 0.5em;
+            margin: 0.5em 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a href="../">Declarative Partial Updates</a></p>
+    <h1>Renewed HTML insertion and streaming methods</h1>
+    <p>Summary: One naming scheme for inserting HTML, with a safe method and an <code>Unsafe</code> method for each
+        position, plus a streaming form of each. Safe methods sanitize. Unsafe methods take
+        <code>{ sanitizer, runScripts }</code>. Streaming uses a <code>WritableStream</code> from
+        <code>getWriter()</code> or from <code>Response.textStream()</code>.
+    </p>
+    <p>Explainer: <a
+            href="https://github.com/WICG/declarative-partial-updates/blob/main/dynamic-markup-revamped-explainer.md">dynamic-markup-revamped-explainer.md</a>
+    </p>
+    <p>Docs: <a href="https://developer.chrome.com/docs/web-platform/declarative-partial-updates">Declarative partial
+            updates | Chrome for Developers</a></p>
+    <p>Ready for developer testing from Chrome 148 behind
+        <code>chrome://flags/#enable-experimental-web-platform-features</code>. Planned for Chrome 155.
+        <code>Response.textStream()</code> shipped in Chrome 151. <code>setHTML</code> / <code>setHTMLUnsafe</code>
+        may already exist from the Sanitizer API; the positional and streaming methods are the new surface.
+    </p>
+
+    <p>=== This is a demo of the renewed HTML insertion and streaming methods. ===</p>
+
+    <h2>Method support</h2>
+    <ul class="checks" id="api-checks">
+        <li data-api="setHTML" data-iface="Element">Element.setHTML</li>
+        <li data-api="setHTMLUnsafe" data-iface="Element">Element.setHTMLUnsafe</li>
+        <li data-api="appendHTML" data-iface="Element">Element.appendHTML</li>
+        <li data-api="appendHTMLUnsafe" data-iface="Element">Element.appendHTMLUnsafe</li>
+        <li data-api="prependHTML" data-iface="Element">Element.prependHTML</li>
+        <li data-api="prependHTMLUnsafe" data-iface="Element">Element.prependHTMLUnsafe</li>
+        <li data-api="beforeHTML" data-iface="Element">ChildNode.beforeHTML</li>
+        <li data-api="afterHTML" data-iface="Element">ChildNode.afterHTML</li>
+        <li data-api="replaceWithHTML" data-iface="Element">ChildNode.replaceWithHTML</li>
+        <li data-api="streamHTML" data-iface="Element">Element.streamHTML</li>
+        <li data-api="streamHTMLUnsafe" data-iface="Element">Element.streamHTMLUnsafe</li>
+        <li data-api="streamAppendHTML" data-iface="Element">Element.streamAppendHTML</li>
+        <li data-api="streamAppendHTMLUnsafe" data-iface="Element">Element.streamAppendHTMLUnsafe</li>
+        <li data-api="streamPrependHTML" data-iface="Element">Element.streamPrependHTML</li>
+        <li data-api="streamPrependHTMLUnsafe" data-iface="Element">Element.streamPrependHTMLUnsafe</li>
+        <li data-api="streamBeforeHTML" data-iface="Element">ChildNode.streamBeforeHTML</li>
+        <li data-api="streamAfterHTML" data-iface="Element">ChildNode.streamAfterHTML</li>
+        <li data-api="streamReplaceWithHTML" data-iface="Element">ChildNode.streamReplaceWithHTML</li>
+        <li data-api="textStream" data-iface="Response">Response.textStream</li>
+    </ul>
+
+    <section>
+        <h2><code>setHTML</code></h2>
+        <p>Replaces the element's children. The default sanitizer drops the script and the <code>onerror</code>
+            handler.</p>
+        <div class="target" id="set-html-target">
+            <p>previous children</p>
+        </div>
+        <button type="button" id="set-html">setHTML</button>
+        <pre id="set-html-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>setHTML</code> with a sanitizer</h2>
+        <p>Allows <code>p</code>, <code>em</code>, <code>strong</code>. The <code>div</code> and <code>script</code>
+            are not in the allow list.</p>
+        <div class="target" id="sanitizer-target">
+            <p>previous children</p>
+        </div>
+        <button type="button" id="set-html-sanitizer">setHTML({ sanitizer })</button>
+        <pre id="sanitizer-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>setHTMLUnsafe</code></h2>
+        <p id="ran">script has not run</p>
+        <div class="target" id="unsafe-target">
+            <p>previous children</p>
+        </div>
+        <p>Chrome 153 stable accepts <code>runScripts: true</code> and leaves the script inert. Chrome 156 Canary
+            with the experimental flag runs it.</p>
+        <button type="button" id="set-html-unsafe">setHTMLUnsafe</button>
+        <button type="button" id="set-html-scripts">setHTMLUnsafe({ runScripts: true })</button>
+        <pre id="unsafe-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>appendHTML</code> / <code>prependHTML</code></h2>
+        <div class="target" id="ends-target">
+            <p id="ends-middle">middle</p>
+        </div>
+        <button type="button" id="append-html">appendHTML</button>
+        <button type="button" id="prepend-html">prependHTML</button>
+        <pre id="ends-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>beforeHTML</code> / <code>afterHTML</code> / <code>replaceWithHTML</code></h2>
+        <div id="replace-host">
+            <p id="sibling-target">sibling target</p>
+        </div>
+        <button type="button" id="before-html">beforeHTML</button>
+        <button type="button" id="after-html">afterHTML</button>
+        <button type="button" id="replace-html">replaceWithHTML</button>
+        <button type="button" id="reset-siblings">reset</button>
+        <pre id="sibling-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>streamHTMLUnsafe</code> / <code>streamAppendHTMLUnsafe</code></h2>
+        <p><code>streamHTMLUnsafe</code> replaces children as chunks arrive. <code>streamAppendHTMLUnsafe</code> adds
+            chunks after the existing children.</p>
+        <div class="target" id="stream-set-target">
+            <p>previous children, replaced by streamHTMLUnsafe</p>
+        </div>
+        <button type="button" id="stream-set">streamHTMLUnsafe 5 chunks</button>
+        <div class="target" id="stream-append-target">
+            <p>kept sibling</p>
+        </div>
+        <button type="button" id="stream-append">streamAppendHTMLUnsafe 5 chunks</button>
+        <pre id="stream-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>Response.textStream()</code></h2>
+        <div class="target" id="text-stream-target">
+            <p>previous children</p>
+        </div>
+        <button type="button" id="text-stream">textStream().pipeTo(streamHTMLUnsafe())</button>
+        <pre id="text-stream-out"></pre>
+    </section>
+
+    <section>
+        <h2><code>&lt;template for&gt;</code> from these methods</h2>
+        <p id="patch-target">
+            <?start name="from-script">still the original text<?end></p>
+        <div class="target" id="sethtml-sink">sink for setHTMLUnsafe</div>
+        <button type="button" id="patch-via-sethtml">setHTMLUnsafe a template for</button>
+        <button type="button" id="patch-via-stream">streamAppendHTMLUnsafe a template for</button>
+        <pre id="patch-out"></pre>
+    </section>
+
+    <script>
+        const sample = "<p>Hello <em>there</em></p><script>void 0</" + "script><img alt=\"stripped\" onerror=\"void 0\">";
+
+        function show(id, value) {
+            document.getElementById(id).textContent = value;
+        }
+
+        function call(buttonId, outputId, fn) {
+            document.getElementById(buttonId).addEventListener("click", async () => {
+                try {
+                    const value = await fn();
+                    show(outputId, value);
+                } catch (error) {
+                    show(outputId, String(error));
+                }
+            });
+        }
+
+        for (const li of document.querySelectorAll("#api-checks li")) {
+            const iface = window[li.dataset.iface];
+            const ok = iface && typeof iface.prototype[li.dataset.api] === "function";
+            li.classList.add(ok ? "pass" : "fail");
+        }
+
+        call("set-html", "set-html-out", () => {
+            const target = document.getElementById("set-html-target");
+            target.setHTML(sample);
+            return target.innerHTML;
+        });
+
+        call("set-html-sanitizer", "sanitizer-out", () => {
+            if (typeof Sanitizer !== "function") {
+                throw new Error("Sanitizer is not available");
+            }
+            const target = document.getElementById("sanitizer-target");
+            const sanitizer = new Sanitizer({ elements: ["p", "em", "strong"] });
+            target.setHTML("<p>Kept <em>em</em></p><div>div</div><script>void 0</" + "script>", { sanitizer });
+            return target.innerHTML;
+        });
+
+        call("set-html-unsafe", "unsafe-out", () => {
+            const target = document.getElementById("unsafe-target");
+            target.setHTMLUnsafe(sample);
+            return `ran=${document.getElementById("ran").textContent}\n${target.innerHTML}`;
+        });
+
+        call("set-html-scripts", "unsafe-out", () => {
+            const target = document.getElementById("unsafe-target");
+            const html = "<p>Inserted with runScripts.</p><script>document.getElementById('ran').textContent = 'script ran'</" + "script>";
+            target.setHTMLUnsafe(html, { runScripts: true });
+            return `ran=${document.getElementById("ran").textContent}\n${target.innerHTML}`;
+        });
+
+        call("append-html", "ends-out", () => {
+            const target = document.getElementById("ends-target");
+            target.appendHTML("<p>appended</p>");
+            return target.innerHTML;
+        });
+
+        call("prepend-html", "ends-out", () => {
+            const target = document.getElementById("ends-target");
+            target.prependHTML("<p>prepended</p>");
+            return target.innerHTML;
+        });
+
+        function siblingSnapshot() {
+            return document.getElementById("replace-host").innerHTML;
+        }
+
+        call("before-html", "sibling-out", () => {
+            document.getElementById("sibling-target").beforeHTML("<p>before</p>");
+            return siblingSnapshot();
+        });
+
+        call("after-html", "sibling-out", () => {
+            document.getElementById("sibling-target").afterHTML("<p>after</p>");
+            return siblingSnapshot();
+        });
+
+        call("replace-html", "sibling-out", () => {
+            const target = document.getElementById("sibling-target");
+            if (!target) throw new Error("sibling target is gone; reset first");
+            target.replaceWithHTML("<p id=\"sibling-target\">replaced</p>");
+            return siblingSnapshot();
+        });
+
+        document.getElementById("reset-siblings").addEventListener("click", () => {
+            document.getElementById("replace-host").innerHTML = "<p id=\"sibling-target\">sibling target</p>";
+            show("sibling-out", siblingSnapshot());
+        });
+
+        async function writeChunks(stream, label) {
+            const writer = stream.getWriter();
+            for (let i = 1; i <= 5; i += 1) {
+                await writer.write(`<p>${label} ${i}</p>`);
+                await new Promise((resolve) => setTimeout(resolve, 300));
+            }
+            await writer.close();
+        }
+
+        call("stream-set", "stream-out", async () => {
+            const target = document.getElementById("stream-set-target");
+            await writeChunks(target.streamHTMLUnsafe(), "set");
+            return target.innerHTML;
+        });
+
+        call("stream-append", "stream-out", async () => {
+            const target = document.getElementById("stream-append-target");
+            target.innerHTML = "<p>kept sibling</p>";
+            await writeChunks(target.streamAppendHTMLUnsafe(), "append");
+            return target.innerHTML;
+        });
+
+        call("text-stream", "text-stream-out", async () => {
+            const target = document.getElementById("text-stream-target");
+            const response = new Response("<p>piped from Response.textStream()</p>");
+            if (typeof response.textStream !== "function") {
+                throw new Error("Response.textStream is not available");
+            }
+            await response.textStream().pipeTo(target.streamHTMLUnsafe());
+            return target.innerHTML;
+        });
+
+        call("patch-via-sethtml", "patch-out", () => {
+            const sink = document.getElementById("sethtml-sink");
+            sink.setHTMLUnsafe("<template for=\"from-script\"><strong id=\"patched-by-sethtml\">patched via setHTMLUnsafe</strong></template>");
+            const live = document.getElementById("patch-target").textContent;
+            return `live marker text: ${live}\nsink: ${sink.innerHTML}`;
+        });
+
+        call("patch-via-stream", "patch-out", async () => {
+            const writer = document.body.streamAppendHTMLUnsafe().getWriter();
+            await writer.write("<template for=\"from-script\"><strong id=\"patched-by-stream\">patched via streamAppendHTMLUnsafe</strong></template>");
+            await writer.close();
+            return document.getElementById("patch-target").innerHTML;
+        });
+    </script>
+</body>
+
+</html>
