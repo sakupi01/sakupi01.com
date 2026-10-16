@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <meta name="text-scale" content="scale" />
+  <title>セッション | DevFest Kwansai 2026</title>
+  <link rel="stylesheet" href="../shared/style.css" />
+  <!-- セッションの中身は sessions.json から組み立てる。組み立て終わるまで最初の描画を待たせる (View Transitions のため) -->
+  <script type="module" blocking="render" src="../shared/session-item.js"
+    onerror="document.documentElement.dataset.serverMissing = ''"></script>
+  <!-- 2 章の Platform Driven SPA: ページ内のリンクを、同じ文書のまま中身だけ差し替えて切り替える。ページごとの JS もここから読む -->
+  <script type="module" src="../shared/router.js"></script>
+</head>
+
+<body class="session-page">
+  <!-- 共通ナビ。ページの範囲の外にあるので、SPA で切り替えても差し替わらずに残る -->
+  <nav class="site-nav" aria-label="デモのページ">
+    <a href="../timetable/">タイムテーブル</a>
+    <a href="../favs/">お気に入り</a>
+  </nav>
+  <!-- ページの範囲。router.js がページを切り替えるとき、サーバーから届く <template for="page"> でここを差し替える。この <?end> は文書の最後の <?end> にする (serve.py がそこで切り出す) -->
+  <?start name="page">
+
+  <main>
+    <!-- サーバー (serve.py) のデータを読めなかったとき (公開版の静的配信など) だけ見せる。common.css を参照 -->
+    <p class="server-notice" role="alert">
+      この画面はサーバーのデータ (DB) を使います。ローカルで <code>python3 serve.py</code> を起動して開いてください。
+    </p>
+    <!-- ?id=session-05 のセッションを、<session-item> が sessions.json から組み立てる。見つからないときは案内を出す -->
+    <session-item variant="detail"></session-item>
+    <noscript>
+      <p>セッションの表示には JavaScript が必要です。<a href="../timetable/">タイムテーブル</a>に戻る</p>
+    </noscript>
+    <!-- ♥ の保存に失敗したときだけ、like-button.js が文言を入れる -->
+    <p class="save-status" role="status"></p>
+
+    <!--
+    感想フォーム (feedback/) を Responsive iframe で埋め込む。答えに応じて質問が増減し、iframe の高さが中身に合わせて変わる。
+    src は feedback-frame.js が ?id から決める。セッションが見つからないときは section ごと消す。
+    フォームは WebMCP のツールでもあり、読み込まれるまでエージェントから見えないので、lazy にしない
+    -->
+    <section class="feedback" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading">感想を送る</h2>
+      <iframe class="feedback-frame" title="感想フォーム" loading="eager"></iframe>
+    </section>
+  </main>
+  <?end>
+</body>
+</html>

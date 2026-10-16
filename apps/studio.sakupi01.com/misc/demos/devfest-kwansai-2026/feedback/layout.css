@@ -1,0 +1,157 @@
+/*
+----------------------------------------------------------------------------
+感想フォーム (feedback/index.html)。session ページの iframe の中に入る。
+common.css の .select-form (label の並べ方を決める) より後ろの layer に置き、質問ごとの並べ方を上書きする。
+----------------------------------------------------------------------------
+*/
+
+.feedback-page {
+  background: var(--s-color-surface-base);
+
+  /* 条件付きの質問を block-size: 0 から auto へ伸ばすため */
+  interpolate-size: allow-keywords;
+
+  main {
+    padding: var(--s-space-layout-panel);
+  }
+}
+
+.feedback-page .feedback-form {
+  display: grid;
+  gap: var(--s-space-gap-lg);
+
+  /* 送信できたあと (feedback.js が hidden を付ける) */
+  &[hidden] {
+    display: none;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+  }
+
+  legend {
+    font-weight: var(--s-font-weight-bold);
+    margin-block-end: var(--s-space-gap-xs);
+    padding: 0;
+  }
+
+  .choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-space-gap-sm) var(--s-space-gap-md);
+  }
+
+  .choices label,
+  .check {
+    font-weight: var(--s-font-weight-medium);
+    gap: var(--s-space-gap-xs);
+  }
+
+  /* 書いた分だけ伸びる (高さが変わるたびに iframe も伸びる) */
+  textarea {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    field-sizing: content;
+    flex-basis: 100%;
+    font: inherit;
+    font-weight: var(--s-font-weight-medium);
+    min-block-size: 3lh;
+    padding: var(--s-space-layout-control);
+  }
+
+  .actions,
+  .form-status {
+    margin: 0;
+  }
+
+  [type="submit"] {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    color: var(--s-color-text-primary);
+    font-weight: var(--s-font-weight-bold);
+    padding: var(--s-space-layout-control);
+  }
+
+  /* 空のときは場所を取らないが、読み上げの対象からは外さない (common.css の .save-status と同じ理由) */
+  .form-status:empty {
+    block-size: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+    position: absolute;
+  }
+}
+
+/*
+条件を満たさない質問は隠す (feedback.js が [data-when] に hidden を付ける)。
+出るときは高さ 0 から伸ばし、隠れるときは縮めてから display: none にする
+*/
+.feedback-page .feedback-form [data-when] {
+  overflow: clip;
+  transition:
+    block-size var(--s-duration-slow) var(--s-ease-out),
+    opacity var(--s-duration-slow) var(--s-ease-out),
+    display var(--s-duration-slow);
+  transition-behavior: allow-discrete;
+
+  @starting-style {
+    block-size: 0;
+    opacity: 0;
+  }
+
+  &[hidden] {
+    block-size: 0;
+    display: none;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feedback-page .feedback-form [data-when] {
+    transition: none;
+  }
+}
+
+/*
+WebMCP (3 章): エージェントがこのフォームに入力している間。Chrome の既定の outline を、ページの色に合わせて描き直す
+*/
+/* stylelint-disable selector-pseudo-class-no-unknown -- :tool-form-active と :tool-submit-active は stylelint の辞書にまだない */
+.feedback-page .feedback-form:tool-form-active {
+  border-radius: var(--s-border-radius-md);
+  outline: var(--s-border-width-thick) solid var(--s-color-primary);
+  outline-offset: var(--s-space-gap-sm);
+}
+
+.feedback-page .feedback-form [type="submit"]:tool-submit-active {
+  outline: var(--s-border-width-thick) solid var(--s-color-like);
+  outline-offset: var(--s-space-gap-2xs);
+}
+/* stylelint-enable selector-pseudo-class-no-unknown */
+
+.feedback-page .feedback-thanks {
+  display: grid;
+  gap: var(--s-space-gap-sm);
+
+  &[hidden] {
+    display: none;
+  }
+
+  h2 {
+    font-size: var(--s-font-size-lg);
+    font-weight: var(--s-font-weight-bold);
+    margin: 0;
+  }
+
+  .feedback-summary {
+    margin: 0;
+  }
+}
+
+/* サーバー (serve.py) のデータを読めないときは、送れないフォームを出さず案内 (.server-notice) だけにする */
+:root[data-server-missing] .feedback-page .feedback-form {
+  display: none;
+}

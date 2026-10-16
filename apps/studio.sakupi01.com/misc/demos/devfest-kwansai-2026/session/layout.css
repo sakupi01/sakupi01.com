@@ -1,0 +1,144 @@
+/*
+----------------------------------------------------------------------------
+Layout: セッションページ (session/index.html)。
+タイムテーブルのセルやお気に入りのカードと同じ id の要素が、ページをまたいで形を変えながら移ってくる (2 章)。
+----------------------------------------------------------------------------
+*/
+
+.session-page {
+  main {
+    padding: var(--s-space-layout-lg);
+  }
+
+  .session-missing {
+    margin: 0;
+  }
+}
+
+.session-page .session-detail {
+  /* トラックの色は common.css の [data-track] が変数で渡す */
+  background: var(--track-soft, var(--s-color-surface-base));
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  display: grid;
+  gap: var(--s-space-gap-md);
+  max-inline-size: 48rem;
+  padding: var(--s-space-layout-panel);
+
+  .session-meta {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--s-font-size-sm);
+    font-weight: var(--s-font-weight-bold);
+    gap: var(--s-space-gap-sm);
+    margin: 0;
+  }
+
+  .track {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    padding: var(--s-space-layout-badge);
+  }
+
+  /* 各行をページの幅いっぱいまで拡大する (1 章の Fit-to-Width text)。最大 2 倍 */
+  .title {
+    font-size: var(--s-font-size-2xl);
+    text-fit: grow per-line-all 200%;
+    text-wrap: balance;
+  }
+
+  .speakers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-space-gap-md) var(--s-space-gap-xl);
+    margin: 0;
+    text-align: start;
+  }
+
+  .speakers li {
+    align-items: center;
+    column-gap: var(--s-space-gap-sm);
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+
+  .avatar {
+    block-size: var(--s-icon-size-lg);
+    grid-row: 1 / span 2;
+    inline-size: var(--s-icon-size-lg);
+  }
+
+  .name {
+    font-size: var(--s-font-size-base);
+  }
+
+  .affiliation {
+    font-size: var(--s-font-size-2xs);
+  }
+
+  .description p {
+    line-height: var(--s-line-height-base);
+    margin: 0 0 0.75em;
+  }
+
+  .session-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-space-gap-sm);
+    margin: 0;
+  }
+
+  .like {
+    padding: var(--s-space-layout-badge);
+  }
+}
+
+/* 感想フォームの iframe (3 章の Responsive iframe)。高さは埋め込んだ文書の中身の高さに合わせる */
+.session-page .feedback {
+  display: grid;
+  gap: var(--s-space-gap-sm);
+  margin-block-start: var(--s-space-gap-xl);
+  max-inline-size: 48rem;
+
+  h2 {
+    font-size: var(--s-font-size-lg);
+    font-weight: var(--s-font-weight-bold);
+    margin: 0;
+  }
+
+  .feedback-frame {
+    background: var(--s-color-surface-base);
+
+    /* frame-sizing 未対応の初期値。feedback-frame.js が postMessage で届いた高さに書き換える */
+    block-size: 400px;
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    display: block;
+    inline-size: 100%;
+  }
+
+  @supports (frame-sizing: content-height) {
+    .feedback-frame {
+      block-size: auto;
+
+      /* stylelint-disable-next-line property-no-unknown -- frame-sizing (Chrome 154) は stylelint の辞書にまだない */
+      frame-sizing: content-height;
+    }
+  }
+}
+
+/* サーバーのデータを読めないとき (公開版の静的配信など) は、送れない感想フォームを出さない */
+:root[data-server-missing] .session-page .feedback {
+  display: none;
+}
+
+/* Corner Shape (1 章): 未対応のブラウザは上の丸い角のまま */
+@supports (corner-shape: squircle) {
+  .session-page .session-detail {
+    border-radius: var(--s-border-radius-lg);
+    /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
+    corner-shape: squircle;
+  }
+}

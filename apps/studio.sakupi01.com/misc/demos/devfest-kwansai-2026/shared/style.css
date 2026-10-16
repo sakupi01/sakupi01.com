@@ -1,22 +1,3 @@
-/*
-----------------------------------------------------------------------------
-NOTE:
-
-DO NOT write styles in 'style.css' directly.
-各ファイルを layer に振り分けるだけの入口。全ページがこのファイルを 1 つだけ読み込む。
-
-DevFest Kwansai 2026 demo の共通デザイン:
-公式タイムテーブルの系統 (白地、太い黒枠、角丸、トラックごとのパステル色、丸ゴシックの極太)。
-----------------------------------------------------------------------------
-*/
-
-/*
-----------------------------------------------------------------------------
-Cascade Layers.
-後ろの layer ほど優先される。checker は各 demo の style 要素に貼り付ける判定表示で、
-各ページの @layer checker {} はこの宣言に合流する。
-----------------------------------------------------------------------------
-*/
 @layer base, global, layout, components, checker, overrides;
 
 /*
@@ -39,10 +20,8 @@ Reset and element defaults
 Page layouts (body のクラスで範囲を限定する)
 ----------------------------------------------------------------------------
 */
-@import "layout.css" layer(layout.index);
-@import "timetable/layout.css" layer(layout.timetable);
-@import "board/layout.css" layer(layout.board);
-@import "share/layout.css" layer(layout.share);
+@import "../timetable/layout.css" layer(layout.timetable);
+@import "../favs/layout.css" layer(layout.favs);
 
 /*
 ----------------------------------------------------------------------------
@@ -50,12 +29,21 @@ Components
 ----------------------------------------------------------------------------
 */
 @import "common.css" layer(components.common);
-@import "card.css" layer(components.card);
+@import "../favs/card.css" layer(components.card);
 @import "navigation.css" layer(components.navigation);
 
 /*
+セッションページは、セッションの部品 (common.css の .title、.avatar、.name) を大きく見せ直すので、
+それらより後ろの layer に置く
+*/
+@import "../session/layout.css" layer(components.session);
+
+/* 感想フォームは、common.css の .select-form が決める label の並べ方を、質問ごとに上書きする */
+@import "../feedback/layout.css" layer(components.feedback);
+
+/*
 ----------------------------------------------------------------------------
-Overrides (checker より後ろの layer なので、checker の判定表示の配置を上書きできる)
+Overrides
 ----------------------------------------------------------------------------
 */
 @import "overrides.css" layer(overrides);

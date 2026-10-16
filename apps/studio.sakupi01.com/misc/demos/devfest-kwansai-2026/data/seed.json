@@ -1,0 +1,658 @@
+[
+  {
+    "id": "session-01",
+    "track": "a",
+    "start": "10:30",
+    "end": "10:40",
+    "kind": null,
+    "lang": null,
+    "title": "村上学長挨拶",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "村上 憲郎",
+        "nameLang": null,
+        "affiliation": "国際工科専門職大学 (IPUT) 学長",
+        "affiliationLang": null,
+        "image": "0ABeKzvg"
+      }
+    ],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-02",
+    "track": "a",
+    "start": "10:40",
+    "end": "10:45",
+    "kind": null,
+    "lang": null,
+    "title": "Findy スポンサーセッション",
+    "titleLang": null,
+    "format": null,
+    "speakers": [],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-03",
+    "track": "a",
+    "start": "10:45",
+    "end": "10:55",
+    "kind": null,
+    "lang": null,
+    "title": "Fashion runway",
+    "titleLang": null,
+    "format": null,
+    "speakers": [],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-04",
+    "track": "a",
+    "start": "10:55",
+    "end": "11:05",
+    "kind": null,
+    "lang": null,
+    "title": "Opening",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "Sherry Xu",
+        "nameLang": null,
+        "affiliation": "Developer Ecosystem Regional Lead Japan",
+        "affiliationLang": null,
+        "image": "mH3yDEfI"
+      }
+    ],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-05",
+    "track": "a",
+    "start": "11:05",
+    "end": "11:25",
+    "kind": null,
+    "lang": null,
+    "title": "Keynote",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "全 炳河",
+        "nameLang": null,
+        "affiliation": "Google DeepMind プリンシパルサイエンティスト・東京拠点リード",
+        "affiliationLang": null,
+        "image": "EVwB6Cuk"
+      }
+    ],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-06",
+    "track": "a",
+    "start": "12:25",
+    "end": "13:05",
+    "kind": null,
+    "lang": null,
+    "title": "I didn't need this attention",
+    "titleLang": "en",
+    "format": null,
+    "speakers": [
+      {
+        "name": "Llion Jones",
+        "nameLang": null,
+        "affiliation": "Co-Founder & CTO, Sakana AI",
+        "affiliationLang": null,
+        "image": "WdGkxjCR"
+      }
+    ],
+    "description": "Stories about the paper, facts that you might not know and how it's strangely affected my life.",
+    "descriptionLang": "en"
+  },
+  {
+    "id": "session-07",
+    "track": "b",
+    "start": "12:25",
+    "end": "13:30",
+    "kind": null,
+    "lang": null,
+    "title": "パネルディスカッション 〜面接で人は見抜けるのか？Google 採用改革の舞台裏〜",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "及川 卓也",
+        "nameLang": null,
+        "affiliation": "Tably株式会社 代表取締役",
+        "affiliationLang": null,
+        "image": "KWHJZokJ"
+      },
+      {
+        "name": "小川 たかこ",
+        "nameLang": null,
+        "affiliation": "パナリット株式会社",
+        "affiliationLang": null,
+        "image": "RiAtdOJx"
+      },
+      {
+        "name": "石原 直樹",
+        "nameLang": null,
+        "affiliation": "GDG Greater Kwansai (広域関西圏) オーガナイザー",
+        "affiliationLang": null,
+        "image": "3Cl1Raoc"
+      }
+    ],
+    "description": "企業にとって、優れた人材を採用できるかどうかは、その成長と競争力を大きく左右します。とりわけ「人」そのものが最大の資産となるソフトウェア産業では、採用面接の設計は企業の将来を左右する重要なテーマです。\n\nGoogle はかつて、いわゆる「トンチ問題」に代表される難問を採用面接で出題することで知られていました。しかし2010年代、その採用手法は大きな転換を迎えます。\n\n本セッションでは、この変革に深く関わった元 Google 本社の人事戦略担当 PMをはじめ、元 Google の著名ソフトウェアエンジニア、Product Manager など、多彩なパネリストを迎えます。Google の採用面接はなぜ変わったのか。従来の手法にはどのような課題があり、新しいアプローチはどのような効果をもたらしたのか。実際の経験をもとに、その背景と変革のプロセスを掘り下げます。\n\nさらに、これからテクノロジー業界への就職を目指す若者へのアドバイスや、より良い採用を実現したい人事・採用担当者への提言まで、採用する側・される側の双方にとって役立つ議論を目指します。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-08",
+    "track": "a",
+    "start": "13:05",
+    "end": "13:30",
+    "kind": null,
+    "lang": null,
+    "title": "人とAIはともに育つことができるか？ — 認知発達ロボティクスから考える共感・共生・責任 —",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "浅田 稔",
+        "nameLang": null,
+        "affiliation": "大阪国際工科専門職大学 副学長・教授",
+        "affiliationLang": null,
+        "image": "RTbA8Lap"
+      }
+    ],
+    "description": "人とAIが信頼を築き、互いに学びながら共生する関係は、どのように可能になるのでしょうか。認知発達ロボティクスは、身体をもち、他者と関わることから知能や共感が育つ過程を、ロボットを通して探究してきました。本講演では、その30年の研究を振り返りながら、人工痛覚や共感ロボット、生成AIとの相互作用へと議論を広げ、人とAIがともに育つ可能性と、そのとき生じる自律性・信頼・責任の問題を考えます。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-09",
+    "track": "a",
+    "start": "13:50",
+    "end": "14:00",
+    "kind": null,
+    "lang": null,
+    "title": "ゲーム界のレジェンドが語る AI との向き合い方",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "今村 孝矢",
+        "nameLang": null,
+        "affiliation": "大阪国際工科専門職大学 教授／ゲームクリエイター／イラストレーター／漫画家",
+        "affiliationLang": null,
+        "image": "R2y9BDJD"
+      }
+    ],
+    "description": "デジタルで絵を描くことが当たり前になり、生成AIの登場によって、誰もが気軽にイラストを生み出せる時代になりました。その一方で、個人的にはデジタル作品が持つ魅力や価値のあり方も、大きく変わってきたように感じています。だからこそ、これからの自分の創作活動は少しずつアナログへ。自分の手で描いた「原画」を実際に見ていただけるギャラリーを開き、画面越しでは伝わらない筆致や質感、一点物としての存在感を届けていく。それを今後の活動のひとつの軸にしていきたいと思っています。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-10",
+    "track": "b",
+    "start": "13:50",
+    "end": "14:15",
+    "kind": null,
+    "lang": null,
+    "title": "生成AIを「なんとなく改善」するのをやめる",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "太田 満久",
+        "nameLang": null,
+        "affiliation": "ユビー株式会社 Ubie Lab 所長",
+        "affiliationLang": null,
+        "image": "6Z7dxrxU"
+      }
+    ],
+    "description": "問題を見つけてはプロンプトを改修するサイクルを繰り返すと、全体として本当に良くなったのか分からなくなりがちです。本セッションでは、その解決策として注目される「評価駆動開発（EDD）」の基本的なアプローチを取り上げ、再現性高く品質を改善し続ける流れを紹介します。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-11",
+    "track": "c",
+    "start": "13:50",
+    "end": "14:15",
+    "kind": null,
+    "lang": null,
+    "title": "Web UI 2026 Updates & What's Coming!",
+    "titleLang": "en",
+    "format": null,
+    "speakers": [
+      {
+        "name": "saku",
+        "nameLang": null,
+        "affiliation": "サイボウズ デザインテクノロジスト／Google Developers Expert (Web)",
+        "affiliationLang": null,
+        "image": "u5945MA8"
+      }
+    ],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-12",
+    "track": "d",
+    "start": "13:50",
+    "end": "14:40",
+    "kind": "hands-on",
+    "lang": null,
+    "title": "【ハンズオン】Antigravity & Geminiと作るAI手相×MBTI占いアプリ開発体験！",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "福島 ゆかり",
+        "nameLang": null,
+        "affiliation": "株式会社電通デジタル AI部門マネージャー 兼 Google Developer Expert (Cloud AI/ML, Data Analytics)",
+        "affiliationLang": null,
+        "image": "NLOcjcTP"
+      }
+    ],
+    "description": "もっとマーケティングに Google の AI とデータとクラウドを使ってワクワクする！を後押しします！ Google Cloud Partner Top Engineer 2024 data engineer、Google Developer Expert Cloud AI/ML&Data Analytics 、ML女子部コミュニティ運営、jaguar じゃがーる分科会運営、AI/ML 分科会運営、Google Cloud Next 23-25 登壇等多数",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-13",
+    "track": "a",
+    "start": "14:00",
+    "end": "14:40",
+    "kind": null,
+    "lang": null,
+    "title": "未踏統括 PM が語る、AI 時代におけるものづくりの本質",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "竹内 郁雄",
+        "nameLang": null,
+        "affiliation": "東京大学名誉教授",
+        "affiliationLang": null,
+        "image": "AtXLXNuP"
+      }
+    ],
+    "description": "AI研究の第一世代として黎明期からこの分野に携わり、未踏事業で落合陽一氏をはじめとする独創的な人材を発掘・育成してきた経験から、AI時代においても揺るがない「ものづくり」の真髄を紐解く。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-14",
+    "track": "b",
+    "start": "14:15",
+    "end": "14:40",
+    "kind": null,
+    "lang": null,
+    "title": "TBA",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "inductor",
+        "nameLang": null,
+        "affiliation": "Google Developers Expert (AI)",
+        "affiliationLang": null,
+        "image": null
+      }
+    ],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-15",
+    "track": "c",
+    "start": "14:15",
+    "end": "14:40",
+    "kind": null,
+    "lang": null,
+    "title": "Flutterは3Dゲームを作れるのか？ Flutter Scene × AI で挑戦",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "Goldner Lucas",
+        "nameLang": null,
+        "affiliation": "株式会社YOUTRUST プロダクト開発部／Google Developers Expert (Flutter)",
+        "affiliationLang": null,
+        "image": "iL1LHjuX"
+      }
+    ],
+    "description": "最近盛り上がりを見せている3Dゲーム開発をテーマに、FlutterとAIを活用して、どのように手軽に3Dゲームを作れるのかをご紹介します。ゲームを構成する基本的な仕組みや必要な要素を整理しながら、AIが開発のどの部分をサポートできるのか、実際の制作例を交えてお話しします！",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-16",
+    "track": "a",
+    "start": "15:00",
+    "end": "16:00",
+    "kind": null,
+    "lang": null,
+    "title": "AIロボットと人間の進化",
+    "titleLang": null,
+    "format": "オンライン",
+    "speakers": [
+      {
+        "name": "石黒 浩",
+        "nameLang": null,
+        "affiliation": "大阪大学大学院基礎工学研究科 教授 (栄誉教授)",
+        "affiliationLang": null,
+        "image": "fvsMb039"
+      }
+    ],
+    "description": "本講演では、人間とAIロボット等のテクノロジーの基本的な関係を議論すると共に、その関係において、共に発展するAIロボットと人間の未来について展望を述べる。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-17",
+    "track": "b",
+    "start": "15:00",
+    "end": "15:30",
+    "kind": null,
+    "lang": null,
+    "title": "AIでコードは書けるのに、つくりたいものがつくれないあなたへ",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "蜂須賀 大貴",
+        "nameLang": null,
+        "affiliation": "Newbee株式会社 代表取締役",
+        "affiliationLang": null,
+        "image": "8Pdw99do"
+      }
+    ],
+    "description": "AIがコードを書いてくれるようになり、アイデアを形にするハードルは大きく下がりました。それでも、何をつくるべきか決められない、つくっても欲しかったものにならない、誰にも使ってもらえない——そんな壁にぶつかることがあります。バイブコーディングの次に必要な、「つくりたい」を形にし、届けるためのプロダクトマネジメントの考え方をお話しします。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-18",
+    "track": "c",
+    "start": "15:00",
+    "end": "15:30",
+    "kind": null,
+    "lang": null,
+    "title": "Beyond \"Out-of-the-Box\"：24時間駆動する自律的好奇心エージェント",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "Minori MATSUDA",
+        "nameLang": "en",
+        "affiliation": "Senior Director & Executive Specialist (AI & ML Lead) @ Enterprise／LLM Researcher, The University of Tokyo／Google Developer Expert (AI/ML)",
+        "affiliationLang": "en",
+        "image": "bjm8oGyN"
+      }
+    ],
+    "description": "AIは大体指示通りのことしかしなくて、自分がその概念を知らずに初めから出しとかないとAIは自分の知っている知識（指示）の中の行動に留まり、本来知っていたもっといい案などを出してこない。これは in-the-box問題というので、これを打破して自律的に自分で探索していくエージェントを作った話",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-19",
+    "track": "d",
+    "start": "15:00",
+    "end": "16:00",
+    "kind": "hands-on",
+    "lang": null,
+    "title": "AntigravityでAIエージェントを作ってみよう",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "Haren Bhandari",
+        "nameLang": null,
+        "affiliation": "Developer Relations Engineer, Google Cloud Japan",
+        "affiliationLang": "en",
+        "image": "LxsE0uUT"
+      }
+    ],
+    "description": "本セッションでは、Antigravityを用いた次世代AIエージェントの開発とデプロイを学びます。エージェントの基本概念やGoogle Cloudでの管理方法を理解した上で、実際にシンプルなエージェントを構築する流れを体験します。さらに、構築したエージェントをクラウド環境へ直接デプロイし、自律的に動作させる実践的なプロセスを習得できる内容です。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-20",
+    "track": "b",
+    "start": "15:30",
+    "end": "16:00",
+    "kind": null,
+    "lang": null,
+    "title": "AIが賢くなるほど、UIは不親切であるべき—Cognitive Surrenderを防ぐ UXデザイン",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "安藤 幸央",
+        "nameLang": null,
+        "affiliation": "株式会社エクサ UXデザイナー",
+        "affiliationLang": null,
+        "image": "NCYMjgXY"
+      }
+    ],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-21",
+    "track": "c",
+    "start": "15:30",
+    "end": "16:00",
+    "kind": null,
+    "lang": null,
+    "title": "思考を手放さないための共創論 — AIエージェント時代におけるエンジニアのメタ認知と境界線",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "足立 昌彦 (adamrocker)",
+        "nameLang": null,
+        "affiliation": "株式会社GENKEI CEO／Google Developer Expert (AI/ML)",
+        "affiliationLang": null,
+        "image": "5VhDJtRd"
+      }
+    ],
+    "description": "AIにコードを書かせたら動いたけれど、中身を説明できない、怖くて運用できない、機能追加したら既存機能が動かなくなった――そんな経験はありませんか？本セッションでは、AIの出力を鵜呑みにして思考停止するCognitive Surrenderの防ぎ方と、AIを信頼できる共同開発者として味方につける付き合い方を考えます。AIを単なる作業の丸投げではなく、自分の設計力や理解力を拡張するための実践的なヒントを、toB向けSaaS製品をいくつも開発してきたリアルな体験をもとにわかりやすくお届けします。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-22",
+    "track": "a",
+    "start": "16:20",
+    "end": "17:20",
+    "kind": null,
+    "lang": null,
+    "title": "デジタルネイチャーと人間の再定義——AI時代の「共創」を問い直す",
+    "titleLang": null,
+    "format": "オンライン",
+    "speakers": [
+      {
+        "name": "落合 陽一",
+        "nameLang": null,
+        "affiliation": "メディアアーティスト、筑波大学デジタルネイチャー開発研究センター長・教授、東京大学客員教授",
+        "affiliationLang": null,
+        "image": "v3tezY8z"
+      }
+    ],
+    "description": "AIは人間の能力を拡張する「道具」なのか、それとも、思考や創造のあり方そのものを変える存在なのか。本講演では、デジタルネイチャーの視点から、AIによって変容する人間の知性、創造性、身体、そして社会について考察します。AIと人間が互いの能力を増幅し合うために、私たちは何を考え、何を手放し、どのような関係を築くべきなのか。AI時代を生きる学生やエンジニアへのメッセージも交えながら、これからの人間像を自由に展望します。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-23",
+    "track": "b",
+    "start": "16:20",
+    "end": "16:50",
+    "kind": null,
+    "lang": null,
+    "title": "知性が外部化される AI 時代の活躍論 〜 元 Googler たちが語る、変わらない本質 〜",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "湯川 洋平",
+        "nameLang": null,
+        "affiliation": "Cicero Aware 代表",
+        "affiliationLang": null,
+        "image": "mO6gRhCg"
+      },
+      {
+        "name": "川中 真耶",
+        "nameLang": null,
+        "affiliation": "一般社団法人ソフトウェアエンジニアリング協会 代表理事／株式会社ナレッジワーク CTO",
+        "affiliationLang": null,
+        "image": "0p7ufe5t"
+      },
+      {
+        "name": "石原 直樹",
+        "nameLang": null,
+        "affiliation": "GDG Greater Kwansai (広域関西圏) オーガナイザー",
+        "affiliationLang": null,
+        "image": "3Cl1Raoc"
+      }
+    ],
+    "description": "かつて検索エンジンが記憶を外部化しても、勉強は不要になりませんでした。いま AI によって、知性そのものが外部化されつつあります。この時代に活躍するには、何を学び、何を自分で判断すべきなのか。本パネルでは Google 出身のエンジニアを迎え、時代が変わっても通用する考え方を掘り下げます。AI を使いこなすうえで必要なコンテキストは、どうすれば得られるのか。「もう勉強はいらないのか」という学生・エンジニアの不安に、実体験から答えます。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-24",
+    "track": "c",
+    "start": "16:20",
+    "end": "16:50",
+    "kind": null,
+    "lang": "en",
+    "title": "Give Your AI Agents a Sandbox: Running Untrusted Agent Code Safely on Kubernetes",
+    "titleLang": null,
+    "format": "English",
+    "speakers": [
+      {
+        "name": "Aditya Joshi",
+        "nameLang": null,
+        "affiliation": "Senior Software Engineer, Walmart",
+        "affiliationLang": null,
+        "image": "a88h9tvh"
+      }
+    ],
+    "description": "AIエージェントが生成・実行する信頼できないコードを、Kubernetes上で安全に動かす方法を紹介します。Kubernetes SIGプロジェクト「Agent Sandbox」のCRD、gVisorによる分離、権限の削減、サービストークンの自動マウント無効化などを解説。ウォームプールから強化されたPythonサンドボックスを起動し、エージェントが生成したコードを実行・破棄するデモも行う予定です。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-25",
+    "track": "d",
+    "start": "16:20",
+    "end": "17:40",
+    "kind": "hands-on",
+    "lang": null,
+    "title": "ファッション×AIワークショップ〜Fashion Futures Lab AI と共創する未来のファッション〜",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "藤井先生",
+        "nameLang": null,
+        "affiliation": null,
+        "affiliationLang": null,
+        "image": "etehdd0A"
+      }
+    ],
+    "description": "「ファッション×デジタル」をテーマに、AI 画像生成技術を活用しながら未来のファッションを考える参加型ワークショップです。単に AI を用いてデザインを生成するのではなく、未来の社会やライフスタイル、価値観の変化を想定し、その社会に生きる人々に必要とされる衣服や服飾雑貨を企画・デザインします。参加者はグループごとに未来社会のテーマを与えられ、ターゲット設定や課題分析を行った上で、AI を活用してビジュアルを制作し、最後にプレゼンテーションを行います。ファッション分野で行われる「リサーチ→ターゲット分析→コンセプト設計→デザイン」というプロセスと、デジタル分野で行われる「ユーザー分析→課題発見→企画→開発」というプロセスの共通点を体験的に学ぶことを目的とします。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-26",
+    "track": "b",
+    "start": "16:50",
+    "end": "17:20",
+    "kind": null,
+    "lang": null,
+    "title": "TBA",
+    "titleLang": null,
+    "format": null,
+    "speakers": [],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-27",
+    "track": "c",
+    "start": "16:50",
+    "end": "17:20",
+    "kind": null,
+    "lang": null,
+    "title": "オントロジーって結局なにもの？ — AIエージェントに\"意味\"を渡す知識設計の話",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "村上 智之",
+        "nameLang": null,
+        "affiliation": "データラーニングギルド代表",
+        "affiliationLang": null,
+        "image": "3bNuhcUB"
+      }
+    ],
+    "description": "生成AIやRAGの文脈で「オントロジー」という言葉を耳にする機会が増えてきました。一方で、「タクソノミーと何が違うのか」「DBのスキーマやナレッジグラフとは別物なのか」と聞かれると、説明に詰まる方も多いのではないでしょうか。本セッションでは、オントロジーを「モノ・関係・ルールを機械が扱える形で記述した、業務の地図」と捉え直し、よくある誤解を整理しながら基礎から解説します。そのうえで、LLMがどれだけ賢くなっても現場で答えられない質問が残る理由、そしてRAGが「文書を探す」のに対してオントロジーが「意味を辿る」ことで何が可能になるのかを、AIエージェント設計の観点からお話しします。後半では、オントロジーを組み込んだエージェントで実際に直面する課題と、それに対して私たちが現在取り組んでいる多層構造のオントロジー設計の構想をご紹介します。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-28",
+    "track": "a",
+    "start": "17:40",
+    "end": "18:05",
+    "kind": null,
+    "lang": null,
+    "title": "コードはエージェントに任せて、『プロダクトエンジニアリング』はチームで磨き続ける",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "naga (Yukinaga Oishi)",
+        "nameLang": null,
+        "affiliation": "GDG Tokyo Organizer／株式会社MIXI「家族アルバム みてね」エンジニア",
+        "affiliationLang": null,
+        "image": "u3tglBlT"
+      }
+    ],
+    "description": "コーディングをAIエージェントに任せる中で直面した課題と、より良いプロダクトを作り続ける試行錯誤を紹介します。",
+    "descriptionLang": null
+  },
+  {
+    "id": "session-29",
+    "track": "b",
+    "start": "17:40",
+    "end": "18:05",
+    "kind": null,
+    "lang": null,
+    "title": "LT大会",
+    "titleLang": null,
+    "format": null,
+    "speakers": [],
+    "description": null,
+    "descriptionLang": null
+  },
+  {
+    "id": "session-30",
+    "track": "c",
+    "start": "17:40",
+    "end": "18:05",
+    "kind": null,
+    "lang": null,
+    "title": "古い指輪から広がった、Javaコミュニティとのつながり",
+    "titleLang": null,
+    "format": null,
+    "speakers": [
+      {
+        "name": "山崎 大介",
+        "nameLang": null,
+        "affiliation": "筑波大学 情報学群 情報科学類",
+        "affiliationLang": null,
+        "image": "B8nKX6Ju"
+      }
+    ],
+    "description": "大学1年生の登壇者が，1998年のJavaOneで配られた指輪型コンピュータ「Java Ring」を復活させました。その取り組みは『探偵！ナイトスクープ』でも紹介され，関係者同士の打ち上げとSun Microsystemsの同窓会が一緒に開かれることに。古い指輪を動かそうと調べ始めたら，かつてのSunの仲間たちが再会する場に，主賓として迎えられることになりました。本セッションでは，Java Ring復旧の試行錯誤と，調査や発信を通じて広がったJavaコミュニティとのつながりを紹介します。Java Ringや当時の開発環境の予備知識は不要です。 参考：＜探偵！ナイトスクープ＞指輪型コンピューター「Javaリング」",
+    "descriptionLang": null
+  }
+]

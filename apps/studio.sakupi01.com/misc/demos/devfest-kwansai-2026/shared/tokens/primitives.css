@@ -13,13 +13,6 @@ component と layout からは直接参照せず、semantic.css の --s- を通�
    登録は document 全体に効くので、<session-card> の shadow DOM からも使われる
    ------------------------------------------------------------------------- */
 
-/* カードの背景色。注目枠に入ると色が滑らかに変わる */
-@property --card-bg {
-  inherits: false;
-  initial-value: white;
-  syntax: "<color>";
-}
-
 /* 浮き上がり量。translate と影の両方から参照し、1 つの値の transition で両方を動かす */
 @property --lift {
   inherits: false;
@@ -37,6 +30,7 @@ component と layout からは直接参照せず、semantic.css の --s- を通�
   --p-color-gray-50: oklch(98.51% 0 0);
   --p-color-gray-200: oklch(94.31% 0 0);
   --p-color-google-blue: oklch(63.04% 0.18 259.96);
+  --p-color-google-red: oklch(58.6% 0.19 27.5);
 
   /* -------------------------------------------------------------------------
      Colors: tracks (公式タイムテーブル)

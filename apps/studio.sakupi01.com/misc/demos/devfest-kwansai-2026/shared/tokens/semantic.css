@@ -20,6 +20,9 @@ primitives.css の値に役割の名前を付ける。layout と component は�
   --s-color-surface-muted: var(--p-color-gray-200);
   --s-color-border-strong: var(--p-color-ink-900);
 
+  /* お気に入りの ♥ */
+  --s-color-like: var(--p-color-google-red);
+
   /* トラックの色。strong は見出し、soft はセッションの枠 */
   --s-color-track-a-strong: var(--p-color-sky-400);
   --s-color-track-a-soft: var(--p-color-sky-100);
@@ -80,6 +83,13 @@ primitives.css の値に役割の名前を付ける。layout と component は�
   --s-border-radius-lg: var(--p-size-16);
   --s-border-radius-full: 999px;
   --s-border: var(--s-border-width-base) solid var(--s-color-border-strong);
+
+  /* -------------------------------------------------------------------------
+     Icons (♥ と登壇者の写真)
+     ------------------------------------------------------------------------- */
+  --s-icon-size-sm: 1.25rem;
+  --s-icon-size-md: 2rem;
+  --s-icon-size-lg: 4.5rem;
 
   /* -------------------------------------------------------------------------
      Motion

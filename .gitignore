@@ -48,3 +48,5 @@ info.md
 # Local Cache
 .cache
 remark-link-card
+# DevFest Kwansai 2026 demo: serve.py が data/seed.json から作る SQLite
+apps/studio.sakupi01.com/misc/demos/devfest-kwansai-2026/data/devfest.sqlite*

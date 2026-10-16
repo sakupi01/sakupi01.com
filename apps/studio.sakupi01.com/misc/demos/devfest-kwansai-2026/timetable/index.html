@@ -1,658 +1,402 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="data:," />
-    <!-- OS の文字サイズ設定に合わせて rem を拡大縮小する (1 章) -->
-    <meta name="text-scale" content="scale" />
-    <title>タイムテーブル | DevFest Kwansai 2026</title>
-    <!-- Responsive iframe: 埋め込み先の iframe がこの文書の高さに合わせて伸縮することを許可する -->
-    <meta name="responsive-embedded-sizing" content="allow-origins=*" />
-    <link rel="stylesheet" href="../style.css" />
-    <script src="../embed.js" defer></script>
-    <script type="module" src="timezone.js"></script>
-    <!-- ナビゲーションのリンクにカーソルを合わせたら遷移先を先に描画しておく (2 章の Speculation Rules) -->
-    <script type="speculationrules">
-      {
-        "prerender": [
-          {
-            "source": "document",
-            "where": { "selector_matches": ".site-nav a" },
-            "eagerness": "moderate"
-          }
-        ]
-      }
-    </script>
-  </head>
 
-  <body class="timetable-page">
-    <!--
-      共通ナビゲーション (2 章)。中身は partials/site-nav.html を Declarative Fragments で取り込む。
-      - <template for src> に対応: 取り込んだ partial のリンク (.partial) を見せ、同じ内容の .fallback は CSS で隠す
-      - <template for> だけに対応 (Chrome 154 など): src は使われず、template に書いた .fallback が入る
-      - どちらも未対応: <?start>〜<?end> の間に書いた .fallback がそのまま残る
-    -->
-    <nav class="site-nav" aria-label="デモのページ">
-      <?start name="site-nav"><a class="fallback" href="../timetable/"
-        >タイムテーブル</a
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <meta name="text-scale" content="scale" />
+  <title>タイムテーブル | DevFest Kwansai 2026</title>
+  <link rel="stylesheet" href="../shared/style.css" />
+  <!-- セッションの中身は sessions.json から組み立てる。組み立て終わるまで最初の描画を待たせる (View Transitions のため) -->
+  <script type="module" blocking="render" src="../shared/session-item.js"
+    onerror="document.documentElement.dataset.serverMissing = ''"></script>
+  <!-- 2 章の Platform Driven SPA: ページ内のリンクを、同じ文書のまま中身だけ差し替えて切り替える。ページごとの JS もここから読む -->
+  <script type="module" src="../shared/router.js"></script>
+</head>
+
+<body class="timetable-page">
+  <!-- 共通ナビ。ページの範囲の外にあるので、SPA で切り替えても差し替わらずに残る -->
+  <nav class="site-nav" aria-label="デモのページ">
+    <a href="../timetable/">タイムテーブル</a>
+    <a href="../favs/">お気に入り</a>
+  </nav>
+  <!-- ページの範囲。router.js がページを切り替えるとき、サーバーから届く <template for="page"> でここを差し替える。この <?end> は文書の最後の <?end> にする (serve.py がそこで切り出す) -->
+  <?start name="page">
+  <main>
+    <!-- saku の登壇が終わるまでの残り時間。countdown.js がサーバーから流れてくる <template for="countdown"> で毎秒差し替える -->
+    <p class="countdown"><?start name="countdown"><?end></p>
+    <p class="save-status" role="status"></p>
+
+    <form class="timezone-switcher select-form" hidden>
+      <label
+        >表示するタイムゾーン
+        <!--
+          customizable select (1 章): 選択肢に旗と、そのタイムゾーンでの開場時刻 (timezone.js が Temporal で入れる) を並べる。
+          未対応のブラウザでは、文字だけのいつもの select になる
+        -->
+        <select name="timeZone">
+          <button><selectedcontent></selectedcontent></button>
+          <option value="Asia/Tokyo">
+            <span class="flag" aria-hidden="true">🇯🇵</span
+            ><span class="zone">会場 (Asia/Tokyo)</span
+            ><span class="opening"></span>
+          </option>
+          <option value="America/Los_Angeles">
+            <span class="flag" aria-hidden="true">🇺🇸</span
+            ><span class="zone">America/Los_Angeles</span
+            ><span class="opening"></span>
+          </option>
+          <option value="America/New_York">
+            <span class="flag" aria-hidden="true">🇺🇸</span
+            ><span class="zone">America/New_York</span
+            ><span class="opening"></span>
+          </option>
+          <option value="Europe/London">
+            <span class="flag" aria-hidden="true">🇬🇧</span
+            ><span class="zone">Europe/London</span
+            ><span class="opening"></span>
+          </option>
+          <option value="Asia/Kolkata">
+            <span class="flag" aria-hidden="true">🇮🇳</span
+            ><span class="zone">Asia/Kolkata</span
+            ><span class="opening"></span>
+          </option>
+          <option value="Australia/Sydney">
+            <span class="flag" aria-hidden="true">🇦🇺</span
+            ><span class="zone">Australia/Sydney</span
+            ><span class="opening"></span>
+          </option>
+        </select>
+      </label>
+    </form>
+
+    <noscript>
+      <p>セッションの中身 (タイトルと登壇者) の表示には JavaScript が必要です。</p>
+    </noscript>
+
+    <table class="timetable">
+      <caption class="page-title">
+        タイムテーブル
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">時刻</th>
+          <th scope="col" data-track="a">Track A</th>
+          <th scope="col" data-track="b">Track B</th>
+          <th scope="col" data-track="c">Track C</th>
+          <th scope="col" data-track="d">Track D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">
+            <time datetime="09:30">09:30</time>〜<time datetime="10:30"
+              >10:30</time
+            >
+          </th>
+          <td class="program">
+            <p class="title">開場／受付</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="10:30">10:30</time>〜<time datetime="10:40"
+              >10:40</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-01">
+            <session-item session="session-01" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="10:40">10:40</time>〜<time datetime="10:45"
+              >10:45</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-02">
+            <session-item session="session-02" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="10:45">10:45</time>〜<time datetime="10:55"
+              >10:55</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-03">
+            <session-item session="session-03" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="10:55">10:55</time>〜<time datetime="11:05"
+              >11:05</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-04">
+            <session-item session="session-04" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="11:05">11:05</time>〜<time datetime="11:25"
+              >11:25</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-05">
+            <session-item session="session-05" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="11:25">11:25</time>〜<time datetime="11:30"
+              >11:30</time
+            >
+          </th>
+          <td class="program">
+            <p class="title">写真撮影</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="11:30">11:30</time>〜<time datetime="12:25"
+              >12:25</time
+            >
+          </th>
+          <td class="break" colspan="2">昼休憩</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="12:25">12:25</time>〜<time datetime="13:05"
+              >13:05</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-06">
+            <session-item session="session-06" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="b" rowspan="2" id="session-07">
+            <session-item session="session-07" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="13:05">13:05</time>〜<time datetime="13:30"
+              >13:30</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-08">
+            <session-item session="session-08" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="13:30">13:30</time>〜<time datetime="13:50"
+              >13:50</time
+            >
+          </th>
+          <td class="break" colspan="3">休憩</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="13:50">13:50</time>〜<time datetime="14:00"
+              >14:00</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-09">
+            <session-item session="session-09" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="b" rowspan="2" id="session-10">
+            <session-item session="session-10" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" rowspan="2" id="session-11">
+            <session-item session="session-11" variant="cell"></session-item>
+          </td>
+          <td
+            class="session hands-on"
+            data-track="d"
+            rowspan="3"
+            id="session-12"
+          >
+            <session-item session="session-12" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="14:00">14:00</time>〜<time datetime="14:15"
+              >14:15</time
+            >
+          </th>
+          <td class="session" data-track="a" rowspan="2" id="session-13">
+            <session-item session="session-13" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="14:15">14:15</time>〜<time datetime="14:40"
+              >14:40</time
+            >
+          </th>
+          <td class="session" data-track="b" id="session-14">
+            <session-item session="session-14" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" id="session-15">
+            <session-item session="session-15" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="14:40">14:40</time>〜<time datetime="15:00"
+              >15:00</time
+            >
+          </th>
+          <td class="break" colspan="4">休憩</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="15:00">15:00</time>〜<time datetime="15:30"
+              >15:30</time
+            >
+          </th>
+          <td class="session" data-track="a" rowspan="2" id="session-16">
+            <session-item session="session-16" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="b" id="session-17">
+            <session-item session="session-17" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" id="session-18">
+            <session-item session="session-18" variant="cell"></session-item>
+          </td>
+          <td
+            class="session hands-on"
+            data-track="d"
+            rowspan="2"
+            id="session-19"
+          >
+            <session-item session="session-19" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="15:30">15:30</time>〜<time datetime="16:00"
+              >16:00</time
+            >
+          </th>
+          <td class="session" data-track="b" id="session-20">
+            <session-item session="session-20" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" id="session-21">
+            <session-item session="session-21" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="16:00">16:00</time>〜<time datetime="16:20"
+              >16:20</time
+            >
+          </th>
+          <td class="break" colspan="4">休憩</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="16:20">16:20</time>〜<time datetime="16:50"
+              >16:50</time
+            >
+          </th>
+          <td class="session" data-track="a" rowspan="2" id="session-22">
+            <session-item session="session-22" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="b" id="session-23">
+            <session-item session="session-23" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" lang="en" id="session-24">
+            <session-item session="session-24" variant="cell"></session-item>
+          </td>
+          <td
+            class="session hands-on"
+            data-track="d"
+            rowspan="3"
+            id="session-25"
+          >
+            <session-item session="session-25" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="16:50">16:50</time>〜<time datetime="17:20"
+              >17:20</time
+            >
+          </th>
+          <td class="session" data-track="b" id="session-26">
+            <session-item session="session-26" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" id="session-27">
+            <session-item session="session-27" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="17:20">17:20</time>〜<time datetime="17:40"
+              >17:40</time
+            >
+          </th>
+          <td class="break" colspan="3">休憩</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="17:40">17:40</time>〜<time datetime="18:05"
+              >18:05</time
+            >
+          </th>
+          <td class="session" data-track="a" id="session-28">
+            <session-item session="session-28" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="b" id="session-29">
+            <session-item session="session-29" variant="cell"></session-item>
+          </td>
+          <td class="session" data-track="c" id="session-30">
+            <session-item session="session-30" variant="cell"></session-item>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="18:05">18:05</time>〜<time datetime="18:15"
+              >18:15</time
+            >
+          </th>
+          <td class="program" colspan="3">
+            <p class="title">Closing</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="18:15">18:15</time>〜<time datetime="18:25"
+              >18:25</time
+            >
+          </th>
+          <td class="program">
+            <p class="title">懇親会会場へ移動</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <time datetime="18:25">18:25</time>〜<time datetime="20:25"
+              >20:25</time
+            >
+          </th>
+          <td class="program">
+            <p class="title">懇親会</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="notice">
+      <small
+        >※タイムテーブル、セッション内容、登壇形式は変更となる場合があります。</small
       >
-      <a class="fallback" href="../board/">セッションボード</a>
-      <a class="fallback" href="../share/">共有画像</a
-      ><?end>
-    </nav>
-    <template for="site-nav" src="../partials/site-nav.html">
-      <a class="fallback" href="../timetable/">タイムテーブル</a>
-      <a class="fallback" href="../board/">セッションボード</a>
-      <a class="fallback" href="../share/">共有画像</a>
-    </template>
-    <main>
-      <p class="event-date">
-        開催日:
-        <time datetime="2026-10-18">2026年10月18日 (日)</time>。時刻は会場
-        (大阪、Asia/Tokyo) の時刻です。
-      </p>
-
-      <!-- Temporal が使えるブラウザでだけ表示する (script が hidden を外す) -->
-      <form class="timezone-switcher" hidden>
-        <label
-          >表示するタイムゾーン
-          <select name="timeZone">
-            <option value="Asia/Tokyo">会場 (Asia/Tokyo)</option>
-            <option value="America/Los_Angeles">America/Los_Angeles</option>
-            <option value="America/New_York">America/New_York</option>
-            <option value="Europe/London">Europe/London</option>
-            <option value="Asia/Kolkata">Asia/Kolkata</option>
-            <option value="Australia/Sydney">Australia/Sydney</option>
-          </select>
-        </label>
-        <p>開場時刻 (RFC 9557 形式): <output name="ixdtf"></output></p>
-        <p class="countdown"></p>
-      </form>
-
-      <table class="timetable">
-        <caption class="page-title">
-          タイムテーブル
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">時刻</th>
-            <th scope="col" data-track="a">Track A</th>
-            <th scope="col" data-track="b">Track B</th>
-            <th scope="col" data-track="c">Track C</th>
-            <th scope="col" data-track="d">Track D</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">
-              <time datetime="09:30">09:30</time>〜<time datetime="10:30"
-                >10:30</time
-              >
-            </th>
-            <td class="program">
-              <p class="title">開場／受付</p>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="10:30">10:30</time>〜<time datetime="10:40"
-                >10:40</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-01">
-              <p class="title">村上学長挨拶</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">村上 憲郎</span>
-                  <span class="affiliation"
-                    >国際工科専門職大学 (IPUT) 学長</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="10:40">10:40</time>〜<time datetime="10:45"
-                >10:45</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-02">
-              <p class="title">Findy スポンサーセッション</p>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="10:45">10:45</time>〜<time datetime="10:55"
-                >10:55</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-03">
-              <p class="title">Fashion runway</p>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="10:55">10:55</time>〜<time datetime="11:05"
-                >11:05</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-04">
-              <p class="title">Opening</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">Sherry Xu</span>
-                  <span class="affiliation"
-                    >Developer Ecosystem Regional Lead Japan</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="11:05">11:05</time>〜<time datetime="11:25"
-                >11:25</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-05">
-              <p class="title">Keynote</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">全 炳河</span>
-                  <span class="affiliation"
-                    >Google DeepMind
-                    プリンシパルサイエンティスト・東京拠点リード</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="11:25">11:25</time>〜<time datetime="11:30"
-                >11:30</time
-              >
-            </th>
-            <td class="program">
-              <p class="title">写真撮影</p>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="11:30">11:30</time>〜<time datetime="12:25"
-                >12:25</time
-              >
-            </th>
-            <td class="break" colspan="2">昼休憩</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="12:25">12:25</time>〜<time datetime="13:05"
-                >13:05</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-06">
-              <p class="title" lang="en">I didn't need this attention</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">Llion Jones</span>
-                  <span class="affiliation"
-                    >Co-Founder &amp; CTO, Sakana AI</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="b" rowspan="2" id="session-07">
-              <p class="title">
-                パネルディスカッション 〜面接で人は見抜けるのか？Google
-                採用改革の舞台裏〜
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">及川 卓也</span>
-                  <span class="affiliation">Tably株式会社 代表取締役</span>
-                </li>
-                <li>
-                  <span class="name">小川 たかこ</span>
-                  <span class="affiliation">パナリット株式会社</span>
-                </li>
-                <li>
-                  <span class="name">石原 直樹</span>
-                  <span class="affiliation"
-                    >GDG Greater Kwansai (広域関西圏) オーガナイザー</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="13:05">13:05</time>〜<time datetime="13:30"
-                >13:30</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-08">
-              <p class="title">
-                人とAIはともに育つことができるか？ —
-                認知発達ロボティクスから考える共感・共生・責任 —
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">浅田 稔</span>
-                  <span class="affiliation"
-                    >大阪国際工科専門職大学 副学長・教授</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="13:30">13:30</time>〜<time datetime="13:50"
-                >13:50</time
-              >
-            </th>
-            <td class="break" colspan="3">休憩</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="13:50">13:50</time>〜<time datetime="14:00"
-                >14:00</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-09">
-              <p class="title">ゲーム界のレジェンドが語る AI との向き合い方</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">今村 孝矢</span>
-                  <span class="affiliation"
-                    >大阪国際工科専門職大学
-                    教授／ゲームクリエイター／イラストレーター／漫画家</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="b" rowspan="2" id="session-10">
-              <p class="title">生成AIを「なんとなく改善」するのをやめる</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">太田 満久</span>
-                  <span class="affiliation">ユビー株式会社 Ubie Lab 所長</span>
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="c" rowspan="2" id="session-11">
-              <p class="title" lang="en">
-                Web UI 2026 Updates &amp; What's Coming!
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">saku</span>
-                  <span class="affiliation"
-                    >サイボウズ デザインテクノロジスト／Google Developers Expert
-                    (Web)</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td
-              class="session hands-on"
-              data-track="d"
-              rowspan="3"
-              id="session-12"
-            >
-              <p class="title">
-                【ハンズオン】Antigravity &amp;
-                Geminiと作るAI手相×MBTI占いアプリ開発体験！
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">福島 ゆかり</span>
-                  <span class="affiliation"
-                    >株式会社電通デジタル AI部門マネージャー 兼 Google Developer
-                    Expert (Cloud AI/ML, Data Analytics)</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="14:00">14:00</time>〜<time datetime="14:15"
-                >14:15</time
-              >
-            </th>
-            <td class="session" data-track="a" rowspan="2" id="session-13">
-              <p class="title">
-                未踏統括 PM が語る、AI 時代におけるものづくりの本質
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">竹内 郁雄</span>
-                  <span class="affiliation">東京大学名誉教授</span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="14:15">14:15</time>〜<time datetime="14:40"
-                >14:40</time
-              >
-            </th>
-            <td class="session" data-track="b" id="session-14">
-              <p class="title">TBA</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">inductor</span>
-                  <span class="affiliation">Google Developers Expert (AI)</span>
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="c" id="session-15">
-              <p class="title">
-                Flutterは3Dゲームを作れるのか？ Flutter Scene × AI で挑戦
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">Goldner Lucas</span>
-                  <span class="affiliation"
-                    >株式会社YOUTRUST プロダクト開発部／Google Developers Expert
-                    (Flutter)</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="14:40">14:40</time>〜<time datetime="15:00"
-                >15:00</time
-              >
-            </th>
-            <td class="break" colspan="4">休憩</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="15:00">15:00</time>〜<time datetime="15:30"
-                >15:30</time
-              >
-            </th>
-            <td class="session" data-track="a" rowspan="2" id="session-16">
-              <p class="title">AIロボットと人間の進化</p>
-              <p class="format">オンライン</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">石黒 浩</span>
-                  <span class="affiliation"
-                    >大阪大学大学院基礎工学研究科 教授 (栄誉教授)</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="b" id="session-17">
-              <p class="title">
-                AIでコードは書けるのに、つくりたいものがつくれないあなたへ
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">蜂須賀 大貴</span>
-                  <span class="affiliation">Newbee株式会社 代表取締役</span>
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="c" id="session-18">
-              <p class="title">
-                Beyond "Out-of-the-Box"：24時間駆動する自律的好奇心エージェント
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name" lang="en">Minori MATSUDA</span>
-                  <span class="affiliation" lang="en"
-                    >Senior Director &amp; Executive Specialist (AI &amp; ML
-                    Lead) @ Enterprise／LLM Researcher, The University of
-                    Tokyo／Google Developer Expert (AI/ML)</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td
-              class="session hands-on"
-              data-track="d"
-              rowspan="2"
-              id="session-19"
-            >
-              <p class="title">AntigravityでAIエージェントを作ってみよう</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">Haren Bhandari</span>
-                  <span class="affiliation" lang="en"
-                    >Developer Relations Engineer, Google Cloud Japan</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="15:30">15:30</time>〜<time datetime="16:00"
-                >16:00</time
-              >
-            </th>
-            <td class="session" data-track="b" id="session-20">
-              <p class="title">
-                AIが賢くなるほど、UIは不親切であるべき—Cognitive Surrenderを防ぐ
-                UXデザイン
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">安藤 幸央</span>
-                  <span class="affiliation">株式会社エクサ UXデザイナー</span>
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="c" id="session-21">
-              <p class="title">
-                思考を手放さないための共創論 —
-                AIエージェント時代におけるエンジニアのメタ認知と境界線
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">足立 昌彦 (adamrocker)</span>
-                  <span class="affiliation"
-                    >株式会社GENKEI CEO／Google Developer Expert (AI/ML)</span
-                  >
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="16:00">16:00</time>〜<time datetime="16:20"
-                >16:20</time
-              >
-            </th>
-            <td class="break" colspan="4">休憩</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="16:20">16:20</time>〜<time datetime="16:50"
-                >16:50</time
-              >
-            </th>
-            <td class="session" data-track="a" rowspan="2" id="session-22">
-              <p class="title">
-                デジタルネイチャーと人間の再定義——AI時代の「共創」を問い直す
-              </p>
-              <p class="format">オンライン</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">落合 陽一</span>
-                  <span class="affiliation"
-                    >メディアアーティスト、筑波大学デジタルネイチャー開発研究センター長・教授、東京大学客員教授</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="b" id="session-23">
-              <p class="title">
-                知性が外部化される AI 時代の活躍論 〜 元 Googler
-                たちが語る、変わらない本質 〜
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">湯川 洋平</span>
-                  <span class="affiliation">Cicero Aware 代表</span>
-                </li>
-                <li>
-                  <span class="name">川中 真耶</span>
-                  <span class="affiliation"
-                    >一般社団法人ソフトウェアエンジニアリング協会
-                    代表理事／株式会社ナレッジワーク CTO</span
-                  >
-                </li>
-                <li>
-                  <span class="name">石原 直樹</span>
-                  <span class="affiliation"
-                    >GDG Greater Kwansai (広域関西圏) オーガナイザー</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="c" lang="en" id="session-24">
-              <p class="title">
-                Give Your AI Agents a Sandbox: Running Untrusted Agent Code
-                Safely on Kubernetes
-              </p>
-              <p class="format">English</p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">Aditya Joshi</span>
-                  <span class="affiliation"
-                    >Senior Software Engineer, Walmart</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td
-              class="session hands-on"
-              data-track="d"
-              rowspan="3"
-              id="session-25"
-            >
-              <p class="title">
-                ファッション×AIワークショップ〜Fashion Futures Lab AI
-                と共創する未来のファッション〜
-              </p>
-              <ul class="speakers">
-                <li><span class="name">藤井先生</span></li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="16:50">16:50</time>〜<time datetime="17:20"
-                >17:20</time
-              >
-            </th>
-            <td class="session" data-track="b" id="session-26">
-              <p class="title">TBA</p>
-            </td>
-            <td class="session" data-track="c" id="session-27">
-              <p class="title">
-                オントロジーって結局なにもの？ —
-                AIエージェントに"意味"を渡す知識設計の話
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">村上 智之</span>
-                  <span class="affiliation">データラーニングギルド代表</span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="17:20">17:20</time>〜<time datetime="17:40"
-                >17:40</time
-              >
-            </th>
-            <td class="break" colspan="3">休憩</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="17:40">17:40</time>〜<time datetime="18:05"
-                >18:05</time
-              >
-            </th>
-            <td class="session" data-track="a" id="session-28">
-              <p class="title">
-                コードはエージェントに任せて、『プロダクトエンジニアリング』はチームで磨き続ける
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">naga (Yukinaga Oishi)</span>
-                  <span class="affiliation"
-                    >GDG Tokyo Organizer／株式会社MIXI「家族アルバム
-                    みてね」エンジニア</span
-                  >
-                </li>
-              </ul>
-            </td>
-            <td class="session" data-track="b" id="session-29">
-              <p class="title">LT大会</p>
-            </td>
-            <td class="session" data-track="c" id="session-30">
-              <p class="title">
-                古い指輪から広がった、Javaコミュニティとのつながり
-              </p>
-              <ul class="speakers">
-                <li>
-                  <span class="name">山崎 大介</span>
-                  <span class="affiliation">筑波大学 情報学群 情報科学類</span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="18:05">18:05</time>〜<time datetime="18:15"
-                >18:15</time
-              >
-            </th>
-            <td class="program" colspan="3">
-              <p class="title">Closing</p>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="18:15">18:15</time>〜<time datetime="18:25"
-                >18:25</time
-              >
-            </th>
-            <td class="program">
-              <p class="title">懇親会会場へ移動</p>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <time datetime="18:25">18:25</time>〜<time datetime="20:25"
-                >20:25</time
-              >
-            </th>
-            <td class="program">
-              <p class="title">懇親会</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="notice">
-        <small
-          >※タイムテーブル、セッション内容、登壇形式は変更となる場合があります。</small
-        >
-      </p>
-    </main>
-  </body>
+    </p>
+  </main>
+  <?end>
+</body>
 </html>

@@ -1,54 +1,21 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="data:," />
-    <!-- OS の文字サイズ設定に合わせて rem を拡大縮小する (1 章) -->
-    <meta name="text-scale" content="scale" />
-    <title>DevFest Kwansai 2026 | タイムテーブルとセッションボード</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="showcase.js"></script>
-  </head>
 
-  <body class="showcase-page">
-    <main>
-      <header>
-        <h1 class="page-title">DevFest Kwansai 2026</h1>
-        <p>
-          タイムテーブルとセッションボードを iframe で埋め込んでいます。<span
-            class="frame-status"
-            id="sizing-mode"
-            >iframe の高さ: 判定中</span
-          >
-        </p>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <meta name="text-scale" content="scale" />
+  <title>DevFest Kwansai 2026</title>
+  <!-- デモの入口。タイムテーブルへ移る (serve.py でも静的配信でも同じく動く) -->
+  <meta http-equiv="refresh" content="0; url=timetable/" />
+  <link rel="stylesheet" href="shared/style.css" />
+</head>
 
-      <figure class="embed-frame">
-        <figcaption>
-          <h2>タイムテーブル</h2>
-          <span class="frame-status" data-height-for="timetable-frame">-</span>
-        </figcaption>
-        <iframe
-          class="embed"
-          id="timetable-frame"
-          src="timetable/"
-          title="タイムテーブル"
-        ></iframe>
-      </figure>
+<body>
+  <main>
+    <p><a href="timetable/">タイムテーブルへ</a></p>
+  </main>
+</body>
 
-      <figure class="embed-frame">
-        <figcaption>
-          <h2>セッションボード</h2>
-          <span class="frame-status" data-height-for="board-frame">-</span>
-        </figcaption>
-        <iframe
-          class="embed"
-          id="board-frame"
-          src="board/"
-          title="セッションボード"
-        ></iframe>
-      </figure>
-    </main>
-  </body>
 </html>

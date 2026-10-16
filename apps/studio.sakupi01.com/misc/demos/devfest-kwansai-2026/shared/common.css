@@ -1,0 +1,211 @@
+/*
+----------------------------------------------------------------------------
+Common: 2 ページ以上で使う部品。
+----------------------------------------------------------------------------
+*/
+
+/* セッションの中身。タイムテーブルのセルとボードのカードで共通 */
+.title {
+  font-size: var(--s-font-size-md);
+  font-weight: var(--s-font-weight-bold);
+  line-height: var(--s-line-height-tight);
+  margin: 0;
+}
+
+.speakers {
+  list-style-type: "";
+  margin: 0.5em 0 0;
+  padding: 0;
+}
+
+.name {
+  display: block;
+  font-size: var(--s-font-size-xs);
+  font-weight: var(--s-font-weight-bold);
+}
+
+.affiliation {
+  color: var(--s-color-text-secondary);
+  display: block;
+  font-size: var(--s-font-size-5xs);
+}
+
+.format {
+  color: var(--s-color-text-secondary);
+  font-size: var(--s-font-size-3xs);
+  margin: 0.5em 0 0;
+}
+
+/* stylelint-disable-next-line selector-type-no-unknown -- session-item は custom element の名前 */
+session-item {
+  display: contents;
+}
+
+/* 登壇者の写真。名前がすぐ隣にあるので、HTML では装飾 (alt="") にしている */
+.avatar {
+  block-size: var(--s-icon-size-md);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-full);
+  inline-size: var(--s-icon-size-md);
+  object-fit: cover;
+}
+
+/* stylelint-disable-next-line selector-type-no-unknown -- like-button は custom element の名前 */
+like-button {
+  float: inline-end;
+  padding: var(--s-space-layout-box);
+
+  &:not(:defined) {
+    display: none;
+  }
+}
+
+/* 押されている (aria-pressed="true") ときだけハートを塗る */
+.like {
+  align-items: center;
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-full);
+  color: var(--s-color-like);
+  cursor: pointer;
+  display: inline-flex;
+  flex-wrap: wrap;
+  font: inherit;
+  font-weight: var(--s-font-weight-bold);
+  gap: var(--s-space-gap-2xs);
+  padding: var(--s-space-layout-3xs);
+
+  .heart {
+    block-size: var(--s-icon-size-sm);
+    fill: none;
+    inline-size: var(--s-icon-size-sm);
+    stroke: currentcolor;
+    stroke-width: 2;
+  }
+
+  &[aria-pressed="true"] .heart {
+    fill: currentcolor;
+  }
+}
+
+/*
+サーバー (serve.py) のデータを読めなかったときの案内。データを読む module script の error で
+<html data-server-missing> が付く (公開版の静的配信には serve.py がないため)
+*/
+.server-notice {
+  display: none;
+}
+
+:root[data-server-missing] .server-notice {
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  display: block;
+  margin: 0;
+  padding: var(--s-space-layout-panel);
+}
+
+/*
+お気に入りの保存に失敗したときの知らせ (role="status")。like-button.js と favs.js が文言を入れる。
+空のときは場所を取らないが、読み上げの対象からは外さない (display: none にすると、文言が入っても知らせが届かないことがある)
+*/
+.save-status {
+  color: var(--s-color-like);
+  font-weight: var(--s-font-weight-bold);
+  margin: 0;
+
+  &:empty {
+    block-size: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+    position: absolute;
+  }
+}
+
+/* 見た目には出さず、読み上げにだけ出す文字 */
+.visually-hidden {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+/*
+トラックの色。data-track を持つ要素に、そのトラックの色を変数で渡す。
+strong は見出しと色見本、soft はセッションの枠に使う
+*/
+[data-track="a"] {
+  --track-strong: var(--s-color-track-a-strong);
+  --track-soft: var(--s-color-track-a-soft);
+}
+
+[data-track="b"] {
+  --track-strong: var(--s-color-track-b-strong);
+  --track-soft: var(--s-color-track-b-soft);
+}
+
+[data-track="c"] {
+  --track-strong: var(--s-color-track-c-strong);
+  --track-soft: var(--s-color-track-c-soft);
+}
+
+[data-track="d"] {
+  --track-strong: var(--s-color-track-d-strong);
+  --track-soft: var(--s-color-track-d-soft);
+}
+
+/*
+customizable select (1 章) を置くフォーム。タイムテーブルのタイムゾーン、お気に入りの絞り込み、感想フォームで共通。
+未対応のブラウザでは文字だけの select になる。
+フォーム自体の並べ方と option の中身の並べ方 (display) は各ページの layout.css が決める。
+この layer (components) は layout より後ろなので、ここで display を決めると各ページで上書きできない
+*/
+
+/* stylelint-disable selector-pseudo-element-no-unknown, declaration-property-value-no-unknown -- ::picker(select) と appearance: base-select は stylelint の辞書にまだない */
+.select-form {
+  label {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: var(--s-font-weight-bold);
+    gap: var(--s-space-gap-sm);
+  }
+
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+
+  select {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    padding: var(--s-space-layout-control);
+  }
+
+  /*
+  開くとき、置き場所の候補 (position-try) を試す途中でスクロールバー付きの幅が計算され、少し遅れて縮む (Chrome 157 Canary)。
+  スクロールバーの場所を常に取っておき、幅を変えない
+  */
+  ::picker(select) {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    padding: var(--s-space-layout-3xs);
+    scrollbar-gutter: stable;
+  }
+
+  option {
+    align-items: center;
+    border-radius: var(--s-border-radius-md);
+    gap: var(--s-space-gap-sm);
+    padding: var(--s-space-layout-control);
+  }
+
+  option:checked {
+    font-weight: var(--s-font-weight-bold);
+  }
+}
+/* stylelint-enable selector-pseudo-element-no-unknown, declaration-property-value-no-unknown */

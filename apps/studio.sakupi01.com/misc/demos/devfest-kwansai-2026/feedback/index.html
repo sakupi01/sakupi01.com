@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <meta name="text-scale" content="scale" />
+  <title>感想フォーム | DevFest Kwansai 2026</title>
+  <!-- Responsive iframe (3 章): 埋め込む側の frame-sizing に、この文書の高さを使ってよいと許可する -->
+  <meta name="responsive-embedded-sizing" content="allow-origins=*" />
+  <link rel="stylesheet" href="../shared/style.css" />
+  <script src="embed.js" defer></script>
+  <script type="module" src="feedback.js" onerror="document.documentElement.dataset.serverMissing = ''"></script>
+</head>
+
+<body class="feedback-page">
+  <main>
+    <p class="server-notice" role="alert">
+      感想の送信にはサーバー (DB) を使います。ローカルで <code>python3 serve.py</code> を起動して開いてください。
+    </p>
+
+    <!--
+    WebMCP の declarative API (3 章): toolname と tooldescription を付けたフォームが、そのままエージェント向けのツールになる。
+    エージェントは値を入れるところまで。toolautosubmit を付けないので、送信は人が確かめて押す。
+    [data-when] は条件付きの質問 (選択肢のまとまりは fieldset、1 項目だけなら div)。最初は hidden で隠しておき、条件を満たしたら feedback.js が出す。隠れている間は送信する答えからも除く。
+    disabled にしないのは、disabled の項目がツールの入力から外れ、エージェントが 1 回の呼び出しで全部を答えられなくなるため
+    -->
+    <form class="feedback-form select-form" toolname="submit_session_feedback"
+      tooldescription="このページのセッションの感想を送るフォームに入力する。評価が 4 以上なら良かったところ、3 以下なら物足りなかったところも聞く。送信は利用者が確かめて押す">
+      <label class="question">評価
+        <select name="rating" required toolparamdescription="5 段階の評価。5 がとても良かった、1 が良くなかった">
+          <option value="">選んでください</option>
+          <option value="5">★★★★★ とても良かった</option>
+          <option value="4">★★★★☆ 良かった</option>
+          <option value="3">★★★☆☆ ふつう</option>
+          <option value="2">★★☆☆☆ いまひとつ</option>
+          <option value="1">★☆☆☆☆ 良くなかった</option>
+        </select>
+      </label>
+
+      <!-- checkbox のまとまりの説明は、checkbox ではなく fieldset の toolparamdescription から読まれる (Chrome 157 Canary) -->
+      <fieldset class="question" hidden data-when="liked" toolparamdescription="良かったところ。評価が 4 以上のときだけ答える">
+        <legend>良かったところ</legend>
+        <div class="choices">
+          <label><input type="checkbox" name="liked" value="content" /> 内容</label>
+          <label><input type="checkbox" name="liked" value="delivery" /> 話し方</label>
+          <label><input type="checkbox" name="liked" value="slides" /> スライド</label>
+          <label><input type="checkbox" name="liked" value="demo" /> デモ</label>
+        </div>
+      </fieldset>
+
+      <div class="question" hidden data-when="liked-demo">
+        <label>どのデモが良かった？
+          <select name="liked_demo" toolparamdescription="良かったデモ。良かったところに demo を選んだときだけ答える">
+            <option value="">選んでください</option>
+            <option value="timetable">タイムテーブル</option>
+            <option value="favorites">お気に入り</option>
+            <option value="feedback">感想フォーム</option>
+          </select>
+        </label>
+      </div>
+
+      <fieldset class="question" hidden data-when="missed" toolparamdescription="物足りなかったところ。評価が 3 以下のときだけ答える">
+        <legend>物足りなかったところ</legend>
+        <div class="choices">
+          <label><input type="checkbox" name="missed" value="too_hard" /> 難しすぎた</label>
+          <label><input type="checkbox" name="missed" value="too_easy" /> 易しすぎた</label>
+          <label><input type="checkbox" name="missed" value="hard_to_hear" /> 聞き取りにくい</label>
+          <label><input type="checkbox" name="missed" value="too_short" /> 時間が足りない</label>
+        </div>
+      </fieldset>
+
+      <div class="question" hidden data-when="hard-part">
+        <label>どこが難しかった？
+          <textarea name="hard_part" rows="2" maxlength="1000"
+            toolparamdescription="難しかった部分。物足りなかったところに too_hard を選んだときだけ答える"></textarea>
+        </label>
+      </div>
+
+      <label class="question check"><input type="checkbox" name="has_question" value="yes"
+          toolparamdescription="登壇者に質問があるなら true" /> 登壇者に質問がある</label>
+
+      <div class="question" hidden data-when="question">
+        <label>質問
+          <textarea name="question" rows="2" maxlength="1000"
+            toolparamdescription="登壇者への質問。has_question が true のときだけ答える"></textarea>
+        </label>
+      </div>
+
+      <label class="question">ひとこと
+        <textarea name="comment" rows="2" maxlength="1000" toolparamdescription="自由な感想"></textarea>
+      </label>
+
+      <p class="actions">
+        <button type="submit">送信</button>
+      </p>
+      <p class="form-status" role="status"></p>
+    </form>
+
+    <!-- 送信できたら、フォームの代わりに見せる。数字は feedback.js が /api/feedback から入れる -->
+    <section class="feedback-thanks" hidden tabindex="-1" aria-labelledby="thanks-heading">
+      <h2 id="thanks-heading">送信しました。ありがとうございます</h2>
+      <p class="feedback-summary"></p>
+    </section>
+  </main>
+</body>
+
+</html>

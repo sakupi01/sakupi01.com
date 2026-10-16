@@ -6,6 +6,9 @@ Layout: タイムテーブル (timetable/index.html)。
 */
 
 .timetable-page {
+  max-inline-size: 1000px;
+  margin-inline: auto;
+
   main {
     display: grid;
     gap: var(--s-space-gap-md);
@@ -17,6 +20,17 @@ Layout: タイムテーブル (timetable/index.html)。
 
   .event-date {
     margin: 0;
+  }
+
+  .countdown {
+    font-size: var(--s-font-size-sm);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--s-font-weight-bold);
+    margin: 0;
+
+    &[hidden] {
+      display: none;
+    }
   }
 }
 
@@ -38,19 +52,39 @@ Layout: タイムテーブル (timetable/index.html)。
     display: none;
   }
 
-  label {
+  /* customizable select (1 章): 選択肢に旗と開場時刻を並べる。select と option の共通の見た目は common.css の .select-form */
+  option {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+
+    &::checkmark {
+      display: none;
+    }
+  }
+
+  .flag {
+    font-size: var(--s-font-size-lg);
+    line-height: 1;
+  }
+
+  /* その地域での開場時刻。選択肢の一覧でだけ見せ、選んだ値 (selectedcontent) では隠す */
+  .opening {
+    color: var(--s-color-text-secondary);
+    font-size: var(--s-font-size-2xs);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* stylelint-disable-next-line selector-type-no-unknown -- selectedcontent は stylelint の辞書にまだない */
+  selectedcontent {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    font-weight: var(--s-font-weight-bold);
-    gap: var(--s-space-gap-sm);
+    gap: var(--s-space-gap-xs);
   }
 
-  select {
-    background: var(--s-color-surface-base);
-    border: var(--s-border);
-    border-radius: var(--s-border-radius-full);
-    padding: var(--s-space-layout-control);
+  /* stylelint-disable-next-line selector-type-no-unknown -- selectedcontent は stylelint の辞書にまだない */
+  selectedcontent .opening {
+    display: none;
   }
 
   p {
@@ -113,20 +147,9 @@ Layout: タイムテーブル (timetable/index.html)。
     inline-size: 4.5rem;
   }
 
-  th[data-track="a"] {
-    background: var(--s-color-track-a-strong);
-  }
-
-  th[data-track="b"] {
-    background: var(--s-color-track-b-strong);
-  }
-
-  th[data-track="c"] {
-    background: var(--s-color-track-c-strong);
-  }
-
-  th[data-track="d"] {
-    background: var(--s-color-track-d-strong);
+  /* トラックの色は common.css の [data-track] が変数で渡す */
+  th[data-track] {
+    background: var(--track-strong);
   }
 
   td {
@@ -137,20 +160,8 @@ Layout: タイムテーブル (timetable/index.html)。
     vertical-align: top;
   }
 
-  td[data-track="a"] {
-    background: var(--s-color-track-a-soft);
-  }
-
-  td[data-track="b"] {
-    background: var(--s-color-track-b-soft);
-  }
-
-  td[data-track="c"] {
-    background: var(--s-color-track-c-soft);
-  }
-
-  td[data-track="d"] {
-    background: var(--s-color-track-d-soft);
+  td[data-track] {
+    background: var(--track-soft, var(--s-color-surface-base));
   }
 
   td.break {
@@ -159,23 +170,84 @@ Layout: タイムテーブル (timetable/index.html)。
     text-align: center;
     vertical-align: middle;
   }
+
+  /* block-size は最小値として働くだけで、行の高さは中身で決まる。指定があると中の block-size: 100% が解決される */
+  td.session {
+    block-size: 1px;
+    padding: 0;
+    position: relative;
+  }
+
+  /* リンクを grid にするとハートの float を回り込めないので、ハートはセルの右上に置き、タイトルの横を空ける */
+  /* stylelint-disable-next-line selector-type-no-unknown -- like-button は custom element の名前 */
+  td.session like-button {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .session-link {
+    block-size: 100%;
+    border-radius: var(--s-border-radius-md);
+    box-sizing: border-box;
+    color: inherit;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    padding: var(--s-space-layout-box);
+    text-decoration: none;
+
+    .title {
+      padding-inline-end: calc(
+        var(--s-icon-size-sm) + var(--s-space-layout-3xs) * 2 +
+          var(--s-space-gap-sm)
+      );
+    }
+
+    .speakers {
+      align-self: end;
+      grid-row: 3;
+    }
+
+    &:focus-visible {
+      outline: var(--s-border-width-thick) solid var(--s-color-primary);
+      outline-offset: 4px;
+    }
+  }
+
+  .speakers li {
+    align-items: center;
+    column-gap: var(--s-space-gap-xs);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    inline-size: 100%;
+  }
+
+  .name,
+  .affiliation {
+    grid-column: 1;
+  }
+
+  .avatar {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
 }
 
 /* -------------------------------------------------------------------------
-   Corner Shape (1 章)
-   角の形を半径とは別に指定する。未対応のブラウザは上の丸い角のまま
+   Corner Shape
    ------------------------------------------------------------------------- */
 
 @supports (corner-shape: squircle) {
   .timetable-page .timetable {
     thead th,
-    td {
+    td,
+    .session-link {
       border-radius: var(--s-border-radius-lg);
       /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
       corner-shape: squircle;
     }
 
-    /* 休憩はチケットの切り込みのような角にする */
     td.break {
       /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
       corner-shape: scoop;

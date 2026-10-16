@@ -1,30 +1,24 @@
 /*
 ----------------------------------------------------------------------------
-Navigation: ページ間の遷移 (2 章の Platform driven SPA)。
-
-JS を使わず、ページをまたぐ View Transitions と Navigation Matching (@location / @navigation /
-:link-to()) だけで、SPA のような画面遷移にする。
+Navigation
 ----------------------------------------------------------------------------
-*/
-
-/*
-stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知らないため、次の規則をファイル単位で外す。
-構文は CSS Navigation Level 1 の草案どおり。
 */
 
 /* stylelint-disable at-rule-no-unknown, selector-pseudo-class-no-unknown, selector-type-no-unknown */
 
-/* 同一 origin のページ遷移を View Transition にする */
+/*
+同一 origin のページ遷移を View Transition にする。
+SPA で切り替えるとき (shared/router.js) は、router.js が startViewTransition() で包む。この指定は、ページごとに読み込むとき (MPA で動くブラウザ) 用
+*/
 @view-transition {
   navigation: auto;
 }
 
 /* -------------------------------------------------------------------------
-   Locations: URL に名前を付ける
-   ナビゲーションを持つページは全部 1 階層下 (timetable/、board/、share/) にあるので、
+   @location: URL に名前を付ける
+   ナビゲーションを持つページは全部 1 階層下 (timetable/、favs/、session/) にあるので、
    document からの相対パスで書く。公開版 (studio の深い階層) でも同じ書き方で一致する。
-   Chrome 157 Canary では base-url: stylesheet がこのファイルではなく document を基準に解決され、
-   一致しなかった (2026-10-06 実測)
+   https://drafts.csswg.org/css-navigation-1/
    ------------------------------------------------------------------------- */
 
 @location --timetable {
@@ -32,20 +26,15 @@ stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知�
   pattern: url-pattern("../timetable/");
 }
 
-@location --board {
+@location --favs {
   base-url: document;
-  pattern: url-pattern("../board/");
-}
-
-@location --share {
-  base-url: document;
-  pattern: url-pattern("../share/");
+  pattern: url-pattern("../favs/");
 }
 
 /* -------------------------------------------------------------------------
    共通ナビゲーション
-   中身は partials/site-nav.html を Declarative Fragments で取り込む。
-   いまのページへのリンクは :link-to() で選ぶので、partial に aria-current を書かなくてよい
+   各ページに同じリンクを書く。SPA で切り替えてもナビは差し替えないので、
+   いまのページへのリンクは aria-current ではなく、:link-to() と body のクラスで選ぶ
    ------------------------------------------------------------------------- */
 
 .site-nav {
@@ -63,27 +52,44 @@ stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知�
     padding: var(--s-space-layout-badge);
     text-decoration: none;
   }
+}
 
-  /* partial が届いたら、同じ内容の予備のリンクは隠す */
-  &:has(.partial) .fallback {
-    display: none;
+/* link color by the target page */
+a:link-to(--timetable),
+a:link-to(--favs) {
+  color: var(--s-color-surface-base);
+}
+
+a {
+  &:link-to(--timetable) {
+    background: pink;
+  }
+
+  &:link-to(--favs) {
+    background: blue;
   }
 }
 
+/* Current links */
 .timetable-page .site-nav a:link-to(--timetable),
-.board-page .site-nav a:link-to(--board),
-.share-page .site-nav a:link-to(--share) {
+.favs-page .site-nav a:link-to(--favs) {
   background: var(--s-color-text-primary);
   color: var(--s-color-surface-base);
 }
 
 /* -------------------------------------------------------------------------
    Transitions
-   セッションはタイムテーブルのセルとボードのカードで同じ id を持つので、
-   同じ view-transition-name になり、セルがカードへ形を変えながら移動する
+   セッションは、タイムテーブルのセル、お気に入りのカード、セッションページで同じ id を持つ
+   (session-05)。タイトル、最初の登壇者の写真と名前も同じ id (session-05-title など) を持つ。
+   id をそのまま view-transition-name にするので、どのページの間でも同じ要素が形を変えながら移動する。
+   お気に入りのカードの名前は card.css が付ける (custom element の定義前から付けるため)
    ------------------------------------------------------------------------- */
 
-.timetable-page td.session {
+.timetable-page td.session,
+.session-page .session-detail,
+[id^="session-"][id$="-title"],
+.avatar[id],
+.name[id] {
   view-transition-name: attr(id type(<custom-ident>));
 }
 
@@ -105,8 +111,12 @@ stylelint はまだ @location / @navigation / :link-to() / url-pattern() を知�
   }
 }
 
-/* 遷移の向きで見出しの動きを変える。(to:) は旧ページ、(from:) は新ページで評価される */
-@navigation (to: --board) {
+/*
+遷移の向きで見出しの動きを変える。
+ページごとに読み込むとき (MPA) は、(to:) が旧ページ、(from:) が新ページで効く。
+SPA (同じ文書) では、遷移の最中 (View Transition が終わるまで) はどちらも一致する (Chrome 157 Canary、2026-10-13)
+*/
+@navigation (to: --favs) {
   ::view-transition-old(page-title) {
     animation: slide-out-to-start var(--s-duration-slow) var(--s-ease-out) both;
   }

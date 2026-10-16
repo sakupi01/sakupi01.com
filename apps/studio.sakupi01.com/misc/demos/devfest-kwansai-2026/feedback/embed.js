@@ -25,7 +25,7 @@ if (window.parent !== window) {
     );
   };
 
-  // フォントの読み込み、iframe の幅の変化、カードの並び替えなど、高さが変わる原因をまとめて拾う
+  // フォントの読み込み、iframe の幅の変化、質問の出し入れなど、高さが変わる原因をまとめて拾う
   new ResizeObserver(notify).observe(document.documentElement);
   // 自前配信のフォントは大きいので、読み込み後に改めて測り直してもらう (blog の embed と同じ形)
   document.fonts.ready.then(notify);

@@ -1,0 +1,317 @@
+/*
+----------------------------------------------------------------------------
+session-card style
+----------------------------------------------------------------------------
+*/
+/* stylelint-disable declaration-property-value-no-unknown, unit-allowed-list, custom-property-no-missing-var-function, selector-type-no-unknown */
+
+/* -------------------------------------------------------------------------
+   Document side (light DOM)
+   ------------------------------------------------------------------------- */
+
+session-card {
+  view-transition-name: attr(id type(<custom-ident>));
+
+  /* タイトルはセッションページへのリンク。::after をカード全体に広げ、カードのどこを押しても移れるようにする */
+  .session-link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      border-radius: var(--s-border-radius-md);
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    /* フォーカスリングはカード全体に広げた ::after に出す。Corner Shape の形に沿う (1 章) */
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:focus-visible::after {
+      outline: var(--s-border-width-thick) solid var(--s-color-primary);
+      outline-offset: 4px;
+    }
+  }
+
+  .speakers {
+    text-align: start;
+  }
+
+  .speakers li {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--s-space-gap-2xs);
+  }
+
+  /* 広いカードでは登壇者を横に並べる。card は :host が名乗る container (下の Shadow DOM side) */
+  @container card (width >= 18em) {
+    .speakers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-space-gap-2xs) var(--s-space-gap-md);
+    }
+  }
+
+  /* 登壇者名は interest invoker のボタン。カーソルやフォーカスで所属を出す。リンクの ::after より上に置く */
+  .name {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: help;
+    font-family: inherit;
+    line-height: inherit;
+    padding: 0;
+    position: relative;
+    text-align: start;
+    text-decoration: underline dotted;
+    text-underline-offset: 0.2em;
+  }
+
+  /*
+  所属は popover="hint" の要素。閉じているときは UA の popover の配置 (fixed で中央) を打ち消して隠す。
+  if() 未対応のブラウザでは interest invokers も無いので、2 つ目の宣言が無効になり、所属を本文として見せる
+  */
+  .affiliation:not(:popover-open) {
+    background: none;
+    block-size: auto;
+    border: 0;
+    color: inherit;
+    display: block;
+    display: if(else: none);
+    inline-size: auto;
+    inset: auto;
+    margin: 0;
+    opacity: 0.85;
+    overflow: visible;
+    padding: 0;
+    position: static;
+  }
+
+  /* 開いたときは、名前のボタン (暗黙の anchor) の下に出す */
+  .affiliation:popover-open {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-md);
+    color: var(--s-color-text-primary);
+    font-size: var(--s-font-size-3xs);
+    margin: var(--s-space-gap-2xs) 0 0;
+    max-inline-size: 30ch;
+    padding: var(--s-space-layout-control);
+    position-area: block-end span-inline-end;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--s-font-size-3xs);
+    gap: 0 1ch;
+    margin: 0;
+  }
+}
+
+@supports (corner-shape: squircle) {
+  session-card .session-link::after {
+    border-radius: var(--s-border-radius-lg);
+    /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
+    corner-shape: squircle;
+  }
+}
+
+/*
+custom element の定義前 (JS 無効時を含む) も読める状態にしておく。
+display はここで決めない。この layer (components) は favs/layout.css (layout) より後ろなので、
+ここで display を決めると、お気に入りでないカードや絞り込みで外したカードを隠す規則に勝ってしまう
+*/
+session-card:not(:defined) {
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  padding: var(--s-space-layout-box);
+  position: relative;
+}
+
+/* -------------------------------------------------------------------------
+   Shadow DOM side
+   ------------------------------------------------------------------------- */
+
+:host {
+  --track: attr(data-track type(<custom-ident>), none);
+  --track-color: if(
+    style(--track: a): var(--s-color-track-a-soft) ;
+      style(--track: b): var(--s-color-track-b-soft) ;
+      style(--track: c): var(--s-color-track-c-soft) ;
+      style(--track: d): var(--s-color-track-d-soft) ;
+      else: var(--s-color-surface-base)
+  );
+
+  /* --lift は tokens/primitives.css の @property で型を登録してあるので transition で補間される */
+  --lift: 0px;
+  --shadow-color: var(--s-color-border-strong);
+
+  /* トラック別の表示で入る列。--view は board から継承される (favs/layout.css) */
+  --track-column: if(
+    style(--track: a): 1; style(--track: b): 2; style(--track: c): 3;
+      style(--track: d): 4; else: auto
+  );
+
+  /* ドラッグで落とした列。favs.js が data-lane を付けたカードだけ、その列に固定する */
+  --lane: attr(data-lane type(<integer>), auto);
+
+  background: var(--track-color);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  box-shadow: var(--lift) var(--lift) 0 var(--shadow-color);
+  color: contrast-color(var(--track-color));
+
+  /* カードの幅 (ボードの列の幅) で中身の並べ方を変える。下の @container card */
+  container: card / inline-size;
+  cursor: grab;
+  display: block;
+  grid-column: if(
+    style(--view: track): var(--track-column) ; else: var(--lane)
+  );
+  padding: var(--s-space-layout-box);
+  position: relative;
+  transition: --lift var(--s-duration-fast) var(--s-ease-out);
+  translate: calc(var(--lift) * -1) calc(var(--lift) * -1);
+}
+
+@media (hover: hover) {
+  :host(:hover) {
+    --lift: 3px;
+  }
+}
+
+:host(.dragging) {
+  cursor: grabbing;
+  opacity: 0.4;
+}
+
+/* 並べ替えで入れる位置。カードの上か下の隙間 (board の gap) の真ん中に線を引く */
+:host(.drop-before)::before,
+:host(.drop-after)::before {
+  border-block-start: var(--s-border-width-thick) solid var(--s-color-primary);
+  content: "";
+  inset-inline: 0;
+  position: absolute;
+}
+
+:host(.drop-before)::before {
+  inset-block-start: calc(
+    (var(--s-space-gap-lg) + var(--s-border-width-thick)) / -2 -
+      var(--s-border-width-base)
+  );
+}
+
+:host(.drop-after)::before {
+  inset-block-end: calc(
+    (var(--s-space-gap-lg) + var(--s-border-width-thick)) / -2 -
+      var(--s-border-width-base)
+  );
+}
+
+::slotted(h2) {
+  font-size: 0.95em;
+  font-weight: var(--s-font-weight-bold);
+  line-height: var(--s-line-height-tight);
+  margin: 0;
+
+  /* 各行を列の幅いっぱいまで拡大する (1 章の Fit-to-Width text)。狭い列で大きくなりすぎないよう 1.5 倍まで */
+  text-fit: grow per-line-all 150%;
+  text-wrap: balance;
+}
+
+/* Corner Shape (1 章): 未対応のブラウザは :host の丸い角のまま */
+@supports (corner-shape: squircle) {
+  :host {
+    border-radius: var(--s-border-radius-lg);
+    /* stylelint-disable-next-line property-no-unknown -- corner-shape は stylelint の辞書にまだない */
+    corner-shape: squircle;
+  }
+}
+
+/* container は自分の幅を問い合わせられないので、並べ方は :host ではなく中の .layout が持つ */
+:host .layout {
+  align-content: start;
+  display: grid;
+  gap: 0.4lh;
+  grid-template-areas: "title" "speakers" "meta" "actions";
+  grid-template-columns: minmax(0, 1fr);
+}
+
+::slotted([slot="title"]) {
+  grid-area: title;
+}
+
+::slotted([slot="speakers"]) {
+  grid-area: speakers;
+}
+
+::slotted([slot="meta"]) {
+  grid-area: meta;
+}
+
+/* 操作のボタン。ドラッグの代わりにキーボードでも並べ替えられる。タイトルのリンクの ::after より上に置く */
+:host .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-space-gap-2xs);
+  grid-area: actions;
+  position: relative;
+}
+
+/* 細いカード (トラック別の 4 列など): 3 つを 1 行に並べると折り返してばらばらになるので、ハートの下に前後のボタンを同じ幅で並べる */
+@container card (width < 10em) {
+  :host .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  :host .unfavorite {
+    grid-column: 1 / -1;
+  }
+
+  :host .actions button {
+    justify-content: center;
+    padding-inline: var(--s-space-layout-3xs);
+  }
+}
+
+/* 広いカード (狭い画面の 1 列など): 時刻とボタンを同じ行に並べ、登壇者も横に並べる */
+@container card (width >= 18em) {
+  :host .layout {
+    align-items: center;
+    grid-template-areas: "title title" "speakers speakers" "meta actions";
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+/* :host を付けて、document 側で読み込んだときにページ内のほかの button に当たらないようにする */
+:host button {
+  align-items: center;
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-full);
+  color: var(--s-color-text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  flex-wrap: wrap;
+  font-size: var(--s-font-size-3xs);
+  font-weight: var(--s-font-weight-bold);
+  gap: var(--s-space-gap-2xs);
+  padding: var(--s-space-layout-badge);
+}
+
+/* お気に入りから外すボタン。押されている (お気に入りの) 状態なので塗りつぶしたハートにする */
+:host .unfavorite {
+  color: var(--s-color-like);
+}
+
+:host .heart {
+  block-size: var(--s-icon-size-sm);
+  fill: currentcolor;
+  inline-size: var(--s-icon-size-sm);
+}

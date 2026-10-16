@@ -1,0 +1,212 @@
+/*
+----------------------------------------------------------------------------
+Layout: お気に入り (favs/index.html)。
+カード本体の見た目は card.css が持ち、ここはボードの並べ方だけを決める。
+----------------------------------------------------------------------------
+*/
+
+/* stylelint-disable selector-type-no-unknown -- session-card は custom element の名前 */
+
+.favs-page {
+  header {
+    padding: var(--s-space-layout-lg);
+  }
+
+  .board-summary {
+    color: var(--s-color-text-secondary);
+    font-size: var(--s-font-size-sm);
+    margin: 0;
+  }
+
+  /* WebKit の Museum デモ (https://webkit.org/demos/grid3/museum/) の列定義を参考にした */
+  .board {
+    display: grid-lanes;
+    gap: var(--s-space-gap-lg);
+    grid-template-columns: repeat(auto-fill, minmax(min(18ch, 100%), 1fr));
+    padding: var(--s-space-layout-lg);
+
+    /*
+    Gap Decorations (New Layout System の章): カードとカードの間の隙間に区切り線を引く。
+    rule-visibility-items: between で、隙間の両側にカードがあるところだけに引く。
+    お気に入りが増えると、隣り合うカードが増えた分だけ線も増える (空いている列や、列の下の余白には引かない)
+    */
+    /* stylelint-disable-next-line property-no-unknown -- rule は stylelint の辞書にまだない */
+    rule: var(--s-border-width-base) dashed var(--s-color-border-strong);
+    /* stylelint-disable-next-line property-no-unknown -- rule-visibility-items は stylelint の辞書にまだない */
+    rule-visibility-items: between;
+  }
+
+  /* custom element の定義前は、shadow DOM (カードの枠と操作ボタン) がまだないので隠す */
+  session-card:not(:defined) {
+    display: none;
+  }
+
+  /* お気に入りの印 (data-favorite) は、serve.py が流すカードの HTML と favs.js が付ける */
+  session-card:not([data-favorite]) {
+    display: none;
+  }
+
+  /*
+  サーバーからカードが届いて (スケルトンが差し替わって)、お気に入りが 1 枚もないときだけ案内を出す (JS なし)。
+  0 件のときサーバーは空の <template for="board-cards"> を送るので、届いたかどうかはスケルトンの有無で見る
+  */
+  .favs-empty {
+    display: none;
+    margin: var(--s-space-gap-md) 0 0;
+  }
+
+  &:not(:has(.board .skeleton-card)):not(
+      :has(.board session-card[data-favorite])
+    )
+    .favs-empty {
+    display: block;
+  }
+
+  /* トラック別: 列をトラックの数に固定し、カードは card.css の if() で自分のトラックの列に入る */
+  .board[data-view="track"] {
+    --view: track;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @supports not (display: grid-lanes) {
+    .board {
+      align-items: start;
+      display: grid;
+      grid-auto-flow: dense;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Skeleton (2 章)
+   カードが <template for> で届くまでの仮のカード。灰色の帯に光が流れる
+   ------------------------------------------------------------------------- */
+
+.favs-page .skeleton-card {
+  background: var(--s-color-surface-base);
+  border: var(--s-border);
+  border-radius: var(--s-border-radius-md);
+  display: grid;
+  gap: 0.6lh;
+  padding: var(--s-space-layout-box);
+
+  span {
+    animation: skeleton-shimmer 1.4s linear infinite;
+    background: linear-gradient(
+      90deg,
+      var(--s-color-surface-muted) 40%,
+      var(--s-color-surface-page) 50%,
+      var(--s-color-surface-muted) 60%
+    );
+    background-size: 300% 100%;
+    block-size: 1lh;
+    border-radius: var(--s-border-radius-md);
+  }
+
+  /* 1 本目はタイトル、最後は時刻の行に見立てて幅を変える */
+  span:first-child {
+    block-size: 2lh;
+  }
+
+  span:last-child {
+    inline-size: 60%;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .favs-page .skeleton-card span {
+    animation: none;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   View toggle
+   ------------------------------------------------------------------------- */
+
+.favs-page .board-view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-space-gap-2xs);
+  margin-block-start: var(--s-space-gap-md);
+
+  button {
+    background: var(--s-color-surface-base);
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    cursor: pointer;
+    font-weight: var(--s-font-weight-bold);
+    padding: var(--s-space-layout-badge);
+  }
+
+  button[aria-pressed="true"] {
+    background: var(--s-color-text-primary);
+    color: var(--s-color-surface-base);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Filter
+   ------------------------------------------------------------------------- */
+
+.favs-page .board-filter {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-space-gap-sm) var(--s-space-gap-lg);
+  margin-block-start: var(--s-space-gap-md);
+
+  output {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* customizable select: 選択肢の中にトラックの色見本を置ける。select と option の共通の見た目は common.css の .select-form */
+  option {
+    display: flex;
+    flex-wrap: wrap;
+
+    &::checkmark {
+      display: none;
+    }
+  }
+
+  /* 選んだ値にも色見本を出す。flex にしないと .swatch がインラインのままで、大きさが効かない */
+  selectedcontent {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-space-gap-sm);
+  }
+
+  /* トラックの色は common.css の [data-track] が変数で渡す。「すべて」の色見本は data-track を持たないので白 */
+  .swatch {
+    background: var(--track-strong, var(--s-color-surface-base));
+    block-size: 1em;
+    border: var(--s-border);
+    border-radius: var(--s-border-radius-full);
+    inline-size: 1em;
+  }
+}
+
+/* 選んだトラック以外のカードを隠す。選択状態を :has() で読むので JS は要らない */
+.favs-page:has(.board-filter option[value="a"]:checked)
+  session-card:not([data-track="a"]),
+.favs-page:has(.board-filter option[value="b"]:checked)
+  session-card:not([data-track="b"]),
+.favs-page:has(.board-filter option[value="c"]:checked)
+  session-card:not([data-track="c"]),
+.favs-page:has(.board-filter option[value="d"]:checked)
+  session-card:not([data-track="d"]),
+.favs-page session-card[data-out-of-range] {
+  display: none;
+}

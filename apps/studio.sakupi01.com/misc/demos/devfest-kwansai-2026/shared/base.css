@@ -1,22 +1,21 @@
 /*
 ----------------------------------------------------------------------------
-Base: reset と要素の既定スタイル。
+* Base styles
 ----------------------------------------------------------------------------
 */
 
-/* 会場のネットワークに頼らないよう、フォントは自前で配信する (SIL OFL 1.1、fonts/OFL.txt) */
 @font-face {
   font-display: swap;
   font-family: "M PLUS Rounded 1c";
   font-weight: 500;
-  src: url("fonts/MPLUSRounded1c-Medium.woff2") format("woff2");
+  src: url("../fonts/MPLUSRounded1c-Medium.woff2") format("woff2");
 }
 
 @font-face {
   font-display: swap;
   font-family: "M PLUS Rounded 1c";
   font-weight: 800;
-  src: url("fonts/MPLUSRounded1c-ExtraBold.woff2") format("woff2");
+  src: url("../fonts/MPLUSRounded1c-ExtraBold.woff2") format("woff2");
 }
 
 *,
@@ -44,7 +43,6 @@ button {
   font: inherit;
 }
 
-/* 公式サイトの見出し「// タイムテーブル」の書式 */
 .page-title {
   font-size: var(--s-font-size-2xl);
   font-weight: var(--s-font-weight-bold);
