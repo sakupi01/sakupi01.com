@@ -245,11 +245,15 @@
         <ul>
             <li><a href="./env/">env(preferred-text-scale)</a> - Apply text scaling to specific elements</li>
             <li><a href="./meta/">meta name="text-scale"</a> - Apply text scaling to the entire page</li>
-            <li>On macOS, launch Chrome Canary with: <code>/Applications/Google\ Chrome\
-                Canary.app/Contents/MacOS/Google\
-                Chrome\ Canary \
-                --blink-settings=accessibilityFontScaleFactor=2.0 \
-                --enable-experimental-web-platform-features</code></li>
+            <li>On desktop, emulate the OS text scale with DevTools' Protocol Monitor: send
+                <code>Emulation.setEmulatedOSTextScale</code> with <code>{"scale": 2}</code>, then reload. (The
+                <code>--blink-settings=accessibilityFontScaleFactor</code> flag had no effect in Chrome 157 Canary on
+                macOS.)
+            </li>
+            <li>With <code>content="legacy"</code> or no meta, <code>env(preferred-text-scale)</code> is always
+                <code>1</code> on desktop (<a href="https://drafts.csswg.org/css-fonts-5/#text-scale-meta">CSS Fonts 5
+                    §2.2</a>).
+            </li>
         </ul>
 
         <table>
@@ -278,8 +282,8 @@
                 name="text-scale"&gt;</a>
         </p>
         <p class="note">Try it in Chrome 138+ (env) / Chrome 139+ (meta).</p>
-        <small><time datetime="2025-04-05">This DEMO is last updated on:
-                2025-04-05</time></small>
+        <small><time datetime="2026-10-13">This DEMO is last updated on:
+                2026-10-13</time></small>
     </div>
 </body>
 

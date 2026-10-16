@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="text-scale" content="legacy" />
+    <!-- With "legacy" (or no meta), env(preferred-text-scale) is always 1 on desktop. "scale" makes it return the OS scale everywhere. -->
+    <meta name="text-scale" content="scale" />
     <title>env(preferred-text-scale) | studio.sakupi01.com</title>
     <style>
         body {
             max-width: 600px;
+            /* "scale" also scales the root font size. Pin the page to px so only the env() box grows. */
+            font-size: 16px;
         }
 
         /*
@@ -90,6 +93,16 @@
         Use it to apply text scaling to specific elements.
     </p>
 
+    <p>
+        The value depends on <code>&lt;meta name="text-scale"&gt;</code>
+        (<a href="https://drafts.csswg.org/css-fonts-5/#text-scale-meta">CSS Fonts 5 §2</a>):
+    </p>
+    <ul>
+        <li><code>legacy</code> or no meta: the OS scale on mobile, but always <code>1</code> on desktop.</li>
+        <li><code>scale</code>: the OS scale on every platform. The root font size is scaled too, so this page pins
+            <code>body</code> to <code>16px</code> to show the difference.</li>
+    </ul>
+
     <section>
         <h2>Usage</h2>
         <pre><code>.scaled {
@@ -121,10 +134,12 @@
 
     <section>
         <h2>Testing</h2>
-        <p>On macOS, launch Chrome Canary with:</p>
-        <pre><code>/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
-  --blink-settings=accessibilityFontScaleFactor=2.0 \
-  --enable-experimental-web-platform-features</code></pre>
+        <p>On desktop, emulate the OS text scale from DevTools (the <code>--blink-settings=accessibilityFontScaleFactor</code> flag had no effect in Chrome 157 Canary on macOS):</p>
+        <ol>
+            <li>DevTools Settings → Experiments → enable "Protocol Monitor", then reload DevTools.</li>
+            <li>Open it with "Show Protocol monitor" from the command menu (Cmd/Ctrl + Shift + P).</li>
+            <li>Send <code>Emulation.setEmulatedOSTextScale</code> with <code>{"scale": 2}</code>, then reload the page.</li>
+        </ol>
     </section>
 
     <div class="checker-dialog">
@@ -132,7 +147,7 @@
                 target="_top">env(preferred-text-scale)</a>
         </p>
         <p class="note">Try it in Chrome 138+.</p>
-        <small><time datetime="2025-04-05">This DEMO is last updated on: 2025-04-05</time></small>
+        <small><time datetime="2026-10-13">This DEMO is last updated on: 2026-10-13</time></small>
     </div>
 </body>
 

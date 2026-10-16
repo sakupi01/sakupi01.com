@@ -95,7 +95,9 @@
         <h2>Possible values</h2>
         <ul class="content-values">
             <li><code>scale</code>: Respond to the OS text scale setting (this page)</li>
-            <li><code>legacy</code>: Ignore the OS text scale setting (default behavior)</li>
+            <li><code>legacy</code>: Ignore the OS text scale setting (default behavior).
+                <code>env(preferred-text-scale)</code> is always <code>1</code> on desktop, and the OS scale on mobile
+            </li>
         </ul>
     </section>
 
@@ -109,15 +111,21 @@
                 dolore magna aliqua.</p>
         </div>
 
-        <p>Compare this page with the <a href="../env/">env() demo</a> which uses <code>content="legacy"</code>.</p>
+        <p>Compare this page with the <a href="../env/">env() demo</a>, which pins the page to <code>px</code> and
+            scales only one box with <code>env()</code>.</p>
     </section>
 
     <section>
         <h2>Testing</h2>
-        <p>On macOS, launch Chrome Canary with:</p>
-        <pre><code>/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary \
-  --blink-settings=accessibilityFontScaleFactor=2.0 \
-  --enable-experimental-web-platform-features</code></pre>
+        <p>On desktop, emulate the OS text scale from DevTools (the
+            <code>--blink-settings=accessibilityFontScaleFactor</code> flag had no effect in Chrome 157 Canary on
+            macOS):</p>
+        <ol>
+            <li>DevTools Settings → Experiments → enable "Protocol Monitor", then reload DevTools.</li>
+            <li>Open it with "Show Protocol monitor" from the command menu (Cmd/Ctrl + Shift + P).</li>
+            <li>Send <code>Emulation.setEmulatedOSTextScale</code> with <code>{"scale": 2}</code>, then reload the page.
+            </li>
+        </ol>
     </section>
 
     <div class="checker-dialog">
@@ -125,7 +133,7 @@
                 name="text-scale"&gt;</a>
         </p>
         <p class="note">Try it in Chrome 139+.</p>
-        <small><time datetime="2025-04-05">This DEMO is last updated on: 2025-04-05</time></small>
+        <small><time datetime="2026-10-13">This DEMO is last updated on: 2026-10-13</time></small>
     </div>
 </body>
 
