@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Out-of-Order Streaming Animation (Light Theme)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Google+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Google Sans', 'Noto Sans JP', sans-serif;
+        }
+
+        /* スライド右側のスペースにぴったり収まる角丸ライトカード */
+        .slide-embed-card {
+            width: 580px;
+            height: 590px;
+            background: #ffffff;
+            border: 1px solid #e0e3e7;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(60, 64, 67, 0.08), 0 2px 6px rgba(60, 64, 67, 0.04);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 上部ステータスバー */
+        .card-header {
+            height: 42px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e8eaed;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+        }
+
+        .stream-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #5f6368;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34a853;
+            box-shadow: 0 0 6px #34a853;
+            animation: pulse 1.6s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        .step-tag {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #1a73e8;
+            background: #e8f0fe;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        /* メインコンテナ */
+        .card-body {
+            flex: 1;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: space-between;
+            background: #fafbfc;
+        }
+
+        /* コードストリーミングエリア */
+        .code-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .chunk {
+            background: #ffffff;
+            border: 1px solid #e8eaed;
+            border-radius: 10px;
+            padding: 9px 12px;
+            opacity: 0.25;
+            transform: translateY(3px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chunk.active {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: #d2e3fc;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.06);
+        }
+
+        .chunk.highlight {
+            border-color: #fbbc04;
+            background: #fef7e0;
+            box-shadow: 0 4px 12px rgba(251, 188, 4, 0.18);
+        }
+
+        .chunk-header {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: #70757a;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* シンタックスハイライト（Googleカラー調） */
+        .tag {
+            color: #1a73e8;
+        }
+
+        .attr {
+            color: #e37400;
+        }
+
+        .str {
+            color: #188038;
+        }
+
+        .pi {
+            color: #9334e6;
+            font-weight: 600;
+        }
+
+        .cmt {
+            color: #80868b;
+            font-style: italic;
+        }
+
+        /* 下部：リアルタイムDOMレンダリング */
+        .dom-preview {
+            background: #ffffff;
+            border: 1px solid #e0e3e7;
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 1px 3px rgba(60, 64, 67, 0.05);
+        }
+
+        .dom-title {
+            font-size: 10px;
+            font-family: 'Fira Code', monospace;
+            color: #5f6368;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f3f4;
+            padding-bottom: 6px;
+        }
+
+        .slot-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* スケルトン表示 */
+        .skeleton-view {
+            padding: 9px 12px;
+            background: #f8f9fa;
+            border: 1.5px dashed #dadce0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sk-badge {
+            font-size: 9px;
+            font-family: 'Fira Code', monospace;
+            color: #9334e6;
+            background: #f3e8fd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .sk-line {
+            height: 7px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #e8eaed 25%, #dadce0 50%, #e8eaed 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* 差し替え後の実コンテンツ表示 */
+        .real-view {
+            padding: 9px 12px;
+            background: #ffffff;
+            border: 1.5px solid transparent;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #202124;
+            opacity: 0;
+            transform: scale(0.97);
+            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .real-view.visible {
+            opacity: 1;
+            transform: scale(1);
+            border-color: #34a853;
+            background: #f6fbf7;
+            box-shadow: 0 2px 10px rgba(52, 168, 83, 0.15);
+        }
+
+        .status-badge {
+            font-size: 9.5px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .badge-green {
+            background: #ceead6;
+            color: #0d652d;
+        }
+
+        .badge-yellow {
+            background: #feefc3;
+            color: #b06000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- スライド埋め込み用カード -->
+    <div class="slide-embed-card">
+        <div class="card-header">
+            <div class="stream-status">
+                <span class="pulse-dot"></span>
+                <span id="txt-stream">Transfer-Encoding: chunked</span>
+            </div>
+            <span class="step-tag" id="txt-step">1. Initial Shell</span>
+        </div>
+
+        <div class="card-body">
+            <!-- コード受信 -->
+            <div class="code-stream">
+                <!-- Chunk 1 -->
+                <div class="chunk" id="c1">
+                    <div class="chunk-header">
+                        <span>CHUNK 1 (0ms: App Shell)</span>
+                        <span class="cmt">プレースホルダー先行送信</span>
+                    </div>
+                    <div><span class="pi">&lt;?replace name="user-profile"?&gt;</span></div>
+                    <div style="padding-left:12px;"><span class="tag">&lt;div class=<span
+                                class="str">"loading"</span>&gt;</span>...<span class="tag">&lt;/div&gt;</span></div>
+                    <div><span class="pi">&lt;/?replace?&gt;</span></div>
+                    <div><span class="pi">&lt;?replace name="feed-list"?&gt;</span></div>
+                    <div style="padding-left:12px;"><span class="tag">&lt;div class=<span
+                                class="str">"loading"</span>&gt;</span>...<span class="tag">&lt;/div&gt;</span></div>
+                    <div><span class="pi">&lt;/?replace?&gt;</span></div>
+                </div>
+
+                <!-- Chunk 2: Feed 先着 -->
+                <div class="chunk" id="c2">
+                    <div class="chunk-header">
+                        <span style="color:#e37400; font-weight:600;">CHUNK 2 (+300ms: Feed ready)</span>
+                        <span class="cmt">下部が先に到着</span>
+                    </div>
+                    <div><span class="tag">&lt;template</span> <span class="attr">for</span>=<span
+                            class="str">"feed-list"</span><span class="tag">&gt;</span></div>
+                    <div style="padding-left:12px; font-weight:500;">
+                        <span class="tag">&lt;div class=<span class="str">"feed"</span>&gt;</span>✅ 最新ニュースフィード<span
+                            class="tag">&lt;/div&gt;</span>
+                    </div>
+                    <div><span class="tag">&lt;/template&gt;</span></div>
+                </div>
+
+                <!-- Chunk 3: Profile 遅れて到着 (Out of order) -->
+                <div class="chunk" id="c3">
+                    <div class="chunk-header">
+                        <span style="color:#188038; font-weight:600;">CHUNK 3 (+750ms: Profile ready)</span>
+                        <span class="cmt">上部が後から到着</span>
+                    </div>
+                    <div><span class="tag">&lt;template</span> <span class="attr">for</span>=<span
+                            class="str">"user-profile"</span><span class="tag">&gt;</span></div>
+                    <div style="padding-left:12px; font-weight:500;">
+                        <span class="tag">&lt;div class=<span class="str">"user"</span>&gt;</span>👤 @alex (重い認証完了)<span
+                            class="tag">&lt;/div&gt;</span>
+                    </div>
+                    <div><span class="tag">&lt;/template&gt;</span></div>
+                </div>
+            </div>
+
+            <!-- DOMプレビュー -->
+            <div class="dom-preview">
+                <div class="dom-title">
+                    <span>Client DOM Rendering</span>
+                    <span style="color:#1a73e8; font-weight:600;">No JS Required</span>
+                </div>
+
+                <!-- User Profile Slot (上部) -->
+                <div class="slot-item">
+                    <div class="skeleton-view" id="sk-user">
+                        <span class="sk-badge">user-profile</span>
+                        <div class="sk-line" style="width: 28px; height: 28px; border-radius: 50%;"></div>
+                        <div style="flex:1;">
+                            <div class="sk-line" style="width: 45%; margin-bottom: 5px;"></div>
+                            <div class="sk-line" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <div class="real-view" id="real-user" style="display:none;">
+                        <span style="font-size: 18px;">👤</span>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:12px; color:#202124;">Alex Rivera (@alex)</div>
+                            <div style="font-size:10px; color:#70757a;">遅れて届いた上部スロットに自動挿入</div>
+                        </div>
+                        <span class="status-badge badge-green">Out-of-Order Patched</span>
+                    </div>
+                </div>
+
+                <!-- Feed List Slot (下部) -->
+                <div class="slot-item">
+                    <div class="skeleton-view" id="sk-feed">
+                        <span class="sk-badge">feed-list</span>
+                        <div style="flex:1;">
+                            <div class="sk-line" style="width: 75%; margin-bottom: 5px;"></div>
+                            <div class="sk-line" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <div class="real-view" id="real-feed" style="display:none;">
+                        <span style="font-size: 16px;">📰</span>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:12px; color:#202124;">最新トピック一覧</div>
+                            <div style="font-size:10px; color:#70757a;">DBから先に届いたため下部に即時反映</div>
+                        </div>
+                        <span class="status-badge badge-yellow">Patched First</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const c1 = document.getElementById('c1');
+        const c2 = document.getElementById('c2');
+        const c3 = document.getElementById('c3');
+
+        const skUser = document.getElementById('sk-user');
+        const realUser = document.getElementById('real-user');
+
+        const skFeed = document.getElementById('sk-feed');
+        const realFeed = document.getElementById('real-feed');
+
+        const txtStep = document.getElementById('txt-step');
+        const txtStream = document.getElementById('txt-stream');
+
+        let current = 0;
+
+        function render(step) {
+            if (step === 0) {
+                // Step 1: Shell
+                c1.className = 'chunk active';
+                c2.className = 'chunk';
+                c3.className = 'chunk';
+
+                skUser.style.display = 'flex';
+                realUser.style.display = 'none';
+                realUser.classList.remove('visible');
+
+                skFeed.style.display = 'flex';
+                realFeed.style.display = 'none';
+                realFeed.classList.remove('visible');
+
+                txtStep.textContent = '1. Shell & Placeholders';
+                txtStep.style.color = '#1a73e8';
+                txtStep.style.background = '#e8f0fe';
+                txtStream.textContent = 'Chunk 1 received: Instant Shell';
+            }
+            else if (step === 1) {
+                // Step 2: Feed 先着
+                c1.className = 'chunk active';
+                c2.className = 'chunk active highlight';
+                c3.className = 'chunk';
+
+                setTimeout(() => {
+                    skFeed.style.display = 'none';
+                    realFeed.style.display = 'flex';
+                    realFeed.classList.add('visible');
+                }, 250);
+
+                txtStep.textContent = '2. Feed Arrived First (+300ms)';
+                txtStep.style.color = '#b06000';
+                txtStep.style.background = '#feefc3';
+                txtStream.textContent = 'Chunk 2: template[for="feed-list"]';
+            }
+            else if (step === 2) {
+                // Step 3: Profile 遅れて到着
+                c1.className = 'chunk active';
+                c2.className = 'chunk active';
+                c3.className = 'chunk active highlight';
+
+                setTimeout(() => {
+                    skUser.style.display = 'none';
+                    realUser.style.display = 'flex';
+                    realUser.classList.add('visible');
+                }, 250);
+
+                txtStep.textContent = '3. Profile Patched (Out-of-Order)';
+                txtStep.style.color = '#0d652d';
+                txtStep.style.background = '#ceead6';
+                txtStream.textContent = 'Chunk 3: template[for="user-profile"]';
+            }
+        }
+
+        function loop() {
+            render(current);
+            current = (current + 1) % 3;
+            setTimeout(loop, current === 0 ? 3200 : 2500);
+        }
+
+        loop();
+    </script>
+</body>
+
+</html>
