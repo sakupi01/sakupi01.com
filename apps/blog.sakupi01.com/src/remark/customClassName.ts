@@ -1,6 +1,8 @@
 import { h } from "hastscript";
 import type { Root } from "mdast";
 import type { Directives } from "mdast-util-directive";
+// Loads the `hName` / `hProperties` augmentation of mdast `Data`.
+import type {} from "mdast-util-to-hast";
 import { visit } from "unist-util-visit";
 
 export const customClassName = () => {

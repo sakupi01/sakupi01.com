@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import remarkEmbedder from "@remark-embedder/core";
@@ -27,6 +28,8 @@ const cache = remarkEmbedderCache(".cache/remark-embedder.json");
 
 export default defineConfig({
   site: "https://blog.sakupi01.com/",
+  // Keep pre-v7 whitespace handling; the v7 default "jsx" drops whitespace around inline elements.
+  compressHTML: true,
   integrations: [mdx(), sitemap(), cacheSave(cache)],
   markdown: {
     shikiConfig: {
@@ -35,67 +38,69 @@ export default defineConfig({
         dark: "material-theme-darker",
       },
     },
-    remarkPlugins: [
-      [
-        // @ts-expect-error wip
-        remarkEmbedder.default,
-        {
-          cache,
-          transformers: [
-            [
-              // @ts-expect-error wip
-              oembedTransformer.default,
-              ({ provider }) => {
-                const name = provider?.provider_name?.toLowerCase() ?? "";
-                if (name === "twitter" || name === "x") {
-                  return { params: { maxwidth: 600, align: "center" } };
-                }
-                return { params: { maxwidth: 800 } };
-              },
+    processor: unified({
+      remarkPlugins: [
+        [
+          // @ts-expect-error wip
+          remarkEmbedder.default,
+          {
+            cache,
+            transformers: [
+              [
+                // @ts-expect-error wip
+                oembedTransformer.default,
+                ({ provider }) => {
+                  const name = provider?.provider_name?.toLowerCase() ?? "";
+                  if (name === "twitter" || name === "x") {
+                    return { params: { maxwidth: 600, align: "center" } };
+                  }
+                  return { params: { maxwidth: 800 } };
+                },
+              ],
+              CodeSandboxTransformer,
             ],
-            CodeSandboxTransformer,
-          ],
-          handleHTML,
-        },
+            handleHTML,
+          },
+        ],
+        [
+          remarkLinkCard,
+          {
+            cache: true,
+            shortenUrl: true,
+          },
+        ],
+        remarkGfm,
+        remarkBreaks,
+        remarkDirective,
+        remarkFigureCaption,
+        customClassName,
+        [
+          remarkToc,
+          {
+            heading: "Table of Contents",
+            ordered: false,
+            tight: true,
+            maxDepth: 4,
+          },
+        ],
+        [
+          collapse,
+          {
+            test: "Table of Contents",
+            summary: (/** @type {any} */ str) => str,
+          },
+        ],
       ],
-      [
-        remarkLinkCard,
-        {
-          cache: true,
-          shortenUrl: true,
-        },
+      rehypePlugins: [
+        rehypeRaw,
+        rehypeSlug,
+        rehypeSidenoteAnchors,
+        [rehypeStringify, { allowDangerousHtml: true }],
+        [rehypeAutolinkHeadings, { behavior: "wrap" }],
       ],
-      remarkGfm,
-      remarkBreaks,
-      remarkDirective,
-      remarkFigureCaption,
-      customClassName,
-      [
-        remarkToc,
-        {
-          heading: "Table of Contents",
-          ordered: false,
-          tight: true,
-          maxDepth: 4,
-        },
-      ],
-      [
-        collapse,
-        {
-          test: "Table of Contents",
-          summary: (/** @type {any} */ str) => str,
-        },
-      ],
-    ],
-    rehypePlugins: [
-      rehypeRaw,
-      rehypeSlug,
-      rehypeSidenoteAnchors,
-      [rehypeStringify, { allowDangerousHtml: true }],
-      [rehypeAutolinkHeadings, { behavior: "wrap" }],
-    ],
-    remarkRehype: {
-      footnoteBackContent: () => [],
-    },
+      remarkRehype: {
+        footnoteBackContent: () => [],
+      },
+    }),
   },
 });
