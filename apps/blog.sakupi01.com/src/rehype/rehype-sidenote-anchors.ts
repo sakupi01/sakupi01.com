@@ -31,25 +31,29 @@ function appendStyle(existing: string, declaration: string): string {
 function collectKeysInDetails(tree: Parameters<typeof visit>[0]): Set<string> {
   const keys = new Set<string>();
 
-  visit(tree, "element", (node: { tagName: string }) => {
-    if (node.tagName !== "details") return;
+  visit(
+    tree,
+    "element",
+    (node: Parameters<typeof visit>[0] & { tagName: string }) => {
+      if (node.tagName !== "details") return;
 
-    visit(
-      node as Parameters<typeof visit>[0],
-      "element",
-      (child: { tagName: string; properties: Record<string, unknown> }) => {
-        const id = child.properties?.id as string | undefined;
-        if (
-          child.tagName !== "a" ||
-          !id?.startsWith(FNREF_PREFIX) ||
-          child.properties?.dataFootnoteRef == null
-        ) {
-          return;
+      visit(
+        node,
+        "element",
+        (child: { tagName: string; properties: Record<string, unknown> }) => {
+          const id = child.properties?.id as string | undefined;
+          if (
+            child.tagName !== "a" ||
+            !id?.startsWith(FNREF_PREFIX) ||
+            child.properties?.dataFootnoteRef == null
+          ) {
+            return;
+          }
+          keys.add(toCssIdent(id.slice(FNREF_PREFIX.length)));
         }
-        keys.add(toCssIdent(id.slice(FNREF_PREFIX.length)));
-      }
-    );
-  });
+      );
+    }
+  );
 
   return keys;
 }
