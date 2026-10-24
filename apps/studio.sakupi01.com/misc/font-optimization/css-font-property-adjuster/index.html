@@ -19,8 +19,9 @@
     <meta property="og:url" content="https://studio.sakupi01.com/misc/css-font-property-adjuster.html" />
     <meta name="twitter:card" content="summary" />
     <title>CSS Font Property Adjuster | studio.sakupi01.com</title>
-    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/examples/sakupi01.com/index.css">
-    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/examples/sakupi01.com/markdown.css">
+    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/index.css">
+    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/sakupi01.com/index.css">
+    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/sakupi01.com/markdown.css">
     <style>
         :where(html) {
             color-scheme: only light;
@@ -30,6 +31,59 @@
         :root {
             --primary-color: var(--site-color-code-dark);
             --secondary-color: var(--site-color-code-light);
+            --guide-ascent: #2563eb;
+            --guide-cap: #ea580c;
+            --guide-ex: #16a34a;
+            --guide-baseline: #dc2626;
+            --guide-descent: #9333ea;
+            /* Room for the guide labels at the right edge of the preview. */
+            --guide-label-gutter: 10rem;
+        }
+
+        /* Two-pane workbench: adjusters on the left, settings and preview on the right. */
+        .page {
+            block-size: 100dvb;
+            grid-template-rows: auto minmax(0, 1fr) auto;
+            max-inline-size: var(--s-container-7xl);
+        }
+
+        .workbench {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);
+            column-gap: var(--s-space-gutter-md);
+        }
+
+        .pane {
+            min-block-size: 0;
+            overflow-y: auto;
+            scrollbar-gutter: stable;
+            padding-block-end: var(--s-space-gutter-md);
+        }
+
+        .pane-adjusters {
+            border-inline-end: 1px solid var(--s-color-border-subtle);
+            padding-inline-end: var(--s-space-gutter-md);
+        }
+
+        @media (width < 56rem) {
+            .page {
+                block-size: auto;
+            }
+
+            .workbench {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: none;
+            }
+
+            .pane {
+                overflow-y: visible;
+            }
+
+            .pane-adjusters {
+                border-inline-end: 0;
+                padding-inline-end: 0;
+            }
         }
 
         .font-selector {
@@ -41,7 +95,7 @@
 
         .font-group {
             flex: 1;
-            min-width: 300px;
+            min-width: min(100%, 14rem);
         }
 
         label {
@@ -62,9 +116,19 @@
             margin-block: 30px;
         }
 
-        .control-group {
-            flex: 1;
-            min-width: 300px;
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 20px;
+            align-items: end;
+        }
+
+        .settings-grid__full {
+            grid-column: 1 / -1;
+        }
+
+        .settings-grid .slider-container {
+            margin-top: 12px;
         }
 
         .slider-container {
@@ -77,10 +141,33 @@
             margin-bottom: 5px;
         }
 
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-row label {
+            margin-bottom: 0;
+        }
+
+        .checkbox-row + .checkbox-row {
+            margin-top: 8px;
+        }
+
         input[type="range"],
-        [type=text] {
+        [type=text],
+        textarea {
             width: 100%;
             margin-bottom: 5px;
+        }
+
+        textarea {
+            padding: 8px;
+            border: 1px solid var(--s-color-border-default);
+            border-radius: 4px;
+            font: inherit;
+            resize: vertical;
         }
 
         .value-display {
@@ -94,14 +181,22 @@
 
         .preview-container {
             padding: 20px;
+            padding-inline-end: var(--guide-label-gutter);
             display: grid;
             grid-template-rows: 1fr;
             position: relative;
         }
 
+        /* Both layers share one grid cell, so they overlap and the cell grows with the taller one. */
         .text-layer {
             grid-row: 1;
             grid-column: 1;
+            align-self: start;
+            justify-self: start;
+            width: fit-content;
+            /* `normal` is the font's own line spacing; the secondary layer gets the line-height slider. */
+            line-height: normal;
+            white-space: pre-wrap;
             word-wrap: break-word;
             z-index: 1;
         }
@@ -117,16 +212,12 @@
         .primary-layer {
             color: var(--primary-color);
             border: 1px solid var(--primary-color);
-            width: fit-content;
         }
 
         .secondary-layer {
             color: var(--secondary-color);
             border: 1px solid var(--secondary-color);
             opacity: 0.7;
-            position: absolute;
-            top: 0px;
-            left: 0px;
         }
 
         .metrics-display {
@@ -153,339 +244,637 @@
             background-color: #3a5a84;
         }
 
-        .baseline-guide {
+        /* Metric guides: one set per text layer, drawn over the preview. */
+        .metric-guides {
             position: absolute;
-            width: 100%;
-            height: 1px;
-            background-color: rgb(145, 145, 145);
-            left: 0;
-            z-index: 0;
+            inset: 0;
+            inline-size: 100%;
+            block-size: 100%;
+            overflow: visible;
+            pointer-events: none;
+            z-index: 2;
+            font-family: 'Cascadia Code', monospace;
+            font-size: 11px;
+        }
+
+        .metric-guide line {
+            stroke: var(--guide-color);
+            stroke-width: 1;
+        }
+
+        .metric-guide text {
+            fill: var(--guide-color);
+            paint-order: stroke;
+            stroke: rgb(255 255 255 / 0.85);
+            stroke-width: 3px;
+            stroke-linejoin: round;
+        }
+
+        .metric-guide circle {
+            fill: #fff;
+            stroke: var(--guide-color);
+            stroke-width: 1.5;
+        }
+
+        [data-layer="primary"] .metric-guide line {
+            stroke-dasharray: 6 3;
+        }
+
+        [data-layer="secondary"] .metric-guide line {
+            stroke-dasharray: 1 3;
+            stroke-linecap: round;
+            stroke-width: 1.5;
+        }
+
+        .metric-guide--ascent {
+            --guide-color: var(--guide-ascent);
+        }
+
+        .metric-guide--cap {
+            --guide-color: var(--guide-cap);
+        }
+
+        .metric-guide--ex {
+            --guide-color: var(--guide-ex);
+        }
+
+        .metric-guide--baseline {
+            --guide-color: var(--guide-baseline);
+        }
+
+        .metric-guide--descent {
+            --guide-color: var(--guide-descent);
+        }
+
+        /* Half-leading (line box minus content area) is hatched; negative leading is tinted red. */
+        .leading-hatch line {
+            stroke-width: 1.5;
+            opacity: 0.3;
+        }
+
+        .leading-hatch--primary line {
+            stroke: #334155;
+        }
+
+        .leading-hatch--secondary line {
+            stroke: #64748b;
+        }
+
+        .leading-band--negative {
+            fill: rgb(220 38 38 / 0.15);
+        }
+
+        .metric-guides-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            margin-top: 8px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .metric-guides-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .metric-readout-wrapper {
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+
+        .metric-readout {
+            inline-size: auto;
+            table-layout: auto;
+            font-family: 'Cascadia Code', monospace;
+            font-size: 12px;
+        }
+
+        .metric-readout caption {
+            caption-side: bottom;
+            padding-block-start: 4px;
+            font-size: 11px;
+            text-align: start;
+            opacity: 0.8;
+        }
+
+        .metric-readout th,
+        .metric-readout td {
+            padding: 2px 8px;
+            white-space: nowrap;
+        }
+
+        .metric-readout th[class] {
+            color: var(--guide-color);
+        }
+
+        .metric-readout-note {
+            margin-top: 4px;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .metric-readout-note:empty {
+            display: none;
+        }
+
+        /* Measurement helpers. A zero-size inline-block sits on the baseline, top, or bottom of its line. */
+        .metrics-anchor {
+            display: inline-block;
+            inline-size: 0;
+            block-size: 0;
+            overflow: hidden;
+            vertical-align: baseline;
+        }
+
+        .metrics-probe {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            visibility: hidden;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .metrics-probe__cap,
+        .metrics-probe__ex {
+            display: inline-block;
+            inline-size: 0;
+        }
+
+        .metrics-probe__cap {
+            block-size: 1cap;
+        }
+
+        .metrics-probe__ex {
+            block-size: 1ex;
         }
     </style>
 </head>
 
 <body class="page">
     <header>
-        <nav>
-            <div class="header-icon">
-                <a href="https://sakupi01.com"> <img class=logo alt="saku's logo" width="50" height="50"
-                        src="https://sakupi01.github.io/slides/assets/icon_round.ico"> </a>
-            </div>
-        </nav>
-        <div class="right">
-            <a href="../font-face-metrics-adjuster">Go to @font-face Adjuster</a>
+        <div>
+            If you're looking for adjusting font metrics itself, go to:
+            <a href="../font-face-metrics-adjuster">Font Metrics Adjuster</a>
         </div>
     </header>
 
-    <main>
-        <h1 class="heading">CSS Font Property Adjuster</h1>
-        <div class="description">
-            <p> With this tool, you can adjust various CSS font properties such as <code>font-size-adjust</code> and
-                <code>font-variant</code> settings to observe how appearance difference can be minimized between two
+    <main class="workbench">
+        <div class="pane pane-adjusters">
+            <h1 class="heading">CSS Font Appearance Adjuster</h1>
+            <div class="description">
+                <p> With this tool, you can adjust various CSS font properties such as <code>font-size-adjust</code> and
+                    <code>font-variant</code> settings to observe how appearance difference can be minimized between two
+                    fonts.
+                </p>
+                <p>
+                    The properties in here are clearly different from what @font-face's descriptors do. @font-face's
+                    descriptors are for adjusting font metrics itself. It's like the default setting of the specific
+                    font.
+                    However, the properties are element-level appearance overrides. Properties are not default setting.
+                    It's
+                    for tuning.
+                </p>
+                <p><strong>🤍 DECLAIMER:</strong> This tool is specifically focusing on experimenting how to adjust and
+                    minimize the appearance difference between different two fonts. The point of this tool is NOT how to
+                    optimize / pretty the whole paragraph or text inside an element. Therefore, those (`text-wrap` or
+                    `word-wrap` etc.) properties are not considered in this scope.
+                </p>
+                <p><strong>🤍 DECLAIMER:</strong> The changes you make with the adjusters will be debounced for 50ms for
+                    the
+                    performance reasons.
+                </p>
+            </div>
+
+            <div class="font-selector">
+                <div class="font-group">
+                    <label for="primary" class="primary">Primary Font:</label>
+                    <select id="primary">
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="Arial, sans-serif" selected>Arial</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                        <option value="Verdana, sans-serif">Verdana</option>
+                    </select>
+                </div>
+                <div class="font-group">
+                    <label for="secondary" class="secondary">cf. Secondary Font:</label>
+                    <select id="secondary">
+                        <optgroup label="Sans-serif">
+                            <option selected="selected" value="Verdana, sans-serif">Verdana</option>
+                            <option value="Arial, sans-serif">Arial</option>
+                            <option value="Arial Black">Arial Black</option>
+                            <option value="Tahoma">Tahoma</option>
+                        </optgroup>
+                        <optgroup label="Serif">
+                            <option value="Georgia">Georgia</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </optgroup>
+                        <optgroup label="Monospaced">
+                            <option value="Courier New">Courier New</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <h2>CSS Properties for Elements</h2>
+
+            <h3><code>font-size-adjust</code></h3>
+            <p>The <code>font-size-adjust</code> property helps maintain consistent text readability across different
                 fonts.
+                Even if you use size-adjust in <code>@font-face</code> of fallback fonts, fallback font might have a
+                significantly
+                different
+                aspect value (height of lowercase letters divided by font size) from your primary font. <br /> (eg.
+                Verdana
+                has relatively large lower case letters vs. Times New Roman has small lower case letters!)<br />This
+                undesired aspect value difference happens especially at small font sizes. Adjusting the aspect
+                value across fonts with <code>font-size-adjust</code>, the text appears similar regardless of
+                the font used.
+                The <code>from-font</code> value automatically uses metric values from the primary font. For more
+                details,
+                see:<a href="https://drafts.csswg.org/css-fonts-5/#font-size-adjust-prop">
+                    CSS Fonts Module Level 5
+                </a></p>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="font-size-adjust-metric">font-size-adjust metric:</label>
+                </div>
+                <select id="font-size-adjust-metric" style="width: 100%; padding: 8px; box-sizing: border-box;">
+                    <option value="ex-height">ex-height</option>
+                    <option value="cap-height">cap-height</option>
+                    <option value="ch-width">ch-width</option>
+                    <option value="ic-width">ic-width</option>
+                    <option value="ic-height">ic-height</option>
+                    <option value="none">none (disable)</option>
+                </select>
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="font-size-adjust-value-type">Value type:</label>
+                </div>
+                <select id="font-size-adjust-value-type" style="width: 100%; padding: 8px; box-sizing: border-box;">
+                    <option value="number">Number value</option>
+                    <option value="from-font">from-font (Use metrics from primary font)</option>
+                </select>
+            </div>
+            <div class="slider-container" id="font-size-adjust-value-container">
+                <div class="slider-info">
+                    <label for="font-size-adjust-value-slider">font-size-adjust value:</label>
+                    <span class="value-display" id="font-size-adjust-value">0.5</span>
+                </div>
+                <input type="range" id="font-size-adjust-value-slider" min="0.1" max="1.5" value="0.5" step="0.01">
+            </div>
+
+            <h3>Spacing Properties</h3>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="line-height-slider">line-height:</label>
+                    <span class="value-display" id="line-height-value">normal</span>
+                </div>
+                <input type="range" id="line-height-slider" min="0.5" max="3" value="1.5" step="0.1">
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="letter-spacing-slider">letter-spacing (px):</label>
+                    <span class="value-display" id="letter-spacing-value">0px</span>
+                </div>
+                <input type="range" id="letter-spacing-slider" min="-5" max="10" value="0" step="0.1">
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="word-spacing-slider">word-spacing (px):</label>
+                    <span class="value-display" id="word-spacing-value">0px</span>
+                </div>
+                <input type="range" id="word-spacing-slider" min="-10" max="20" value="0" step="0.1">
+            </div>
+
+            <h3>Text Box Trimming: <code>text-box-trim</code> and <code>text-box-edge</code></h3>
+            <p>A line of text is taller than its visible glyphs. The font's own metrics leave space above the capital
+                letters (ascent minus cap-height) and below the baseline (descent), and <code>line-height</code> adds
+                half-leading above and below that content area. Both amounts differ from font to font, so two fonts
+                at the same <code>font-size</code> rarely sit at the same vertical position, and text "centered" with
+                equal padding still looks slightly low: the eye reads the block from cap-height to baseline, not from
+                ascent to descent.
             </p>
-            <p><strong>🤍 DECLAIMER:</strong> This tool is specifically focusing on experimenting how to adjust and
-                minimize the appearance difference between different two fonts. The point of this tool is NOT how to
-                optimize / pretty the whole paragraph or text inside an element. Therefore, those (`text-wrap` or
-                `word-wrap` etc.) properties are not considered in this scope.
+            <p><code>text-box-trim</code> cuts that space off the start (over) and/or end (under) edge of the text's
+                block container, so that the block's edge lands exactly on a glyph metric instead of on the line box:
+                the box hugs the visible letters, and padding or alignment measured from that edge no longer depends
+                on the font. <code>text-box-edge</code> picks the metric: <code>cap</code> (cap-height),
+                <code>ex</code> (x-height), or <code>text</code> (the font's own ascent) for the over edge, and
+                <code>alphabetic</code> (baseline) or <code>text</code> (the font's own descent) for the under edge.
+                In the preview, the border of each layer snaps to the chosen guide line and the hatched half-leading
+                disappears on the trimmed edge.
             </p>
-            <p><strong>🤍 DECLAIMER:</strong> The changes you make with the adjusters will be debounced for 50ms for the
-                performance reasons.
+            <p>🤍 Trimming is applied to <strong>both</strong> text layers here, because it only lines fonts up when
+                every font is trimmed to the same edge. With <code>trim-both cap alphabetic</code> each box runs
+                exactly from its cap line to its baseline, so the two fonts share the same top edge whatever their
+                ascent is; add <code>font-size-adjust: cap-height</code> (or <code>ex alphabetic</code> with
+                <code>ex-height</code>) and their cap heights match too, so the baselines coincide as well.
+                For more details, see: <a href="https://developer.chrome.com/blog/css-text-box-trim">CSS text-box-trim
+                    | Blog | Chrome for Developers</a>, <a href="https://drafts.csswg.org/css-inline-3/#text-box-trim">
+                    CSS Inline Layout Module Level 3</a>
             </p>
+            <p>🤍 Under discussion in the CSSWG (<a href="https://github.com/w3c/csswg-drafts/issues/14328">[css-inline-3]
+                    Does <code>text-box-trim</code> remove negative leading? #14328</a>, Aug 2026): when
+                <code>line-height</code> is smaller than ascent + descent the leading is negative (the red band in the
+                preview), and the spec does not say whether trimming removes it too, which would make the box taller.
+                Chrome and Firefox trim it, Safari does not; the proposed resolution (PR #14331) is to trim it.
+            </p>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="text-box-trim-select">text-box-trim:</label>
+                </div>
+                <select id="text-box-trim-select">
+                    <option value="none" selected>none</option>
+                    <option value="trim-start">trim-start</option>
+                    <option value="trim-end">trim-end</option>
+                    <option value="trim-both">trim-both</option>
+                </select>
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="text-box-edge-over-select">text-box-edge (over / block-start):</label>
+                </div>
+                <select id="text-box-edge-over-select">
+                    <option value="text">text</option>
+                    <option value="cap" selected>cap</option>
+                    <option value="ex">ex</option>
+                </select>
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="text-box-edge-under-select">text-box-edge (under / block-end):</label>
+                </div>
+                <select id="text-box-edge-under-select">
+                    <option value="text">text</option>
+                    <option value="alphabetic" selected>alphabetic</option>
+                </select>
+            </div>
+
+            <h3>Font Features: <code>font-variant</code> and <code>font-feature-settings</code></h3>
+            <p>Control OpenType features in the font. <code>proportional-width</code> for
+                <code>font-variant-east-asian</code> or <code>palt</code> for
+                <code>font-feature-settings</code> are for controlling proportional metrics. When it's used, OpenType's
+                font
+                spacing
+                information is referred to instead of referring to equal amplitude. This feature is available
+                for specific font families.
+            </p>
+            <details>
+                <summary>Expand Font Feature Controls</summary>
+                <div class="feature-section">
+                    <div class="feature-toggles">
+                        <h4>Font Variant Ligatures:</h4>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="common-ligatures" checked> common-ligatures</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="no-common-ligatures"> no-common-ligatures</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="discretionary-ligatures"> discretionary-ligatures</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="no-discretionary-ligatures"> no-discretionary-ligatures</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="historical-ligatures"> historical-ligatures</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="no-historical-ligatures"> no-historical-ligatures</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="contextual"> contextual</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
+                                data-value="no-contextual"> no-contextual</label>
+                    </div>
+
+                    <h4>Font Variant Caps:</h4>
+                    <select id="font-variant-caps" aria-label="Font Variant Caps"
+                        style="width: 100%; padding: 8px; box-sizing: border-box;">
+                        <option value="normal">normal</option>
+                        <option value="small-caps">small-caps</option>
+                        <option value="all-small-caps">all-small-caps</option>
+                        <option value="petite-caps">petite-caps</option>
+                        <option value="all-petite-caps">all-petite-caps</option>
+                        <option value="unicase">unicase</option>
+                        <option value="titling-caps">titling-caps</option>
+                    </select>
+
+                    <div class="feature-toggles">
+                        <h4>Font Variant Numeric:</h4>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="lining-nums"> lining-nums</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="oldstyle-nums"> oldstyle-nums</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="proportional-nums"> proportional-nums</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="tabular-nums"> tabular-nums</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="diagonal-fractions"> diagonal-fractions</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="stacked-fractions"> stacked-fractions</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="ordinal">
+                            ordinal</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
+                                data-value="slashed-zero"> slashed-zero</label>
+                    </div>
+
+                    <h4>Font Variant Position:</h4>
+                    <select id="font-variant-position" aria-label="Font Variant Position"
+                        style="width: 100%; padding: 8px; box-sizing: border-box;">
+                        <option value="normal">normal</option>
+                        <option value="sub">sub</option>
+                        <option value="super">super</option>
+                    </select>
+
+                    <h4>Font Variant East Asian:</h4>
+                    <div class="feature-toggles">
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="jis78">
+                            jis78</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="jis83">
+                            jis83</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="jis90">
+                            jis90</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="jis04">
+                            jis04</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="simplified"> simplified</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="traditional"> traditional</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="full-width"> full-width</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="proportional-width"> proportional-width</label>
+                        <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
+                                data-value="ruby">
+                            ruby</label>
+                    </div>
+
+
+                    <h4>Font Variant Alternates:</h4>
+                    <select id="font-variant-alternates" aria-label="Font Variant Alternates"
+                        style="width: 100%; padding: 8px; box-sizing: border-box;">
+                        <option value="normal">normal</option>
+                        <option value="historical-forms">historical-forms</option>
+                    </select>
+
+
+                    <h4>Font Variant Emoji:</h4>
+                    <select id="font-variant-emoji" aria-label="Font Variant Emoji"
+                        style="width: 100%; padding: 8px; box-sizing: border-box;">
+                        <option value="normal">normal (default)</option>
+                        <option value="emoji">emoji</option>
+                        <option value="text">text</option>
+                        <option value="unicode">unicode</option>
+                    </select>
+
+                    <h4>Low-level Font Feature Settings (<code>font-feature-settings</code>):</h4>
+                    <div class="feature-toggles">
+                        <label><input type="checkbox" class="feature-setting" data-feature="palt" checked> "palt"
+                            (Proportional
+                            Alternate Widths)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="liga"> "liga" (Standard
+                            Ligatures)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="dlig"> "dlig"
+                            (Discretionary
+                            Ligatures)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="lnum"> "lnum" (Lining
+                            Figures)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="tnum"> "tnum" (Tabular
+                            Figures)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="onum"> "onum" (Oldstyle
+                            Figures)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="zero"> "zero" (Slashed
+                            Zero)</label>
+                        <label><input type="checkbox" class="feature-setting" data-feature="frac"> "frac"
+                            (Fractions)</label>
+                    </div>
+                </div>
+            </details>
+
+            <div class="slider-container">
+                <h2>Resources:</h2>
+                <ul>
+                    <li><a href="https://drafts.csswg.org/css-fonts-5/#font-size-adjust-prop">CSS Fonts Module Level
+                            5</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size-adjust">font-size-adjust -
+                            CSS:
+                            Cascading Style Sheets | MDN</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=HId1MFm_jMo">CSS font-size-adjust - YouTube</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant">font-variant - CSS:
+                            Cascading Style Sheets | MDN</a></li>
+                    <li><a href="https://developer.chrome.com/blog/css-text-box-trim">CSS text-box-trim | Blog | Chrome
+                            for Developers</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-box-trim">text-box-trim - CSS:
+                            Cascading Style Sheets | MDN</a></li>
+                </ul>
+            </div>
         </div>
 
-        <div class="settings">
-            <div class="control-group">
+        <div class="pane pane-result">
+            <div class="settings">
                 <h2>Settings</h2>
-                <div class="slider-container">
-                    <div class="slider-info">
-                        <label for="font-size-slider">Font Size:</label>
-                        <span class="value-display" id="font-size-value">40px</span>
-                    </div>
-                    <input type="range" id="font-size-slider" min="16" max="96" value="40" step="1">
-                </div>
-                <div class="slider-container">
-                    <div class="slider-info">
-                        <label for="sample-text">Input Text:</label>
-                    </div>
-                    <input type="text" id="sample-text" value="Ag Xy 123.0 あいうえお　一二三、篭 😍"
-                        style="width: 100%; padding: 8px; box-sizing: border-box;" name="sample" />
-                </div>
-                <div class="control-group">
+                <div class="settings-grid">
                     <div class="slider-container">
                         <div class="slider-info">
-                            <label for="toggle-overlay">Toggle Second Text Overlay:</label>
+                            <label for="font-size-slider">Font Size:</label>
+                            <span class="value-display" id="font-size-value">40px</span>
                         </div>
-                        <input type="checkbox" checked id="toggle-overlay" />
+                        <input type="range" id="font-size-slider" min="16" max="96" value="40" step="1">
+                    </div>
+                    <div class="slider-container">
+                        <div class="checkbox-row">
+                            <input type="checkbox" checked id="toggle-overlay" />
+                            <label for="toggle-overlay">Toggle Second Text Overlay</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" checked id="toggle-guides" />
+                            <label for="toggle-guides">Toggle Metric Guides</label>
+                        </div>
+                    </div>
+                    <div class="slider-container settings-grid__full">
+                        <div class="slider-info">
+                            <label for="sample-text">Input Text:</label>
+                        </div>
+                        <textarea id="sample-text" rows="2">Ag Xy 123.0 あいうえお　一二三、篭 😍</textarea>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="font-selector">
-            <div class="font-group">
-                <label for="primary" class="primary">Primary Font:</label>
-                <select id="primary">
-                    <option value="'Times New Roman', serif">Times New Roman</option>
-                    <option value="Arial, sans-serif" selected>Arial</option>
-                    <option value="Georgia, serif">Georgia</option>
-                    <option value="'Courier New', monospace">Courier New</option>
-                    <option value="'Segoe UI', sans-serif">Segoe UI</option>
-                    <option value="Verdana, sans-serif">Verdana</option>
-                </select>
-            </div>
-            <div class="font-group">
-                <label for="secondary" class="secondary">cf. Secondary Font:</label>
-                <select id="secondary">
-                    <optgroup label="Sans-serif">
-                        <option selected="selected" value="Verdana, sans-serif">Verdana</option>
-                        <option value="Arial, sans-serif">Arial</option>
-                        <option value="Arial Black">Arial Black</option>
-                        <option value="Tahoma">Tahoma</option>
-                    </optgroup>
-                    <optgroup label="Serif">
-                        <option value="Georgia">Georgia</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </optgroup>
-                    <optgroup label="Monospaced">
-                        <option value="Courier New">Courier New</option>
-                    </optgroup>
-                </select>
-            </div>
-        </div>
-
-        <h2>CSS Properties for Elements</h2>
-
-        <h3><code>font-size-adjust</code></h3>
-        <p>The <code>font-size-adjust</code> property helps maintain consistent text readability across different fonts.
-            Even if you use size-adjust in <code>@font-face</code> of fallback fonts, fallback font might have a
-            significantly
-            different
-            aspect value (height of lowercase letters divided by font size) from your primary font. <br /> (eg. Verdana
-            has relatively large lower case letters vs. Times New Roman has small lower case letters!)<br />This
-            undesired aspect value difference happens especially at small font sizes. Adjusting the aspect
-            value across fonts with <code>font-size-adjust</code>, the text appears similar regardless of
-            the font used.
-            The <code>from-font</code> value automatically uses metric values from the primary font. For more details,
-            see:<a href="https://drafts.csswg.org/css-fonts-5/#font-size-adjust-prop">
-                CSS Fonts Module Level 5
-            </a></p>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="font-size-adjust-metric">font-size-adjust metric:</label>
-            </div>
-            <select id="font-size-adjust-metric" style="width: 100%; padding: 8px; box-sizing: border-box;">
-                <option value="ex-height">ex-height</option>
-                <option value="cap-height">cap-height</option>
-                <option value="ch-width">ch-width</option>
-                <option value="ic-width">ic-width</option>
-                <option value="ic-height">ic-height</option>
-                <option value="none">none (disable)</option>
-            </select>
-        </div>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="font-size-adjust-value-type">Value type:</label>
-            </div>
-            <select id="font-size-adjust-value-type" style="width: 100%; padding: 8px; box-sizing: border-box;">
-                <option value="number">Number value</option>
-                <option value="from-font">from-font (Use metrics from primary font)</option>
-            </select>
-        </div>
-        <div class="slider-container" id="font-size-adjust-value-container">
-            <div class="slider-info">
-                <label for="font-size-adjust-value-slider">font-size-adjust value:</label>
-                <span class="value-display" id="font-size-adjust-value">0.5</span>
-            </div>
-            <input type="range" id="font-size-adjust-value-slider" min="0.1" max="1.5" value="0.5" step="0.01">
-        </div>
-
-        <h3>Spacing Properties</h3>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="line-height-slider">line-height:</label>
-                <span class="value-display" id="line-height-value">normal</span>
-            </div>
-            <input type="range" id="line-height-slider" min="0.5" max="3" value="1.5" step="0.1">
-        </div>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="letter-spacing-slider">letter-spacing (px):</label>
-                <span class="value-display" id="letter-spacing-value">0px</span>
-            </div>
-            <input type="range" id="letter-spacing-slider" min="-5" max="10" value="0" step="0.1">
-        </div>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="word-spacing-slider">word-spacing (px):</label>
-                <span class="value-display" id="word-spacing-value">0px</span>
-            </div>
-            <input type="range" id="word-spacing-slider" min="-10" max="20" value="0" step="0.1">
-        </div>
-
-        <h3>Font Features: <code>font-variant</code> and <code>font-feature-settings</code></h3>
-        <p>Control OpenType features in the font. <code>proportional-width</code> for
-            <code>font-variant-east-asian</code> or <code>palt</code> for
-            <code>font-feature-settings</code> are for controlling proportional metrics. When it's used, OpenType's font
-            spacing
-            information is referred to instead of referring to equal amplitude. This feature is available
-            for specific font families.
-        </p>
-        <details>
-            <summary>Expand Font Feature Controls</summary>
-            <div class="feature-section">
-                <div class="feature-toggles">
-                    <h4>Font Variant Ligatures:</h4>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="common-ligatures" checked> common-ligatures</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="no-common-ligatures"> no-common-ligatures</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="discretionary-ligatures"> discretionary-ligatures</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="no-discretionary-ligatures"> no-discretionary-ligatures</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="historical-ligatures"> historical-ligatures</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="no-historical-ligatures"> no-historical-ligatures</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="contextual"> contextual</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="ligatures"
-                            data-value="no-contextual"> no-contextual</label>
+            <div class="slider-container preview-section">
+                <h2 class="preview-header">Preview (Secondary font is adjusted)</h2>
+                <div class="preview-container" id="preview-container">
+                    <div id="primary-preview" class="text-layer primary-layer">Ag Xy 123.0 あいうえお　一二三、篭 😍</div>
+                    <div id="secondary-preview" class="text-layer secondary-layer">Ag Xy 123.0 あいうえお　一二三、篭 😍</div>
+                    <svg id="metric-guides" class="metric-guides" aria-hidden="true">
+                        <defs>
+                            <pattern id="hatch-primary" class="leading-hatch leading-hatch--primary" width="6"
+                                height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                <line x1="0" y1="0" x2="0" y2="6" />
+                            </pattern>
+                            <pattern id="hatch-secondary" class="leading-hatch leading-hatch--secondary" width="6"
+                                height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+                                <line x1="0" y1="0" x2="0" y2="6" />
+                            </pattern>
+                        </defs>
+                        <g id="metric-guide-layers"></g>
+                    </svg>
                 </div>
-
-                <h4>Font Variant Caps:</h4>
-                <select id="font-variant-caps" aria-label="Font Variant Caps"
-                    style="width: 100%; padding: 8px; box-sizing: border-box;">
-                    <option value="normal">normal</option>
-                    <option value="small-caps">small-caps</option>
-                    <option value="all-small-caps">all-small-caps</option>
-                    <option value="petite-caps">petite-caps</option>
-                    <option value="all-petite-caps">all-petite-caps</option>
-                    <option value="unicase">unicase</option>
-                    <option value="titling-caps">titling-caps</option>
-                </select>
-
-                <div class="feature-toggles">
-                    <h4>Font Variant Numeric:</h4>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="lining-nums"> lining-nums</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="oldstyle-nums"> oldstyle-nums</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="proportional-nums"> proportional-nums</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="tabular-nums"> tabular-nums</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="diagonal-fractions"> diagonal-fractions</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="stacked-fractions"> stacked-fractions</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric" data-value="ordinal">
-                        ordinal</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="numeric"
-                            data-value="slashed-zero"> slashed-zero</label>
-                </div>
-
-                <h4>Font Variant Position:</h4>
-                <select id="font-variant-position" aria-label="Font Variant Position"
-                    style="width: 100%; padding: 8px; box-sizing: border-box;">
-                    <option value="normal">normal</option>
-                    <option value="sub">sub</option>
-                    <option value="super">super</option>
-                </select>
-
-                <h4>Font Variant East Asian:</h4>
-                <div class="feature-toggles">
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian" data-value="jis78">
-                        jis78</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian" data-value="jis83">
-                        jis83</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian" data-value="jis90">
-                        jis90</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian" data-value="jis04">
-                        jis04</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
-                            data-value="simplified"> simplified</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
-                            data-value="traditional"> traditional</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
-                            data-value="full-width"> full-width</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian"
-                            data-value="proportional-width"> proportional-width</label>
-                    <label><input type="checkbox" class="variant-toggle" data-variant="east-asian" data-value="ruby">
-                        ruby</label>
-                </div>
-
-
-                <h4>Font Variant Alternates:</h4>
-                <select id="font-variant-alternates" aria-label="Font Variant Alternates"
-                    style="width: 100%; padding: 8px; box-sizing: border-box;">
-                    <option value="normal">normal</option>
-                    <option value="historical-forms">historical-forms</option>
-                </select>
-
-
-                <h4>Font Variant Emoji:</h4>
-                <select id="font-variant-emoji" aria-label="Font Variant Emoji"
-                    style="width: 100%; padding: 8px; box-sizing: border-box;">
-                    <option value="normal">normal (default)</option>
-                    <option value="emoji">emoji</option>
-                    <option value="text">text</option>
-                    <option value="unicode">unicode</option>
-                </select>
-
-                <h4>Low-level Font Feature Settings (<code>font-feature-settings</code>):</h4>
-                <div class="feature-toggles">
-                    <label><input type="checkbox" class="feature-setting" data-feature="palt" checked> "palt"
-                        (Proportional
-                        Alternate Widths)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="liga"> "liga" (Standard
-                        Ligatures)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="dlig"> "dlig" (Discretionary
-                        Ligatures)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="lnum"> "lnum" (Lining
-                        Figures)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="tnum"> "tnum" (Tabular
-                        Figures)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="onum"> "onum" (Oldstyle
-                        Figures)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="zero"> "zero" (Slashed
-                        Zero)</label>
-                    <label><input type="checkbox" class="feature-setting" data-feature="frac"> "frac"
-                        (Fractions)</label>
+                <p class="metric-guides-legend" id="metric-guides-legend">
+                    <span><svg width="28" height="8" aria-hidden="true">
+                            <line x1="0" y1="4" x2="28" y2="4" stroke="currentColor" stroke-dasharray="6 3" />
+                        </svg>primary font metrics (labelled)</span>
+                    <span><svg width="28" height="8" aria-hidden="true">
+                            <line x1="0" y1="4" x2="28" y2="4" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-dasharray="1 3" />
+                        </svg>secondary font metrics</span>
+                    <span><svg width="28" height="12" aria-hidden="true">
+                            <rect width="28" height="12" fill="url(#hatch-primary)" />
+                        </svg>primary half-leading</span>
+                    <span><svg width="28" height="12" aria-hidden="true">
+                            <rect width="28" height="12" fill="url(#hatch-secondary)" />
+                        </svg>secondary half-leading</span>
+                </p>
+                <div class="metric-readout-wrapper" id="metric-readout-wrapper">
+                    <table class="metric-readout">
+                        <caption>Measured on the first line. line box = ascent + descent + half-leading × 2</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">layer</th>
+                                <th scope="col">line box</th>
+                                <th scope="col" class="metric-guide--ascent">ascent</th>
+                                <th scope="col" class="metric-guide--cap">cap-height</th>
+                                <th scope="col" class="metric-guide--ex">x-height</th>
+                                <th scope="col" class="metric-guide--descent">descent</th>
+                                <th scope="col">half-leading</th>
+                            </tr>
+                        </thead>
+                        <tbody id="metric-readout-body" aria-busy="true"></tbody>
+                    </table>
+                    <p class="metric-readout-note" id="metric-readout-note"></p>
                 </div>
             </div>
-        </details>
-
-        <div class="slider-container preview-section">
-            <div class="preview-header">Preview (Secondary font is adjusted)</div>
-            <div class="preview-container">
-                <div id="baseline" class="baseline-guide"></div>
-                <div id="primary-preview" class="text-layer primary-layer">Ag Xy 123.0 あいうえお　一二三、篭 😍</div>
-                <div id="secondary-preview" class="text-layer secondary-layer">Ag Xy 123.0 あいうえお　一二三、篭 😍</div>
-            </div>
-        </div>
 
 
-        <div class="slider-container metrics-display" id="element-styles">/* Styles applied to the secondary text layer
-            */
-            .secondary-layer {
-            font-size-adjust: 0.5;
-            font-variant: common-ligatures;
-            font-feature-settings: "liga" on;
-            }</div>
+            <div class="slider-container metrics-display" id="element-styles">/* Styles applied to the secondary text
+                layer */
+                .secondary-layer {
+                font-size-adjust: 0.5;
+                font-variant: common-ligatures;
+                font-feature-settings: "liga" on;
+                }
 
-        <div class="slider-container">
-            <h2>Resources:</h2>
-            <ul>
-                <li><a href="https://drafts.csswg.org/css-fonts-5/#font-size-adjust-prop">CSS Fonts Module Level
-                        5</a></li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size-adjust">font-size-adjust - CSS:
-                        Cascading Style Sheets | MDN</a></li>
-                <li><a href="https://www.youtube.com/watch?v=HId1MFm_jMo">CSS font-size-adjust - YouTube</a></li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant">font-variant - CSS:
-                        Cascading Style Sheets | MDN</a></li>
-            </ul>
+                /* Trimming is applied to both layers so that the fonts are compared on the same edge */
+                .primary-layer,
+                .secondary-layer {
+                text-box-trim: none;
+                text-box-edge: cap alphabetic;
+                }</div>
         </div>
     </main>
 </body>
@@ -495,7 +884,6 @@
         {
             primaryPreview: document.getElementById('primary-preview'),
             secondaryPreview: document.getElementById('secondary-preview'),
-            baseline: document.getElementById('baseline')
         }
     ];
 
@@ -503,6 +891,15 @@
     const primarySelect = document.getElementById('primary');
     const secondarySelect = document.getElementById('secondary');
     const elementStyles = document.getElementById('element-styles');
+
+    // Metric guides
+    const previewContainer = document.getElementById('preview-container');
+    const metricGuidesSvg = document.getElementById('metric-guides');
+    const metricGuideLayers = document.getElementById('metric-guide-layers');
+    const metricGuidesLegend = document.getElementById('metric-guides-legend');
+    const metricReadoutWrapper = document.getElementById('metric-readout-wrapper');
+    const metricReadoutBody = document.getElementById('metric-readout-body');
+    const metricReadoutNote = document.getElementById('metric-readout-note');
 
     // Font size adjust controls
     const fontSizeAdjustMetricSelect = document.getElementById('font-size-adjust-metric');
@@ -519,10 +916,16 @@
     const wordSpacingSlider = document.getElementById('word-spacing-slider');
     const wordSpacingValueSpan = document.getElementById('word-spacing-value');
 
+    // Text box trimming controls
+    const textBoxTrimSelect = document.getElementById('text-box-trim-select');
+    const textBoxEdgeOverSelect = document.getElementById('text-box-edge-over-select');
+    const textBoxEdgeUnderSelect = document.getElementById('text-box-edge-under-select');
+
     // General controls
     const fontSizeSlider = document.getElementById('font-size-slider');
     const sampleTextInput = document.getElementById('sample-text');
     const toggleOverlayBtn = document.getElementById('toggle-overlay');
+    const toggleGuidesBtn = document.getElementById('toggle-guides');
     const fontSizeValue = document.getElementById('font-size-value');
 
     // Font Features
@@ -543,10 +946,185 @@
         };
     }
 
+    // ---------------------------------------------------------------------------
+    // Metric guides
+    // ---------------------------------------------------------------------------
+    // `column` staggers the labels horizontally so neighboring metrics never overprint each other.
+    const METRIC_GUIDES = [
+        { key: 'ascent', label: 'ascent', column: 0 },
+        { key: 'cap', label: 'cap-height', column: 1 },
+        { key: 'ex', label: 'x-height', column: 0 },
+        { key: 'baseline', label: 'baseline', column: 1 },
+        { key: 'descent', label: 'descent', column: 0 },
+    ];
+    const LABEL_COLUMN_OFFSETS = ['-6', '-78'];
+
+    function createAnchor(verticalAlign) {
+        const anchor = document.createElement('span');
+        anchor.className = 'metrics-anchor';
+        anchor.style.verticalAlign = verticalAlign;
+        return anchor;
+    }
+
+    // Baseline and line box edges (viewport y) of the line that receives the anchors.
+    function measureAnchoredLine(insertAnchors) {
+        const anchors = [createAnchor('baseline'), createAnchor('top'), createAnchor('bottom')];
+        insertAnchors(anchors);
+        const [baseline, top, bottom] = anchors.map(anchor => anchor.getBoundingClientRect().top);
+        anchors.forEach(anchor => anchor.remove());
+        return { baseline, top, bottom };
+    }
+
+    // A new line starts whenever a text fragment moves down and back to the line start.
+    function countLines(layer) {
+        const range = document.createRange();
+        range.selectNodeContents(layer);
+        let lines = 0;
+        let previous = null;
+        for (const rect of range.getClientRects()) {
+            if (!previous || (rect.top > previous.top + 0.5 && rect.left <= previous.left + 0.5)) lines++;
+            previous = rect;
+        }
+        return Math.max(1, lines);
+    }
+
+    // Metrics of the layer's first available font, measured inside the layer so that element-level font
+    // properties such as font-size-adjust are reflected. Values are offsets from the baseline, except
+    // `lineBox`: the line box a line of Latin text gets from line-height alone.
+    function measureFontMetrics(layer) {
+        const probe = document.createElement('span');
+        probe.className = 'metrics-probe';
+        probe.innerHTML = '<span>H</span><span class="metrics-anchor"></span>'
+            + '<span class="metrics-probe__cap"></span><span class="metrics-probe__ex"></span>';
+        layer.appendChild(probe);
+        const [glyph, anchor, cap, ex] = probe.children;
+        const glyphRect = glyph.getBoundingClientRect(); // content area = ascent + descent
+        const baseline = anchor.getBoundingClientRect().top;
+        const metrics = {
+            ascent: baseline - glyphRect.top,
+            descent: glyphRect.bottom - baseline,
+            cap: cap.getBoundingClientRect().height,
+            ex: ex.getBoundingClientRect().height,
+            lineBox: probe.getBoundingClientRect().height,
+        };
+        probe.remove();
+        return metrics;
+    }
+
+    // The first and last lines are measured; lines in between are interpolated, which is exact as long
+    // as every line box has the same height.
+    function measureLayer(layer) {
+        const lineCount = countLines(layer);
+        const first = measureAnchoredLine(anchors => layer.prepend(...anchors));
+        const last = lineCount > 1 ? measureAnchoredLine(anchors => layer.append(...anchors)) : first;
+        const font = measureFontMetrics(layer);
+        const rect = layer.getBoundingClientRect();
+        const style = getComputedStyle(layer);
+        const contentTop = rect.top + parseFloat(style.borderTopWidth) + parseFloat(style.paddingTop);
+        const contentBottom = rect.bottom - parseFloat(style.borderBottomWidth) - parseFloat(style.paddingBottom);
+        const lines = Array.from({ length: lineCount }, (_, index) => {
+            const t = lineCount > 1 ? index / (lineCount - 1) : 0;
+            return {
+                baseline: first.baseline + (last.baseline - first.baseline) * t,
+                top: first.top + (last.top - first.top) * t,
+                bottom: first.bottom + (last.bottom - first.bottom) * t,
+            };
+        });
+        return { lines, font, contentTop, contentBottom };
+    }
+
+    function leadingBand(from, to, clampTop, clampBottom, hatchId, y) {
+        const top = Math.max(Math.min(from, to), clampTop);
+        const bottom = Math.min(Math.max(from, to), clampBottom);
+        if (bottom - top < 0.5) return '';
+        const modifier = from > to ? ' leading-band--negative' : '';
+        return `<rect class="leading-band${modifier}" x="0" width="100%" y="${y(top)}" `
+            + `height="${(bottom - top).toFixed(2)}" fill="url(#${hatchId})"/>`;
+    }
+
+    function renderLayerGuides({ lines, font, contentTop, contentBottom }, { name, labelled, hatchId, containerTop }) {
+        const y = value => (value - containerTop).toFixed(2);
+        let markup = `<g data-layer="${name}">`;
+        lines.forEach((line, index) => {
+            const positions = {
+                ascent: line.baseline - font.ascent,
+                cap: line.baseline - font.cap,
+                ex: line.baseline - font.ex,
+                baseline: line.baseline,
+                descent: line.baseline + font.descent,
+            };
+            markup += leadingBand(line.top, positions.ascent, contentTop, contentBottom, hatchId, y);
+            markup += leadingBand(positions.descent, line.bottom, contentTop, contentBottom, hatchId, y);
+            for (const metric of METRIC_GUIDES) {
+                markup += `<g class="metric-guide metric-guide--${metric.key}" `
+                    + `transform="translate(0 ${y(positions[metric.key])})"><line x1="0" x2="100%"/>`;
+                if (index === 0) {
+                    markup += labelled
+                        ? `<text x="100%" dx="${LABEL_COLUMN_OFFSETS[metric.column]}" dy="-4" text-anchor="end">`
+                        + `${metric.label}</text>`
+                        : '<circle cx="100%" r="3" transform="translate(-6 0)"/>';
+                }
+                markup += '</g>';
+            }
+        });
+        return markup + '</g>';
+    }
+
+    const px = value => `${value.toFixed(1)}px`;
+
+    function renderReadout(rows) {
+        const notes = [];
+        metricReadoutBody.innerHTML = rows.map(({ name, measurement }) => {
+            const { font, lines } = measurement;
+            const lineBox = lines[0].bottom - lines[0].top;
+            const halfLeading = (lineBox - font.ascent - font.descent) / 2;
+            if (lineBox - font.lineBox > 0.5) {
+                notes.push(`line-height alone gives ${px(font.lineBox)} for ${name}; taller fallback glyphs on the `
+                    + `line (CJK, emoji) stretch its line box to ${px(lineBox)}.`);
+            }
+            return `<tr><th scope="row">${name}</th><td>${px(lineBox)}</td><td>${px(font.ascent)}</td>`
+                + `<td>${px(font.cap)}</td><td>${px(font.ex)}</td><td>${px(font.descent)}</td>`
+                + `<td>${px(halfLeading)}</td></tr>`;
+        }).join('');
+        metricReadoutNote.textContent = notes.join(' ');
+        metricReadoutBody.removeAttribute('aria-busy');
+    }
+
+    const guideLayers = [
+        { layer: previewSections[0].primaryPreview, name: 'primary', readoutName: 'primary', labelled: true, hatchId: 'hatch-primary' },
+        { layer: previewSections[0].secondaryPreview, name: 'secondary', readoutName: 'secondary', labelled: false, hatchId: 'hatch-secondary' },
+    ];
+
+    function updateGuides() {
+        if (!toggleGuidesBtn.checked) return;
+        try {
+            const containerTop = previewContainer.getBoundingClientRect().top;
+            let markup = '';
+            const rows = [];
+            for (const { layer, name, readoutName, labelled, hatchId } of guideLayers) {
+                if (layer.style.display === 'none') continue;
+                const measurement = measureLayer(layer);
+                markup += renderLayerGuides(measurement, { name, labelled, hatchId, containerTop });
+                rows.push({ name: readoutName, measurement });
+            }
+            metricGuideLayers.innerHTML = markup;
+            renderReadout(rows);
+        } catch (error) {
+            console.error('Error updating metric guides:', error);
+        }
+    }
+
+    function toggleGuides() {
+        const display = toggleGuidesBtn.checked ? '' : 'none';
+        metricGuidesSvg.style.display = display;
+        metricGuidesLegend.style.display = display;
+        metricReadoutWrapper.style.display = display;
+        updateGuides();
+    }
+
     // Event listeners
     fontSizeSlider.addEventListener('input', debounce(updateFontSize, 100));
     sampleTextInput.addEventListener('input', debounce(updateSampleText, 100));
-    toggleOverlayBtn.addEventListener('click', toggleOverlay);
     primarySelect.addEventListener('change', updateDisplayingFonts);
     secondarySelect.addEventListener('change', updateDisplayingFonts);
 
@@ -562,6 +1140,11 @@
     letterSpacingSlider.addEventListener('input', debounce(applyCssPropertiesToFallback, 100));
     wordSpacingSlider.addEventListener('input', debounce(applyCssPropertiesToFallback, 100));
 
+    // Text box trimming listeners
+    textBoxTrimSelect.addEventListener('change', applyCssPropertiesToFallback);
+    textBoxEdgeOverSelect.addEventListener('change', applyCssPropertiesToFallback);
+    textBoxEdgeUnderSelect.addEventListener('change', applyCssPropertiesToFallback);
+
     // Font feature listeners
     fontVariantCapsSelect.addEventListener('change', applyCssPropertiesToFallback);
     fontVariantPositionSelect.addEventListener('change', applyCssPropertiesToFallback);
@@ -569,6 +1152,9 @@
     fontVariantEmojiSelect.addEventListener('change', applyCssPropertiesToFallback);
     variantToggles.forEach(toggle => toggle.addEventListener('change', applyCssPropertiesToFallback));
     featureSettingsCheckboxes.forEach(checkbox => checkbox.addEventListener('change', applyCssPropertiesToFallback));
+
+    // Line wrapping changes with the pane width, which moves every line but the first.
+    window.addEventListener('resize', debounce(updateGuides, 100));
 
 
     function applyCssPropertiesToFallback() {
@@ -647,6 +1233,11 @@
             const wordSpacingValue = wordSpacingSlider.value;
             wordSpacingValueSpan.textContent = `${wordSpacingValue}px`;
 
+            // Text box trimming goes on both layers: it only lines fonts up when every font is trimmed to the
+            // same edge.
+            const textBoxTrim = textBoxTrimSelect.value;
+            const textBoxEdge = `${textBoxEdgeOverSelect.value} ${textBoxEdgeUnderSelect.value}`;
+
             previewSections.forEach(section => {
                 section.secondaryPreview.style.fontSizeAdjust = fontSizeAdjustValueCSS;
                 section.secondaryPreview.style.fontVariant = fontVariantCSS;
@@ -654,26 +1245,47 @@
                 section.secondaryPreview.style.lineHeight = lineHeightValue;
                 section.secondaryPreview.style.letterSpacing = `${letterSpacingValue}px`;
                 section.secondaryPreview.style.wordSpacing = `${wordSpacingValue}px`;
+                [section.primaryPreview, section.secondaryPreview].forEach(layer => {
+                    layer.style.setProperty('text-box-trim', textBoxTrim);
+                    layer.style.setProperty('text-box-edge', textBoxEdge);
+                });
             });
 
-            updateElementStylesDisplay(fontSizeAdjustValueCSS, fontVariantCSS, fontFeatureSettingsCSS, lineHeightValue, letterSpacingValue, wordSpacingValue);
-            updateBaseline(); // Baseline might shift with font-size-adjust
+            updateElementStylesDisplay({
+                fontSizeAdjust: fontSizeAdjustValueCSS,
+                fontVariant: fontVariantCSS,
+                fontFeatureSettings: fontFeatureSettingsCSS,
+                lineHeight: lineHeightValue,
+                letterSpacing: letterSpacingValue,
+                wordSpacing: wordSpacingValue,
+                textBoxTrim,
+                textBoxEdge,
+            });
+            updateGuides();
 
         } catch (error) {
             console.error('Error applying CSS properties:', error);
         }
     }
 
-    function updateElementStylesDisplay(fsAdjust, fVariant, fFeatures, lnHeight, ltSpacing, wdSpacing) {
+    function updateElementStylesDisplay(styles) {
+        const secondaryFontName = secondarySelect.value.split(',')[0].replace(/['"]/g, '');
         elementStyles.textContent = `/* Styles applied to the secondary text layer */
 .secondary-layer {
-    font-family: "${secondarySelect.value.split(',')[0].replace(/['"]/g, '')}";
-    font-size-adjust: ${fsAdjust};
-    font-variant: ${fVariant};
-    font-feature-settings: ${fFeatures};
-    line-height: ${lnHeight};
-    letter-spacing: ${ltSpacing}px;
-    word-spacing: ${wdSpacing}px;
+    font-family: "${secondaryFontName}";
+    font-size-adjust: ${styles.fontSizeAdjust};
+    font-variant: ${styles.fontVariant};
+    font-feature-settings: ${styles.fontFeatureSettings};
+    line-height: ${styles.lineHeight};
+    letter-spacing: ${styles.letterSpacing}px;
+    word-spacing: ${styles.wordSpacing}px;
+}
+
+/* Trimming is applied to both layers so that the fonts are compared on the same edge */
+.primary-layer,
+.secondary-layer {
+    text-box-trim: ${styles.textBoxTrim};
+    text-box-edge: ${styles.textBoxEdge};
 }`;
     }
 
@@ -686,7 +1298,7 @@
                 section.primaryPreview.style.fontSize = `${fontSize}px`;
                 section.secondaryPreview.style.fontSize = `${fontSize}px`;
             });
-            updateBaseline();
+            updateGuides();
         } catch (error) {
             console.error('Error updating font size:', error);
         }
@@ -699,6 +1311,7 @@
                 section.primaryPreview.textContent = text;
                 section.secondaryPreview.textContent = text;
             });
+            updateGuides();
         } catch (error) {
             console.error('Error updating sample text:', error);
         }
@@ -710,12 +1323,14 @@
                 section.secondaryPreview.style.display =
                     toggleOverlayBtn.checked ? 'block' : 'none';
             });
+            updateGuides();
         } catch (error) {
             console.error('Error toggling overlay:', error);
         }
     }
 
     toggleOverlayBtn.addEventListener('change', toggleOverlay);
+    toggleGuidesBtn.addEventListener('change', toggleGuides);
 
 
     function updateDisplayingFonts() {
@@ -729,20 +1344,6 @@
             applyCssPropertiesToFallback(); // Re-apply CSS properties as font has changed
         } catch (error) {
             console.error('Error updating fonts:', error);
-        }
-    }
-
-    function updateBaseline() {
-        try {
-            const fontSize = parseInt(fontSizeSlider.value);
-            // Approximate baseline based on font size. This is a visual guide.
-            // A more accurate calculation would require font metrics, which is complex here.
-            const baselinePos = fontSize * 0.7; // General approximation for baseline
-            previewSections.forEach(section => {
-                section.baseline.style.top = `${20 + baselinePos}px`; // 20px is padding
-            });
-        } catch (error) {
-            console.error('Error updating baseline:', error);
         }
     }
 
@@ -767,8 +1368,8 @@
     updateDisplayingFonts();
     toggleFontSizeAdjustValueInput();
     applyCssPropertiesToFallback(); // This will also call updateElementStylesDisplay
-    updateBaseline();
     toggleOverlay(); // Set initial state of overlay based on checkbox
+    toggleGuides();
 
 </script>
 

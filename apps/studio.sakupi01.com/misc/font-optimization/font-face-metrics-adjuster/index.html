@@ -19,9 +19,10 @@
     <meta property="og:image" content="https://sakupi01.com/favicon.png" />
     <meta property="og:url" content="https://studio.sakupi01.com/misc/font-face-metrics-adjuster.html" />
     <meta name="twitter:card" content="summary" />
-    <title>Font Face Metrics Adjuster | studio.sakupi01.com</title>
-    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/examples/sakupi01.com/index.css">
-    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/examples/sakupi01.com/markdown.css">
+    <title>Font Metrics Adjuster | studio.sakupi01.com</title>
+    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/css/index.css">
+    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/sakupi01.com/index.css">
+    <link rel="stylesheet" type="text/css" href="https://sakupi01.github.io/sakupi01.com/sakupi01.com/markdown.css">
     <style>
         :where(html) {
             color-scheme: only light;
@@ -31,20 +32,90 @@
         :root {
             --primary-color: var(--site-color-code-dark);
             --secondary-color: var(--site-color-code-light);
+            --guide-ascent: #2563eb;
+            --guide-cap: #ea580c;
+            --guide-ex: #16a34a;
+            --guide-baseline: #dc2626;
+            --guide-descent: #9333ea;
+            /* Room for the guide labels at the right edge of the preview. */
+            --guide-label-gutter: 10rem;
         }
 
-        .font-selector,
-        .settings {
+        /* Two-pane workbench: adjusters on the left, settings and preview on the right. */
+        .page {
+            block-size: 100dvb;
+            grid-template-rows: auto minmax(0, 1fr) auto;
+            max-inline-size: var(--s-container-7xl);
+        }
+
+        .workbench {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);
+            column-gap: var(--s-space-gutter-md);
+        }
+
+        .pane {
+            min-block-size: 0;
+            overflow-y: auto;
+            scrollbar-gutter: stable;
+            padding-block-end: var(--s-space-gutter-md);
+        }
+
+        .pane-adjusters {
+            border-inline-end: 1px solid var(--s-color-border-subtle);
+            padding-inline-end: var(--s-space-gutter-md);
+        }
+
+        @media (width < 56rem) {
+            .page {
+                block-size: auto;
+            }
+
+            .workbench {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: none;
+            }
+
+            .pane {
+                overflow-y: visible;
+            }
+
+            .pane-adjusters {
+                border-inline-end: 0;
+                padding-inline-end: 0;
+            }
+        }
+
+        .font-selector {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 30px;
         }
 
-        .font-group,
-        .control-group {
+        .font-group {
             flex: 1;
-            min-width: 300px;
+            min-width: min(100%, 14rem);
+        }
+
+        .settings {
+            margin-bottom: 30px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 20px;
+            align-items: end;
+        }
+
+        .settings-grid__full {
+            grid-column: 1 / -1;
+        }
+
+        .settings-grid .slider-container {
+            margin-top: 12px;
         }
 
         label {
@@ -62,9 +133,18 @@
         }
 
         input[type="range"],
-        [type=text] {
+        [type=text],
+        textarea {
             width: 100%;
             margin-bottom: 5px;
+        }
+
+        textarea {
+            padding: 8px;
+            border: 1px solid var(--s-color-border-default);
+            border-radius: 4px;
+            font: inherit;
+            resize: vertical;
         }
 
         .slider-container {
@@ -75,6 +155,16 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 5px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-row label {
+            margin-bottom: 0;
         }
 
         .value-display {
@@ -88,14 +178,22 @@
 
         .preview-container {
             padding: 20px;
+            padding-inline-end: var(--guide-label-gutter);
             display: grid;
             grid-template-rows: 1fr;
             position: relative;
         }
 
+        /* Both layers share one grid cell, so they overlap and the cell grows with the taller one. */
         .text-layer {
             grid-row: 1;
             grid-column: 1;
+            align-self: start;
+            justify-self: start;
+            width: fit-content;
+            /* `normal` exposes the font's own line gap, so line-gap-override is visible in the preview. */
+            line-height: normal;
+            white-space: pre-wrap;
             word-wrap: break-word;
             z-index: 1;
         }
@@ -111,16 +209,12 @@
         .webfont-layer {
             color: var(--primary-color);
             border: 1px solid var(--primary-color);
-            width: fit-content;
         }
 
         .fallback-layer {
             color: var(--secondary-color);
             border: 1px solid var(--secondary-color);
             opacity: 0.7;
-            position: absolute;
-            top: 0px;
-            left: 0px;
         }
 
         .metrics-display {
@@ -132,13 +226,171 @@
             white-space: pre-wrap;
         }
 
-        .baseline-guide {
+        /* Metric guides: one set per text layer, drawn over the preview. */
+        .metric-guides {
             position: absolute;
-            width: 100%;
-            height: 1px;
-            background-color: rgb(145, 145, 145);
-            left: 0;
-            z-index: 0;
+            inset: 0;
+            inline-size: 100%;
+            block-size: 100%;
+            overflow: visible;
+            pointer-events: none;
+            z-index: 2;
+            font-family: 'Cascadia Code', monospace;
+            font-size: 11px;
+        }
+
+        .metric-guide line {
+            stroke: var(--guide-color);
+            stroke-width: 1;
+        }
+
+        .metric-guide text {
+            fill: var(--guide-color);
+            paint-order: stroke;
+            stroke: rgb(255 255 255 / 0.85);
+            stroke-width: 3px;
+            stroke-linejoin: round;
+        }
+
+        .metric-guide circle {
+            fill: #fff;
+            stroke: var(--guide-color);
+            stroke-width: 1.5;
+        }
+
+        [data-layer="primary"] .metric-guide line {
+            stroke-dasharray: 6 3;
+        }
+
+        [data-layer="secondary"] .metric-guide line {
+            stroke-dasharray: 1 3;
+            stroke-linecap: round;
+            stroke-width: 1.5;
+        }
+
+        .metric-guide--ascent {
+            --guide-color: var(--guide-ascent);
+        }
+
+        .metric-guide--cap {
+            --guide-color: var(--guide-cap);
+        }
+
+        .metric-guide--ex {
+            --guide-color: var(--guide-ex);
+        }
+
+        .metric-guide--baseline {
+            --guide-color: var(--guide-baseline);
+        }
+
+        .metric-guide--descent {
+            --guide-color: var(--guide-descent);
+        }
+
+        /* Half-leading (line box minus content area) is hatched; negative leading is tinted red. */
+        .leading-hatch line {
+            stroke-width: 1.5;
+            opacity: 0.3;
+        }
+
+        .leading-hatch--primary line {
+            stroke: #334155;
+        }
+
+        .leading-hatch--secondary line {
+            stroke: #64748b;
+        }
+
+        .leading-band--negative {
+            fill: rgb(220 38 38 / 0.15);
+        }
+
+        .metric-guides-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            margin-top: 8px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .metric-guides-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .metric-readout-wrapper {
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+
+        .metric-readout {
+            inline-size: auto;
+            table-layout: auto;
+            font-family: 'Cascadia Code', monospace;
+            font-size: 12px;
+        }
+
+        .metric-readout caption {
+            caption-side: bottom;
+            padding-block-start: 4px;
+            font-size: 11px;
+            text-align: start;
+            opacity: 0.8;
+        }
+
+        .metric-readout th,
+        .metric-readout td {
+            padding: 2px 8px;
+            white-space: nowrap;
+        }
+
+        .metric-readout th[class] {
+            color: var(--guide-color);
+        }
+
+        .metric-readout-note {
+            margin-top: 4px;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .metric-readout-note:empty {
+            display: none;
+        }
+
+        /* Measurement helpers. A zero-size inline-block sits on the baseline, top, or bottom of its line. */
+        .metrics-anchor {
+            display: inline-block;
+            inline-size: 0;
+            block-size: 0;
+            overflow: hidden;
+            vertical-align: baseline;
+        }
+
+        .metrics-probe {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            visibility: hidden;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .metrics-probe__cap,
+        .metrics-probe__ex {
+            display: inline-block;
+            inline-size: 0;
+        }
+
+        .metrics-probe__cap {
+            block-size: 1cap;
+        }
+
+        .metrics-probe__ex {
+            block-size: 1ex;
         }
     </style>
     <style>
@@ -156,269 +408,372 @@
 
 <body class="page">
     <header>
-        <nav>
-            <div class="header-icon">
-                <a href="https://sakupi01.com"> <img class=logo alt="saku's logo" width="50" height="50"
-                        src="https://sakupi01.github.io/slides/assets/icon_round.ico"> </a>
-            </div>
-        </nav>
-        <div class="right">
-            <a href="../css-font-property-adjuster/">Go to Font Property Adjuster</a>
+        <div>
+            If you're looking for adjusting CSS font appearance, go to:
+            <a href="../css-font-property-adjuster/">CSS Font Appearance Adjuster</a>
         </div>
     </header>
 
-    <main>
-        <h1 class="heading">@font-face Metrics Adjuster</h1>
-        <div class="description">
-            <p>With this tool, you can adjust <code>@font-face</code> descriptors to match fallback fonts to web fonts,
-                minimizing CLS during font loading.</p>
-            <ul>
-                <li>Font Metrics Override APIs: <code>ascent-override</code>, <code>descent-override</code>,
-                    <code>line-gap-override</code>
-                    <ul>
-                        <li><code>ascent-override</code>: Adjust ascent (Upper height from the baseline of the glyph)
-                        </li>
-                        <li><code>descent-override</code>: Adjust descent (Lower height from the baseline of the glyph)
-                        </li>
-                        <li><code>line-gap-override</code>: the distance between successive lines of text (so-called
-                            "leading")</li>
-                    </ul>
-                </li>
-                <li>Glyph Scaling: <code>size-adjust</code>
-                    <ul>
-                        <li><code>size-adjust</code>: Adjust overall font size</li>
-                    </ul>
-                </li>
-                <li>Loading Behavior: <code>font-display</code> (Nice with Web Font's face)</li>
-                <li>Character Subsetting: <code>unicode-range</code>(Nice with Web Font's face)</li>
-            </ul>
-            <p><strong>🤍 DECLAIMER:</strong> This is just a demonstration of how to customize font face. Therefore,
-                it's not for practical use, and there's no functionality to use personal web fonts.
-            </p>
-            <p><strong>🤍 DECLAIMER:</strong> The changes you make with the adjusters will be debounced for 50ms for the
-                performance reasons.
-            </p>
+    <main class="workbench">
+        <div class="pane pane-adjusters">
+            <h1 class="heading">Font Metrics Adjuster</h1>
+            <div class="description">
+                <p>With this tool, you can adjust <code>@font-face</code> descriptors to match fallback fonts to web
+                    fonts,
+                    minimizing CLS during font loading.</p>
+                <ul>
+                    <li>Font Metrics Override APIs:
+                        <ul>
+                            <li><code>ascent-override</code>: Adjust ascent (Upper height from the baseline of the
+                                glyph)
+                            </li>
+                            <li><code>descent-override</code>: Adjust descent (Lower height from the baseline of the
+                                glyph)
+                            </li>
+                            <li><code>line-gap-override</code>: the distance between successive lines of text (so-called
+                                "leading")</li>
+                        </ul>
+                    </li>
+                    <li>Glyph Scaling:
+                        <ul>
+                            <li><code>size-adjust</code>: Adjust overall font size</li>
+                        </ul>
+                    </li>
+                    <li>Loading Behavior:
+                        <ul>
+                            <li><code>font-display</code>: Control how the font is displayed while it is loading.
+                                <ul>
+                                    <li><code>auto</code>: The font is displayed using the smallest possible font that
+                                        meets
+                                        the
+                                        font-size criteria.
+                                    </li>
+                                    <li><code>block</code>: The font is displayed using the font-size value specified in
+                                        the
+                                        font-size property.
+                                    </li>
+                                    <li><code>swap</code>: The font is displayed using the font-size value specified in
+                                        the
+                                        font-size property.
+                                    </li>
+                                    <li><code>fallback</code>: The font is displayed using the font-size value specified
+                                        in
+                                        the
+                                        font-size property.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Character Subsetting:
+                        <ul>
+                            <li><code>unicode-range</code>: Control which characters are included in the font.
+                                <ul>
+                                    <li><code>U+0-10FFFF</code>: All characters</li>
+                                    <li><code>U+0-7F</code>: Basic Latin</li>
+                                    <li><code>U+0-FF</code>: Latin-1</li>
+                                    <li><code>U+4E00-9FFF</code>: CJK Unified Ideographs</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>🤍 DECLAIMER:</strong> This is just a demonstration of how to customize font face. Therefore,
+                    it's not for practical use, and there's no functionality to use personal web fonts.
+                </p>
+                <p><strong>🤍 DECLAIMER:</strong> The changes you make with the adjusters will be debounced for 50ms for
+                    the
+                    performance reasons.
+                </p>
 
-        </div>
+            </div>
 
-        <div class="settings">
-            <div class="control-group">
-                <h2>Settings</h2>
-                <div class="slider-container">
-                    <div class="slider-info">
-                        <label for="font-size-slider">Font Size:</label>
-                        <span class="value-display" id="font-size-value">40px</span>
-                    </div>
-                    <input type="range" id="font-size-slider" min="16" max="96" value="40" step="1">
+            <div class="font-selector">
+                <div class="font-group">
+                    <label for="webfont" class="webfont">Primary Font (Web Font):</label>
+                    <select id="webfont">
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                        <option value="Verdana, sans-serif">Verdana</option>
+                    </select>
                 </div>
-                <div class="slider-container">
-                    <div class="slider-info">
-                        <label for="sample-text">Input Text:</label>
-                    </div>
-                    <input type="text" id="sample-text" value="Ag Xy 123 あいうえお 一二三 😍" name="sample" />
+                <div class="font-group">
+                    <label for="fallback" class="fallback">Fallback Font:</label>
+                    <select id="fallback">
+                        <optgroup label="Sans-serif">
+                            <option selected="selected" value="Arial, sans-serif">Arial</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Tahoma">Tahoma</option>
+                        </optgroup>
+                        <optgroup label="Serif">
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Georgia">Georgia</option>
+                        </optgroup>
+                        <optgroup label="Monospaced">
+                            <option value="Courier New">Courier New</option>
+                        </optgroup>
+                    </select>
                 </div>
-                <div class="slider-container">
-                    <div class="slider-info">
-                        <label for="toggle-overlay">Toggle Fallback Overlay:</label>
-                    </div>
-                    <input type="checkbox" checked id="toggle-overlay" />
-                </div>
-            </div>
-        </div>
-
-        <div class="font-selector">
-            <div class="font-group">
-                <label for="webfont" class="webfont">Primary Font (Web Font):</label>
-                <select id="webfont">
-                    <option value="'Times New Roman', serif">Times New Roman</option>
-                    <option value="Arial, sans-serif">Arial</option>
-                    <option value="Georgia, serif">Georgia</option>
-                    <option value="'Courier New', monospace">Courier New</option>
-                    <option value="'Segoe UI', sans-serif">Segoe UI</option>
-                    <option value="Verdana, sans-serif">Verdana</option>
-                </select>
-            </div>
-            <div class="font-group">
-                <label for="fallback" class="fallback">Fallback Font:</label>
-                <select id="fallback">
-                    <optgroup label="Sans-serif">
-                        <option selected="selected" value="Arial, sans-serif">Arial</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Tahoma">Tahoma</option>
-                    </optgroup>
-                    <optgroup label="Serif">
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Georgia">Georgia</option>
-                    </optgroup>
-                    <optgroup label="Monospaced">
-                        <option value="Courier New">Courier New</option>
-                    </optgroup>
-                </select>
-            </div>
-            <p>🤍 Well, you can apply the properties to web font, for sure, though it's <strong>easier and more makes
-                    sense to
-                    adjust the fallback</strong>
-                for better
-                compatibility and maintainability. <br />
-                <small>Local fonts for fallbacks are OS-dependent, which means that if you try to adjust your web font
-                    to
-                    fallbacks, you need to adapt all the fonts of the web font according to the OS.</small>
-                <small>This is likely to be more work than adapting fallbacks to web fonts, so it's better to do the
-                    opposite in practice. ;)</small>
-            </p>
-        </div>
-
-
-        <h2><code>@font-face</code></h2>
-        <p>🤍 There are <strong>two possible approaches</strong> to generating "improved" font fallbacks. The
-            simpler approach uses
-            only
-            the <strong>Font Metric overrides API</strong>. The more complicated (but more powerful) approach uses
-            <strong>both the font
-                metric overrides API and size-adjust</strong>. You can try both of these approaches.
-        </p>
-        <div class="slider-container">
-            <h3>Font Metrics Override APIs</h3>
-            <p>Font metric overrides can be used to override the ascent, descent, and line-gap of a fallback font to
-                match the ascent, descent, and line-gap of the web font. As a result, the web font and the adjusted
-                fallback font will always have the same <strong>vertical</strong> dimensions.</p>
-            <p>
-                In order to get precise numbers of each property, some calculations are needed. (see: <a
-                    href="https://developer.chrome.com/blog/font-fallbacks#calculating_font_metric_overrides">Improved
-                    font
-                    fallbacks  |  Blog  |  Chrome for Developers</a>)
-                <br /> For Google Fonts, there's
-                a repo that the all proper font metric override values are
-                exposed.
-                You can check it out from <a href="https://github.com/khempenius/font-fallbacks-dataset">here</a>.
-            </p>
-            <div class="slider-info">
-                <label for="ascent-slider">ascent-override:</label>
-                <span class="value-display" id="ascent-value">100%</span>
-            </div>
-            <input type="range" id="ascent-slider" min="50" max="150" value="100" step="1">
-        </div>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="descent-slider">descent-override:</label>
-                <span class="value-display" id="descent-value">32%</span>
-            </div>
-            <input type="range" id="descent-slider" min="10" max="50" value="32" step="1">
-        </div>
-        <div class="slider-container">
-            <div class="slider-info">
-                <label for="line-gap-slider">line-gap-override:</label>
-                <span class="value-display" id="line-gap-value">0%</span>
-            </div>
-            <input type="range" id="line-gap-slider" min="0" max="50" value="0" step="1">
-        </div>
-
-        <div class="slider-container">
-            <h3>Glyph Scaling: <code>size-adjust</code></h3>
-            <p>The <code>size-adjust</code> CSS descriptor proportionally scales the width and height of font
-                glyphs. <small>
-                    For
-                    example, <code>size-adjust: 200%</code> scales font glyphs to twice their original size;
-                    <code>size-adjust: 50%</code> scales
-                    font glyphs to half their original size.
-                </small>
-            </p>
-            <p>By itself, size-adjust has limited applications for improving font fallbacks: in most cases, a
-                fallback font needs to be narrowed or widened slightly (rather than scaled proportionally) in order
-                to match a web font. However, combining size-adjust with font metric overrides makes it possible to
-                make any two fonts match each other both horizontally and vertically.
-            </p>
-            <div class="slider-info">
-                <label for="size-adjust-slider">size-adjust:</label>
-                <span class="value-display" id="size-adjust-value">100%</span>
-            </div>
-            <input type="range" id="size-adjust-slider" min="50" max="150" value="100" step="1">
-        </div>
-
-        <div class="slider-container">
-            <h3>Loading Behavior: <code>font-display</code></h3>
-            <p>In Addition, you can specify <code>font-display</code> to control how the font is displayed
-                while it
-                is
-                loading. It controls and minimizes FOIT (Flash of invisible text). For more details, see: <a
-                    href="https://developer.chrome.com/blog/font-display">
-                    Controlling Font Performance with font-display  |  Blog  |  Chrome for Developers
-                </a>, <a href="https://www.w3.org/TR/css-fonts-4/#font-rendering-controls">
-                    3. Font Rendering Controls | Font CSS Fonts Module Level 4
-                </a>
-            </p>
-            <div class="slider-info">
-                <label for="font-display-select">font-display:</label>
-            </div>
-            <select id="font-display-select">
-                <option value="auto">auto</option>
-                <option value="block">block</option>
-                <option value="swap" selected>swap</option>
-                <option value="fallback">fallback</option>
-                <option value="optional">optional</option>
-            </select>
-        </div>
-
-        <div class="slider-container">
-            <h3>Character Subsetting: <code>unicode-range</code></h3>
-            <p>In addition, you can specify <code>unicode-range</code> to control which characters are included in
-                the font. This is useful for reducing the size of the font file and improving performance. For
-                more details, see: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range">
-                    @font-face/unicode-range - CSS: Cascading Style Sheets | MDN
-                </a>
-            <div class="slider-info">
-                <label for="unicode-range-select">unicode-range:</label>
-            </div>
-            <select id="unicode-range-select">
-                <option value="U+0-10FFFF">U+0-10FFFF (All)</option>
-                <option value="U+0-7F">U+0-7F (Basic Latin)</option>
-                <option value="U+0-FF">U+0-FF (Latin-1)</option>
-                <option value="U+4E00-9FFF">U+4E00-9FFF (CJK Unified Ideographs)</option>
-            </select>
-        </div>
-
-        <div class="slider-container preview-section">
-            <div class="preview-header">Preview</div>
-            <div class="preview-container">
-                <div id="ff-baseline" class="baseline-guide"></div>
-                <div id="ff-webfont-preview" class="text-layer webfont-layer">Ag Xy 123 あいうえお　一二三 😍</div>
-                <div id="ff-fallback-preview" class="text-layer fallback-layer">Ag Xy 123 あいうえお　一二三 😍</div>
-            </div>
-        </div>
-
-        <div class="slider-container metrics-display" id="metrics-code-display">@font-face {
-            font-family: 'adjusted-fallback';
-            src: local("Arial");
-            size-adjust: 100%;
-            font-display: swap;
-            ascent-override: 100%;
-            descent-override: 32%;
-            line-gap-override: 0%;
-            unicode-range: U+0-10FFFF;
-            }</div>
-
-        <div class="slider-container">
-            <h2>Resources:</h2>
-            <ul>
-                <li><a href=" https://www.w3.org/TR/css-fonts-4/">CSS Fonts Module Level 4</a></li>
-                <li><a href=" https://developer.chrome.com/blog/font-fallbacks#how_font_metric_overrides_work">Improved
+                <p>🤍 Well, you can apply the properties to web font, for sure, though it's <strong>easier and more
+                        makes
+                        sense to
+                        adjust the fallback</strong>
+                    for better
+                    compatibility and maintainability. <br />
+                    <small>Local fonts for fallbacks are OS-dependent, which means that if you try to adjust your web
                         font
-                        fallbacks  |  Blog  |  Chrome for Developers</a></li>
-                <li><a href="https://developer.chrome.com/docs/lighthouse/performance/font-display">Ensure text remains
-                        visible during webfont load  |  Lighthouse  |  Chrome for Developers</a></li>
-                <li><a href="https://web.dev/articles/font-best-practices">Best practices for fonts  |  Articles  | 
-                        web.dev</a></li>
-                <li><a href="https://developer.chrome.com/blog/font-display">Controlling Font Performance with
-                        font-display  |  Blog  |  Chrome for Developers</a></li>
-            </ul>
+                        to
+                        fallbacks, you need to adapt all the fonts of the web font according to the OS.</small>
+                    <small>This is likely to be more work than adapting fallbacks to web fonts, so it's better to do the
+                        opposite in practice. ;)</small>
+                </p>
+            </div>
+
+
+            <h2><code>@font-face</code></h2>
+            <p>🤍 There are <strong>two possible approaches</strong> to generating "improved" font fallbacks. The
+                simpler approach uses
+                only
+                the <strong>Font Metric overrides API</strong>. The more complicated (but more powerful) approach is to
+                use
+                <strong>both the font
+                    metric overrides API and size-adjust</strong>. You can try both of these approaches.
+            </p>
+            <div class="slider-container">
+                <h3>Font Metrics Override APIs</h3>
+                <p>Font metric overrides can be used to override the ascent, descent, and line-gap of a fallback font to
+                    match the ascent, descent, and line-gap of the web font. As a result, the web font and the adjusted
+                    fallback font will always have the same <strong>vertical</strong> dimensions.</p>
+                <p>
+                    In order to get precise numbers of each property, some calculations are needed. (see: <a
+                        href="https://developer.chrome.com/blog/font-fallbacks#calculating_font_metric_overrides">Improved
+                        font
+                        fallbacks  |  Blog  |  Chrome for Developers</a>)
+                    <br /> For Google Fonts, there's
+                    a repo that the all proper font metric override values are
+                    exposed.
+                    You can check it out from <a href="https://github.com/khempenius/font-fallbacks-dataset">here</a>.
+                </p>
+                <div class="slider-info">
+                    <label for="ascent-slider">ascent-override:</label>
+                    <span class="value-display" id="ascent-value">100%</span>
+                </div>
+                <input type="range" id="ascent-slider" min="50" max="150" value="100" step="1">
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="descent-slider">descent-override:</label>
+                    <span class="value-display" id="descent-value">32%</span>
+                </div>
+                <input type="range" id="descent-slider" min="10" max="50" value="32" step="1">
+            </div>
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="line-gap-slider">line-gap-override:</label>
+                    <span class="value-display" id="line-gap-value">0%</span>
+                </div>
+                <input type="range" id="line-gap-slider" min="0" max="50" value="0" step="1">
+            </div>
+
+            <div class="slider-container">
+                <h3>Glyph Scaling: <code>size-adjust</code></h3>
+                <p>The <code>size-adjust</code> CSS descriptor proportionally scales the width and height of font
+                    glyphs.</p>
+                <p>By itself, size-adjust has limited applications for improving font fallbacks: in most cases, a
+                    fallback font needs to be narrowed or widened slightly (rather than scaled proportionally) in order
+                    to match a web font. However, combining size-adjust with font metric overrides makes it possible to
+                    make any two fonts match each other both horizontally and vertically.
+                </p>
+                <div class="slider-info">
+                    <label for="size-adjust-slider">size-adjust:</label>
+                    <span class="value-display" id="size-adjust-value">100%</span>
+                </div>
+                <input type="range" id="size-adjust-slider" min="50" max="150" value="100" step="1">
+            </div>
+
+            <div class="slider-container">
+                <h3>Loading Behavior: <code>font-display</code></h3>
+                <p>In Addition, you can specify <code>font-display</code> to control how the font is displayed
+                    while it
+                    is
+                    loading. It controls and minimizes FOIT (Flash of invisible text). For more details, see: <a
+                        href="https://developer.chrome.com/blog/font-display">
+                        Controlling Font Performance with font-display  |  Blog  |  Chrome for Developers
+                    </a>, <a href="https://www.w3.org/TR/css-fonts-4/#font-rendering-controls">
+                        3. Font Rendering Controls | Font CSS Fonts Module Level 4
+                    </a>
+                </p>
+                <div class="slider-info">
+                    <label for="font-display-select">font-display:</label>
+                </div>
+                <select id="font-display-select">
+                    <option value="auto">auto</option>
+                    <option value="block">block</option>
+                    <option value="swap" selected>swap</option>
+                    <option value="fallback">fallback</option>
+                    <option value="optional">optional</option>
+                </select>
+            </div>
+
+            <div class="slider-container">
+                <h3>Character Subsetting: <code>unicode-range</code></h3>
+                <p>In addition, you can specify <code>unicode-range</code> to control which characters are included in
+                    the font. This is useful for reducing the size of the font file and improving performance. For
+                    more details, see: <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range">
+                        @font-face/unicode-range - CSS: Cascading Style Sheets | MDN
+                    </a>
+                <div class="slider-info">
+                    <label for="unicode-range-select">unicode-range:</label>
+                </div>
+                <select id="unicode-range-select">
+                    <option value="U+0-10FFFF">U+0-10FFFF (All)</option>
+                    <option value="U+0-7F">U+0-7F (Basic Latin)</option>
+                    <option value="U+0-FF">U+0-FF (Latin-1)</option>
+                    <option value="U+4E00-9FFF">U+4E00-9FFF (CJK Unified Ideographs)</option>
+                </select>
+            </div>
+
+            <div class="slider-container">
+                <h2>Resources:</h2>
+                <ul>
+                    <li><a href=" https://www.w3.org/TR/css-fonts-4/">CSS Fonts Module Level 4</a></li>
+                    <li><a
+                            href=" https://developer.chrome.com/blog/font-fallbacks#how_font_metric_overrides_work">Improved
+                            font
+                            fallbacks  |  Blog  |  Chrome for Developers</a></li>
+                    <li><a href="https://developer.chrome.com/docs/lighthouse/performance/font-display">Ensure text
+                            remains
+                            visible during webfont load  |  Lighthouse  |  Chrome for Developers</a></li>
+                    <li><a href="https://web.dev/articles/font-best-practices">Best practices for fonts  |  Articles  | 
+                            web.dev</a></li>
+                    <li><a href="https://developer.chrome.com/blog/font-display">Controlling Font Performance with
+                            font-display  |  Blog  |  Chrome for Developers</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pane pane-result">
+            <div class="settings">
+                <h2>Settings</h2>
+                <div class="settings-grid">
+                    <div class="slider-container">
+                        <div class="slider-info">
+                            <label for="font-size-slider">Font Size:</label>
+                            <span class="value-display" id="font-size-value">40px</span>
+                        </div>
+                        <input type="range" id="font-size-slider" min="16" max="96" value="40" step="1">
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-info">
+                            <label for="line-height-select">line-height (both layers):</label>
+                        </div>
+                        <select id="line-height-select">
+                            <option value="normal" selected>normal (font metrics + line gap)</option>
+                            <option value="1">1</option>
+                            <option value="1.2">1.2</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div class="slider-container settings-grid__full">
+                        <div class="slider-info">
+                            <label for="sample-text">Input Text:</label>
+                        </div>
+                        <textarea id="sample-text" rows="2">Ag Xy 123 あいうえお 一二三 😍</textarea>
+                    </div>
+                    <div class="slider-container checkbox-row">
+                        <input type="checkbox" checked id="toggle-overlay" />
+                        <label for="toggle-overlay">Toggle Fallback Overlay</label>
+                    </div>
+                    <div class="slider-container checkbox-row">
+                        <input type="checkbox" checked id="toggle-guides" />
+                        <label for="toggle-guides">Toggle Metric Guides</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-container preview-section">
+                <h2 class="preview-header">Preview</h2>
+                <div class="preview-container" id="ff-preview-container">
+                    <div id="ff-webfont-preview" class="text-layer webfont-layer">Ag Xy 123 あいうえお　一二三 😍</div>
+                    <div id="ff-fallback-preview" class="text-layer fallback-layer">Ag Xy 123 あいうえお　一二三 😍</div>
+                    <svg id="ff-metric-guides" class="metric-guides" aria-hidden="true">
+                        <defs>
+                            <pattern id="ff-hatch-primary" class="leading-hatch leading-hatch--primary" width="6"
+                                height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                <line x1="0" y1="0" x2="0" y2="6" />
+                            </pattern>
+                            <pattern id="ff-hatch-secondary" class="leading-hatch leading-hatch--secondary" width="6"
+                                height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+                                <line x1="0" y1="0" x2="0" y2="6" />
+                            </pattern>
+                        </defs>
+                        <g id="ff-metric-guide-layers"></g>
+                    </svg>
+                </div>
+                <p class="metric-guides-legend" id="ff-metric-guides-legend">
+                    <span><svg width="28" height="8" aria-hidden="true">
+                            <line x1="0" y1="4" x2="28" y2="4" stroke="currentColor" stroke-dasharray="6 3" />
+                        </svg>web font metrics (labelled)</span>
+                    <span><svg width="28" height="8" aria-hidden="true">
+                            <line x1="0" y1="4" x2="28" y2="4" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-dasharray="1 3" />
+                        </svg>adjusted fallback metrics</span>
+                    <span><svg width="28" height="12" aria-hidden="true">
+                            <rect width="28" height="12" fill="url(#ff-hatch-primary)" />
+                        </svg>web font half-leading</span>
+                    <span><svg width="28" height="12" aria-hidden="true">
+                            <rect width="28" height="12" fill="url(#ff-hatch-secondary)" />
+                        </svg>fallback half-leading</span>
+                </p>
+                <div class="metric-readout-wrapper" id="ff-metric-readout-wrapper">
+                    <table class="metric-readout">
+                        <caption>Measured on the first line. line box = ascent + descent + half-leading × 2</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">layer</th>
+                                <th scope="col">line box</th>
+                                <th scope="col" class="metric-guide--ascent">ascent</th>
+                                <th scope="col" class="metric-guide--cap">cap-height</th>
+                                <th scope="col" class="metric-guide--ex">x-height</th>
+                                <th scope="col" class="metric-guide--descent">descent</th>
+                                <th scope="col">half-leading</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ff-metric-readout-body" aria-busy="true"></tbody>
+                    </table>
+                    <p class="metric-readout-note" id="ff-metric-readout-note"></p>
+                </div>
+            </div>
+
+            <div class="slider-container metrics-display" id="metrics-code-display">@font-face {
+                font-family: 'adjusted-fallback';
+                src: local("Arial");
+                size-adjust: 100%;
+                font-display: swap;
+                ascent-override: 100%;
+                descent-override: 32%;
+                line-gap-override: 0%;
+                unicode-range: U+0-10FFFF;
+                }</div>
         </div>
     </main>
 </body>
 
 <script>
+    const previewContainer = document.getElementById('ff-preview-container');
     const webfontPreview = document.getElementById('ff-webfont-preview');
     const fallbackPreview = document.getElementById('ff-fallback-preview');
-    const baseline = document.getElementById('ff-baseline');
+    const metricGuidesSvg = document.getElementById('ff-metric-guides');
+    const metricGuideLayers = document.getElementById('ff-metric-guide-layers');
+    const metricGuidesLegend = document.getElementById('ff-metric-guides-legend');
+    const metricReadoutWrapper = document.getElementById('ff-metric-readout-wrapper');
+    const metricReadoutBody = document.getElementById('ff-metric-readout-body');
+    const metricReadoutNote = document.getElementById('ff-metric-readout-note');
 
     const webfontSelect = document.getElementById('webfont');
     const fallbackSelect = document.getElementById('fallback');
@@ -432,8 +787,10 @@
     const unicodeRangeSelect = document.getElementById('unicode-range-select');
 
     const fontSizeSlider = document.getElementById('font-size-slider');
+    const lineHeightSelect = document.getElementById('line-height-select');
     const sampleTextInput = document.getElementById('sample-text');
     const toggleOverlayBtn = document.getElementById('toggle-overlay');
+    const toggleGuidesBtn = document.getElementById('toggle-guides');
 
     const ascentValue = document.getElementById('ascent-value');
     const descentValue = document.getElementById('descent-value');
@@ -452,6 +809,178 @@
             clearTimeout(timeout);
             timeout = setTimeout(() => func.apply(context, args), wait);
         };
+    }
+
+    // ---------------------------------------------------------------------------
+    // Metric guides
+    // ---------------------------------------------------------------------------
+    // `column` staggers the labels horizontally so neighboring metrics never overprint each other.
+    const METRIC_GUIDES = [
+        { key: 'ascent', label: 'ascent', column: 0 },
+        { key: 'cap', label: 'cap-height', column: 1 },
+        { key: 'ex', label: 'x-height', column: 0 },
+        { key: 'baseline', label: 'baseline', column: 1 },
+        { key: 'descent', label: 'descent', column: 0 },
+    ];
+    const LABEL_COLUMN_OFFSETS = ['-6', '-78'];
+
+    function createAnchor(verticalAlign) {
+        const anchor = document.createElement('span');
+        anchor.className = 'metrics-anchor';
+        anchor.style.verticalAlign = verticalAlign;
+        return anchor;
+    }
+
+    // Baseline and line box edges (viewport y) of the line that receives the anchors.
+    function measureAnchoredLine(insertAnchors) {
+        const anchors = [createAnchor('baseline'), createAnchor('top'), createAnchor('bottom')];
+        insertAnchors(anchors);
+        const [baseline, top, bottom] = anchors.map(anchor => anchor.getBoundingClientRect().top);
+        anchors.forEach(anchor => anchor.remove());
+        return { baseline, top, bottom };
+    }
+
+    // A new line starts whenever a text fragment moves down and back to the line start.
+    function countLines(layer) {
+        const range = document.createRange();
+        range.selectNodeContents(layer);
+        let lines = 0;
+        let previous = null;
+        for (const rect of range.getClientRects()) {
+            if (!previous || (rect.top > previous.top + 0.5 && rect.left <= previous.left + 0.5)) lines++;
+            previous = rect;
+        }
+        return Math.max(1, lines);
+    }
+
+    // Metrics of the layer's first available font, measured inside the layer so that @font-face
+    // descriptors and element-level font properties are reflected. Values are offsets from the baseline,
+    // except `lineBox`: the line box a line of Latin text gets from line-height alone.
+    function measureFontMetrics(layer) {
+        const probe = document.createElement('span');
+        probe.className = 'metrics-probe';
+        probe.innerHTML = '<span>H</span><span class="metrics-anchor"></span>'
+            + '<span class="metrics-probe__cap"></span><span class="metrics-probe__ex"></span>';
+        layer.appendChild(probe);
+        const [glyph, anchor, cap, ex] = probe.children;
+        const glyphRect = glyph.getBoundingClientRect(); // content area = ascent + descent
+        const baseline = anchor.getBoundingClientRect().top;
+        const metrics = {
+            ascent: baseline - glyphRect.top,
+            descent: glyphRect.bottom - baseline,
+            cap: cap.getBoundingClientRect().height,
+            ex: ex.getBoundingClientRect().height,
+            lineBox: probe.getBoundingClientRect().height,
+        };
+        probe.remove();
+        return metrics;
+    }
+
+    // The first and last lines are measured; lines in between are interpolated, which is exact as long
+    // as every line box has the same height.
+    function measureLayer(layer) {
+        const lineCount = countLines(layer);
+        const first = measureAnchoredLine(anchors => layer.prepend(...anchors));
+        const last = lineCount > 1 ? measureAnchoredLine(anchors => layer.append(...anchors)) : first;
+        const font = measureFontMetrics(layer);
+        const rect = layer.getBoundingClientRect();
+        const style = getComputedStyle(layer);
+        const contentTop = rect.top + parseFloat(style.borderTopWidth) + parseFloat(style.paddingTop);
+        const contentBottom = rect.bottom - parseFloat(style.borderBottomWidth) - parseFloat(style.paddingBottom);
+        const lines = Array.from({ length: lineCount }, (_, index) => {
+            const t = lineCount > 1 ? index / (lineCount - 1) : 0;
+            return {
+                baseline: first.baseline + (last.baseline - first.baseline) * t,
+                top: first.top + (last.top - first.top) * t,
+                bottom: first.bottom + (last.bottom - first.bottom) * t,
+            };
+        });
+        return { lines, font, contentTop, contentBottom };
+    }
+
+    function leadingBand(from, to, clampTop, clampBottom, hatchId, y) {
+        const top = Math.max(Math.min(from, to), clampTop);
+        const bottom = Math.min(Math.max(from, to), clampBottom);
+        if (bottom - top < 0.5) return '';
+        const modifier = from > to ? ' leading-band--negative' : '';
+        return `<rect class="leading-band${modifier}" x="0" width="100%" y="${y(top)}" `
+            + `height="${(bottom - top).toFixed(2)}" fill="url(#${hatchId})"/>`;
+    }
+
+    function renderLayerGuides({ lines, font, contentTop, contentBottom }, { name, labelled, hatchId, containerTop }) {
+        const y = value => (value - containerTop).toFixed(2);
+        let markup = `<g data-layer="${name}">`;
+        lines.forEach((line, index) => {
+            const positions = {
+                ascent: line.baseline - font.ascent,
+                cap: line.baseline - font.cap,
+                ex: line.baseline - font.ex,
+                baseline: line.baseline,
+                descent: line.baseline + font.descent,
+            };
+            markup += leadingBand(line.top, positions.ascent, contentTop, contentBottom, hatchId, y);
+            markup += leadingBand(positions.descent, line.bottom, contentTop, contentBottom, hatchId, y);
+            for (const metric of METRIC_GUIDES) {
+                markup += `<g class="metric-guide metric-guide--${metric.key}" `
+                    + `transform="translate(0 ${y(positions[metric.key])})"><line x1="0" x2="100%"/>`;
+                if (index === 0) {
+                    markup += labelled
+                        ? `<text x="100%" dx="${LABEL_COLUMN_OFFSETS[metric.column]}" dy="-4" text-anchor="end">`
+                        + `${metric.label}</text>`
+                        : '<circle cx="100%" r="3" transform="translate(-6 0)"/>';
+                }
+                markup += '</g>';
+            }
+        });
+        return markup + '</g>';
+    }
+
+    const px = value => `${value.toFixed(1)}px`;
+
+    function renderReadout(rows) {
+        const notes = [];
+        metricReadoutBody.innerHTML = rows.map(({ name, measurement }) => {
+            const { font, lines } = measurement;
+            const lineBox = lines[0].bottom - lines[0].top;
+            const halfLeading = (lineBox - font.ascent - font.descent) / 2;
+            if (lineBox - font.lineBox > 0.5) {
+                notes.push(`line-height alone gives ${px(font.lineBox)} for ${name}; taller fallback glyphs on the `
+                    + `line (CJK, emoji) stretch its line box to ${px(lineBox)}.`);
+            }
+            return `<tr><th scope="row">${name}</th><td>${px(lineBox)}</td><td>${px(font.ascent)}</td>`
+                + `<td>${px(font.cap)}</td><td>${px(font.ex)}</td><td>${px(font.descent)}</td>`
+                + `<td>${px(halfLeading)}</td></tr>`;
+        }).join('');
+        metricReadoutNote.textContent = notes.join(' ');
+        metricReadoutBody.removeAttribute('aria-busy');
+    }
+
+    const guideLayers = [
+        { layer: webfontPreview, name: 'primary', readoutName: 'web font', labelled: true, hatchId: 'ff-hatch-primary' },
+        { layer: fallbackPreview, name: 'secondary', readoutName: 'fallback', labelled: false, hatchId: 'ff-hatch-secondary' },
+    ];
+
+    function updateGuides() {
+        if (!toggleGuidesBtn.checked) return;
+        const containerTop = previewContainer.getBoundingClientRect().top;
+        let markup = '';
+        const rows = [];
+        for (const { layer, name, readoutName, labelled, hatchId } of guideLayers) {
+            if (layer.style.display === 'none') continue;
+            const measurement = measureLayer(layer);
+            markup += renderLayerGuides(measurement, { name, labelled, hatchId, containerTop });
+            rows.push({ name: readoutName, measurement });
+        }
+        metricGuideLayers.innerHTML = markup;
+        renderReadout(rows);
+    }
+
+    function toggleGuides() {
+        const display = toggleGuidesBtn.checked ? '' : 'none';
+        metricGuidesSvg.style.display = display;
+        metricGuidesLegend.style.display = display;
+        metricReadoutWrapper.style.display = display;
+        updateGuides();
     }
 
     function updateFontMetrics() {
@@ -499,7 +1028,9 @@
         fallbackPreview.style.display = 'block';
 
         metricsCodeDisplay.textContent = cssText;
-        updateBaseline();
+        toggleOverlay(); // Re-applies the overlay visibility and redraws the guides.
+        // The new @font-face may still be loading when measured above; measure again once it has settled.
+        document.fonts.ready.then(updateGuides);
     }
 
     function updateFontSize() {
@@ -507,30 +1038,31 @@
         fontSizeValue.textContent = `${fontSize}px`;
         webfontPreview.style.fontSize = `${fontSize}px`;
         fallbackPreview.style.fontSize = `${fontSize}px`;
-        updateBaseline();
+        updateGuides();
+    }
+
+    function updateLineHeight() {
+        webfontPreview.style.lineHeight = lineHeightSelect.value;
+        fallbackPreview.style.lineHeight = lineHeightSelect.value;
+        updateGuides();
     }
 
     function updateSampleText() {
         const text = sampleTextInput.value || 'Ag Xy 123 あいうえお　一二三 😍';
         webfontPreview.textContent = text;
         fallbackPreview.textContent = text;
+        updateGuides();
     }
 
     function toggleOverlay() {
         fallbackPreview.style.display = toggleOverlayBtn.checked ? 'block' : 'none';
+        updateGuides();
     }
 
     function updateDisplayFonts() {
         webfontPreview.style.fontFamily = webfontSelect.value;
         // Fallback font change will trigger re-evaluation of @font-face
         updateFontMetrics();
-    }
-
-    function updateBaseline() {
-        const fontSize = parseInt(fontSizeSlider.value);
-        const ascent = parseInt(ascentSlider.value); // Use ascent of the adjusted font for guide
-        const baselinePos = fontSize * (ascent / 100);
-        baseline.style.top = `${20 + baselinePos}px`; // 20px is container padding
     }
 
     // Event Listeners
@@ -542,16 +1074,21 @@
     unicodeRangeSelect.addEventListener('change', updateFontMetrics);
 
     fontSizeSlider.addEventListener('input', debounce(updateFontSize, 100));
+    lineHeightSelect.addEventListener('change', updateLineHeight);
     sampleTextInput.addEventListener('input', debounce(updateSampleText, 100));
     toggleOverlayBtn.addEventListener('change', toggleOverlay);
+    toggleGuidesBtn.addEventListener('change', toggleGuides);
     webfontSelect.addEventListener('change', updateDisplayFonts);
     fallbackSelect.addEventListener('change', updateDisplayFonts);
+    // Line wrapping changes with the pane width, which moves every line but the first.
+    window.addEventListener('resize', debounce(updateGuides, 100));
 
     // Initial calls
     updateFontSize();
+    updateLineHeight();
     updateSampleText();
     updateDisplayFonts(); // This will also call updateFontMetrics
-    toggleOverlay();
+    toggleGuides();
 </script>
 
 </html>
