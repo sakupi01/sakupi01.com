@@ -4,6 +4,7 @@
   "schedule": ["every weekend"],
   "prConcurrentLimit": 5,
   "branchConcurrentLimit": 5,
+  "minimumReleaseAge": "3 days",
   "major": {
     "automerge": false
   }
