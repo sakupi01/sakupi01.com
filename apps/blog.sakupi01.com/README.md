@@ -48,7 +48,7 @@ Build に必要な変数名:
 
 値は Cloudflare dashboard で管理し、repository や log に記録しません。
 
-deploy は Workers Builds（Linux）から行います。macOS は file 名の大文字小文字を区別しないため、手元で build すると `tags/css` と `tags/CSS` が 1 つの directory にまとまり、片方の tag ページが欠けたまま deploy されます。
+tag には、大文字小文字だけが違う表記（`css` と `CSS` など）を作りません。macOS は file 名の大文字小文字を区別しないため、手元で build すると 2 つの tag ページが 1 つの directory にまとまり、片方が欠けたまま deploy されます。build テストがこの重複を検出します。以前あった `/tags/CSS/` は、`public/_redirects` で `/tags/css/` へ redirect しています。
 
 ## URL Rewrite Rule
 

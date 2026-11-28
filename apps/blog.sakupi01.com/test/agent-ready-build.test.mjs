@@ -364,6 +364,22 @@ test("static headers describe each representation", async () => {
   assert.match(link, /type="application\/rss\+xml"/);
 });
 
+test("tags never differ by letter case alone", async () => {
+  const html = await readDist("tags/index.html");
+  const tags = [...html.matchAll(/href="\/tags\/([^"/]+)\/"/g)].map((match) =>
+    decodeURIComponent(match[1])
+  );
+
+  assert.ok(tags.length > 0);
+  // A case-insensitive file system, as on macOS, writes both tag pages into
+  // one directory, and the deployed site then lacks one of them.
+  assert.equal(
+    new Set(tags.map((tag) => tag.toLowerCase())).size,
+    tags.length,
+    tags.join(", ")
+  );
+});
+
 test("Wrangler serves assets first and can build branch previews", async () => {
   const config = JSON.parse(
     await readFile(new URL("wrangler.json", app), "utf8")

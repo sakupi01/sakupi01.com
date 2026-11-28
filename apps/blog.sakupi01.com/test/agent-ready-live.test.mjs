@@ -188,6 +188,22 @@ test(
 );
 
 test(
+  "the tag URL that changed case redirects to the unified tag",
+  { timeout: testTimeoutMs },
+  async () => {
+    for (const path of ["/tags/CSS", "/tags/CSS/"]) {
+      const response = await request(path);
+      assert.equal(response.status, 301, path);
+      assert.equal(
+        new URL(response.headers.get("location") ?? "", base).pathname,
+        "/tags/css/",
+        path
+      );
+    }
+  }
+);
+
+test(
   "homepage advertises real discovery resources and content policy",
   { timeout: testTimeoutMs },
   async () => {

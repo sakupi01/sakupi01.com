@@ -4,7 +4,7 @@ excerpt: "本サイトの Typography のプラクティスを紹介します。�
 date: 2026-04-30
 update: 2026-05-02
 category: "dev"
-tags: ["CSS", "WebUI"]
+tags: ["css", "WebUI"]
 status: "published"
 ---
 
