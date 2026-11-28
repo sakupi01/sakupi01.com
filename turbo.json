@@ -4,6 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": ["BLUESKY_APP_PASSWORD"],
       "outputs": [
         ".next/**",
         "!.next/cache/**",

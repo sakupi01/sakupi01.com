@@ -1,0 +1,63 @@
+---
+import type { Page, PaginateFunction } from "astro";
+import Title from "@sakupi01/layout/components/Title.astro";
+import BlueskyFeed from "../../components/BlueskyFeed.astro";
+import { fetchAllBlueskyPosts, type BlueskyPost } from "../../data/bluesky";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const posts = await fetchAllBlueskyPosts();
+  return paginate(posts, { pageSize: 20 });
+}
+
+interface Props {
+  page: Page<BlueskyPost>;
+}
+
+const { page } = Astro.props;
+---
+
+<Layout
+  url={page.url.current}
+  pageTitle="Feed"
+  description="saku's Bluesky posts, fetched over AT Protocol at build time."
+>
+  <div class="stack stack--gutter-xl">
+    <div class="stack">
+      <Title title="What I'm Posting..." />
+      <p>
+        Posts from my <a href="https://bsky.app/profile/sakupi01.com/"
+          >Bluesky</a
+        > account, fetched over AT Protocol at build time.
+      </p>
+    </div>
+
+    <BlueskyFeed posts={page.data} />
+
+    {
+      page.lastPage > 1 && (
+        <nav
+          class="pagination cluster cluster--space-between"
+          aria-label="Pagination"
+        >
+          <span>{page.url.prev && <a href={page.url.prev}>← Newer</a>}</span>
+          <span class="page-count">
+            Page {page.currentPage} of {page.lastPage}
+          </span>
+          <span>{page.url.next && <a href={page.url.next}>Older →</a>}</span>
+        </nav>
+      )
+    }
+  </div>
+</Layout>
+
+<style>
+  .page-count {
+    font-size: var(--s-font-size-sm);
+    font-style: italic;
+  }
+</style>

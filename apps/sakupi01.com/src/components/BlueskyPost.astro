@@ -1,0 +1,152 @@
+---
+import type { BlueskyPost } from "../data/bluesky";
+import { formatPostDate } from "../data/bluesky";
+
+interface Props {
+  post: BlueskyPost;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="box box--bordered stack stack--gutter-sm">
+  <p class="post-body">
+    {
+      post.segments.map((segment) =>
+        segment.href ? <a href={segment.href}>{segment.text}</a> : segment.text
+      )
+    }
+  </p>
+
+  {
+    post.media.map((media) => {
+      if (media.type === "image") {
+        return (
+          <img
+            class="post-image"
+            src={media.thumb}
+            alt={media.alt}
+            width={media.width}
+            height={media.height}
+            loading="lazy"
+          />
+        );
+      }
+
+      if (media.type === "external") {
+        return (
+          <a
+            class="external-card box box--bordered stack stack--gutter-xs"
+            href={media.uri}
+          >
+            {media.thumb && (
+              <img class="post-image" src={media.thumb} alt="" loading="lazy" />
+            )}
+            <strong>{media.title || media.uri}</strong>
+            {media.description && <p>{media.description}</p>}
+          </a>
+        );
+      }
+
+      return (
+        <a class="video-link stack stack--gutter-xs" href={post.url}>
+          {media.thumbnail && (
+            <img
+              class="post-image"
+              src={media.thumbnail}
+              alt={media.alt ?? ""}
+              loading="lazy"
+            />
+          )}
+          <span>▶ Watch video on Bluesky</span>
+        </a>
+      );
+    })
+  }
+
+  <footer class="cluster cluster--space-between">
+    <time class="post-date" datetime={post.createdAt}>
+      {formatPostDate(post.createdAt)}
+    </time>
+    <dl class="post-stats cluster cluster--gap-sm">
+      <div>
+        <dt>Likes</dt>
+        <dd>{post.likes}</dd>
+      </div>
+      <div>
+        <dt>Reposts</dt>
+        <dd>{post.reposts}</dd>
+      </div>
+      <div>
+        <dt>Replies</dt>
+        <dd>{post.replies}</dd>
+      </div>
+    </dl>
+  </footer>
+
+  <a class="post-link" href={post.url}>View on Bluesky →</a>
+</article>
+
+<style>
+  article {
+    border-radius: var(--s-border-radius-lg);
+  }
+
+  .post-body {
+    margin: 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .post-image {
+    block-size: auto;
+    border-radius: var(--s-border-radius-md);
+    max-inline-size: 100%;
+  }
+
+  .external-card {
+    border-radius: var(--s-border-radius-md);
+    text-decoration: none;
+
+    & p {
+      color: var(--s-color-text-primary);
+      font-size: var(--s-font-size-sm);
+      margin: 0;
+    }
+  }
+
+  .video-link {
+    text-decoration: none;
+
+    & span {
+      font-size: var(--s-font-size-sm);
+      font-style: italic;
+    }
+  }
+
+  .post-date {
+    font-size: var(--s-font-size-sm);
+    font-style: italic;
+  }
+
+  .post-stats {
+    font-size: var(--s-font-size-sm);
+    margin: 0;
+
+    & div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-space-gap-xs);
+    }
+
+    & dd {
+      margin: 0;
+    }
+  }
+
+  .post-link {
+    display: inline-block;
+    font-style: italic;
+    inline-size: fit-content;
+  }
+</style>

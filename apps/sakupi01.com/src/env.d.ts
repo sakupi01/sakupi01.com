@@ -3,6 +3,7 @@ interface ImportMetaEnv {
   readonly ZENN_URL: string;
   readonly PUBLIC_ZENN_BASE_URL: string;
   readonly PUBLIC_HOME: string;
+  readonly BLUESKY_APP_PASSWORD: string;
 }
 
 interface ImportMeta {

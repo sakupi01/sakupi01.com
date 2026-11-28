@@ -15,6 +15,7 @@
     "fix:lint": "eslint --fix ."
   },
   "dependencies": {
+    "@atproto/api": "^0.20.36",
     "@sakupi01/layout": "workspace:*",
     "@sakupi01/style": "workspace:*",
     "astro": "^7.3.8",

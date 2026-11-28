@@ -1,0 +1,37 @@
+---
+import type { BlueskyPost as BlueskyPostItem } from "../data/bluesky";
+import BlueskyPost from "./BlueskyPost.astro";
+
+interface Props {
+  posts: BlueskyPostItem[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length === 0 ? (
+    <div class="empty-indicator">No posts found...</div>
+  ) : (
+    <ul class="post-list stack stack--gutter-lg">
+      {posts.map((post) => (
+        <li>
+          <BlueskyPost post={post} />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .empty-indicator {
+    padding: var(--s-space-layout-lg);
+    text-align: center;
+  }
+
+  .post-list {
+    list-style-type: "";
+    margin: 0;
+    padding: 0;
+  }
+</style>
