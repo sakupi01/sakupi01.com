@@ -3,15 +3,28 @@ import "@sakupi01/style";
 import "@sakupi01/style/sakupi01.com.css";
 import Layout from "@sakupi01/layout/components/Layout.astro";
 import Navigation from "@sakupi01/layout/components/Navigation.astro";
+import StructuredData from "../components/StructuredData.astro";
 import { site } from "../data/site";
+import {
+  siteStructuredData,
+  type StructuredDataGraph,
+} from "../data/structuredData";
+import { markdownAlternateUrl } from "../utils/markdownAlternateUrl";
 
 interface Props {
   pageTitle: string;
   description: string;
   url: string;
+  structuredData?: StructuredDataGraph;
+  type?: "website" | "article";
 }
 
-const { pageTitle, description } = Astro.props;
+const {
+  pageTitle,
+  description,
+  structuredData = siteStructuredData(),
+  type = "website",
+} = Astro.props;
 ---
 
 <Layout
@@ -19,9 +32,17 @@ const { pageTitle, description } = Astro.props;
   pageTitle={pageTitle}
   description={description}
   logoHref={import.meta.env.PUBLIC_HOME}
-  type="article"
+  type={type}
 >
   <Navigation slot="navigation" />
+  <Fragment slot="head-extra">
+    <StructuredData data={structuredData} />
+    <link
+      rel="alternate"
+      type="text/markdown"
+      href={markdownAlternateUrl(Astro.url.pathname)}
+    />
+  </Fragment>
   <Fragment slot="head-scripts">
     <!-- External Scripts -->
     <script is:inline src="/_scripts/2025-ad-calendar.js"></script>

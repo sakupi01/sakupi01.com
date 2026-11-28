@@ -13,6 +13,7 @@ import collapse from "remark-collapse";
 import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import remarkToc from "remark-toc";
+import { markdownAlternates } from "./src/integrations/markdown-alternates";
 import { customClassName } from "./src/remark/customClassName";
 import { rehypeSidenoteAnchors } from "./src/rehype/rehype-sidenote-anchors";
 import {
@@ -30,7 +31,7 @@ export default defineConfig({
   site: "https://blog.sakupi01.com/",
   // Keep pre-v7 whitespace handling; the v7 default "jsx" drops whitespace around inline elements.
   compressHTML: true,
-  integrations: [mdx(), sitemap(), cacheSave(cache)],
+  integrations: [mdx(), sitemap(), cacheSave(cache), markdownAlternates()],
   markdown: {
     shikiConfig: {
       themes: {

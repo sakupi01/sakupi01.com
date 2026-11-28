@@ -1,0 +1,13 @@
+---
+import type { StructuredDataGraph } from "../data/structuredData";
+
+interface Props {
+  data: StructuredDataGraph;
+}
+
+const { data } = Astro.props;
+// Escaping "<" keeps a "</script>" inside a title from ending the element.
+const serialized = JSON.stringify(data).replaceAll("<", "\\u003c");
+---
+
+<script type="application/ld+json" is:inline set:html={serialized} />

@@ -17,7 +17,7 @@ const tags = getTags();
     {
       tags.map((tag: string) => (
         <li class="tag">
-          <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+          <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
         </li>
       ))
     }

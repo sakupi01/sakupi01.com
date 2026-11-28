@@ -5,6 +5,8 @@ import BlogPostCard from "../../components/BlogPostCard.astro";
 import BaseLayout from "@sakupi01/layout/components/BaseLayout.astro";
 import { site } from "../../data/site";
 import { allPosts } from "../../utils/contents";
+import { markdownAlternateUrl } from "../../utils/markdownAlternateUrl";
+import { postUrl } from "../../utils/postUrl";
 
 // Opt in to responsive iframe sizing (frame-sizing) for the sakupi01.com embed.
 const homeOrigin = new URL(import.meta.env.PUBLIC_HOME).origin;
@@ -21,6 +23,12 @@ const homeOrigin = new URL(import.meta.env.PUBLIC_HOME).origin;
     name="responsive-embedded-sizing"
     content={`allow-origins=${homeOrigin}`}
   />
+  <link
+    slot="head-extra"
+    rel="alternate"
+    type="text/markdown"
+    href={markdownAlternateUrl(Astro.url.pathname)}
+  />
   <script is:inline slot="head-extra">
     // Web fonts can change the content height after the initial sizing.
     if ("requestResize" in window) {
@@ -31,12 +39,9 @@ const homeOrigin = new URL(import.meta.env.PUBLIC_HOME).origin;
     <ul class="stack">
       {
         allPosts.slice(0, 4).map((post) => {
-          const url = post.data.tags.includes("zenn")
-            ? `${import.meta.env.PUBLIC_ZENN_BASE_URL}${post.id}`
-            : `${import.meta.env.PUBLIC_BLOG}${post.id}`;
           return (
             <BlogPostCard
-              url={url}
+              url={postUrl(post)}
               title={post.data.title}
               date={post.data.date}
               excerpt={post.data.excerpt}

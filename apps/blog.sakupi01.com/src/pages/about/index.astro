@@ -1,0 +1,51 @@
+---
+import Title from "@sakupi01/layout/components/Title.astro";
+import { site } from "../../data/site";
+import Layout from "../../layouts/Layout.astro";
+
+const repositoryUrl = `https://github.com/${site.githubRepo}`;
+---
+
+<Layout
+  pageTitle="About"
+  description="About saku and the editorial policy of blog.sakupi01.com."
+  url="/about/"
+>
+  <div class="stack stack--gutter-xl">
+    <Title title="About" />
+
+    <section class="content-block">
+      <h2>このブログについて</h2>
+      <p>
+        blog.sakupi01.com は、saku が個人で運営する技術ブログです。Web
+        標準、ブラウザに組み込まれる
+        UI、CSS、HTML、アクセシビリティ、フロントエンド実装を中心に、一次資料を読みながら調べた内容を残しています。記事は所属組織の見解ではなく、執筆者個人の調査と意見です。
+      </p>
+      <p>
+        仕様の変更過程や、複数の提案が競合した背景を扱う記事では、WHATWG、W3C、OpenUI、ブラウザベンダーの
+        issue、meeting notes、explainer
+        などへリンクします。記事だけで結論を確定せず、規範的な要件はリンク先の最新仕様で確認してください。公開後に仕様や実装が変わった場合は、記事の更新日と本文の注記で分かるようにします。
+      </p>
+    </section>
+
+    <section class="content-block">
+      <h2>執筆者</h2>
+      <p>
+        saku は Front-end developer / Design Technologist として、Web Platform
+        と UI の接点に関心を持っています。実装方法だけでなく、その API
+        や構文がなぜ必要になったのか、以前の仕組みでは何が不足していたのかを調べることを重視しています。登壇資料、試作、日々の投稿は、ページ下部の
+        GitHub、Bluesky、X、CodePen へのリンクから確認できます。
+      </p>
+    </section>
+
+    <section class="content-block">
+      <h2>訂正とソースコード</h2>
+      <p>
+        記事の誤字、リンク切れ、技術的な誤りは、<a href={repositoryUrl}
+          >公開リポジトリ</a
+        >の Pull Request
+        で修正できます。再現条件や参照した仕様を添えてもらえると確認しやすくなります。記事本文、サイトの構成、ビルド設定も同じリポジトリで管理しています。
+      </p>
+    </section>
+  </div>
+</Layout>
