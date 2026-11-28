@@ -5,4 +5,10 @@ Content-Signal: ai-train=no, search=yes, ai-input=yes
 User-agent: __usage_ai-training
 Disallow: /
 
+# Google-Extended controls training and grounding in Gemini together, with no
+# way to allow grounding alone. It is allowed so that Gemini can cite these
+# articles, which also permits Google's training.
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://blog.sakupi01.com/sitemap-index.xml

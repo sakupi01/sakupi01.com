@@ -319,6 +319,9 @@ test("robots, static headers and the Worker declare one content policy", async (
 
   assert.ok(robots.includes(`Content-Signal: ${contentSignal}`));
   assert.match(robots, /User-agent: __usage_ai-training\s+Disallow: \//);
+  // Google reads the shared token as a Google-Extended opt-out, which would
+  // also end citations in Gemini, unless the site names Google-Extended.
+  assert.match(robots, /^User-agent: Google-Extended\nAllow: \/$/m);
   assert.ok(headers.includes(`Content-Signal: ${contentSignal}`));
   assert.ok(worker.includes(`"${contentSignal}"`));
 });
