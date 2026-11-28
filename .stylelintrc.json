@@ -80,7 +80,7 @@
     "color-no-hex": true,
     "selector-pseudo-element-no-unknown": [
       true,
-      { "ignorePseudoElements": ["/^scroll-button/"] }
+      { "ignorePseudoElements": ["/^scroll-button/", "checkmark"] }
     ],
     "selector-type-no-unknown": [
       true,
@@ -104,7 +104,8 @@
           "interactivity",
           "scroll-target-group",
           "text-fit",
-          "border-shape"
+          "border-shape",
+          "frame-sizing"
         ]
       }
     ],

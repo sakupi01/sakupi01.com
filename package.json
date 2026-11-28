@@ -19,7 +19,7 @@
     "dev": "turbo dev",
     "start": "turbo start",
     "clean": "turbo clean",
-    "check": "turbo check",
+    "check": "turbo check && pnpm run check:style",
     "check:lint": "turbo check:lint",
     "check:format": "turbo check:format",
     "check:typecheck": "turbo check:typecheck",
