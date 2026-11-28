@@ -297,9 +297,20 @@ Disallow: /
 
 [Google は、2027 年にこの token へ対応する予定](https://developers.google.com/search/blog/2026/10/ai-training-control)だと発表しています。
 
-:::note{.message}
-Google はこの発表で、この token で学習を拒否し、`Google-Extended` を robots.txt に書いていないサイトは、`Google-Extended` を拒否したものとして扱う予定だと説明しています。`Google-Extended` は、Gemini アプリが回答時に参照するかどうかにも使われます。Google が対応を始めると、`ai-input=yes` の希望と食い違う可能性があるので、その時点で書き方を見直します。
-:::
+### Google は学習と参照を分けられない
+
+Google には、`Google-Extended` という専用の設定があります。[Google の説明](https://developers.google.com/crawling/docs/google-extended)によると、この設定は「生成 AI の学習」と「Gemini などが回答時に記事を参照すること」を、まとめて許可または拒否します。片方だけは選べません。Google 検索への掲載は、この設定の対象外です。
+
+Google は先の発表で、共通の token で学習を拒否し、`Google-Extended` を robots.txt に書いていないサイトは、`Google-Extended` を拒否したものとして扱う予定だと説明しています。何も書かなければ、Google が対応した時点で、Gemini の回答にこのブログの記事が載らなくなります。
+
+Gemini の回答に出典として載り、そこから読者が来ることを優先して、`Google-Extended` は明示的に許可しました。
+
+```text
+User-agent: Google-Extended
+Allow: /
+```
+
+この選択には代償があります。Google に対しては、記事を学習に使うことも許可したことになります。`ai-train=no` の希望は、Google については例外です。この例外は Privacy のページにも書きました。
 
 ## 検証
 
