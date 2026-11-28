@@ -12,5 +12,9 @@ export async function GET() {
       tags: post.data.tags,
     }))
   );
-  return new Response(JSON.stringify(items));
+  return new Response(JSON.stringify(items), {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  });
 }

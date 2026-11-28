@@ -11,3 +11,14 @@ export const site: BlogSiteConfig = {
   twitterHandle: "@sakupi01",
   githubRepo: "sakupi01/sakupi01.com",
 };
+
+export const identity = {
+  url: "https://sakupi01.com/",
+  email: "mailto:saku@email.sakupi01.com",
+  profiles: {
+    github: "https://github.com/sakupi01",
+    bluesky: "https://bsky.app/profile/sakupi01.com",
+    x: "https://x.com/sakupi01",
+    codepen: "https://codepen.io/sakupi01",
+  },
+} as const;

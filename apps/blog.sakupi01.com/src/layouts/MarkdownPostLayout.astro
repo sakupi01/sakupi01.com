@@ -8,6 +8,8 @@ import { Image } from "astro:assets";
 import xIcon from "../assets/icons/x.svg";
 import blueskyIcon from "../assets/icons/bluesky.svg";
 import githubIcon from "../assets/icons/github.svg";
+import { blogPostStructuredData } from "../data/structuredData";
+import { housePostUrl } from "../utils/postUrl";
 
 interface Props {
   frontmatter: InferEntrySchema<"blog">;
@@ -16,9 +18,16 @@ interface Props {
 
 const { frontmatter, slug } = Astro.props;
 const { title, excerpt, date, update, tags } = frontmatter;
+const shareUrl = housePostUrl(slug);
 ---
 
-<Layout pageTitle={title} description={excerpt} url={slug}>
+<Layout
+  pageTitle={title}
+  description={excerpt}
+  url={slug}
+  structuredData={blogPostStructuredData(frontmatter, slug)}
+  type="article"
+>
   <div class="article-with-toc">
     <aside class="article-toc">
       <slot name="toc" />
@@ -40,7 +49,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
       {
         tags.map((tag: string) => (
           <li>
-            <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+            <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
           </li>
         ))
       }
@@ -49,7 +58,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
     <ul class="grid grid--centered">
       <li>
         <a
-          href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=https://blog.sakupi01.com/${slug}`}
+          href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=${shareUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           class="social-icon"
@@ -59,7 +68,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
       </li>
       <li>
         <a
-          href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0Ahttps://blog.sakupi01.com/${slug}`}
+          href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0A${shareUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           class="social-icon"

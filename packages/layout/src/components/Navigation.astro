@@ -4,7 +4,13 @@ import HamburgerIcon from "./HamburgerIcon.astro";
 
 const popoverId = `blogs-popover-${randomUUID()}`;
 const homeHref = import.meta.env.PUBLIC_HOME ?? "/";
-const blogBase = import.meta.env.PUBLIC_BLOG ?? "";
+const blogBaseFromEnv = import.meta.env.PUBLIC_BLOG ?? "";
+// The links below append a path, so the base has to end with a slash whether
+// or not the variable was entered with one.
+const blogBase =
+  blogBaseFromEnv === "" || blogBaseFromEnv.endsWith("/")
+    ? blogBaseFromEnv
+    : `${blogBaseFromEnv}/`;
 
 function stripTrailingSlash(p: string): string {
   if (p === "/" || p === "") return "/";

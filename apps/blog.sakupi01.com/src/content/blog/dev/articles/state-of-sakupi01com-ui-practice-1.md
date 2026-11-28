@@ -4,7 +4,7 @@ excerpt: "本サイトの Web UI における CSS 設計のプラクティスを
 date: 2026-04-22
 update: 2026-04-22
 category: "dev"
-tags: ["CSS", "WebUI"]
+tags: ["css", "WebUI"]
 status: "published"
 ---
 

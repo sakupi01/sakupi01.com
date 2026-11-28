@@ -1,0 +1,56 @@
+---
+import Title from "@sakupi01/layout/components/Title.astro";
+import { identity, site } from "../../data/site";
+import Layout from "../../layouts/Layout.astro";
+
+const emailAddress = identity.email.replace(/^mailto:/, "");
+const repositoryUrl = `https://github.com/${site.githubRepo}`;
+---
+
+<Layout
+  pageTitle="Contact"
+  description="How to contact saku about articles, site problems, and other inquiries."
+  url="/contact/"
+>
+  <div class="stack stack--gutter-xl">
+    <Title title="Contact" />
+
+    <section class="content-block">
+      <h2>連絡方法</h2>
+      <p>
+        記事やこのサイトについて連絡する場合は、内容に合う窓口を選んでください。個人で運営しているため、返信の時期や対応を保証するものではありません。機密情報、credential、未公開の個人情報は、GitHub
+        issue や公開 SNS に書かないでください。
+      </p>
+      <ul>
+        <li>
+          一般的な連絡: <a href={identity.email}>{emailAddress}</a>
+        </li>
+        <li>
+          誤字、リンク切れ、再現できる不具合: <a href={repositoryUrl}
+            >GitHub repository</a
+          >
+        </li>
+        <li>
+          公開してよい短い話題: <a href={identity.profiles.bluesky}>Bluesky</a>
+          または <a href={identity.profiles.x}>X</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="content-block">
+      <h2>記事の訂正</h2>
+      <p>
+        技術的な訂正では、対象記事の
+        URL、該当箇所、期待する内容、根拠となる仕様や実装結果を添えてください。仕様が更新されて記事が古くなった場合は、公開時点の記録として残しながら注記を加えることがあります。単なる表現の好みではなく、読者が誤解する可能性や再現できる問題が分かると判断しやすくなります。
+      </p>
+    </section>
+
+    <section class="content-block">
+      <h2>依頼や取材</h2>
+      <p>
+        登壇、執筆、技術的な相談、取材などは email
+        で連絡してください。目的、公開範囲、希望時期、想定する成果物を最初の連絡に含めてください。すべての依頼を引き受けられるわけではありません。また、このブログは製品サポート窓口、標準化団体の公式窓口、所属組織への問い合わせ窓口ではありません。
+      </p>
+    </section>
+  </div>
+</Layout>

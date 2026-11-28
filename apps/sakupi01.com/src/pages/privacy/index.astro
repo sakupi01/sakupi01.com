@@ -44,6 +44,27 @@ import Layout from "../../layouts/Layout.astro";
     </div>
 
     <div class="content-block">
+      <h2>AI による利用</h2>
+      <p>
+        blog.sakupi01.com は、検索結果への掲載と、AI
+        が回答を作るときに記事を参照することを許可する希望を、Content Signals
+        という仕組みで示しています。AI
+        モデルの学習や追加学習への利用は、許可しない希望を示しています。
+      </p>
+      <p>
+        Google だけは例外です。Google の設定（Google-Extended）は、生成 AI
+        の学習と、Gemini
+        が回答を作るときの参照を、まとめて許可または拒否するもので、片方だけを選べません。Gemini
+        の回答に記事が出典として載るよう、この設定を許可しています。その結果、Google
+        の生成 AI の学習にも記事が使われる可能性があります。
+      </p>
+      <p>
+        Content Signals
+        は提案段階の仕組みで、すべてのクローラーやサービスが従うことや、法的な強制力を保証するものではありません。
+      </p>
+    </div>
+
+    <div class="content-block">
       <h2>免責事項</h2>
       <p>
         記事の内容については正確性を心がけていますが、情報の利用によって生じた結果について責任は負いかねます。また、外部リンク先の内容についても責任を負いません。
@@ -88,6 +109,27 @@ import Layout from "../../layouts/Layout.astro";
     </div>
 
     <div class="content-block" lang="en">
+      <h2>Use by AI</h2>
+      <p>
+        blog.sakupi01.com uses Content Signals to state that its articles may
+        appear in search results and may be referenced when an AI system
+        generates an answer, and that they should not be used to train or
+        fine-tune AI models.
+      </p>
+      <p>
+        Google is the one exception. Google's control, Google-Extended, allows
+        or disallows training and grounding in Gemini together and offers no way
+        to choose one. It is allowed here so that Gemini can cite these
+        articles, which means Google may also use them to train its generative
+        AI models.
+      </p>
+      <p>
+        Content Signals is a proposal. It does not guarantee that every crawler
+        or service follows it, nor that it is legally enforceable.
+      </p>
+    </div>
+
+    <div class="content-block" lang="en">
       <h2>Disclaimer</h2>
       <p>
         While I strive for accuracy, I cannot be held responsible for any
@@ -97,7 +139,7 @@ import Layout from "../../layouts/Layout.astro";
     </div>
 
     <footer class="policy-footer">
-      <p>Last updated: 2026-04-13</p>
+      <p>Last updated: 2026-11-28</p>
     </footer>
   </div>
 </Layout>
