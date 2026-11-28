@@ -52,6 +52,13 @@ import Layout from "../../layouts/Layout.astro";
         モデルの学習や追加学習への利用は、許可しない希望を示しています。
       </p>
       <p>
+        Google だけは例外です。Google の設定（Google-Extended）は、生成 AI
+        の学習と、Gemini
+        が回答を作るときの参照を、まとめて許可または拒否するもので、片方だけを選べません。Gemini
+        の回答に記事が出典として載るよう、この設定を許可しています。その結果、Google
+        の生成 AI の学習にも記事が使われる可能性があります。
+      </p>
+      <p>
         Content Signals
         は提案段階の仕組みで、すべてのクローラーやサービスが従うことや、法的な強制力を保証するものではありません。
       </p>
@@ -108,6 +115,13 @@ import Layout from "../../layouts/Layout.astro";
         appear in search results and may be referenced when an AI system
         generates an answer, and that they should not be used to train or
         fine-tune AI models.
+      </p>
+      <p>
+        Google is the one exception. Google's control, Google-Extended, allows
+        or disallows training and grounding in Gemini together and offers no way
+        to choose one. It is allowed here so that Gemini can cite these
+        articles, which means Google may also use them to train its generative
+        AI models.
       </p>
       <p>
         Content Signals is a proposal. It does not guarantee that every crawler
