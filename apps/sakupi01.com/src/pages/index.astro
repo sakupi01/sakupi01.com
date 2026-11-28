@@ -2,6 +2,7 @@
 import SlidesFeed from "../components/SlidesFeed.astro";
 import Title from "@sakupi01/layout/components/Title.astro";
 import SocialLinks from "@sakupi01/layout/components/SocialLinks.astro";
+import { origins } from "@sakupi01/layout";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -29,7 +30,7 @@ import Layout from "../layouts/Layout.astro";
         loading="lazy"
         sandbox="allow-same-origin allow-top-navigation-by-user-activation"
       ></iframe>
-      <a href="https://blog.sakupi01.com/" class="link-more"> Other posts → </a>
+      <a href={`${origins.blog}/`} class="link-more"> Other posts → </a>
     </section>
 
     <hr />
@@ -37,9 +38,7 @@ import Layout from "../layouts/Layout.astro";
     <section class="stack">
       <h2>At Conferences & Events</h2>
       <SlidesFeed />
-      <a href="https://sakupi01.github.io/slides/" class="link-more"
-        >More on talks →
-      </a>
+      <a href={`${origins.slides}/`} class="link-more">More on talks → </a>
 
       <div class="box stack stack--gutter-sm">
         <h3>Upcoming Event...</h3>
@@ -72,11 +71,10 @@ import Layout from "../layouts/Layout.astro";
         <h2>etc, etc...</h2>
         <ul class="link-list">
           <li>
-            <a href="https://blog.sakupi01.com/">📝 What I'm Writing.</a>
+            <a href={`${origins.blog}/`}>📝 What I'm Writing.</a>
           </li>
           <li>
-            <a href="https://studio.sakupi01.com/">🧚🏻‍♀️ What I'm Experimenting.</a
-            >
+            <a href={`${origins.studio}/`}>🧚🏻‍♀️ What I'm Experimenting.</a>
           </li>
           <li>
             <a

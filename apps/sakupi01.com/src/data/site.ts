@@ -1,12 +1,11 @@
-import type { SiteConfig } from "@sakupi01/layout";
+import { origins, profile, type SiteConfig } from "@sakupi01/layout";
 
 export const site: SiteConfig = {
   title: "@sakupi01.com",
-  description:
-    "The personal website of saku. A Front-end developer, Design Technologist, and an enthusiast of all things about Web & UI",
-  url: "https://sakupi01.com",
-  author: "saku",
-  keywords: "web,ui,css,html,technology,programming,browser,saku",
-  ogImage: "/cherry-blossom.png",
-  twitterHandle: "@sakupi01",
+  description: profile.description,
+  url: origins.home,
+  author: profile.author,
+  keywords: profile.keywords,
+  ogImage: profile.ogImage,
+  twitterHandle: profile.twitterHandle,
 };

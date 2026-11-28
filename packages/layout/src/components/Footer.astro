@@ -1,48 +1,52 @@
 ---
+import {
+  bugReportHref,
+  emailHref,
+  origins,
+  socialLinks,
+} from "../data/profile";
+
 const date = new Date();
 
-const NAV_SECTIONS = [
+type FooterLink = {
+  label: string;
+  href: string;
+  icon?: "bug";
+};
+
+const NAV_SECTIONS: { heading: string; links: FooterLink[] }[] = [
   {
     heading: "Writings",
     links: [
-      { label: "Dev", href: "https://blog.sakupi01.com/dev/" },
-      { label: "Life", href: "https://blog.sakupi01.com/life/" },
-      { label: "Tags", href: "https://blog.sakupi01.com/tags/" },
-      { label: "Archive", href: "https://blog.sakupi01.com/" },
+      { label: "Dev", href: `${origins.blog}/dev/` },
+      { label: "Life", href: `${origins.blog}/life/` },
+      { label: "Tags", href: `${origins.blog}/tags/` },
+      { label: "Archive", href: `${origins.blog}/` },
     ],
   },
   {
     heading: "Navigate",
     links: [
-      { label: "Home", href: "https://sakupi01.com/" },
-      { label: "Blog", href: "https://blog.sakupi01.com/" },
-      { label: "Talks", href: "https://sakupi01.github.io/slides/" },
-      { label: "Studio", href: "https://studio.sakupi01.com/" },
-      { label: "Feed", href: "https://blog.sakupi01.com/feed.xml" },
-      { label: "Colophon", href: "https://sakupi01.github.io/sakupi01.com/" },
+      { label: "Home", href: `${origins.home}/` },
+      { label: "Blog", href: `${origins.blog}/` },
+      { label: "Talks", href: `${origins.slides}/` },
+      { label: "Studio", href: `${origins.studio}/` },
+      { label: "Feed", href: `${origins.blog}/feed.xml` },
+      { label: "Colophon", href: `${origins.colophon}/` },
     ],
   },
   {
     heading: "Social",
-    links: [
-      { label: "GitHub", href: "https://github.com/sakupi01" },
-      { label: "Twitter / X", href: "https://x.com/sakupi01" },
-      { label: "Bluesky", href: "https://bsky.app/profile/sakupi01.com" },
-      { label: "Codepen", href: "https://codepen.io/sakupi01" },
-      {
-        label: "Email",
-        href: "mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and...",
-      },
-    ],
+    links: socialLinks.map(({ label, href }) => ({ label, href })),
   },
   {
     heading: "Meta",
     links: [
-      { label: "Sitemap", href: "https://blog.sakupi01.com/sitemap-index.xml" },
-      { label: "Privacy", href: "https://sakupi01.com/privacy/" },
+      { label: "Sitemap", href: `${origins.blog}/sitemap-index.xml` },
+      { label: "Privacy", href: `${origins.home}/privacy/` },
       {
         label: "Report broken page",
-        href: "https://github.com/sakupi01/sakupi01.com/pulls/new?template=bug_report.md&title=%5BBug%5D+Broken+page",
+        href: bugReportHref,
         icon: "bug",
       },
     ],
@@ -88,11 +92,7 @@ const NAV_SECTIONS = [
   <address>
     <span>© {date.getFullYear()} Built with 🌸❤️ by saku</span>
     <span class="divider" aria-hidden="true">|</span>
-    <a
-      aria-label="Email saku"
-      href="mailto:saku@email.sakupi01.com?subject=Hi%20There!&body=Hi%20saku!%20I%20was%20looking%20at%20your%20blog%20and..."
-      >Get in touch</a
-    >
+    <a aria-label="Email saku" href={emailHref}>Get in touch</a>
   </address>
 </footer>
 

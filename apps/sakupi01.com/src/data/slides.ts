@@ -1,3 +1,4 @@
+import { origins } from "@sakupi01/layout";
 import { JSDOM } from "jsdom";
 
 export interface SlideItem {
@@ -10,7 +11,7 @@ export interface SlideItem {
   tags: string[];
 }
 
-const SLIDES_RSS_URL = "https://sakupi01.github.io/slides/rss.xml";
+const SLIDES_RSS_URL = `${origins.slides}/rss.xml`;
 const EXCLUDED_CATEGORIES = ["ja", "en"];
 
 function getElementText(element: Element | null): string {

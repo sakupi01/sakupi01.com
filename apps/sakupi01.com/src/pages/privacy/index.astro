@@ -1,5 +1,6 @@
 ---
 import Title from "@sakupi01/layout/components/Title.astro";
+import { repository } from "@sakupi01/layout";
 import Layout from "../../layouts/Layout.astro";
 ---
 
@@ -15,9 +16,8 @@ import Layout from "../../layouts/Layout.astro";
           の個人サイトです。書いている内容はすべて個人の見解で、どこかの組織を代表するものではありません。
         </p>
         <p>
-          サイトのソースコードは <a
-            href="https://github.com/sakupi01/sakupi01.com">GitHub</a
-          > で公開しています。コンテンツに誤字や間違いを見つけたら、PR で教えてもらえると嬉しいです。
+          サイトのソースコードは <a href={repository.url}>GitHub</a> で公開しています。コンテンツに誤字や間違いを見つけたら、PR
+          で教えてもらえると嬉しいです。
         </p>
       </div>
 
@@ -59,9 +59,8 @@ import Layout from "../../layouts/Layout.astro";
         and do not represent any organization.
       </p>
       <p>
-        The source code is available on <a
-          href="https://github.com/sakupi01/sakupi01.com">GitHub</a
-        >. If you find typos or errors, PRs are welcome.
+        The source code is available on <a href={repository.url}>GitHub</a>. If
+        you find typos or errors, PRs are welcome.
       </p>
     </div>
 

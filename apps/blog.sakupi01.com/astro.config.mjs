@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import remarkEmbedder from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
+import { origins } from "@sakupi01/layout";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeRaw from "rehype-raw";
@@ -27,7 +28,7 @@ import { remarkFigureCaption } from "./src/remark/remark-figure-caption";
 const cache = remarkEmbedderCache(".cache/remark-embedder.json");
 
 export default defineConfig({
-  site: "https://blog.sakupi01.com/",
+  site: `${origins.blog}/`,
   // Keep pre-v7 whitespace handling; the v7 default "jsx" drops whitespace around inline elements.
   compressHTML: true,
   integrations: [mdx(), sitemap(), cacheSave(cache)],

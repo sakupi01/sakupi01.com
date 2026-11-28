@@ -1,10 +1,13 @@
 ---
 import { randomUUID } from "node:crypto";
+import { origins } from "../data/profile";
 import HamburgerIcon from "./HamburgerIcon.astro";
 
 const popoverId = `blogs-popover-${randomUUID()}`;
 const homeHref = import.meta.env.PUBLIC_HOME ?? "/";
 const blogBase = import.meta.env.PUBLIC_BLOG ?? "";
+const slidesHref = import.meta.env.PUBLIC_SLIDES ?? `${origins.slides}/`;
+const studioHref = import.meta.env.PUBLIC_STUDIO ?? `${origins.studio}/`;
 
 function stripTrailingSlash(p: string): string {
   if (p === "/" || p === "") return "/";
@@ -96,15 +99,11 @@ const isBlogsNav =
         <a href={blogBase || "/"} class="soundable">{"all"}</a>
       </li>
     </ul>
-    <a
-      href={import.meta.env.PUBLIC_SLIDES}
-      target="_blank"
-      class="nav-item touch-target soundable">{"talks"}</a
+    <a href={slidesHref} target="_blank" class="nav-item touch-target soundable"
+      >{"talks"}</a
     >
-    <a
-      href={import.meta.env.PUBLIC_STUDIO}
-      target="_blank"
-      class="nav-item touch-target soundable">{"studio"}</a
+    <a href={studioHref} target="_blank" class="nav-item touch-target soundable"
+      >{"studio"}</a
     >
     <a
       href={`${blogBase}feed.xml`}

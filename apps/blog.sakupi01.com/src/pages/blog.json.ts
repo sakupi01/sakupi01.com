@@ -1,3 +1,4 @@
+import { origins } from "@sakupi01/layout";
 import { marked } from "marked";
 import { allHouseBlogPosts } from "../utils/contents";
 
@@ -7,7 +8,7 @@ export async function GET() {
       title: post.data.title,
       pubDate: post.data.update,
       description: post.data.excerpt,
-      link: `https://blog.sakupi01.com/${post.id}/`,
+      link: `${origins.blog}/${post.id}/`,
       content: await marked.parse(post.body ?? ""),
       tags: post.data.tags,
     }))

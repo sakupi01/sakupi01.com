@@ -8,6 +8,7 @@ import { Image } from "astro:assets";
 import xIcon from "../assets/icons/x.svg";
 import blueskyIcon from "../assets/icons/bluesky.svg";
 import githubIcon from "../assets/icons/github.svg";
+import { origins, repository } from "@sakupi01/layout";
 
 interface Props {
   frontmatter: InferEntrySchema<"blog">;
@@ -49,7 +50,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
     <ul class="grid grid--centered">
       <li>
         <a
-          href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=https://blog.sakupi01.com/${slug}`}
+          href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog&url=${origins.blog}/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           class="social-icon"
@@ -59,7 +60,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
       </li>
       <li>
         <a
-          href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0Ahttps://blog.sakupi01.com/${slug}`}
+          href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%20🌸%20saku's%20blog%0A${origins.blog}/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           class="social-icon"
@@ -73,7 +74,7 @@ const { title, excerpt, date, update, tags } = frontmatter;
       </li>
       <li>
         <a
-          href={`https://github.com/sakupi01/sakupi01.com/tree/main/apps/blog.sakupi01.com/src/content/blog/${slug}.md`}
+          href={`${repository.url}/tree/main/apps/blog.sakupi01.com/src/content/blog/${slug}.md`}
           target="_blank"
           rel="noopener noreferrer"
           class="social-icon"

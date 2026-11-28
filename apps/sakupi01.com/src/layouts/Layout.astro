@@ -3,6 +3,7 @@ import "@sakupi01/style";
 import "@sakupi01/style/sakupi01.com.css";
 import Layout from "@sakupi01/layout/components/Layout.astro";
 import Navigation from "@sakupi01/layout/components/Navigation.astro";
+import { origins, profile } from "@sakupi01/layout";
 import { site } from "../data/site";
 
 interface Props {
@@ -11,17 +12,14 @@ interface Props {
   url: string;
 }
 
-const {
-  pageTitle = "Home",
-  description = "The personal website of saku. A Front-end developer, Design Technologist, and an enthusiast of all things about Web & UI",
-} = Astro.props;
+const { pageTitle = "Home", description = profile.description } = Astro.props;
 
 // Speculation Rules: prefetch the (same-site, cross-origin) blog on
 // likely-navigation signals. Same-origin documents are already handled by the
 // shared Head.astro block; this rule covers blog.sakupi01.com links, which that
 // rule's relative `/*` matcher cannot reach. Exclusions mirror Head.astro
 // (skip new-tab links and the feed) to avoid wasteful prefetches.
-const blogBase = import.meta.env.PUBLIC_BLOG ?? "https://blog.sakupi01.com/";
+const blogBase = import.meta.env.PUBLIC_BLOG ?? `${origins.blog}/`;
 const blogOrigin = new URL(blogBase, Astro.url.href).origin;
 const speculationRules = {
   prefetch: [
