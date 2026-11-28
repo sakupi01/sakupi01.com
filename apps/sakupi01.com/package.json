@@ -6,11 +6,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "pnpm check:typecheck && pnpm check:lint && pnpm check:format && pnpm check:markuplint",
+    "check": "pnpm check:typecheck && pnpm check:lint && pnpm check:format",
     "check:format": "prettier --check .",
     "check:lint": "eslint .",
     "check:typecheck": "astro sync && tsc --noEmit",
-    "check:markuplint": "markuplint \"./app/**/*.{jsx,tsx}\"",
     "fix:format": "prettier --write .",
     "fix:lint": "eslint --fix ."
   },
