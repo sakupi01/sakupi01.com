@@ -112,10 +112,14 @@ function toMedia(embed: AppBskyFeedDefs.PostView["embed"]): BlueskyMedia[] {
   }
 
   if (AppBskyEmbedExternal.isView(embed)) {
+    // The card is rendered as a link, so a URI that is not http(s), such as
+    // `javascript:`, must not reach the href. The post text is still shown.
+    const uri = safeHttpUrl(embed.external.uri);
+    if (!uri) return [];
     return [
       {
         type: "external",
-        uri: embed.external.uri,
+        uri,
         title: embed.external.title,
         description: embed.external.description,
         thumb: embed.external.thumb,
@@ -205,7 +209,7 @@ export async function fetchAllBlueskyPosts(): Promise<BlueskyPost[]> {
       .map((item) => toBlueskyPost(item.post))
       .filter((post): post is BlueskyPost => post !== null);
 
-    console.log(`Fetched ${posts.length} Bluesky posts`);
+    console.log(`Fetched ${posts.length} Bluesky posts`); // keep-console
     return posts;
   } catch (error) {
     console.error("Error fetching Bluesky feed:", error);
